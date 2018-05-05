@@ -1,12 +1,21 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "paths": {
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@core/*": [
+        "app/core/*"
+      ]
+    }
   },
   "files": [
     "test.ts",
