@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~styles/colors';
+
+@include mat-core($typography);
+@include angular-material-theme($theme);
+
+
+html,body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Roboto';
+}
+
+a {
+    text-decoration: none;
+
+    &,&:visited {
+        color: mat-color($accent);
+    }
+
+    &:hover {
+        opacity: 0.5;
+    }
+}

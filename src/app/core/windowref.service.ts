@@ -5,4 +5,8 @@ export function getWindow(): any {
 }
 
 @Injectable()
-export class WindowRefService extends Window { }
+export class WindowRefService {
+    get nativeWindow(): any {
+        return getWindow();
+    }
+}

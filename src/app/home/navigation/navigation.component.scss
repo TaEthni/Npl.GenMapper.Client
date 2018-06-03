@@ -1,0 +1,33 @@
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+
+    header {
+        background: lightgray;
+        height: 64px;
+    }
+
+    .avatar {
+       height: 60px;
+
+       .mat-icon {
+          height: 60px;
+          width: 60px;
+          font-size: 60px;
+       }
+    }
+
+    .info {
+        padding-top: 10px;
+
+        p {
+            margin: 0 0 5px 0;
+        }
+
+        a {
+            margin-bottom: 5px;
+        }
+    }
+}

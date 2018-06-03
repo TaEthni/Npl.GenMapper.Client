@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Token } from './token.model';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 @Injectable()
 export class TokenService {
@@ -19,7 +19,9 @@ export class TokenService {
         return this._token;
     }
 
-    public set(token: Token): void {
+    public set(authToken: string): void {
+        const token = new Token();
+        token.authToken = authToken;
         token.isAuthenticated = token.authToken && token.authToken.length > 0;
         localStorage.setItem(TokenService.storageKey, JSON.stringify(token));
         this._token.next(token);

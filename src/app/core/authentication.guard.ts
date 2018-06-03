@@ -1,9 +1,7 @@
-import { AuthenticationService } from './authentication.service';
-import { Observable } from 'rxjs';
-import { Injectable, Inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { TokenService } from './token.service';
+import { Inject, Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { WindowRefService } from '@core/windowref.service';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
@@ -16,19 +14,19 @@ export class AuthenticationGuard implements CanActivate {
         const token = this.tokenService.get().value;
 
         if (!token || !token.isAuthenticated) {
-            this.windowRef.location.assign('/authenticate');
+            // this.windowRef.location.assign('/authenticate');
             return false;
         }
 
         if (new Date(token.expires) < new Date()) {
-            this.windowRef.location.assign('/authenticate');
+            // this.windowRef.location.assign('/authenticate');
             return false;
         }
 
-        if (!token.isEmailVerified) {
-            this.router.navigate(['unverified']);
-            return false;
-        }
+        // if (!token.isEmailVerified) {
+        //     this.router.navigate(['unverified']);
+        //     return false;
+        // }
 
         return true;
     }

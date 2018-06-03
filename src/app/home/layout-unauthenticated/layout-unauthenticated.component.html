@@ -1,0 +1,18 @@
+<mat-drawer-container autosize>
+    <mat-drawer #matdrawer
+                mode="side">
+        <app-navigation [authenticated]="false"></app-navigation>
+    </mat-drawer>
+    <main>
+        <header>
+            <mat-toolbar>
+                <button mat-icon-button
+                        (click)="matdrawer.toggle()">
+                    <mat-icon *ngIf="!matdrawer.opened">menu</mat-icon>
+                    <mat-icon *ngIf="matdrawer.opened">clear</mat-icon>
+                </button>
+            </mat-toolbar>
+        </header>
+        <router-outlet></router-outlet>
+    </main>
+</mat-drawer-container>

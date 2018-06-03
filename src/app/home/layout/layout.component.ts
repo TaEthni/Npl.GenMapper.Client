@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@core/authentication.service';
+import { TokenService } from '@core/token.service';
+import { User } from '@shared/user.model';
 
 @Component({
     selector: 'app-layout',
@@ -7,8 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-    constructor() { }
+    public user: User;
+    public isAuthenticated: boolean;
+
+    constructor(
+        private tokenService: TokenService,
+        private authService: AuthenticationService
+    ) { }
 
     public ngOnInit(): void {
+        this.tokenService.get().subscribe(token => {
+            this.isAuthenticated = token.isAuthenticated;
+        });
+
+        this.authService.getUser().subscribe(user => {
+            this.user = user;
+        });
+
+        this.authService.refreshUser();
     }
 }

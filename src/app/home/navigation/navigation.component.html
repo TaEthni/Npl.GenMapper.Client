@@ -1,0 +1,42 @@
+<header fxLayout="row">
+    <div class="avatar">
+        <mat-icon>person</mat-icon>
+    </div>
+
+    <ng-content></ng-content>
+    <div class="info"
+         fxLayout="column">
+        <ng-container *ngIf="authenticated">
+            <h4 *ngIf="user?.name"
+                class="user-name">{{user.name}}</h4>
+            <p *ngIf="user?.email"
+               class="user-email">{{user.email}}</p>
+            <a [routerLink]="['/logout']">
+                Logout
+            </a>
+        </ng-container>
+        <ng-container *ngIf="!authenticated">
+            <a [routerLink]="['/login']">
+                Login
+            </a>
+            <a [routerLink]="['/signup']">
+                Signup
+            </a>
+        </ng-container>
+    </div>
+</header>
+
+<section>
+    <mat-nav-list>
+        <mat-list-item>
+            <a [routerLink]="['/gen-mapper/church-circles']">
+                Church Circles
+            </a>
+        </mat-list-item>
+        <mat-list-item>
+            <a [routerLink]="['/gen-mapper/four-fields']">
+                Four Fields
+            </a>
+        </mat-list-item>
+    </mat-nav-list>
+</section>

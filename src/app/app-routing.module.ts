@@ -1,7 +1,13 @@
-import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './home/layout/layout.component';
-import { GenMapComponent } from './home/gen-map/gen-map.component';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthenticationGuard } from '@core/authentication.guard';
+import { ForbiddenComponent } from './home/forbidden/forbidden.component';
+import { LayoutUnauthenticatedComponent } from './home/layout-unauthenticated/layout-unauthenticated.component';
+import { LayoutComponent } from './home/layout/layout.component';
+import { LoginComponent } from './home/login/login.component';
+import { LogoutComponent } from './home/logout/logout.component';
+import { NotFoundComponent } from './home/not-found/not-found.component';
+import { UnverifiedEmailComponent } from './home/unverified-email/unverified-email.component';
 
 const appRoutes: Routes = [
     {
@@ -11,14 +17,33 @@ const appRoutes: Routes = [
     },
     {
         path: '',
-        component: LayoutComponent,
-        resolve: {},
-        data: {},
+        component: LayoutUnauthenticatedComponent,
         children: [{
-            path: 'gen-mapper',
-            component: GenMapComponent
+            path: 'login',
+            component: LoginComponent
+        }, {
+            path: 'logout',
+            component: LogoutComponent
+        }, {
+            path: 'forbidden',
+            component: ForbiddenComponent
+        }, {
+            path: 'unverified',
+            component: UnverifiedEmailComponent
+        }, {
+            path: 'notfound',
+            component: NotFoundComponent
         }]
     },
+    {
+        path: '',
+        component: LayoutComponent,
+        children: [{
+            path: 'gen-mapper',
+            loadChildren: 'app/gen-mapper/gen-mapper.module#GenMapperModule'
+        }]
+    },
+
     {
         path: '**',
         redirectTo: 'gen-mapper'

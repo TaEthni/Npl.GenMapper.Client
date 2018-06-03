@@ -1,4 +1,43 @@
-<p>
-    layout works!
-</p>
-<router-outlet></router-outlet>
+<mat-drawer-container autosize>
+    <mat-drawer #matdrawer
+                mode="side">
+        <app-navigation [authenticated]="isAuthenticated"
+                        [user]="user"></app-navigation>
+    </mat-drawer>
+    <main>
+        <header>
+            <mat-toolbar>
+                <button mat-icon-button
+                        (click)="matdrawer.toggle()">
+                    <mat-icon *ngIf="!matdrawer.opened">menu</mat-icon>
+                    <mat-icon *ngIf="matdrawer.opened">clear</mat-icon>
+                </button>
+            </mat-toolbar>
+        </header>
+        <router-outlet></router-outlet>
+    </main>
+</mat-drawer-container>
+
+<!--
+<mat-drawer-container class="example-container"
+                      autosize>
+    <mat-drawer #drawer
+                class="example-sidenav"
+                mode="side">
+        <p>Auto-resizing sidenav</p>
+        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+        <button (click)="showFiller = !showFiller"
+                mat-raised-button>
+            Toggle extra text
+        </button>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <button type="button"
+                mat-button
+                (click)="drawer.toggle()">
+            Toggle sidenav
+        </button>
+    </div>
+
+</mat-drawer-container> -->

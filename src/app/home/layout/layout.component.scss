@@ -1,0 +1,27 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    .mat-drawer-container {
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+
+    .example-container {
+        width: 500px;
+        height: 300px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+      }
+
+      .example-sidenav {
+        padding: 20px;
+      }
+
+}
