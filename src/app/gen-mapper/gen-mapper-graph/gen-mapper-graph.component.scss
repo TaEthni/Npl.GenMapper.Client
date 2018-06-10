@@ -1,4 +1,4 @@
-:host {
+:host::ng-deep {
 
     button {
         background-color: steelblue;
@@ -16,7 +16,7 @@
         height: 32px;
     }
 
-    rect{
+    rect {
         fill:white;
     }
 
