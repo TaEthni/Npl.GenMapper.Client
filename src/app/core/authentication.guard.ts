@@ -11,7 +11,7 @@ export class AuthenticationGuard implements CanActivate {
     }
 
     public canActivate(): boolean {
-        const token = this.tokenService.get().value;
+        const token = this.tokenService.getValue();
 
         if (!token || !token.isAuthenticated) {
             // this.windowRef.location.assign('/authenticate');
