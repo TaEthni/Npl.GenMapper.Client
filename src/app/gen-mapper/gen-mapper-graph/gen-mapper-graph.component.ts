@@ -57,9 +57,10 @@ export class GenMapperGraphComponent implements AfterViewInit {
     ) { }
 
     public ngAfterViewInit(): void {
+
+        // This is a bad practice, but it is the only way to make this work
         const ttid = setTimeout(() => {
             this._createGraph();
-
             clearTimeout(ttid);
         }, 1000);
     }

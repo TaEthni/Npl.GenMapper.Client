@@ -8,7 +8,7 @@ export const template = {
         en: {
             translation: {
                 'template': {
-                    'helpLegend': '<img src="genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legend</h3><p>Each circle represents a group / church. Dashed circle means group, full circle means church.<br>On the top the numbers describe: # total, # believers, # baptized<br>Inside the circle are the elements that are practiced in the group.<br>On the left there numbers 1 to 7 represent which elements of 3/3 process are practised:<br>1 - Personal care<br>2 - Worship<br>3 - Accountability<br>4 - Vision casting<br>5 - Bible study<br>6 - Practice<br>7 - Set goals and prayer</p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
+                    'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legend</h3><p>Each circle represents a group / church. Dashed circle means group, full circle means church.<br>On the top the numbers describe: # total, # believers, # baptized<br>Inside the circle are the elements that are practiced in the group.<br>On the left there numbers 1 to 7 represent which elements of 3/3 process are practised:<br>1 - Personal care<br>2 - Worship<br>3 - Accountability<br>4 - Vision casting<br>5 - Bible study<br>6 - Practice<br>7 - Set goals and prayer</p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
                     'name': "Leader's Name",
                     'email': 'Email',
                     'peopleGroup': 'People Group',
@@ -43,7 +43,7 @@ export const template = {
         de: {
             translation: {
                 'template': {
-                    'helpLegend': '<img src="genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Erklärungen</h3><p>Jede Figur stellt eine Gruppe / Gemeinde dar. Eine gestrichelte Linie bedeutet Gruppe, eine durchgehende Linie bedeutet Gemeinde. Ein Quadrat bedeutet, dass die Teilnehmer bereits vorher Christen waren. Bei einem Kreis sind die Teilnehmer durch die Gruppe selbst zum Glauben gekommen oder sind noch nicht gläubig.</p><p>Ganz oben beschreiben die vier Zahlen jeweils die Anzahl der Teilnehmer, davon Anzahl Gläubige, davon Anzahl Getaufte und davon die Anzahl derer, die durch die Gruppe getauft wurden. Die Zahlen dürfen nach rechts hin nie größer werden.</p><p>In der Figur sind die Elemente der <a href="/start-training/lektion5" target="_blank">Definition von Gemeinde</a> zu sehen, die in der Gruppe auch gelebt werden.<br>Die Zahlen von 1 bis 8 links zeigen, welche der Elemente des <a href="/training/drei-drittel-prozess" target="_blank">Drei-Drittel-Prozesses</a> regelmäßig vorkommen:</p><ol><li>Wie geht\'s?</li><li>Auswertung</li><li>Vision</li><li>Lobpreis</li><li>Lehre</li><li>Üben</li><li>Ziele setzen</li><li>Gebet</li></ol><p>Klicke auf eine Gruppe, um sie zu bearbeiten.<br>Klicke auf die rote (x)-Schaltfläche, um die Gruppe zu löschen.<br>Klicke auf die grüne (+)-Schaltfläche, um eine Tochtergruppe hinzuzufügen.</p>',
+                    'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Erklärungen</h3><p>Jede Figur stellt eine Gruppe / Gemeinde dar. Eine gestrichelte Linie bedeutet Gruppe, eine durchgehende Linie bedeutet Gemeinde. Ein Quadrat bedeutet, dass die Teilnehmer bereits vorher Christen waren. Bei einem Kreis sind die Teilnehmer durch die Gruppe selbst zum Glauben gekommen oder sind noch nicht gläubig.</p><p>Ganz oben beschreiben die vier Zahlen jeweils die Anzahl der Teilnehmer, davon Anzahl Gläubige, davon Anzahl Getaufte und davon die Anzahl derer, die durch die Gruppe getauft wurden. Die Zahlen dürfen nach rechts hin nie größer werden.</p><p>In der Figur sind die Elemente der <a href="/start-training/lektion5" target="_blank">Definition von Gemeinde</a> zu sehen, die in der Gruppe auch gelebt werden.<br>Die Zahlen von 1 bis 8 links zeigen, welche der Elemente des <a href="/training/drei-drittel-prozess" target="_blank">Drei-Drittel-Prozesses</a> regelmäßig vorkommen:</p><ol><li>Wie geht\'s?</li><li>Auswertung</li><li>Vision</li><li>Lobpreis</li><li>Lehre</li><li>Üben</li><li>Ziele setzen</li><li>Gebet</li></ol><p>Klicke auf eine Gruppe, um sie zu bearbeiten.<br>Klicke auf die rote (x)-Schaltfläche, um die Gruppe zu löschen.<br>Klicke auf die grüne (+)-Schaltfläche, um eine Tochtergruppe hinzuzufügen.</p>',
                     'name': 'Leiter',
                     'email': 'Bemerkungen',
                     'peopleGroup': 'Sprache / Subkultur',
@@ -78,7 +78,7 @@ export const template = {
         es: {
             translation: {
                 'template': {
-                    'helpLegend': '<img src="genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Leyenda</h3><p>Cada círculo representa un grupo / iglesia. La línea de puntos significa un grupo. La línea completa significa una iglesia.<br>En la parte superior, los números describen: número de total, número de creyentes, número de bautizados<br>Dentro del círculo son los elementos que se practican en el grupo.<br>A la izquierda hay números del 1 al 7 representan qué elementos de 3/3 proceso se practican:<br>1 - Cuidado mutuo<br>2 - Adoración<br>3 - Rendir cuentas con amor<br>4 - Visión<br>5 - Biblia<br>6 - Práctica<br>7 - Establecer metas y Orar</p><p>Haga clic en el grupo para editarlo.<br>Haga clic en el botón rojo (x) para eliminar el grupo.<br>Haga clic en el botón verde (+) para añadir grupo secundario.</p>',
+                    'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Leyenda</h3><p>Cada círculo representa un grupo / iglesia. La línea de puntos significa un grupo. La línea completa significa una iglesia.<br>En la parte superior, los números describen: número de total, número de creyentes, número de bautizados<br>Dentro del círculo son los elementos que se practican en el grupo.<br>A la izquierda hay números del 1 al 7 representan qué elementos de 3/3 proceso se practican:<br>1 - Cuidado mutuo<br>2 - Adoración<br>3 - Rendir cuentas con amor<br>4 - Visión<br>5 - Biblia<br>6 - Práctica<br>7 - Establecer metas y Orar</p><p>Haga clic en el grupo para editarlo.<br>Haga clic en el botón rojo (x) para eliminar el grupo.<br>Haga clic en el botón verde (+) para añadir grupo secundario.</p>',
                     'name': 'Nombre de lider',
                     'initialLeadersName': 'Nombre de lider',
                     'email': 'Email',
@@ -171,7 +171,7 @@ export const template = {
                 'y': -2.5 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'icons/attenders.png'
+                'href': 'assets/church-circles/icons/attenders.png'
             }
         },
         'believers-image': {
@@ -181,7 +181,7 @@ export const template = {
                 'y': -2.5 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'icons/believers.png'
+                'href': 'assets/church-circles/icons/believers.png'
             }
         },
         'baptized-image': {
@@ -191,7 +191,7 @@ export const template = {
                 'y': -2.5 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'icons/element-baptism.png'
+                'href': 'assets/church-circles/icons/element-baptism.png'
             }
         },
         'church-box': {
@@ -343,7 +343,7 @@ export const template = {
                     'y': boxHeight * 0.1,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-baptism.png'
+                    'xlink:href': 'assets/church-circles/icons/element-baptism.png'
                 }
             }
         },
@@ -358,7 +358,7 @@ export const template = {
                     'y': boxHeight * 0.1,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-word.png'
+                    'xlink:href': 'assets/church-circles/icons/element-word.png'
                 }
             }
         },
@@ -373,7 +373,7 @@ export const template = {
                     'y': boxHeight * 0.1,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-prayer.png'
+                    'xlink:href': 'assets/church-circles/icons/element-prayer.png'
                 }
             }
         },
@@ -388,7 +388,7 @@ export const template = {
                     'y': boxHeight * 0.375,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-lords-supper.png'
+                    'xlink:href': 'assets/church-circles/icons/element-lords-supper.png'
                 }
             }
         },
@@ -403,7 +403,7 @@ export const template = {
                     'y': boxHeight * 0.375,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-give.png'
+                    'xlink:href': 'assets/church-circles/icons/element-give.png'
                 }
             }
         },
@@ -418,7 +418,7 @@ export const template = {
                     'y': boxHeight * 0.375,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-love.png'
+                    'xlink:href': 'assets/church-circles/icons/element-love.png'
                 }
             }
         },
@@ -433,7 +433,7 @@ export const template = {
                     'y': boxHeight * 0.65,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-worship.png'
+                    'xlink:href': 'assets/church-circles/icons/element-worship.png'
                 }
             }
         },
@@ -448,7 +448,7 @@ export const template = {
                     'y': boxHeight * 0.65,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-leaders.png'
+                    'xlink:href': 'assets/church-circles/icons/element-leaders.png'
                 }
             }
         },
@@ -463,7 +463,7 @@ export const template = {
                     'y': boxHeight * 0.65,
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
-                    'xlink:href': 'icons/element-make-disciples.png'
+                    'xlink:href': 'assets/church-circles/icons/element-make-disciples.png'
                 }
             }
         },
