@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { template } from './template';
 import { GMTemplate } from '../gen-mapper.interface';
 
-
 @Component({
     selector: 'app-church-circles',
     templateUrl: './church-circles.component.html',

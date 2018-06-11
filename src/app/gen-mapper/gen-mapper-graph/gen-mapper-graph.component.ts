@@ -4,6 +4,7 @@ import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog
 import { GenMapperGraph } from './gen-mapper-graph.service';
 import { EditNodeDialogComponent } from '../dialogs/edit-node-dialog/edit-node-dialog.component';
 import { GMTemplate } from '../gen-mapper.interface';
+import { GenMap } from '../gen-map';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -12,7 +13,7 @@ import { GMTemplate } from '../gen-mapper.interface';
 })
 export class GenMapperGraphComponent implements AfterViewInit {
 
-    public graph: GenMapperGraph;
+    public graph: GenMap;
 
     @Input()
     public template: GMTemplate;
@@ -35,20 +36,22 @@ export class GenMapperGraphComponent implements AfterViewInit {
     }
 
     private _createGraph(): void {
-        this.graph = new GenMapperGraph(this.template, this.graphSvg, {});
+        this.graph = new GenMap(this.graphSvg, this.template);
 
-        this.graph.confirmDelete = (message: string, commitDelete: Function) => {
+        this.graph.init();
+
+        this.graph.removeNodeClick = (node: any) => {
             this.dialog
-                .open(ConfirmDialogComponent, { data: { promp: message } })
+                .open(ConfirmDialogComponent, { data: { promp: 'Confirm Delete?' } })
                 .afterClosed()
                 .subscribe(result => {
-                    if (result) { commitDelete(); }
+                    if (result) { this.graph.removeNode(node); }
                 });
         };
 
-        this.graph.onSelectNode = (d: any): void => {
+        this.graph.nodeClick = (node: any) => {
             this.dialog
-                .open(EditNodeDialogComponent, { data: { nodeData: d, template: this.template } })
+                .open(EditNodeDialogComponent, { data: { nodeData: node, template: this.template } })
                 .afterClosed()
                 .subscribe(result => {
                     console.log(result);
