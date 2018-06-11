@@ -60,7 +60,6 @@ export class GenMap {
         this.zoom.scaleBy(this.svg, 1 / 1.2);
     }
 
-
     public nodeClick = (node): void => { };
     private onNodeClick(node: Node): void {
         this.nodeClick(node);
