@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Token } from './token.model';
 
 @Injectable()
 export class TokenService {
     public static readonly storageKey = 'token';
-    private readonly _token: BehaviorSubject<Token> = new BehaviorSubject(null);
+    private readonly _token: BehaviorSubject<Token> = new BehaviorSubject(new Token());
 
     constructor() {
         const existing = JSON.parse(localStorage.getItem(TokenService.storageKey));
@@ -15,8 +15,12 @@ export class TokenService {
         }
     }
 
-    public get(): BehaviorSubject<Token> {
-        return this._token;
+    public get(): Observable<Token> {
+        return this._token.asObservable();
+    }
+
+    public getValue(): Token {
+        return this._token.getValue();
     }
 
     public set(authToken: string): void {
@@ -29,6 +33,6 @@ export class TokenService {
 
     public clear(): void {
         localStorage.setItem(TokenService.storageKey, null);
-        this._token.next(null);
+        this._token.next(new Token());
     }
 }

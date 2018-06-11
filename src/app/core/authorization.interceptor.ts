@@ -10,7 +10,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const value = this.tokenService.get().value;
+        const value = this.tokenService.getValue();
 
         if (value && value.authToken) {
             const authReq = req.clone({

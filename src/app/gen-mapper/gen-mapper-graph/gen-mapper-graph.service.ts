@@ -5,44 +5,11 @@ import i18next from 'i18next';
 import * as i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector';
 import * as _ from 'lodash';
 import * as XLSX from 'xlsx';
+import { GMTemplate, GMGraphConfig, GMField } from '../gen-mapper.interface';
 
 const boxHeight = 80;
 const textHeight = 14;
 const textMargin = 6;
-
-export interface GMSvg {
-    type: string;
-    attribute: any;
-    style?: any;
-}
-
-export interface GMSettings {
-    nodeSize: { width: number, height: number };
-}
-
-export interface GMSvgSet {
-    [key: string]: GMSvg;
-}
-
-export interface GMField {
-    header: string;
-    initial: number;
-    initialTranslationCode?: string;
-    type: string;
-    svg?: GMSvgSet;
-    inheritsFrom?: string;
-    class?: any;
-    values?: any;
-}
-
-export interface GMTemplate {
-    name: string;
-    translations: any;
-    settings: any;
-    svg: any;
-    fields: GMField[];
-}
-
 
 export class GenMapperGraph {
     public appVersion: string;
@@ -73,8 +40,12 @@ export class GenMapperGraph {
 
     constructor(
         public template: GMTemplate,
-        public graphSvg: ElementRef
+        public graphSvg: ElementRef,
+        public config: GMGraphConfig = {}
     ) {
+
+        this.config.outerHeaderHeight = this.config.outerHeaderHeight || 0;
+
         i18next.use(i18nextBrowserLanguageDetector)
             .init({
                 fallbackLng: 'en',
@@ -138,6 +109,7 @@ export class GenMapperGraph {
         this.alertForNonSupportedBrowsers();
     }
 
+
     public _setEditFieldElements(): void {
         this.editFieldElements = {}
         this.template.fields.forEach((field) => {
@@ -163,7 +135,7 @@ export class GenMapperGraph {
     private _setSvgHeight(): void {
         const windowHeight = document.documentElement.clientHeight;
         const leftMenuHeight = document.getElementById('left-menu').clientHeight;
-        const height = Math.max(windowHeight, leftMenuHeight + 10);
+        const height = Math.max(windowHeight, leftMenuHeight + 10) - this.config.outerHeaderHeight;
         d3.select('#genmapper-graph-svg').attr('height', height);
     }
 
@@ -237,27 +209,27 @@ export class GenMapperGraph {
         //     '<button onclick="genmapper.printMap(\'vertical\');" class="hint--rounded hint--right" aria-label="' + i18next.t('menu.btnPrintVertical') + '"><img src="../icons/print-vertical.svg"></button>' +
         //     '<button onclick="genmapper.printMap(\'horizontal\');" class="hint--rounded hint--right" aria-label="' + i18next.t('menu.btnPrintHorizontal') + '"><img src="../icons/print-horizontal.svg"></button>'
 
-        // document.getElementById('edit-group').innerHTML =
-        //     '<div id="edit-group-content">' +
-        //     '  <button id="edit-cancel" class="hint--rounded hint--bottom" aria-label="' + i18next.t('editGroup.btnCancel') + ' ( Esc )">X</button>' +
-        //     '  <h1>' + i18next.t('editGroup.editGroup') + '</h1>' +
-        //     '  <form>' +
-        //     '    <table>' +
-        //     '      <tr>' +
-        //     '        <td class="left-field">' + i18next.t('editGroup.elementParent') + '</td>' +
-        //     '        <td class="right-field"><select id="edit-parent"></select></td>' +
-        //     '      </tr>' +
-        //     '    </table>' +
-        //     '  </form>' +
-        //     '  <div id="edit-buttons">' +
+        document.getElementById('edit-group').innerHTML =
+            '<div id="edit-group-content">' +
+            '  <button id="edit-cancel" class="hint--rounded hint--bottom" aria-label="' + i18next.t('editGroup.btnCancel') + ' ( Esc )">X</button>' +
+            '  <h1>' + i18next.t('editGroup.editGroup') + '</h1>' +
+            '  <form>' +
+            '    <table>' +
+            '      <tr>' +
+            '        <td class="left-field">' + i18next.t('editGroup.elementParent') + '</td>' +
+            '        <td class="right-field"><select id="edit-parent"></select></td>' +
+            '      </tr>' +
+            '    </table>' +
+            '  </form>' +
+            '  <div id="edit-buttons">' +
 
-        //     '    <button id="edit-submit" class="hint--rounded hint--bottom" aria-label="( Enter &crarr; )">' + i18next.t('editGroup.btnSubmit') + '</button>' +
-        //     '    <button id="edit-delete">' + i18next.t('editGroup.btnDelete') + '</button>' +
-        //     '    <button onclick="genmapper.onLoad(\'file-input-subtree\')">' + i18next.t('editGroup.btnImportSubtree') + '</button>' +
-        //     '    <input type="file" id="file-input-subtree" style="display:none;">' +
-        //     '    <button id="edit-export-subtree">' + i18next.t('editGroup.btnExportSubtree') + '</button>' +
-        //     '  </div>' +
-        //     '</div>'
+            '    <button id="edit-submit" class="hint--rounded hint--bottom" aria-label="( Enter &crarr; )">' + i18next.t('editGroup.btnSubmit') + '</button>' +
+            '    <button id="edit-delete">' + i18next.t('editGroup.btnDelete') + '</button>' +
+            '    <button onclick="genmapper.onLoad(\'file-input-subtree\')">' + i18next.t('editGroup.btnImportSubtree') + '</button>' +
+            '    <input type="file" id="file-input-subtree" style="display:none;">' +
+            '    <button id="edit-export-subtree">' + i18next.t('editGroup.btnExportSubtree') + '</button>' +
+            '  </div>' +
+            '</div>'
 
         // document.getElementById('intro-content').innerHTML =
         //     '<button class="cancel" onclick="genmapper.introSwitchVisibility()">X</button>' +
@@ -333,6 +305,10 @@ export class GenMapperGraph {
     public introSwitchVisibility() {
         this.introVisibility = !this.introVisibility;
         document.getElementById('intro').classList.toggle('')
+    }
+
+    public onSelectNode = (d): void => {
+        this.popupEditGroupModal(d);
     }
 
     private popupEditGroupModal(d) {
@@ -592,7 +568,7 @@ export class GenMapperGraph {
             .attr('transform', (d) => {
                 return 'translate(' + d.x + ',' + d.y + ')';
             })
-            .on('click', (d) => { this.popupEditGroupModal(d); });
+            .on('click', (d) => { this.onSelectNode(d); });
 
         nodeWithNew.select('.removeNode')
             .on('click', (d) => { this.removeNode(d); d3.event.stopPropagation(); });
@@ -1063,7 +1039,7 @@ export class GenMapperGraph {
     }
 
     private updateDOMafterLangSwitch() {
-        // this.loadHTMLContent();
+        this.loadHTMLContent();
         this.addFieldsToEditWindow(this.template);
         // document.getElementById('lang-' + this.language).className = 'current-lang';
         d3.select('#project-name')

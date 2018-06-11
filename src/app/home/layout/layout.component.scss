@@ -7,12 +7,36 @@
         width: 100%;
     }
 
+    ::ng-deep {
+        .mat-drawer-content {
+            min-height: 100vh;
+        }
+    }
+
     main {
         display: flex;
         flex-direction: column;
         height: 100%;
     }
 
+    header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .mat-toolbar {
+        background-color: transparent;
+        pointer-events: none;
+        position: relative;
+
+        button {
+            pointer-events: all;
+        }
+    }
 
     .example-container {
         width: 500px;
