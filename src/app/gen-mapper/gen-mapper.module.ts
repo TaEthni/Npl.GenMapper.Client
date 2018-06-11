@@ -6,6 +6,8 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
 import { GenMapperContainerComponent } from './gen-mapper-container/gen-mapper-container.component';
 import { GenMapperGraphComponent } from './gen-mapper-graph/gen-mapper-graph.component';
 import { GenMapperRoutingModule } from './gen-mapper-routing.module';
+import { EditNodeDialogComponent } from './dialogs/edit-node-dialog/edit-node-dialog.component';
+import { EditNodeFormComponent } from './edit-node-form/edit-node-form.component';
 
 @NgModule({
     imports: [
@@ -17,14 +19,19 @@ import { GenMapperRoutingModule } from './gen-mapper-routing.module';
         GenMapperGraphComponent,
         GenMapperContainerComponent,
         ChurchCirclesComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        EditNodeDialogComponent,
+        EditNodeFormComponent
     ],
     exports: [
         GenMapperGraphComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        EditNodeDialogComponent,
+        EditNodeFormComponent
     ],
     entryComponents: [
         ConfirmDialogComponent,
+        EditNodeDialogComponent
     ]
 })
 export class GenMapperModule { }

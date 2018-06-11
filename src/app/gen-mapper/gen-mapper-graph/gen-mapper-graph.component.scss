@@ -1,4 +1,7 @@
 :host::ng-deep {
+    display: flex;
+    flex-direction: column;
+    position: relative;
 
     button {
         background-color: steelblue;
@@ -49,9 +52,11 @@
     }
 
     /**** Left menu ****/
-    #left-menu{
+    #left-menu {
         width:60px;
-        float:left;
+        position: absolute;
+        top: 64px;
+        left: 0;
         margin: 5px;
     }
 
@@ -279,9 +284,9 @@
 
         /**** SVG ****/
     #genmapper-graph {
-        float: left;
-        width: calc(100% - 71px);
+        width: 100%;
         height: 100%;
+        overflow: hidden;
     }
 
     #genmapper-graph-svg {

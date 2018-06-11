@@ -1,4 +1,7 @@
 :host::ng-deep {
+    display: flex;
+    position: relative;
+    flex-direction: column;
 
     app-gen-mapper-graph::ng-deep {
         .node-church-box {
