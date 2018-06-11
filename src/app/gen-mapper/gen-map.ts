@@ -33,7 +33,6 @@ export class GenMap {
     constructor(
         private graphSvg: ElementRef,
         private template: any,
-        private config: {} = {}
     ) {
     }
 
