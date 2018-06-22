@@ -8,11 +8,13 @@ import { LoginComponent } from './home/login/login.component';
 import { LogoutComponent } from './home/logout/logout.component';
 import { NotFoundComponent } from './home/not-found/not-found.component';
 import { UnverifiedEmailComponent } from './home/unverified-email/unverified-email.component';
+import { ChurchCirclesComponent } from './tools/church-circles/church-circles/church-circles.component';
+import { ToolsComponent } from './tools/tools/tools.component';
 
 const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'gen-mapper',
+        redirectTo: 'tools',
         pathMatch: 'full'
     },
     {
@@ -39,14 +41,19 @@ const appRoutes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [{
-            path: 'gen-mapper',
-            loadChildren: 'app/gen-mapper/gen-mapper.module#GenMapperModule'
+            path: 'tools',
+            component: ToolsComponent
+        }, {
+            path: 'church-circles',
+            component: ChurchCirclesComponent
+        }, {
+            path: 'church-circles/:id',
+            component: ChurchCirclesComponent
         }]
     },
-
     {
         path: '**',
-        redirectTo: 'gen-mapper'
+        redirectTo: 'tools'
     }
 ];
 

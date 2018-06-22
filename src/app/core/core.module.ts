@@ -6,6 +6,7 @@ import { AuthenticationService } from '@core/authentication.service';
 import { AuthorizationInterceptor } from '@core/authorization.interceptor';
 import { TokenService } from '@core/token.service';
 import { WindowRefService } from '@core/windowref.service';
+import { EntityService } from '@core/entity.service';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { WindowRefService } from '@core/windowref.service';
         AuthenticationGuard,
         AuthenticationService,
         TokenService,
-        WindowRefService
+        WindowRefService,
+        EntityService
     ]
 })
 export class CoreModule { }

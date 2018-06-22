@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material/material.module';
+import { DocumentsDialogComponent } from './documents-dialog/documents-dialog.component';
 
 @NgModule({
     imports: [
@@ -9,6 +10,14 @@ import { MaterialModule } from './material/material.module';
         MaterialModule,
         FlexLayoutModule
     ],
-    declarations: []
+    declarations: [DocumentsDialogComponent],
+    exports: [
+        MaterialModule,
+        FlexLayoutModule,
+        DocumentsDialogComponent
+    ],
+    entryComponents: [
+        DocumentsDialogComponent,
+    ]
 })
 export class SharedModule { }

@@ -20,10 +20,8 @@ import { UnverifiedEmailComponent } from './unverified-email/unverified-email.co
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
-        MaterialModule,
         CoreModule,
-        SharedModule,
-        FlexLayoutModule
+        SharedModule
     ],
     declarations: [
         LayoutComponent,
