@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 
 const modules = [
     MatButtonModule,
@@ -29,7 +30,8 @@ const modules = [
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
 ];
 
 @NgModule({

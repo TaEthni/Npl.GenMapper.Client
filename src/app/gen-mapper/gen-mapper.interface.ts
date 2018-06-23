@@ -26,6 +26,9 @@ export interface GMField {
 
 export interface GMTemplate {
     name: string;
+    title: string;
+    version: string;
+    format: string;
     translations: any;
     settings: any;
     svg: any;

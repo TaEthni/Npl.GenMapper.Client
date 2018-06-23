@@ -1,0 +1,74 @@
+<ng-container *ngIf="document">
+    <header>
+        <mat-toolbar>
+            <app-sidenav-toggle></app-sidenav-toggle>
+            <button mat-icon-button
+                    (click)="back()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+
+            <div fxFlex>
+                <input type="text"
+                       matInput
+                       placeholder="Name"
+                       [formControl]="form.get('title')">
+            </div>
+
+            <button mat-icon-button
+                    (click)="matdrawer.toggle()">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+
+            <button mat-icon-button
+                    [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                    <mat-icon>attachment</mat-icon>
+                    Import
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>cloud_download</mat-icon>
+                    Export
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>print</mat-icon>
+                    Print
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    Delete
+                </button>
+            </mat-menu>
+        </mat-toolbar>
+    </header>
+</ng-container>
+
+<mat-drawer-container autosize>
+    <mat-drawer #matdrawer
+                mode="side"
+                position="end"
+                fxLayout="column">
+
+        <mat-toolbar color="none">
+            {{template.title}}
+            <div fxFlex></div>
+            <button mat-icon-button
+                    (click)="matdrawer.close()">
+                <mat-icon>clear</mat-icon>
+            </button>
+        </mat-toolbar>
+
+        <app-tool-nav-list fxFlex
+                           (selectDocument)="onSelectDocument($event)"
+                           [documents]="documents"></app-tool-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <app-gen-mapper-graph class="{{template.name}}"
+                              (change)="onGraphChange($event)"
+                              [document]="document"
+                              [template]="template"></app-gen-mapper-graph>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,6 +1,6 @@
 import { Entity, EntityType } from '@shared/entity.model';
 
-export class Document extends Entity {
+export class DocumentDto extends Entity {
     public id: string;
     public title: string;
     public format: string;

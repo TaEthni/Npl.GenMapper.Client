@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material/material.module';
-import { DocumentsDialogComponent } from './documents-dialog/documents-dialog.component';
+import { SidenavToggleComponent } from './sidenav-toggle/sidenav-toggle.component';
 
 @NgModule({
     imports: [
@@ -10,14 +10,13 @@ import { DocumentsDialogComponent } from './documents-dialog/documents-dialog.co
         MaterialModule,
         FlexLayoutModule
     ],
-    declarations: [DocumentsDialogComponent],
+    declarations: [SidenavToggleComponent],
     exports: [
         MaterialModule,
         FlexLayoutModule,
-        DocumentsDialogComponent
+        SidenavToggleComponent
     ],
     entryComponents: [
-        DocumentsDialogComponent,
     ]
 })
 export class SharedModule { }

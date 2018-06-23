@@ -1,12 +1,19 @@
+@import '~styles/colors';
+
+
 :host {
     display: flex;
     flex-direction: column;
+
+    header {
+        
+    }
 
     section {
         padding: 16px;
     }
 
     .mat-list-item h4 {
-        font-weight: bold;
+        font-weight: 600;
     }
 }

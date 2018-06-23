@@ -28,11 +28,14 @@ export class GenMap {
     public gLinks: any;
     public gLinksText: any;
 
-    public margin = { top: 50, right: 30, bottom: 50, left: 30 };
+    public margin = { top: 110, right: 30, bottom: 50, left: 30 };
+
+    public onChange = (v: string) => { };
 
     constructor(
         private graphSvg: ElementRef,
         private template: any,
+        private content?: string,
     ) {
     }
 
@@ -49,6 +52,15 @@ export class GenMap {
         }
 
         this._createMap();
+    }
+
+    public update(content: string): void {
+        this.content = content;
+        this.data = this._parseCsvData(this.content);
+        this.nodes = null;
+
+        this.originalPosition();
+        this.redraw();
     }
 
     public onZoomInClick(): void {
@@ -189,12 +201,33 @@ export class GenMap {
             .attr('class', 'group-nodes');
 
         this.csvHeader = this.template.fields.map(field => field.header).join(',') + '\n';
+
         this.initialCsv = this.csvHeader + this.template.fields.map(field => this._getInitialValue(field)).join(',');
-        this.data = this._parseCsvData(this.initialCsv);
+
+        if (this.content) {
+            this.data = this._parseCsvData(this.content);
+        } else {
+            this.data = this._parseCsvData(this.initialCsv);
+        }
+
         this.nodes = null;
 
         this.originalPosition();
         this.redraw();
+    }
+
+    private _getOutputCsv(): string {
+        return this.csvHeader + d3.csvFormatRows(this.data.map((d, i) => {
+            const output = [];
+            this.template.fields.forEach((field) => {
+                if (field.type === 'checkbox') {
+                    output.push(d[field.header] ? '1' : '0');
+                } else {
+                    output.push(d[field.header]);
+                }
+            });
+            return output;
+        }));
     }
 
     private _setSvgHeight(): void {
@@ -347,6 +380,10 @@ export class GenMap {
                 this._updateFieldWithInherit(field, element);
             }
         });
+
+        if (this.onChange) {
+            this.onChange(this._getOutputCsv());
+        }
     }
 
     private _updateSvgForFields(field: any, element: any): void {
