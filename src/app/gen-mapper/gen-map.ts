@@ -36,8 +36,7 @@ export class GenMap {
         private graphSvg: ElementRef,
         private template: any,
         private content?: string,
-    ) {
-    }
+    ) { }
 
     public init(): void {
         i18next
@@ -49,13 +48,15 @@ export class GenMap {
 
         if (this.template.translations[i18next.language]) {
             this.language = i18next.language;
+        } else {
+            this.language = 'en';
         }
 
         this._createMap();
     }
 
     public update(content: string): void {
-        this.content = content;
+        this.content = content || this.initialCsv;
         this.data = this._parseCsvData(this.content);
         this.nodes = null;
 
@@ -95,6 +96,14 @@ export class GenMap {
         newNodeData['parentId'] = node.data.id;
         this.data.push(newNodeData);
         this.redraw();
+    }
+
+    public updateNode(newData: any): void {
+        const nodeToUpdate = this.data.find(d => d.id === newData.id);
+        if (nodeToUpdate) {
+            Object.assign(nodeToUpdate, newData);
+            this.redraw();
+        }
     }
 
     public removeNode(node: any): void {

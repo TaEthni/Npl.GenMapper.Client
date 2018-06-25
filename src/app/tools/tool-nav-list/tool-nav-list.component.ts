@@ -1,33 +1,26 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentDto } from '@shared/document.model';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-tool-nav-list',
     templateUrl: './tool-nav-list.component.html',
     styleUrls: ['./tool-nav-list.component.scss']
 })
-export class ToolNavListComponent implements OnChanges {
+export class ToolNavListComponent {
 
     public form: FormGroup;
 
     @Input()
     public documents: DocumentDto;
 
+    @Input()
+    public documentId: string;
+
     @Output()
-    public selectDocument: EventEmitter<DocumentDto> = new EventEmitter<DocumentDto>();
-
-    constructor() { }
-
-    public ngOnChanges(): void {
-
-    }
-
-    public onCreate(): void {
-
-    }
+    public select: EventEmitter<DocumentDto> = new EventEmitter<DocumentDto>();
 
     public onSelectDocument(doc: DocumentDto): void {
-        this.selectDocument.emit(doc);
+        this.select.emit(doc);
     }
 }

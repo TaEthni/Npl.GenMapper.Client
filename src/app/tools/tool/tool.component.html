@@ -1,74 +1,109 @@
-<ng-container *ngIf="document">
-    <header>
-        <mat-toolbar>
-            <app-sidenav-toggle></app-sidenav-toggle>
-            <button mat-icon-button
-                    (click)="back()">
-                <mat-icon>arrow_back</mat-icon>
-            </button>
+<header>
+    <mat-toolbar>
+        <app-sidenav-toggle></app-sidenav-toggle>
 
+        <ng-container *ngIf="document">
             <div fxFlex>
                 <input type="text"
                        matInput
                        placeholder="Name"
-                       [formControl]="form.get('title')">
+                       [formControl]="form.get('title')"
+                       *ngIf="form">
             </div>
 
             <button mat-icon-button
-                    (click)="matdrawer.toggle()">
-                <mat-icon>filter_list</mat-icon>
+                    (click)="matdrawer.toggle()"
+                    *ngIf="isAuthenticated">
+                <mat-icon *ngIf="matdrawer.opened">clear</mat-icon>
+                <mat-icon *ngIf="!matdrawer.opened">filter_list</mat-icon>
             </button>
-
             <button mat-icon-button
                     [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
-
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item
+                        (click)="onImport()">
                     <mat-icon>attachment</mat-icon>
-                    Import
+                    <ng-container i18n="en-Import">Import</ng-container>
                 </button>
                 <button mat-menu-item>
                     <mat-icon>cloud_download</mat-icon>
-                    Export
+                    <ng-container i18n="en-Export">Export</ng-container>
                 </button>
                 <button mat-menu-item>
                     <mat-icon>print</mat-icon>
-                    Print
+                    <ng-container i18n="en-Print">Print</ng-container>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item
+                        (click)="onDelete()"
+                        *ngIf="isAuthenticated">
                     <mat-icon>delete</mat-icon>
-                    Delete
+                    <ng-container i18n="en-Delete">Delete</ng-container>
                 </button>
             </mat-menu>
-        </mat-toolbar>
-    </header>
-</ng-container>
+        </ng-container>
+    </mat-toolbar>
+</header>
 
-<mat-drawer-container autosize>
+<mat-drawer-container autosize
+                      fxFlex>
     <mat-drawer #matdrawer
+                opened
                 mode="side"
                 position="end"
                 fxLayout="column">
 
         <mat-toolbar color="none">
-            {{template.title}}
-            <div fxFlex></div>
-            <button mat-icon-button
-                    (click)="matdrawer.close()">
-                <mat-icon>clear</mat-icon>
+            <button mat-mini-fab
+                    (click)="onCreateDocument()">
+                <mat-icon>add</mat-icon>
             </button>
+            <div fxFlex></div>
+            <ng-container i18n="@@en-Documents">Documents</ng-container>
         </mat-toolbar>
 
         <app-tool-nav-list fxFlex
-                           (selectDocument)="onSelectDocument($event)"
-                           [documents]="documents"></app-tool-nav-list>
+                           (select)="onSelectDocument($event)"
+                           [documents]="documents"
+                           [documentId]="document.id"></app-tool-nav-list>
     </mat-drawer>
-    <mat-drawer-content>
-        <app-gen-mapper-graph class="{{template.name}}"
-                              (change)="onGraphChange($event)"
-                              [document]="document"
-                              [template]="template"></app-gen-mapper-graph>
+
+    <mat-drawer-content fxLayout="column">
+        <ng-container *ngIf="documents.length else emptyState">
+            <app-gen-mapper-graph class="{{template.name}}"
+                                  (change)="onGraphChange($event)"
+                                  [document]="document"
+                                  [template]="template"></app-gen-mapper-graph>
+        </ng-container>
     </mat-drawer-content>
 </mat-drawer-container>
+
+<ng-template #emptyState>
+    <div class="empty-state"
+         fxFlex
+         fxLayout="column"
+         fxLayoutAlign="center center">
+        <div>
+            <mat-icon>warning</mat-icon>
+        </div>
+        <h1 i18n="en-You_have_no_saved_documents">
+            You have no saved documents!
+        </h1>
+        <div fxLayout="row"
+             fxLayoutGap="24px">
+            <button mat-raised-button
+                    color="accent"
+                    (click)="onCreateDocument()"
+                    i18n="en-Create_Document">
+                Create Document
+            </button>
+            <button mat-raised-button
+                    color="accent"
+                    (click)="onCreateDocument()"
+                    i18n="en-Import_Document">
+                Import Document
+            </button>
+        </div>
+    </div>
+</ng-template>

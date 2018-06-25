@@ -3,7 +3,9 @@ const textHeight = 14
 const textMargin = 6
 
 export const FourFieldsTemplate = {
-    'name': 'Four fields 0.3',
+    'version': '0.3',
+    'name': 'four-fields',
+    'title': 'Four Fields',
     'format': 'fourFields',
     'translations': {
         en: {

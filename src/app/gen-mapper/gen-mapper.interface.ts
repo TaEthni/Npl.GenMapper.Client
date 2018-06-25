@@ -17,6 +17,7 @@ export interface GMField {
     header: string;
     initial: number;
     initialTranslationCode?: string;
+    localeLabel?: string;
     type: string;
     svg?: GMSvgSet;
     inheritsFrom?: string;

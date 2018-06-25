@@ -11,4 +11,8 @@ export class DocumentDto extends Entity {
     public owner: string;
 
     public entityType = EntityType.Documents;
+
+    public static create(value: any): DocumentDto {
+        return Object.assign<DocumentDto, any>(new DocumentDto(), value);
+    }
 }

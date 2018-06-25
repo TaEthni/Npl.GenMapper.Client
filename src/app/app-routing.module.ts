@@ -15,6 +15,7 @@ import { ToolListComponent } from './tools/tool-list/tool-list.component';
 import { ToolComponent } from './tools/tool/tool.component';
 import { ChurchCirclesTemplate } from './templates/church-circles';
 import { FourFieldsTemplate } from './templates/four-fields';
+import { ToolResolver } from './tools/tool.resolver';
 
 const appRoutes: Routes = [
     {
@@ -54,7 +55,10 @@ const appRoutes: Routes = [
             children: [
                 {
                     path: '',
-                    component: ToolListComponent,
+                    component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
                     data: {
                         template: ChurchCirclesTemplate
                     }
@@ -62,6 +66,9 @@ const appRoutes: Routes = [
                 {
                     path: ':id',
                     component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
                     data: {
                         template: ChurchCirclesTemplate
                     }
@@ -73,7 +80,10 @@ const appRoutes: Routes = [
             children: [
                 {
                     path: '',
-                    component: ToolListComponent,
+                    component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
                     data: {
                         template: FourFieldsTemplate
                     }
@@ -81,6 +91,9 @@ const appRoutes: Routes = [
                 {
                     path: ':id',
                     component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
                     data: {
                         template: FourFieldsTemplate
                     }

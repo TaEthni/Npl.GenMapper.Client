@@ -14,6 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const modules = [
     MatButtonModule,
@@ -28,6 +29,7 @@ const modules = [
     MatMomentDateModule,
     MatSelectModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatToolbarModule,
     MatTooltipModule,
     MatCheckboxModule,

@@ -1,11 +1,12 @@
 <h1 mat-dialog-title>Edit</h1>
 <div mat-dialog-content>
-    <app-edit-node-form></app-edit-node-form>
+    <app-edit-node-form [fields]="fields"
+                        [model]="model"
+                        (change)="onFormChange($event)"></app-edit-node-form>
 </div>
 <div mat-dialog-actions>
     <button mat-button
             color="accent"
-            [mat-dialog-close]="data"
             cdkFocusInitial
             (click)="onSubmit()">Submit</button>
     <button mat-button

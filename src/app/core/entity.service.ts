@@ -37,9 +37,25 @@ export class EntityService {
         })));
     }
 
+    public create<T extends Entity>(entity: Entity): Observable<T> {
+        const url = BaseUrl + entity.entityType;
+        return this.http.post<ResponseData>(url, entity).pipe(map(d => {
+            d.data['entityType'] = entity.entityType;
+            return d.data;
+        }));
+    }
+
     public update<T extends Entity>(entity: T): Observable<T> {
         const url = BaseUrl + entity.entityType + '/' + entity.id;
         return this.http.put<ResponseData>(url, entity).pipe(map(a => {
+            a.data['entityType'] = entity.entityType;
+            return a.data;
+        }));
+    }
+
+    public delete<T extends Entity>(entity: T): Observable<T> {
+        const url = BaseUrl + entity.entityType + '/' + entity.id;
+        return this.http.delete<ResponseData>(url).pipe(map(a => {
             a.data['entityType'] = entity.entityType;
             return a.data;
         }));

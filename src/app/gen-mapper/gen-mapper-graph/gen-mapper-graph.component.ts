@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { GenMapperGraph } from './gen-mapper-graph.service';
-import { EditNodeDialogComponent } from '../dialogs/edit-node-dialog/edit-node-dialog.component';
+import { EditNodeDialogComponent, EditNodeDialogResponse } from '../dialogs/edit-node-dialog/edit-node-dialog.component';
 import { GMTemplate } from '../gen-mapper.interface';
 import { GenMap } from '../gen-map';
 import { DocumentDto } from '@shared/document.model';
@@ -58,7 +57,6 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         this.graph = new GenMap(this.graphSvg, this.template, this.document.content);
 
         this.graph.init();
-        console.log(this.graph);
 
         this.graph.onChange = (content: string) => {
             if (!this._updating) {
@@ -78,10 +76,16 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
 
         this.graph.nodeClick = (node: any) => {
             this.dialog
-                .open(EditNodeDialogComponent, { data: { nodeData: node, template: this.template } })
+                .open(EditNodeDialogComponent, { data: { nodeData: node.data, template: this.template, language: this.graph.language } })
                 .afterClosed()
-                .subscribe(result => {
-                    console.log(result);
+                .subscribe((result: EditNodeDialogResponse) => {
+                    if (!result || result.isCancel) {
+                        return;
+                    }
+
+                    if (result.isUpdate) {
+                        this.graph.updateNode(result.data);
+                    }
                 });
         };
     }

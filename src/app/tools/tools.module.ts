@@ -7,8 +7,9 @@ import { ToolContainerComponent } from './tool-container/tool-container.componen
 import { ToolListComponent } from './tool-list/tool-list.component';
 import { ToolComponent } from './tool/tool.component';
 import { GenMapperModule } from '../gen-mapper/gen-mapper.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToolNavListComponent } from './tool-nav-list/tool-nav-list.component';
+import { ToolResolver } from './tool.resolver';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { ToolNavListComponent } from './tool-nav-list/tool-nav-list.component';
         SharedModule,
         RouterModule,
         GenMapperModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
     exports: [
         ToolNavListComponent
@@ -27,6 +29,9 @@ import { ToolNavListComponent } from './tool-nav-list/tool-nav-list.component';
         ToolListComponent,
         ToolComponent,
         ToolNavListComponent
+    ],
+    providers: [
+        ToolResolver
     ]
 })
 export class ToolsModule { }

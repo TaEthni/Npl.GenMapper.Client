@@ -7,7 +7,12 @@ import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
 import { FormGroup, FormControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { TokenService } from '@core/token.service';
+import { ToolService } from '../tool.service';
+import { MatDialog } from '@angular/material';
+import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-tool',
@@ -15,43 +20,47 @@ import { Subject } from 'rxjs';
     styleUrls: ['./tool.component.scss']
 })
 export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
-
+    public files;
     public template: GMTemplate;
     public documents: DocumentDto[];
     public document: DocumentDto;
     public documentId: string;
     public form: FormGroup;
+    public isAuthenticated: boolean;
 
-    private formSub: Subject<any> = new Subject();
+    private formSub: Subscription;
 
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
-        private _entitySerivce: EntityService
+        private _toolService: ToolService,
+        private _tokenService: TokenService,
+        private _matDialog: MatDialog
     ) { super(); }
 
     public ngOnInit(): void {
         this.template = this._route.snapshot.data.template;
-        this._route.params
+
+        this._tokenService.get()
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe((params) => {
-                this.documentId = params.id;
-                if (params.id) {
-                    this._load();
-                } else {
-                    this._loadDefault();
-                }
+            .subscribe((token) => {
+                this.isAuthenticated = token.isAuthenticated;
+            });
+
+        this._route.data
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe((data) => {
+                this.documents = data.tool.documents;
+                this.document = data.tool.document;
+                this._createForm(this.document);
             });
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.formSub.next();
-        this.formSub.complete();
-    }
-
-    public back(): void {
-        this._router.navigate([this.template.name]);
+        if (this.formSub) {
+            this.formSub.unsubscribe();
+        }
     }
 
     public onGraphChange(content: string): void {
@@ -64,18 +73,50 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
         this._router.navigate([this.template.name, doc.id]);
     }
 
-    private _loadDefault(): void {
-        this.document = new DocumentDto();
-        this._createForm(this.document);
+    public onCreateDocument(value: { content?: string, title?: string } = {}): void {
+        const doc = DocumentDto.create({
+            title: value.title || 'No name',
+            descrciption: 'No description',
+            format: this.template.format,
+            content: value.content || ''
+        });
+
+        this._toolService
+            .create(doc)
+            .subscribe(result => {
+                this._router.navigate([this.template.name, result.id]);
+            });
     }
 
-    private _load(): void {
-        this._entitySerivce
-            .getAll<DocumentDto>(EntityType.Documents)
-            .subscribe(documents => {
-                this.documents = documents.filter(d => d.format === this.template.format);
-                this.document = this.documents.find(d => '' + d.id === this.documentId);
-                this._createForm(this.document);
+    public onImport(): void {
+        this._matDialog
+            .open(FileInputDialogComponent, { minWidth: '400px' })
+            .afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.onCreateDocument(result);
+                }
+            });
+    }
+
+    public onDelete(): void {
+        this._matDialog
+            .open(ConfirmDialogComponent, {
+                data: { title: 'Delete ' + this.document.title }
+            })
+            .afterClosed()
+            .subscribe((result) => {
+                if (result) {
+                    this._deleteDocument();
+                }
+            });
+    }
+
+    private _deleteDocument(): void {
+        this._toolService
+            .remove(this.document)
+            .subscribe(() => {
+                this._router.navigate([this.template.name]);
             });
     }
 
@@ -83,25 +124,28 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
         this.document.title = value.title;
         this.document.content = value.content;
 
-        this._entitySerivce
+        this._toolService
             .update(this.document)
-            .subscribe(() => {
-                console.log('updated');
-            });
+            .subscribe(() => console.log('updated'));
     }
 
     private _createForm(model: DocumentDto): void {
-        this.formSub.next();
+        if (this.formSub) {
+            this.formSub.unsubscribe();
+        }
+
+        if (!model) {
+            this.form = null;
+            return;
+        }
 
         this.form = new FormGroup({
             title: new FormControl(model.title),
             content: new FormControl(model.content)
         });
 
-        this.form.valueChanges
-            .pipe(takeUntil(this.formSub))
-            .subscribe(value => {
-                this._update(value);
-            });
+        this.formSub = this.form.valueChanges.subscribe(value => {
+            this._update(value);
+        });
     }
 }
