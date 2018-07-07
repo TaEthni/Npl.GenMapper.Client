@@ -99,6 +99,7 @@ const appRoutes: Routes = [
                 {
                     path: '',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },
@@ -109,6 +110,7 @@ const appRoutes: Routes = [
                 {
                     path: ':id',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },
@@ -131,6 +133,7 @@ const appRoutes: Routes = [
                 {
                     path: '',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },
@@ -141,6 +144,7 @@ const appRoutes: Routes = [
                 {
                     path: ':id',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },
@@ -163,6 +167,7 @@ const appRoutes: Routes = [
                 {
                     path: '',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },
@@ -173,6 +178,7 @@ const appRoutes: Routes = [
                 {
                     path: ':id',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },

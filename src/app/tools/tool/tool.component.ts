@@ -57,6 +57,11 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
                 this.documents = data.tool.documents;
                 this.document = data.tool.document;
                 this._createForm(this.document);
+
+                const id = this._route.snapshot.params['id'];
+                if (!id && this.document) {
+                    this._router.navigate([this.document.id], { relativeTo: this._route, skipLocationChange: true });
+                }
             });
     }
 
