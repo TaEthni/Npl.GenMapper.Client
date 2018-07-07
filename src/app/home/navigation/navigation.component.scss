@@ -22,18 +22,6 @@
         font-weight: 600;
     }
 
-    .info {
-        padding-top: 10px;
-
-        p {
-            margin: 0 0 5px 0;
-        }
-
-        a {
-            margin-bottom: 5px;
-        }
-    }
-
     .mat-nav-list {
         margin-bottom: 24px;
     }
@@ -45,5 +33,9 @@
     .npl-logo {
         width: 24px;
         height: 24px;
+    }
+
+    .arrow {
+        opacity: 0.6;
     }
 }

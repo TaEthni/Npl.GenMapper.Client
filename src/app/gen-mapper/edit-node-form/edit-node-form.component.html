@@ -1,35 +1,47 @@
-<div fxLayout="column">
+<div fxLayout="column"
+     fxLayoutGap="5px">
     <ng-container *ngFor="let field of fields">
         <ng-container *ngIf="field.type">
+            <label class="control"
+                   fxLayout="row"
+                   fxLayoutGap="10px"
+                   fxLayoutAlign="center center">
+                <div class="control-label"
+                     fxFlex>{{field.localeLabel}}</div>
+                <div class="control-input"
+                     fxFlex="200px">
+                    <ng-container *ngIf="field.type === 'text'">
+                        <mat-form-field floatPlaceholder="never"
+                                        floatLabel="never"
+                                        no-error
+                                        no-label>
+                            <input type="text"
+                                   matInput
+                                   autocomplete="off"
+                                   [placeholder]="field.localeLabel"
+                                   [formControl]="form.get(field.header)" />
+                        </mat-form-field>
+                    </ng-container>
 
-            <ng-container *ngIf="field.type === 'text'">
-                <mat-form-field appearance="fill">
-                    <mat-label>{{field.localeLabel}}</mat-label>
-                    <input type="text"
-                           matInput
-                           autocomplete="off"
-                           [placeholder]="field.localeLabel"
-                           [formControl]="form.get(field.header)" />
-                </mat-form-field>
-            </ng-container>
+                    <ng-container *ngIf="field.type === 'radio'">
+                        <mat-form-field floatPlaceholder="never"
+                                        floatLabel="never"
+                                        no-error
+                                        no-label>
+                            <mat-select [formControl]="form.get(field.header)">
+                                <mat-option *ngFor="let value of field.values"
+                                            [value]="value.header">
+                                    {{value.localeLabel}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
 
-            <ng-container *ngIf="field.type === 'radio'">
-                <mat-form-field appearance="fill">
-                    <mat-label>{{field.localeLabel}}</mat-label>
-                    <mat-select [formControl]="form.get(field.header)">
-                        <mat-option *ngFor="let value of field.values"
-                                    [value]="value.header">
-                            {{value.localeLabel}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </ng-container>
-
-            <ng-container *ngIf="field.type === 'checkbox'">
-                <mat-slide-toggle [formControl]="form.get(field.header)">
-                    {{field.localeLabel}}
-                </mat-slide-toggle>
-            </ng-container>
+                    <ng-container *ngIf="field.type === 'checkbox'">
+                        <mat-slide-toggle [formControl]="form.get(field.header)"></mat-slide-toggle>
+                    </ng-container>
+                </div>
+            </label>
         </ng-container>
     </ng-container>
 </div>

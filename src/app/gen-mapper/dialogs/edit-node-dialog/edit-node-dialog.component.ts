@@ -24,7 +24,7 @@ export class EditNodeDialogComponent {
     private _template: GMTemplate = null;
 
     public fields: GMField[];
-    public model: object;
+    public model: any;
 
     constructor(
         private dialogRef: MatDialogRef<EditNodeDialogComponent>,
