@@ -119,6 +119,44 @@ export class GenMap {
         }
     }
 
+    public csvIntoNode(d: any, parsedCsv: any): void {
+        this._deleteAllDescendants(d);
+        parsedCsv = this._parseCsvData(parsedCsv);
+
+        // replace node by root of imported
+        const nodeToDelete = _.filter(this.data, { id: d.data.id })[0];
+        const rowRootOfImported = _.filter(parsedCsv, { parentId: '' })[0];
+        const mapOldIdToNewId = {};
+        mapOldIdToNewId[rowRootOfImported.id] = nodeToDelete.id;
+        parsedCsv = _.without(parsedCsv, rowRootOfImported);
+        rowRootOfImported.id = nodeToDelete.id;
+        rowRootOfImported.parentId = nodeToDelete.parentId;
+        this.data[_.indexOf(this.data, nodeToDelete)] = rowRootOfImported;
+
+        const idsUnsorted = _.map(this.data, function (row) { return row.id });
+        const ids = idsUnsorted.sort(function (a, b) { return a - b });
+        // update ids of other nodes and push into data
+        while (parsedCsv.length > 0) {
+            const row = parsedCsv.shift();
+            if (!(row.id in mapOldIdToNewId)) {
+                const newId = findNewIdFromArray(ids);
+                mapOldIdToNewId[row.id] = newId;
+                ids.push(newId);
+            }
+            if (!(row.parentId in mapOldIdToNewId)) {
+                const newId = findNewIdFromArray(ids);
+                mapOldIdToNewId[row.parentId] = newId;
+                ids.push(newId);
+            }
+            // change id and parentId
+            row.id = mapOldIdToNewId[row.id];
+            row.parentId = mapOldIdToNewId[row.parentId];
+            this.data.push(row);
+        }
+
+        this.redraw();
+    }
+
     /**
      * @public Map manipulation methods
      */

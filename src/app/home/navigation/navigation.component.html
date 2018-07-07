@@ -62,12 +62,14 @@
     <mat-divider></mat-divider>
 
     <mat-nav-list>
-        <mat-list-item href="https://noplaceleft.net">
+        <a mat-list-item
+           href="http://noplaceleft.net"
+           (click)="goto($event, 'http://noplaceleft.net')">
             <img matListAvatar
                  src="assets/npl.png"
                  alt="No Place Left">
             <h3 matLine> #NoPlaceLeft </h3>
             <mat-icon>launch</mat-icon>
-        </mat-list-item>
+        </a>
     </mat-nav-list>
 </section>

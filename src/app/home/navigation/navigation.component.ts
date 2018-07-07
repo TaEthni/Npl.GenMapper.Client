@@ -29,4 +29,10 @@ export class NavigationComponent implements OnInit {
 
     public ngOnInit(): void {
     }
+
+    public goto(event: Event, url: string): void {
+        event.preventDefault();
+        event.stopPropagation();
+        window.open(url, '_blank');
+    }
 }

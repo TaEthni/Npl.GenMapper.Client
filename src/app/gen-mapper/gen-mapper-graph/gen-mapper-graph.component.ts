@@ -66,8 +66,11 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         };
 
         this.graph.removeNodeClick = (node: any) => {
+            const name = node.data.name;
+            const hasChildren = node.children && node.children.length;
+            const message = hasChildren ? `Delete [${name}] as all it's decendants.` : `Delete [${name}].`;
             this.dialog
-                .open(ConfirmDialogComponent, { data: { promp: 'Confirm Delete?' } })
+                .open(ConfirmDialogComponent, { data: { content: [message], title: 'Confirm Delete?' } })
                 .afterClosed()
                 .subscribe(result => {
                     if (result) { this.graph.removeNode(node); }
@@ -76,11 +79,18 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
 
         this.graph.nodeClick = (node: any) => {
             this.dialog
-                .open(EditNodeDialogComponent, { data: { nodeData: node.data, template: this.template, language: this.graph.language } })
+                .open(EditNodeDialogComponent, {
+                    minWidth: '400px',
+                    data: { nodeData: node.data, template: this.template, language: this.graph.language }
+                })
                 .afterClosed()
                 .subscribe((result: EditNodeDialogResponse) => {
                     if (!result || result.isCancel) {
                         return;
+                    }
+
+                    if (result.isImportSubtree) {
+                        this.graph.csvIntoNode(node, result.content);
                     }
 
                     if (result.isUpdate) {

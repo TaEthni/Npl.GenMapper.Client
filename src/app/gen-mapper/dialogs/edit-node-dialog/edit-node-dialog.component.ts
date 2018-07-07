@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { GMTemplate, GMField } from '../../gen-mapper.interface';
+import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 
 export interface EditNodeDialogResponse {
     isCancel: boolean;
@@ -8,6 +9,7 @@ export interface EditNodeDialogResponse {
     isDeleteSubtree: boolean;
     isImportSubtree: boolean;
     data: object;
+    content?: string;
 }
 
 @Component({
@@ -26,6 +28,7 @@ export class EditNodeDialogComponent {
 
     constructor(
         private dialogRef: MatDialogRef<EditNodeDialogComponent>,
+        private _matDialog: MatDialog,
         @Inject(MAT_DIALOG_DATA) private data: { nodeData: any, template: GMTemplate, language: string }
     ) {
         this.model = Object.assign({}, data.nodeData);
@@ -67,10 +70,18 @@ export class EditNodeDialogComponent {
     }
 
     public onImportSubtree(): void {
-        this.dialogRef.close({
-            isImportSubtree: true,
-            data: this.model
-        } as EditNodeDialogResponse);
+        this._matDialog
+            .open(FileInputDialogComponent, { minWidth: '400px' })
+            .afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.dialogRef.close({
+                        isImportSubtree: true,
+                        data: this.model,
+                        content: result.content,
+                    } as EditNodeDialogResponse);
+                }
+            });
     }
 
     public onFormChange(value: any): void {

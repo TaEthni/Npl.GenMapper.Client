@@ -10,16 +10,12 @@
             cdkFocusInitial
             (click)="onSubmit()">Submit</button>
     <button mat-button
-            (click)="onCancel()">Cancel</button>
-
-    <button mat-button
-            color="warn"
-            (click)="onDeleteSubtree()">
-        Delete Subtree
-    </button>
-    <button mat-button
             color="primary"
             (click)="onImportSubtree()">
         Import Subtree
     </button>
+    <div fxFlex></div>
+    <button mat-button
+            color="warn"
+            (click)="onCancel()">Cancel</button>
 </div>

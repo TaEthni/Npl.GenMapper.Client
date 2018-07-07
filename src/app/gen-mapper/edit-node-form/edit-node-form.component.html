@@ -7,6 +7,7 @@
                     <mat-label>{{field.localeLabel}}</mat-label>
                     <input type="text"
                            matInput
+                           autocomplete="off"
                            [placeholder]="field.localeLabel"
                            [formControl]="form.get(field.header)" />
                 </mat-form-field>
