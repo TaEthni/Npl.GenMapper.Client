@@ -13,6 +13,7 @@ import { ToolService } from '../tool.service';
 import { MatDialog } from '@angular/material';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
+import { DownloadService } from '@core/download.service';
 
 @Component({
     selector: 'app-tool',
@@ -27,7 +28,7 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
     public documentId: string;
     public form: FormGroup;
     public isAuthenticated: boolean;
-
+    public isLoading: boolean;
     private formSub: Subscription;
 
     constructor(
@@ -35,10 +36,12 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
         private _router: Router,
         private _toolService: ToolService,
         private _tokenService: TokenService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private _downloadService: DownloadService
     ) { super(); }
 
     public ngOnInit(): void {
+        this.isLoading = true;
         this.template = this._route.snapshot.data.template;
 
         this._tokenService.get()
@@ -50,6 +53,7 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
         this._route.data
             .pipe(takeUntil(this.unsubscribe))
             .subscribe((data) => {
+                this.isLoading = false;
                 this.documents = data.tool.documents;
                 this.document = data.tool.document;
                 this._createForm(this.document);
@@ -70,7 +74,10 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
     }
 
     public onSelectDocument(doc: DocumentDto): void {
-        this._router.navigate([this.template.name, doc.id]);
+        if (doc.id !== this.document.id) {
+            this.isLoading = true;
+            this._router.navigate([this.template.name, doc.id]);
+        }
     }
 
     public onCreateDocument(value: { content?: string, title?: string } = {}): void {
@@ -80,6 +87,8 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
             format: this.template.format,
             content: value.content || ''
         });
+
+        this.isLoading = true;
 
         this._toolService
             .create(doc)
@@ -112,7 +121,12 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
             });
     }
 
+    public onExport(): void {
+        this._downloadService.downloadDocument(this.form.value);
+    }
+
     private _deleteDocument(): void {
+        this.isLoading = true;
         this._toolService
             .remove(this.document)
             .subscribe(() => {

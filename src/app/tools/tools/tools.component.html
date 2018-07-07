@@ -1,21 +1,40 @@
 <header>
     <mat-toolbar>
-        <app-sidenav-toggle></app-sidenav-toggle>
-        Tools
+        <mat-toolbar-row>
+            <app-sidenav-toggle></app-sidenav-toggle>
+        </mat-toolbar-row>
+        <mat-toolbar-row>
+        </mat-toolbar-row>
+        <mat-toolbar-row fxLayout="row"
+                         fxLayoutAlign="center center">
+            <img height="100px"
+                 width="100px"
+                 src="assets/tools-logo.png" />
+        </mat-toolbar-row>
     </mat-toolbar>
 </header>
 
+<section class="image"
+         fxLayout="row"
+         fxLayoutAlign="center center">
+
+</section>
+
 <section>
     <mat-nav-list>
+        <h3 mat-subheader>Generation Maps</h3>
         <mat-list-item [routerLink]="['/church-circles']">
             <h4 mat-line>Church Circles</h4>
             <p mat-line> Generation Map </p>
             <mat-icon>chevron_right</mat-icon>
         </mat-list-item>
-    </mat-nav-list>
-    <mat-nav-list>
         <mat-list-item [routerLink]="['/four-fields']">
             <h4 mat-line>Four Fields</h4>
+            <p mat-line> Generation Map </p>
+            <mat-icon>chevron_right</mat-icon>
+        </mat-list-item>
+        <mat-list-item [routerLink]="['/movementeer']">
+            <h4 mat-line>Movementeer</h4>
             <p mat-line> Generation Map </p>
             <mat-icon>chevron_right</mat-icon>
         </mat-list-item>

@@ -11,11 +11,13 @@ import { UnverifiedEmailComponent } from './home/unverified-email/unverified-ema
 import { ToolsComponent } from './tools/tools/tools.component';
 import { ToolContainerComponent } from './tools/tool-container/tool-container.component';
 import { GMTemplateNames } from '@shared/GMTemplates';
-import { ToolListComponent } from './tools/tool-list/tool-list.component';
 import { ToolComponent } from './tools/tool/tool.component';
 import { ChurchCirclesTemplate } from './templates/church-circles';
+import { DisciplesTemplate } from './templates/disciples';
+import { MovementeerTemplate } from './templates/movementeer';
 import { FourFieldsTemplate } from './templates/four-fields';
 import { ToolResolver } from './tools/tool.resolver';
+import { ToolOfflineComponent } from './tools/tool-offline/tool-offline.component';
 
 const appRoutes: Routes = [
     {
@@ -50,12 +52,20 @@ const appRoutes: Routes = [
             path: 'tools',
             component: ToolsComponent
         }, {
-            path: 'church-circles',
+            path: ChurchCirclesTemplate.name,
             component: ToolContainerComponent,
             children: [
                 {
-                    path: '',
+                    path: 'offline',
+                    component: ToolOfflineComponent,
+                    data: {
+                        template: ChurchCirclesTemplate
+                    }
+                },
+                {
+                    path: ':id',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },
@@ -64,8 +74,9 @@ const appRoutes: Routes = [
                     }
                 },
                 {
-                    path: ':id',
+                    path: '',
                     component: ToolComponent,
+                    canActivate: [AuthenticationGuard],
                     resolve: {
                         tool: ToolResolver
                     },
@@ -75,9 +86,16 @@ const appRoutes: Routes = [
                 }
             ]
         }, {
-            path: 'four-fields',
+            path: FourFieldsTemplate.name,
             component: ToolContainerComponent,
             children: [
+                {
+                    path: 'offline',
+                    component: ToolOfflineComponent,
+                    data: {
+                        template: FourFieldsTemplate
+                    }
+                },
                 {
                     path: '',
                     component: ToolComponent,
@@ -96,6 +114,70 @@ const appRoutes: Routes = [
                     },
                     data: {
                         template: FourFieldsTemplate
+                    }
+                }
+            ]
+        }, {
+            path: DisciplesTemplate.name,
+            component: ToolContainerComponent,
+            children: [
+                {
+                    path: 'offline',
+                    component: ToolOfflineComponent,
+                    data: {
+                        template: DisciplesTemplate
+                    }
+                },
+                {
+                    path: '',
+                    component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
+                    data: {
+                        template: DisciplesTemplate
+                    }
+                },
+                {
+                    path: ':id',
+                    component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
+                    data: {
+                        template: DisciplesTemplate
+                    }
+                }
+            ]
+        }, {
+            path: MovementeerTemplate.name,
+            component: ToolContainerComponent,
+            children: [
+                {
+                    path: 'offline',
+                    component: ToolOfflineComponent,
+                    data: {
+                        template: MovementeerTemplate
+                    }
+                },
+                {
+                    path: '',
+                    component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
+                    data: {
+                        template: MovementeerTemplate
+                    }
+                },
+                {
+                    path: ':id',
+                    component: ToolComponent,
+                    resolve: {
+                        tool: ToolResolver
+                    },
+                    data: {
+                        template: MovementeerTemplate
                     }
                 }
             ]

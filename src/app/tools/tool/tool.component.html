@@ -12,8 +12,7 @@
             </div>
 
             <button mat-icon-button
-                    (click)="matdrawer.toggle()"
-                    *ngIf="isAuthenticated">
+                    (click)="matdrawer.toggle()">
                 <mat-icon *ngIf="matdrawer.opened">clear</mat-icon>
                 <mat-icon *ngIf="!matdrawer.opened">filter_list</mat-icon>
             </button>
@@ -27,7 +26,8 @@
                     <mat-icon>attachment</mat-icon>
                     <ng-container i18n="en-Import">Import</ng-container>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item
+                        (click)="onExport()">
                     <mat-icon>cloud_download</mat-icon>
                     <ng-container i18n="en-Export">Export</ng-container>
                 </button>
@@ -36,20 +36,21 @@
                     <ng-container i18n="en-Print">Print</ng-container>
                 </button>
                 <button mat-menu-item
-                        (click)="onDelete()"
-                        *ngIf="isAuthenticated">
+                        (click)="onDelete()">
                     <mat-icon>delete</mat-icon>
                     <ng-container i18n="en-Delete">Delete</ng-container>
                 </button>
             </mat-menu>
         </ng-container>
+        <mat-progress-bar *ngIf="isLoading"
+                          mode="indeterminate"></mat-progress-bar>
     </mat-toolbar>
 </header>
 
 <mat-drawer-container autosize
                       fxFlex>
     <mat-drawer #matdrawer
-                opened
+                [opened]="documents.length > 0"
                 mode="side"
                 position="end"
                 fxLayout="column">
@@ -66,7 +67,7 @@
         <app-tool-nav-list fxFlex
                            (select)="onSelectDocument($event)"
                            [documents]="documents"
-                           [documentId]="document.id"></app-tool-nav-list>
+                           [documentId]="document?.id"></app-tool-nav-list>
     </mat-drawer>
 
     <mat-drawer-content fxLayout="column">
@@ -100,7 +101,7 @@
             </button>
             <button mat-raised-button
                     color="accent"
-                    (click)="onCreateDocument()"
+                    (click)="onImport()"
                     i18n="en-Import_Document">
                 Import Document
             </button>

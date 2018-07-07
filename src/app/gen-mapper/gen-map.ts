@@ -239,6 +239,25 @@ export class GenMap {
         }));
     }
 
+    private exportCsv(): void {
+        const blob = new Blob([this._getOutputCsv()], { type: 'text/csv;charset=utf-8' })
+
+        const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+            navigator.userAgent && !navigator.userAgent.match('CriOS')
+
+        const promptMessage = isSafari
+            ? i18next.t('messages.saveAsInSafari')
+            : i18next.t('messages.saveAs');
+
+        console.log(promptMessage)
+        // const saveName = window.prompt(promptMessage, this.doc + '.csv')
+        // if (saveName === null) return
+
+        // saveAs(blob, saveName)
+
+        console.log('save');
+    }
+
     private _setSvgHeight(): void {
         const windowHeight = document.documentElement.clientHeight;
         const leftMenuHeight = document.getElementById('left-menu').clientHeight;

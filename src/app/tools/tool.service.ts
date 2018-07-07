@@ -14,6 +14,7 @@ const localKey = 'user.local-document.v1';
 export class ToolService {
 
     private _documents: BehaviorSubject<DocumentDto[]> = new BehaviorSubject<DocumentDto[]>(null);
+    private _document: BehaviorSubject<DocumentDto> = new BehaviorSubject<DocumentDto>(null);
 
     constructor(
         private _entityService: EntityService,
@@ -47,7 +48,6 @@ export class ToolService {
     public create(doc: DocumentDto): Observable<DocumentDto> {
         return this._entityService.create(doc);
     }
-
 
     public remove(doc: DocumentDto): Observable<DocumentDto> {
         if (!this.isAuthenticated()) {
