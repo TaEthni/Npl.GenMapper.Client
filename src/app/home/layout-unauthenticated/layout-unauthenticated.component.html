@@ -1,18 +1,18 @@
-<mat-drawer-container autosize>
-    <mat-drawer #matdrawer
-                mode="side">
+<mat-sidenav-container autosize>
+    <mat-sidenav #matsidenav
+                 mode="over">
         <app-navigation [authenticated]="false"></app-navigation>
-    </mat-drawer>
+    </mat-sidenav>
     <main>
         <header>
             <mat-toolbar>
                 <button mat-icon-button
-                        (click)="matdrawer.toggle()">
-                    <mat-icon *ngIf="!matdrawer.opened">menu</mat-icon>
-                    <mat-icon *ngIf="matdrawer.opened">clear</mat-icon>
+                        (click)="matsidenav.toggle()">
+                    <mat-icon *ngIf="!matsidenav.opened">menu</mat-icon>
+                    <mat-icon *ngIf="matsidenav.opened">clear</mat-icon>
                 </button>
             </mat-toolbar>
         </header>
         <router-outlet></router-outlet>
     </main>
-</mat-drawer-container>
+</mat-sidenav-container>

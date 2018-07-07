@@ -14,9 +14,25 @@ export class NavigationComponent implements OnInit {
     @Input()
     public user: User = null;
 
+    public tools = [
+        {
+            name: 'Church Circles',
+            route: '/church-circles'
+        },
+        {
+            name: 'Four Fields',
+            route: '/four-fields'
+        }
+    ];
+
     constructor() { }
 
     public ngOnInit(): void {
-        console.log(this)
+    }
+
+    public goto(event: Event, url: string): void {
+        event.preventDefault();
+        event.stopPropagation();
+        window.open(url, '_blank');
     }
 }

@@ -24,13 +24,15 @@ export class ConfirmDialogComponent implements OnInit {
     constructor(
         private dialogRef: MatDialogRef<ConfirmDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private data: ConfirmConfig
-    ) { }
-
-    public ngOnInit(): void {
+    ) {
         this.title = this.data.title;
         this.alert = this.data.alert;
-        this.content = this.data.content;
+        this.content = this.data.content || [];
         this.prompt = this.data.prompt || 'Are you sure you want to continue?';
         this.buttons = this.data.buttons || ['Continue', 'Cancel'];
+    }
+
+    public ngOnInit(): void {
+
     }
 }

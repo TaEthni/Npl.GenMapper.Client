@@ -28,13 +28,15 @@ export class GenMap {
     public gLinks: any;
     public gLinksText: any;
 
-    public margin = { top: 50, right: 30, bottom: 50, left: 30 };
+    public margin = { top: 110, right: 30, bottom: 50, left: 30 };
+
+    public onChange = (v: string) => { };
 
     constructor(
         private graphSvg: ElementRef,
         private template: any,
-    ) {
-    }
+        private content?: string,
+    ) { }
 
     public init(): void {
         i18next
@@ -46,9 +48,20 @@ export class GenMap {
 
         if (this.template.translations[i18next.language]) {
             this.language = i18next.language;
+        } else {
+            this.language = 'en';
         }
 
         this._createMap();
+    }
+
+    public update(content: string): void {
+        this.content = content || this.initialCsv;
+        this.data = this._parseCsvData(this.content);
+        this.nodes = null;
+
+        this.originalPosition();
+        this.redraw();
     }
 
     public onZoomInClick(): void {
@@ -85,6 +98,14 @@ export class GenMap {
         this.redraw();
     }
 
+    public updateNode(newData: any): void {
+        const nodeToUpdate = this.data.find(d => d.id === newData.id);
+        if (nodeToUpdate) {
+            Object.assign(nodeToUpdate, newData);
+            this.redraw();
+        }
+    }
+
     public removeNode(node: any): void {
         if (!node.parent) {
             return;
@@ -96,6 +117,44 @@ export class GenMap {
             this.data = _.without(this.data, nodeToDelete[0]);
             this.redraw();
         }
+    }
+
+    public csvIntoNode(d: any, parsedCsv: any): void {
+        this._deleteAllDescendants(d);
+        parsedCsv = this._parseCsvData(parsedCsv);
+
+        // replace node by root of imported
+        const nodeToDelete = _.filter(this.data, { id: d.data.id })[0];
+        const rowRootOfImported = _.filter(parsedCsv, { parentId: '' })[0];
+        const mapOldIdToNewId = {};
+        mapOldIdToNewId[rowRootOfImported.id] = nodeToDelete.id;
+        parsedCsv = _.without(parsedCsv, rowRootOfImported);
+        rowRootOfImported.id = nodeToDelete.id;
+        rowRootOfImported.parentId = nodeToDelete.parentId;
+        this.data[_.indexOf(this.data, nodeToDelete)] = rowRootOfImported;
+
+        const idsUnsorted = _.map(this.data, function (row) { return row.id });
+        const ids = idsUnsorted.sort(function (a, b) { return a - b });
+        // update ids of other nodes and push into data
+        while (parsedCsv.length > 0) {
+            const row = parsedCsv.shift();
+            if (!(row.id in mapOldIdToNewId)) {
+                const newId = findNewIdFromArray(ids);
+                mapOldIdToNewId[row.id] = newId;
+                ids.push(newId);
+            }
+            if (!(row.parentId in mapOldIdToNewId)) {
+                const newId = findNewIdFromArray(ids);
+                mapOldIdToNewId[row.parentId] = newId;
+                ids.push(newId);
+            }
+            // change id and parentId
+            row.id = mapOldIdToNewId[row.id];
+            row.parentId = mapOldIdToNewId[row.parentId];
+            this.data.push(row);
+        }
+
+        this.redraw();
     }
 
     /**
@@ -189,12 +248,52 @@ export class GenMap {
             .attr('class', 'group-nodes');
 
         this.csvHeader = this.template.fields.map(field => field.header).join(',') + '\n';
+
         this.initialCsv = this.csvHeader + this.template.fields.map(field => this._getInitialValue(field)).join(',');
-        this.data = this._parseCsvData(this.initialCsv);
+
+        if (this.content) {
+            this.data = this._parseCsvData(this.content);
+        } else {
+            this.data = this._parseCsvData(this.initialCsv);
+        }
+
         this.nodes = null;
 
         this.originalPosition();
         this.redraw();
+    }
+
+    private _getOutputCsv(): string {
+        return this.csvHeader + d3.csvFormatRows(this.data.map((d, i) => {
+            const output = [];
+            this.template.fields.forEach((field) => {
+                if (field.type === 'checkbox') {
+                    output.push(d[field.header] ? '1' : '0');
+                } else {
+                    output.push(d[field.header]);
+                }
+            });
+            return output;
+        }));
+    }
+
+    private exportCsv(): void {
+        const blob = new Blob([this._getOutputCsv()], { type: 'text/csv;charset=utf-8' })
+
+        const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+            navigator.userAgent && !navigator.userAgent.match('CriOS')
+
+        const promptMessage = isSafari
+            ? i18next.t('messages.saveAsInSafari')
+            : i18next.t('messages.saveAs');
+
+        console.log(promptMessage)
+        // const saveName = window.prompt(promptMessage, this.doc + '.csv')
+        // if (saveName === null) return
+
+        // saveAs(blob, saveName)
+
+        console.log('save');
     }
 
     private _setSvgHeight(): void {
@@ -347,6 +446,10 @@ export class GenMap {
                 this._updateFieldWithInherit(field, element);
             }
         });
+
+        if (this.onChange) {
+            this.onChange(this._getOutputCsv());
+        }
     }
 
     private _updateSvgForFields(field: any, element: any): void {

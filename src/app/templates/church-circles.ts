@@ -2,8 +2,11 @@ const boxHeight = 80
 const textHeight = 14
 const textMargin = 6
 
-export const template = {
-    'name': 'Church circles 0.6',
+export const ChurchCirclesTemplate = {
+    'version': '0.6',
+    'title': 'Church Circles',
+    'name': 'church-circles',
+    'format': 'churchCircles',
     'translations': {
         en: {
             translation: {
@@ -516,4 +519,4 @@ export const template = {
             // svg defined currently in genmapper.js
         }
     ]
-}
+};

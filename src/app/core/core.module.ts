@@ -6,19 +6,22 @@ import { AuthenticationService } from '@core/authentication.service';
 import { AuthorizationInterceptor } from '@core/authorization.interceptor';
 import { TokenService } from '@core/token.service';
 import { WindowRefService } from '@core/windowref.service';
+import { EntityService } from '@core/entity.service';
+import { DownloadService } from '@core/download.service';
 
 @NgModule({
     imports: [
         CommonModule,
         HttpClientModule
     ],
-    declarations: [],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
         AuthenticationGuard,
         AuthenticationService,
         TokenService,
-        WindowRefService
+        WindowRefService,
+        EntityService,
+        DownloadService
     ]
 })
 export class CoreModule { }

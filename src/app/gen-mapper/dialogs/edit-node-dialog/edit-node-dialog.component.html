@@ -1,24 +1,21 @@
-<h1 mat-dialog-title>Edit</h1>
+<h1 mat-dialog-title>Edit [{{model.name}}]</h1>
 <div mat-dialog-content>
-    <app-edit-node-form></app-edit-node-form>
+    <app-edit-node-form [fields]="fields"
+                        [model]="model"
+                        (change)="onFormChange($event)"></app-edit-node-form>
 </div>
 <div mat-dialog-actions>
     <button mat-button
             color="accent"
-            [mat-dialog-close]="data"
             cdkFocusInitial
             (click)="onSubmit()">Submit</button>
-    <button mat-button
-            (click)="onCancel()">Cancel</button>
-
-    <button mat-button
-            color="warn"
-            (click)="onDeleteSubtree()">
-        Delete Subtree
-    </button>
     <button mat-button
             color="primary"
             (click)="onImportSubtree()">
         Import Subtree
     </button>
+    <div fxFlex></div>
+    <button mat-button
+            color="warn"
+            (click)="onCancel()">Cancel</button>
 </div>

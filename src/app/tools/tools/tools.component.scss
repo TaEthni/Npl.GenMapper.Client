@@ -1,0 +1,27 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    .mat-toolbar {
+        background-color: rgba(0,0,0,0.3);
+    }
+
+    img {
+        width: 250px;
+        height: 250px;
+        z-index: 10;
+    }
+
+    h1 {
+        font-size: 56px;
+        margin-left: 10px;
+    }
+
+    section {
+        padding: 16px;
+    }
+
+    .mat-list-item h4 {
+        font-weight: bold;
+    }
+}

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChurchCirclesComponent } from './church-circles.component';
+import { ToolOfflineComponent } from './tool-offline.component';
 
-describe('ChurchCirclesComponent', () => {
-  let component: ChurchCirclesComponent;
-  let fixture: ComponentFixture<ChurchCirclesComponent>;
+describe('ToolOfflineComponent', () => {
+  let component: ToolOfflineComponent;
+  let fixture: ComponentFixture<ToolOfflineComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChurchCirclesComponent ]
+      declarations: [ ToolOfflineComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChurchCirclesComponent);
+    fixture = TestBed.createComponent(ToolOfflineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

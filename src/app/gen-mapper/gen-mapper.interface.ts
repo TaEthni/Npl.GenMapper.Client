@@ -17,6 +17,7 @@ export interface GMField {
     header: string;
     initial: number;
     initialTranslationCode?: string;
+    localeLabel?: string;
     type: string;
     svg?: GMSvgSet;
     inheritsFrom?: string;
@@ -26,6 +27,9 @@ export interface GMField {
 
 export interface GMTemplate {
     name: string;
+    title: string;
+    version: string;
+    format: string;
     translations: any;
     settings: any;
     svg: any;

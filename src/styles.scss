@@ -15,10 +15,26 @@ a {
     text-decoration: none;
 
     &,&:visited {
-        color: mat-color($accent);
+        color: mat-color($primary);
     }
 
     &:hover {
         opacity: 0.5;
+    }
+}
+
+.mat-form-field[no-error] {
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+        
+        .mat-form-field-underline {
+            bottom: 0;
+        }
+    }
+}
+
+.mat-form-field[no-label] {
+    .mat-form-field-infix {
+        border: 0;
     }
 }

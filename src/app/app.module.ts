@@ -6,6 +6,8 @@ import { CoreModule } from '@core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
+import { SharedModule } from '@shared/shared.module';
+import { ToolsModule } from './tools/tools.module';
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { HomeModule } from './home/home.module';
         ReactiveFormsModule,
         CoreModule,
         HomeModule,
+        ToolsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
