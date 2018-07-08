@@ -14,7 +14,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UnverifiedEmailComponent } from './unverified-email/unverified-email.component';
-import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
     imports: [
@@ -33,7 +32,6 @@ import { LandingComponent } from './landing/landing.component';
         UnverifiedEmailComponent,
         ForbiddenComponent,
         NavigationComponent,
-        LandingComponent,
     ],
     exports: [
         NavigationComponent
