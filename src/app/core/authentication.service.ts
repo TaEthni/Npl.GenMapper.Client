@@ -48,6 +48,12 @@ export class AuthenticationService {
     }
 
     public refreshUser(): void {
+        const token = this.tokenService.getValue();
+
+        if (!token.isAuthenticated) {
+            return;
+        }
+
         this.http.get<ResponseData>(BaseUrl + 'auth')
             .subscribe(response => {
                 this._user.next(response.data);

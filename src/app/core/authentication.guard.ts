@@ -1,25 +1,34 @@
 import { Inject, Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { WindowRefService } from '@core/windowref.service';
 import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
-    constructor(private tokenService: TokenService,
+    constructor(
+        private tokenService: TokenService,
         @Inject(WindowRefService) private windowRef: WindowRefService,
-        private router: Router) {
-    }
+        private router: Router
+    ) { }
 
-    public canActivate(): boolean {
-        const token = this.tokenService.get().value;
+    public canActivate(route: ActivatedRouteSnapshot): boolean {
+        const token = this.tokenService.getValue();
+        const template = route.data.template;
 
         if (!token || !token.isAuthenticated) {
-            // this.windowRef.location.assign('/authenticate');
+
+            if (template) {
+                this.router.navigate([template.name, 'offline']);
+            }
+
             return false;
         }
 
         if (new Date(token.expires) < new Date()) {
-            // this.windowRef.location.assign('/authenticate');
+
+            if (template) {
+                this.router.navigate([template.name, 'offline']);
+            }
             return false;
         }
 

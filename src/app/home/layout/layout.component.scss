@@ -2,9 +2,15 @@
     display: flex;
     flex-direction: column;
 
-    .mat-drawer-container {
+    .mat-sidenav-container {
         min-height: 100vh;
         width: 100%;
+    }
+
+    ::ng-deep {
+        .mat-sidenav-content {
+            min-height: 100vh;
+        }
     }
 
     main {
@@ -13,15 +19,23 @@
         height: 100%;
     }
 
+    header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 10;
+        pointer-events: none;
+    }
 
-    .example-container {
-        width: 500px;
-        height: 300px;
-        border: 1px solid rgba(0, 0, 0, 0.5);
-      }
+    .mat-toolbar {
+        background-color: transparent;
+        pointer-events: none;
+        position: relative;
 
-      .example-sidenav {
-        padding: 20px;
-      }
-
+        button {
+            pointer-events: all;
+        }
+    }
 }

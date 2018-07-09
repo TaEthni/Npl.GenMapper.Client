@@ -1,0 +1,14 @@
+@import '~styles/colors';
+
+:host {
+    display: flex;
+    overflow: auto;
+    
+    .add-button {
+        margin-right: 16px;
+    }
+
+    .mat-list-item.active {
+        background-color: rgba(0, 0, 0, 0.1)
+    }
+}
