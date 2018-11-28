@@ -2702,7 +2702,8 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.ngOnInit = function () {
         this._createForm();
     };
-    LoginComponent.prototype.onSubmit = function () {
+    LoginComponent.prototype.onSubmit = function (event) {
+        event.preventDefault();
         if (this.form.valid) {
             this.authService.authenticate(this.form.value);
         }

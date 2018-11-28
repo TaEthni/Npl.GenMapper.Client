@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
         this._createForm();
     }
 
-    public onSubmit(): void {
+    public onSubmit(event: Event): void {
+        event.preventDefault();
         if (this.form.valid) {
             this.authService.authenticate(this.form.value);
         }
