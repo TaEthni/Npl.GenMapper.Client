@@ -55,19 +55,23 @@
                 position="end"
                 fxLayout="column">
 
-        <mat-toolbar color="none">
-            <button mat-mini-fab
-                    (click)="onCreateDocument()">
-                <mat-icon>add</mat-icon>
-            </button>
-            <div fxFlex></div>
-            <ng-container i18n="@@en-Documents">Documents</ng-container>
-        </mat-toolbar>
+        <div fxFlex
+             fxLayout="column">
 
-        <app-tool-nav-list fxFlex
-                           (select)="onSelectDocument($event)"
-                           [documents]="documents"
-                           [documentId]="document?.id"></app-tool-nav-list>
+            <mat-toolbar color="none">
+                <button mat-mini-fab
+                        (click)="onCreateDocument()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <div fxFlex></div>
+                <ng-container i18n="@@en-Documents">Documents</ng-container>
+            </mat-toolbar>
+
+            <app-tool-nav-list fxFlex
+                               (select)="onSelectDocument($event)"
+                               [documents]="documents"
+                               [documentId]="document?.id"></app-tool-nav-list>
+        </div>
     </mat-drawer>
 
     <mat-drawer-content fxLayout="column">

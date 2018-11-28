@@ -3,9 +3,13 @@
 :host {
     display: flex;
     overflow: auto;
-    
+
     .add-button {
         margin-right: 16px;
+    }
+
+    .mat-nav-list {
+        flex: 1;
     }
 
     .mat-list-item.active {
