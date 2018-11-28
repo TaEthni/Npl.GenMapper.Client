@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { DocumentDto } from '@shared/document.model';
 import { FormGroup } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
     templateUrl: './tool-nav-list.component.html',
     styleUrls: ['./tool-nav-list.component.scss']
 })
-export class ToolNavListComponent {
+export class ToolNavListComponent implements OnInit {
 
     public form: FormGroup;
 
@@ -22,5 +22,8 @@ export class ToolNavListComponent {
 
     public onSelectDocument(doc: DocumentDto): void {
         this.select.emit(doc);
+    }
+
+    public ngOnInit(): void {
     }
 }

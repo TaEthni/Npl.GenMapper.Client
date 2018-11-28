@@ -1,4 +1,4 @@
-<mat-nav-list fxFlex>
+<mat-nav-list>
     <ng-container *ngFor="let doc of (documents | sortByDate: 'updatedAt'); let last=last">
         <mat-list-item (click)="onSelectDocument(doc)"
                        [class.active]="doc.id === documentId"
