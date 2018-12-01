@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+        font-size: 56px;
+    }
+
+    @media screen and (min-width: 768px) {
+        img {
+            width: 250px;
+            height: 250px;
+        }
+    }
+}

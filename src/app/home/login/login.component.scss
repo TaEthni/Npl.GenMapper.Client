@@ -1,7 +1,7 @@
 @import '~styles/colors';
 
 :host {
-    display: flex;
+    display: column;
     margin: 100px auto 0 auto;
 
     .error {
