@@ -18,6 +18,12 @@ import { MovementeerTemplate } from './templates/movementeer';
 import { FourFieldsTemplate } from './templates/four-fields';
 import { ToolResolver } from './tools/tool.resolver';
 import { ToolOfflineComponent } from './tools/tool-offline/tool-offline.component';
+import { ResetPasswordComponent } from './home/reset-password/reset-password.component';
+import { RecoverPasswordComponent } from './home/recover-password/recover-password.component';
+import { SignupComponent } from './home/signup/signup.component';
+import { DetailComponent } from './account/detail/detail.component';
+import { ResetPasswordExpiredComponent } from './home/reset-password-expired/reset-password-expired.component';
+import { UserResolver } from '@core/user.resolver';
 
 const appRoutes: Routes = [
     {
@@ -35,6 +41,18 @@ const appRoutes: Routes = [
             path: 'logout',
             component: LogoutComponent
         }, {
+            path: 'signup',
+            component: SignupComponent
+        }, {
+            path: 'recover-password',
+            component: RecoverPasswordComponent
+        }, {
+            path: 'reset-password/:token',
+            component: ResetPasswordComponent,
+        }, {
+            path: 'reset-password-expired',
+            component: ResetPasswordExpiredComponent
+        }, {
             path: 'forbidden',
             component: ForbiddenComponent
         }, {
@@ -48,146 +66,154 @@ const appRoutes: Routes = [
     {
         path: '',
         component: LayoutComponent,
-        children: [{
-            path: 'tools',
-            component: ToolsComponent
-        }, {
-            path: ChurchCirclesTemplate.name,
-            component: ToolContainerComponent,
-            children: [
-                {
-                    path: 'offline',
-                    component: ToolOfflineComponent,
-                    data: {
-                        template: ChurchCirclesTemplate
-                    }
-                },
-                {
-                    path: ':id',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
-                    },
-                    data: {
-                        template: ChurchCirclesTemplate
-                    }
-                },
-                {
-                    path: '',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
-                    },
-                    data: {
-                        template: ChurchCirclesTemplate
-                    }
+        children: [
+            {
+                path: 'account',
+                component: DetailComponent,
+                resolve: {
+                    user: UserResolver
                 }
-            ]
-        }, {
-            path: FourFieldsTemplate.name,
-            component: ToolContainerComponent,
-            children: [
-                {
-                    path: 'offline',
-                    component: ToolOfflineComponent,
-                    data: {
-                        template: FourFieldsTemplate
-                    }
-                },
-                {
-                    path: '',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
+            },
+            {
+                path: 'tools',
+                component: ToolsComponent
+            }, {
+                path: ChurchCirclesTemplate.name,
+                component: ToolContainerComponent,
+                children: [
+                    {
+                        path: 'offline',
+                        component: ToolOfflineComponent,
+                        data: {
+                            template: ChurchCirclesTemplate
+                        }
                     },
-                    data: {
-                        template: FourFieldsTemplate
-                    }
-                },
-                {
-                    path: ':id',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
+                    {
+                        path: ':id',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: ChurchCirclesTemplate
+                        }
                     },
-                    data: {
-                        template: FourFieldsTemplate
+                    {
+                        path: '',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: ChurchCirclesTemplate
+                        }
                     }
-                }
-            ]
-        }, {
-            path: DisciplesTemplate.name,
-            component: ToolContainerComponent,
-            children: [
-                {
-                    path: 'offline',
-                    component: ToolOfflineComponent,
-                    data: {
-                        template: DisciplesTemplate
-                    }
-                },
-                {
-                    path: '',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
+                ]
+            }, {
+                path: FourFieldsTemplate.name,
+                component: ToolContainerComponent,
+                children: [
+                    {
+                        path: 'offline',
+                        component: ToolOfflineComponent,
+                        data: {
+                            template: FourFieldsTemplate
+                        }
                     },
-                    data: {
-                        template: DisciplesTemplate
-                    }
-                },
-                {
-                    path: ':id',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
+                    {
+                        path: '',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: FourFieldsTemplate
+                        }
                     },
-                    data: {
-                        template: DisciplesTemplate
+                    {
+                        path: ':id',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: FourFieldsTemplate
+                        }
                     }
-                }
-            ]
-        }, {
-            path: MovementeerTemplate.name,
-            component: ToolContainerComponent,
-            children: [
-                {
-                    path: 'offline',
-                    component: ToolOfflineComponent,
-                    data: {
-                        template: MovementeerTemplate
-                    }
-                },
-                {
-                    path: '',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
+                ]
+            }, {
+                path: DisciplesTemplate.name,
+                component: ToolContainerComponent,
+                children: [
+                    {
+                        path: 'offline',
+                        component: ToolOfflineComponent,
+                        data: {
+                            template: DisciplesTemplate
+                        }
                     },
-                    data: {
-                        template: MovementeerTemplate
-                    }
-                },
-                {
-                    path: ':id',
-                    component: ToolComponent,
-                    canActivate: [AuthenticationGuard],
-                    resolve: {
-                        tool: ToolResolver
+                    {
+                        path: '',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: DisciplesTemplate
+                        }
                     },
-                    data: {
-                        template: MovementeerTemplate
+                    {
+                        path: ':id',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: DisciplesTemplate
+                        }
                     }
-                }
-            ]
-        }]
+                ]
+            }, {
+                path: MovementeerTemplate.name,
+                component: ToolContainerComponent,
+                children: [
+                    {
+                        path: 'offline',
+                        component: ToolOfflineComponent,
+                        data: {
+                            template: MovementeerTemplate
+                        }
+                    },
+                    {
+                        path: '',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: MovementeerTemplate
+                        }
+                    },
+                    {
+                        path: ':id',
+                        component: ToolComponent,
+                        canActivate: [AuthenticationGuard],
+                        resolve: {
+                            tool: ToolResolver
+                        },
+                        data: {
+                            template: MovementeerTemplate
+                        }
+                    }
+                ]
+            }]
     },
     {
         path: '**',

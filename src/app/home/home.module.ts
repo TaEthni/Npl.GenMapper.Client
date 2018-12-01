@@ -14,6 +14,12 @@ import { LogoutComponent } from './logout/logout.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UnverifiedEmailComponent } from './unverified-email/unverified-email.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { SignupComponent } from './signup/signup.component';
+import { ResetPasswordExpiredComponent } from './reset-password-expired/reset-password-expired.component';
+import { FeedbackDialogComponent } from './dialogs/feedback-dialog/feedback-dialog.component';
+import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
 
 @NgModule({
     imports: [
@@ -32,9 +38,19 @@ import { UnverifiedEmailComponent } from './unverified-email/unverified-email.co
         UnverifiedEmailComponent,
         ForbiddenComponent,
         NavigationComponent,
+        ResetPasswordComponent,
+        RecoverPasswordComponent,
+        SignupComponent,
+        ResetPasswordExpiredComponent,
+        FeedbackDialogComponent,
+        HelpDialogComponent,
     ],
     exports: [
         NavigationComponent
+    ],
+    entryComponents: [
+        FeedbackDialogComponent,
+        HelpDialogComponent
     ]
 })
 export class HomeModule { }

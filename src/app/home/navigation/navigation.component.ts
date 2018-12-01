@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '@shared/user.model';
+import { MatDialog } from '@angular/material';
+import { FeedbackDialogComponent } from '../dialogs/feedback-dialog/feedback-dialog.component';
+import { HelpDialogComponent } from '../dialogs/help-dialog/help-dialog.component';
 
 @Component({
     selector: 'app-navigation',
@@ -25,7 +28,9 @@ export class NavigationComponent implements OnInit {
         }
     ];
 
-    constructor() { }
+    constructor(
+        private dialog: MatDialog
+    ) { }
 
     public ngOnInit(): void {
     }
@@ -34,5 +39,13 @@ export class NavigationComponent implements OnInit {
         event.preventDefault();
         event.stopPropagation();
         window.open(url, '_blank');
+    }
+
+    public sendFeedback(): void {
+        this.dialog.open(FeedbackDialogComponent);
+    }
+
+    public help(): void {
+        this.dialog.open(HelpDialogComponent);
     }
 }

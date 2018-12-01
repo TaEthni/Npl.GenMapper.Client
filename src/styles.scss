@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~styles/colors';
+@import '~styles/mat-overrides';
 
 @include mat-core($typography);
 @include angular-material-theme($theme);
@@ -11,7 +12,7 @@ html,body {
     font-family: 'Roboto';
 }
 
-a {
+a:not(.mat-button) {
     text-decoration: none;
 
     &,&:visited {
@@ -26,7 +27,7 @@ a {
 .mat-form-field[no-error] {
     .mat-form-field-wrapper {
         padding-bottom: 0;
-        
+
         .mat-form-field-underline {
             bottom: 0;
         }

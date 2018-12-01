@@ -1,0 +1,10 @@
+@import '~styles/mixins';
+
+:host {
+    @include dialog();
+
+    a {
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
