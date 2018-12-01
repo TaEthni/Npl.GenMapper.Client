@@ -76,6 +76,18 @@
         </mat-list-item> -->
     </mat-nav-list>
 
+    <mat-nav-list>
+        <mat-list-item (click)="sendFeedback()">
+            <mat-icon matListIcon>feedback</mat-icon>
+            <h3 matLine>Send Feedback</h3>
+        </mat-list-item>
+
+        <mat-list-item (click)="help()">
+            <mat-icon matListIcon>help</mat-icon>
+            <h3 matLine>Help</h3>
+        </mat-list-item>
+    </mat-nav-list>
+
     <mat-divider></mat-divider>
 
     <mat-nav-list>

@@ -18,6 +18,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { SignupComponent } from './signup/signup.component';
 import { ResetPasswordExpiredComponent } from './reset-password-expired/reset-password-expired.component';
+import { FeedbackDialogComponent } from './dialogs/feedback-dialog/feedback-dialog.component';
+import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
 
 @NgModule({
     imports: [
@@ -40,9 +42,15 @@ import { ResetPasswordExpiredComponent } from './reset-password-expired/reset-pa
         RecoverPasswordComponent,
         SignupComponent,
         ResetPasswordExpiredComponent,
+        FeedbackDialogComponent,
+        HelpDialogComponent,
     ],
     exports: [
         NavigationComponent
+    ],
+    entryComponents: [
+        FeedbackDialogComponent,
+        HelpDialogComponent
     ]
 })
 export class HomeModule { }
