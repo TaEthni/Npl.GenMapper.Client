@@ -8,3 +8,5 @@ $primary: mat-palette($mat-blue, 800, 100, 900);
 $accent:  mat-palette($mat-cyan, 600, 100, 900);
 $warn:    mat-palette($mat-red, 600, 100, 900);
 $theme: mat-light-theme($primary, $accent, $warn);
+
+$green: #0bbb0b;
