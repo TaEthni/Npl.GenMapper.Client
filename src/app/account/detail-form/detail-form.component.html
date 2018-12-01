@@ -1,0 +1,93 @@
+<form fxLayout="column"
+      [formGroup]="form"
+      (submit)="onSubmit($event)"
+      fxLayoutGap="24px"
+      *ngIf="form">
+    <h1>Account Details</h1>
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput
+               formControlName="email"
+               type="email"
+               placeholder="name@example.com"
+               required />
+
+        <mat-error *ngIf="form.controls.email.errors?.required">
+            This field is required
+        </mat-error>
+
+        <mat-error *ngIf="form.controls.email.errors?.emailInUse">
+            {{form.controls.email.errors?.emailInUse}}
+        </mat-error>
+
+        <mat-error *ngIf="form.controls.email.errors?.pattern">
+            Please use valid email format
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput
+               formControlName="username"
+               type="text"
+               autocomplete="off" />
+
+        <mat-hint>
+            Unique username visible to public
+        </mat-hint>
+
+        <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
+            {{form.controls.username.errors?.usernameInUse}}
+        </mat-error>
+    </mat-form-field>
+
+    <hr />
+
+
+    <h1>Change Password</h1>
+
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput
+               formControlName="password"
+               autocomplete="off"
+               type="password" />
+
+        <mat-error *ngIf="form.controls.password.errors?.minlength">
+            Minimum length is {{form.controls.password.errors?.minlength.requiredLength}} characters
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Confirm Password</mat-label>
+        <input matInput
+               formControlName="confirm"
+               type="password"
+               autocomplete="off"
+               [required]="form.get('password').value" />
+
+        <mat-error *ngIf="form.controls.confirm.errors?.required">
+            This field is required
+        </mat-error>
+
+        <mat-error *ngIf="form.controls.confirm.errors?.invalidPasswordMatch">
+            Passwords do not match
+        </mat-error>
+
+        <mat-error *ngIf="form.controls.confirm.errors?.minlength">
+            Minimum length is {{form.controls.confirm.errors?.minlength.requiredLength}} characters
+        </mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row"
+         fxLayoutGap="15px"
+         *ngIf="form.dirty">
+        <button mat-raised-button
+                color="primary"
+                type="submit">Save</button>
+        <a mat-button
+           color="primary"
+           type="button"
+           [routerLink]="['/tools']">Cancel</a>
+    </div>
+</form>

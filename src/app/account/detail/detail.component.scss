@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    app-detail-form {
+        width: 70vw;
+        min-width: 300px;
+        max-width: 600px;
+    }
+
+    section {
+        margin-top: 100px;
+    }
+}

@@ -1,11 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BaseUrl } from '@core/entity.service';
+import { BaseUrl, EntityService } from '@core/entity.service';
 import { WindowRefService } from '@core/windowref.service';
 import { User } from '@shared/user.model';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { TokenService } from './token.service';
+import { EntityType } from '@shared/entity.model';
+import { map, tap } from 'rxjs/operators';
 
 
 
@@ -24,6 +26,7 @@ export class AuthenticationService {
     private _user: BehaviorSubject<User> = new BehaviorSubject(null);
 
     constructor(
+        private entityService: EntityService,
         private tokenService: TokenService,
         private http: HttpClient,
         private windowRef: WindowRefService,
@@ -36,15 +39,19 @@ export class AuthenticationService {
         return this._user.asObservable();
     }
 
-    public authenticate(config: LoginConfig): void {
+    public signup(value: User): Observable<User> {
+        value.entityType = EntityType.Users;
+        return this.entityService.create<User>(value);
+    }
+
+    public authenticate(config: LoginConfig): Observable<any> {
         const options = { headers: new HttpHeaders().set('Content-Type', 'application/json;charset=UTF-8') };
-        this.http
+        return this.http
             .post<ResponseData>(BaseUrl + 'auth', config)
-            .subscribe((responseData) => {
+            .pipe(tap((responseData) => {
                 this.tokenService.set(responseData.data);
                 this.refreshUser();
-                this.router.navigate(['']);
-            });
+            }));
     }
 
     public refreshUser(): void {
@@ -63,5 +70,19 @@ export class AuthenticationService {
     public logout(): void {
         this.tokenService.clear();
         this.router.navigate(['login']);
+    }
+
+    public resetPassword(token: string, options: { password: string }): Observable<ResponseData> {
+        return this.http
+            .post<ResponseData>(BaseUrl + 'reset/' + token, options);
+    }
+
+    public checkResetPasswordToken(token: string): Observable<boolean> {
+        return this.http.get<any>(BaseUrl + 'reset/' + token);
+    }
+
+    public recoverPassword(options: { email: string }): Observable<ResponseData> {
+        return this.http
+            .post<ResponseData>(BaseUrl + 'recover', options);
     }
 }
