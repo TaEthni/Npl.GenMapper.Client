@@ -25,8 +25,19 @@
                        type="password"
                        placeholder="Password"
                        formControlName="password">
+
+                <mat-hint align="end">
+                    <a [routerLink]="['/recover-password']">
+                        Forgot Password?
+                    </a>
+                </mat-hint>
             </mat-form-field>
 
+        </mat-card-content>
+
+        <mat-card-content *ngIf="showError"
+                          class="error">
+            <p>Email or password was invalid</p>
         </mat-card-content>
 
         <mat-card-actions fxLayout="row">
@@ -44,19 +55,7 @@
             </a>
             <div fxFlex></div>
             <a mat-button
-               type="button"
-               [routerLink]="['/recover-password']">
-                Forgot Password?
-            </a>
+               [routerLink]="['/signup']">Create an account</a>
         </mat-card-actions>
     </mat-card>
-
-    <div fxLayout="row"
-         fxLayoutAlign="center center"
-         fxLayoutGap="24px">
-        <p>Don't have an account?</p>
-        <a mat-button
-           color="accent"
-           [routerLink]="['/signup']">Create an account</a>
-    </div>
 </form>

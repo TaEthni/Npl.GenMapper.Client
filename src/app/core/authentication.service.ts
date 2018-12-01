@@ -7,7 +7,7 @@ import { User } from '@shared/user.model';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { TokenService } from './token.service';
 import { EntityType } from '@shared/entity.model';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 
 
@@ -44,15 +44,14 @@ export class AuthenticationService {
         return this.entityService.create<User>(value);
     }
 
-    public authenticate(config: LoginConfig): void {
+    public authenticate(config: LoginConfig): Observable<any> {
         const options = { headers: new HttpHeaders().set('Content-Type', 'application/json;charset=UTF-8') };
-        this.http
+        return this.http
             .post<ResponseData>(BaseUrl + 'auth', config)
-            .subscribe((responseData) => {
+            .pipe(tap((responseData) => {
                 this.tokenService.set(responseData.data);
                 this.refreshUser();
-                this.router.navigate(['']);
-            });
+            }));
     }
 
     public refreshUser(): void {

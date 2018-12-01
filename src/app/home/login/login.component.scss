@@ -1,6 +1,12 @@
+@import '~styles/colors';
+
 :host {
     display: flex;
     margin: 100px auto 0 auto;
+
+    .error {
+        color: mat-color($warn);
+    }
 
     .mat-card {
         width: 70vw;

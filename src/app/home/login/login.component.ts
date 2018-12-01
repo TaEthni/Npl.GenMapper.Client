@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '@core/authentication.service';
 import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -11,9 +12,11 @@ import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
 export class LoginComponent implements OnInit {
 
     public form: FormGroup;
+    public showError: boolean;
 
     constructor(
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
+        private router: Router,
     ) { }
 
     public ngOnInit(): void {
@@ -22,13 +25,18 @@ export class LoginComponent implements OnInit {
 
     public onSubmit(event: Event): void {
         event.preventDefault();
+        this.showError = false;
 
         if (this.form.valid) {
-            this.authService.authenticate(this.form.value);
+            this.authService.authenticate(this.form.value).subscribe(
+                success => {
+                    this.router.navigate(['']);
+                },
+                error => {
+                    this.showError = true;
+                }
+            );
         }
-    }
-
-    public cancel(): void {
     }
 
     private _createForm(): void {
