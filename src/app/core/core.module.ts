@@ -8,6 +8,7 @@ import { TokenService } from '@core/token.service';
 import { WindowRefService } from '@core/windowref.service';
 import { EntityService } from '@core/entity.service';
 import { DownloadService } from '@core/download.service';
+import { UserResolver } from './user.resolver';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { DownloadService } from '@core/download.service';
         TokenService,
         WindowRefService,
         EntityService,
-        DownloadService
+        DownloadService,
+        UserResolver
     ]
 })
 export class CoreModule { }

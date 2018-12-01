@@ -5,4 +5,5 @@ export class User extends Entity {
     public email: string;
     public id: string;
     public entityType: EntityType = EntityType.Users;
+    public password?: string;
 }

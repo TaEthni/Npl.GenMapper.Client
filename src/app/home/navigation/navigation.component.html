@@ -34,6 +34,14 @@
 <section>
     <mat-nav-list>
 
+        <ng-container *ngIf="authenticated">
+            <mat-list-item routerLink="/account"
+                           routerLinkActive="active">
+                <h3 matLine> Account </h3>
+                <mat-icon class="arrow">chevron_right</mat-icon>
+            </mat-list-item>
+        </ng-container>
+
         <mat-list-item routerLink="/tools"
                        routerLinkActive="active">
             <h3 matLine> Tools </h3>

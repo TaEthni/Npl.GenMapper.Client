@@ -23,7 +23,7 @@ export class SignupComponent extends Unsubscribable implements OnInit {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        private authSerivce: AuthenticationService
+        private authService: AuthenticationService
     ) { super(); }
 
     public ngOnInit(): void {
@@ -48,7 +48,7 @@ export class SignupComponent extends Unsubscribable implements OnInit {
         event.preventDefault();
 
         if (this.form.valid) {
-            this.authSerivce
+            this.authService
                 .signup(this.form.value)
                 .subscribe(
                     success => {

@@ -23,6 +23,7 @@ import { RecoverPasswordComponent } from './home/recover-password/recover-passwo
 import { SignupComponent } from './home/signup/signup.component';
 import { DetailComponent } from './account/detail/detail.component';
 import { ResetPasswordExpiredComponent } from './home/reset-password-expired/reset-password-expired.component';
+import { UserResolver } from '@core/user.resolver';
 
 const appRoutes: Routes = [
     {
@@ -69,6 +70,9 @@ const appRoutes: Routes = [
             {
                 path: 'account',
                 component: DetailComponent,
+                resolve: {
+                    user: UserResolver
+                }
             },
             {
                 path: 'tools',
