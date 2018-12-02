@@ -4,6 +4,10 @@
     display: column;
     margin: 100px auto 0 auto;
 
+    app-npl-logo {
+        margin-top: -64px;
+    }
+
     .error {
         color: mat-color($warn);
     }
