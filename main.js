@@ -3818,14 +3818,16 @@ var ResetPasswordComponent = /** @class */ (function (_super) {
     }
     ResetPasswordComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.params.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe(function (params) {
+        this.route.params.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this.unsubscribe)).subscribe(function (params) {
             _this.token = params.token;
-            _this.authService.checkResetPasswordToken(_this.token)
-                .subscribe(function (success) {
-                _this.createForm();
-            }, function (error) {
-                _this.router.navigate(['/reset-password-expired']);
-            });
+            if (_this.token) {
+                _this.authService.checkResetPasswordToken(_this.token)
+                    .subscribe(function (success) {
+                    _this.createForm();
+                }, function (error) {
+                    _this.router.navigate(['/reset-password-expired']);
+                });
+            }
         });
     };
     ResetPasswordComponent.prototype.createForm = function () {
