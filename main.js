@@ -1439,8 +1439,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-// export const BaseUrl = 'http://api.noplaceleft.tools/';
-var BaseUrl = 'http://localhost:9000/';
+var BaseUrl = 'http://api.noplaceleft.tools/';
 var EntityService = /** @class */ (function () {
     function EntityService(http) {
         this.http = http;
