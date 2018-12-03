@@ -322,6 +322,12 @@
     .node text {
         font: 15px sans-serif;
         text-anchor: middle;
+
+        &.node-name,
+        &.node-place,
+        &.node-date {
+            font-size: 12px;
+        }
     }
 
     .node:hover > rect, .node:hover > line {
