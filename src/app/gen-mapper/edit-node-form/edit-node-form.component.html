@@ -37,6 +37,26 @@
                         </mat-form-field>
                     </ng-container>
 
+                    <ng-container *ngIf="field.type === 'multiSelect'">
+                        <mat-form-field floatPlaceholder="never"
+                                        floatLabel="never"
+                                        no-error
+                                        no-label>
+                            <mat-select [formControl]="form.get(field.header)"
+                                        multiple
+                                        [placeholder]="form.get(field.header).value.join(' ')"
+                                        #temp>
+                                <mat-select-trigger>
+                                    {{form.get(field.header).value.join(' ')}}
+                                </mat-select-trigger>
+                                <mat-option *ngFor="let value of field.values"
+                                            [value]="value.value">
+                                    #{{value.value}} {{value.localeLabel}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
                     <ng-container *ngIf="field.type === 'checkbox'">
                         <mat-slide-toggle [formControl]="form.get(field.header)"></mat-slide-toggle>
                     </ng-container>

@@ -39,7 +39,14 @@ export const ChurchCirclesTemplate = {
                     'active': 'Active',
                     'initialLeadersName': "Leader's Name",
                     'initialPlace': 'Place',
-                    'initialDate': 'Date'
+                    'initialDate': 'Date',
+                    'threeThirdsPastoralCare': 'Pastoral Care',
+                    'threeThirdsWorship': 'Worship',
+                    'threeThirdsAccountability': 'Accountability',
+                    'threeThirdsVisionCasting': 'Vision Casting',
+                    'threeThirdsBibleTeaching': 'Bible Teaching',
+                    'threeThirdsPractice': 'Practice',
+                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
                 }
             }
         },
@@ -74,7 +81,14 @@ export const ChurchCirclesTemplate = {
                     'active': 'aktiv',
                     'initialLeadersName': 'Leiter',
                     'initialPlace': 'Ort',
-                    'initialDate': 'Datum'
+                    'initialDate': 'Datum',
+                    'threeThirdsPastoralCare': 'Pastoral Care',
+                    'threeThirdsWorship': 'Worship',
+                    'threeThirdsAccountability': 'Accountability',
+                    'threeThirdsVisionCasting': 'Vision Casting',
+                    'threeThirdsBibleTeaching': 'Bible Teaching',
+                    'threeThirdsPractice': 'Practice',
+                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
                 }
             }
         },
@@ -109,7 +123,14 @@ export const ChurchCirclesTemplate = {
                     'date': 'Fecha de Inicio (Ex. 2017-01)',
                     'initialDate': 'Fecha',
                     'threeThirds': 'Elementos del proceso de 3/3  (Ver ayuda para detalles):',
-                    'active': 'Activo'
+                    'active': 'Activo',
+                    'threeThirdsPastoralCare': 'Pastoral Care',
+                    'threeThirdsWorship': 'Worship',
+                    'threeThirdsAccountability': 'Accountability',
+                    'threeThirdsVisionCasting': 'Vision Casting',
+                    'threeThirdsBibleTeaching': 'Bible Teaching',
+                    'threeThirdsPractice': 'Practice',
+                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
                 }
             }
         },
@@ -143,7 +164,14 @@ export const ChurchCirclesTemplate = {
                     'active': 'Aktivní',
                     'initialLeadersName': 'Jméno',
                     'initialPlace': 'Místo',
-                    'initialDate': 'Datum'
+                    'initialDate': 'Datum',
+                    'threeThirdsPastoralCare': 'Pastoral Care',
+                    'threeThirdsWorship': 'Worship',
+                    'threeThirdsAccountability': 'Accountability',
+                    'threeThirdsVisionCasting': 'Vision Casting',
+                    'threeThirdsBibleTeaching': 'Bible Teaching',
+                    'threeThirdsPractice': 'Practice',
+                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
                 }
             }
         }
@@ -497,7 +525,16 @@ export const ChurchCirclesTemplate = {
         {
             'header': 'threeThirds',
             'initial': '1234567',
-            'type': 'text',
+            'type': 'multiSelect',
+            'values': [
+                { value: '1', header: 'threeThirdsPastoralCare' },
+                { value: '2', header: 'threeThirdsWorship' },
+                { value: '3', header: 'threeThirdsAccountability' },
+                { value: '4', header: 'threeThirdsVisionCasting' },
+                { value: '5', header: 'threeThirdsBibleTeaching' },
+                { value: '6', header: 'threeThirdsPractice' },
+                { value: '7', header: 'threeThirdsGoalSetting' },
+            ],
             'svg': {
                 'type': 'text',
                 'attributes': {

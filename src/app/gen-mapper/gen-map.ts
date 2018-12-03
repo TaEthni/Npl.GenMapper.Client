@@ -14,6 +14,8 @@ export const MapStyles = {
     textMargin: 6
 };
 
+const isNumberReg = /\d/;
+
 export class GenMap {
     public initialCsv: string;
     public csvHeader: string;
@@ -60,8 +62,35 @@ export class GenMap {
         this.data = this._parseCsvData(this.content);
         this.nodes = null;
 
+        this.patchNodes(this.data);
+
         this.originalPosition();
         this.redraw();
+    }
+
+    public patchNodes(data: any[]): void {
+        data.forEach(item => {
+
+            // This is for old data.
+            if (item.hasOwnProperty('threeThirds')) {
+                if (typeof item.threeThirds === 'string') {
+                    item.threeThirds = item.threeThirds.replace(/\W/, '');
+                    item.threeThirds = item.threeThirds.split('');
+                }
+
+                const filtered = item.threeThirds.filter(key => isNumberReg.test(key));
+                const value = [];
+
+                // dedupe old data
+                filtered.forEach((a) => {
+                    if (!value.includes(a)) {
+                        value.push(a);
+                    }
+                });
+
+                item.threeThirds = value;
+            }
+        });
     }
 
     public onZoomInClick(): void {
@@ -257,6 +286,8 @@ export class GenMap {
             this.data = this._parseCsvData(this.initialCsv);
         }
 
+        this.patchNodes(this.data);
+
         this.nodes = null;
 
         this.originalPosition();
@@ -287,7 +318,6 @@ export class GenMap {
             ? i18next.t('messages.saveAsInSafari')
             : i18next.t('messages.saveAs');
 
-        console.log(promptMessage)
         // const saveName = window.prompt(promptMessage, this.doc + '.csv')
         // if (saveName === null) return
 
@@ -461,6 +491,12 @@ export class GenMap {
             // } else {
             //     return d.data[field.header];
             // }
+
+            // Only for old data when threeThirds was a string.
+            if (field.header === 'threeThirds' && Array.isArray(d.data[field.header])) {
+                return d.data[field.header].join('');
+            }
+
             return d.data[field.header];
         });
         if (field.svg.type === 'image') {
