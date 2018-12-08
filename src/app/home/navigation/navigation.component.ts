@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '@shared/user.model';
 import { MatDialog } from '@angular/material';
-import { FeedbackDialogComponent } from '../dialogs/feedback-dialog/feedback-dialog.component';
-import { HelpDialogComponent } from '../dialogs/help-dialog/help-dialog.component';
+import { SupportDialogComponent, SupportDialogConfig } from '../support-dialog/support-dialog.component';
 
 @Component({
     selector: 'app-navigation',
@@ -42,10 +41,22 @@ export class NavigationComponent implements OnInit {
     }
 
     public sendFeedback(): void {
-        this.dialog.open(FeedbackDialogComponent);
+        this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
+            data: {
+                authenticated: this.authenticated,
+                user: this.user,
+                isFeedback: true,
+            }
+        });
     }
 
     public help(): void {
-        this.dialog.open(HelpDialogComponent);
+        this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
+            data: {
+                authenticated: this.authenticated,
+                user: this.user,
+                isFeedback: false,
+            }
+        });
     }
 }

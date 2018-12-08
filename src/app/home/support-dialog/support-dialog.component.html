@@ -1,0 +1,82 @@
+<div mat-dialog-title>
+    {{data.isFeedback ? 'Send Feedback' : 'Need Help?'}}
+</div>
+<div mat-dialog-content>
+
+    <form fxLayout="column"
+          fxLayoutGap="24px"
+          [formGroup]="form">
+
+        <ng-container *ngIf="!data.authenticated">
+            <mat-form-field>
+                <mat-label>
+                    Name
+                </mat-label>
+                <input matInput
+                       formControlName="name"
+                       placeholder="Name" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>
+                    Email
+                </mat-label>
+                <input matInput
+                       required
+                       formControlName="email"
+                       placeholder="Email" />
+
+                <mat-error *ngIf="form.controls.email.errors?.pattern">
+                    Please use valid email format
+                </mat-error>
+
+                <mat-error *ngIf="form.controls.email.errors?.required">
+                    This field is required
+                </mat-error>
+            </mat-form-field>
+        </ng-container>
+
+        <mat-form-field>
+            <textarea matInput
+                      required
+                      formControlName="content"
+                      placeholder="{{data.isFeedback ? 'Feedback' : 'How can we help you?'}}"
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="30"></textarea>
+
+            <mat-error *ngIf="form.controls.content.errors?.required">
+                This field is required
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+    <p>Or send an email to:</p>
+    <ng-container *ngIf="data.isFeedback; then feedbackEmail else supportEmail"></ng-container>
+
+    <ng-template #feedbackEmail>
+        <pre><code>feedback@noplaceleft.tools</code></pre>
+    </ng-template>
+
+    <ng-template #supportEmail>
+        <pre><code>support@noplaceleft.tools</code></pre>
+    </ng-template>
+</div>
+
+<div mat-dialog-actions
+     fxLayoutAlign="end"
+     fxLayoutGap="25px">
+
+    <button mat-raised-button
+            color="primary"
+            type="button"
+            (click)="onSubmit()">
+        Send
+    </button>
+
+    <button mat-button
+            color="primary"
+            mat-dialog-close>
+        CLOSE
+    </button>
+</div>
