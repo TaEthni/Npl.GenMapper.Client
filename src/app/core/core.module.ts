@@ -9,6 +9,7 @@ import { WindowRefService } from '@core/windowref.service';
 import { EntityService } from '@core/entity.service';
 import { DownloadService } from '@core/download.service';
 import { UserResolver } from './user.resolver';
+import { SupportService } from './support.service';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { UserResolver } from './user.resolver';
         WindowRefService,
         EntityService,
         DownloadService,
-        UserResolver
+        UserResolver,
+        SupportService
     ]
 })
 export class CoreModule { }
