@@ -62,9 +62,14 @@ export class AuthenticationService {
         }
 
         this.http.get<ResponseData>(BaseUrl + 'auth')
-            .subscribe(response => {
-                this._user.next(response.data);
-            });
+            .subscribe(
+                response => {
+                    this._user.next(response.data);
+                },
+                error => {
+                    this.tokenService.set('');
+                }
+            );
     }
 
     public logout(): void {

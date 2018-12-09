@@ -37,13 +37,17 @@ export class LayoutComponent extends Unsubscribable implements OnInit {
 
         this._layoutService.setSidenav(this.matSidenav);
 
-        this._tokenService.get().subscribe(token => {
-            this.isAuthenticated = token.isAuthenticated;
-        });
+        this._tokenService.get()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(token => {
+                this.isAuthenticated = token.isAuthenticated;
+            });
 
-        this._authService.getUser().subscribe(user => {
-            this.user = user;
-        });
+        this._authService.getUser()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(user => {
+                this.user = user;
+            });
 
         this._authService.refreshUser();
 
