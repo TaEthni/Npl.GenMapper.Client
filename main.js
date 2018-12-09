@@ -1223,6 +1223,8 @@ var AuthenticationService = /** @class */ (function () {
         this.http.get(_core_entity_service__WEBPACK_IMPORTED_MODULE_3__["BaseUrl"] + 'auth')
             .subscribe(function (response) {
             _this._user.next(response.data);
+        }, function (error) {
+            _this.tokenService.set('');
         });
     };
     AuthenticationService.prototype.logout = function () {
@@ -3153,10 +3155,14 @@ var LayoutComponent = /** @class */ (function (_super) {
     LayoutComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._layoutService.setSidenav(this.matSidenav);
-        this._tokenService.get().subscribe(function (token) {
+        this._tokenService.get()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this.unsubscribe))
+            .subscribe(function (token) {
             _this.isAuthenticated = token.isAuthenticated;
         });
-        this._authService.getUser().subscribe(function (user) {
+        this._authService.getUser()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this.unsubscribe))
+            .subscribe(function (user) {
             _this.user = user;
         });
         this._authService.refreshUser();
