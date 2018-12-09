@@ -11,22 +11,25 @@ export const FourFieldsTemplate = {
         en: {
             translation: {
                 template: {
-                    helpLegend: '<img src="genmapper-node-example.png" style="float:right;margin:10px;margin-left:0px;" alt="legend"><h3>Legend</h3><p>There are 5 squares in the diagram. They stand for:<br>1 - # of unbelievers<br>2 - # of believers<br>3 - # of people in accountability group<br>4 - is the group a church?<br>5 - # of people helping start other groups<br></p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
-                    name: "Leader's Name",
-                    coach: 'Coach',
-                    field1: 'Field 1 (# unbelievers)',
-                    field2: 'Field 2 (# believers)',
-                    field3: 'Field 3 (# accountable)',
-                    field4: 'Field 4 (church?)',
-                    field5: 'Field 5 (# reproducing)',
-                    placeDate: 'Place & Date',
-                    active: 'Active'
+                    'translationLabel': 'English',
+                    // tslint:disable-next-line:max-line-length
+                    'helpLegend': '<img src="genmapper-node-example.png" style="float:right;margin:10px;margin-left:0px;" alt="legend"><h3>Legend</h3><p>There are 5 squares in the diagram. They stand for:<br>1 - # of unbelievers<br>2 - # of believers<br>3 - # of people in accountability group<br>4 - is the group a church?<br>5 - # of people helping start other groups<br></p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
+                    'name': 'Leader\'s Name',
+                    'coach': 'Coach',
+                    'field1': 'Field 1 (# unbelievers)',
+                    'field2': 'Field 2 (# believers)',
+                    'field3': 'Field 3 (# accountable)',
+                    'field4': 'Field 4 (church?)',
+                    'field5': 'Field 5 (# reproducing)',
+                    'placeDate': 'Place & Date',
+                    'active': 'Active'
                 }
             }
         },
         zh: {
             translation: {
                 template: {
+                    'translationLabel': '中文',
                     'name': '带领者的名字',
                     'coach': '教练',
                     'field1': '板块1（#非信徒人数）',
