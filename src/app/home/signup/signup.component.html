@@ -9,7 +9,7 @@
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
-                    Create Account
+                    {{'en_CreateAccount' | locale | async}}
                 </mat-card-title>
             </mat-card-header>
 
@@ -17,7 +17,9 @@
                               fxLayoutGap="24px">
 
                 <mat-form-field>
-                    <mat-label>Email</mat-label>
+                    <mat-label>
+                        {{'en_Email' | locale | async}}
+                    </mat-label>
                     <input matInput
                            formControlName="email"
                            type="email"
@@ -25,11 +27,11 @@
                            required />
 
                     <mat-error *ngIf="form.controls.email.errors?.required">
-                        This field is required
+                        {{'errors.requiredField' | locale | async}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.email.errors?.emailInUse">
-                        {{form.controls.email.errors?.emailInUse}}
+                        {{'errors.emailInUse' | locale | async}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.email.errors?.pattern">
@@ -38,14 +40,16 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Username</mat-label>
+                    <mat-label>
+                        {{'en_Username' | locale | async}}
+                    </mat-label>
                     <input matInput
                            formControlName="username"
                            type="text"
                            autocomplete="off" />
 
                     <mat-hint>
-                        Unique username visible to public
+                        {{'messages.uniqueUsername' | locale | async}}
                     </mat-hint>
 
                     <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
@@ -54,14 +58,16 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Password</mat-label>
+                    <mat-label>
+                        {{'en_Password' | locale | async}}
+                    </mat-label>
                     <input matInput
                            formControlName="password"
                            type="password"
                            required />
 
                     <mat-error *ngIf="form.controls.password.errors?.required">
-                        This field is required
+                        {{'errors.requiredField' | locale | async}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.password.errors?.minlength">
@@ -70,18 +76,20 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Confirm Password</mat-label>
+                    <mat-label>
+                        {{'en_ConfirmPassword' | locale | async}}
+                    </mat-label>
                     <input matInput
                            formControlName="confirm"
                            type="password"
                            required />
 
                     <mat-error *ngIf="form.controls.confirm.errors?.required">
-                        This field is required
+                        {{'errors.requiredField' | locale | async}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.confirm.errors?.invalidPasswordMatch">
-                        Passwords do not match
+                        {{'errors.passwordsDontMatch' | locale | async}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.confirm.errors?.minlength">
@@ -93,11 +101,15 @@
                      fxLayoutGap="15px">
                     <button mat-raised-button
                             color="primary"
-                            type="submit">Create</button>
+                            type="submit">
+                        {{'en_CreateAccount' | locale | async}}
+                    </button>
                     <a mat-button
                        color="primary"
                        type="button"
-                       [routerLink]="['/login']">Cancel</a>
+                       [routerLink]="['/login']">
+                        {{'en_Cancel' | locale | async}}
+                    </a>
                 </div>
             </mat-card-content>
         </mat-card>

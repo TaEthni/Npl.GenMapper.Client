@@ -6,6 +6,7 @@ import { SidenavToggleComponent } from './sidenav-toggle/sidenav-toggle.componen
 import { SortByDatePipe } from './sort-by-date.pipe';
 import { FileInputDialogComponent } from './file-input-dialog/file-input-dialog.component';
 import { NplLogoComponent } from './npl-logo/npl-logo.component';
+import { LocalePipe } from './locale.pipe';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { NplLogoComponent } from './npl-logo/npl-logo.component';
         SidenavToggleComponent,
         SortByDatePipe,
         FileInputDialogComponent,
-        NplLogoComponent
+        NplLogoComponent,
+        LocalePipe
     ],
     exports: [
         MaterialModule,
@@ -25,7 +27,8 @@ import { NplLogoComponent } from './npl-logo/npl-logo.component';
         SidenavToggleComponent,
         SortByDatePipe,
         FileInputDialogComponent,
-        NplLogoComponent
+        NplLogoComponent,
+        LocalePipe
     ],
     entryComponents: [
         FileInputDialogComponent

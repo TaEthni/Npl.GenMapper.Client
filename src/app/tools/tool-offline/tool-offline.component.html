@@ -10,21 +10,21 @@
             <button mat-menu-item
                     (click)="onImport()">
                 <mat-icon>attachment</mat-icon>
-                <ng-container i18n="en-Import">Import</ng-container>
+                {{'menu.importXlsxCsv' | locale | async}}
             </button>
             <button mat-menu-item
                     (click)="onExport()">
                 <mat-icon>cloud_download</mat-icon>
-                <ng-container i18n="en-Export">Export</ng-container>
+                {{'menu.exportCsv' | locale | async}}
             </button>
             <button mat-menu-item>
                 <mat-icon>print</mat-icon>
-                <ng-container i18n="en-Print">Print</ng-container>
+                {{'menu.btnPrintHorizontal' | locale | async}}
             </button>
             <button mat-menu-item
                     (click)="onDelete()">
                 <mat-icon>delete</mat-icon>
-                <ng-container i18n="en-Delete">Delete</ng-container>
+                {{'menu.btnDelete' | locale | async}}
             </button>
         </mat-menu>
     </mat-toolbar>

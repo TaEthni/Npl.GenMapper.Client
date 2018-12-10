@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
 import { confirmPasswordValidator } from '@shared/confirm-password.validator';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 import { User } from '@shared/user.model';
+import { Observable, of } from 'rxjs';
+import { AccountService } from '@core/account.service';
 
 @Component({
     selector: 'app-detail-form',
@@ -12,6 +14,7 @@ import { User } from '@shared/user.model';
     styleUrls: ['./detail-form.component.scss']
 })
 export class DetailFormComponent extends Unsubscribable implements OnInit {
+    public isSaving: boolean;
     public form: FormGroup;
 
     @Input()
@@ -20,7 +23,10 @@ export class DetailFormComponent extends Unsubscribable implements OnInit {
     @Output()
     public submit: EventEmitter<User> = new EventEmitter<User>();
 
-    constructor(private fb: FormBuilder) { super(); }
+    constructor(
+        private fb: FormBuilder,
+        private accountService: AccountService
+    ) { super(); }
 
     public ngOnInit(): void {
         this.form = this.fb.group({
@@ -29,6 +35,9 @@ export class DetailFormComponent extends Unsubscribable implements OnInit {
             password: [null],
             confirm: [null],
         });
+
+        // Temp disabled unitl logout issue is fixed
+        this.form.get('email').disable();
 
         this.form.controls.password.setValidators([Validators.minLength(6)]);
 
@@ -49,16 +58,37 @@ export class DetailFormComponent extends Unsubscribable implements OnInit {
 
     public onSubmit(event: Event): void {
         event.preventDefault();
+        event.stopPropagation();
+
         const value = this.form.value;
 
-        if (this.form.valid) {
-            if (!value.password) {
-                delete value.password;
-                delete value.confirm;
+        this.isSaving = true;
+
+        this.validateUsername(value.username).subscribe((usernameAvailable) => {
+            this.isSaving = false;
+
+            if (!usernameAvailable) {
+                this.form.get('username').setErrors({ usernameInUse: true });
+                return;
             }
 
-            this.submit.emit(value);
-            this.form.reset(Object.assign(value, { password: null, confirm: null }));
+            if (this.form.valid) {
+                if (!value.password) {
+                    delete value.password;
+                    delete value.confirm;
+                }
+
+                this.submit.emit(value);
+                this.form.reset(Object.assign(value, { password: null, confirm: null }));
+            }
+        });
+    }
+
+    private validateUsername(username: string): Observable<boolean> {
+        if (username === this.model.username) {
+            return of(true);
         }
+
+        return this.accountService.checkUsernameAvailability(username);
     }
 }

@@ -10,6 +10,8 @@ import { EntityService } from '@core/entity.service';
 import { DownloadService } from '@core/download.service';
 import { UserResolver } from './user.resolver';
 import { SupportService } from './support.service';
+import { LocaleService } from './locale.service';
+import { AccountService } from './account.service';
 
 @NgModule({
     imports: [
@@ -25,7 +27,9 @@ import { SupportService } from './support.service';
         EntityService,
         DownloadService,
         UserResolver,
-        SupportService
+        SupportService,
+        LocaleService,
+        AccountService
     ]
 })
 export class CoreModule { }
