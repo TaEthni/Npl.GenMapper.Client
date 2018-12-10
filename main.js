@@ -1522,7 +1522,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var BaseUrl = 'http://api.noplaceleft.tools/';
+var BaseUrl = 'https://api.noplaceleft.tools/';
 var EntityService = /** @class */ (function () {
     function EntityService(http) {
         this.http = http;
