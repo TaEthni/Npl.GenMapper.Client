@@ -51,10 +51,29 @@
         top: 64px;
         min-width: 300px;
         border-left: 1px solid rgba(0,0,0,0.2);
+        overflow: visible;
+        backface-visibility: hidden;
+
+        ::ng-deep .mat-drawer-inner-container {
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scroll-container {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
         .mat-toolbar {
             flex: 0 0 auto;
             background: transparent;
+            box-shadow: 0 3px 4px -2px rgba(0,0,0,0.2);
+
+            .mat-mini-fab {
+                margin-left: -36px;
+                margin-right: 42px;
+            }
         }
     }
 

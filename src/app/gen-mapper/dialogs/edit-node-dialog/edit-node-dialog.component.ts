@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { GMTemplate, GMField } from '../../gen-mapper.interface';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { LocaleService } from '@core/locale.service';
 
 export interface EditNodeDialogResponse {
     isCancel: boolean;
@@ -29,18 +30,19 @@ export class EditNodeDialogComponent {
     constructor(
         private dialogRef: MatDialogRef<EditNodeDialogComponent>,
         private _matDialog: MatDialog,
+        private locale: LocaleService,
         @Inject(MAT_DIALOG_DATA) private data: { nodeData: any, template: GMTemplate, language: string }
     ) {
         this.model = Object.assign({}, data.nodeData);
-        this._locale = data.template.translations[data.language].translation.template;
+        this._locale = data.template.translations[data.language].translation[data.template.format];
         this._template = data.template;
 
         this._template.fields.forEach(field => {
             if (this._locale[field.header]) {
-                field.localeLabel = this._locale[field.header];
+                field.localeLabel = locale.t(this._template.format + '.' + field.header);
                 if (field.values) {
                     field.values.forEach(v => {
-                        v.localeLabel = this._locale[v.header];
+                        v.localeLabel = locale.t(this._template.format + '.' + v.header);
                     });
                 }
             }
