@@ -4,7 +4,6 @@ import { EntityType, Entity } from '@shared/entity.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-
 export const BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
 // export const BaseUrl = 'http://localhost:9000/';
 
