@@ -3,9 +3,13 @@
       (submit)="onSubmit($event)"
       fxLayoutGap="24px"
       *ngIf="form">
-    <h1>Account Details</h1>
+    <h1>
+        {{'en_AccountDetails' | locale | async}}
+    </h1>
     <mat-form-field>
-        <mat-label>Email</mat-label>
+        <mat-label>
+            {{'en_Email' | locale | async}}
+        </mat-label>
         <input matInput
                formControlName="email"
                type="email"
@@ -13,11 +17,11 @@
                required />
 
         <mat-error *ngIf="form.controls.email.errors?.required">
-            This field is required
+            {{'errors.requiredField' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.email.errors?.emailInUse">
-            {{form.controls.email.errors?.emailInUse}}
+            {{'errors.emailInUse' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.email.errors?.pattern">
@@ -26,28 +30,34 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Username</mat-label>
+        <mat-label>
+            {{'en_Username' | locale | async}}
+        </mat-label>
         <input matInput
                formControlName="username"
                type="text"
                autocomplete="off" />
 
         <mat-hint>
-            Unique username visible to public
+            {{'messages.uniqueUsername' | locale | async}}
         </mat-hint>
 
         <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
-            {{form.controls.username.errors?.usernameInUse}}
+            {{'errors.usernameInUse' | locale | async}}
         </mat-error>
     </mat-form-field>
 
     <hr />
 
 
-    <h1>Change Password</h1>
+    <h1>
+        {{'en_ChangePassword' | locale | async}}
+    </h1>
 
     <mat-form-field>
-        <mat-label>Password</mat-label>
+        <mat-label>
+            {{'en_Password' | locale | async}}
+        </mat-label>
         <input matInput
                formControlName="password"
                autocomplete="off"
@@ -59,7 +69,9 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Confirm Password</mat-label>
+        <mat-label>
+            {{'en_ConfirmPassword' | locale | async}}
+        </mat-label>
         <input matInput
                formControlName="confirm"
                type="password"
@@ -67,11 +79,11 @@
                [required]="form.get('password').value" />
 
         <mat-error *ngIf="form.controls.confirm.errors?.required">
-            This field is required
+            {{'errors.requiredField' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.confirm.errors?.invalidPasswordMatch">
-            Passwords do not match
+            {{'errors.passwordsDontMatch' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.confirm.errors?.minlength">
@@ -84,10 +96,11 @@
          *ngIf="form.dirty">
         <button mat-raised-button
                 color="primary"
-                type="submit">Save</button>
+                type="submit"
+                [disabled]="isSaving">{{'en_Save' | locale | async}}</button>
         <a mat-button
            color="primary"
            type="button"
-           [routerLink]="['/tools']">Cancel</a>
+           [routerLink]="['/tools']">{{'en_Cancel' | locale | async}}</a>
     </div>
 </form>

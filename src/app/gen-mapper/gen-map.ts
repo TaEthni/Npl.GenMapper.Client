@@ -41,13 +41,6 @@ export class GenMap {
     ) { }
 
     public init(): void {
-        i18next
-            .use(i18nextBrowserLanguageDetector)
-            .init({
-                fallbackLng: 'en',
-                resources: _.defaultsDeep(this.template.translations)
-            });
-
         if (this.template.translations[i18next.language]) {
             this.language = i18next.language;
         } else {
@@ -232,7 +225,7 @@ export class GenMap {
 
     private _getInitialValue(field: any): any {
         if (field.initialTranslationCode) {
-            return i18next.t('template.' + field.initialTranslationCode);
+            return i18next.t(this.template.format + '.' + field.initialTranslationCode);
         } else {
             return field.initial;
         }

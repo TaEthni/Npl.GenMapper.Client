@@ -24,21 +24,21 @@
                 <button mat-menu-item
                         (click)="onImport()">
                     <mat-icon>attachment</mat-icon>
-                    <ng-container i18n="en-Import">Import</ng-container>
+                    {{'menu.importXlsxCsv' | locale | async}}
                 </button>
                 <button mat-menu-item
                         (click)="onExport()">
                     <mat-icon>cloud_download</mat-icon>
-                    <ng-container i18n="en-Export">Export</ng-container>
+                    {{'menu.exportCsv' | locale | async}}
                 </button>
                 <button mat-menu-item>
                     <mat-icon>print</mat-icon>
-                    <ng-container i18n="en-Print">Print</ng-container>
+                    {{'menu.btnPrintHorizontal' | locale | async}}
                 </button>
                 <button mat-menu-item
                         (click)="onDelete()">
                     <mat-icon>delete</mat-icon>
-                    <ng-container i18n="en-Delete">Delete</ng-container>
+                    {{'menu.btnDelete' | locale | async}}
                 </button>
             </mat-menu>
         </ng-container>
@@ -55,18 +55,17 @@
                 position="end"
                 fxLayout="column">
 
-        <div fxFlex
-             fxLayout="column">
-
-            <mat-toolbar color="none">
-                <button mat-mini-fab
-                        (click)="onCreateDocument()">
-                    <mat-icon>add</mat-icon>
-                </button>
-                <div fxFlex></div>
-                <ng-container i18n="@@en-Documents">Documents</ng-container>
-            </mat-toolbar>
-
+        <mat-toolbar color="none">
+            <button mat-mini-fab
+                    (click)="onCreateDocument()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <div>
+                {{'documentsTitle' | locale | async}}
+            </div>
+            <div fxFlex></div>
+        </mat-toolbar>
+        <div class="scroll-container">
             <app-tool-nav-list fxFlex
                                (select)="onSelectDocument($event)"
                                [documents]="documents"
