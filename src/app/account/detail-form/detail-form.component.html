@@ -25,7 +25,7 @@
         </mat-error>
 
         <mat-error *ngIf="form.controls.email.errors?.pattern">
-            Please use valid email format
+            {{'errors.emailFormat' | locale | async}}
         </mat-error>
     </mat-form-field>
 

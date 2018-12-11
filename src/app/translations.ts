@@ -24,6 +24,7 @@ export const translations = {
             'en_Password': 'Password',
             'en_Save': 'Save',
             'en_Signup': 'Signup',
+            'en_Send': 'Send',
             'en_Success': 'Success',
             'en_Username': 'Username',
             'menu': {
@@ -58,6 +59,7 @@ export const translations = {
             },
             'errors': {
                 'requiredField': 'This field is required',
+                'emailFormat': 'Please use valid email format',
                 'emailInUse': 'Email already in use',
                 'usernameInUse': 'Username already in use',
                 'passwordsDontMatch': 'Passwords do not match',
@@ -150,6 +152,7 @@ export const translations = {
             'en_Password': 'Heslo',
             'en_Save': 'Uložit',
             'en_Signup': 'Přihlásit se',
+            'en_Send': 'Poslat',
             'en_Success': 'Úspěch',
             'en_Username': 'Uživatelské jméno',
             'menu': {
@@ -183,6 +186,7 @@ export const translations = {
             },
             'errors': {
                 'requiredField': 'To je nutné',
+                'emailFormat': 'Použijte platný e-mailový formát',
                 'emailInUse': 'Email je již používán',
                 'usernameInUse': 'Uživatelské jméno už je používáno',
                 'passwordsDontMatch': 'Hesla se neshodují',
@@ -344,6 +348,7 @@ export const translations = {
             'en_Password': 'Contraseña',
             'en_Save': 'Salvar',
             'en_Signup': 'Crear una cuenta',
+            'en_Send': 'Enviar',
             'en_Success': 'Éxito',
             'en_Username': 'Nombre de usuario',
             'menu': {
@@ -378,6 +383,7 @@ export const translations = {
             },
             'errors': {
                 'requiredField': 'Esto es requerido',
+                'emailFormat': 'Por favor use un formato de correo electrónico válido',
                 'emailInUse': 'Email ya en uso',
                 'usernameInUse': 'Nombre de usuario ya está en uso',
                 'passwordsDontMatch': 'Las contraseñas no coinciden',
@@ -811,4 +817,4 @@ export const translations = {
             }
         }
     }
-}
+};
