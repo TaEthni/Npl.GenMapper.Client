@@ -1,5 +1,11 @@
 <div mat-dialog-title>
-    {{data.isFeedback ? 'Send Feedback' : 'Need Help?'}}
+    <ng-container *ngIf="data.isFeedback; then feedbackTemp else helpTemp"></ng-container>
+    <ng-template #feedbackTemp>
+        {{'en_SendFeedback' | locale | async}}
+    </ng-template>
+    <ng-template #helpTemp>
+        {{'en_NeedHelp' | locale | async}}
+    </ng-template>
 </div>
 <div mat-dialog-content>
 
@@ -10,28 +16,26 @@
         <ng-container *ngIf="!data.authenticated">
             <mat-form-field>
                 <mat-label>
-                    Name
+                    {{'en_Name' | locale | async}}
                 </mat-label>
                 <input matInput
-                       formControlName="name"
-                       placeholder="Name" />
+                       formControlName="name" />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>
-                    Email
+                    {{'en_Email' | locale | async}}
                 </mat-label>
                 <input matInput
                        required
-                       formControlName="email"
-                       placeholder="Email" />
+                       formControlName="email" />
 
                 <mat-error *ngIf="form.controls.email.errors?.pattern">
-                    Please use valid email format
+                    {{'errors.emailFormat' | locale | async}}
                 </mat-error>
 
                 <mat-error *ngIf="form.controls.email.errors?.required">
-                    This field is required
+                    {{'errors.requiredField' | locale | async}}
                 </mat-error>
             </mat-form-field>
         </ng-container>
@@ -46,12 +50,14 @@
                       cdkAutosizeMaxRows="30"></textarea>
 
             <mat-error *ngIf="form.controls.content.errors?.required">
-                This field is required
+                {{'errors.requiredField' | locale | async}}
             </mat-error>
         </mat-form-field>
     </form>
 
-    <p>Or send an email to:</p>
+    <p>
+        {{'messages.orSendEmailTo' | locale | async}}:
+    </p>
     <ng-container *ngIf="data.isFeedback; then feedbackEmail else supportEmail"></ng-container>
 
     <ng-template #feedbackEmail>
@@ -71,12 +77,12 @@
             color="primary"
             type="button"
             (click)="onSubmit()">
-        Send
+        {{'en_Send' | locale | async}}
     </button>
 
     <button mat-button
             color="primary"
             mat-dialog-close>
-        CLOSE
+        {{'en_Cancel' | locale | async}}
     </button>
 </div>
