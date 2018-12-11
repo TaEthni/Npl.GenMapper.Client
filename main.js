@@ -4569,9 +4569,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalePipe", function() { return LocalePipe; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _core_Unsubscribable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/Unsubscribable */ "./src/app/core/Unsubscribable.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _core_Unsubscribable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/Unsubscribable */ "./src/app/core/Unsubscribable.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -4598,7 +4597,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var LocalePipe = /** @class */ (function (_super) {
     __extends(LocalePipe, _super);
     function LocalePipe(localeService) {
@@ -4608,13 +4606,10 @@ var LocalePipe = /** @class */ (function (_super) {
     }
     LocalePipe.prototype.transform = function (value) {
         var _this = this;
-        var behavior = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](this.localeService.t(value));
-        this.localeService.get()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this.unsubscribe))
-            .subscribe(function (result) {
-            behavior.next(_this.localeService.t(value));
-        });
-        return behavior.asObservable().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["filter"])(function (v) { return !!v; }));
+        return this.localeService.get()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(this.localeService.t(value)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function () {
+            return _this.localeService.t(value);
+        }));
     };
     LocalePipe = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
@@ -4623,7 +4618,7 @@ var LocalePipe = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_1__["LocaleService"]])
     ], LocalePipe);
     return LocalePipe;
-}(_core_Unsubscribable__WEBPACK_IMPORTED_MODULE_3__["Unsubscribable"]));
+}(_core_Unsubscribable__WEBPACK_IMPORTED_MODULE_2__["Unsubscribable"]));
 
 
 
