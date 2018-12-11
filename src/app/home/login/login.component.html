@@ -20,6 +20,14 @@
                            type="email"
                            placeholder="{{'en_Email' | locale | async}}"
                            formControlName="email">
+
+                    <mat-error *ngIf="form.controls.email.errors?.required">
+                        {{'errors.requiredField' | locale | async}}
+                    </mat-error>
+
+                    <mat-error *ngIf="form.controls.email.errors?.pattern">
+                        {{'errors.emailFormat' | locale | async}}
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
