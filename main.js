@@ -2129,7 +2129,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"5px\">\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type\">\r\n            <label class=\"control\"\r\n                   fxLayout=\"row\"\r\n                   fxLayoutGap=\"10px\"\r\n                   fxLayoutAlign=\"center center\">\r\n                <div class=\"control-label\"\r\n                     fxFlex>{{field.localeLabel}}</div>\r\n                <div class=\"control-input\"\r\n                     fxFlex=\"200px\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value.join(' ')\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value.join(' ')}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle [formControl]=\"form.get(field.header)\"></mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n            </label>\r\n        </ng-container>\r\n    </ng-container>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"5px\">\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type\">\r\n            <label class=\"control\"\r\n                   fxLayout=\"row\"\r\n                   fxLayoutGap=\"10px\"\r\n                   fxLayoutAlign=\"center center\">\r\n                <div class=\"control-label\"\r\n                     fxFlex>{{field.localeLabel}}</div>\r\n                <div class=\"control-input\"\r\n                     fxFlex=\"200px\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value | joinList}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle [formControl]=\"form.get(field.header)\"></mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n            </label>\r\n        </ng-container>\r\n    </ng-container>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -4557,6 +4557,42 @@ var FileInputDialogComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/join-list.pipe.ts":
+/*!******************************************!*\
+  !*** ./src/app/shared/join-list.pipe.ts ***!
+  \******************************************/
+/*! exports provided: JoinListPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JoinListPipe", function() { return JoinListPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var JoinListPipe = /** @class */ (function () {
+    function JoinListPipe() {
+    }
+    JoinListPipe.prototype.transform = function (value) {
+        return value ? value.join(' ') : null;
+    };
+    JoinListPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'joinList'
+        })
+    ], JoinListPipe);
+    return JoinListPipe;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/locale.pipe.ts":
 /*!***************************************!*\
   !*** ./src/app/shared/locale.pipe.ts ***!
@@ -4805,12 +4841,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
 /* harmony import */ var _npl_logo_npl_logo_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./npl-logo/npl-logo.component */ "./src/app/shared/npl-logo/npl-logo.component.ts");
 /* harmony import */ var _locale_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./locale.pipe */ "./src/app/shared/locale.pipe.ts");
+/* harmony import */ var _join_list_pipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./join-list.pipe */ "./src/app/shared/join-list.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -4835,7 +4873,8 @@ var SharedModule = /** @class */ (function () {
                 _sort_by_date_pipe__WEBPACK_IMPORTED_MODULE_5__["SortByDatePipe"],
                 _file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__["FileInputDialogComponent"],
                 _npl_logo_npl_logo_component__WEBPACK_IMPORTED_MODULE_7__["NplLogoComponent"],
-                _locale_pipe__WEBPACK_IMPORTED_MODULE_8__["LocalePipe"]
+                _locale_pipe__WEBPACK_IMPORTED_MODULE_8__["LocalePipe"],
+                _join_list_pipe__WEBPACK_IMPORTED_MODULE_9__["JoinListPipe"]
             ],
             exports: [
                 _material_material_module__WEBPACK_IMPORTED_MODULE_3__["MaterialModule"],
@@ -4844,7 +4883,8 @@ var SharedModule = /** @class */ (function () {
                 _sort_by_date_pipe__WEBPACK_IMPORTED_MODULE_5__["SortByDatePipe"],
                 _file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__["FileInputDialogComponent"],
                 _npl_logo_npl_logo_component__WEBPACK_IMPORTED_MODULE_7__["NplLogoComponent"],
-                _locale_pipe__WEBPACK_IMPORTED_MODULE_8__["LocalePipe"]
+                _locale_pipe__WEBPACK_IMPORTED_MODULE_8__["LocalePipe"],
+                _join_list_pipe__WEBPACK_IMPORTED_MODULE_9__["JoinListPipe"]
             ],
             entryComponents: [
                 _file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__["FileInputDialogComponent"]
@@ -5607,7 +5647,7 @@ var ChurchCirclesTemplate = {
         },
         {
             'header': 'threeThirds',
-            'initial': '1234567',
+            'initial': ['1', '2', '3', '4', '5', '6', '7'],
             'type': 'multiSelect',
             'values': [
                 { value: '1', header: 'threeThirdsPastoralCare' },
