@@ -529,7 +529,7 @@ export const ChurchCirclesTemplate = {
         },
         {
             'header': 'threeThirds',
-            'initial': '1234567',
+            'initial': ['1', '2', '3', '4', '5', '6', '7'],
             'type': 'multiSelect',
             'values': [
                 { value: '1', header: 'threeThirdsPastoralCare' },

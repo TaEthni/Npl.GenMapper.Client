@@ -44,10 +44,10 @@
                                         no-label>
                             <mat-select [formControl]="form.get(field.header)"
                                         multiple
-                                        [placeholder]="form.get(field.header).value.join(' ')"
+                                        [placeholder]="form.get(field.header).value | joinList"
                                         #temp>
                                 <mat-select-trigger>
-                                    {{form.get(field.header).value.join(' ')}}
+                                    {{form.get(field.header).value | joinList}}
                                 </mat-select-trigger>
                                 <mat-option *ngFor="let value of field.values"
                                             [value]="value.value">
