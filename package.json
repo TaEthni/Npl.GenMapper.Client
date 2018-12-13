@@ -9,7 +9,8 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "ghpages": "ng build --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname dev.noplaceleft.tools --no-silent"
+        "ghpages-production": "ng build --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname noplaceleft.tools --repo=https://GH_TOKEN@github.com/NoPlaceLeft/tools-client-production.git --name=\"joelcoxokc\" --email=\"joel.cox.dev@gmail.com\"",
+        "ghpages": "ng build --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname dev.noplaceleft.tools  --no-silent"
     },
     "private": true,
     "dependencies": {
