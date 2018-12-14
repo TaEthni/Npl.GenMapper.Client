@@ -1999,7 +1999,7 @@ var ConfirmDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>Edit [{{model.name}}]</h1>\r\n<div mat-dialog-content>\r\n    <app-edit-node-form [fields]=\"fields\"\r\n                        [model]=\"model\"\r\n                        (change)=\"onFormChange($event)\"></app-edit-node-form>\r\n</div>\r\n<div mat-dialog-actions>\r\n    <button mat-button\r\n            color=\"accent\"\r\n            cdkFocusInitial\r\n            (click)=\"onSubmit()\">Submit</button>\r\n    <button mat-button\r\n            color=\"primary\"\r\n            (click)=\"onImportSubtree()\">\r\n        Import Subtree\r\n    </button>\r\n    <div fxFlex></div>\r\n    <button mat-button\r\n            color=\"warn\"\r\n            (click)=\"onCancel()\">Cancel</button>\r\n</div>"
+module.exports = "<h1 mat-dialog-title>Edit [{{model.name}}]</h1>\r\n<div mat-dialog-content>\r\n    <app-edit-node-form [fields]=\"fields\"\r\n                        [nodes]=\"data.nodes\"\r\n                        [model]=\"model\"\r\n                        (change)=\"onFormChange($event)\"></app-edit-node-form>\r\n</div>\r\n<div mat-dialog-actions>\r\n    <button mat-button\r\n            color=\"accent\"\r\n            cdkFocusInitial\r\n            (click)=\"onSubmit()\">Submit</button>\r\n    <button mat-button\r\n            color=\"primary\"\r\n            (click)=\"onImportSubtree()\">\r\n        Import Subtree\r\n    </button>\r\n    <div fxFlex></div>\r\n    <button mat-button\r\n            color=\"warn\"\r\n            (click)=\"onCancel()\">Cancel</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2045,29 +2045,27 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 var EditNodeDialogComponent = /** @class */ (function () {
-    function EditNodeDialogComponent(dialogRef, _matDialog, locale, data) {
+    function EditNodeDialogComponent(dialogRef, matDialog, locale, data) {
         var _this = this;
         this.dialogRef = dialogRef;
-        this._matDialog = _matDialog;
+        this.matDialog = matDialog;
         this.locale = locale;
         this.data = data;
-        this._locale = {};
-        this._data = {};
-        this._template = null;
+        this.template = null;
         this.model = Object.assign({}, data.nodeData);
-        this._locale = data.template.translations[data.language].translation[data.template.format];
-        this._template = data.template;
-        this._template.fields.forEach(function (field) {
-            if (_this._locale[field.header]) {
-                field.localeLabel = locale.t(_this._template.format + '.' + field.header);
+        this.locale = data.template.translations[data.language].translation[data.template.format];
+        this.template = data.template;
+        this.template.fields.forEach(function (field) {
+            if (_this.locale[field.header]) {
+                field.localeLabel = locale.t(_this.template.format + '.' + field.header);
                 if (field.values) {
                     field.values.forEach(function (v) {
-                        v.localeLabel = locale.t(_this._template.format + '.' + v.header);
+                        v.localeLabel = locale.t(_this.template.format + '.' + v.header);
                     });
                 }
             }
         });
-        this.fields = this._template.fields;
+        this.fields = this.template.fields;
     }
     EditNodeDialogComponent.prototype.onSubmit = function () {
         this.dialogRef.close({
@@ -2088,7 +2086,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
     };
     EditNodeDialogComponent.prototype.onImportSubtree = function () {
         var _this = this;
-        this._matDialog
+        this.matDialog
             .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_2__["FileInputDialogComponent"], { minWidth: '400px' })
             .afterClosed()
             .subscribe(function (result) {
@@ -2129,7 +2127,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"5px\">\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type\">\r\n            <label class=\"control\"\r\n                   fxLayout=\"row\"\r\n                   fxLayoutGap=\"10px\"\r\n                   fxLayoutAlign=\"center center\">\r\n                <div class=\"control-label\"\r\n                     fxFlex>{{field.localeLabel}}</div>\r\n                <div class=\"control-input\"\r\n                     fxFlex=\"200px\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value | joinList}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle [formControl]=\"form.get(field.header)\"></mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n            </label>\r\n        </ng-container>\r\n    </ng-container>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"5px\">\r\n\r\n    <label class=\"control\"\r\n           fxLayout=\"row\"\r\n           fxLayoutGap=\"10px\"\r\n           fxLayoutAlign=\"center center\"\r\n           *ngIf=\"model.parentId || model.parentId === 0\">\r\n        <div class=\"control-label\"\r\n             fxFlex>\r\n            {{'editGroup.elementParent' | locale | async}}\r\n        </div>\r\n        <div class=\"control-input\"\r\n             fxFlex=\"200px\">\r\n            <mat-form-field floatPlaceholder=\"never\"\r\n                            floatLabel=\"never\"\r\n                            no-error\r\n                            no-label>\r\n                <mat-select [formControl]=\"form.get('parentId')\">\r\n                    <ng-container *ngFor=\"let n of nodes\">\r\n                        <ng-container *ngIf=\"n.id !== model.id\">\r\n                            <mat-option [value]=\"n.id\">\r\n                                {{n.name}}\r\n                            </mat-option>\r\n                        </ng-container>\r\n                    </ng-container>\r\n                </mat-select>\r\n            </mat-form-field>\r\n        </div>\r\n    </label>\r\n\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type\">\r\n            <label class=\"control\"\r\n                   fxLayout=\"row\"\r\n                   fxLayoutGap=\"10px\"\r\n                   fxLayoutAlign=\"center center\">\r\n                <div class=\"control-label\"\r\n                     fxFlex>{{field.localeLabel}}</div>\r\n                <div class=\"control-input\"\r\n                     fxFlex=\"200px\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field floatPlaceholder=\"never\"\r\n                                        floatLabel=\"never\"\r\n                                        no-error\r\n                                        no-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value | joinList}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle [formControl]=\"form.get(field.header)\"></mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n            </label>\r\n        </ng-container>\r\n    </ng-container>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2208,6 +2206,8 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
             .forEach(function (field) {
             group[field.header] = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](_this.model[field.header]);
         });
+        // Add custom control for parentId
+        group.parentId = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](this.model.parentId);
         return new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"](group);
     };
     __decorate([
@@ -2218,6 +2218,10 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Array)
     ], EditNodeFormComponent.prototype, "fields", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], EditNodeFormComponent.prototype, "nodes", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
@@ -2874,7 +2878,7 @@ var GenMapperGraphComponent = /** @class */ (function () {
             _this.dialog
                 .open(_dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_3__["EditNodeDialogComponent"], {
                 minWidth: '400px',
-                data: { nodeData: node.data, template: _this.template, language: _this.graph.language }
+                data: { nodeData: node.data, template: _this.template, language: _this.graph.language, nodes: _this.graph.data }
             })
                 .afterClosed()
                 .subscribe(function (result) {
