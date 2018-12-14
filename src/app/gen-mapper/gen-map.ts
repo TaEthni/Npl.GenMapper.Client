@@ -64,7 +64,7 @@ export class GenMap {
     public patchNodes(data: any[]): void {
         data.forEach(item => {
 
-            item.isRoot = !item.parentId;
+            item.isRoot = !item.parentId && item.parentId !== 0;
 
             // This is for old data.
             if (item.hasOwnProperty('threeThirds')) {
