@@ -64,6 +64,8 @@ export class GenMap {
     public patchNodes(data: any[]): void {
         data.forEach(item => {
 
+            item.isRoot = !item.parentId;
+
             // This is for old data.
             if (item.hasOwnProperty('threeThirds')) {
                 if (typeof item.threeThirds === 'string') {
@@ -545,8 +547,9 @@ export class GenMap {
 }
 
 function _appendRemoveButton(group: any): void {
-    group.append('g')
+    group.filter(n => !n.data.isRoot).append('g')
         .attr('class', 'removeNode')
+        .attr('cursor', 'pointer')
         .append('svg')
         .html(`
             <rect x="40" y="0" rx="7" width="25" height="40">
@@ -560,6 +563,8 @@ function _appendRemoveButton(group: any): void {
 function _appendAddButton(group: any): void {
     group.append('g')
         .attr('class', 'addNode')
+        .attr('cursor', 'pointer')
+        .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
         .append('svg')
         .html(`
             <rect x="40" y="40" rx="7" width="25" height="40">
