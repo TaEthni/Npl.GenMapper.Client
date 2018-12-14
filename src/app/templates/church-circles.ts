@@ -170,13 +170,13 @@ export const ChurchCirclesTemplate = {
                     'initialLeadersName': 'Jméno',
                     'initialPlace': 'Místo',
                     'initialDate': 'Datum',
-                    'threeThirdsPastoralCare': 'Pastoral Care',
-                    'threeThirdsWorship': 'Worship',
-                    'threeThirdsAccountability': 'Accountability',
-                    'threeThirdsVisionCasting': 'Vision Casting',
-                    'threeThirdsBibleTeaching': 'Bible Teaching',
-                    'threeThirdsPractice': 'Practice',
-                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
+                    'threeThirdsPastoralCare': 'Vzájmená péče',
+                    'threeThirdsWorship': 'Oslava Ježíše',
+                    'threeThirdsAccountability': 'Návrat / Vykazatelnost',
+                    'threeThirdsVisionCasting': 'Vize',
+                    'threeThirdsBibleTeaching': 'Bible',
+                    'threeThirdsPractice': 'Procvičování',
+                    'threeThirdsGoalSetting': 'Akční kroky a modlitba',
                 }
             }
         }
