@@ -1,5 +1,34 @@
 <div fxLayout="column"
      fxLayoutGap="5px">
+
+    <label class="control"
+           fxLayout="row"
+           fxLayoutGap="10px"
+           fxLayoutAlign="center center"
+           *ngIf="model.parentId || model.parentId === 0">
+        <div class="control-label"
+             fxFlex>
+            {{'editGroup.elementParent' | locale | async}}
+        </div>
+        <div class="control-input"
+             fxFlex="200px">
+            <mat-form-field floatPlaceholder="never"
+                            floatLabel="never"
+                            no-error
+                            no-label>
+                <mat-select [formControl]="form.get('parentId')">
+                    <ng-container *ngFor="let n of nodes">
+                        <ng-container *ngIf="n.id !== model.id">
+                            <mat-option [value]="n.id">
+                                {{n.name}}
+                            </mat-option>
+                        </ng-container>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </label>
+
     <ng-container *ngFor="let field of fields">
         <ng-container *ngIf="field.type">
             <label class="control"

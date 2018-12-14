@@ -81,7 +81,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             this.dialog
                 .open(EditNodeDialogComponent, {
                     minWidth: '400px',
-                    data: { nodeData: node.data, template: this.template, language: this.graph.language }
+                    data: { nodeData: node.data, template: this.template, language: this.graph.language, nodes: this.graph.data }
                 })
                 .afterClosed()
                 .subscribe((result: EditNodeDialogResponse) => {
