@@ -305,7 +305,7 @@ export class GenMap {
         const blob = new Blob([this._getOutputCsv()], { type: 'text/csv;charset=utf-8' })
 
         const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-            navigator.userAgent && !navigator.userAgent.match('CriOS')
+            navigator.userAgent && !navigator.userAgent.match('CriOS');
 
         const promptMessage = isSafari
             ? i18next.t('messages.saveAsInSafari')
