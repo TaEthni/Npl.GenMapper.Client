@@ -2296,7 +2296,7 @@ var GenMap = /** @class */ (function () {
     };
     GenMap.prototype.patchNodes = function (data) {
         data.forEach(function (item) {
-            item.isRoot = !item.parentId;
+            item.isRoot = !item.parentId && item.parentId !== 0;
             // This is for old data.
             if (item.hasOwnProperty('threeThirds')) {
                 if (typeof item.threeThirds === 'string') {
