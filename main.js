@@ -2296,6 +2296,7 @@ var GenMap = /** @class */ (function () {
     };
     GenMap.prototype.patchNodes = function (data) {
         data.forEach(function (item) {
+            item.isRoot = !item.parentId;
             // This is for old data.
             if (item.hasOwnProperty('threeThirds')) {
                 if (typeof item.threeThirds === 'string') {
@@ -2478,17 +2479,15 @@ var GenMap = /** @class */ (function () {
             .append('g')
             .attr('class', 'group-nodes');
         this.csvHeader = this.template.fields.map(function (field) { return field.header; }).join(',') + '\n';
-        this.initialCsv = this.csvHeader + this.template.fields.map(function (field) { return _this._getInitialValue(field); }).join(',');
-        if (this.content) {
-            this.data = this._parseCsvData(this.content);
-        }
-        else {
-            this.data = this._parseCsvData(this.initialCsv);
-        }
-        this.patchNodes(this.data);
-        this.nodes = null;
-        this.originalPosition();
-        this.redraw();
+        this.initialCsv = this.csvHeader + this.template.fields.map(function (field) {
+            // Patch to convert arrays to CSV readable values
+            var v = _this._getInitialValue(field);
+            if (Array.isArray(v)) {
+                v = '"' + v.join(',') + '"';
+            }
+            return v;
+        }).join(',');
+        this.update(this.content);
     };
     GenMap.prototype._getOutputCsv = function () {
         var _this = this;
@@ -2727,14 +2726,17 @@ var GenMap = /** @class */ (function () {
 }());
 
 function _appendRemoveButton(group) {
-    group.append('g')
+    group.filter(function (n) { return !n.data.isRoot; }).append('g')
         .attr('class', 'removeNode')
+        .attr('cursor', 'pointer')
         .append('svg')
         .html("\n            <rect x=\"40\" y=\"0\" rx=\"7\" width=\"25\" height=\"40\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverDeleteGroupAndSubtree') + "</title>\n            </rect>\n            <line x1=\"46\" y1=\"13.5\" x2=\"59\" y2=\"26.5\" stroke=\"white\" stroke-width=\"3\"></line>\n            <line x1=\"59\" y1=\"13.5\" x2=\"46\" y2=\"26.5\" stroke=\"white\" stroke-width=\"3\"></line>\n        ");
 }
 function _appendAddButton(group) {
     group.append('g')
         .attr('class', 'addNode')
+        .attr('cursor', 'pointer')
+        .style('transform', function (n) { return n.data.isRoot ? 'translateY(-20px)' : ''; })
         .append('svg')
         .html("\n            <rect x=\"40\" y=\"40\" rx=\"7\" width=\"25\" height=\"40\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverAddChildGroup') + "</title>\n            </rect>\n            <line x1=\"45\" y1=\"60\" x2=\"60\" y2=\"60\" stroke=\"white\" stroke-width=\"3\"></line>\n            <line x1=\"52.5\" y1=\"52.5\" x2=\"52.5\" y2=\"67.5\" stroke=\"white\" stroke-width=\"3\"></line>\n        ");
 }
