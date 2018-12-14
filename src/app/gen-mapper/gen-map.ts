@@ -271,20 +271,16 @@ export class GenMap {
 
         this.csvHeader = this.template.fields.map(field => field.header).join(',') + '\n';
 
-        this.initialCsv = this.csvHeader + this.template.fields.map(field => this._getInitialValue(field)).join(',');
+        this.initialCsv = this.csvHeader + this.template.fields.map(field => {
+            // Patch to convert arrays to CSV readable values
+            let v = this._getInitialValue(field);
+            if (Array.isArray(v)) {
+                v = '"' + v.join(',') + '"';
+            }
+            return v;
+        }).join(',');
 
-        if (this.content) {
-            this.data = this._parseCsvData(this.content);
-        } else {
-            this.data = this._parseCsvData(this.initialCsv);
-        }
-
-        this.patchNodes(this.data);
-
-        this.nodes = null;
-
-        this.originalPosition();
-        this.redraw();
+        this.update(this.content);
     }
 
     private _getOutputCsv(): string {
