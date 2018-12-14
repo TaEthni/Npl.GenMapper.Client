@@ -7397,7 +7397,7 @@ var ToolComponent = /** @class */ (function (_super) {
             if (!id && _this.document) {
                 _this._router.navigate([_this.document.id], { relativeTo: _this._route, skipLocationChange: true });
             }
-            if (!_this.document) {
+            else if (id && !_this.document) {
                 _this._router.navigate([_this.template.name]);
             }
         });
