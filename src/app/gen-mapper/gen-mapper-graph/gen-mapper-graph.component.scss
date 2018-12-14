@@ -378,4 +378,8 @@
         fill-opacity:0;
         stroke-opacity:0;
     }
+
+    rect.hidden-rect {
+        fill: transparent !important;
+    }
 }

@@ -328,7 +328,7 @@ export class GenMap {
         // declares a tree layout and assigns the size
         const tree = d3.tree()
             .nodeSize([
-                this.template.settings.nodeSize.width,
+                this.template.settings.nodeSize.width + 5,
                 this.template.settings.nodeSize.height
             ])
             .separation((a, b) => {
@@ -388,6 +388,12 @@ export class GenMap {
             .append('g');
 
         newGroup.append('title').text(i18next.t('editGroup.editGroup'));
+
+        newGroup.append('rect')
+            .attr('class', 'hidden-rect')
+            .attr('width', 25)
+            .attr('height', 80)
+            .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
 
         _appendRemoveButton(newGroup);
         _appendAddButton(newGroup);
