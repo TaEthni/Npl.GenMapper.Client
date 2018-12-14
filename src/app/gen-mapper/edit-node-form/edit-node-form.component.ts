@@ -18,6 +18,9 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     @Input()
     public fields: GMField[];
 
+    @Input()
+    public nodes: any[];
+
     @Output()
     public change: EventEmitter<any> = new EventEmitter<any>(null);
 
@@ -33,13 +36,16 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     private _createForm(): FormGroup {
-        const group = {};
+        const group: any = {};
 
         this.fields
             .filter(field => !!field.type)
             .forEach(field => {
                 group[field.header] = new FormControl(this.model[field.header]);
             });
+
+        // Add custom control for parentId
+        group.parentId = new FormControl(this.model.parentId);
 
         return new FormGroup(group);
     }

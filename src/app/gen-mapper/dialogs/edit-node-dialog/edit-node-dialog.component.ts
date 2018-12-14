@@ -20,35 +20,32 @@ export interface EditNodeDialogResponse {
 })
 export class EditNodeDialogComponent {
 
-    private _locale: object = {};
-    private _data: object = {};
-    private _template: GMTemplate = null;
-
+    private template: GMTemplate = null;
     public fields: GMField[];
     public model: any;
 
     constructor(
         private dialogRef: MatDialogRef<EditNodeDialogComponent>,
-        private _matDialog: MatDialog,
+        private matDialog: MatDialog,
         private locale: LocaleService,
-        @Inject(MAT_DIALOG_DATA) private data: { nodeData: any, template: GMTemplate, language: string }
+        @Inject(MAT_DIALOG_DATA) public data: { nodeData: any, template: GMTemplate, language: string, nodes: any[] }
     ) {
         this.model = Object.assign({}, data.nodeData);
-        this._locale = data.template.translations[data.language].translation[data.template.format];
-        this._template = data.template;
+        this.locale = data.template.translations[data.language].translation[data.template.format];
+        this.template = data.template;
 
-        this._template.fields.forEach(field => {
-            if (this._locale[field.header]) {
-                field.localeLabel = locale.t(this._template.format + '.' + field.header);
+        this.template.fields.forEach(field => {
+            if (this.locale[field.header]) {
+                field.localeLabel = locale.t(this.template.format + '.' + field.header);
                 if (field.values) {
                     field.values.forEach(v => {
-                        v.localeLabel = locale.t(this._template.format + '.' + v.header);
+                        v.localeLabel = locale.t(this.template.format + '.' + v.header);
                     });
                 }
             }
         });
 
-        this.fields = this._template.fields;
+        this.fields = this.template.fields;
     }
 
     public onSubmit(): void {
@@ -72,7 +69,7 @@ export class EditNodeDialogComponent {
     }
 
     public onImportSubtree(): void {
-        this._matDialog
+        this.matDialog
             .open(FileInputDialogComponent, { minWidth: '400px' })
             .afterClosed()
             .subscribe(result => {
