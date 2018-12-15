@@ -16,6 +16,7 @@ export const ChurchCirclesTemplate = {
                     'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legend</h3><p>Each circle represents a group / church. Dashed circle means group, full circle means church.<br>On the top the numbers describe: # total, # believers, # baptized<br>Inside the circle are the elements that are practiced in the group.<br>On the left there numbers 1 to 7 represent which elements of 3/3 process are practised:<br>1 - Personal care<br>2 - Worship<br>3 - Accountability<br>4 - Vision casting<br>5 - Bible study<br>6 - Practice<br>7 - Set goals and prayer</p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
                     'name': "Leader's Name",
                     'email': 'Email',
+                    'churchName': 'Church Name',
                     'peopleGroup': 'People Group',
                     'attenders': '# of Attenders',
                     'believers': '# of Believers',
@@ -59,6 +60,7 @@ export const ChurchCirclesTemplate = {
                     'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Erklärungen</h3><p>Jede Figur stellt eine Gruppe / Gemeinde dar. Eine gestrichelte Linie bedeutet Gruppe, eine durchgehende Linie bedeutet Gemeinde. Ein Quadrat bedeutet, dass die Teilnehmer bereits vorher Christen waren. Bei einem Kreis sind die Teilnehmer durch die Gruppe selbst zum Glauben gekommen oder sind noch nicht gläubig.</p><p>Ganz oben beschreiben die vier Zahlen jeweils die Anzahl der Teilnehmer, davon Anzahl Gläubige, davon Anzahl Getaufte und davon die Anzahl derer, die durch die Gruppe getauft wurden. Die Zahlen dürfen nach rechts hin nie größer werden.</p><p>In der Figur sind die Elemente der <a href="/start-training/lektion5" target="_blank">Definition von Gemeinde</a> zu sehen, die in der Gruppe auch gelebt werden.<br>Die Zahlen von 1 bis 8 links zeigen, welche der Elemente des <a href="/training/drei-drittel-prozess" target="_blank">Drei-Drittel-Prozesses</a> regelmäßig vorkommen:</p><ol><li>Wie geht\'s?</li><li>Auswertung</li><li>Vision</li><li>Lobpreis</li><li>Lehre</li><li>Üben</li><li>Ziele setzen</li><li>Gebet</li></ol><p>Klicke auf eine Gruppe, um sie zu bearbeiten.<br>Klicke auf die rote (x)-Schaltfläche, um die Gruppe zu löschen.<br>Klicke auf die grüne (+)-Schaltfläche, um eine Tochtergruppe hinzuzufügen.</p>',
                     'name': 'Leiter',
                     'email': 'Bemerkungen',
+                    'churchName': 'Church Name',
                     'peopleGroup': 'Sprache / Subkultur',
                     'attenders': 'Anzahl Teilnehmer',
                     'believers': 'Anzahl Gläubige',
@@ -103,6 +105,7 @@ export const ChurchCirclesTemplate = {
                     'name': 'Nombre de lider',
                     'initialLeadersName': 'Nombre de lider',
                     'email': 'Email',
+                    'churchName': 'Church Name',
                     'peopleGroup': 'Etnia',
                     'attenders': '# of participantes',
                     'believers': '# of creyentes',
@@ -144,6 +147,7 @@ export const ChurchCirclesTemplate = {
                     'translationLabel': 'Čeština',
                     'name': 'Jméno vedoucího',
                     'email': 'Email',
+                    'churchName': 'Church Name',
                     'peopleGroup': 'Etnikum',
                     'attenders': 'Počet účastníků',
                     'believers': 'Počet věřících',
@@ -345,6 +349,18 @@ export const ChurchCirclesTemplate = {
             }
         },
         {
+            'header': 'churchName',
+            'initial': '',
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': boxHeight + 2 * textHeight
+                }
+            }
+        },
+        {
             'header': 'churchType',
             'initial': 'newBelievers',
             'type': 'radio',
@@ -511,21 +527,14 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': boxHeight + 2 * textHeight
-                }
+                    'y': (d) => d.data.churchName ? boxHeight + 3 * textHeight : boxHeight + 2 * textHeight
+                },
             }
         },
         {
             'header': 'date',
             'initialTranslationCode': 'initialDate',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': boxHeight + 3 * textHeight
-                }
-            }
+            'type': 'text'
         },
         {
             'header': 'threeThirds',
