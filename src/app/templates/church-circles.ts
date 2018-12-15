@@ -264,7 +264,11 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': boxHeight + textHeight
+                    'y': (d) => {
+                        let c = 1;
+                        if (d.data.churchName) { c++; }
+                        return boxHeight + c * textHeight;
+                    }
                 }
             }
         },
@@ -356,11 +360,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': (d) => {
-                        let c = 1;
-                        if (d.data.name) { c++; }
-                        return boxHeight + c * textHeight;
-                    }
+                    'y': boxHeight + textHeight
                 }
             }
         },
@@ -533,8 +533,8 @@ export const ChurchCirclesTemplate = {
                     'x': 0,
                     'y': (d) => {
                         let c = 1;
-                        if (d.data.name) { c++; }
                         if (d.data.churchName) { c++; }
+                        if (d.data.name) { c++; }
                         return boxHeight + c * textHeight;
                     }
                 },
@@ -550,8 +550,8 @@ export const ChurchCirclesTemplate = {
                     'x': 0,
                     'y': (d) => {
                         let c = 1;
-                        if (d.data.name) { c++; }
                         if (d.data.churchName) { c++; }
+                        if (d.data.name) { c++; }
                         if (d.data.place) { c++; }
                         return boxHeight + c * textHeight;
                     }
