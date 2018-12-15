@@ -329,7 +329,7 @@ export class GenMap {
         const tree = d3.tree()
             .nodeSize([
                 this.template.settings.nodeSize.width + 5,
-                this.template.settings.nodeSize.height
+                this.template.settings.nodeSize.height + 12
             ])
             .separation((a, b) => {
                 return a.parent === b.parent ? 1 : 1.2;
@@ -410,16 +410,7 @@ export class GenMap {
             if (field.svg) {
                 const element = newGroup.append(field.svg['type']);
                 element.attr('class', 'node-' + field.header);
-
-                Object.keys(field.svg.attributes).forEach((attribute) => {
-                    element.attr(attribute, field.svg.attributes[attribute]);
-                });
-
-                if (field.svg.style) {
-                    Object.keys(field.svg.style).forEach((styleKey) => {
-                        element.style(styleKey, field.svg.style[styleKey]);
-                    });
-                }
+                applySVGAttrsAndStyle(field, element);
             }
         });
 
@@ -480,6 +471,7 @@ export class GenMap {
     }
 
     private _updateSvgForFields(field: any, element: any): void {
+        applySVGAttrsAndStyle(field, element);
         element.text((d) => {
             // InstallTrigger???
             // add spaces between each character for Firefox
@@ -616,4 +608,19 @@ function findNewIdFromArray(arr: any[]): any {
         }
     }
     return tmp;
+}
+
+
+function applySVGAttrsAndStyle(field: GMField, element: any): void {
+    if (field.svg.attributes) {
+        Object.keys(field.svg.attributes).forEach((attribute) => {
+            element.attr(attribute, field.svg.attributes[attribute]);
+        });
+    }
+
+    if (field.svg.style) {
+        Object.keys(field.svg.style).forEach((styleKey) => {
+            element.style(styleKey, field.svg.style[styleKey]);
+        });
+    }
 }
