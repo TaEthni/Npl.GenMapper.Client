@@ -2528,7 +2528,7 @@ var GenMap = /** @class */ (function () {
         var tree = d3__WEBPACK_IMPORTED_MODULE_0__["tree"]()
             .nodeSize([
             this.template.settings.nodeSize.width + 5,
-            this.template.settings.nodeSize.height
+            this.template.settings.nodeSize.height + 12
         ])
             .separation(function (a, b) {
             return a.parent === b.parent ? 1 : 1.2;
@@ -5491,7 +5491,13 @@ var ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': boxHeight + 2 * textHeight
+                    'y': function (d) {
+                        var c = 1;
+                        if (d.data.name) {
+                            c++;
+                        }
+                        return boxHeight + c * textHeight;
+                    }
                 }
             }
         },
@@ -5662,14 +5668,42 @@ var ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': function (d) { return d.data.churchName ? boxHeight + 3 * textHeight : boxHeight + 2 * textHeight; }
+                    'y': function (d) {
+                        var c = 1;
+                        if (d.data.name) {
+                            c++;
+                        }
+                        if (d.data.churchName) {
+                            c++;
+                        }
+                        return boxHeight + c * textHeight;
+                    }
                 },
             }
         },
         {
             'header': 'date',
             'initialTranslationCode': 'initialDate',
-            'type': 'text'
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': function (d) {
+                        var c = 1;
+                        if (d.data.name) {
+                            c++;
+                        }
+                        if (d.data.churchName) {
+                            c++;
+                        }
+                        if (d.data.place) {
+                            c++;
+                        }
+                        return boxHeight + c * textHeight;
+                    }
+                }
+            }
         },
         {
             'header': 'threeThirds',
