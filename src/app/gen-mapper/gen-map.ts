@@ -64,6 +64,8 @@ export class GenMap {
     public patchNodes(data: any[]): void {
         data.forEach(item => {
 
+            item.isRoot = !item.parentId && item.parentId !== 0;
+
             // This is for old data.
             if (item.hasOwnProperty('threeThirds')) {
                 if (typeof item.threeThirds === 'string') {
@@ -271,20 +273,16 @@ export class GenMap {
 
         this.csvHeader = this.template.fields.map(field => field.header).join(',') + '\n';
 
-        this.initialCsv = this.csvHeader + this.template.fields.map(field => this._getInitialValue(field)).join(',');
+        this.initialCsv = this.csvHeader + this.template.fields.map(field => {
+            // Patch to convert arrays to CSV readable values
+            let v = this._getInitialValue(field);
+            if (Array.isArray(v)) {
+                v = '"' + v.join(',') + '"';
+            }
+            return v;
+        }).join(',');
 
-        if (this.content) {
-            this.data = this._parseCsvData(this.content);
-        } else {
-            this.data = this._parseCsvData(this.initialCsv);
-        }
-
-        this.patchNodes(this.data);
-
-        this.nodes = null;
-
-        this.originalPosition();
-        this.redraw();
+        this.update(this.content);
     }
 
     private _getOutputCsv(): string {
@@ -330,7 +328,7 @@ export class GenMap {
         // declares a tree layout and assigns the size
         const tree = d3.tree()
             .nodeSize([
-                this.template.settings.nodeSize.width,
+                this.template.settings.nodeSize.width + 5,
                 this.template.settings.nodeSize.height
             ])
             .separation((a, b) => {
@@ -390,6 +388,12 @@ export class GenMap {
             .append('g');
 
         newGroup.append('title').text(i18next.t('editGroup.editGroup'));
+
+        newGroup.append('rect')
+            .attr('class', 'hidden-rect')
+            .attr('width', 25)
+            .attr('height', 80)
+            .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
 
         _appendRemoveButton(newGroup);
         _appendAddButton(newGroup);
@@ -549,8 +553,9 @@ export class GenMap {
 }
 
 function _appendRemoveButton(group: any): void {
-    group.append('g')
+    group.filter(n => !n.data.isRoot).append('g')
         .attr('class', 'removeNode')
+        .attr('cursor', 'pointer')
         .append('svg')
         .html(`
             <rect x="40" y="0" rx="7" width="25" height="40">
@@ -564,6 +569,8 @@ function _appendRemoveButton(group: any): void {
 function _appendAddButton(group: any): void {
     group.append('g')
         .attr('class', 'addNode')
+        .attr('cursor', 'pointer')
+        .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
         .append('svg')
         .html(`
             <rect x="40" y="40" rx="7" width="25" height="40">
