@@ -5193,7 +5193,7 @@ var ChurchCirclesTemplate = {
                 'churchCircles': {
                     'translationLabel': 'Deutsch',
                     'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Erklärungen</h3><p>Jede Figur stellt eine Gruppe / Gemeinde dar. Eine gestrichelte Linie bedeutet Gruppe, eine durchgehende Linie bedeutet Gemeinde. Ein Quadrat bedeutet, dass die Teilnehmer bereits vorher Christen waren. Bei einem Kreis sind die Teilnehmer durch die Gruppe selbst zum Glauben gekommen oder sind noch nicht gläubig.</p><p>Ganz oben beschreiben die vier Zahlen jeweils die Anzahl der Teilnehmer, davon Anzahl Gläubige, davon Anzahl Getaufte und davon die Anzahl derer, die durch die Gruppe getauft wurden. Die Zahlen dürfen nach rechts hin nie größer werden.</p><p>In der Figur sind die Elemente der <a href="/start-training/lektion5" target="_blank">Definition von Gemeinde</a> zu sehen, die in der Gruppe auch gelebt werden.<br>Die Zahlen von 1 bis 8 links zeigen, welche der Elemente des <a href="/training/drei-drittel-prozess" target="_blank">Drei-Drittel-Prozesses</a> regelmäßig vorkommen:</p><ol><li>Wie geht\'s?</li><li>Auswertung</li><li>Vision</li><li>Lobpreis</li><li>Lehre</li><li>Üben</li><li>Ziele setzen</li><li>Gebet</li></ol><p>Klicke auf eine Gruppe, um sie zu bearbeiten.<br>Klicke auf die rote (x)-Schaltfläche, um die Gruppe zu löschen.<br>Klicke auf die grüne (+)-Schaltfläche, um eine Tochtergruppe hinzuzufügen.</p>',
-                    'name': 'Church Name',
+                    'name': 'Name der Kirche',
                     'leaderName': 'Leiter',
                     'email': 'Bemerkungen',
                     'peopleGroup': 'Sprache / Subkultur',
@@ -5237,7 +5237,7 @@ var ChurchCirclesTemplate = {
                 'churchCircles': {
                     'translationLabel': 'Español',
                     'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Leyenda</h3><p>Cada círculo representa un grupo / iglesia. La línea de puntos significa un grupo. La línea completa significa una iglesia.<br>En la parte superior, los números describen: número de total, número de creyentes, número de bautizados<br>Dentro del círculo son los elementos que se practican en el grupo.<br>A la izquierda hay números del 1 al 7 representan qué elementos de 3/3 proceso se practican:<br>1 - Cuidado mutuo<br>2 - Adoración<br>3 - Rendir cuentas con amor<br>4 - Visión<br>5 - Biblia<br>6 - Práctica<br>7 - Establecer metas y Orar</p><p>Haga clic en el grupo para editarlo.<br>Haga clic en el botón rojo (x) para eliminar el grupo.<br>Haga clic en el botón verde (+) para añadir grupo secundario.</p>',
-                    'name': 'Church Name',
+                    'name': 'Nombre de la iglesia',
                     'leaderName': 'Nombre de lider',
                     'initialLeadersName': 'Nombre de lider',
                     'email': 'Email',
@@ -5280,7 +5280,7 @@ var ChurchCirclesTemplate = {
             translation: {
                 'churchCircles': {
                     'translationLabel': 'Čeština',
-                    'name': 'Church Name',
+                    'name': 'Název církve',
                     'leaderName': 'Jméno vedoucího',
                     'email': 'Email',
                     'peopleGroup': 'Etnikum',
