@@ -356,7 +356,11 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': boxHeight + 2 * textHeight
+                    'y': (d) => {
+                        let c = 1;
+                        if (d.data.name) { c++; }
+                        return boxHeight + c * textHeight;
+                    }
                 }
             }
         },
@@ -527,14 +531,32 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': (d) => d.data.churchName ? boxHeight + 3 * textHeight : boxHeight + 2 * textHeight
+                    'y': (d) => {
+                        let c = 1;
+                        if (d.data.name) { c++; }
+                        if (d.data.churchName) { c++; }
+                        return boxHeight + c * textHeight;
+                    }
                 },
             }
         },
         {
             'header': 'date',
             'initialTranslationCode': 'initialDate',
-            'type': 'text'
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': (d) => {
+                        let c = 1;
+                        if (d.data.name) { c++; }
+                        if (d.data.churchName) { c++; }
+                        if (d.data.place) { c++; }
+                        return boxHeight + c * textHeight;
+                    }
+                }
+            }
         },
         {
             'header': 'threeThirds',

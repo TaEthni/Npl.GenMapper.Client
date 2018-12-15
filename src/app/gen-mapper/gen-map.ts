@@ -329,7 +329,7 @@ export class GenMap {
         const tree = d3.tree()
             .nodeSize([
                 this.template.settings.nodeSize.width + 5,
-                this.template.settings.nodeSize.height
+                this.template.settings.nodeSize.height + 12
             ])
             .separation((a, b) => {
                 return a.parent === b.parent ? 1 : 1.2;
