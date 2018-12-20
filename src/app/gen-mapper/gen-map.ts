@@ -1,12 +1,9 @@
 import { ElementRef } from '@angular/core';
 import * as d3 from 'd3';
-import { saveAs } from 'file-saver';
 import i18next from 'i18next';
-import * as i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector';
 import * as _ from 'lodash';
-import * as XLSX from 'xlsx';
+
 import { GMField } from './gen-mapper.interface';
-import { Observable, ReplaySubject } from 'rxjs';
 
 export const MapStyles = {
     boxHeight: 80,
@@ -73,11 +70,11 @@ export class GenMap {
                     item.threeThirds = item.threeThirds.split('');
                 }
 
-                const filtered = item.threeThirds.filter(key => isNumberReg.test(key));
-                const value = [];
+                const filtered = item.threeThirds.filter((key: any) => isNumberReg.test(key));
+                const value: any = [];
 
                 // dedupe old data
-                filtered.forEach((a) => {
+                filtered.forEach((a: any) => {
                     if (!value.includes(a)) {
                         value.push(a);
                     }
@@ -96,7 +93,7 @@ export class GenMap {
         this.zoom.scaleBy(this.svg, 1 / 1.2);
     }
 
-    public nodeClick = (node): void => { };
+    public nodeClick = (node: any): void => { };
     private onNodeClick(node: Node): void {
         this.nodeClick(node);
     }
@@ -112,8 +109,8 @@ export class GenMap {
     }
 
     public addNode(node: any): void {
-        const newNodeData = {};
-        this.template.fields.forEach((field) => {
+        const newNodeData: any = {};
+        this.template.fields.forEach((field: GMField) => {
             newNodeData[field.header] = this._getInitialValue(field);
         });
         newNodeData['id'] = this.findNewId();
@@ -123,7 +120,7 @@ export class GenMap {
     }
 
     public updateNode(newData: any): void {
-        const nodeToUpdate = this.data.find(d => d.id === newData.id);
+        const nodeToUpdate = this.data.find((d: any) => d.id === newData.id);
         if (nodeToUpdate) {
             Object.assign(nodeToUpdate, newData);
             this.redraw();
@@ -148,8 +145,8 @@ export class GenMap {
         parsedCsv = this._parseCsvData(parsedCsv);
 
         // replace node by root of imported
-        const nodeToDelete = _.filter(this.data, { id: d.data.id })[0];
-        const rowRootOfImported = _.filter(parsedCsv, { parentId: '' })[0];
+        const nodeToDelete: any = _.filter(this.data, { id: d.data.id })[0];
+        const rowRootOfImported: any = _.filter(parsedCsv, { parentId: '' })[0];
         const mapOldIdToNewId = {};
         mapOldIdToNewId[rowRootOfImported.id] = nodeToDelete.id;
         parsedCsv = _.without(parsedCsv, rowRootOfImported);
@@ -218,7 +215,7 @@ export class GenMap {
         let idsToDelete = _.map(node.children, (row) => parseFloat(row.id));
         while (idsToDelete.length > 0) {
             const currentId = idsToDelete.pop();
-            const childrenIdsToDelete = _.map(_.filter(this.data, { parentId: currentId }), (row) => row.id);
+            const childrenIdsToDelete = _.map(_.filter(this.data, { parentId: currentId }), (row: any) => row.id);
             idsToDelete = idsToDelete.concat(childrenIdsToDelete);
             const nodeToDelete = _.filter(this.data, { id: currentId });
             if (nodeToDelete) { this.data = _.without(this.data, nodeToDelete[0]); }

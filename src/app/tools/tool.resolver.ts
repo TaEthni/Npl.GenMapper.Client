@@ -1,15 +1,13 @@
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
+
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { EntityService } from '@core/entity.service';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { DocumentDto } from '@shared/entity/document.model';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+
 import { GMTemplate } from '../gen-mapper/gen-mapper.interface';
-import { DocumentDto } from '@shared/document.model';
-import { EntityType } from '@shared/entity.model';
-import { map, filter } from 'rxjs/operators';
-import { TokenService } from '@core/token.service';
-import { of } from 'rxjs';
 import { ToolService } from './tool.service';
 
 export interface ResolvedTool {

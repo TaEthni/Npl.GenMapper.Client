@@ -1,19 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EntityService } from '@core/entity.service';
-import { DocumentDto } from '@shared/document.model';
-import { EntityType } from '@shared/entity.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
-import { FormGroup, FormControl } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { Subscription } from 'rxjs';
-import { TokenService } from '@core/token.service';
-import { ToolService } from '../tool.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
-import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DownloadService } from '@core/download.service';
+import { TokenService } from '@core/token.service';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { DocumentDto } from '@shared/entity/document.model';
+import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
+import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
+import { ToolService } from '../tool.service';
 
 @Component({
     selector: 'app-tool',

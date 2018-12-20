@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from '@shared/user.model';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { SupportDialogComponent, SupportDialogConfig } from '../support-dialog/support-dialog.component';
 import { LocaleService, TranslationType } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { User } from '@shared/entity/user.model';
 import i18next from 'i18next';
+import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { SupportDialogComponent, SupportDialogConfig } from '../support-dialog/support-dialog.component';
 
 @Component({
     selector: 'app-navigation',

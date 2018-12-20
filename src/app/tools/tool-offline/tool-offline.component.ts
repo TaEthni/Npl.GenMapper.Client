@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentDto } from '@shared/document.model';
-import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
-import { ActivatedRoute } from '../../../../node_modules/@angular/router';
-import { MatDialog } from '../../../../node_modules/@angular/material';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { DownloadService } from '@core/download.service';
+import { DocumentDto } from '@shared/entity/document.model';
+import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+
+import { MatDialog } from '../../../../node_modules/@angular/material';
+import { ActivatedRoute } from '../../../../node_modules/@angular/router';
 import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
+import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
 
 const storageKey = 'offline-locall-save-';
 

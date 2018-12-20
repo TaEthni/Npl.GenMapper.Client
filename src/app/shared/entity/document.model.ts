@@ -1,4 +1,4 @@
-import { Entity, EntityType } from '@shared/entity.model';
+import { Entity, EntityType } from '@shared/entity/entity.model';
 
 export class DocumentDto extends Entity {
     public id: string;

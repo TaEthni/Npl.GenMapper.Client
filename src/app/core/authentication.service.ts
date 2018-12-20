@@ -1,13 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseUrl, EntityService } from '@core/entity.service';
-import { WindowRefService } from '@core/windowref.service';
-import { User } from '@shared/user.model';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { EntityType } from '@shared/entity/entity.model';
+import { User } from '@shared/entity/user.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import { TokenService } from './token.service';
-import { EntityType } from '@shared/entity.model';
-import { map, tap } from 'rxjs/operators';
 
 
 
@@ -29,7 +29,6 @@ export class AuthenticationService {
         private entityService: EntityService,
         private tokenService: TokenService,
         private http: HttpClient,
-        private windowRef: WindowRefService,
         private router: Router
     ) {
 
@@ -45,7 +44,7 @@ export class AuthenticationService {
     }
 
     public authenticate(config: LoginConfig): Observable<any> {
-        const options = { headers: new HttpHeaders().set('Content-Type', 'application/json;charset=UTF-8') };
+        // const options = { headers: new HttpHeaders().set('Content-Type', 'application/json;charset=UTF-8') };
         return this.http
             .post<ResponseData>(BaseUrl + 'auth', config)
             .pipe(tap((responseData) => {

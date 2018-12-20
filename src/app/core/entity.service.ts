@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { EntityType, Entity } from '@shared/entity.model';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Entity, EntityType } from '@shared/entity/entity.model';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export const BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
-// export const BaseUrl = 'http://localhost:9000/';
+// export const BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
+export const BaseUrl = 'http://localhost:9000/';
 
 interface ResponseData {
     data: any;
@@ -21,7 +21,7 @@ export class EntityService {
     public getAll<T>(entityType: EntityType): Observable<T[]> {
         const url = BaseUrl + entityType;
         return this.http.get<ResponseData>(url).pipe(map((a => {
-            a.data.forEach(node => {
+            a.data.forEach((node: Entity) => {
                 node['entityType'] = entityType;
             });
             return a.data;

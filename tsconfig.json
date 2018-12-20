@@ -25,7 +25,18 @@
             ],
             "@core/*": [
                 "src/app/core/*"
+            ],
+            "@admin/*": [
+                "src/app/admin/*"
             ]
         }
+        // "allowUnreachableCode": false,
+        // "alwaysStrict": true,
+        // "forceConsistentCasingInFileNames": true,
+        // "noUnusedLocals": true,
+        // "noImplicitReturns": true,
+        // "noImplicitAny": true,
+        // "noImplicitThis": false,
+        // "allowSyntheticDefaultImports": true
     }
 }

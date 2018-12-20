@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
-import { TokenService } from '@core/token.service';
-import { User } from '@shared/user.model';
-import { LayoutService } from '@core/layout.service';
 import { MatSidenav } from '@angular/material';
-import { Router, NavigationStart } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { AuthenticationService } from '@core/authentication.service';
+import { LayoutService } from '@core/layout.service';
+import { TokenService } from '@core/token.service';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { User } from '@shared/entity/user.model';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

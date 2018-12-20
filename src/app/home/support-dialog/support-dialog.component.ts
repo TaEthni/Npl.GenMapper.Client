@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '@core/authentication.service';
-import { User } from '@shared/user.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
 import { SupportService } from '@core/support.service';
+import { User } from '@shared/entity/user.model';
+import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
 import { Observable } from 'rxjs';
 
 export interface SupportDialogConfig {

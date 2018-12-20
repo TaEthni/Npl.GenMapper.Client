@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+
 import { translations } from '../translations';
 
 export interface TranslationType {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { EntityService } from '@core/entity.service';
 import { TokenService } from '@core/token.service';
+import { DocumentDto } from '@shared/entity/document.model';
+import { EntityType } from '@shared/entity/entity.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { DocumentDto } from '@shared/document.model';
-import { EntityType } from '@shared/entity.model';
 import { map } from 'rxjs/operators';
 
 const localKey = 'user.local-document.v1';

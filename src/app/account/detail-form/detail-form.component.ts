@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
-import { confirmPasswordValidator } from '@shared/confirm-password.validator';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { takeUntil } from 'rxjs/operators';
-import { User } from '@shared/user.model';
-import { Observable, of } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '@core/account.service';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { confirmPasswordValidator } from '@shared/confirm-password.validator';
+import { User } from '@shared/entity/user.model';
+import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
+import { Observable, of } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-detail-form',
