@@ -1,20 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DetailFormComponent } from './detail-form.component';
-import { configureTestSuite } from 'ng-bullet';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AccountService } from '@core/account.service';
-import { MatFormFieldModule } from '@angular/material';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalePipe } from '@shared/locale.pipe';
-import { LocaleService } from '@core/locale.service';
-import { User } from '@shared/entity/user.model';
 import { EntityService } from '@core/entity.service';
+import { LocaleService } from '@core/locale.service';
 import { Entity } from '@shared/entity/entity.model';
+import { User } from '@shared/entity/user.model';
+import { LocalePipe } from '@shared/locale.pipe';
 import { merge } from 'lodash';
+import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
+
+import { DetailFormComponent } from './detail-form.component';
 
 describe('DetailFormComponent', () => {
     let component: DetailFormComponent;
@@ -73,11 +71,6 @@ describe('DetailFormComponent', () => {
     it('should create a form with confirm control', () => {
         fixture.detectChanges();
         expect(component.form.controls.confirm).toBeTruthy();
-    });
-
-    it('should disable email control', () => {
-        fixture.detectChanges();
-        expect(component.form.controls.email.disabled).toBeTruthy();
     });
 
     it.skip('should use EntityService to update the user', () => {

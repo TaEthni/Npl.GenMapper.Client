@@ -1,14 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from '@core/authentication.service';
+import { LocaleService } from '@core/locale.service';
+import { LocalePipe } from '@shared/locale.pipe';
+import { configureTestSuite } from 'ng-bullet';
+import { of } from 'rxjs';
 
 import { ConfirmEmailComponent } from './confirm-email.component';
-import { configureTestSuite } from 'ng-bullet';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LocalePipe } from '@shared/locale.pipe';
 
 describe('ConfirmEmailComponent', () => {
     let component: ConfirmEmailComponent;
     let fixture: ComponentFixture<ConfirmEmailComponent>;
+    let authService: AuthenticationService;
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
@@ -19,17 +24,28 @@ describe('ConfirmEmailComponent', () => {
             declarations: [
                 ConfirmEmailComponent,
                 LocalePipe
+            ],
+            providers: [
+                LocaleService,
+                {
+                    provide: AuthenticationService,
+                    useValue: {}
+                }
             ]
         });
     });
 
     beforeEach(() => {
+        const route = TestBed.get(ActivatedRoute);
+        route.snapshot.queryParams.key = '123456';
         fixture = TestBed.createComponent(ConfirmEmailComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        authService = TestBed.get(AuthenticationService);
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    it('should use Auth Service to send emailConfirmKey', () => {
+        authService.acceptEmailConfirmation = jest.fn(() => of(null));
+        fixture.detectChanges();
+        expect(authService.acceptEmailConfirmation).toHaveBeenCalledWith('123456');
     });
 });
