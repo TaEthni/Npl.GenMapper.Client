@@ -1,7 +1,8 @@
 {
     "compileOnSave": false,
     "angularCompilerOptions": {
-        "enableIvy": true
+        "enableIvy": true,
+        "preserveWhitespaces": false
     },
     "compilerOptions": {
         "baseUrl": "./",
@@ -28,7 +29,10 @@
             ],
             "@admin/*": [
                 "src/app/admin/*"
-            ]
+            ],
+            "lodash": [
+                "../node_modules/lodash-es"
+            ],
         }
         // "allowUnreachableCode": false,
         // "alwaysStrict": true,

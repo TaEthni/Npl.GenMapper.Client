@@ -5,6 +5,7 @@ import { DocumentDto } from '@shared/entity/document.model';
 import { EntityType } from '@shared/entity/entity.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { pick, cloneDeep } from 'lodash';
 
 const localKey = 'user.local-document.v1';
 
@@ -21,17 +22,17 @@ export class ToolService {
         private _tokenService: TokenService
     ) { }
 
-    public load(format: string): Observable<DocumentDto[]> {
+    public load(type: string): Observable<DocumentDto[]> {
         if (!this.isAuthenticated()) {
             const json = localStorage.getItem(localKey);
-            const doc = json ? DocumentDto.create(JSON.parse(json)) : DocumentDto.create({ format });
+            const doc = json ? new DocumentDto(JSON.parse(json)) : new DocumentDto({ type });
             return of([doc]);
         }
 
         return this._entityService
             .getAll<DocumentDto>(EntityType.Documents)
             .pipe(map(docs => {
-                return docs.filter(doc => doc.format === format);
+                return docs.filter(doc => doc.type === type);
             }));
     }
 
@@ -42,7 +43,12 @@ export class ToolService {
             return of(doc);
         }
 
-        return this._entityService.update(doc);
+        const data = cloneDeep(doc);
+
+        delete data.createdAt;
+        delete data.updatedAt;
+
+        return this._entityService.update(data);
     }
 
     public create(doc: DocumentDto): Observable<DocumentDto> {

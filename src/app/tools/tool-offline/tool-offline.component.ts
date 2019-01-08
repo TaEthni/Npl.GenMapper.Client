@@ -31,9 +31,14 @@ export class ToolOfflineComponent implements OnInit {
         const local = localStorage.getItem(storageKey + this.template.name);
 
         if (local) {
-            this.document = DocumentDto.create(JSON.parse(local));
+            const doc = JSON.parse(local);
+
+            // For backwards compatibility
+            if (doc.format) { doc.type = doc.format; }
+
+            this.document = new DocumentDto(doc);
         } else {
-            this.document = DocumentDto.create({ format: this.template.name });
+            this.document = new DocumentDto({ type: this.template.format });
         }
     }
 
@@ -75,9 +80,9 @@ export class ToolOfflineComponent implements OnInit {
     }
 
     public createDocument(value: { content?: string, title?: string } = {}): void {
-        this.document = DocumentDto.create({
+        this.document = new DocumentDto({
             title: value.title,
-            format: this.template.format,
+            type: this.template.format,
             content: value.content
         });
 

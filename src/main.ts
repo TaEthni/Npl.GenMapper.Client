@@ -7,7 +7,7 @@ import { defaultsDeep } from 'lodash';
 import { AppModule } from './app/app.module';
 import { ChurchCirclesTemplate } from './app/templates/church-circles';
 import { FourFieldsTemplate } from './app/templates/four-fields';
-import { translations } from './app/translations';
+import { translations } from './app/templates/translations';
 import { environment } from './environments/environment';
 
 if (environment.production) {

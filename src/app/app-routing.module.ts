@@ -1,6 +1,3 @@
-import { AdminContainerComponent } from '@admin/admin-container/admin-container.component';
-import { RoleListComponent } from '@admin/role-list/role-list.component';
-import { UserListComponent } from '@admin/user-list/user-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from '@core/authentication.guard';
@@ -27,6 +24,7 @@ import { ToolOfflineComponent } from './tools/tool-offline/tool-offline.componen
 import { ToolResolver } from './tools/tool.resolver';
 import { ToolComponent } from './tools/tool/tool.component';
 import { ToolsComponent } from './tools/tools/tools.component';
+import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 
 const appRoutes: Routes = [
     {
@@ -50,11 +48,14 @@ const appRoutes: Routes = [
             path: 'recover-password',
             component: RecoverPasswordComponent
         }, {
-            path: 'reset-password/:token',
+            path: 'reset-password',
             component: ResetPasswordComponent,
         }, {
             path: 'reset-password-expired',
             component: ResetPasswordExpiredComponent
+        }, {
+            path: 'confirm-email',
+            component: ConfirmEmailComponent
         }, {
             path: 'forbidden',
             component: ForbiddenComponent

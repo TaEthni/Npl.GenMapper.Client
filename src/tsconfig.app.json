@@ -13,7 +13,10 @@
             ],
             "@admin/*": [
                 "app/admin/*"
-            ]
+            ],
+            "lodash": [
+                "../node_modules/lodash-es"
+            ],
         }
     },
     "exclude": [

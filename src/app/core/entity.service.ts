@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { Entity, EntityType } from '@shared/entity/entity.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { without, omit } from 'lodash';
 
-// export const BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
-export const BaseUrl = 'http://localhost:9000/';
+export const BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
+// export const BaseUrl = 'http://localhost:9000/api/';
 
 interface ResponseData {
     data: any;
@@ -38,7 +39,8 @@ export class EntityService {
 
     public create<T extends Entity>(entity: Entity): Observable<T> {
         const url = BaseUrl + entity.entityType;
-        return this.http.post<ResponseData>(url, entity).pipe(map(d => {
+        const body = omit(entity, ['id', 'entityType']);
+        return this.http.post<ResponseData>(url, body).pipe(map(d => {
             d.data['entityType'] = entity.entityType;
             return d.data;
         }));
@@ -46,7 +48,8 @@ export class EntityService {
 
     public update<T extends Entity>(entity: T): Observable<T> {
         const url = BaseUrl + entity.entityType + '/' + entity.id;
-        return this.http.put<ResponseData>(url, entity).pipe(map(a => {
+        const body = omit(entity, ['id', 'entityType']);
+        return this.http.put<ResponseData>(url, body).pipe(map(a => {
             a.data['entityType'] = entity.entityType;
             return a.data;
         }));

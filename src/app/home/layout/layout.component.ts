@@ -25,33 +25,33 @@ export class LayoutComponent extends Unsubscribable implements OnInit {
     public matSidenav: MatSidenav;
 
     constructor(
-        private _tokenService: TokenService,
-        private _authService: AuthenticationService,
-        private _layoutService: LayoutService,
-        private _router: Router
+        private tokenService: TokenService,
+        private authService: AuthenticationService,
+        private layoutService: LayoutService,
+        private router: Router
     ) {
         super();
     }
 
     public ngOnInit(): void {
 
-        this._layoutService.setSidenav(this.matSidenav);
+        this.layoutService.setSidenav(this.matSidenav);
 
-        this._tokenService.get()
+        this.tokenService.get()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(token => {
                 this.isAuthenticated = token.isAuthenticated;
             });
 
-        this._authService.getUser()
+        this.authService.getUser()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(user => {
                 this.user = user;
             });
 
-        this._authService.refreshUser();
+        this.authService.refreshUser();
 
-        this._router.events
+        this.router.events
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(event => {
                 if (event instanceof NavigationStart) {

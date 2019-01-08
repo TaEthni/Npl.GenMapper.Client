@@ -28,14 +28,14 @@ export class SignupComponent extends Unsubscribable implements OnInit {
 
     public ngOnInit(): void {
         this.form = this.fb.group({
-            username: [null, ValidationUtils.getDefaultInputValidators(htmlInputTypes.text)],
+            username: [null, ValidationUtils.getDefaultInputValidators(htmlInputTypes.text).concat(Validators.minLength(4))],
             email: [null, ValidationUtils.getDefaultInputValidators(htmlInputTypes.email, true)],
             password: [null],
             confirm: [null],
         });
 
-        this.form.controls.password.setValidators([Validators.required, Validators.minLength(6)]);
-        this.form.controls.confirm.setValidators([Validators.required, Validators.minLength(6), confirmPasswordValidator('password')]);
+        this.form.controls.password.setValidators([Validators.required, Validators.minLength(8)]);
+        this.form.controls.confirm.setValidators([Validators.required, Validators.minLength(8), confirmPasswordValidator('password')]);
 
         this.form.controls.password.valueChanges
             .pipe(takeUntil(this.unsubscribe))
@@ -55,11 +55,11 @@ export class SignupComponent extends Unsubscribable implements OnInit {
                         this.router.navigate(['/login']);
                     },
                     error => {
-                        if (error.error.message === CreateUserError.emailExists) {
+                        if (error.error.errorCode === 40901) {
                             this.form.controls.email.setErrors({ emailInUse: 'Email already exists' });
                         }
 
-                        if (error.error.message === CreateUserError.usernameExists) {
+                        if (error.error.errorCode === 40902) {
                             this.form.controls.username.setErrors({ usernameInUse: 'Username already exists' });
                         }
                     }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DownloadService } from '@core/download.service';
@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
 import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
 import { ToolService } from '../tool.service';
+import { TemplateUtils } from '../../templates/template-utils';
 
 @Component({
     selector: 'app-tool',
@@ -87,11 +88,10 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
     }
 
     public onCreateDocument(value: { content?: string, title?: string } = {}): void {
-        const doc = DocumentDto.create({
+        const doc = new DocumentDto({
             title: value.title || 'No name',
-            descrciption: 'No description',
-            format: this.template.format,
-            content: value.content || ''
+            type: this.template.format,
+            content: value.content || TemplateUtils.createInitialCSV(this.template)
         });
 
         this.isLoading = true;
@@ -160,12 +160,14 @@ export class ToolComponent extends Unsubscribable implements OnInit, OnDestroy {
         }
 
         this.form = new FormGroup({
-            title: new FormControl(model.title),
+            title: new FormControl(model.title, [Validators.minLength(2), Validators.required]),
             content: new FormControl(model.content)
         });
 
         this.formSub = this.form.valueChanges.subscribe(value => {
-            this._update(value);
+            if (this.form.valid) {
+                this._update(value);
+            }
         });
     }
 }

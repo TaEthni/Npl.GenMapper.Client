@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BaseUrl } from './entity.service';
+import { BaseUrl, EntityService } from './entity.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

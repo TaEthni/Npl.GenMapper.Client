@@ -1,5 +1,12 @@
 import { ValidatorFn, Validators } from '@angular/forms';
 
+export enum htmlInputTypes {
+    text,
+    number,
+    email,
+    website,
+    date
+}
 
 export class ValidationUtils {
     public static readonly maxTextFieldLength = 255;
@@ -38,12 +45,4 @@ export class ValidationUtils {
 
         return validators;
     }
-}
-
-export enum htmlInputTypes {
-    text,
-    number,
-    email,
-    website,
-    date
 }

@@ -3,11 +3,9 @@
         <mat-toolbar-row>
             <app-sidenav-toggle></app-sidenav-toggle>
         </mat-toolbar-row>
-        <mat-toolbar-row>
-        </mat-toolbar-row>
         <mat-toolbar-row fxLayout="row"
                          fxLayoutAlign="center center">
-            <app-npl-logo size="50"></app-npl-logo>
+            <app-npl-logo size="100"></app-npl-logo>
         </mat-toolbar-row>
     </mat-toolbar>
 </header>
@@ -16,5 +14,5 @@
          fxLayoutAlign="center center">
 
     <app-detail-form [model]="user"
-                     (submit)="onSubmit($event)"></app-detail-form>
+                     (submit)="onSubmit()"></app-detail-form>
 </section>

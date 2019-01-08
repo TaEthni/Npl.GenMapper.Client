@@ -28,12 +28,7 @@ export class DetailComponent extends Unsubscribable implements OnInit {
             });
     }
 
-    public onSubmit(user: User): void {
-        user.entityType = EntityType.Users;
-        user.id = this.user.id;
-        this.entityService.update(user)
-            .subscribe(result => {
-                this.snackBar.open('You account has been saved', 'Ok', { duration: 10000 });
-            });
+    public onSubmit(): void {
+        this.snackBar.open('You account has been saved', 'Ok', { duration: 10000 });
     }
 }

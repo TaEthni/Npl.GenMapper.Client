@@ -11,7 +11,7 @@
             {{'editGroup.elementParent' | locale | async}}
         </div>
         <div class="control-input"
-             fxFlex="200px">
+             fxFlex="250px">
             <mat-form-field floatPlaceholder="never"
                             floatLabel="never"
                             no-error
@@ -20,7 +20,9 @@
                     <ng-container *ngFor="let n of nodes">
                         <ng-container *ngIf="n.id !== model.id">
                             <mat-option [value]="n.id">
-                                {{n.name}}
+                                <ng-container *ngIf="n.name && n.leaderName; then combinedOption else defautOption"></ng-container>
+                                <ng-template #combinedOption>{{n.name}}: {{n.leaderName}}</ng-template>
+                                <ng-template #defautOption>{{n.name || n.leaderName || '[No Name]'}}</ng-template>
                             </mat-option>
                         </ng-container>
                     </ng-container>
@@ -38,7 +40,7 @@
                 <div class="control-label"
                      fxFlex>{{field.localeLabel}}</div>
                 <div class="control-input"
-                     fxFlex="200px">
+                     fxFlex="250px">
                     <ng-container *ngIf="field.type === 'text'">
                         <mat-form-field floatPlaceholder="never"
                                         floatLabel="never"

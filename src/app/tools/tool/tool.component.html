@@ -3,12 +3,22 @@
         <app-sidenav-toggle></app-sidenav-toggle>
 
         <ng-container *ngIf="document">
-            <div fxFlex>
+            <div fxFlex
+                 class="doc-name">
                 <input type="text"
                        matInput
                        placeholder="Name"
+                       autocomplete="off"
                        [formControl]="form.get('title')"
-                       *ngIf="form">
+                       [class.is-error]="form.controls.title.errors">
+
+                <mat-error *ngIf="form.controls.title.errors?.required">
+                    {{'errors.requiredField' | locale | async}}
+                </mat-error>
+
+                <mat-error *ngIf="form.controls.title.errors?.minlength">
+                    Value is too short
+                </mat-error>
             </div>
 
             <button mat-icon-button

@@ -39,8 +39,14 @@ export class AuthenticationService {
     }
 
     public signup(value: User): Observable<User> {
-        value.entityType = EntityType.Users;
-        return this.entityService.create<User>(value);
+        const data = {
+            entityType: EntityType.Users,
+            username: value.username || null,
+            password: value.password,
+            email: value.email
+        } as User;
+
+        return this.entityService.create<User>(data);
     }
 
     public authenticate(config: LoginConfig): Observable<any> {
@@ -76,17 +82,19 @@ export class AuthenticationService {
         this.router.navigate(['login']);
     }
 
-    public resetPassword(token: string, options: { password: string }): Observable<ResponseData> {
-        return this.http
-            .post<ResponseData>(BaseUrl + 'reset/' + token, options);
+    public resetPassword(key: string, password: string): Observable<ResponseData> {
+        return this.http.post<ResponseData>(BaseUrl + 'users:reset-password', { key, password });
     }
 
-    public checkResetPasswordToken(token: string): Observable<boolean> {
-        return this.http.get<any>(BaseUrl + 'reset/' + token);
+    public checkResetPasswordToken(key: string): Observable<boolean> {
+        return this.http.post<any>(BaseUrl + 'users:verify-password-reset', { key });
     }
 
     public recoverPassword(options: { email: string }): Observable<ResponseData> {
-        return this.http
-            .post<ResponseData>(BaseUrl + 'recover', options);
+        return this.http.post<ResponseData>(BaseUrl + 'users:forgot-password', options);
+    }
+
+    public acceptEmailConfirmation(key: string): Observable<ResponseData> {
+        return this.http.post<ResponseData>(BaseUrl + 'users:confirm-email', { key });
     }
 }

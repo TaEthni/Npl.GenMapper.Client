@@ -14,7 +14,6 @@ export class RecoverPasswordComponent extends Unsubscribable implements OnInit {
 
     public form: FormGroup;
     public success: boolean;
-    public resetToken: string;
 
     constructor(
         private fb: FormBuilder,
@@ -33,10 +32,9 @@ export class RecoverPasswordComponent extends Unsubscribable implements OnInit {
                 .subscribe(
                     success => {
                         this.success = true;
-                        this.resetToken = success.data.token;
                     },
                     error => {
-                        if (error) {
+                        if (error.errorCode === 40407) {
                             this.form.controls.email.setErrors({ noMatch: error.error.message });
                         }
                     }

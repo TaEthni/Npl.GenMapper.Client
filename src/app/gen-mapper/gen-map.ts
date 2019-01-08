@@ -3,7 +3,8 @@ import * as d3 from 'd3';
 import i18next from 'i18next';
 import * as _ from 'lodash';
 
-import { GMField } from './gen-mapper.interface';
+import { GMField, GMTemplate } from './gen-mapper.interface';
+import { TemplateUtils } from '../templates/template-utils';
 
 export const MapStyles = {
     boxHeight: 80,
@@ -33,7 +34,7 @@ export class GenMap {
 
     constructor(
         private graphSvg: ElementRef,
-        private template: any,
+        private template: GMTemplate,
         private content?: string,
     ) { }
 
@@ -111,7 +112,7 @@ export class GenMap {
     public addNode(node: any): void {
         const newNodeData: any = {};
         this.template.fields.forEach((field: GMField) => {
-            newNodeData[field.header] = this._getInitialValue(field);
+            newNodeData[field.header] = TemplateUtils.getInitialTemplateValue(field, this.template);
         });
         newNodeData['id'] = this.findNewId();
         newNodeData['parentId'] = node.data.id;
@@ -154,8 +155,8 @@ export class GenMap {
         rowRootOfImported.parentId = nodeToDelete.parentId;
         this.data[_.indexOf(this.data, nodeToDelete)] = rowRootOfImported;
 
-        const idsUnsorted = _.map(this.data, function (row) { return row.id });
-        const ids = idsUnsorted.sort(function (a, b) { return a - b });
+        const idsUnsorted = _.map(this.data, function (row: any): string { return row.id; });
+        const ids = idsUnsorted.sort((a: any, b: any): any => a - b);
         // update ids of other nodes and push into data
         while (parsedCsv.length > 0) {
             const row = parsedCsv.shift();
@@ -222,14 +223,6 @@ export class GenMap {
         }
     }
 
-    private _getInitialValue(field: any): any {
-        if (field.initialTranslationCode) {
-            return i18next.t(this.template.format + '.' + field.initialTranslationCode);
-        } else {
-            return field.initial;
-        }
-    }
-
     private findNewId(): string {
         const ids = _.map(this.data, (row) => row.id);
         return findNewIdFromArray(ids);
@@ -268,16 +261,9 @@ export class GenMap {
             .append('g')
             .attr('class', 'group-nodes');
 
-        this.csvHeader = this.template.fields.map(field => field.header).join(',') + '\n';
 
-        this.initialCsv = this.csvHeader + this.template.fields.map(field => {
-            // Patch to convert arrays to CSV readable values
-            let v = this._getInitialValue(field);
-            if (Array.isArray(v)) {
-                v = '"' + v.join(',') + '"';
-            }
-            return v;
-        }).join(',');
+        this.csvHeader = TemplateUtils.createCSVHeader(this.template);
+        this.initialCsv = TemplateUtils.createInitialCSV(this.template);
 
         this.update(this.content);
     }
@@ -297,7 +283,7 @@ export class GenMap {
     }
 
     private exportCsv(): void {
-        const blob = new Blob([this._getOutputCsv()], { type: 'text/csv;charset=utf-8' })
+        const blob = new Blob([this._getOutputCsv()], { type: 'text/csv;charset=utf-8' });
 
         const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
             navigator.userAgent && !navigator.userAgent.match('CriOS');

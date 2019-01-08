@@ -77,7 +77,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         };
 
         this.graph.removeNodeClick = (node: any) => {
-            const name = node.data.name;
+            const name = node.data.name || node.data.leaderName || 'No Name';
             const hasChildren = node.children && node.children.length;
             const message = hasChildren ? `Delete [${name}] as all it's decendants.` : `Delete [${name}].`;
             this.dialog

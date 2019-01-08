@@ -1,6 +1,6 @@
 <div fxLayout="column"
      fxLayoutGap="24px">
-    <app-npl-logo></app-npl-logo>
+    <app-npl-logo size="100"></app-npl-logo>
     <form fxLayout="column"
           fxLayoutAlign="center center"
           [formGroup]="form"
@@ -51,6 +51,10 @@
                     <mat-hint>
                         {{'messages.uniqueUsername' | locale | async}}
                     </mat-hint>
+
+                    <mat-error *ngIf="form.controls.username.errors?.minlength">
+                        Minimum length is {{form.controls.username.errors?.minlength.requiredLength}} characters
+                    </mat-error>
 
                     <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
                         {{form.controls.username.errors?.usernameInUse}}
