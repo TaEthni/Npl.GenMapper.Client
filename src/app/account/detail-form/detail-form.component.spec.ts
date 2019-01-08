@@ -11,10 +11,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LocalePipe } from '@shared/locale.pipe';
 import { LocaleService } from '@core/locale.service';
 import { User } from '@shared/entity/user.model';
+import { EntityService } from '@core/entity.service';
+import { Entity } from '@shared/entity/entity.model';
+import { merge } from 'lodash';
+import { of } from 'rxjs';
 
 describe('DetailFormComponent', () => {
     let component: DetailFormComponent;
     let fixture: ComponentFixture<DetailFormComponent>;
+    let entityService: EntityService;
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
@@ -31,7 +36,7 @@ describe('DetailFormComponent', () => {
             providers: [
                 LocaleService,
                 {
-                    provide: AccountService,
+                    provide: EntityService,
                     useValue: {}
                 }
             ]
@@ -41,7 +46,8 @@ describe('DetailFormComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(DetailFormComponent);
         component = fixture.componentInstance;
-        component.model = new User();
+        component.model = new User({ id: Entity.uuid() });
+        entityService = TestBed.get(EntityService);
     });
 
     it('should create a form', () => {
@@ -72,5 +78,15 @@ describe('DetailFormComponent', () => {
     it('should disable email control', () => {
         fixture.detectChanges();
         expect(component.form.controls.email.disabled).toBeTruthy();
+    });
+
+    it.skip('should use EntityService to update the user', () => {
+        fixture.detectChanges();
+        const expectedUser = new User({ id: Entity.uuid() });
+        const updatedUser = merge(expectedUser, { username: '1234' });
+        entityService.update = jest.fn(() => of(null));
+        // component.submit();
+        fixture.detectChanges();
+        expect(entityService.update).toHaveBeenCalledWith(updatedUser);
     });
 });

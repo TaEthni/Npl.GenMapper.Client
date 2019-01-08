@@ -60,12 +60,5 @@ describe('DetailComponent', () => {
         expect(component.user).toEqual(expectedUser);
     });
 
-    it('should use EntityService to update the user', () => {
-        fixture.detectChanges();
-        const updatedUser = merge(expectedUser, { username: '1234' });
-        entityService.update = jest.fn(() => of(null));
-        component.onSubmit(updatedUser);
-        fixture.detectChanges();
-        expect(entityService.update).toHaveBeenCalledWith(updatedUser);
-    });
+
 });
