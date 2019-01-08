@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
     public form: FormGroup;
     public showError: boolean;
+    public isLoading: boolean;
 
     constructor(
         private authService: AuthenticationService,
@@ -28,11 +29,14 @@ export class LoginComponent implements OnInit {
         this.showError = false;
 
         if (this.form.valid) {
+            this.isLoading = true;
             this.authService.authenticate(this.form.value).subscribe(
                 success => {
+                    this.isLoading = false;
                     this.router.navigate(['']);
                 },
                 error => {
+                    this.isLoading = false;
                     this.showError = true;
                 }
             );

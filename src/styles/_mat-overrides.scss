@@ -4,3 +4,17 @@
         margin-right: 0;
     }
 }
+
+.mat-spinner-button {
+    .mat-button-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .mat-spinner {
+        margin-left: 10px;
+        svg circle {
+            stroke: white;
+        }
+    }
+}
