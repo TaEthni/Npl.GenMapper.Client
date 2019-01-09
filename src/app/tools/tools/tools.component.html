@@ -3,21 +3,49 @@
         <mat-toolbar-row>
             <app-sidenav-toggle></app-sidenav-toggle>
         </mat-toolbar-row>
-        <mat-toolbar-row>
-        </mat-toolbar-row>
         <mat-toolbar-row fxLayout="row"
                          fxLayoutAlign="center center">
-            <img height="100px"
-                 width="100px"
-                 src="assets/npl-tools-logo-2018.png" />
-
-            <h1>Tools</h1>
+            <app-npl-logo size="150"></app-npl-logo>
         </mat-toolbar-row>
     </mat-toolbar>
 </header>
 
-<section>
-    <mat-nav-list>
+<section fxLayout="column"
+         fxLayout.gt-md="row wrap"
+         fxLayoutAlign="center center"
+         fxLayoutGap="24px">
+
+    <mat-card [routerLink]="['/church-circles']">
+        <img mat-card-image
+             height="290px"
+             src="assets/gen-mapper-example-church-circles.png"
+             alt="Photo of a Church Circles">
+        <mat-card-header>
+            <mat-card-title>
+                Church Circles
+            </mat-card-title>
+            <mat-card-subtitle>
+                Generation Map
+            </mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+
+    <mat-card [routerLink]="['/four-fields']">
+        <img mat-card-image
+             height="290px"
+             src="assets/gen-mapper-example1.png"
+             alt="Photo of a Four Fields">
+        <mat-card-header>
+            <mat-card-title>
+                Four Fields
+            </mat-card-title>
+            <mat-card-subtitle>
+                Generation Map
+            </mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+
+    <!-- <mat-nav-list>
         <h3 mat-subheader></h3>
         <mat-list-item [routerLink]="['/church-circles']">
             <h4 mat-line>Church Circles</h4>
@@ -29,17 +57,9 @@
             <p mat-line> Generation Map </p>
             <mat-icon>chevron_right</mat-icon>
         </mat-list-item>
-        <!-- <mat-list-item>
-            <h4 mat-line>Movementeer (Coming soon)</h4>
-            <p mat-line> Generation Map </p>
-        </mat-list-item>
-        <mat-list-item>
-            <h4 mat-line>Disciples (Coming soon)</h4>
-            <p mat-line> Generation Map </p>
-        </mat-list-item> -->
         <mat-list-item>
             <h4 mat-line>Oikos (Coming Soon)</h4>
             <p mat-line> Oikos Map </p>
         </mat-list-item>
-    </mat-nav-list>
+    </mat-nav-list> -->
 </section>
