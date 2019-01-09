@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Entity, EntityType } from '@shared/entity/entity.model';
+import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { without, omit } from 'lodash';
 
-export const BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
-// export const BaseUrl = 'http://localhost:9000/api/';
+// export const BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
+export const BaseUrl = 'http://localhost:9000/api/';
 
 interface ResponseData {
     data: any;

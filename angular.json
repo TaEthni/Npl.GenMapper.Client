@@ -27,6 +27,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "src/assets/fonts/material-icons/material-icons.css",
                             "src/styles.scss"
                         ],
                         "scripts": []
