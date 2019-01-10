@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 let _BaseUrl = 'http://localhost:9000/api/';
 
 if (window.location.host === 'dev.noplaceleft.tools') {
-    _BaseUrl = window.location.protocol + '//dev-api.noplaceleft.tools/';
+    _BaseUrl = window.location.protocol + '//dev-api.noplaceleft.tools/api/';
 }
 
 if (window.location.host === 'noplaceleft.tools') {
