@@ -1806,10 +1806,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var _BaseUrl = 'http://localhost:9000/api/';
 if (window.location.host === 'dev.noplaceleft.tools') {
-    _BaseUrl = window.location.host + '//dev-api.noplaceleft.tools/';
+    _BaseUrl = window.location.protocol + '//dev-api.noplaceleft.tools/';
 }
 if (window.location.host === 'noplaceleft.tools') {
-    _BaseUrl = window.location.host + '//api.noplaceleft.tools/';
+    _BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
 }
 var BaseUrl = _BaseUrl;
 var EntityService = /** @class */ (function () {
