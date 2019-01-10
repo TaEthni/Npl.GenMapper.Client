@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { DocumentDto } from '@shared/document.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { DocumentDto } from '@shared/entity/document.model';
 
 @Component({
     selector: 'app-tool-nav-list',

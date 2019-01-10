@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DetailComponent } from './detail/detail.component';
-import { AccountRoutingModule } from './account-routing.module';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
+
 import { DetailFormComponent } from './detail-form/detail-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
         ReactiveFormsModule,
-        AccountRoutingModule
+        RouterModule
     ],
     declarations: [DetailComponent, DetailFormComponent],
     exports: [DetailFormComponent],

@@ -1,1 +1,19 @@
-<h4>Not Found</h4>
+<div fxLayout="column"
+     fxLayoutAlign="center center">
+
+    <div fxLayout="column"
+         fxLayoutGap="24px">
+
+        <h1>
+            Not Found
+        </h1>
+        <div>
+            <button mat-stroked-button
+                    color="primary"
+                    type="button"
+                    [routerLink]="['/tools']">
+                {{'messages.getMeOutOfHere' | locale | async}}
+            </button>
+        </div>
+    </div>
+</div>

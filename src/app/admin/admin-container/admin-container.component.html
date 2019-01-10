@@ -1,0 +1,39 @@
+<header>
+    <mat-toolbar>
+        <app-sidenav-toggle></app-sidenav-toggle>
+
+        <mat-progress-bar *ngIf="isLoading"
+                          mode="indeterminate"></mat-progress-bar>
+    </mat-toolbar>
+</header>
+
+<mat-drawer-container autosize>
+    <mat-drawer #matdrawer
+                opened
+                mode="side"
+                position="start"
+                fxLayout="column">
+
+        <mat-toolbar color="none">
+            <div>
+                Administration
+            </div>
+            <div fxFlex></div>
+        </mat-toolbar>
+
+        <mat-nav-list>
+            <mat-list-item [routerLink]="['/admin/users']"
+                           routerLinkActive="active">
+                Users
+            </mat-list-item>
+            <mat-list-item [routerLink]="['/admin/roles']"
+                           routerLinkActive="active">
+                Roles
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content fxLayout="column">
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

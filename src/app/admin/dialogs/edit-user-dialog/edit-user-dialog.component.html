@@ -1,0 +1,38 @@
+<div mat-dialog-title>
+    Create Role
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="form"
+          (submit)="onSubmit($event)"
+          fxLayout="column"
+          fxLayoutGap="24px">
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput
+                   formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input matInput
+                   formControlName="username" />
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center"
+     fxLayoutGap="15px">
+
+    <button mat-raised-button
+            color="primary"
+            (click)="onSubmit($event)">
+        Save
+    </button>
+    <button mat-button
+            color="primary"
+            mat-dialog-close>
+        Cancel
+    </button>
+</div>

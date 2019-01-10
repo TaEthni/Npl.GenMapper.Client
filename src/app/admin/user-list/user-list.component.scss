@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+
+    h1 {
+        margin: 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .mat-form-field {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .mat-column-id {
+        min-width: 72px;
+        max-width: 72px;
+        width: 72px;
+    }
+
+    .mat-column-actions {
+        min-width: 100px;
+        max-width: 100px;
+        width: 100px;
+    }
+}

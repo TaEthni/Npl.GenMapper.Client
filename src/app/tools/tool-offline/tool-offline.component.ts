@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentDto } from '@shared/document.model';
-import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
-import { ActivatedRoute } from '../../../../node_modules/@angular/router';
-import { MatDialog } from '../../../../node_modules/@angular/material';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { DownloadService } from '@core/download.service';
+import { DocumentDto } from '@shared/entity/document.model';
+import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+
+import { MatDialog } from '../../../../node_modules/@angular/material';
+import { ActivatedRoute } from '../../../../node_modules/@angular/router';
 import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
+import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
 
 const storageKey = 'offline-locall-save-';
 
@@ -30,9 +31,14 @@ export class ToolOfflineComponent implements OnInit {
         const local = localStorage.getItem(storageKey + this.template.name);
 
         if (local) {
-            this.document = DocumentDto.create(JSON.parse(local));
+            const doc = JSON.parse(local);
+
+            // For backwards compatibility
+            if (doc.format) { doc.type = doc.format; }
+
+            this.document = new DocumentDto(doc);
         } else {
-            this.document = DocumentDto.create({ format: this.template.name });
+            this.document = new DocumentDto({ type: this.template.format });
         }
     }
 
@@ -74,9 +80,9 @@ export class ToolOfflineComponent implements OnInit {
     }
 
     public createDocument(value: { content?: string, title?: string } = {}): void {
-        this.document = DocumentDto.create({
+        this.document = new DocumentDto({
             title: value.title,
-            format: this.template.format,
+            type: this.template.format,
             content: value.content
         });
 

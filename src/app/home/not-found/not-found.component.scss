@@ -1,5 +1,11 @@
+@import '~styles/colors';
+
 :host {
-    padding: 20px;
     display: flex;
-    justify-content: center;
+    margin: 100px auto 0 auto;
+
+    h1 {
+        font-size: 56px;
+        color: mat-color($warn);
+    }
 }

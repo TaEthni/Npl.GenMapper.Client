@@ -1,7 +1,8 @@
 {
     "compileOnSave": false,
     "angularCompilerOptions": {
-        "enableIvy": true
+        "enableIvy": true,
+        "preserveWhitespaces": false
     },
     "compilerOptions": {
         "baseUrl": "./",
@@ -25,7 +26,21 @@
             ],
             "@core/*": [
                 "src/app/core/*"
-            ]
+            ],
+            "@admin/*": [
+                "src/app/admin/*"
+            ],
+            "lodash": [
+                "../node_modules/lodash-es"
+            ],
         }
+        // "allowUnreachableCode": false,
+        // "alwaysStrict": true,
+        // "forceConsistentCasingInFileNames": true,
+        // "noUnusedLocals": true,
+        // "noImplicitReturns": true,
+        // "noImplicitAny": true,
+        // "noImplicitThis": false,
+        // "allowSyntheticDefaultImports": true
     }
 }

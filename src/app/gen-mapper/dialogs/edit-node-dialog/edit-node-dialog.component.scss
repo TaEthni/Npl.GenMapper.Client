@@ -1,4 +1,7 @@
+@import '~styles/mixins';
+
 :host {
+    @include dialog();
     .mat-dialog-content {
         overflow: auto;
         margin: 0;
