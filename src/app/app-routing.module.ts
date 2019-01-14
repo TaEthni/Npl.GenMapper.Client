@@ -4,11 +4,13 @@ import { AuthenticationGuard } from '@core/authentication.guard';
 import { UserResolver } from '@core/user.resolver';
 
 import { DetailComponent } from './account/detail/detail.component';
+import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './home/forbidden/forbidden.component';
 import { LayoutUnauthenticatedComponent } from './home/layout-unauthenticated/layout-unauthenticated.component';
 import { LayoutComponent } from './home/layout/layout.component';
 import { LoginComponent } from './home/login/login.component';
 import { LogoutComponent } from './home/logout/logout.component';
+import { MaintenanceComponent } from './home/maintenance/maintenance.component';
 import { NotFoundComponent } from './home/not-found/not-found.component';
 import { RecoverPasswordComponent } from './home/recover-password/recover-password.component';
 import { ResetPasswordExpiredComponent } from './home/reset-password-expired/reset-password-expired.component';
@@ -24,7 +26,6 @@ import { ToolOfflineComponent } from './tools/tool-offline/tool-offline.componen
 import { ToolResolver } from './tools/tool.resolver';
 import { ToolComponent } from './tools/tool/tool.component';
 import { ToolsComponent } from './tools/tools/tools.component';
-import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 
 const appRoutes: Routes = [
     {
@@ -222,6 +223,22 @@ const appRoutes: Routes = [
     {
         path: '**',
         redirectTo: 'tools'
+    }
+];
+
+const maintenanceRoutes: Routes = [
+    {
+        path: '',
+        redirectTo: 'maintenance',
+        pathMatch: 'full'
+    },
+    {
+        path: 'maintenance',
+        component: MaintenanceComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'maintenance'
     }
 ];
 
