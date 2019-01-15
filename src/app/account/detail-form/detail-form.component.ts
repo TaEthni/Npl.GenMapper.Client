@@ -1,14 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { AccountService } from '@core/account.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EntityService } from '@core/entity.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { confirmPasswordValidator } from '@shared/confirm-password.validator';
+import { EntityType } from '@shared/entity/entity.model';
 import { User } from '@shared/entity/user.model';
 import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
-import { Observable, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { EntityService } from '@core/entity.service';
-import { Entity, EntityType } from '@shared/entity/entity.model';
 
 @Component({
     selector: 'app-detail-form',
@@ -23,7 +21,7 @@ export class DetailFormComponent extends Unsubscribable implements OnInit {
     public model: User;
 
     @Output()
-    public onSubmit: EventEmitter<User> = new EventEmitter<User>();
+    public onSubmit: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(
         private fb: FormBuilder,
@@ -67,6 +65,10 @@ export class DetailFormComponent extends Unsubscribable implements OnInit {
             return;
         }
 
+        if (this.isSaving) {
+            return;
+        }
+
         this.isSaving = true;
 
         value.entityType = EntityType.Users;
@@ -82,6 +84,7 @@ export class DetailFormComponent extends Unsubscribable implements OnInit {
         this.entityService.update(value).subscribe(
             success => {
                 this.isSaving = false;
+                this.onSubmit.emit();
             },
             error => {
                 this.isSaving = false;

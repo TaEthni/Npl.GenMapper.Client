@@ -99,9 +99,15 @@
          fxLayoutGap="15px"
          *ngIf="form.dirty">
         <button mat-raised-button
+                class="mat-spinner-button"
                 color="primary"
-                type="submit"
-                [disabled]="isSaving">{{'en_Save' | locale | async}}</button>
+                type="submit">
+            <div>
+                {{'en_Save' | locale | async}}
+            </div>
+            <mat-spinner diameter="24"
+                         *ngIf="isSaving"></mat-spinner>
+        </button>
         <a mat-button
            color="primary"
            type="button"

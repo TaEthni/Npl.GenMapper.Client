@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { EntityService } from '@core/entity.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { EntityType } from '@shared/entity/entity.model';
 import { User } from '@shared/entity/user.model';
 import { takeUntil } from 'rxjs/operators';
 
@@ -17,7 +15,6 @@ export class DetailComponent extends Unsubscribable implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private entityService: EntityService,
         private snackBar: MatSnackBar
     ) { super(); }
 

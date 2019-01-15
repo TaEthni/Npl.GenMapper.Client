@@ -19,6 +19,7 @@ export interface SupportDialogConfig {
 })
 export class SupportDialogComponent implements OnInit {
     public form: FormGroup;
+    public isLoading: boolean;
 
     constructor(
         private fb: FormBuilder,
@@ -40,6 +41,12 @@ export class SupportDialogComponent implements OnInit {
     private sendSupport(): void {
         let req: Observable<void>;
 
+        if (this.isLoading) {
+            return;
+        }
+
+        this.isLoading = true;
+
         if (this.data.isFeedback) {
             req = this.supportService.sendFeedback(this.form.value);
         } else {
@@ -47,6 +54,7 @@ export class SupportDialogComponent implements OnInit {
         }
 
         req.subscribe(result => {
+            this.isLoading = false;
             this.dialogRf.close();
         });
     }
