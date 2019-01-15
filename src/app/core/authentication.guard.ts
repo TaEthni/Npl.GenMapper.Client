@@ -1,13 +1,12 @@
-import { Inject, Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { WindowRefService } from '@core/windowref.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+
 import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
     constructor(
         private tokenService: TokenService,
-        @Inject(WindowRefService) private windowRef: WindowRefService,
         private router: Router
     ) { }
 

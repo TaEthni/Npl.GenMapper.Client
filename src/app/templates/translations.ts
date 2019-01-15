@@ -1,4 +1,4 @@
-export const translations = {
+export const translations: any = {
     en: {
         translation: {
             'translationName': 'English',

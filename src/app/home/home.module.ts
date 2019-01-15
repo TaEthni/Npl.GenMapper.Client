@@ -19,6 +19,8 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import { SignupComponent } from './signup/signup.component';
 import { ResetPasswordExpiredComponent } from './reset-password-expired/reset-password-expired.component';
 import { SupportDialogComponent } from './support-dialog/support-dialog.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 @NgModule({
     imports: [
@@ -42,6 +44,8 @@ import { SupportDialogComponent } from './support-dialog/support-dialog.componen
         SignupComponent,
         ResetPasswordExpiredComponent,
         SupportDialogComponent,
+        ConfirmEmailComponent,
+        MaintenanceComponent,
     ],
     exports: [
         NavigationComponent

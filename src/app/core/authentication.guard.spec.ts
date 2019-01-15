@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationGuard } from '@core/authentication.guard';
 import { TokenServiceMock } from '@core/testing/token-service.mock';
@@ -74,7 +74,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: false
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(result).toBeTruthy();
         });
@@ -82,7 +82,7 @@ xdescribe('AuthenticationGuard', () => {
         it('should not activate with no token', () => {
             tokenService.clear();
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(result).toBeFalsy();
         });
@@ -94,7 +94,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: false
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(result).toBeFalsy();
         });
@@ -106,7 +106,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: false
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(result).toBeFalsy();
         });
@@ -118,7 +118,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: true
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(result).toBeFalsy();
         });
@@ -130,7 +130,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: false
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(windowLocationAssignSpy).toHaveBeenCalledWith('/authenticate');
         });
@@ -142,7 +142,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: true
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(windowLocationAssignSpy).toHaveBeenCalledWith('/authenticate');
         });
@@ -154,7 +154,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: false
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(windowLocationAssignSpy).toHaveBeenCalledTimes(0);
         });
@@ -166,7 +166,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: false
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(routerNavigateSpy).toHaveBeenCalledWith(['unverified']);
         });
@@ -178,7 +178,7 @@ xdescribe('AuthenticationGuard', () => {
                 isExpired: false
             });
 
-            const result = guard.canActivate();
+            const result = guard.canActivate(TestBed.get(ActivatedRoute));
 
             expect(routerNavigateSpy).toHaveBeenCalledTimes(0);
         });

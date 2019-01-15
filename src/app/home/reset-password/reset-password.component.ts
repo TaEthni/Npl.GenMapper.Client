@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ResetPasswordComponent extends Unsubscribable implements OnInit {
 
     public form: FormGroup;
-    public token: string;
+    public key: string;
     public passwordChanged: boolean;
 
     constructor(
@@ -25,18 +25,22 @@ export class ResetPasswordComponent extends Unsubscribable implements OnInit {
     ) { super(); }
 
     public ngOnInit(): void {
-        this.route.params.pipe(take(1)).subscribe(params => {
-            this.token = params.token;
-            this.authService.checkResetPasswordToken(this.token)
-                .subscribe(
-                    success => {
-                        this.createForm();
-                    },
-                    error => {
+        this.key = this.route.snapshot.queryParams.key;
+        this.authService.checkResetPasswordToken(this.key)
+            .subscribe(
+                success => {
+                    this.createForm();
+                },
+                error => {
+                    const errorCode = error.error.errorCode;
+
+                    if (errorCode === 40015) {
                         this.router.navigate(['/reset-password-expired']);
+                    } else {
+                        this.router.navigate(['/notfound']);
                     }
-                );
-        });
+                }
+            );
     }
 
     public createForm(): void {
@@ -45,8 +49,8 @@ export class ResetPasswordComponent extends Unsubscribable implements OnInit {
             confirm: [null]
         });
 
-        this.form.controls.password.setValidators([Validators.required, Validators.minLength(6)]);
-        this.form.controls.confirm.setValidators([Validators.required, Validators.minLength(6), confirmPasswordValidator('password')]);
+        this.form.controls.password.setValidators([Validators.required, Validators.minLength(8)]);
+        this.form.controls.confirm.setValidators([Validators.required, Validators.minLength(8), confirmPasswordValidator('password')]);
 
         this.form.controls.password.valueChanges
             .pipe(takeUntil(this.unsubscribe))
@@ -60,7 +64,7 @@ export class ResetPasswordComponent extends Unsubscribable implements OnInit {
 
         if (this.form.valid) {
             this.authService
-                .resetPassword(this.token, this.form.value)
+                .resetPassword(this.key, this.form.value.password)
                 .subscribe(result => {
                     this.passwordChanged = true;
                 });

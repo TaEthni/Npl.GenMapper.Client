@@ -1,10 +1,21 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DocumentDto } from '@shared/entity/document.model';
+
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { EditNodeDialogComponent, EditNodeDialogResponse } from '../dialogs/edit-node-dialog/edit-node-dialog.component';
-import { GMTemplate } from '../gen-mapper.interface';
 import { GenMap } from '../gen-map';
-import { DocumentDto } from '@shared/document.model';
+import { GMTemplate } from '../gen-mapper.interface';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -66,7 +77,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         };
 
         this.graph.removeNodeClick = (node: any) => {
-            const name = node.data.name;
+            const name = node.data.name || node.data.leaderName || 'No Name';
             const hasChildren = node.children && node.children.length;
             const message = hasChildren ? `Delete [${name}] as all it's decendants.` : `Delete [${name}].`;
             this.dialog

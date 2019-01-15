@@ -1,6 +1,6 @@
 <form fxLayout="column"
       [formGroup]="form"
-      (submit)="onSubmit($event)"
+      (submit)="submit($event)"
       fxLayoutGap="24px"
       *ngIf="form">
     <h1>
@@ -41,6 +41,10 @@
         <mat-hint>
             {{'messages.uniqueUsername' | locale | async}}
         </mat-hint>
+
+        <mat-error *ngIf="form.controls.username.errors?.minlength">
+            Minimum length is {{form.controls.username.errors?.minlength.requiredLength}} characters
+        </mat-error>
 
         <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
             {{'errors.usernameInUse' | locale | async}}
@@ -95,9 +99,15 @@
          fxLayoutGap="15px"
          *ngIf="form.dirty">
         <button mat-raised-button
+                class="mat-spinner-button"
                 color="primary"
-                type="submit"
-                [disabled]="isSaving">{{'en_Save' | locale | async}}</button>
+                type="submit">
+            <div>
+                {{'en_Save' | locale | async}}
+            </div>
+            <mat-spinner diameter="24"
+                         *ngIf="isSaving"></mat-spinner>
+        </button>
         <a mat-button
            color="primary"
            type="button"

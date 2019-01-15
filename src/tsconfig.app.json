@@ -3,7 +3,6 @@
     "compilerOptions": {
         "outDir": "../out-tsc/app",
         "module": "es2015",
-        "types": [],
         "baseUrl": "./",
         "paths": {
             "@shared/*": [
@@ -11,13 +10,20 @@
             ],
             "@core/*": [
                 "app/core/*"
-            ]
+            ],
+            "@admin/*": [
+                "app/admin/*"
+            ],
+            "lodash": [
+                "../node_modules/lodash-es"
+            ],
         }
     },
     "exclude": [
         "**/translations.ts",
-        "app/templates/*.*",
+        "**/templates/*.ts",
         "src/test.ts",
-        "**/*.spec.ts"
+        "**/*.spec.ts",
+        "src/app/gen-mapper/gen-map.ts"
     ]
 }

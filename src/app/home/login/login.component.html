@@ -1,6 +1,6 @@
 <div fxLayout="column"
      fxLayoutGap="24px">
-    <app-npl-logo></app-npl-logo>
+    <app-npl-logo size="100"></app-npl-logo>
     <form fxLayout="column"
           fxLayoutGap="24px"
           [formGroup]="form"
@@ -53,8 +53,13 @@
             <mat-card-actions fxLayout="row">
                 <button mat-raised-button
                         type="submit"
-                        color="primary">
-                    {{'en_Login' | locale | async}}
+                        color="primary"
+                        class="mat-spinner-button">
+                    <div>
+                        {{'en_Login' | locale | async}}
+                    </div>
+                    <mat-spinner diameter="24"
+                                 *ngIf="isLoading"></mat-spinner>
                 </button>
 
                 <a mat-button

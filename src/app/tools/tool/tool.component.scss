@@ -35,6 +35,10 @@
                 pointer-events: all;
             }
 
+            .doc-name {
+                position: relative;
+            }
+
             input {
                 margin-left: 12px;
                 line-height: 2;
@@ -43,6 +47,18 @@
                 border: none;
                 font-size: 24px;
                 font-weight: 600;
+
+                &.is-error {
+                    color: mat-color($warn);
+                }
+            }
+
+            .mat-error {
+                font-size: 12px;
+                line-height: 1;
+                position: absolute;
+                left: 16px;
+                bottom: -5px;
             }
         }
     }

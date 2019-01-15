@@ -1,9 +1,19 @@
 :host {
     display: flex;
+    flex-direction: column;
 
     input {
         font-size: 16px;
         margin: 0;
         padding: 0;
+    }
+
+    .mat-form-field {
+        width: 100%;
+    }
+
+    .control-label {
+        cursor: pointer;
+        user-select: none;
     }
 }

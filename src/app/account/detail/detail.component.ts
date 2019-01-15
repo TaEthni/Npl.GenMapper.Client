@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
-import { User } from '@shared/user.model';
-import { EntityService } from '@core/entity.service';
-import { EntityType } from '@shared/entity.model';
-import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { Unsubscribable } from '@core/Unsubscribable';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { User } from '@shared/entity/user.model';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-detail',
@@ -18,7 +15,6 @@ export class DetailComponent extends Unsubscribable implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private entityService: EntityService,
         private snackBar: MatSnackBar
     ) { super(); }
 
@@ -29,12 +25,7 @@ export class DetailComponent extends Unsubscribable implements OnInit {
             });
     }
 
-    public onSubmit(user: User): void {
-        user.entityType = EntityType.Users;
-        user.id = this.user.id;
-        this.entityService.update(user)
-            .subscribe(result => {
-                this.snackBar.open('You account has been saved', 'Ok', { duration: 10000 });
-            });
+    public onSubmit(): void {
+        this.snackBar.open('You account has been saved', 'Ok', { duration: 10000 });
     }
 }

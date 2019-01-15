@@ -1,12 +1,13 @@
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
-import { User } from '@shared/user.model';
-import { map, filter, take } from 'rxjs/operators';
 
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { User } from '@shared/entity/user.model';
+import { Observable } from 'rxjs/Observable';
+import { filter, take } from 'rxjs/operators';
+
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class UserResolver implements Resolve<Observable<User>> {

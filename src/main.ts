@@ -1,15 +1,14 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import * as i18next from 'i18next';
+import * as i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector';
+import { defaultsDeep } from 'lodash';
 
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
-
-import i18next from 'i18next';
-import * as i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector';
-import { merge, defaultsDeep } from 'lodash';
-import { FourFieldsTemplate } from './app/templates/four-fields';
 import { ChurchCirclesTemplate } from './app/templates/church-circles';
-import { translations } from './app/translations';
+import { FourFieldsTemplate } from './app/templates/four-fields';
+import { translations } from './app/templates/translations';
+import { environment } from './environments/environment';
 
 if (environment.production) {
     enableProdMode();

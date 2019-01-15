@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '@core/authentication.service';
-import { User } from '@shared/user.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
 import { SupportService } from '@core/support.service';
+import { User } from '@shared/entity/user.model';
+import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
 import { Observable } from 'rxjs';
 
 export interface SupportDialogConfig {
@@ -20,6 +19,7 @@ export interface SupportDialogConfig {
 })
 export class SupportDialogComponent implements OnInit {
     public form: FormGroup;
+    public isLoading: boolean;
 
     constructor(
         private fb: FormBuilder,
@@ -41,6 +41,12 @@ export class SupportDialogComponent implements OnInit {
     private sendSupport(): void {
         let req: Observable<void>;
 
+        if (this.isLoading) {
+            return;
+        }
+
+        this.isLoading = true;
+
         if (this.data.isFeedback) {
             req = this.supportService.sendFeedback(this.form.value);
         } else {
@@ -48,6 +54,7 @@ export class SupportDialogComponent implements OnInit {
         }
 
         req.subscribe(result => {
+            this.isLoading = false;
             this.dialogRf.close();
         });
     }

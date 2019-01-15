@@ -1,0 +1,11 @@
+@import '~styles/colors';
+
+:host {
+    display: flex;
+    margin: 100px auto 0 auto;
+
+    h1 {
+        font-size: 56px;
+        color: $green;
+    }
+}

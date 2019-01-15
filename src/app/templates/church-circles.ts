@@ -2,6 +2,27 @@ const boxHeight = 80
 const textHeight = 14
 const textMargin = 6
 
+export function moveLeaderName(d: any): number {
+    let c = 1;
+    if (d.data.name) { c++; }
+    return boxHeight + c * textHeight;
+}
+
+export function movePlace(d: any): number {
+    let c = 1;
+    if (d.data.name) { c++; }
+    if (d.data.leaderName) { c++; }
+    return boxHeight + c * textHeight;
+}
+
+export function moveDate(d: any): number {
+    let c = 1;
+    if (d.data.name) { c++; }
+    if (d.data.leaderName) { c++; }
+    if (d.data.place) { c++; }
+    return boxHeight + c * textHeight;
+}
+
 export const ChurchCirclesTemplate = {
     'version': '0.6',
     'title': 'Church Circles',
@@ -276,11 +297,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': (d) => {
-                        let c = 1;
-                        if (d.data.name) { c++; }
-                        return boxHeight + c * textHeight;
-                    }
+                    'y': moveLeaderName
                 }
             }
         },
@@ -531,12 +548,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': (d) => {
-                        let c = 1;
-                        if (d.data.name) { c++; }
-                        if (d.data.leaderName) { c++; }
-                        return boxHeight + c * textHeight;
-                    }
+                    'y': movePlace
                 },
             }
         },
@@ -548,13 +560,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
-                    'y': (d) => {
-                        let c = 1;
-                        if (d.data.name) { c++; }
-                        if (d.data.leaderName) { c++; }
-                        if (d.data.place) { c++; }
-                        return boxHeight + c * textHeight;
-                    }
+                    'y': moveDate
                 }
             }
         },

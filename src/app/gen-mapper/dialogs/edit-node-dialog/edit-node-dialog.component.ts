@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { GMTemplate, GMField } from '../../gen-mapper.interface';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LocaleService } from '@core/locale.service';
+import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+
+import { GMField, GMTemplate } from '../../gen-mapper.interface';
 
 export interface EditNodeDialogResponse {
     isCancel: boolean;
@@ -23,11 +24,12 @@ export class EditNodeDialogComponent {
     private template: GMTemplate = null;
     public fields: GMField[];
     public model: any;
+    public locale: any;
 
     constructor(
         private dialogRef: MatDialogRef<EditNodeDialogComponent>,
         private matDialog: MatDialog,
-        private locale: LocaleService,
+        private localeService: LocaleService,
         @Inject(MAT_DIALOG_DATA) public data: { nodeData: any, template: GMTemplate, language: string, nodes: any[] }
     ) {
         this.model = Object.assign({}, data.nodeData);
@@ -36,10 +38,10 @@ export class EditNodeDialogComponent {
 
         this.template.fields.forEach(field => {
             if (this.locale[field.header]) {
-                field.localeLabel = locale.t(this.template.format + '.' + field.header);
+                field.localeLabel = this.localeService.t(this.template.format + '.' + field.header);
                 if (field.values) {
-                    field.values.forEach(v => {
-                        v.localeLabel = locale.t(this.template.format + '.' + v.header);
+                    field.values.forEach((v: any) => {
+                        v.localeLabel = this.localeService.t(this.template.format + '.' + v.header);
                     });
                 }
             }

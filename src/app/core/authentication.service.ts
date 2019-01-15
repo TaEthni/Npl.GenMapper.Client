@@ -1,13 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseUrl, EntityService } from '@core/entity.service';
-import { WindowRefService } from '@core/windowref.service';
-import { User } from '@shared/user.model';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { EntityType } from '@shared/entity/entity.model';
+import { User } from '@shared/entity/user.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import { TokenService } from './token.service';
-import { EntityType } from '@shared/entity.model';
-import { map, tap } from 'rxjs/operators';
 
 
 
@@ -29,7 +29,6 @@ export class AuthenticationService {
         private entityService: EntityService,
         private tokenService: TokenService,
         private http: HttpClient,
-        private windowRef: WindowRefService,
         private router: Router
     ) {
 
@@ -40,12 +39,18 @@ export class AuthenticationService {
     }
 
     public signup(value: User): Observable<User> {
-        value.entityType = EntityType.Users;
-        return this.entityService.create<User>(value);
+        const data = {
+            entityType: EntityType.Users,
+            username: value.username || null,
+            password: value.password,
+            email: value.email
+        } as User;
+
+        return this.entityService.create<User>(data);
     }
 
     public authenticate(config: LoginConfig): Observable<any> {
-        const options = { headers: new HttpHeaders().set('Content-Type', 'application/json;charset=UTF-8') };
+        // const options = { headers: new HttpHeaders().set('Content-Type', 'application/json;charset=UTF-8') };
         return this.http
             .post<ResponseData>(BaseUrl + 'auth', config)
             .pipe(tap((responseData) => {
@@ -77,17 +82,19 @@ export class AuthenticationService {
         this.router.navigate(['login']);
     }
 
-    public resetPassword(token: string, options: { password: string }): Observable<ResponseData> {
-        return this.http
-            .post<ResponseData>(BaseUrl + 'reset/' + token, options);
+    public resetPassword(key: string, password: string): Observable<ResponseData> {
+        return this.http.post<ResponseData>(BaseUrl + 'users:reset-password', { key, password });
     }
 
-    public checkResetPasswordToken(token: string): Observable<boolean> {
-        return this.http.get<any>(BaseUrl + 'reset/' + token);
+    public checkResetPasswordToken(key: string): Observable<boolean> {
+        return this.http.post<any>(BaseUrl + 'users:verify-password-reset', { key });
     }
 
     public recoverPassword(options: { email: string }): Observable<ResponseData> {
-        return this.http
-            .post<ResponseData>(BaseUrl + 'recover', options);
+        return this.http.post<ResponseData>(BaseUrl + 'users:forgot-password', options);
+    }
+
+    public acceptEmailConfirmation(key: string): Observable<ResponseData> {
+        return this.http.post<ResponseData>(BaseUrl + 'users:confirm-email', { key });
     }
 }

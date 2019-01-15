@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolNavListComponent } from './tool-nav-list.component';
 
-describe('ToolNavListComponent', () => {
+xdescribe('ToolNavListComponent', () => {
     let component: ToolNavListComponent;
     let fixture: ComponentFixture<ToolNavListComponent>;
 

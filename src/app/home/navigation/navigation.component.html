@@ -40,6 +40,7 @@
                 <h3 matLine>
                     {{'en_Account' | locale | async}}
                 </h3>
+                <mat-icon matListIcon>person</mat-icon>
                 <mat-icon class="arrow">chevron_right</mat-icon>
             </mat-list-item>
         </ng-container>
@@ -47,35 +48,9 @@
         <mat-list-item routerLink="/tools"
                        routerLinkActive="active">
             <h3 matLine> Tools </h3>
+            <mat-icon matListIcon>device_hub</mat-icon>
             <mat-icon class="arrow">chevron_right</mat-icon>
         </mat-list-item>
-
-        <h3 mat-subheader>Generation Maps</h3>
-
-        <mat-list-item [routerLink]="['/church-circles']"
-                       routerLinkActive="active">
-            <mat-icon matListIcon>device_hub</mat-icon>
-            <h3 matLine> Church Circles </h3>
-            <mat-icon class="arrow">chevron_right</mat-icon>
-        </mat-list-item>
-
-        <mat-list-item [routerLink]="['/four-fields']"
-                       routerLinkActive="active">
-            <mat-icon matListIcon>device_hub</mat-icon>
-            <h3 matLine> Four Fields </h3>
-            <mat-icon class="arrow">chevron_right</mat-icon>
-        </mat-list-item>
-
-        <!-- <mat-list-item [routerLink]="['/movementeer']"
-                       routerLinkActive="active">
-            <mat-icon matListIcon>device_hub</mat-icon>
-            <h3 matLine> MOVEMENTeer </h3>
-        </mat-list-item> -->
-
-        <!-- <mat-list-item [routerLink]="['/disciples']"
-                       routerLinkActive="active">
-            Disciples
-        </mat-list-item> -->
     </mat-nav-list>
 
     <mat-nav-list>

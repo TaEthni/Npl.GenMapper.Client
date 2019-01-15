@@ -74,10 +74,15 @@
      fxLayoutGap="25px">
 
     <button mat-raised-button
+            class="mat-spinner-button"
             color="primary"
             type="button"
             (click)="onSubmit()">
-        {{'en_Send' | locale | async}}
+        <div>
+            {{'en_Send' | locale | async}}
+        </div>
+        <mat-spinner *ngIf="isLoading"
+                     diameter="24"></mat-spinner>
     </button>
 
     <button mat-button
