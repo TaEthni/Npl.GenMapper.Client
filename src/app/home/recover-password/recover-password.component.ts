@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
-import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
+import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
 
 @Component({
     selector: 'app-recover-password',
@@ -38,7 +37,7 @@ export class RecoverPasswordComponent extends Unsubscribable implements OnInit {
                     },
                     error => {
                         this.isLoading = false;
-                        if (error.errorCode === 40407) {
+                        if (error.error.errorCode === 40407) {
                             this.form.controls.email.setErrors({ noMatch: error.error.message });
                         }
                     }

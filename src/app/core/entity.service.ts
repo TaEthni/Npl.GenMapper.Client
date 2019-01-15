@@ -12,7 +12,7 @@ if (window.location.host === 'dev.noplaceleft.tools') {
 }
 
 if (window.location.host === 'noplaceleft.tools') {
-    _BaseUrl = window.location.protocol + '//api.noplaceleft.tools/';
+    _BaseUrl = window.location.protocol + '//api.noplaceleft.tools/api/';
 }
 
 export const BaseUrl = _BaseUrl;
