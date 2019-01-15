@@ -362,7 +362,7 @@
     }
 
     .node--inactive > rect, .node--inactive > line {
-        stroke: #ddd;
+        stroke: #ddd !important;
     }
 
     .link {
