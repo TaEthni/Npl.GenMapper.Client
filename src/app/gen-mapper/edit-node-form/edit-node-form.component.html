@@ -1,17 +1,18 @@
 <div fxLayout="column"
-     fxLayoutGap="5px">
+     fxLayoutGap="5px"
+     fxLayoutGap.lt-md="24px">
 
     <label class="control"
            fxLayout="row"
+           fxLayout.lt-md="column"
+           fxLayoutAlign.gt-md="center center"
            fxLayoutGap="10px"
-           fxLayoutAlign="center center"
            *ngIf="model.parentId || model.parentId === 0">
         <div class="control-label"
              fxFlex>
             {{'editGroup.elementParent' | locale | async}}
         </div>
-        <div class="control-input"
-             fxFlex="250px">
+        <div class="control-input">
             <mat-form-field floatPlaceholder="never"
                             floatLabel="never"
                             no-error
@@ -33,14 +34,17 @@
 
     <ng-container *ngFor="let field of fields">
         <ng-container *ngIf="field.type">
-            <label class="control"
+
+            <label class="control control-{{field.type}}"
                    fxLayout="row"
-                   fxLayoutGap="10px"
-                   fxLayoutAlign="center center">
+                   [fxLayout.lt-md]="field.type === 'checkbox' ? 'row' : 'column'"
+                   fxLayoutAlign.gt-md="center center"
+                   fxLayoutGap.gt-md="10px">
+
                 <div class="control-label"
                      fxFlex>{{field.localeLabel}}</div>
-                <div class="control-input"
-                     fxFlex="250px">
+
+                <div class="control-input">
                     <ng-container *ngIf="field.type === 'text'">
                         <mat-form-field floatPlaceholder="never"
                                         floatLabel="never"
