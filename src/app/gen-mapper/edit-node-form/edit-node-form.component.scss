@@ -12,8 +12,28 @@
         width: 100%;
     }
 
+    .control-input {
+        min-width: 250px;
+    }
+
+    .control-checkbox {
+        .control-input {
+            min-width: 80px;
+        }
+    }
+
     .control-label {
         cursor: pointer;
         user-select: none;
+        font-weight: 600;
+        margin-right: auto;
+    }
+
+    @media screen and (min-width: 768px) {
+        .control.control-checkbox {
+            &:hover {
+                background-color: #eee;
+            }
+        }
     }
 }
