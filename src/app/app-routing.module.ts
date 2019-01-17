@@ -6,8 +6,6 @@ import { UserResolver } from '@core/user.resolver';
 import { DetailComponent } from './account/detail/detail.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './home/forbidden/forbidden.component';
-import { LayoutUnauthenticatedComponent } from './home/layout-unauthenticated/layout-unauthenticated.component';
-import { LayoutComponent } from './home/layout/layout.component';
 import { LoginComponent } from './home/login/login.component';
 import { LogoutComponent } from './home/logout/logout.component';
 import { MaintenanceComponent } from './home/maintenance/maintenance.component';
@@ -17,6 +15,8 @@ import { ResetPasswordExpiredComponent } from './home/reset-password-expired/res
 import { ResetPasswordComponent } from './home/reset-password/reset-password.component';
 import { SignupComponent } from './home/signup/signup.component';
 import { UnverifiedEmailComponent } from './home/unverified-email/unverified-email.component';
+import { LayoutUnauthenticatedComponent } from './layout/layout-unauthenticated/layout-unauthenticated.component';
+import { LayoutComponent } from './layout/layout/layout.component';
 import { ChurchCirclesTemplate } from './templates/church-circles';
 import { DisciplesTemplate } from './templates/disciples';
 import { FourFieldsTemplate } from './templates/four-fields';

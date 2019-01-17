@@ -4,10 +4,10 @@ import 'rxjs/add/operator/delay';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { DocumentDto } from '@shared/entity/document.model';
+import { GMTemplate } from '@shared/gen-mapper/gen-mapper.interface';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 
-import { GMTemplate } from '../gen-mapper/gen-mapper.interface';
 import { ToolService } from './tool.service';
 
 export interface ResolvedTool {

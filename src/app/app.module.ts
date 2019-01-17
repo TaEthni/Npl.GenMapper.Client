@@ -7,6 +7,7 @@ import { AccountModule } from './account/account.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
+import { LayoutModule } from './layout/layout.module';
 import { ToolsModule } from './tools/tools.module';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ToolsModule } from './tools/tools.module';
     imports: [
         CommonModule,
         CoreModule,
+        LayoutModule,
         HomeModule,
         ToolsModule,
         AccountModule,

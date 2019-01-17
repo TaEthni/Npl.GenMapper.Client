@@ -7,13 +7,13 @@ import { TokenService } from '@core/token.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { ConfirmDialogComponent } from '@shared/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
+import { GMTemplate } from '@shared/gen-mapper/gen-mapper.interface';
+import { TemplateUtils } from '@shared/gen-mapper/template-utils';
 import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
-import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
 import { ToolService } from '../tool.service';
-import { TemplateUtils } from '../../templates/template-utils';
 
 @Component({
     selector: 'app-tool',

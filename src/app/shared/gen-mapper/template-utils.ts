@@ -1,4 +1,4 @@
-import { GMTemplate, GMField } from '../gen-mapper/gen-mapper.interface';
+import { GMField, GMTemplate } from '@shared/gen-mapper/gen-mapper.interface';
 import i18next from 'i18next';
 
 export namespace TemplateUtils {

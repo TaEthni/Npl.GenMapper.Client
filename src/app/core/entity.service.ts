@@ -5,15 +5,21 @@ import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-let _BaseUrl = 'http://localhost:9000/api/';
+const localUrl = 'http://localhost:9000/api/';
+const devUrl = 'https://dev-api.noplaceleft.tools/api/';
+const prodUrl = 'https://api.noplaceleft.tools/api/';
+
+let _BaseUrl: string;
 
 if (window.location.host === 'dev.noplaceleft.tools') {
-    _BaseUrl = window.location.protocol + '//dev-api.noplaceleft.tools/api/';
+    _BaseUrl = devUrl;
 }
 
 if (window.location.host === 'noplaceleft.tools') {
-    _BaseUrl = window.location.protocol + '//api.noplaceleft.tools/api/';
+    _BaseUrl = prodUrl;
 }
+
+_BaseUrl = devUrl;
 
 export const BaseUrl = _BaseUrl;
 

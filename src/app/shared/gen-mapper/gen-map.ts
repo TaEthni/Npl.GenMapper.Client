@@ -4,7 +4,7 @@ import i18next from 'i18next';
 import * as _ from 'lodash';
 
 import { GMField, GMTemplate } from './gen-mapper.interface';
-import { TemplateUtils } from '../templates/template-utils';
+import { TemplateUtils } from './template-utils';
 
 export const MapStyles = {
     boxHeight: 80,

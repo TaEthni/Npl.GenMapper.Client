@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DownloadService } from '@core/download.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { ConfirmDialogComponent } from '@shared/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
+import { GMTemplate } from '@shared/gen-mapper/gen-mapper.interface';
 
 import { MatDialog } from '../../../../node_modules/@angular/material';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
-import { ConfirmDialogComponent } from '../../gen-mapper/dialogs/confirm-dialog/confirm-dialog.component';
-import { GMTemplate } from '../../gen-mapper/gen-mapper.interface';
 
 const storageKey = 'offline-locall-save-';
 
