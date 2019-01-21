@@ -2461,7 +2461,7 @@ var LoginComponent = /** @class */ (function () {
         _core_utils__WEBPACK_IMPORTED_MODULE_4__["Utils"].timeout(function () {
             _this.form.get('email').setValue(_this.emailField.nativeElement.value);
             _this.form.get('password').setValue(_this.passwordField.nativeElement.value);
-        });
+        }, 1000);
     };
     LoginComponent.prototype.onSubmit = function (event) {
         var _this = this;
