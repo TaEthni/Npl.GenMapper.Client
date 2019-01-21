@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationGuard } from '@core/authentication.guard';
 import { UserResolver } from '@core/user.resolver';
 
 import { DetailComponent } from './account/detail/detail.component';
@@ -17,14 +16,12 @@ import { SignupComponent } from './home/signup/signup.component';
 import { UnverifiedEmailComponent } from './home/unverified-email/unverified-email.component';
 import { LayoutUnauthenticatedComponent } from './layout/layout-unauthenticated/layout-unauthenticated.component';
 import { LayoutComponent } from './layout/layout/layout.component';
-import { ChurchCirclesTemplate } from './templates/church-circles';
-import { DisciplesTemplate } from './templates/disciples';
-import { FourFieldsTemplate } from './templates/four-fields';
-import { MovementeerTemplate } from './templates/movementeer';
-import { ToolContainerComponent } from './tools/tool-container/tool-container.component';
-import { ToolOfflineComponent } from './tools/tool-offline/tool-offline.component';
-import { ToolResolver } from './tools/tool.resolver';
-import { ToolComponent } from './tools/tool/tool.component';
+import { GenMapperContainerResolver } from './tools/gen-mapper/gen-mapper-container.resolver';
+import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-container/gen-mapper-container.component';
+import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
+import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
+import { ChurchCirclesTemplate } from './tools/gen-mapper/templates/church-circles';
+import { FourFieldsTemplate } from './tools/gen-mapper/templates/four-fields';
 import { ToolsComponent } from './tools/tools/tools.component';
 
 const appRoutes: Routes = [
@@ -82,143 +79,56 @@ const appRoutes: Routes = [
             {
                 path: 'tools',
                 component: ToolsComponent
-            }, {
-                path: ChurchCirclesTemplate.name,
-                component: ToolContainerComponent,
+            },
+            {
+                path: 'church-circles',
+                component: GenMapperContainerComponent,
+                resolve: {
+                    documents: GenMapperContainerResolver,
+                },
+                data: {
+                    template: ChurchCirclesTemplate
+                },
                 children: [
                     {
-                        path: 'offline',
-                        component: ToolOfflineComponent,
-                        data: {
-                            template: ChurchCirclesTemplate
-                        }
+                        path: ':id',
+                        component: GenMapperComponent,
+                        resolve: {
+                            document: GenMapperResolver
+                        },
+                        // Configuration is for local mode
+                        runGuardsAndResolvers: 'always'
                     },
                     {
+                        path: '',
+                        component: GenMapperComponent
+                    },
+                ]
+            },
+            {
+                path: 'four-fields',
+                component: GenMapperContainerComponent,
+                resolve: {
+                    documents: GenMapperContainerResolver,
+                },
+                data: {
+                    template: FourFieldsTemplate
+                },
+                children: [
+                    {
                         path: ':id',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
+                        component: GenMapperComponent,
                         resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: ChurchCirclesTemplate
+                            document: GenMapperResolver
                         }
                     },
                     {
                         path: '',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
-                        resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: ChurchCirclesTemplate
-                        }
-                    }
+                        component: GenMapperComponent
+                    },
                 ]
-            }, {
-                path: FourFieldsTemplate.name,
-                component: ToolContainerComponent,
-                children: [
-                    {
-                        path: 'offline',
-                        component: ToolOfflineComponent,
-                        data: {
-                            template: FourFieldsTemplate
-                        }
-                    },
-                    {
-                        path: '',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
-                        resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: FourFieldsTemplate
-                        }
-                    },
-                    {
-                        path: ':id',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
-                        resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: FourFieldsTemplate
-                        }
-                    }
-                ]
-            }, {
-                path: DisciplesTemplate.name,
-                component: ToolContainerComponent,
-                children: [
-                    {
-                        path: 'offline',
-                        component: ToolOfflineComponent,
-                        data: {
-                            template: DisciplesTemplate
-                        }
-                    },
-                    {
-                        path: '',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
-                        resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: DisciplesTemplate
-                        }
-                    },
-                    {
-                        path: ':id',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
-                        resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: DisciplesTemplate
-                        }
-                    }
-                ]
-            }, {
-                path: MovementeerTemplate.name,
-                component: ToolContainerComponent,
-                children: [
-                    {
-                        path: 'offline',
-                        component: ToolOfflineComponent,
-                        data: {
-                            template: MovementeerTemplate
-                        }
-                    },
-                    {
-                        path: '',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
-                        resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: MovementeerTemplate
-                        }
-                    },
-                    {
-                        path: ':id',
-                        component: ToolComponent,
-                        canActivate: [AuthenticationGuard],
-                        resolve: {
-                            tool: ToolResolver
-                        },
-                        data: {
-                            template: MovementeerTemplate
-                        }
-                    }
-                ]
-            }]
+            }
+        ]
     },
     {
         path: '**',
@@ -245,7 +155,9 @@ const maintenanceRoutes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(
-            appRoutes
+            appRoutes,
+            // Configuration is for local mode
+            { onSameUrlNavigation: 'reload' }
         )
     ],
     exports: [

@@ -19,8 +19,6 @@ if (window.location.host === 'noplaceleft.tools') {
     _BaseUrl = prodUrl;
 }
 
-_BaseUrl = devUrl;
-
 export const BaseUrl = _BaseUrl;
 
 interface ResponseData {

@@ -1,0 +1,29 @@
+@import '~styles/colors';
+
+:host {
+    display: block;
+    position: relative;
+
+    input {
+        pointer-events: all;
+        margin-left: 12px;
+        line-height: 2;
+        padding: 0 5px;
+        min-width: 200px;
+        border: none;
+        font-size: 24px;
+        font-weight: 600;
+
+        &.is-error {
+            color: mat-color($warn);
+        }
+    }
+
+    .mat-error {
+        font-size: 12px;
+        line-height: 1;
+        position: absolute;
+        left: 16px;
+        bottom: -5px;
+    }
+}

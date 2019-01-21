@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-file-input-dialog',
@@ -37,15 +37,12 @@ export class FileInputDialogComponent implements OnInit {
 
         if (input.files && input.files.length) {
             const file = input.files.item(0);
-            const titlewords = file.name.split('.');
-            titlewords.pop();
-            const title = titlewords.join('.') as string;
 
             reader.readAsText(file);
 
             reader.onload = () => {
                 this.form.patchValue({
-                    title: title,
+                    title: file.name,
                     content: reader.result
                 });
 

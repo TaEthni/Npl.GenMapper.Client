@@ -25,6 +25,7 @@ import { ToolsModule } from './tools/tools.module';
         AppRoutingModule,
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    exports: []
 })
 export class AppModule { }
