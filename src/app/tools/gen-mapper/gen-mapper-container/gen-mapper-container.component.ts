@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
@@ -26,7 +25,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     constructor(
         private genMapper: GenMapperService,
-        private route: ActivatedRoute,
         private authService: AuthenticationService
     ) { super(); }
 

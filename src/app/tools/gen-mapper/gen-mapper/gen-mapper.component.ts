@@ -8,7 +8,6 @@ import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-d
 import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
-import { DocumentService } from '../document.service';
 import { GMTemplate } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 
@@ -26,7 +25,6 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     constructor(
         private authService: AuthenticationService,
         private genMapper: GenMapperService,
-        private documentService: DocumentService,
         private route: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog
