@@ -2103,6 +2103,32 @@ var UserResolver = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/core/utils.ts":
+/*!*******************************!*\
+  !*** ./src/app/core/utils.ts ***!
+  \*******************************/
+/*! exports provided: Utils */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Utils", function() { return Utils; });
+var Utils;
+(function (Utils) {
+    function timeout(callback, time) {
+        if (time === void 0) { time = 0; }
+        var timeoutId = setTimeout(function () {
+            callback();
+            clearTimeout(timeoutId);
+        }, time);
+        return timeoutId;
+    }
+    Utils.timeout = timeout;
+})(Utils || (Utils = {}));
+
+
+/***/ }),
+
 /***/ "./src/app/core/windowref.service.ts":
 /*!*******************************************!*\
   !*** ./src/app/core/windowref.service.ts ***!
@@ -2376,7 +2402,7 @@ var HomeModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"24px\">\r\n    <app-npl-logo size=\"100\"></app-npl-logo>\r\n    <form fxLayout=\"column\"\r\n          fxLayoutGap=\"24px\"\r\n          [formGroup]=\"form\"\r\n          (submit)=\"onSubmit($event)\">\r\n\r\n        <mat-card>\r\n            <mat-card-header>\r\n                <mat-card-title>\r\n                    {{'en_Login' | locale | async}}\r\n                </mat-card-title>\r\n            </mat-card-header>\r\n\r\n            <mat-card-content fxLayout=\"column\"\r\n                              fxLayoutGap=\"30px\">\r\n                <mat-form-field>\r\n                    <input matInput\r\n                           type=\"email\"\r\n                           placeholder=\"{{'en_Email' | locale | async}}\"\r\n                           formControlName=\"email\">\r\n\r\n                    <mat-error *ngIf=\"form.controls.email.errors?.required\">\r\n                        {{'errors.requiredField' | locale | async}}\r\n                    </mat-error>\r\n\r\n                    <mat-error *ngIf=\"form.controls.email.errors?.pattern\">\r\n                        {{'errors.emailFormat' | locale | async}}\r\n                    </mat-error>\r\n                </mat-form-field>\r\n\r\n                <mat-form-field>\r\n                    <input matInput\r\n                           type=\"password\"\r\n                           placeholder=\"{{'en_Password' | locale | async}}\"\r\n                           formControlName=\"password\">\r\n\r\n                    <mat-hint align=\"end\">\r\n                        <a [routerLink]=\"['/recover-password']\">\r\n                            {{'en_ForgotPassword' | locale | async}}\r\n                        </a>\r\n                    </mat-hint>\r\n                </mat-form-field>\r\n\r\n            </mat-card-content>\r\n\r\n            <mat-card-content *ngIf=\"showError\"\r\n                              class=\"error\">\r\n                <p>{{'errors.invalidEmailOrPassword' | locale | async}}</p>\r\n            </mat-card-content>\r\n\r\n            <mat-card-actions fxLayout=\"row\">\r\n                <button mat-raised-button\r\n                        type=\"submit\"\r\n                        color=\"primary\"\r\n                        class=\"mat-spinner-button\">\r\n                    <div>\r\n                        {{'en_Login' | locale | async}}\r\n                    </div>\r\n                    <mat-spinner diameter=\"24\"\r\n                                 *ngIf=\"isLoading\"></mat-spinner>\r\n                </button>\r\n\r\n                <a mat-button\r\n                   type=\"button\"\r\n                   color=\"primary\"\r\n                   [routerLink]=\"['/']\">\r\n                    {{'en_Cancel' | locale | async}}\r\n                </a>\r\n                <div fxFlex></div>\r\n                <a mat-button\r\n                   [routerLink]=\"['/signup']\">\r\n                    {{'en_CreateAccount' | locale | async}}\r\n                </a>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </form>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"24px\">\r\n    <app-npl-logo size=\"100\"></app-npl-logo>\r\n    <form fxLayout=\"column\"\r\n          fxLayoutGap=\"24px\"\r\n          [formGroup]=\"form\"\r\n          (submit)=\"onSubmit($event)\">\r\n\r\n        <mat-card>\r\n            <mat-card-header>\r\n                <mat-card-title>\r\n                    {{'en_Login' | locale | async}}\r\n                </mat-card-title>\r\n\r\n                <mat-card-subtitle>\r\n                    {{form.get('email').value}}\r\n                </mat-card-subtitle>\r\n            </mat-card-header>\r\n\r\n            <mat-card-content fxLayout=\"column\"\r\n                              fxLayoutGap=\"30px\">\r\n                <mat-form-field>\r\n                    <input matInput\r\n                           #emailField\r\n                           type=\"email\"\r\n                           placeholder=\"{{'en_Email' | locale | async}}\"\r\n                           formControlName=\"email\">\r\n\r\n                    <mat-error *ngIf=\"form.controls.email.errors?.required\">\r\n                        {{'errors.requiredField' | locale | async}}\r\n                    </mat-error>\r\n\r\n                    <mat-error *ngIf=\"form.controls.email.errors?.pattern\">\r\n                        {{'errors.emailFormat' | locale | async}}\r\n                    </mat-error>\r\n                </mat-form-field>\r\n\r\n                <mat-form-field>\r\n                    <input matInput\r\n                           #passwordField\r\n                           type=\"password\"\r\n                           placeholder=\"{{'en_Password' | locale | async}}\"\r\n                           formControlName=\"password\">\r\n\r\n                    <mat-hint align=\"end\">\r\n                        <a [routerLink]=\"['/recover-password']\">\r\n                            {{'en_ForgotPassword' | locale | async}}\r\n                        </a>\r\n                    </mat-hint>\r\n                </mat-form-field>\r\n\r\n            </mat-card-content>\r\n\r\n            <mat-card-content *ngIf=\"showError\"\r\n                              class=\"error\">\r\n                <p>{{'errors.invalidEmailOrPassword' | locale | async}}</p>\r\n            </mat-card-content>\r\n\r\n            <mat-card-actions fxLayout=\"row\">\r\n                <button mat-raised-button\r\n                        type=\"submit\"\r\n                        color=\"primary\"\r\n                        class=\"mat-spinner-button\">\r\n                    <div>\r\n                        {{'en_Login' | locale | async}}\r\n                    </div>\r\n                    <mat-spinner diameter=\"24\"\r\n                                 *ngIf=\"isLoading\"></mat-spinner>\r\n                </button>\r\n\r\n                <a mat-button\r\n                   type=\"button\"\r\n                   color=\"primary\"\r\n                   [routerLink]=\"['/']\">\r\n                    {{'en_Cancel' | locale | async}}\r\n                </a>\r\n                <div fxFlex></div>\r\n                <a mat-button\r\n                   [routerLink]=\"['/signup']\">\r\n                    {{'en_CreateAccount' | locale | async}}\r\n                </a>\r\n            </mat-card-actions>\r\n        </mat-card>\r\n    </form>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2403,9 +2429,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _core_authentication_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/authentication.service */ "./src/app/core/authentication.service.ts");
-/* harmony import */ var _shared_validationUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @shared/validationUtils */ "./src/app/shared/validationUtils.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _core_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/authentication.service */ "./src/app/core/authentication.service.ts");
+/* harmony import */ var _core_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/utils */ "./src/app/core/utils.ts");
+/* harmony import */ var _shared_validationUtils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/validationUtils */ "./src/app/shared/validationUtils.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2420,6 +2447,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var LoginComponent = /** @class */ (function () {
     function LoginComponent(authService, router) {
         this.authService = authService;
@@ -2427,6 +2455,13 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         this._createForm();
+    };
+    LoginComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        _core_utils__WEBPACK_IMPORTED_MODULE_4__["Utils"].timeout(function () {
+            _this.form.get('email').setValue(_this.emailField.nativeElement.value);
+            _this.form.get('password').setValue(_this.passwordField.nativeElement.value);
+        });
     };
     LoginComponent.prototype.onSubmit = function (event) {
         var _this = this;
@@ -2445,18 +2480,26 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype._createForm = function () {
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"]({
-            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('', _shared_validationUtils__WEBPACK_IMPORTED_MODULE_3__["ValidationUtils"].getDefaultInputValidators(_shared_validationUtils__WEBPACK_IMPORTED_MODULE_3__["htmlInputTypes"].email, true)),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('', _shared_validationUtils__WEBPACK_IMPORTED_MODULE_5__["ValidationUtils"].getDefaultInputValidators(_shared_validationUtils__WEBPACK_IMPORTED_MODULE_5__["htmlInputTypes"].email, true)),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required])
         });
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('emailField'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], LoginComponent.prototype, "emailField", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('passwordField'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], LoginComponent.prototype, "passwordField", void 0);
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-login',
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/home/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/home/login/login.component.scss")]
         }),
-        __metadata("design:paramtypes", [_core_authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        __metadata("design:paramtypes", [_core_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], LoginComponent);
     return LoginComponent;
 }());
