@@ -1,0 +1,36 @@
+<div mat-dialog-title>
+    Create Document
+</div>
+<form mat-dialog-content
+      [formGroup]="form"
+      fxLayout="column">
+    <mat-form-field>
+        <mat-label>
+            {{'en_Name' | locale | async}}
+        </mat-label>
+        <input matInput
+               formControlName="title" />
+
+        <mat-error *ngIf="form.controls.title.errors?.required">
+            {{'errors.requiredField' | locale | async}}
+        </mat-error>
+
+        <mat-error *ngIf="form.controls.title.errors?.minlength">
+            Value is too short
+        </mat-error>
+    </mat-form-field>
+</form>
+<div mat-dialog-actions
+     fxLayoutAlign="end">
+    <button mat-button
+            color="accent"
+            [disabled]="form.invalid"
+            (click)="onSubmit()">
+        {{'en_Save' | locale | async}}
+    </button>
+    <button mat-button
+            color="warn"
+            [mat-dialog-close]="false">
+        {{'en_Cancel' | locale | async}}
+    </button>
+</div>

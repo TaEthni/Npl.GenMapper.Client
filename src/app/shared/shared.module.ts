@@ -27,7 +27,7 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         FileInputDialogComponent,
         NplLogoComponent,
         LocalePipe,
-        JoinListPipe
+        JoinListPipe,
     ],
     exports: [
         MaterialModule,

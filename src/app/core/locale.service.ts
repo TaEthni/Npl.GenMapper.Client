@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as i18next from 'i18next';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-import { translations } from '../templates/translations';
+import { translations } from '../tools/gen-mapper/templates/translations';
 
 export interface TranslationType {
     label: string;

@@ -1,0 +1,62 @@
+<ng-container *ngIf="document; then genMapperGraph else emptyState"></ng-container>
+<ng-template #genMapperGraph>
+    <app-gen-mapper-graph class="{{template.name}}"
+                          (change)="onGraphChange($event)"
+                          [document]="document"
+                          [template]="template"></app-gen-mapper-graph>
+</ng-template>
+<ng-template #emptyState>
+    <div class="empty-state"
+         fxFlex
+         fxLayout="column"
+         fxLayoutAlign="center center">
+
+
+        <div>
+            <mat-icon>warning</mat-icon>
+        </div>
+
+        <ng-container *ngIf="isAuthenticated">
+            <ng-container *ngIf="documents.length === 0">
+                <h1 i18n="en-You_have_no_saved_documents">
+                    You have no saved documents!
+                </h1>
+            </ng-container>
+
+            <ng-container *ngIf="documents.length > 0">
+                <h1 i18n="en-Please_select_a_document">
+                    Please select a document
+                </h1>
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="!isAuthenticated">
+            <h1 i18n="en-Please_log_in_to_save_documents">
+                Please sign in to save documents.
+            </h1>
+        </ng-container>
+
+
+        <div fxLayout="row"
+             fxLayoutGap="24px">
+            <button mat-raised-button
+                    color="accent"
+                    (click)="onCreateDocument()"
+                    i18n="en-Create_Document">
+                <ng-container *ngIf="isAuthenticated">
+                    Create Document
+                </ng-container>
+
+                <ng-container *ngIf="!isAuthenticated">
+                    Create Temporary Document
+                </ng-container>
+            </button>
+            <button mat-raised-button
+                    color="accent"
+                    (click)="onImport()"
+                    i18n="en-Import_Document">
+                Import Document
+            </button>
+        </div>
+    </div>
+</ng-template>

@@ -4,14 +4,15 @@ import { NgModule } from '@angular/core';
 import { AuthenticationGuard } from '@core/authentication.guard';
 import { AuthenticationService } from '@core/authentication.service';
 import { AuthorizationInterceptor } from '@core/authorization.interceptor';
+import { DownloadService } from '@core/download.service';
+import { EntityService } from '@core/entity.service';
 import { TokenService } from '@core/token.service';
 import { WindowRefService } from '@core/windowref.service';
-import { EntityService } from '@core/entity.service';
-import { DownloadService } from '@core/download.service';
-import { UserResolver } from './user.resolver';
-import { SupportService } from './support.service';
-import { LocaleService } from './locale.service';
+
 import { AccountService } from './account.service';
+import { LocaleService } from './locale.service';
+import { SupportService } from './support.service';
+import { UserResolver } from './user.resolver';
 
 @NgModule({
     imports: [
@@ -29,7 +30,7 @@ import { AccountService } from './account.service';
         UserResolver,
         SupportService,
         LocaleService,
-        AccountService
+        AccountService,
     ]
 })
 export class CoreModule { }

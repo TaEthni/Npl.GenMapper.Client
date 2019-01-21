@@ -1,0 +1,38 @@
+<header>
+    <mat-toolbar>
+        <app-sidenav-toggle></app-sidenav-toggle>
+
+        <ng-container *ngIf="document">
+            <app-map-name-control fxFlex></app-map-name-control>
+            <ng-container *ngIf="isAuthenticated">
+                <button mat-icon-button
+                        (click)="matDrawer?.toggle()">
+                    <mat-icon *ngIf="matDrawer?.opened">clear</mat-icon>
+                    <mat-icon *ngIf="!matDrawer?.opened">filter_list</mat-icon>
+                </button>
+            </ng-container>
+            <app-map-menu-button [document]="document"
+                                 [template]="template"></app-map-menu-button>
+        </ng-container>
+    </mat-toolbar>
+</header>
+<mat-drawer-container autosize
+                      fxFlex>
+    <mat-drawer #matDrawer
+                [opened]="isAuthenticated"
+                mode="side"
+                position="end"
+                fxLayout="column"
+                [class.hide-drawer]="!isAuthenticated">
+
+        <ng-container *ngIf="isAuthenticated">
+            <app-map-sidenav [documents]="documents"
+                             [document]="document"
+                             [template]="template"></app-map-sidenav>
+        </ng-container>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

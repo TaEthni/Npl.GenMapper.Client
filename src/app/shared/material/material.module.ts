@@ -1,5 +1,12 @@
 import { NgModule } from '@angular/core';
-import { MatPaginatorModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
+import {
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTooltipModule,
+} from '@angular/material';
 import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';

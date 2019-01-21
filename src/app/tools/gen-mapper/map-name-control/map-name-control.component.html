@@ -1,0 +1,16 @@
+<ng-container *ngIf="document">
+    <input type="text"
+           matInput
+           placeholder="Name"
+           autocomplete="off"
+           [formControl]="control"
+           [class.is-error]="control.errors">
+
+    <mat-error *ngIf="control.errors?.required">
+        {{'errors.requiredField' | locale | async}}
+    </mat-error>
+
+    <mat-error *ngIf="control.errors?.minlength">
+        Value is too short
+    </mat-error>
+</ng-container>

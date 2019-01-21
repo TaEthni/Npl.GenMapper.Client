@@ -24,6 +24,6 @@
         "**/templates/*.ts",
         "src/test.ts",
         "**/*.spec.ts",
-        "src/app/gen-mapper/gen-map.ts"
+        "src/app/tools/gen-mapper/gen-map.ts"
     ]
 }

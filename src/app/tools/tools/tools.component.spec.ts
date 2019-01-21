@@ -1,17 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { configureTestSuite } from 'ng-bullet';
 
 import { ToolsComponent } from './tools.component';
 
-xdescribe('ToolsComponent', () => {
+describe.skip('ToolsComponent', () => {
     let component: ToolsComponent;
     let fixture: ComponentFixture<ToolsComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             declarations: [ToolsComponent]
-        })
-            .compileComponents();
-    }));
+        });
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ToolsComponent);
