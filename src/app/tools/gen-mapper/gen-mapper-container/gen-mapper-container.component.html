@@ -22,7 +22,8 @@
                 [opened]="isAuthenticated"
                 mode="side"
                 position="end"
-                fxLayout="column">
+                fxLayout="column"
+                [class.hide-drawer]="!isAuthenticated">
 
         <ng-container *ngIf="isAuthenticated">
             <app-map-sidenav [documents]="documents"

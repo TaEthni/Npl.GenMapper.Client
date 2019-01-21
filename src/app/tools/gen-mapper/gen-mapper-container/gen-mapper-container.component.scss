@@ -48,6 +48,10 @@
             display: flex;
             flex-direction: column;
         }
+
+        &.hide-drawer {
+            display: none !important;
+        }
     }
 
     .mat-drawer-content {
@@ -68,6 +72,23 @@
             height: 200px;
             width: 200px;
             user-select: none;
+        }
+    }
+
+    @media print {
+
+        header::ng-deep {
+            button {
+                display: none !important;
+            }
+        }
+
+        .mat-drawer {
+            display: none;
+
+            header button {
+                display: none;
+            }
         }
     }
 }
