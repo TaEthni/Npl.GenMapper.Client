@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { configureTestSuite } from 'ng-bullet';
 
-import { ToolsComponent } from './tools.component';
+import { MapMenuButtonComponent } from './map-menu-button.component';
 
-describe.skip('ToolsComponent', () => {
-    let component: ToolsComponent;
-    let fixture: ComponentFixture<ToolsComponent>;
+describe.skip('MapMenuButtonComponent', () => {
+    let component: MapMenuButtonComponent;
+    let fixture: ComponentFixture<MapMenuButtonComponent>;
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolsComponent]
+            declarations: [MapMenuButtonComponent]
         });
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ToolsComponent);
+        fixture = TestBed.createComponent(MapMenuButtonComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { configureTestSuite } from 'ng-bullet';
 
-import { ToolsComponent } from './tools.component';
+import { GenMapperDocumentsComponent } from './gen-mapper-documents.component';
 
-describe.skip('ToolsComponent', () => {
-    let component: ToolsComponent;
-    let fixture: ComponentFixture<ToolsComponent>;
+describe.skip('GenMapperDocumentsComponent', () => {
+    let component: GenMapperDocumentsComponent;
+    let fixture: ComponentFixture<GenMapperDocumentsComponent>;
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolsComponent]
+            declarations: [GenMapperDocumentsComponent]
         });
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ToolsComponent);
+        fixture = TestBed.createComponent(GenMapperDocumentsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

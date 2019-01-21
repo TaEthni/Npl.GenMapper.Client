@@ -1,0 +1,27 @@
+<button mat-icon-button
+        [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item
+            (click)="onImport()">
+        <mat-icon>attachment</mat-icon>
+        {{'menu.importXlsxCsv' | locale | async}}
+    </button>
+    <button mat-menu-item
+            (click)="onExport()">
+        <mat-icon>cloud_download</mat-icon>
+        {{'menu.exportCsv' | locale | async}}
+    </button>
+    <button mat-menu-item
+            disabled>
+        <mat-icon>print</mat-icon>
+        {{'menu.btnPrintHorizontal' | locale | async}}
+    </button>
+
+    <button mat-menu-item
+            (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+        {{'menu.btnDelete' | locale | async}}
+    </button>
+</mat-menu>

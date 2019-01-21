@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { configureTestSuite } from 'ng-bullet';
 
-import { ToolsComponent } from './tools.component';
+import { CreateDocumentDialogComponent } from './create-document-dialog.component';
 
-describe.skip('ToolsComponent', () => {
-    let component: ToolsComponent;
-    let fixture: ComponentFixture<ToolsComponent>;
+describe.skip('CreateDocumentDialogComponent', () => {
+    let component: CreateDocumentDialogComponent;
+    let fixture: ComponentFixture<CreateDocumentDialogComponent>;
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolsComponent]
+            declarations: [CreateDocumentDialogComponent]
         });
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ToolsComponent);
+        fixture = TestBed.createComponent(CreateDocumentDialogComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

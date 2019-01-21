@@ -34,6 +34,10 @@ export class AuthenticationService {
 
     }
 
+    public isAuthenticated(): boolean {
+        return this.tokenService.getValue().isAuthenticated;
+    }
+
     public getUser(): Observable<User> {
         return this._user.asObservable();
     }
