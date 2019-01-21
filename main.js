@@ -1749,7 +1749,6 @@ if (window.location.host === 'dev.noplaceleft.tools') {
 if (window.location.host === 'noplaceleft.tools') {
     _BaseUrl = prodUrl;
 }
-_BaseUrl = devUrl;
 var BaseUrl = _BaseUrl;
 var EntityService = /** @class */ (function () {
     function EntityService(http) {
