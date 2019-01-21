@@ -2103,32 +2103,6 @@ var UserResolver = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/core/utils.ts":
-/*!*******************************!*\
-  !*** ./src/app/core/utils.ts ***!
-  \*******************************/
-/*! exports provided: Utils */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Utils", function() { return Utils; });
-var Utils;
-(function (Utils) {
-    function timeout(callback, time) {
-        if (time === void 0) { time = 0; }
-        var timeoutId = setTimeout(function () {
-            callback();
-            clearTimeout(timeoutId);
-        }, time);
-        return timeoutId;
-    }
-    Utils.timeout = timeout;
-})(Utils || (Utils = {}));
-
-
-/***/ }),
-
 /***/ "./src/app/core/windowref.service.ts":
 /*!*******************************************!*\
   !*** ./src/app/core/windowref.service.ts ***!
@@ -2431,8 +2405,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _core_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/authentication.service */ "./src/app/core/authentication.service.ts");
-/* harmony import */ var _core_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/utils */ "./src/app/core/utils.ts");
-/* harmony import */ var _shared_validationUtils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/validationUtils */ "./src/app/shared/validationUtils.ts");
+/* harmony import */ var _shared_validationUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shared/validationUtils */ "./src/app/shared/validationUtils.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2447,7 +2420,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var LoginComponent = /** @class */ (function () {
     function LoginComponent(authService, router) {
         this.authService = authService;
@@ -2456,12 +2428,15 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.ngOnInit = function () {
         this._createForm();
     };
-    LoginComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        _core_utils__WEBPACK_IMPORTED_MODULE_4__["Utils"].timeout(function () {
-            _this.form.get('email').setValue(_this.emailField.nativeElement.value);
-            _this.form.get('password').setValue(_this.passwordField.nativeElement.value);
-        }, 1000);
+    LoginComponent.prototype.ngAfterViewChecked = function () {
+        if (this.emailField.nativeElement.value && !this.form.get('email').value) {
+            this.form.get('email').setValue(this.emailField.nativeElement.value);
+            this.form.get('email').updateValueAndValidity();
+        }
+        if (this.passwordField.nativeElement.value && !this.form.get('password').value) {
+            this.form.get('password').setValue(this.passwordField.nativeElement.value);
+            this.form.get('password').updateValueAndValidity();
+        }
     };
     LoginComponent.prototype.onSubmit = function (event) {
         var _this = this;
@@ -2480,7 +2455,7 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype._createForm = function () {
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"]({
-            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('', _shared_validationUtils__WEBPACK_IMPORTED_MODULE_5__["ValidationUtils"].getDefaultInputValidators(_shared_validationUtils__WEBPACK_IMPORTED_MODULE_5__["htmlInputTypes"].email, true)),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('', _shared_validationUtils__WEBPACK_IMPORTED_MODULE_4__["ValidationUtils"].getDefaultInputValidators(_shared_validationUtils__WEBPACK_IMPORTED_MODULE_4__["htmlInputTypes"].email, true)),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required])
         });
     };
