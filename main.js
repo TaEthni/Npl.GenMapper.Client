@@ -2563,7 +2563,7 @@ var LogoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\"\n     fxLayoutAlign=\"center center\">\n    <div>\n        <mat-icon>build</mat-icon>\n    </div>\n    <h3>\n        Under Maintenance until January 14 11:00 PM CST\n    </h3>\n</div>\n"
+module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutAlign=\"center center\">\r\n    <div>\r\n        <mat-icon>build</mat-icon>\r\n    </div>\r\n    <h3>\r\n        Under Maintenance until January 14 11:00 PM CST\r\n    </h3>\r\n</div>\r\n"
 
 /***/ }),
 
