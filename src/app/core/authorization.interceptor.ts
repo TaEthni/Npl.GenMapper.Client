@@ -6,8 +6,9 @@ import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthorizationInterceptor implements HttpInterceptor {
-    constructor(private tokenService: TokenService) {
-    }
+    constructor(
+        private tokenService: TokenService
+    ) { }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const value = this.tokenService.getValue();

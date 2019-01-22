@@ -1,4 +1,4 @@
-const boxHeight = 80
+const boxHeight = 100
 const textHeight = 14
 const textMargin = 6
 
@@ -38,6 +38,7 @@ export const ChurchCirclesTemplate = {
                     'name': 'Church Name',
                     'leaderName': 'Leader\'s Name',
                     'email': 'Email',
+                    'generation': 'Generation',
                     'peopleGroup': 'People Group',
                     'attenders': '# of Attenders',
                     'believers': '# of Believers',
@@ -81,7 +82,6 @@ export const ChurchCirclesTemplate = {
                     'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Erklärungen</h3><p>Jede Figur stellt eine Gruppe / Gemeinde dar. Eine gestrichelte Linie bedeutet Gruppe, eine durchgehende Linie bedeutet Gemeinde. Ein Quadrat bedeutet, dass die Teilnehmer bereits vorher Christen waren. Bei einem Kreis sind die Teilnehmer durch die Gruppe selbst zum Glauben gekommen oder sind noch nicht gläubig.</p><p>Ganz oben beschreiben die vier Zahlen jeweils die Anzahl der Teilnehmer, davon Anzahl Gläubige, davon Anzahl Getaufte und davon die Anzahl derer, die durch die Gruppe getauft wurden. Die Zahlen dürfen nach rechts hin nie größer werden.</p><p>In der Figur sind die Elemente der <a href="/start-training/lektion5" target="_blank">Definition von Gemeinde</a> zu sehen, die in der Gruppe auch gelebt werden.<br>Die Zahlen von 1 bis 8 links zeigen, welche der Elemente des <a href="/training/drei-drittel-prozess" target="_blank">Drei-Drittel-Prozesses</a> regelmäßig vorkommen:</p><ol><li>Wie geht\'s?</li><li>Auswertung</li><li>Vision</li><li>Lobpreis</li><li>Lehre</li><li>Üben</li><li>Ziele setzen</li><li>Gebet</li></ol><p>Klicke auf eine Gruppe, um sie zu bearbeiten.<br>Klicke auf die rote (x)-Schaltfläche, um die Gruppe zu löschen.<br>Klicke auf die grüne (+)-Schaltfläche, um eine Tochtergruppe hinzuzufügen.</p>',
                     'name': 'Name der Kirche',
                     'leaderName': 'Leiter',
-                    'email': 'Bemerkungen',
                     'peopleGroup': 'Sprache / Subkultur',
                     'attenders': 'Anzahl Teilnehmer',
                     'believers': 'Anzahl Gläubige',
@@ -90,7 +90,10 @@ export const ChurchCirclesTemplate = {
                     'church': 'Ist Gemeinde?',
                     'churchType': 'Gemeinde-Typ',
                     'legacy': 'Traditionell',
+                    'email': 'Bemerkungen',
+
                     'existingBelievers': 'Länger Gläubige',
+                    'generation': 'Generation',
                     'newBelievers': 'Neue Gläubige',
                     'elementBaptism': 'Element: Taufe',
                     'elementWord': 'Element: Lehre',
@@ -135,6 +138,7 @@ export const ChurchCirclesTemplate = {
                     'church': 'Iglesia?',
                     'churchType': 'Tipo de Iglesia',
                     'legacy': 'Tradicional',
+                    'generation': 'Generacion',
                     'existingBelievers': 'Creyentes existentes',
                     'newBelievers': 'Nuevos creyentes',
                     'elementBaptism': 'Elemento: Bautismo',
@@ -169,6 +173,7 @@ export const ChurchCirclesTemplate = {
                     'name': 'Název církve',
                     'leaderName': 'Jméno vedoucího',
                     'email': 'Email',
+                    'generation': 'Generace',
                     'peopleGroup': 'Etnikum',
                     'attenders': 'Počet účastníků',
                     'believers': 'Počet věřících',
@@ -207,6 +212,11 @@ export const ChurchCirclesTemplate = {
         }
     },
     'settings': {
+        'boxHeight': boxHeight,
+        'nodeActions': {
+            'x': boxHeight / 2,
+            'y': 10
+        },
         'nodeSize': {
             'width': boxHeight * 1.5,
             'height': boxHeight * 2.1
@@ -229,7 +239,7 @@ export const ChurchCirclesTemplate = {
             'type': 'image',
             'attributes': {
                 'x': -boxHeight * 0.5,
-                'y': -2.5 * textHeight,
+                'y': -2.8 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
                 'href': 'assets/church-circles/icons/attenders.png'
@@ -239,7 +249,7 @@ export const ChurchCirclesTemplate = {
             'type': 'image',
             'attributes': {
                 'x': -boxHeight * 0.25,
-                'y': -2.5 * textHeight,
+                'y': -2.8 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
                 'href': 'assets/church-circles/icons/believers.png'
@@ -249,7 +259,7 @@ export const ChurchCirclesTemplate = {
             'type': 'image',
             'attributes': {
                 'x': boxHeight * 0.1,
-                'y': -2.5 * textHeight,
+                'y': -2.8 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
                 'href': 'assets/church-circles/icons/element-baptism.png'
@@ -276,6 +286,11 @@ export const ChurchCirclesTemplate = {
             'header': 'parentId',
             'initial': null,
             'type': null
+        },
+        {
+            'header': 'generation',
+            'initial': null,
+            'type': 'number'
         },
         {
             'header': 'name',
@@ -319,7 +334,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': -boxHeight * 0.39,
-                    'y': -0.5 * textMargin
+                    'y': -0.8 * textMargin
                 },
                 'style': {
                     'text-anchor': 'center'
@@ -334,7 +349,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': -boxHeight * 0.13,
-                    'y': -0.5 * textMargin
+                    'y': -0.8 * textMargin
                 },
                 'style': {
                     'text-anchor': 'center'
@@ -349,7 +364,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': boxHeight * 0.13,
-                    'y': -0.5 * textMargin
+                    'y': -0.8 * textMargin
                 },
                 'style': {
                     'text-anchor': 'center'
@@ -364,7 +379,7 @@ export const ChurchCirclesTemplate = {
                 'type': 'text',
                 'attributes': {
                     'x': boxHeight * 0.39,
-                    'y': -0.5 * textMargin
+                    'y': -0.8 * textMargin
                 },
                 'style': {
                     'text-anchor': 'center'
@@ -580,7 +595,7 @@ export const ChurchCirclesTemplate = {
             'svg': {
                 'type': 'text',
                 'attributes': {
-                    'x': boxHeight * -0.7,
+                    'x': boxHeight * -0.5,
                     'y': boxHeight * 0.6,
                     'transform': 'rotate(90 -56 48)',
                     'rotate': -90

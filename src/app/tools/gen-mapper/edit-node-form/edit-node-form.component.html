@@ -58,6 +58,19 @@
                         </mat-form-field>
                     </ng-container>
 
+                    <ng-container *ngIf="field.type === 'number'">
+                        <mat-form-field floatPlaceholder="never"
+                                        floatLabel="never"
+                                        no-error
+                                        no-label>
+                            <input type="number"
+                                   matInput
+                                   autocomplete="off"
+                                   [placeholder]="field.localeLabel"
+                                   [formControl]="form.get(field.header)" />
+                        </mat-form-field>
+                    </ng-container>
+
                     <ng-container *ngIf="field.type === 'radio'">
                         <mat-form-field floatPlaceholder="never"
                                         floatLabel="never"

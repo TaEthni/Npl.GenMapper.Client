@@ -1,6 +1,6 @@
-const boxHeight = 80
-const textHeight = 14
-const textMargin = 6
+const boxHeight = 80;
+const textHeight = 14;
+const textMargin = 6;
 
 export const FourFieldsTemplate = {
     'version': '0.3',
@@ -44,6 +44,11 @@ export const FourFieldsTemplate = {
         }
     },
     'settings': {
+        'boxHeight': boxHeight,
+        'nodeActions': {
+            'x': boxHeight / 2,
+            'y': 0
+        },
         'nodeSize': {
             'width': boxHeight * 1.5,
             'height': boxHeight * 2.0

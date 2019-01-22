@@ -29,6 +29,17 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
 
     public ngOnInit(): void {
         this.form = this._createForm();
+
+        if (this.form.get('generation')) {
+            this.form.get('generation').valueChanges
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe(result => {
+                    if (result < 0) {
+                        this.form.get('generation').patchValue(0);
+                    }
+                });
+        }
+
         this.form.valueChanges
             .pipe(takeUntil(this.unsubscribe))
             .subscribe((value) => {

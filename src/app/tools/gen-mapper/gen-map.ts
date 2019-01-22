@@ -357,7 +357,14 @@ export class GenMap {
             .attr('y', (d) => {
                 return d.y * (1 - LINK_TEXT_POSITION) + (d.parent.y + MapStyles.boxHeight) * LINK_TEXT_POSITION;
             })
-            .text((d) => d.data.coach);
+            .text(d => {
+                if (d.data.coach) {
+                    return d.data.coach;
+                }
+                if (d.data.generation) {
+                    return 'G' + d.data.generation;
+                }
+            });
 
         // update nodes
         const node = this.gNodes.selectAll('.node')
@@ -374,12 +381,12 @@ export class GenMap {
 
         newGroup.append('rect')
             .attr('class', 'hidden-rect')
-            .attr('width', 25)
-            .attr('height', 80)
+            .attr('width', 28)
+            .attr('height', 100)
             .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
 
-        _appendRemoveButton(newGroup);
-        _appendAddButton(newGroup);
+        _appendRemoveButton(newGroup, this.template);
+        _appendAddButton(newGroup, this.template);
 
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach((svgElement) => {
@@ -527,32 +534,36 @@ export class GenMap {
     }
 }
 
-function _appendRemoveButton(group: any): void {
+function _appendRemoveButton(group: any, template: GMTemplate): void {
     group.filter(n => !n.data.isRoot).append('g')
         .attr('class', 'removeNode')
         .attr('cursor', 'pointer')
         .append('svg')
+        .attr('y', template.settings.nodeActions.y)
+        .attr('x', template.settings.nodeActions.x)
         .html(`
-            <rect x="40" y="0" rx="7" width="25" height="40">
+            <rect x="0" y="0" rx="7" width="25" height="40">
             <title>${i18next.t('editGroup.hoverDeleteGroupAndSubtree')}</title>
             </rect>
-            <line x1="46" y1="13.5" x2="59" y2="26.5" stroke="white" stroke-width="3"></line>
-            <line x1="59" y1="13.5" x2="46" y2="26.5" stroke="white" stroke-width="3"></line>
+            <line x1="6" y1="13.5" x2="19" y2="26.5" stroke="white" stroke-width="3"></line>
+            <line x1="19" y1="13.5" x2="6" y2="26.5" stroke="white" stroke-width="3"></line>
         `);
 }
 
-function _appendAddButton(group: any): void {
+function _appendAddButton(group: any, template: GMTemplate): void {
     group.append('g')
         .attr('class', 'addNode')
         .attr('cursor', 'pointer')
         .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
         .append('svg')
+        .attr('y', template.settings.nodeActions.y)
+        .attr('x', template.settings.nodeActions.x)
         .html(`
-            <rect x="40" y="40" rx="7" width="25" height="40">
+            <rect x="0" y="40" rx="7" width="25" height="40">
             <title>${i18next.t('editGroup.hoverAddChildGroup')}</title>
             </rect>
-            <line x1="45" y1="60" x2="60" y2="60" stroke="white" stroke-width="3"></line>
-            <line x1="52.5" y1="52.5" x2="52.5" y2="67.5" stroke="white" stroke-width="3"></line>
+            <line x1="5" y1="60" x2="20" y2="60" stroke="white" stroke-width="3"></line>
+            <line x1="12.5" y1="52.5" x2="12.5" y2="67.5" stroke="white" stroke-width="3"></line>
         `);
 }
 
