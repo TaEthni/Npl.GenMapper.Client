@@ -145,7 +145,6 @@ export class GenMap {
         this._deleteAllDescendants(d);
         const parsedCsv = TemplateUtils.parseCsvData(csvString, this.template.format);
         this.overwriteNode(d, parsedCsv);
-
     }
 
     public overwriteNode(d: any, data: GNode[]): void {
@@ -348,7 +347,9 @@ export class GenMap {
         // append SVG elements related to fields
         this.template.fields.forEach((field) => {
             if (field.svg) {
-                const element = newGroup.append(field.svg['type']);
+                const g = newGroup.append('g');
+                g.append('title').text(i18next.t(this.template.format + '.' + field.header));
+                const element = g.append(field.svg['type']);
                 element.attr('class', 'node-' + field.header);
                 applySVGAttrsAndStyle(field, element);
             }
@@ -438,9 +439,10 @@ export class GenMap {
 
             return d.data[field.header];
         });
+
         if (field.svg.type === 'image') {
-            element.style('display', (s) => {
-                return s.data[field.header] ? 'block' : 'none';
+            element.style('opacity', (s) => {
+                return s.data[field.header] ? '1' : '0.2';
             });
         }
     }
