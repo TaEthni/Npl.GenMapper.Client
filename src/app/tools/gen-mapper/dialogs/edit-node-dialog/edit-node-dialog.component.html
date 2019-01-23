@@ -21,6 +21,18 @@
             (click)="onImportSubtree()">
         {{'importSubtree' | locale | async}}
     </button>
+    <button mat-button
+            (click)="onCopyNode()">
+        {{'editGroup.hoverCopyNode' | locale | async}}
+    </button>
+
+    <ng-container *ngIf="isNodeClipboard">
+        <button mat-button
+                (click)="onPasteNode()">
+            {{'editGroup.hoverPasteNode' | locale | async}}
+        </button>
+    </ng-container>
+
     <div fxFlex></div>
     <button mat-button
             color="warn"

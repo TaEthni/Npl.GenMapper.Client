@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { GMTemplate } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { NodeClipboardService } from '../node-clipboard.service';
 
 @Component({
     selector: 'app-gen-mapper-container',
@@ -25,7 +26,8 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     constructor(
         private genMapper: GenMapperService,
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
+        private nodeClipboard: NodeClipboardService,
     ) { super(); }
 
     public ngOnInit(): void {
@@ -48,5 +50,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.genMapper.setDocument(null);
+        this.nodeClipboard.set(null);
     }
 }
