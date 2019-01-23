@@ -184,6 +184,7 @@ export class GenMap {
     }
 
     public pasteNode(d: any, copiedNodes: GNode[]): void {
+        this._deleteAllDescendants(d);
         this.overwriteNode(d, cloneDeep(copiedNodes));
     }
 
