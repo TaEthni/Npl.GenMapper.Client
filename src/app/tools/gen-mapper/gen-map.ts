@@ -3,8 +3,9 @@ import * as d3 from 'd3';
 import i18next from 'i18next';
 import * as _ from 'lodash';
 
-import { GMField, GMTemplate } from './gen-mapper.interface';
+import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
+import { HierarchyNode } from 'd3';
 
 export const MapStyles = {
     boxHeight: 80,
@@ -17,7 +18,6 @@ const isNumberReg = /\d/;
 export class GenMap {
     public initialCsv: string;
     public csvHeader: string;
-    public data: any;
     public language: any;
 
     public zoom: any;
@@ -30,12 +30,14 @@ export class GenMap {
 
     public margin = { top: 110, right: 30, bottom: 50, left: 30 };
 
-    public onChange = (v: string) => { };
+    public onChange = (v: GNode[]) => { };
+    public onCopyNode = (v: GNode[]) => { };
+    public onPasteNode = (d: HierarchyNode<any>) => { };
 
     constructor(
         private graphSvg: ElementRef,
         private template: GMTemplate,
-        private content?: string,
+        public data?: GNode[],
     ) { }
 
     public init(): void {
@@ -48,11 +50,9 @@ export class GenMap {
         this._createMap();
     }
 
-    public update(content: string): void {
-        this.content = content || this.initialCsv;
-        this.data = this._parseCsvData(this.content);
+    public update(content: GNode[]): void {
+        this.data = content;
         this.nodes = null;
-
         this.patchNodes(this.data);
 
         this.originalPosition();
@@ -136,21 +136,25 @@ export class GenMap {
         this._deleteAllDescendants(node);
         const nodeToDelete = _.filter(this.data, { id: node.data.id });
         if (nodeToDelete) {
-            this.data = _.without(this.data, nodeToDelete[0]);
+            this.data = _.without(this.data, nodeToDelete[0]) as GNode[];
             this.redraw();
         }
     }
 
-    public csvIntoNode(d: any, parsedCsv: any): void {
+    public csvIntoNode(d: any, csvString: any): void {
         this._deleteAllDescendants(d);
-        parsedCsv = this._parseCsvData(parsedCsv);
+        const parsedCsv = TemplateUtils.parseCsvData(csvString, this.template.format);
+        this.overwriteNode(d, parsedCsv);
 
+    }
+
+    public overwriteNode(d: any, data: GNode[]): void {
         // replace node by root of imported
         const nodeToDelete: any = _.filter(this.data, { id: d.data.id })[0];
-        const rowRootOfImported: any = _.filter(parsedCsv, { parentId: '' })[0];
+        const rowRootOfImported: any = _.filter(data, { parentId: '' })[0];
         const mapOldIdToNewId = {};
         mapOldIdToNewId[rowRootOfImported.id] = nodeToDelete.id;
-        parsedCsv = _.without(parsedCsv, rowRootOfImported);
+        data = _.without(data, rowRootOfImported);
         rowRootOfImported.id = nodeToDelete.id;
         rowRootOfImported.parentId = nodeToDelete.parentId;
         this.data[_.indexOf(this.data, nodeToDelete)] = rowRootOfImported;
@@ -158,8 +162,8 @@ export class GenMap {
         const idsUnsorted = _.map(this.data, function (row: any): string { return row.id; });
         const ids = idsUnsorted.sort((a: any, b: any): any => a - b);
         // update ids of other nodes and push into data
-        while (parsedCsv.length > 0) {
-            const row = parsedCsv.shift();
+        while (data.length > 0) {
+            const row = data.shift();
             if (!(row.id in mapOldIdToNewId)) {
                 const newId = findNewIdFromArray(ids);
                 mapOldIdToNewId[row.id] = newId;
@@ -193,25 +197,6 @@ export class GenMap {
     /**
      * @private Data Parsing Methods
      */
-    private _parseCsvData(csvData: string): any {
-        return d3.csvParse(csvData, (d) => {
-            const parsedId = parseFloat(d.id);
-            if (parsedId < 0 || isNaN(parsedId)) { throw new Error('Group id must be integer >= 0.'); }
-            const parsedLine = {};
-            parsedLine['id'] = parsedId;
-            parsedLine['parentId'] = d.parentId !== '' ? parseFloat(d.parentId) : '';
-            this.template.fields.forEach((field) => {
-                if (field.type === 'checkbox') {
-                    const fieldValue = d[field.header].toUpperCase();
-                    parsedLine[field.header] = !!['TRUE', '1'].includes(fieldValue);
-                } else if (field.type) {
-                    parsedLine[field.header] = d[field.header];
-                }
-            });
-            return parsedLine;
-        });
-    }
-
     private _deleteAllDescendants(node: any): void {
         let idsToDelete = _.map(node.children, (row) => parseFloat(row.id));
         while (idsToDelete.length > 0) {
@@ -219,7 +204,7 @@ export class GenMap {
             const childrenIdsToDelete = _.map(_.filter(this.data, { parentId: currentId }), (row: any) => row.id);
             idsToDelete = idsToDelete.concat(childrenIdsToDelete);
             const nodeToDelete = _.filter(this.data, { id: currentId });
-            if (nodeToDelete) { this.data = _.without(this.data, nodeToDelete[0]); }
+            if (nodeToDelete) { this.data = _.without(this.data, nodeToDelete[0]) as GNode[]; }
         }
     }
 
@@ -261,43 +246,7 @@ export class GenMap {
             .append('g')
             .attr('class', 'group-nodes');
 
-
-        this.csvHeader = TemplateUtils.createCSVHeader(this.template);
-        this.initialCsv = TemplateUtils.createInitialCSV(this.template);
-
-        this.update(this.content);
-    }
-
-    private _getOutputCsv(): string {
-        return this.csvHeader + d3.csvFormatRows(this.data.map((d, i) => {
-            const output = [];
-            this.template.fields.forEach((field) => {
-                if (field.type === 'checkbox') {
-                    output.push(d[field.header] ? '1' : '0');
-                } else {
-                    output.push(d[field.header]);
-                }
-            });
-            return output;
-        }));
-    }
-
-    private exportCsv(): void {
-        const blob = new Blob([this._getOutputCsv()], { type: 'text/csv;charset=utf-8' });
-
-        const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-            navigator.userAgent && !navigator.userAgent.match('CriOS');
-
-        const promptMessage = isSafari
-            ? i18next.t('messages.saveAsInSafari')
-            : i18next.t('messages.saveAs');
-
-        // const saveName = window.prompt(promptMessage, this.doc + '.csv')
-        // if (saveName === null) return
-
-        // saveAs(blob, saveName)
-
-        console.log('save');
+        this.update(this.data);
     }
 
     private _setSvgHeight(): void {
@@ -387,6 +336,7 @@ export class GenMap {
 
         _appendRemoveButton(newGroup, this.template);
         _appendAddButton(newGroup, this.template);
+        // _appendCopyButton(newGroup, this.template);
 
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach((svgElement) => {
@@ -432,6 +382,16 @@ export class GenMap {
                 this.onAddNodeClick(d);
             });
 
+        // nodeWithNew
+        //     .select('.copyNode')
+        //     .on('click', (d) => {
+        //         d3.event.stopPropagation();
+        //         const nodes = d.descendants().map(n => n.data);
+        //         const root = nodes.find(n => n.id === d.data.id);
+        //         root.parentId = '';
+        //         this.onCopyNode(nodes);
+        //     });
+
         // refresh class and attributes in SVG elements without fields
         // in order to remove any additional classes or settings from inherited fields
         Object.keys(this.template.svg).forEach((svgElement) => {
@@ -456,7 +416,7 @@ export class GenMap {
         });
 
         if (this.onChange) {
-            this.onChange(this._getOutputCsv());
+            this.onChange(this.data);
         }
     }
 
@@ -556,14 +516,32 @@ function _appendAddButton(group: any, template: GMTemplate): void {
         .attr('cursor', 'pointer')
         .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
         .append('svg')
-        .attr('y', template.settings.nodeActions.y)
+        .attr('y', template.settings.nodeActions.y + 40)
         .attr('x', template.settings.nodeActions.x)
         .html(`
-            <rect x="0" y="40" rx="7" width="25" height="40">
+            <rect x="0" y="0" rx="7" width="25" height="40">
             <title>${i18next.t('editGroup.hoverAddChildGroup')}</title>
             </rect>
-            <line x1="5" y1="60" x2="20" y2="60" stroke="white" stroke-width="3"></line>
-            <line x1="12.5" y1="52.5" x2="12.5" y2="67.5" stroke="white" stroke-width="3"></line>
+            <line x1="5" y1="20" x2="20" y2="20" stroke="white" stroke-width="3"></line>
+            <line x1="12.5" y1="12.5" x2="12.5" y2="27.5" stroke="white" stroke-width="3"></line>
+        `);
+}
+
+function _appendCopyButton(group: any, template: GMTemplate): void {
+    group.append('g')
+        .attr('class', 'copyNode')
+        .attr('cursor', 'pointer')
+        .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
+        .append('svg')
+        .attr('y', template.settings.nodeActions.y + 50)
+        .attr('x', template.settings.nodeActions.x)
+        .html(`
+            <rect x="0" y="0" rx="7" width="25" height="25">
+            <title>${i18next.t('editGroup.hoverCopyNode')}</title>
+            </rect>
+            <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
+            <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>
+            <rect x="8" y="8" height="12" width="12" stroke-width="2" stroke="#fff"></rect>
         `);
 }
 

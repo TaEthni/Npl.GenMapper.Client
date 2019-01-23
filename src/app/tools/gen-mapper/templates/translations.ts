@@ -53,9 +53,10 @@ export const translations: any = {
                 'btnImportSubtree': 'Import subtree',
                 'btnExportSubtree': 'Export subtree',
                 'elementParent': 'Parent',
-                'notAvaliable': 'N/A',
+                'notAvailable': 'N/A',
                 'hoverDeleteGroupAndSubtree': 'Delete group &amp; subtree',
-                'hoverAddChildGroup': 'Add child group'
+                'hoverAddChildGroup': 'Add child group',
+                'hoverCopyNode': 'Copy Node'
             },
             'errors': {
                 'requiredField': 'This field is required',
@@ -180,7 +181,7 @@ export const translations: any = {
                 'btnImportSubtree': 'Importovat podstrom',
                 'btnExportSubtree': 'Exportovat podstrom',
                 'elementParent': 'Mateřská skupina',
-                'notAvaliable': 'Není dostupný',
+                'notAvailable': 'Není dostupný',
                 'hoverDeleteGroupAndSubtree': 'Smazat skupinu a celý podstrom',
                 'hoverAddChildGroup': 'Přidat dceřinnou skupinu'
             },
@@ -273,7 +274,6 @@ export const translations: any = {
                 'btnExportSubtree': 'Zweig exportieren',
                 'elementParent': 'Muttergemeinde',
                 'notAvailable': 'nicht verfügbar',
-                'notAvaliable': 'nicht verfügbar',
                 'hoverDeleteGroupAndSubtree': 'Gruppe und Zweig löschen',
                 'hoverAddChildGroup': 'Tochtergruppe hinzufügen'
             },
@@ -377,7 +377,7 @@ export const translations: any = {
                 'btnDelete': 'Eliminar subárbol',
                 'btnImportSubtree': 'Subárbol De importaci',
                 'elementParent': 'Discipulador',
-                'notAvaliable': 'Editar grupo',
+                'notAvailable': 'Editar grupo',
                 'hoverDeleteGroupAndSubtree': 'Eliminar grupo y sub-árbol',
                 'hoverAddChildGroup': 'Añadir grupo secundario'
             },
@@ -476,7 +476,7 @@ export const translations: any = {
                 'btnDelete': 'Usuń poddiagram',
                 'btnImportSubtree': 'Dodaj poddiagram',
                 'elementParent': 'Rodzic',
-                'notAvaliable': 'nieosiągalne',
+                'notAvailable': 'nieosiągalne',
                 'hoverDeleteGroupAndSubtree': 'Usuń grupę i poddiagram',
                 'hoverAddChildGroup': 'Dodaj grupkę córkę'
             },
@@ -554,7 +554,7 @@ export const translations: any = {
                 'btnDelete': 'Ștergeți ramura',
                 'btnImportSubtree': 'Subtree de import',
                 'elementParent': 'Părinte',
-                'notAvaliable': 'N / A',
+                'notAvailable': 'N / A',
                 'hoverDeleteGroupAndSubtree': 'Ștergeți grupul & ramura',
                 'hoverAddChildGroup': 'Adăugați grupul de copii'
             },
@@ -626,7 +626,7 @@ export const translations: any = {
                 'btnImportSubtree': 'Импортировать ветку',
                 'btnExportSubtree': 'Экспортировать ветку',
                 'elementParent': 'Наставник',
-                'notAvaliable': '',
+                'notAvailable': '',
                 'hoverDeleteGroupAndSubtree': 'Удалить группу\\ветку',
                 'hoverAddChildGroup': 'Добавить дочернюю группу'
             },
@@ -704,7 +704,7 @@ export const translations: any = {
                 'btnImportSubtree': 'Importo nen degen',
                 'btnExportSubtree': 'Eksporto nen degen',
                 'elementParent': 'Prind',
-                'notAvaliable': 'N/A',
+                'notAvailable': 'N/A',
                 'hoverDeleteGroupAndSubtree': 'Fshije grupin dhe degen nen te',
                 'hoverAddChildGroup': 'Shto nje nen grup'
             },
@@ -766,7 +766,7 @@ export const translations: any = {
                 'btnImportSubtree': '导入“后代”组',
                 'btnExportSubtree': '导出“后代”组',
                 'elementParent': '初代',
-                'notAvaliable': '不适用',
+                'notAvailable': '不适用',
                 'hoverDeleteGroupAndSubtree': '删除“后代”组',
                 'hoverAddChildGroup': '添加“后代”组'
             },

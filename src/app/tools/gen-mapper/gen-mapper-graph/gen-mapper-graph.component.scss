@@ -1,3 +1,5 @@
+@import '~styles/colors';
+
 :host::ng-deep {
     display: flex;
     flex-direction: column;
@@ -295,29 +297,37 @@
         height: 100%;
     }
 
+    g.addNode,
+    g.removeNode,
+    g.copyNode {
+        display: none;
+        opacity: 0.6;
 
-    .addNode rect{
-        fill: #b3ffb3;
+        line, rect ~ rect {
+            pointer-events: none;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
     }
 
     .addNode {
-        display: none;
-    }
-
-    .addNode:hover rect {
-        fill:lime;
-    }
-
-    .removeNode rect{
-        fill: lightsalmon;
+        rect {
+            fill: lime;
+        }
     }
 
     .removeNode {
-        display: none;
+        rect {
+            fill: red;
+        }
     }
 
-    .removeNode:hover rect {
-        fill:red;
+    .copyNode {
+        rect {
+            fill: $gray;
+        }
     }
 
     .node text {
@@ -343,8 +353,12 @@
         fill: lightskyblue;
     }
 
-    .node:hover g.addNode, .node:hover g.removeNode {
-        display: block;
+    .node:hover {
+        g.addNode,
+        g.removeNode,
+        g.copyNode {
+            display: block;
+        }
     }
 
     .node--active text, .link-text--active {
