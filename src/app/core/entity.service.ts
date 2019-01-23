@@ -5,11 +5,11 @@ import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const localUrl = 'http://localhost:9000/api/';
 const devUrl = 'https://dev-api.noplaceleft.tools/api/';
 const prodUrl = 'https://api.noplaceleft.tools/api/';
+const localUrl = devUrl;
 
-let _BaseUrl: string;
+let _BaseUrl: string = localUrl;
 
 if (window.location.host === 'dev.noplaceleft.tools') {
     _BaseUrl = devUrl;
