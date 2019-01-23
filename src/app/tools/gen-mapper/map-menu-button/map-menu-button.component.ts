@@ -8,6 +8,7 @@ import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-d
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { GMTemplate } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { LocaleService } from '@core/locale.service';
 
 @Component({
     selector: 'app-map-menu-button',
@@ -23,6 +24,7 @@ export class MapMenuButtonComponent {
     public template: GMTemplate;
 
     constructor(
+        private locale: LocaleService,
         private downloadService: DownloadService,
         private genMapper: GenMapperService,
         private dialog: MatDialog,
@@ -41,9 +43,10 @@ export class MapMenuButtonComponent {
     }
 
     public onDelete(): void {
+        const title = this.locale.t('deleteDocument') + ` [${this.document.title}]`;
         this.dialog
             .open(ConfirmDialogComponent, {
-                data: { title: 'Delete ' + this.document.title }
+                data: { title }
             })
             .afterClosed()
             .subscribe((result) => {

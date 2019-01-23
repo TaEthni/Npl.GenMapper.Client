@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { LocaleService } from '@core/locale.service';
 
 export interface ConfirmConfig {
     title?: string;
@@ -19,16 +20,15 @@ export class ConfirmDialogComponent implements OnInit {
     public alert: string;
     public prompt: string;
     public content: string[];
-    public buttons: string[];
 
     constructor(
+        private locale: LocaleService,
         @Inject(MAT_DIALOG_DATA) private data: ConfirmConfig
     ) {
         this.title = this.data.title;
         this.alert = this.data.alert;
         this.content = this.data.content || [];
-        this.prompt = this.data.prompt || 'Are you sure you want to continue?';
-        this.buttons = this.data.buttons || ['Continue', 'Cancel'];
+        this.prompt = this.data.prompt || this.locale.t('messages.confirmContinue');
     }
 
     public ngOnInit(): void {
