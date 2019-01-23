@@ -128,7 +128,7 @@ export const translations: any = {
                 'changelogHeader': 'Changelog &amp; version info',
                 'genmapperVersion': 'GenMapper version',
                 'templateVersion': 'Template version',
-                'changelogLink': 'Changelog link',
+                'changelogLink': 'Changelog',
                 'creditsHeader': 'Credits',
                 'creditsThanks1': 'Thanks to Curtis Sergeant for the idea of generational mapping and for providing useful feedback.<br>Thanks to translators from all over the world that helped with different translations.',
                 'creditsJavaScriptLibraries': 'JavaScript/CSS libraries used',
