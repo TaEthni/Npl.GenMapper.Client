@@ -1,4 +1,9 @@
 
+export interface GNode {
+    id: string;
+    parentId: string;
+}
+
 export interface GMSvg {
     type: string;
     attribute: any;

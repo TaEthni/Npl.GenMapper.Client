@@ -74,6 +74,12 @@ export class GenMapperService {
             document = new DocumentDto({ type: template.format, id: Entity.uuid() });
         }
 
+        if (!document.content) {
+            document.content = TemplateUtils.createInitialCSV(template);
+        }
+
+        document.nodes = TemplateUtils.parseCsvData(document.content, template.format);
+
         const config = this._config.getValue();
         config.documents = [document];
         config.template = template;
@@ -116,6 +122,12 @@ export class GenMapperService {
     public updateLocalStorage(doc: DocumentDto): Observable<DocumentDto> {
         const config = this._config.getValue();
         doc.id = 'local';
+
+        // If nodes, then replace content with current nodes converted to CSV
+        if (doc.nodes && doc.nodes.length) {
+            doc.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type);
+        }
+
         localStorage.setItem(storageKey + config.template.name, JSON.stringify(doc));
         return of(doc);
     }

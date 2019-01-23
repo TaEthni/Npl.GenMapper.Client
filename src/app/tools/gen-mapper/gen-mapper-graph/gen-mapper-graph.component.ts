@@ -11,11 +11,14 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentDto } from '@shared/entity/document.model';
+import { take } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { EditNodeDialogComponent, EditNodeDialogResponse } from '../dialogs/edit-node-dialog/edit-node-dialog.component';
 import { GenMap } from '../gen-map';
-import { GMTemplate } from '../gen-mapper.interface';
+import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { NodeClipboardService } from '../node-clipboard.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -34,18 +37,18 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     public template: GMTemplate;
 
     @Output()
-    public change: EventEmitter<string> = new EventEmitter<string>(null);
+    public change: EventEmitter<GNode[]> = new EventEmitter<GNode[]>(null);
 
     @ViewChild('genMapperGraphSvg')
     public graphSvg: ElementRef;
 
     constructor(
         private dialog: MatDialog,
+        private nodeClipboard: NodeClipboardService,
         private elementRef: ElementRef
     ) { }
 
     public ngAfterViewInit(): void {
-
         // This is a bad practice, but it is the only way to make this work
         const ttid = setTimeout(() => {
             this._createGraph();
@@ -60,21 +63,25 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
 
         if (this.graph) {
             this._updating = true;
-            this.graph.update(this.document.content);
+            this.graph.update(this.document.nodes);
         }
     }
 
     private _createGraph(): void {
-        this.graph = new GenMap(this.graphSvg, this.template, this.document.content);
+        this.graph = new GenMap(this.graphSvg, this.template, this.document.nodes);
 
         this.graph.init();
 
-        this.graph.onChange = (content: string) => {
+        this.graph.onChange = (data: GNode[]) => {
             if (!this._updating) {
-                this.change.emit(content);
+                this.change.emit(data);
             }
             this._updating = false;
         };
+
+        this.graph.onCopyNode = (nodes: GNode[]) => { };
+
+        this.graph.onPasteNode = (d: any) => { };
 
         this.graph.removeNodeClick = (node: any) => {
             const name = node.data.name || node.data.leaderName || 'No Name';
@@ -92,7 +99,12 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             this.dialog
                 .open(EditNodeDialogComponent, {
                     minWidth: '400px',
-                    data: { nodeData: node.data, template: this.template, language: this.graph.language, nodes: this.graph.data }
+                    data: {
+                        nodeData: node.data,
+                        template: this.template,
+                        language: this.graph.language,
+                        nodes: this.graph.data
+                    }
                 })
                 .afterClosed()
                 .subscribe((result: EditNodeDialogResponse) => {

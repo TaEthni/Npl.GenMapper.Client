@@ -8,7 +8,7 @@ import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-d
 import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
-import { GMTemplate } from '../gen-mapper.interface';
+import { GMTemplate, GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 
 @Component({
@@ -52,8 +52,8 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             });
     }
 
-    public onGraphChange(content: string): void {
-        this.document.content = content;
+    public onGraphChange(nodes: GNode[]): void {
+        this.document.nodes = nodes;
         this.genMapper.updateDocument(this.document)
             .subscribe(result => { console.log('updated'); });
     }
