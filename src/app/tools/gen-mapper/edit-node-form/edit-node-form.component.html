@@ -34,82 +34,99 @@
 
     <ng-container *ngFor="let field of fields">
         <ng-container *ngIf="field.type">
+            <ng-container *ngIf="!field.dependsOnFalseField || form.get(field.dependsOnFalseField) && !form.get(field.dependsOnFalseField).value">
 
-            <label class="control control-{{field.type}}"
-                   fxLayout="row"
-                   [fxLayout.lt-md]="field.type === 'checkbox' ? 'row' : 'column'"
-                   fxLayoutAlign.gt-md="center center"
-                   fxLayoutGap.gt-md="10px">
+                <label class="control control-{{field.type}}"
+                       fxLayout="row"
+                       [fxLayout.lt-md]="field.type === 'checkbox' ? 'row' : 'column'"
+                       fxLayoutAlign.gt-md="center center"
+                       fxLayoutGap.gt-md="10px">
 
-                <div class="control-label"
-                     fxFlex>{{field.localeLabel}}</div>
+                    <div class="control-label"
+                         fxFlex>{{field.localeLabel}}</div>
 
-                <div class="control-input">
-                    <ng-container *ngIf="field.type === 'text'">
-                        <mat-form-field floatPlaceholder="never"
-                                        floatLabel="never"
-                                        no-error
-                                        no-label>
-                            <input type="text"
-                                   matInput
-                                   autocomplete="off"
-                                   [placeholder]="field.localeLabel"
-                                   [formControl]="form.get(field.header)" />
-                        </mat-form-field>
-                    </ng-container>
+                    <div class="control-input">
+                        <ng-container *ngIf="field.type === 'text'">
+                            <mat-form-field floatPlaceholder="never"
+                                            floatLabel="never"
+                                            no-error
+                                            no-label>
+                                <input type="text"
+                                       matInput
+                                       autocomplete="off"
+                                       [placeholder]="field.localeLabel"
+                                       [formControl]="form.get(field.header)" />
+                            </mat-form-field>
+                        </ng-container>
 
-                    <ng-container *ngIf="field.type === 'number'">
-                        <mat-form-field floatPlaceholder="never"
-                                        floatLabel="never"
-                                        no-error
-                                        no-label>
-                            <input type="number"
-                                   matInput
-                                   autocomplete="off"
-                                   [placeholder]="field.localeLabel"
-                                   [formControl]="form.get(field.header)" />
-                        </mat-form-field>
-                    </ng-container>
+                        <ng-container *ngIf="field.type === 'textarea'">
+                            <mat-form-field floatPlaceholder="never"
+                                            floatLabel="never"
+                                            no-error
+                                            no-label>
+                                <textarea type="text"
+                                          matInput
+                                          cdkTextareaAutosize
+                                          cdkAutosizeMinRows="1"
+                                          autocomplete="off"
+                                          [placeholder]="field.localeLabel"
+                                          [formControl]="form.get(field.header)"></textarea>
+                            </mat-form-field>
+                        </ng-container>
 
-                    <ng-container *ngIf="field.type === 'radio'">
-                        <mat-form-field floatPlaceholder="never"
-                                        floatLabel="never"
-                                        no-error
-                                        no-label>
-                            <mat-select [formControl]="form.get(field.header)">
-                                <mat-option *ngFor="let value of field.values"
-                                            [value]="value.header">
-                                    {{value.localeLabel}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </ng-container>
+                        <ng-container *ngIf="field.type === 'number'">
+                            <mat-form-field floatPlaceholder="never"
+                                            floatLabel="never"
+                                            no-error
+                                            no-label>
+                                <input type="number"
+                                       matInput
+                                       autocomplete="off"
+                                       [placeholder]="field.localeLabel"
+                                       [formControl]="form.get(field.header)" />
+                            </mat-form-field>
+                        </ng-container>
 
-                    <ng-container *ngIf="field.type === 'multiSelect'">
-                        <mat-form-field floatPlaceholder="never"
-                                        floatLabel="never"
-                                        no-error
-                                        no-label>
-                            <mat-select [formControl]="form.get(field.header)"
-                                        multiple
-                                        [placeholder]="form.get(field.header).value | joinList"
-                                        #temp>
-                                <mat-select-trigger>
-                                    {{form.get(field.header).value | joinList}}
-                                </mat-select-trigger>
-                                <mat-option *ngFor="let value of field.values"
-                                            [value]="value.value">
-                                    #{{value.value}} {{value.localeLabel}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </ng-container>
+                        <ng-container *ngIf="field.type === 'radio'">
+                            <mat-form-field floatPlaceholder="never"
+                                            floatLabel="never"
+                                            no-error
+                                            no-label>
+                                <mat-select [formControl]="form.get(field.header)">
+                                    <mat-option *ngFor="let value of field.values"
+                                                [value]="value.header">
+                                        {{value.localeLabel}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
 
-                    <ng-container *ngIf="field.type === 'checkbox'">
-                        <mat-slide-toggle [formControl]="form.get(field.header)"></mat-slide-toggle>
-                    </ng-container>
-                </div>
-            </label>
+                        <ng-container *ngIf="field.type === 'multiSelect'">
+                            <mat-form-field floatPlaceholder="never"
+                                            floatLabel="never"
+                                            no-error
+                                            no-label>
+                                <mat-select [formControl]="form.get(field.header)"
+                                            multiple
+                                            [placeholder]="form.get(field.header).value | joinList"
+                                            #temp>
+                                    <mat-select-trigger>
+                                        {{form.get(field.header).value | joinList}}
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let value of field.values"
+                                                [value]="value.value">
+                                        #{{value.value}} {{value.localeLabel}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === 'checkbox'">
+                            <mat-slide-toggle [formControl]="form.get(field.header)"></mat-slide-toggle>
+                        </ng-container>
+                    </div>
+                </label>
+            </ng-container>
         </ng-container>
     </ng-container>
 </div>

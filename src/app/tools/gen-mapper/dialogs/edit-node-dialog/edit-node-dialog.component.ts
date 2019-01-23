@@ -65,6 +65,12 @@ export class EditNodeDialogComponent {
     }
 
     public onSubmit(): void {
+
+        // if node is active, then remove reason for being inactive.
+        if (this.model.hasOwnProperty('active') && this.model.hasOwnProperty('inactiveReason') && this.model.active) {
+            this.model.inactiveReason = null;
+        }
+
         this.dialogRef.close({
             isUpdate: true,
             data: this.model
