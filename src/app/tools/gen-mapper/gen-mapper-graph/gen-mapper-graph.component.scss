@@ -299,7 +299,8 @@
 
     g.addNode,
     g.removeNode,
-    g.copyNode {
+    g.copyNode,
+    g.pasteNode {
         display: none;
         opacity: 0.6;
 
@@ -356,7 +357,8 @@
     .node:hover {
         g.addNode,
         g.removeNode,
-        g.copyNode {
+        g.copyNode,
+        g.pasteNode {
             display: block;
         }
     }

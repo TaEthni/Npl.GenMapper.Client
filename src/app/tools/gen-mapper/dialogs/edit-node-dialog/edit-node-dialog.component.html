@@ -2,6 +2,20 @@
     <ng-container *ngIf="model.name || model.leaderName">
         [{{model.name || model.leaderName}}]
     </ng-container>
+
+    <div fxLayout="row">
+        <button mat-stroked-button
+                (click)="onCopyNode()">
+            {{'editGroup.hoverCopyNode' | locale | async}}
+        </button>
+
+        <ng-container *ngIf="isNodeClipboard">
+            <button mat-stroked-button
+                    (click)="onPasteNode()">
+                {{'editGroup.hoverPasteNode' | locale | async}}
+            </button>
+        </ng-container>
+    </div>
 </h1>
 <div mat-dialog-content>
     <app-edit-node-form [fields]="fields"
@@ -21,6 +35,7 @@
             (click)="onImportSubtree()">
         {{'importSubtree' | locale | async}}
     </button>
+
     <div fxFlex></div>
     <button mat-button
             color="warn"

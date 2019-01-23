@@ -4,14 +4,25 @@ import { LocaleService } from '@core/locale.service';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 
 import { GMField, GMTemplate, GNode } from '../../gen-mapper.interface';
+import { NodeClipboardService } from '../../node-clipboard.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 export interface EditNodeDialogResponse {
     isCancel: boolean;
     isUpdate: boolean;
     isDeleteSubtree: boolean;
     isImportSubtree: boolean;
+    isPasteNode: boolean;
     data: object;
     content?: string;
+}
+
+export interface EditNodeDialogConfig {
+    nodeData: GNode;
+    descendants: GNode[];
+    template: GMTemplate;
+    language: string;
+    nodes: GNode[];
 }
 
 @Component({
@@ -25,13 +36,16 @@ export class EditNodeDialogComponent {
     public fields: GMField[];
     public model: any;
     public locale: any;
+    public isNodeClipboard: boolean;
 
     constructor(
         private dialogRef: MatDialogRef<EditNodeDialogComponent>,
         private matDialog: MatDialog,
         private localeService: LocaleService,
-        @Inject(MAT_DIALOG_DATA) public data: { nodeData: any, template: GMTemplate, language: string, nodes: GNode[] }
+        private nodeClipboard: NodeClipboardService,
+        @Inject(MAT_DIALOG_DATA) public data: EditNodeDialogConfig
     ) {
+        this.isNodeClipboard = !!this.nodeClipboard.getValue();
         this.model = Object.assign({}, data.nodeData);
         this.locale = data.template.translations[data.language].translation[data.template.format];
         this.template = data.template;
@@ -68,6 +82,29 @@ export class EditNodeDialogComponent {
             isDeleteSubtree: true,
             data: this.model,
         } as EditNodeDialogResponse);
+    }
+
+    public onPasteNode(): void {
+        this.matDialog
+            .open(ConfirmDialogComponent, {
+                data: {
+                    title: this.localeService.t('messages.confirmPasteNode'),
+                    alert: this.localeService.t('messages.confirmPasteNodeWarning'),
+                }
+            })
+            .afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.dialogRef.close({
+                        isPasteNode: true,
+                        data: this.model,
+                    } as EditNodeDialogResponse);
+                }
+            });
+    }
+
+    public onCopyNode(): void {
+        this.nodeClipboard.set(this.data.descendants);
     }
 
     public onImportSubtree(): void {

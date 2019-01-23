@@ -81,9 +81,13 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             this._updating = false;
         };
 
-        this.graph.onCopyNode = (nodes: GNode[]) => { };
+        this.graph.onCopyNode = (nodes: GNode[]) => {
+            // Buttons on graph is not implemented
+        };
 
-        this.graph.onPasteNode = (d: any) => { };
+        this.graph.onPasteNode = (d: any) => {
+            // Buttons on graph is not implemented
+        };
 
         this.graph.removeNodeClick = (node: any) => {
             const name = node.data.name || node.data.leaderName || 'No Name';
@@ -104,11 +108,18 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         };
 
         this.graph.nodeClick = (node: any) => {
+
+            // Setup descendants for copy/paste
+            const descendants = cloneDeep(node.descendants().map(d => d.data));
+            const same = descendants.find(n => n.id === node.data.id);
+            same.parentId = '';
+
             this.dialog
                 .open(EditNodeDialogComponent, {
                     minWidth: '400px',
                     data: {
                         nodeData: node.data,
+                        descendants: descendants,
                         template: this.template,
                         language: this.graph.language,
                         nodes: this.graph.data
@@ -118,6 +129,10 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
                 .subscribe((result: EditNodeDialogResponse) => {
                     if (!result || result.isCancel) {
                         return;
+                    }
+
+                    if (result.isPasteNode) {
+                        this.graph.pasteNode(node, this.nodeClipboard.getValue());
                     }
 
                     if (result.isImportSubtree) {
