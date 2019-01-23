@@ -1,5 +1,10 @@
 :host {
+    display: flex;
+    flex-direction: column;
+
     .scroll-container {
+        position: relative;
+        flex: 1;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
     }

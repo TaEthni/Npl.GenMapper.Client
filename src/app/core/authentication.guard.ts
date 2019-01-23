@@ -32,7 +32,7 @@ export class AuthenticationGuard implements CanActivate {
         }
 
         // if (!token.isEmailVerified) {
-        //     this.router.navigate(['unverified']);
+        //     this.router.navigate(['unverified-email']);
         //     return false;
         // }
 

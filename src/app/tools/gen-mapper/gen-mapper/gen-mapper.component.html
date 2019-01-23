@@ -19,20 +19,20 @@
         <ng-container *ngIf="isAuthenticated">
             <ng-container *ngIf="documents.length === 0">
                 <h1 i18n="en-You_have_no_saved_documents">
-                    You have no saved documents!
+                    {{'noSavedDocuments' | locale | async}}
                 </h1>
             </ng-container>
 
             <ng-container *ngIf="documents.length > 0">
                 <h1 i18n="en-Please_select_a_document">
-                    Please select a document
+                    {{'selectADocument' | locale | async}}
                 </h1>
             </ng-container>
         </ng-container>
 
         <ng-container *ngIf="!isAuthenticated">
             <h1 i18n="en-Please_log_in_to_save_documents">
-                Please sign in to save documents.
+                {{'signInToSaveDocuments' | locale | async}}
             </h1>
         </ng-container>
 
@@ -44,18 +44,18 @@
                     (click)="onCreateDocument()"
                     i18n="en-Create_Document">
                 <ng-container *ngIf="isAuthenticated">
-                    Create Document
+                    {{'createDocument' | locale | async}}
                 </ng-container>
 
                 <ng-container *ngIf="!isAuthenticated">
-                    Create Temporary Document
+                    {{'createTemporaryDocument' | locale | async}}
                 </ng-container>
             </button>
             <button mat-raised-button
                     color="accent"
                     (click)="onImport()"
                     i18n="en-Import_Document">
-                Import Document
+                {{'importDocument' | locale | async}}
             </button>
         </div>
     </div>

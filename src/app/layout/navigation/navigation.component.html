@@ -47,7 +47,9 @@
 
         <mat-list-item routerLink="/tools"
                        routerLinkActive="active">
-            <h3 matLine> Tools </h3>
+            <h3 matLine>
+                {{'tools' | locale | async}}
+            </h3>
             <mat-icon matListIcon>device_hub</mat-icon>
             <mat-icon class="arrow">chevron_right</mat-icon>
         </mat-list-item>
@@ -92,6 +94,17 @@
                  src="assets/npl-logo-2018.png"
                  alt="No Place Left">
             <h3 matLine> #NoPlaceLeft </h3>
+            <mat-icon>launch</mat-icon>
+        </a>
+
+        <a mat-list-item
+           href="https://github.com/NoPlaceLeft/tools-client-angular/blob/master/changelog.md"
+           target="_blank">
+            <mat-icon mat-list-icon
+                      class="history-icon">history</mat-icon>
+            <h3 matLine>
+                {{'help.changelogLink' | locale | async}}
+            </h3>
             <mat-icon>launch</mat-icon>
         </a>
     </mat-nav-list>

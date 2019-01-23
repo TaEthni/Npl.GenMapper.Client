@@ -11,6 +11,6 @@
     </mat-error>
 
     <mat-error *ngIf="control.errors?.minlength">
-        Value is too short
+        {{'errors.valueIsTooShort' | locale | async}}
     </mat-error>
 </ng-container>

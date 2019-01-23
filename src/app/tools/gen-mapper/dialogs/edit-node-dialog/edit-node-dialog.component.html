@@ -13,14 +13,18 @@
     <button mat-button
             color="accent"
             cdkFocusInitial
-            (click)="onSubmit()">Submit</button>
+            (click)="onSubmit()">
+        {{'en_Save' | locale | async}}
+    </button>
     <button mat-button
             color="primary"
             (click)="onImportSubtree()">
-        Import Subtree
+        {{'importSubtree' | locale | async}}
     </button>
     <div fxFlex></div>
     <button mat-button
             color="warn"
-            (click)="onCancel()">Cancel</button>
+            (click)="onCancel()">
+        {{'en_Cancel' | locale | async}}
+    </button>
 </div>

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { LocaleService } from '@core/locale.service';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 
-import { GMField, GMTemplate } from '../../gen-mapper.interface';
+import { GMField, GMTemplate, GNode } from '../../gen-mapper.interface';
 
 export interface EditNodeDialogResponse {
     isCancel: boolean;
@@ -30,7 +30,7 @@ export class EditNodeDialogComponent {
         private dialogRef: MatDialogRef<EditNodeDialogComponent>,
         private matDialog: MatDialog,
         private localeService: LocaleService,
-        @Inject(MAT_DIALOG_DATA) public data: { nodeData: any, template: GMTemplate, language: string, nodes: any[] }
+        @Inject(MAT_DIALOG_DATA) public data: { nodeData: any, template: GMTemplate, language: string, nodes: GNode[] }
     ) {
         this.model = Object.assign({}, data.nodeData);
         this.locale = data.template.translations[data.language].translation[data.template.format];
