@@ -53,7 +53,7 @@
                     </mat-hint>
 
                     <mat-error *ngIf="form.controls.username.errors?.minlength">
-                        Minimum length is {{form.controls.username.errors?.minlength.requiredLength}} characters
+                        {{'errors.valueIsTooShort' | locale | async}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
@@ -75,7 +75,7 @@
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.password.errors?.minlength">
-                        Minimum length is {{form.controls.password.errors?.minlength.requiredLength}} characters
+                        {{'errors.valueIsTooShort' | locale | async}}
                     </mat-error>
                 </mat-form-field>
 
@@ -97,7 +97,7 @@
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.confirm.errors?.minlength">
-                        Minimum length is {{form.controls.confirm.errors?.minlength.requiredLength}} characters
+                        {{'errors.valueIsTooShort' | locale | async}}
                     </mat-error>
                 </mat-form-field>
 

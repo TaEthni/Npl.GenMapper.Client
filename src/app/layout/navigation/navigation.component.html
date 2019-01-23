@@ -47,7 +47,9 @@
 
         <mat-list-item routerLink="/tools"
                        routerLinkActive="active">
-            <h3 matLine> Tools </h3>
+            <h3 matLine>
+                {{'tools' | locale | async}}
+            </h3>
             <mat-icon matListIcon>device_hub</mat-icon>
             <mat-icon class="arrow">chevron_right</mat-icon>
         </mat-list-item>

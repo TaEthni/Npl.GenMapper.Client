@@ -40,7 +40,7 @@ export class LocaleService {
         i18next.changeLanguage(lang);
     }
 
-    public t(key: string): string {
-        return i18next.t(key);
+    public t(key: string, props: any = {}): string {
+        return i18next.t(key, props);
     }
 }

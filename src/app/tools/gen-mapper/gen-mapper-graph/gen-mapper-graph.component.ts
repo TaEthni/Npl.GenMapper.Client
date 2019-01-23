@@ -19,6 +19,7 @@ import { GenMap } from '../gen-map';
 import { GMTemplate, GNode } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { cloneDeep } from 'lodash';
+import { LocaleService } from '@core/locale.service';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -43,6 +44,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     public graphSvg: ElementRef;
 
     constructor(
+        private locale: LocaleService,
         private dialog: MatDialog,
         private nodeClipboard: NodeClipboardService,
         private elementRef: ElementRef
@@ -86,9 +88,15 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         this.graph.removeNodeClick = (node: any) => {
             const name = node.data.name || node.data.leaderName || 'No Name';
             const hasChildren = node.children && node.children.length;
-            const message = hasChildren ? `Delete [${name}] as all it's decendants.` : `Delete [${name}].`;
+            const localeKey = hasChildren ? 'messages.confirmDeleteGroupWithChildren' : 'messages.confirmDeleteGroup';
+            const message = this.locale.t(localeKey, { groupName: name });
             this.dialog
-                .open(ConfirmDialogComponent, { data: { content: [message], title: 'Confirm Delete?' } })
+                .open(ConfirmDialogComponent, {
+                    data: {
+                        content: [message],
+                        title: this.locale.t('messages.confirmDelete', { groupName: name })
+                    }
+                })
                 .afterClosed()
                 .subscribe(result => {
                     if (result) { this.graph.removeNode(node); }

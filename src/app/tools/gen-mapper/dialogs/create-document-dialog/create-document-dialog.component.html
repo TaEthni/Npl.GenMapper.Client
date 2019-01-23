@@ -1,5 +1,5 @@
 <div mat-dialog-title>
-    Create Document
+    {{'createDocument' | locale | async}}
 </div>
 <form mat-dialog-content
       [formGroup]="form"
@@ -16,7 +16,7 @@
         </mat-error>
 
         <mat-error *ngIf="form.controls.title.errors?.minlength">
-            Value is too short
+            {{'errors.valueIsTooShort' | locale | async}}
         </mat-error>
     </mat-form-field>
 </form>
