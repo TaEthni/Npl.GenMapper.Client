@@ -62,6 +62,7 @@ export const ChurchCirclesTemplate = {
                     'date': 'Date of Start (Ex. 2017-01)',
                     'threeThirds': 'Elements of 3/3 process (see help for details)',
                     'active': 'Active',
+                    'inactiveReason': 'Reason for being inactive',
                     'initialLeadersName': 'Leader\'s Name',
                     'initialPlace': 'Place',
                     'initialDate': 'Date',
@@ -108,6 +109,7 @@ export const ChurchCirclesTemplate = {
                     'date': 'Startdatum (z.B. 2017-01)',
                     'threeThirds': 'Elemente des 3/3-Prozesses (siehe Hilfe für mehr Informationen)',
                     'active': 'aktiv',
+                    'inactiveReason': 'Grund inaktiv zu sein',
                     'initialLeadersName': 'Leiter',
                     'initialPlace': 'Ort',
                     'initialDate': 'Datum',
@@ -128,6 +130,7 @@ export const ChurchCirclesTemplate = {
                     'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Leyenda</h3><p>Cada círculo representa un grupo / iglesia. La línea de puntos significa un grupo. La línea completa significa una iglesia.<br>En la parte superior, los números describen: número de total, número de creyentes, número de bautizados<br>Dentro del círculo son los elementos que se practican en el grupo.<br>A la izquierda hay números del 1 al 7 representan qué elementos de 3/3 proceso se practican:<br>1 - Cuidado mutuo<br>2 - Adoración<br>3 - Rendir cuentas con amor<br>4 - Visión<br>5 - Biblia<br>6 - Práctica<br>7 - Establecer metas y Orar</p><p>Haga clic en el grupo para editarlo.<br>Haga clic en el botón rojo (x) para eliminar el grupo.<br>Haga clic en el botón verde (+) para añadir grupo secundario.</p>',
                     'name': 'Nombre de la iglesia',
                     'leaderName': 'Nombre de lider',
+                    'inactiveReason': 'Razón para estar inactivo',
                     'initialLeadersName': 'Nombre de lider',
                     'email': 'Email',
                     'peopleGroup': 'Etnia',
@@ -197,6 +200,7 @@ export const ChurchCirclesTemplate = {
                     'date': 'Datum začátku (např. 2017-01)',
                     'threeThirds': 'Prvky 3/3 (viz nápovědu pro více info)',
                     'active': 'Aktivní',
+                    'inactiveReason': 'Důvod, proč jsou neaktivní',
                     'initialLeadersName': 'Jméno',
                     'initialPlace': 'Místo',
                     'initialDate': 'Datum',
@@ -611,6 +615,12 @@ export const ChurchCirclesTemplate = {
             'initial': true,
             'type': 'checkbox'
             // svg defined currently in genmapper.js
-        }
+        },
+        {
+            'header': 'inactiveReason',
+            'initial': '',
+            'type': 'textarea',
+            'dependsOnFalseField': 'active'
+        },
     ]
 };
