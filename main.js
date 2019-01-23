@@ -5188,6 +5188,7 @@ var GenMap = /** @class */ (function () {
         this.redraw();
     };
     GenMap.prototype.pasteNode = function (d, copiedNodes) {
+        this._deleteAllDescendants(d);
         this.overwriteNode(d, Object(lodash__WEBPACK_IMPORTED_MODULE_2__["cloneDeep"])(copiedNodes));
     };
     /**
