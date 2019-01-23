@@ -4514,7 +4514,7 @@ var ValidationUtils = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div mat-dialog-title>\r\n    {{ title }}\r\n</div>\r\n<div mat-dialog-content>\r\n    <ng-container *ngIf=\"alert\">\r\n        <p class=\"dialog-alert\">{{alert}}</p>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"content && content.length\">\r\n        <p *ngFor=\"let text of content\">\r\n            {{text}}\r\n        </p>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"prompt\">\r\n        <p>{{ prompt }}</p>\r\n    </ng-container>\r\n</div>\r\n<div mat-dialog-actions\r\n     fxLayoutAlign=\"end\">\r\n    <button mat-button\r\n            color=\"accent\"\r\n            *ngIf=\"buttons.length >= 1\"\r\n            [mat-dialog-close]=\"true\">\r\n        {{buttons[0]}}\r\n    </button>\r\n    <button mat-button\r\n            color=\"warn\"\r\n            *ngIf=\"buttons.length >= 2\"\r\n            [mat-dialog-close]=\"false\">\r\n        {{buttons[1]}}\r\n    </button>\r\n</div>\r\n"
+module.exports = "<div mat-dialog-title>\r\n    {{ title }}\r\n</div>\r\n<div mat-dialog-content>\r\n    <ng-container *ngIf=\"alert\">\r\n        <p class=\"dialog-alert\">{{alert}}</p>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"content && content.length\">\r\n        <p *ngFor=\"let text of content\">\r\n            {{text}}\r\n        </p>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"prompt\">\r\n        <p>{{ prompt }}</p>\r\n    </ng-container>\r\n</div>\r\n<div mat-dialog-actions\r\n     fxLayoutAlign=\"end\">\r\n    <button mat-button\r\n            color=\"accent\"\r\n            [mat-dialog-close]=\"true\">\r\n        {{'en_Continue' | locale | async}}\r\n    </button>\r\n    <button mat-button\r\n            color=\"warn\"\r\n            [mat-dialog-close]=\"false\">\r\n        {{'en_Cancel' | locale | async}}\r\n    </button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -4541,6 +4541,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfirmDialogComponent", function() { return ConfirmDialogComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4555,14 +4556,15 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 };
 
 
+
 var ConfirmDialogComponent = /** @class */ (function () {
-    function ConfirmDialogComponent(data) {
+    function ConfirmDialogComponent(locale, data) {
+        this.locale = locale;
         this.data = data;
         this.title = this.data.title;
         this.alert = this.data.alert;
         this.content = this.data.content || [];
-        this.prompt = this.data.prompt || 'Are you sure you want to continue?';
-        this.buttons = this.data.buttons || ['Continue', 'Cancel'];
+        this.prompt = this.data.prompt || this.locale.t('messages.confirmContinue');
     }
     ConfirmDialogComponent.prototype.ngOnInit = function () {
     };
@@ -4572,8 +4574,8 @@ var ConfirmDialogComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./confirm-dialog.component.html */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.html"),
             styles: [__webpack_require__(/*! ./confirm-dialog.component.scss */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.scss")]
         }),
-        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
-        __metadata("design:paramtypes", [Object])
+        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_2__["LocaleService"], Object])
     ], ConfirmDialogComponent);
     return ConfirmDialogComponent;
 }());
@@ -5645,6 +5647,10 @@ var GenMapperContainerComponent = /** @class */ (function (_super) {
             _this.documents = config.documents;
         });
     };
+    GenMapperContainerComponent.prototype.ngOnDestroy = function () {
+        _super.prototype.ngOnDestroy.call(this);
+        this.genMapper.setDocument(null);
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('matDrawer'),
         __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDrawer"])
@@ -6436,6 +6442,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
 /* harmony import */ var _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dialogs/confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
 /* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
+/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6453,8 +6460,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var MapMenuButtonComponent = /** @class */ (function () {
-    function MapMenuButtonComponent(downloadService, genMapper, dialog, router) {
+    function MapMenuButtonComponent(locale, downloadService, genMapper, dialog, router) {
+        this.locale = locale;
         this.downloadService = downloadService;
         this.genMapper = genMapper;
         this.dialog = dialog;
@@ -6473,9 +6482,10 @@ var MapMenuButtonComponent = /** @class */ (function () {
     };
     MapMenuButtonComponent.prototype.onDelete = function () {
         var _this = this;
+        var title = this.locale.t('deleteDocument') + (" [" + this.document.title + "]");
         this.dialog
             .open(_dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDialogComponent"], {
-            data: { title: 'Delete ' + this.document.title }
+            data: { title: title }
         })
             .afterClosed()
             .subscribe(function (result) {
@@ -6517,7 +6527,8 @@ var MapMenuButtonComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./map-menu-button.component.html */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.html"),
             styles: [__webpack_require__(/*! ./map-menu-button.component.scss */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.scss")]
         }),
-        __metadata("design:paramtypes", [_core_download_service__WEBPACK_IMPORTED_MODULE_3__["DownloadService"],
+        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_8__["LocaleService"],
+            _core_download_service__WEBPACK_IMPORTED_MODULE_3__["DownloadService"],
             _gen_mapper_service__WEBPACK_IMPORTED_MODULE_7__["GenMapperService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
@@ -7782,6 +7793,7 @@ var translations = {
             'en_Cancel': 'Cancel',
             'en_ChangePassword': 'Change Password',
             'en_ConfirmPassword': 'Confirm Password',
+            'en_Continue': 'Continue',
             'en_CreateAccount': 'Create Account',
             'en_Email': 'Email',
             'en_ForgotPassword': 'Forgot password?',
@@ -7802,6 +7814,7 @@ var translations = {
             'en_Username': 'Username',
             'createDocument': 'Create Document',
             'createTemporaryDocument': 'Create Temporary Document',
+            'deleteDocument': 'Delete Document',
             'emailConfirmed': 'Email Confirmed',
             'importDocument': 'Import Document',
             'importSubtree': 'Import subtree',
@@ -7858,8 +7871,9 @@ var translations = {
                 'btnOK': 'OK',
                 'errDeleteRoot': 'Sorry. Deleting root group is not possible.',
                 'confirmDelete': 'Confirm Delete?',
-                'confirmDeleteGroup': 'Do you really want to delete {{groupName}}?',
-                'confirmDeleteGroupWithChildren': 'Do you really want to delete {{groupName}} and all descendants?',
+                'confirmDeleteGroup': 'Delete group.',
+                'confirmDeleteGroupWithChildren': 'Delete group and all descendants.',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Save as:<br>(Note: Safari browser has issues with export, please see GenMapper -> Help for more info)',
                 'saveAs': 'Save as:',
                 'confirmImportSubtreeOverwrite': 'Warning: Importing subtreee will overwrite this group and all descendants. Do you want to continue?',
@@ -7921,6 +7935,7 @@ var translations = {
             'en_Cancel': 'Zpět',
             'en_ChangePassword': 'Změnit heslo',
             'en_ConfirmPassword': 'Potvrďte heslo',
+            'en_Continue': 'Continue',
             'en_CreateAccount': 'Vytvořit účet',
             'en_Email': 'Email',
             'en_ForgotPassword': 'Zapomenuté heslo?',
@@ -7986,6 +8001,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': 'Opravdu chceš smazat {{groupName}}?',
                 'confirmDeleteGroupWithChildren': 'Opravdu chceš smazat {{groupName}} a všechny potomky?',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Uložit jako:(Poznámka: Prohlížeč Safari má problémy s exportem, viz GenMapper > Nápověda pro více info)',
                 'saveAs': 'Uložit jako:',
                 'confirmImportSubtreeOverwrite': 'Varování: Importování podstromu přepíše tuto skupinu a všechny potomky. Chceš pokračovat?',
@@ -8069,6 +8085,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': 'Möchtest du wirklich die Gruppe {{groupName}} löschen?',
                 'confirmDeleteGroupWithChildren': 'Möchtest du wirklich die Gruppe {{groupName}} mit alle nachfolgenden Gruppen löschen?',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Speichern unter: (Hinweis: Beim Safari-Browser gibt es Probleme beim Export, siehe GenMapper -> Hilfe für mehr Informationen)',
                 'saveAs': 'Speichern unter:',
                 'confirmImportSubtreeOverwrite': 'Warnung: Das Importieren des Zweiges wird die Gruppe und alle ihre Nachfolger überschreiben. Möchtest du fortfahren?',
@@ -8118,6 +8135,7 @@ var translations = {
             'en_Cancel': 'Cancelar',
             'en_ChangePassword': 'Cambia la contraseña',
             'en_ConfirmPassword': 'Confirmar contraseña',
+            'en_Continue': 'Continue',
             'en_CreateAccount': 'Crear una cuenta',
             'en_Email': 'Email',
             'en_ForgotPassword': '¿Se te olvidó tu contraseña?',
@@ -8184,6 +8202,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': '¿De verdad quiere eliminar {{groupName}}?',
                 'confirmDeleteGroupWithChildren': '¿De verdad quiere eliminar {{groupName}} y todos los descendientes?',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Guardar como<br>(Nota: el navegador Safari tiene problemas con la exportación, consulte genMapper -> Ayuda para obtener más información)',
                 'saveAs': 'Guardar como:',
                 'confirmImportSubtreeOverwrite': 'Advertencia: La importación de subárbol se sobreponen a este grupo y todos los descendientes. ¿Quieres continuar?',
@@ -8275,6 +8294,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': 'Czy rzeczywiście chcesz usunąć {{group-name}}?',
                 'confirmDeleteGroupWithChildren': 'Czy rzeczywiście chcesz usunąć {{group-name}} i wszystko co za nimi idzie?',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Zapisz jako:  (Uwaga przeglądarka Safari ma z tym pewne problemy, proszę zobacz GennMapper -> Pomoc)',
                 'saveAs': 'Zapisz jako:',
                 'confirmImportSubtreeOverwrite': 'Ostrzeżenie: Zaimportowanie poddiagramu nadpisze na grupę i wszystko co za nią idzie. Czy chcesz kontynuować?',
@@ -8354,6 +8374,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': 'Chiar doriți să ștergeți {{groupName}}?',
                 'confirmDeleteGroupWithChildren': 'Chiar doriți să ștergeți {{groupName}} și toți descendenții?',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Salvează ca:<br>(Notă: browserul Safari are probleme cu exportul, vă rugăm să consultați GenMapper -> Ajutor pentru mai multe informații)',
                 'saveAs': 'Salvează ca:',
                 'confirmImportSubtreeOverwrite': 'Avertisment: importul ramurii va anula acest grup ({{groupName}}) și toți descendenții. Vrei sa continui?',
@@ -8427,6 +8448,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': 'Хотите удалить группу ({{groupName}})?',
                 'confirmDeleteGroupWithChildren': 'Хотите удалить группу ({{groupName}}) и все ветки?',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Сохранить как: (Сафари имеет проблемы для экспортирования)',
                 'saveAs': 'Сохранить как: (Сафари имеет проблемы для экспортирования)',
                 'confirmImportSubtreeOverwrite': 'Предупреждение. Импортирование поддерева будет перезаписывать эту группу ({{groupName}}) и всех потомков. Вы хотите продолжить?',
@@ -8506,6 +8528,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': 'A je i sigurte se doni ta fshini grupin ({{groupName}})?',
                 'confirmDeleteGroupWithChildren': 'A je i sigurte se doni ta fshini grupin ({{groupName}}) dhe pasardhesit e tij?',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': 'Ruaj si:<br>(Verejtje: Shfletuesi Safari ka probleme me eksportimin, prandaj hidhini nje sy GenMapper->Ndihme per me shume informacion',
                 'saveAs': 'Ruaj si:',
                 'confirmImportSubtreeOverwrite': 'Paralajmerim: Importimi i nen deges do te prishe kete grup ({{groupName}}) dhe gjithe pasardhesit e tij. A doni te vazhdoni perpara?',
@@ -8569,6 +8592,7 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': '你真的想要要删掉{{group-name}}？',
                 'confirmDeleteGroupWithChildren': '你真的想要删掉{{group-name}}和所有的这代门徒吗？',
+                'confirmContinue': 'Are you sure you want to continue?',
                 'saveAsInSafari': '存储为：（注意：Safari浏览器不能导出，请看属灵世代->帮助，获取更多信息',
                 'saveAs': '存储为：',
                 'confirmImportSubtreeOverwrite': '警告：导入后代组会覆盖此组{{group-name}}及组里所有的门徒。你要继续吗？',
