@@ -287,11 +287,11 @@ export const ChurchCirclesTemplate = {
             'initial': null,
             'type': null
         },
-        {
-            'header': 'generation',
-            'initial': null,
-            'type': 'number'
-        },
+        // {
+        //     'header': 'generation',
+        //     'initial': null,
+        //     'type': 'number'
+        // },
         {
             'header': 'name',
             'initial': '',
