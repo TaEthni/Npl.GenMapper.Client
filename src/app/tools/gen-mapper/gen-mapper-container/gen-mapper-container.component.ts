@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDrawer } from '@angular/material';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
@@ -14,7 +14,7 @@ import { GenMapperService } from '../gen-mapper.service';
     styleUrls: ['./gen-mapper-container.component.scss'],
     providers: []
 })
-export class GenMapperContainerComponent extends Unsubscribable implements OnInit {
+export class GenMapperContainerComponent extends Unsubscribable implements OnInit, OnDestroy {
     public documents: DocumentDto[];
     public document: DocumentDto;
     public template: GMTemplate;
@@ -43,5 +43,10 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
                 this.template = config.template;
                 this.documents = config.documents;
             });
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.genMapper.setDocument(null);
     }
 }
