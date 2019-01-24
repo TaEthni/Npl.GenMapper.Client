@@ -31,9 +31,8 @@
     </div>
 </mat-card>
 
-<section>
+<section fxLayout="column">
     <mat-nav-list>
-
         <ng-container *ngIf="authenticated">
             <mat-list-item routerLink="/account"
                            routerLinkActive="active">
@@ -109,4 +108,8 @@
         </a>
     </mat-nav-list>
 
+    <div fxFlex></div>
+
+    <div class="donate-button"
+         #donate></div>
 </section>
