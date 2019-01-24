@@ -1,6 +1,7 @@
 # GenMapper Changelog
 
 ## (2019-01-23)
+- Feature: Enable Undo after pasting a node.
 - Feature: Copy & Paste Nodes between Documents.
 - Feature: Indicate missing elements on church circles graph.
 - Feature: Create Changelog.
