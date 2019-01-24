@@ -1,9 +1,15 @@
 # GenMapper Changelog
 
 ## (2019-01-23)
-- Feature: Create Changelog 
-- Style: Update viewport to work with mobile devices.
+- Feature: Add Donate button.
+- Feature: Enable Undo after pasting a node.
+- Feature: Copy & Paste Nodes between Documents.
+- Feature: Indicate missing elements on church circles graph.
+- Feature: Create Changelog.
+
+## (2019-01-22)
 - i18n: Update translations throughout application.
+- Style: Update viewport to work with mobile devices.
 
 ## (2019-01-10)
 - Fix: remove delete button from root node.

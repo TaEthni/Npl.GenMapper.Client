@@ -26,6 +26,7 @@ export const hi_translation = {
     'en_Send': 'Send',
     'en_Success': 'Success',
     'en_Username': 'Username',
+    'en_Undo': 'Undo',
     'createDocument': 'Create Document',
     'createTemporaryDocument': 'Create Temporary Document',
     'deleteDocument': 'Delete Document',
@@ -38,6 +39,7 @@ export const hi_translation = {
     'signInToSaveDocuments': 'Please sign in to save documents.',
     'tools': 'Tools',
     'underMaintenance': 'underMaintenance',
+    'nodeHasBeenReplaces': 'Node has been replaced',
     'menu': {
         'appName': 'GenMapper',
         'defaultProjectName': 'Untitled project',
@@ -67,7 +69,8 @@ export const hi_translation = {
         'notAvailable': 'N/A',
         'hoverDeleteGroupAndSubtree': 'Delete group &amp; subtree',
         'hoverAddChildGroup': 'Add child group',
-        'hoverCopyNode': 'Copy Node'
+        'hoverCopyNode': 'Copy Node',
+        'hoverPasteNode': 'Paste Node'
     },
     'errors': {
         'requiredField': 'This field is required',
@@ -88,6 +91,8 @@ export const hi_translation = {
         'confirmDeleteGroup': 'Do you really want to delete {{groupName}}?',
         'confirmDeleteGroupWithChildren': 'Do you really want to delete {{groupName}} and all descendants?',
         'confirmContinue': 'Are you sure you want to continue?',
+        'confirmPasteNode': 'Confirm Paste',
+        'confirmPasteNodeWarning': 'Pasting this node will replace the entire node and its descendants.',
         'saveAsInSafari': 'Save as:<br>(Note: Safari browser has issues with export, please see GenMapper -> Help for more info)',
         'saveAs': 'Save as:',
         'confirmImportSubtreeOverwrite': 'Warning: Importing subtreee will overwrite this group and all descendants. Do you want to continue?',

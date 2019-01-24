@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
 import { HierarchyNode } from 'd3';
+import { cloneDeep } from 'lodash';
 
 export const MapStyles = {
     boxHeight: 80,
@@ -56,6 +57,11 @@ export class GenMap {
         this.patchNodes(this.data);
 
         this.originalPosition();
+        this.redraw();
+    }
+
+    public redrawData(data: GNode[]): void {
+        this.data = data;
         this.redraw();
     }
 
@@ -145,7 +151,6 @@ export class GenMap {
         this._deleteAllDescendants(d);
         const parsedCsv = TemplateUtils.parseCsvData(csvString, this.template.format);
         this.overwriteNode(d, parsedCsv);
-
     }
 
     public overwriteNode(d: any, data: GNode[]): void {
@@ -181,6 +186,11 @@ export class GenMap {
         }
 
         this.redraw();
+    }
+
+    public pasteNode(d: any, copiedNodes: GNode[]): void {
+        this._deleteAllDescendants(d);
+        this.overwriteNode(d, cloneDeep(copiedNodes));
     }
 
     /**
@@ -267,7 +277,11 @@ export class GenMap {
                 return a.parent === b.parent ? 1 : 1.2;
             });
 
-        const stratifiedData = d3.stratify()(this.data);
+        const stratifiedData = d3.stratify<GNode>()
+            .id(d => d.id)
+            .parentId(d => d.parentId)
+            (this.data);
+
         this.nodes = tree(stratifiedData);
         // update the links between the nodes
         const link = this.gLinks.selectAll('.link')
@@ -336,7 +350,6 @@ export class GenMap {
 
         _appendRemoveButton(newGroup, this.template);
         _appendAddButton(newGroup, this.template);
-        // _appendCopyButton(newGroup, this.template);
 
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach((svgElement) => {
@@ -348,7 +361,9 @@ export class GenMap {
         // append SVG elements related to fields
         this.template.fields.forEach((field) => {
             if (field.svg) {
-                const element = newGroup.append(field.svg['type']);
+                const g = newGroup.append('g');
+                g.append('title').text(i18next.t(this.template.format + '.' + field.header));
+                const element = g.append(field.svg['type']);
                 element.attr('class', 'node-' + field.header);
                 applySVGAttrsAndStyle(field, element);
             }
@@ -381,16 +396,6 @@ export class GenMap {
                 d3.event.stopPropagation();
                 this.onAddNodeClick(d);
             });
-
-        // nodeWithNew
-        //     .select('.copyNode')
-        //     .on('click', (d) => {
-        //         d3.event.stopPropagation();
-        //         const nodes = d.descendants().map(n => n.data);
-        //         const root = nodes.find(n => n.id === d.data.id);
-        //         root.parentId = '';
-        //         this.onCopyNode(nodes);
-        //     });
 
         // refresh class and attributes in SVG elements without fields
         // in order to remove any additional classes or settings from inherited fields
@@ -438,9 +443,10 @@ export class GenMap {
 
             return d.data[field.header];
         });
+
         if (field.svg.type === 'image') {
-            element.style('display', (s) => {
-                return s.data[field.header] ? 'block' : 'none';
+            element.style('opacity', (s) => {
+                return s.data[field.header] ? '1' : '0.2';
             });
         }
     }
@@ -538,6 +544,24 @@ function _appendCopyButton(group: any, template: GMTemplate): void {
         .html(`
             <rect x="0" y="0" rx="7" width="25" height="25">
             <title>${i18next.t('editGroup.hoverCopyNode')}</title>
+            </rect>
+            <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
+            <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>
+            <rect x="8" y="8" height="12" width="12" stroke-width="2" stroke="#fff"></rect>
+        `);
+}
+
+function _appendPasteButton(group: any, template: GMTemplate): void {
+    group.append('g')
+        .attr('class', 'pasteNode')
+        .attr('cursor', 'pointer')
+        .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
+        .append('svg')
+        .attr('y', template.settings.nodeActions.y + 75)
+        .attr('x', template.settings.nodeActions.x)
+        .html(`
+            <rect x="0" y="0" rx="7" width="25" height="25">
+                <title>${i18next.t('editGroup.hoverPasteNode')}</title>
             </rect>
             <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
             <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>
