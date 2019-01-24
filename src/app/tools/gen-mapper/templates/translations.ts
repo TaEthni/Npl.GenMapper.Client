@@ -28,6 +28,7 @@ export const translations: any = {
             'en_Send': 'Send',
             'en_Success': 'Success',
             'en_Username': 'Username',
+            'en_Undo': 'Undo',
             'createDocument': 'Create Document',
             'createTemporaryDocument': 'Create Temporary Document',
             'deleteDocument': 'Delete Document',
@@ -40,6 +41,7 @@ export const translations: any = {
             'signInToSaveDocuments': 'Please sign in to save documents.',
             'tools': 'Tools',
             'underMaintenance': 'underMaintenance',
+            'nodeHasBeenReplaces': 'Node has been replaced',
             'menu': {
                 'appName': 'GenMapper',
                 'defaultProjectName': 'Untitled project',
@@ -173,6 +175,7 @@ export const translations: any = {
             'en_Send': 'Poslat',
             'en_Success': 'Úspěch',
             'en_Username': 'Uživatelské jméno',
+            'en_Undo': 'vrátit',
             'menu': {
                 'appName': 'GenMapper',
                 'defaultProjectName': 'Mapa bez jména',
@@ -268,6 +271,7 @@ export const translations: any = {
             'esName': 'German',
             'documentsTitle': 'Unterlagen',
             'en_Email': 'Bemerkungen',
+            'en_Undo': 'Rückgängig machen',
             'menu': {
                 'appName': 'BaumZeichner',
                 'defaultProjectName': 'Unbenannter Gemeinde-Baum',
@@ -377,6 +381,8 @@ export const translations: any = {
             'en_Send': 'Enviar',
             'en_Success': 'Éxito',
             'en_Username': 'Nombre de usuario',
+            'en_Undo': 'Deshacer',
+            'nodeHasBeenReplaces': 'El nodo ha sido reemplazado',
             'menu': {
                 'appName': 'GenMapper',
                 'defaultProjectName': 'Proyecto',

@@ -20,6 +20,7 @@ import { GMTemplate, GNode } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { cloneDeep } from 'lodash';
 import { LocaleService } from '@core/locale.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -47,6 +48,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         private locale: LocaleService,
         private dialog: MatDialog,
         private nodeClipboard: NodeClipboardService,
+        private snackBar: MatSnackBar,
         private elementRef: ElementRef
     ) { }
 
@@ -132,7 +134,9 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
                     }
 
                     if (result.isPasteNode) {
+                        const originalData = cloneDeep(this.graph.data);
                         this.graph.pasteNode(node, this.nodeClipboard.getValue());
+                        this.showUndoPaste(originalData);
                     }
 
                     if (result.isImportSubtree) {
@@ -144,5 +148,17 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
                     }
                 });
         };
+    }
+
+    private showUndoPaste(originalData: GNode[]): void {
+        this.snackBar
+            .open(this.locale.t('nodeHasBeenReplaces'), this.locale.t('en_Undo'), {
+                duration: 20000,
+            })
+            .onAction()
+            .pipe(take(1))
+            .subscribe(result => {
+                this.graph.redrawData(originalData);
+            });
     }
 }

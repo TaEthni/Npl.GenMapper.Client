@@ -26,6 +26,7 @@ export const hi_translation = {
     'en_Send': 'Send',
     'en_Success': 'Success',
     'en_Username': 'Username',
+    'en_Undo': 'Undo',
     'createDocument': 'Create Document',
     'createTemporaryDocument': 'Create Temporary Document',
     'deleteDocument': 'Delete Document',
@@ -38,6 +39,7 @@ export const hi_translation = {
     'signInToSaveDocuments': 'Please sign in to save documents.',
     'tools': 'Tools',
     'underMaintenance': 'underMaintenance',
+    'nodeHasBeenReplaces': 'Node has been replaced',
     'menu': {
         'appName': 'GenMapper',
         'defaultProjectName': 'Untitled project',

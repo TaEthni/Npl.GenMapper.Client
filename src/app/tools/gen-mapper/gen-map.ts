@@ -60,6 +60,11 @@ export class GenMap {
         this.redraw();
     }
 
+    public redrawData(data: GNode[]): void {
+        this.data = data;
+        this.redraw();
+    }
+
     public patchNodes(data: any[]): void {
         data.forEach(item => {
 
