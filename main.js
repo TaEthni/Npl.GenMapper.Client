@@ -5085,6 +5085,10 @@ var GenMap = /** @class */ (function () {
         this.originalPosition();
         this.redraw();
     };
+    GenMap.prototype.redrawData = function (data) {
+        this.data = data;
+        this.redraw();
+    };
     GenMap.prototype.patchNodes = function (data) {
         data.forEach(function (item) {
             item.isRoot = !item.parentId && item.parentId !== 0;
@@ -5836,12 +5840,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
 /* harmony import */ var _shared_entity_document_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @shared/entity/document.model */ "./src/app/shared/entity/document.model.ts");
-/* harmony import */ var _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dialogs/confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
-/* harmony import */ var _dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dialogs/edit-node-dialog/edit-node-dialog.component */ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.ts");
-/* harmony import */ var _gen_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../gen-map */ "./src/app/tools/gen-mapper/gen-map.ts");
-/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "./node_modules/lodash-es/lodash.js");
-/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dialogs/confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
+/* harmony import */ var _dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dialogs/edit-node-dialog/edit-node-dialog.component */ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.ts");
+/* harmony import */ var _gen_map__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../gen-map */ "./src/app/tools/gen-mapper/gen-map.ts");
+/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "./node_modules/lodash-es/lodash.js");
+/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5860,11 +5866,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var GenMapperGraphComponent = /** @class */ (function () {
-    function GenMapperGraphComponent(locale, dialog, nodeClipboard, elementRef) {
+    function GenMapperGraphComponent(locale, dialog, nodeClipboard, snackBar, elementRef) {
         this.locale = locale;
         this.dialog = dialog;
         this.nodeClipboard = nodeClipboard;
+        this.snackBar = snackBar;
         this.elementRef = elementRef;
         this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"](null);
     }
@@ -5887,7 +5896,7 @@ var GenMapperGraphComponent = /** @class */ (function () {
     };
     GenMapperGraphComponent.prototype._createGraph = function () {
         var _this = this;
-        this.graph = new _gen_map__WEBPACK_IMPORTED_MODULE_5__["GenMap"](this.graphSvg, this.template, this.document.nodes);
+        this.graph = new _gen_map__WEBPACK_IMPORTED_MODULE_6__["GenMap"](this.graphSvg, this.template, this.document.nodes);
         this.graph.init();
         this.graph.onChange = function (data) {
             if (!_this._updating) {
@@ -5907,7 +5916,7 @@ var GenMapperGraphComponent = /** @class */ (function () {
             var localeKey = hasChildren ? 'messages.confirmDeleteGroupWithChildren' : 'messages.confirmDeleteGroup';
             var message = _this.locale.t(localeKey, { groupName: name });
             _this.dialog
-                .open(_dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmDialogComponent"], {
+                .open(_dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_4__["ConfirmDialogComponent"], {
                 data: {
                     content: [message],
                     title: _this.locale.t('messages.confirmDelete', { groupName: name })
@@ -5922,11 +5931,11 @@ var GenMapperGraphComponent = /** @class */ (function () {
         };
         this.graph.nodeClick = function (node) {
             // Setup descendants for copy/paste
-            var descendants = Object(lodash__WEBPACK_IMPORTED_MODULE_7__["cloneDeep"])(node.descendants().map(function (d) { return d.data; }));
+            var descendants = Object(lodash__WEBPACK_IMPORTED_MODULE_8__["cloneDeep"])(node.descendants().map(function (d) { return d.data; }));
             var same = descendants.find(function (n) { return n.id === node.data.id; });
             same.parentId = '';
             _this.dialog
-                .open(_dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_4__["EditNodeDialogComponent"], {
+                .open(_dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_5__["EditNodeDialogComponent"], {
                 minWidth: '400px',
                 data: {
                     nodeData: node.data,
@@ -5942,7 +5951,9 @@ var GenMapperGraphComponent = /** @class */ (function () {
                     return;
                 }
                 if (result.isPasteNode) {
+                    var originalData = Object(lodash__WEBPACK_IMPORTED_MODULE_8__["cloneDeep"])(_this.graph.data);
                     _this.graph.pasteNode(node, _this.nodeClipboard.getValue());
+                    _this.showUndoPaste(originalData);
                 }
                 if (result.isImportSubtree) {
                     _this.graph.csvIntoNode(node, result.content);
@@ -5952,6 +5963,18 @@ var GenMapperGraphComponent = /** @class */ (function () {
                 }
             });
         };
+    };
+    GenMapperGraphComponent.prototype.showUndoPaste = function (originalData) {
+        var _this = this;
+        this.snackBar
+            .open(this.locale.t('nodeHasBeenReplaces'), this.locale.t('en_Undo'), {
+            duration: 20000,
+        })
+            .onAction()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1))
+            .subscribe(function (result) {
+            _this.graph.redrawData(originalData);
+        });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -5975,9 +5998,10 @@ var GenMapperGraphComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./gen-mapper-graph.component.html */ "./src/app/tools/gen-mapper/gen-mapper-graph/gen-mapper-graph.component.html"),
             styles: [__webpack_require__(/*! ./gen-mapper-graph.component.scss */ "./src/app/tools/gen-mapper/gen-mapper-graph/gen-mapper-graph.component.scss")]
         }),
-        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_8__["LocaleService"],
+        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_9__["LocaleService"],
             _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
-            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_6__["NodeClipboardService"],
+            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_7__["NodeClipboardService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_10__["MatSnackBar"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
     ], GenMapperGraphComponent);
     return GenMapperGraphComponent;
@@ -7883,6 +7907,7 @@ var translations = {
             'en_Send': 'Send',
             'en_Success': 'Success',
             'en_Username': 'Username',
+            'en_Undo': 'Undo',
             'createDocument': 'Create Document',
             'createTemporaryDocument': 'Create Temporary Document',
             'deleteDocument': 'Delete Document',
@@ -7895,6 +7920,7 @@ var translations = {
             'signInToSaveDocuments': 'Please sign in to save documents.',
             'tools': 'Tools',
             'underMaintenance': 'underMaintenance',
+            'nodeHasBeenReplaces': 'Node has been replaced',
             'menu': {
                 'appName': 'GenMapper',
                 'defaultProjectName': 'Untitled project',
@@ -8028,6 +8054,7 @@ var translations = {
             'en_Send': 'Poslat',
             'en_Success': 'Úspěch',
             'en_Username': 'Uživatelské jméno',
+            'en_Undo': 'vrátit',
             'menu': {
                 'appName': 'GenMapper',
                 'defaultProjectName': 'Mapa bez jména',
@@ -8123,6 +8150,7 @@ var translations = {
             'esName': 'German',
             'documentsTitle': 'Unterlagen',
             'en_Email': 'Bemerkungen',
+            'en_Undo': 'Rückgängig machen',
             'menu': {
                 'appName': 'BaumZeichner',
                 'defaultProjectName': 'Unbenannter Gemeinde-Baum',
@@ -8232,6 +8260,8 @@ var translations = {
             'en_Send': 'Enviar',
             'en_Success': 'Éxito',
             'en_Username': 'Nombre de usuario',
+            'en_Undo': 'Deshacer',
+            'nodeHasBeenReplaces': 'El nodo ha sido reemplazado',
             'menu': {
                 'appName': 'GenMapper',
                 'defaultProjectName': 'Proyecto',
