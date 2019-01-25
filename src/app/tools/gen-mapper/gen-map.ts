@@ -320,12 +320,24 @@ export class GenMap {
             .attr('y', (d) => {
                 return d.y * (1 - LINK_TEXT_POSITION) + (d.parent.y + MapStyles.boxHeight) * LINK_TEXT_POSITION;
             })
+            .classed('new-generation', (d) => d.data.newGeneration)
             .text(d => {
                 if (d.data.coach) {
                     return d.data.coach;
                 }
-                if (d.data.generation) {
-                    return 'G' + d.data.generation;
+
+                if (d.data.newGeneration) {
+                    let parent = d.parent;
+                    let depth = 1;
+
+                    while (parent) {
+                        if (parent.data.newGeneration) {
+                            depth++;
+                        }
+                        parent = parent.parent;
+                    }
+
+                    return 'G' + depth;
                 }
             });
 

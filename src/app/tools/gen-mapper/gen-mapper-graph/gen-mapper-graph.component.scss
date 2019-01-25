@@ -390,6 +390,10 @@
 
     .link-text {
         text-anchor: middle;
+
+        &.new-generation {
+            stroke: purple;
+        }
     }
 
     .invisible-rect {

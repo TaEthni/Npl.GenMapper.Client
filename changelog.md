@@ -1,8 +1,11 @@
 # GenMapper Changelog
 
+## (2019-01-24)
+- Feature: Add `newGeneration` field to church-circles
+
 ## (2019-01-23)
-- Feature: Add Donate button.
-- Feature: Enable Undo after pasting a node.
+- Feature: Add donate button.
+- Feature: Enable undo after pasting a node.
 - Feature: Copy & Paste Nodes between Documents.
 - Feature: Indicate missing elements on church circles graph.
 - Feature: Create Changelog.
