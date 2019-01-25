@@ -3,7 +3,10 @@
         [{{model.name || model.leaderName}}]
     </ng-container>
 
-    <div fxLayout="row">
+</h1>
+<div mat-dialog-content>
+    <div fxLayout="row"
+         class="dialog-content-actions">
         <button mat-stroked-button
                 (click)="onCopyNode()">
             {{'editGroup.hoverCopyNode' | locale | async}}
@@ -16,8 +19,6 @@
             </button>
         </ng-container>
     </div>
-</h1>
-<div mat-dialog-content>
     <app-edit-node-form [fields]="fields"
                         [nodes]="data.nodes"
                         [model]="model"
