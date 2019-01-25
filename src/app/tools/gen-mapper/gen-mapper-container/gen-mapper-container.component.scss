@@ -54,6 +54,12 @@
         }
     }
 
+    @media (max-width: 599px) {
+        .mat-drawer {
+            top: 56px;
+        }
+    }
+
     .mat-drawer-content {
         height: 100vh;
         overflow: hidden;
