@@ -1,5 +1,8 @@
 # GenMapper Changelog
 
+## (2019-01-25)
+- Fix: Bug where bottom of graph is sometimes cut off.
+
 ## (2019-01-24)
 - Fix: Bug where bottom of node dialog was cut off on small devices.
 - Feature: Add `newGeneration` field to church-circles.

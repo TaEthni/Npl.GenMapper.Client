@@ -1,6 +1,9 @@
 @import '~styles/colors';
 
 :host {
+    display: flex;
+    flex: 1;
+
      .empty-state {
          margin-top: 100px;
 

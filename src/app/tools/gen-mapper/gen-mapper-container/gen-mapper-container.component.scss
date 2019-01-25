@@ -63,6 +63,7 @@
     .mat-drawer-content {
         height: 100vh;
         overflow: hidden;
+        display: flex;
     }
 
     .empty-state {

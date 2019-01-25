@@ -1,110 +1,5 @@
 <div id="content">
 
-    <aside id="left-menu">
-        <!-- <div id="template-logo">
-            <button (click)="graph?.introSwitchVisibility()"
-                    class="hint--rounded hint--right"
-                    aria-label="Help / About">
-                <img src="assets/icons/266-question.svg">
-            </button>
-            <div class="dropdown"
-                 id="lang-selector">
-                <button aria-label="Language">
-                    <img src="assets/icons/203-earth.svg">
-                </button>
-                <ul class="dropdown-content">
-                    <li>
-                        <button (click)="graph?.switchLanguage('en')"
-                                id="lang-en"
-                                class="current-lang">English</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('cs')"
-                                id="lang-cs">Čeština</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('de')"
-                                id="lang-de">Deutsch</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('es')"
-                                id="lang-es">Español</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('pl')"
-                                id="lang-pl">Polski</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('ro')"
-                                id="lang-ro">Română</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('ru')"
-                                id="lang-ru">Русский</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('sq')"
-                                id="lang-sq">Shqip</button>
-                    </li>
-                    <li>
-                        <button (click)="graph?.switchLanguage('zh')"
-                                id="lang-zh">中文</button>
-                    </li>
-                </ul>
-            </div>
-            <button id="project-name"
-                    class="hint--rounded hint--right"
-                    aria-label="Edit Project name: Untitled project">
-                <img src="assets/icons/039-file-text2.svg">
-            </button>
-            <button (click)="graph?.origPosition();"
-                    class="hint--rounded hint--right"
-                    aria-label="Original Zoom &amp; Position">
-                <img src="assets/icons/135-search.svg">
-            </button>
-            <button (click)="graph?.zoomIn();"
-                    class="hint--rounded hint--right"
-                    aria-label="Zoom In">
-                <img src="assets/icons/136-zoom-in.svg">
-            </button>
-            <button (click)="graph?.zoomOut();"
-                    class="hint--rounded hint--right"
-                    aria-label="Zoom Out">
-                <img src="assets/icons/137-zoom-out.svg">
-            </button>
-            <button (click)="graph?.onLoad('file-input')"
-                    class="hint--rounded hint--right"
-                    aria-label="Import XLSX / CSV">
-                <img src="assets/icons/098-upload.svg">
-            </button>
-            <input type="file"
-                   id="file-input"
-                   onchange="graph?.importFile()"
-                   style="display:none;">
-            <button (click)="graph?.outputCsv()"
-                    class="hint--rounded hint--right"
-                    aria-label="Export CSV">
-                <img src="assets/icons/097-download.svg" />
-            </button>
-            <button (click)="graph?.printMap('vertical');"
-                    class="hint--rounded hint--right"
-                    aria-label="Print Vertical Multipage">
-                <img src="assets/icons/print-vertical.svg" />
-            </button>
-            <button (click)="graph?.printMap('horizontal');"
-                    class="hint--rounded hint--right"
-                    aria-label="Print Horizontal One-page">
-                <img src="assets/icons/print-horizontal.svg" />
-            </button>
-        </div> -->
-    </aside>
-
-    <!-- <section id="intro"
-             class="intro"
-             [class.intro--active]="graph?.introVisibility">
-        <div id="intro-content"></div>
-    </section> -->
-
     <section id="alert-message"
              class="alert-message">
     </section>
@@ -117,6 +12,7 @@
              class="genmapper-graph">
         <svg #genMapperGraphSvg
              id="genmapper-graph-svg"
-             width="100%"></svg>
+             width="100%"
+             height="100%"></svg>
     </section>
 </div>

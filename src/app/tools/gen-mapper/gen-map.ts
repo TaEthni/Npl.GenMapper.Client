@@ -234,8 +234,6 @@ export class GenMap {
                 d3.select('g').attr('transform', d3.event.transform);
             });
 
-        this._setSvgHeight();
-
         this.svg = d3.select(this.graphSvg.nativeElement)
             .call(this.zoom)
             .on('dblclick.zoom', null);
@@ -257,13 +255,6 @@ export class GenMap {
             .attr('class', 'group-nodes');
 
         this.update(this.data);
-    }
-
-    private _setSvgHeight(): void {
-        const windowHeight = document.documentElement.clientHeight;
-        const leftMenuHeight = document.getElementById('left-menu').clientHeight;
-        const height = Math.max(windowHeight, leftMenuHeight + 10);
-        d3.select('#genmapper-graph-svg').attr('height', height);
     }
 
     private redraw(): void {

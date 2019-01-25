@@ -6,6 +6,11 @@
     position: relative;
     flex: 1;
 
+    #content {
+        display: flex;
+        flex: 1;
+    }
+
     button {
         background-color: steelblue;
         border: none;
