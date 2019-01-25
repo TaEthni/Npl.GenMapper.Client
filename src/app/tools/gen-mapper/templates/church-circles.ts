@@ -38,7 +38,7 @@ export const ChurchCirclesTemplate = {
                     'name': 'Church Name',
                     'leaderName': 'Leader\'s Name',
                     'email': 'Email',
-                    'generation': 'Generation',
+                    'newGeneration': 'New Generation',
                     'peopleGroup': 'People Group',
                     'attenders': '# of Attenders',
                     'believers': '# of Believers',
@@ -94,7 +94,7 @@ export const ChurchCirclesTemplate = {
                     'email': 'Bemerkungen',
 
                     'existingBelievers': 'Länger Gläubige',
-                    'generation': 'Generation',
+                    'newGeneration': 'Generation',
                     'newBelievers': 'Neue Gläubige',
                     'elementBaptism': 'Element: Taufe',
                     'elementWord': 'Element: Lehre',
@@ -141,7 +141,7 @@ export const ChurchCirclesTemplate = {
                     'church': 'Iglesia?',
                     'churchType': 'Tipo de Iglesia',
                     'legacy': 'Tradicional',
-                    'generation': 'Generacion',
+                    'newGeneration': 'Generacion',
                     'existingBelievers': 'Creyentes existentes',
                     'newBelievers': 'Nuevos creyentes',
                     'elementBaptism': 'Elemento: Bautismo',
@@ -176,7 +176,7 @@ export const ChurchCirclesTemplate = {
                     'name': 'Název církve',
                     'leaderName': 'Jméno vedoucího',
                     'email': 'Email',
-                    'generation': 'Generace',
+                    'newGeneration': 'Generace',
                     'peopleGroup': 'Etnikum',
                     'attenders': 'Počet účastníků',
                     'believers': 'Počet věřících',
@@ -291,11 +291,11 @@ export const ChurchCirclesTemplate = {
             'initial': null,
             'type': null
         },
-        // {
-        //     'header': 'generation',
-        //     'initial': null,
-        //     'type': 'number'
-        // },
+        {
+            'header': 'newGeneration',
+            'initial': false,
+            'type': 'checkbox'
+        },
         {
             'header': 'name',
             'initial': '',

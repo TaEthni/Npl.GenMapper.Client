@@ -66,8 +66,12 @@ export namespace TemplateUtils {
             const template = TemplateUtils.getTemplate(templateName);
             template.fields.forEach((field) => {
                 if (field.type === 'checkbox') {
-                    const fieldValue = d[field.header].toUpperCase();
-                    parsedLine[field.header] = !!['TRUE', '1'].includes(fieldValue);
+                    if (field.header in d) {
+                        const fieldValue = d[field.header].toUpperCase();
+                        parsedLine[field.header] = !!['TRUE', '1'].includes(fieldValue);
+                    } else {
+                        parsedLine[field.header] = field.initial;
+                    }
                 } else if (field.type) {
                     parsedLine[field.header] = d[field.header];
                 }
