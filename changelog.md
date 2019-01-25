@@ -1,7 +1,8 @@
 # GenMapper Changelog
 
 ## (2019-01-24)
-- Feature: Add `newGeneration` field to church-circles
+- Fix: Bug where bottom of node dialog was cut off on small devices.
+- Feature: Add `newGeneration` field to church-circles.
 
 ## (2019-01-23)
 - Feature: Add donate button.
