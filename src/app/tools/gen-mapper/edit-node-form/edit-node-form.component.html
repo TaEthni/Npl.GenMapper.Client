@@ -40,7 +40,8 @@
                        fxLayout="row"
                        [fxLayout.lt-md]="field.type === 'checkbox' ? 'row' : 'column'"
                        fxLayoutAlign.gt-md="center center"
-                       fxLayoutGap.gt-md="10px">
+                       fxLayoutGap.gt-md="10px"
+                       (click)="onFieldClick(field)">
 
                     <div class="control-label"
                          fxFlex>{{field.localeLabel}}</div>
@@ -51,6 +52,20 @@
                                             floatLabel="never"
                                             no-error
                                             no-label>
+                                <input type="text"
+                                       matInput
+                                       autocomplete="off"
+                                       [placeholder]="field.localeLabel"
+                                       [formControl]="form.get(field.header)" />
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === 'geoLocation'">
+                            <mat-form-field floatPlaceholder="never"
+                                            floatLabel="never"
+                                            no-error
+                                            no-label
+                                            class="geo-location">
                                 <input type="text"
                                        matInput
                                        autocomplete="off"

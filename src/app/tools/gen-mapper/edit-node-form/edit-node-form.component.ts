@@ -4,6 +4,9 @@ import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
 import { GMField } from '../gen-mapper.interface';
+import { MatDialog } from '@angular/material';
+import { MapsService } from '@core/maps.service';
+import { LocationDialogComponent } from '../dialogs/location-dialog/location-dialog.component';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -25,7 +28,10 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     @Output()
     public change: EventEmitter<any> = new EventEmitter<any>(null);
 
-    constructor() { super(); }
+    constructor(
+        private dialog: MatDialog,
+        private mapService: MapsService
+    ) { super(); }
 
     public ngOnInit(): void {
         this.form = this._createForm();
@@ -40,11 +46,21 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
                 });
         }
 
+        if (this.form.get('location')) {
+            this.form.get('location').disable();
+        }
+
         this.form.valueChanges
             .pipe(takeUntil(this.unsubscribe))
             .subscribe((value) => {
-                this.change.emit(value);
+                this.change.emit(this.form.getRawValue());
             });
+    }
+
+    public onFieldClick(field: GMField): void {
+        if (field.type === 'geoLocation') {
+            this.onGeoLocationClick();
+        }
     }
 
     private _createForm(): FormGroup {
@@ -60,5 +76,21 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         group.parentId = new FormControl(this.model.parentId);
 
         return new FormGroup(group);
+    }
+
+    private onGeoLocationClick(): void {
+        this.mapService.getLocation().subscribe(result => {
+            this.dialog
+                .open(LocationDialogComponent, {
+                    minWidth: '400px',
+                    data: { coords: result.coords }
+                })
+                .afterClosed()
+                .subscribe(address => {
+                    if (address) {
+                        this.form.get('location').setValue(address);
+                    }
+                });
+        });
     }
 }

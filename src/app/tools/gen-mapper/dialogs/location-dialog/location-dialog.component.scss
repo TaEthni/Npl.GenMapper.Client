@@ -1,0 +1,19 @@
+@import '~styles/mixins';
+
+:host {
+    @include dialog();
+
+    agm-map {
+        height: 400px;
+    }
+
+    .search-control {
+        width: 100%;
+        line-height: 24px;
+        margin-bottom: 24px;
+
+        input {
+            width: 100%;
+        }
+    }
+}

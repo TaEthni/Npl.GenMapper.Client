@@ -1,0 +1,32 @@
+<div mat-dialog-content>
+    <div class="search-control">
+        <input matInput
+               placeholder="Search..."
+               autocomplete="off"
+               autocapitalize="off"
+               spellcheck="off"
+               type="text"
+               class="form-control"
+               #search
+               [formControl]="searchControl" />
+    </div>
+    <agm-map [latitude]="latitude"
+             [longitude]="longitude"
+             [zoom]="zoom">
+        <agm-marker [latitude]="latitude"
+                    [longitude]="longitude"></agm-marker>
+    </agm-map>
+</div>
+<div mat-dialog-actions
+     fxLayoutAlign="end">
+    <button mat-button
+            color="accent"
+            (click)="onSubmit()">
+        {{'en_Continue' | locale | async}}
+    </button>
+    <button mat-button
+            color="warn"
+            [mat-dialog-close]="false">
+        {{'en_Cancel' | locale | async}}
+    </button>
+</div>

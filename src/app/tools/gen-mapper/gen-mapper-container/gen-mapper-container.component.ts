@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { Utils } from '@core/utils';
 import { DocumentDto } from '@shared/entity/document.model';
 import { takeUntil } from 'rxjs/operators';
 
@@ -31,6 +32,7 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
     ) { super(); }
 
     public ngOnInit(): void {
+        Utils.disableDocumentScroll();
         this.isAuthenticated = this.authService.isAuthenticated();
 
         this.genMapper.getDocument()
@@ -51,5 +53,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
         super.ngOnDestroy();
         this.genMapper.setDocument(null);
         this.nodeClipboard.set(null);
+        Utils.enableDocumentScroll();
     }
 }
