@@ -1951,7 +1951,9 @@ var MapsService = /** @class */ (function () {
             window.navigator.geolocation.getCurrentPosition(function (position) {
                 subject.next(position);
             }, function (error) {
-                console.log(error);
+                if (error.code === 1) {
+                    alert('Location Services are disabled for this browser.');
+                }
             });
         }
         return subject.asObservable();
@@ -4441,7 +4443,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button mat-icon-button\r\n        (click)=\"sidenav.open()\">\r\n    <mat-icon>menu</mat-icon>1\r\n</button>\r\n"
+module.exports = "<button mat-icon-button\r\n        (click)=\"sidenav.open()\">\r\n    <mat-icon>menu</mat-icon>2\r\n</button>\r\n"
 
 /***/ }),
 
