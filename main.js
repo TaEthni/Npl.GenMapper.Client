@@ -5204,6 +5204,7 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
         this.mapService.getLocation().subscribe(function (result) {
             _this.dialog
                 .open(_dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_6__["LocationDialogComponent"], {
+                minWidth: '400px',
                 data: { coords: result.coords }
             })
                 .afterClosed()
