@@ -4932,9 +4932,10 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 // import 'googlemaps';
 var LocationDialogComponent = /** @class */ (function () {
-    function LocationDialogComponent(mapsAPILoader, ngZone, data) {
+    function LocationDialogComponent(mapsAPILoader, ngZone, dialogRef, data) {
         this.mapsAPILoader = mapsAPILoader;
         this.ngZone = ngZone;
+        this.dialogRef = dialogRef;
         this.data = data;
         this.latitude = data.coords.latitude;
         this.longitude = data.coords.longitude;
@@ -4943,20 +4944,32 @@ var LocationDialogComponent = /** @class */ (function () {
         this.initialize();
     }
     LocationDialogComponent.prototype.onSubmit = function () {
-        console.log(this.place);
+        this.dialogRef.close(this.address);
     };
     LocationDialogComponent.prototype.initialize = function () {
         var _this = this;
         this.mapsAPILoader.load().then(function () {
             var geocoder = new google.maps.Geocoder();
+            var latLng = new google.maps.LatLng(_this.latitude, _this.longitude);
             var autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
                 types: ['address']
             });
-            var latLng = new google.maps.LatLng(_this.latitude, _this.longitude);
+            autocomplete.addListener('place_changed', function () {
+                _this.ngZone.run(function () {
+                    var place = autocomplete.getPlace();
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    _this.address = place.formatted_address;
+                    _this.latitude = place.geometry.location.lat();
+                    _this.longitude = place.geometry.location.lng();
+                    _this.zoom = 15;
+                });
+            });
             geocoder.geocode({ 'latLng': latLng }, function (res, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (res[0]) {
-                        console.log(res[0]);
+                        _this.address = res[0].formatted_address;
                         _this.searchControl.setValue(res[0].formatted_address);
                     }
                     else {
@@ -4966,18 +4979,6 @@ var LocationDialogComponent = /** @class */ (function () {
                 else {
                     console.log('Geocoder failed due to: ' + status);
                 }
-            });
-            autocomplete.addListener('place_changed', function () {
-                _this.ngZone.run(function () {
-                    var place = autocomplete.getPlace();
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-                    _this.place = place;
-                    _this.latitude = place.geometry.location.lat();
-                    _this.longitude = place.geometry.location.lng();
-                    _this.zoom = 15;
-                });
             });
         });
     };
@@ -4991,9 +4992,10 @@ var LocationDialogComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./location-dialog.component.html */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.html"),
             styles: [__webpack_require__(/*! ./location-dialog.component.scss */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.scss")]
         }),
-        __param(2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_agm_core__WEBPACK_IMPORTED_MODULE_3__["MapsAPILoader"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], Object])
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object])
     ], LocationDialogComponent);
     return LocationDialogComponent;
 }());
@@ -5205,8 +5207,10 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
                 data: { coords: result.coords }
             })
                 .afterClosed()
-                .subscribe(function (res) {
-                console.log(res);
+                .subscribe(function (address) {
+                if (address) {
+                    _this.form.get('location').setValue(address);
+                }
             });
         });
     };
@@ -7321,7 +7325,6 @@ var ChurchCirclesTemplate = {
             translation: {
                 'churchCircles': {
                     'translationLabel': 'Deutsch',
-                    'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Erklärungen</h3><p>Jede Figur stellt eine Gruppe / Gemeinde dar. Eine gestrichelte Linie bedeutet Gruppe, eine durchgehende Linie bedeutet Gemeinde. Ein Quadrat bedeutet, dass die Teilnehmer bereits vorher Christen waren. Bei einem Kreis sind die Teilnehmer durch die Gruppe selbst zum Glauben gekommen oder sind noch nicht gläubig.</p><p>Ganz oben beschreiben die vier Zahlen jeweils die Anzahl der Teilnehmer, davon Anzahl Gläubige, davon Anzahl Getaufte und davon die Anzahl derer, die durch die Gruppe getauft wurden. Die Zahlen dürfen nach rechts hin nie größer werden.</p><p>In der Figur sind die Elemente der <a href="/start-training/lektion5" target="_blank">Definition von Gemeinde</a> zu sehen, die in der Gruppe auch gelebt werden.<br>Die Zahlen von 1 bis 8 links zeigen, welche der Elemente des <a href="/training/drei-drittel-prozess" target="_blank">Drei-Drittel-Prozesses</a> regelmäßig vorkommen:</p><ol><li>Wie geht\'s?</li><li>Auswertung</li><li>Vision</li><li>Lobpreis</li><li>Lehre</li><li>Üben</li><li>Ziele setzen</li><li>Gebet</li></ol><p>Klicke auf eine Gruppe, um sie zu bearbeiten.<br>Klicke auf die rote (x)-Schaltfläche, um die Gruppe zu löschen.<br>Klicke auf die grüne (+)-Schaltfläche, um eine Tochtergruppe hinzuzufügen.</p>',
                     'name': 'Name der Kirche',
                     'leaderName': 'Leiter',
                     'peopleGroup': 'Sprache / Subkultur',
@@ -7368,7 +7371,6 @@ var ChurchCirclesTemplate = {
             translation: {
                 'churchCircles': {
                     'translationLabel': 'Español',
-                    'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Leyenda</h3><p>Cada círculo representa un grupo / iglesia. La línea de puntos significa un grupo. La línea completa significa una iglesia.<br>En la parte superior, los números describen: número de total, número de creyentes, número de bautizados<br>Dentro del círculo son los elementos que se practican en el grupo.<br>A la izquierda hay números del 1 al 7 representan qué elementos de 3/3 proceso se practican:<br>1 - Cuidado mutuo<br>2 - Adoración<br>3 - Rendir cuentas con amor<br>4 - Visión<br>5 - Biblia<br>6 - Práctica<br>7 - Establecer metas y Orar</p><p>Haga clic en el grupo para editarlo.<br>Haga clic en el botón rojo (x) para eliminar el grupo.<br>Haga clic en el botón verde (+) para añadir grupo secundario.</p>',
                     'name': 'Nombre de la iglesia',
                     'leaderName': 'Nombre de lider',
                     'inactiveReason': 'Razón para estar inactivo',
