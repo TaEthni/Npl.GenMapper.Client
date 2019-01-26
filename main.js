@@ -2158,6 +2158,40 @@ var UserResolver = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/core/utils.ts":
+/*!*******************************!*\
+  !*** ./src/app/core/utils.ts ***!
+  \*******************************/
+/*! exports provided: Utils */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Utils", function() { return Utils; });
+var Utils;
+(function (Utils) {
+    function timeout(callback, time) {
+        if (time === void 0) { time = 0; }
+        var timeoutId = setTimeout(function () {
+            callback();
+            clearTimeout(timeoutId);
+        }, time);
+        return timeoutId;
+    }
+    Utils.timeout = timeout;
+    function disableDocumentScroll() {
+        document.documentElement.style.overflow = 'hidden';
+    }
+    Utils.disableDocumentScroll = disableDocumentScroll;
+    function enableDocumentScroll() {
+        document.documentElement.style.overflow = '';
+    }
+    Utils.enableDocumentScroll = enableDocumentScroll;
+})(Utils || (Utils = {}));
+
+
+/***/ }),
+
 /***/ "./src/app/core/windowref.service.ts":
 /*!*******************************************!*\
   !*** ./src/app/core/windowref.service.ts ***!
@@ -5860,9 +5894,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _core_authentication_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/authentication.service */ "./src/app/core/authentication.service.ts");
 /* harmony import */ var _core_Unsubscribable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/Unsubscribable */ "./src/app/core/Unsubscribable.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
-/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
+/* harmony import */ var _core_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/utils */ "./src/app/core/utils.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
+/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -5892,6 +5927,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var GenMapperContainerComponent = /** @class */ (function (_super) {
     __extends(GenMapperContainerComponent, _super);
     function GenMapperContainerComponent(genMapper, authService, nodeClipboard) {
@@ -5903,14 +5939,15 @@ var GenMapperContainerComponent = /** @class */ (function (_super) {
     }
     GenMapperContainerComponent.prototype.ngOnInit = function () {
         var _this = this;
+        _core_utils__WEBPACK_IMPORTED_MODULE_4__["Utils"].disableDocumentScroll();
         this.isAuthenticated = this.authService.isAuthenticated();
         this.genMapper.getDocument()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this.unsubscribe))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this.unsubscribe))
             .subscribe(function (document) {
             _this.document = document;
         });
         this.genMapper.getConfig()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["takeUntil"])(this.unsubscribe))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this.unsubscribe))
             .subscribe(function (config) {
             _this.template = config.template;
             _this.documents = config.documents;
@@ -5920,6 +5957,7 @@ var GenMapperContainerComponent = /** @class */ (function (_super) {
         _super.prototype.ngOnDestroy.call(this);
         this.genMapper.setDocument(null);
         this.nodeClipboard.set(null);
+        _core_utils__WEBPACK_IMPORTED_MODULE_4__["Utils"].enableDocumentScroll();
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('matDrawer'),
@@ -5932,9 +5970,9 @@ var GenMapperContainerComponent = /** @class */ (function (_super) {
             providers: [],
             styles: [__webpack_require__(/*! ./gen-mapper-container.component.scss */ "./src/app/tools/gen-mapper/gen-mapper-container/gen-mapper-container.component.scss")]
         }),
-        __metadata("design:paramtypes", [_gen_mapper_service__WEBPACK_IMPORTED_MODULE_5__["GenMapperService"],
+        __metadata("design:paramtypes", [_gen_mapper_service__WEBPACK_IMPORTED_MODULE_6__["GenMapperService"],
             _core_authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"],
-            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_6__["NodeClipboardService"]])
+            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_7__["NodeClipboardService"]])
     ], GenMapperContainerComponent);
     return GenMapperContainerComponent;
 }(_core_Unsubscribable__WEBPACK_IMPORTED_MODULE_3__["Unsubscribable"]));
