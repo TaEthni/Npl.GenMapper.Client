@@ -6152,6 +6152,7 @@ var GenMapperGraphComponent = /** @class */ (function () {
     }
     GenMapperGraphComponent.prototype.onWindowResize = function () {
         this.graph.resize();
+        console.log('resizing');
     };
     GenMapperGraphComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -7033,7 +7034,7 @@ var MapNameControlComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}1\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents fxFlex\r\n                              (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
+module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}2\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents fxFlex\r\n                              (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
 
 /***/ }),
 
