@@ -1950,6 +1950,8 @@ var MapsService = /** @class */ (function () {
         if (window.navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition(function (position) {
                 subject.next(position);
+            }, function (error) {
+                console.log(error);
             });
         }
         return subject.asObservable();
@@ -4439,7 +4441,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button mat-icon-button\r\n        (click)=\"sidenav.open()\">\r\n    <mat-icon>menu</mat-icon>\r\n</button>"
+module.exports = "<button mat-icon-button\r\n        (click)=\"sidenav.open()\">\r\n    <mat-icon>menu</mat-icon>1\r\n</button>\r\n"
 
 /***/ }),
 
