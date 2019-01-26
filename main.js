@@ -2162,6 +2162,42 @@ var UserResolver = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/core/utils.ts":
+/*!*******************************!*\
+  !*** ./src/app/core/utils.ts ***!
+  \*******************************/
+/*! exports provided: Utils */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Utils", function() { return Utils; });
+var Utils;
+(function (Utils) {
+    function timeout(callback, time) {
+        if (time === void 0) { time = 0; }
+        var timeoutId = setTimeout(function () {
+            callback();
+            clearTimeout(timeoutId);
+        }, time);
+        return timeoutId;
+    }
+    Utils.timeout = timeout;
+    function disableDocumentScroll() {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+    }
+    Utils.disableDocumentScroll = disableDocumentScroll;
+    function enableDocumentScroll() {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+    }
+    Utils.enableDocumentScroll = enableDocumentScroll;
+})(Utils || (Utils = {}));
+
+
+/***/ }),
+
 /***/ "./src/app/core/windowref.service.ts":
 /*!*******************************************!*\
   !*** ./src/app/core/windowref.service.ts ***!
@@ -4756,9 +4792,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
 /* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
-/* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
-/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
-/* harmony import */ var _confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
+/* harmony import */ var _core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/utils */ "./src/app/core/utils.ts");
+/* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
+/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
+/* harmony import */ var _confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4771,6 +4808,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+
 
 
 
@@ -4801,7 +4839,11 @@ var EditNodeDialogComponent = /** @class */ (function () {
             }
         });
         this.fields = this.template.fields;
+        _core_utils__WEBPACK_IMPORTED_MODULE_3__["Utils"].disableDocumentScroll();
     }
+    EditNodeDialogComponent.prototype.ngOnDestroy = function () {
+        _core_utils__WEBPACK_IMPORTED_MODULE_3__["Utils"].enableDocumentScroll();
+    };
     EditNodeDialogComponent.prototype.onSubmit = function () {
         // if node is active, then remove reason for being inactive.
         if (this.model.hasOwnProperty('active') && this.model.hasOwnProperty('inactiveReason') && this.model.active) {
@@ -4826,7 +4868,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
     EditNodeDialogComponent.prototype.onPasteNode = function () {
         var _this = this;
         this.matDialog
-            .open(_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDialogComponent"], {
+            .open(_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDialogComponent"], {
             data: {
                 title: this.localeService.t('messages.confirmPasteNode'),
                 alert: this.localeService.t('messages.confirmPasteNodeWarning'),
@@ -4848,7 +4890,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
     EditNodeDialogComponent.prototype.onImportSubtree = function () {
         var _this = this;
         this.matDialog
-            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_3__["FileInputDialogComponent"], { minWidth: '400px' })
+            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_4__["FileInputDialogComponent"], { minWidth: '400px' })
             .afterClosed()
             .subscribe(function (result) {
             if (result) {
@@ -4873,7 +4915,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
             _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
             _core_locale_service__WEBPACK_IMPORTED_MODULE_2__["LocaleService"],
-            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_4__["NodeClipboardService"], Object])
+            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_5__["NodeClipboardService"], Object])
     ], EditNodeDialogComponent);
     return EditNodeDialogComponent;
 }());
