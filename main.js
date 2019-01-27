@@ -5370,7 +5370,9 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
                 .afterClosed()
                 .subscribe(function (address) {
                 if (address) {
-                    _this.form.get('location').setValue(address);
+                    _this.form.get('location').patchValue(address);
+                    _this.form.get('location').updateValueAndValidity();
+                    _this.form.markAsDirty();
                 }
             });
         });
@@ -7550,6 +7552,7 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
     };
     NodeDrawerComponent.prototype.onBackdropClick = function () {
         var _this = this;
+        this.drawer.disableClose = this.form.dirty;
         if (this.form.dirty && this.drawer.disableClose) {
             this.dialog
                 .open(_dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_11__["ConfirmDialogComponent"], {
@@ -7606,6 +7609,7 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
                 // Close Drawer
                 // Show undo Tooltip
                 _this.pasteNode.emit(_this.node);
+                _this.drawer.close();
                 // const originalData = cloneDeep(this.graph.data);
                 // this.graph.pasteNode(node, this.nodeClipboard.getValue());
                 // this.showUndoPaste(originalData);
@@ -7625,6 +7629,7 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
                 // Update graph
                 // this.graph.csvIntoNode(node, result.content);
                 _this.importSubtree.emit(result.content);
+                _this.drawer.close();
             }
         });
     };
@@ -8786,7 +8791,7 @@ var translations = {
             'underMaintenance': 'underMaintenance',
             'nodeHasBeenReplaces': 'Node has been replaced',
             'saveChanges': 'Save Changes',
-            'saveChangesQuestion': 'Would you like to your save changes?',
+            'saveChangesQuestion': 'Would you like to save your changes?',
             'subtreeImportedPastTense': 'Subtree Imported!',
             'menu': {
                 'appName': 'GenMapper',
