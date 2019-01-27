@@ -5725,9 +5725,9 @@ var GenMap = /** @class */ (function () {
             .attr('width', 36)
             .attr('height', 100)
             .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
-        // _appendRemoveButton(newGroup, this.template);
-        // _appendAddButton(newGroup, this.template);
-        // _appendEditButton(newGroup, this.template);
+        _appendRemoveButton(newGroup, this.template);
+        _appendAddButton(newGroup, this.template);
+        _appendEditButton(newGroup, this.template);
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach(function (svgElement) {
             var svgElementValue = _this.template.svg[svgElement];
@@ -5895,7 +5895,12 @@ function _appendEditButton(group, template) {
         .append('svg')
         .attr('y', template.settings.nodeActions.y)
         .attr('x', template.settings.nodeActions.x)
-        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverCopyNode') + "</title>\n            </rect>\n            <text x=\"16\" y=\"28\" text-anchor=\"middle\" fill=\"white\" stroke=\"unset\">\n                <tspan class=\"material-icons\" font-family=\"Material Icons\" font-size=\"24px\" style=\"font-size: 24px\">\n                    edit\n                </tspan>\n            </text>\n        ");
+        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverCopyNode') + "</title>\n            </rect>\n            ");
+    // <text x="16" y="28" text-anchor="middle" fill="white" stroke="unset">
+    //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
+    //         edit
+    //     </tspan>
+    // </text>
 }
 function _appendAddButton(group, template) {
     group.append('g')
@@ -5905,7 +5910,12 @@ function _appendAddButton(group, template) {
         .append('svg')
         .attr('y', template.settings.nodeActions.y + 32)
         .attr('x', template.settings.nodeActions.x)
-        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverAddChildGroup') + "</title>\n            </rect>\n            <text x=\"16\" y=\"32px\" text-anchor=\"middle\" fill=\"white\" stroke=\"unset\">\n                <tspan class=\"material-icons\" font-family=\"Material Icons\" font-size=\"32px\" style=\"font-size: 32px\">\n                    add\n                </tspan>\n            </text>\n            ");
+        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverAddChildGroup') + "</title>\n            </rect>\n            ");
+    // <text x="16" y="32px" text-anchor="middle" fill="white" stroke="unset">
+    //     <tspan class="material-icons" font-family="Material Icons" font-size="32px" style="font-size: 32px">
+    //         add
+    //     </tspan>
+    // </text>
 }
 function _appendRemoveButton(group, template) {
     group.filter(function (n) { return !n.data.isRoot; }).append('g')
@@ -5914,7 +5924,12 @@ function _appendRemoveButton(group, template) {
         .append('svg')
         .attr('y', template.settings.nodeActions.y + 64)
         .attr('x', template.settings.nodeActions.x)
-        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverDeleteGroupAndSubtree') + "</title>\n            </rect>\n            <text x=\"16\" y=\"28px\" text-anchor=\"middle\" fill=\"white\" stroke=\"unset\">\n                <tspan class=\"material-icons\" font-family=\"Material Icons\" font-size=\"24px\" style=\"font-size: 24px\">\n                    delete\n                </tspan>\n            </text>\n            ");
+        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverDeleteGroupAndSubtree') + "</title>\n            </rect>\n            ");
+    // <text x="16" y="28px" text-anchor="middle" fill="white" stroke="unset">
+    //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
+    //         delete
+    //     </tspan>
+    // </text>
     // <line x1="6" y1="13.5" x2="19" y2="26.5" stroke="white" stroke-width="3"></line>
     // <line x1="19" y1="13.5" x2="6" y2="26.5" stroke="white" stroke-width="3"></line>
 }
@@ -7245,7 +7260,7 @@ var MapNameControlComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}3\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
+module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}4\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
 
 /***/ }),
 
