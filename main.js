@@ -5896,7 +5896,7 @@ function _appendEditButton(group, template) {
         .append('svg')
         .attr('y', template.settings.nodeActions.y)
         .attr('x', template.settings.nodeActions.x)
-        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverCopyNode') + "</title>\n            </rect>\n            ");
+        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverCopyNode') + "</title>\n            </rect>\n            <path style=\"transform: translate(4px, 4px)\"\n                fill=\"white\"\n                d=\"M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02\n            0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z\"/>\n        ");
     // <text x="16" y="28" text-anchor="middle" fill="white" stroke="unset">
     //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
     //         edit
@@ -5911,9 +5911,7 @@ function _appendAddButton(group, template) {
         .append('svg')
         .attr('y', template.settings.nodeActions.y + 32)
         .attr('x', template.settings.nodeActions.x)
-        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverAddChildGroup') + "</title>\n            </rect>\n\n            ");
-    // <line x1="5" y1="20" x2="20" y2="20" stroke="white" stroke-width="3"></line>
-    // <line x1="12.5" y1="12.5" x2="12.5" y2="27.5" stroke="white" stroke-width="3"></line>
+        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverAddChildGroup') + "</title>\n            </rect>\n            <line x1=\"5\" y1=\"16\" x2=\"27\" y2=\"16\" stroke=\"white\" stroke-width=\"3\"></line>\n            <line x1=\"16\" y1=\"5\" x2=\"16\" y2=\"27\" stroke=\"white\" stroke-width=\"3\"></line>\n        ");
     // <text x="16" y="32px" text-anchor="middle" fill="white" stroke="unset">
     //     <tspan class="material-icons" font-family="Material Icons" font-size="32px" style="font-size: 32px">
     //         add
@@ -7263,7 +7261,7 @@ var MapNameControlComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}5\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
+module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}6\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
 
 /***/ }),
 
