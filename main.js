@@ -4931,7 +4931,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div mat-dialog-content>\n    <div class=\"search-control\">\n        <input matInput\n               placeholder=\"Search...\"\n               autocomplete=\"off\"\n               autocapitalize=\"off\"\n               spellcheck=\"off\"\n               type=\"text\"\n               class=\"form-control\"\n               #search\n               [formControl]=\"searchControl\" />\n    </div>\n    <agm-map [latitude]=\"latitude\"\n             [longitude]=\"longitude\"\n             [zoom]=\"zoom\">\n        <agm-marker [latitude]=\"latitude\"\n                    [longitude]=\"longitude\"></agm-marker>\n    </agm-map>\n</div>\n<div mat-dialog-actions\n     fxLayoutAlign=\"end\">\n    <button mat-button\n            color=\"accent\"\n            (click)=\"onSubmit()\">\n        {{'en_Continue' | locale | async}}\n    </button>\n    <button mat-button\n            color=\"warn\"\n            [mat-dialog-close]=\"false\">\n        {{'en_Cancel' | locale | async}}\n    </button>\n</div>\n"
+module.exports = "<div fxLayout=\"column\">\n    <div class=\"search-box\"\n         fxLayout=\"column\">\n        <div class=\"search-control\">\n            <input matInput\n                   placeholder=\"Search...\"\n                   autocomplete=\"off\"\n                   autocapitalize=\"off\"\n                   spellcheck=\"off\"\n                   type=\"text\"\n                   class=\"form-control\"\n                   #search\n                   [formControl]=\"searchControl\" />\n        </div>\n    </div>\n    <agm-map [latitude]=\"latitude\"\n             [longitude]=\"longitude\"\n             [zoom]=\"zoom\"\n             [disableDefaultUI]=\"true\"\n             [style.height]=\"height + 'px'\"\n             (mapClick)=\"mapClicked($event)\">\n        <agm-marker [latitude]=\"markerLatitude\"\n                    [longitude]=\"markerLongitude\"\n                    [markerDraggable]=\"true\"\n                    (dragEnd)=\"markerDragEnd($event)\"></agm-marker>\n    </agm-map>\n</div>\n\n<div mat-dialog-actions\n     fxLayoutAlign=\"end\">\n    <button mat-raised-button\n            color=\"accent\"\n            (click)=\"onSubmit()\">\n        {{'en_Continue' | locale | async}}\n    </button>\n    <button mat-button\n            color=\"warn\"\n            [mat-dialog-close]=\"false\">\n        {{'en_Cancel' | locale | async}}\n    </button>\n</div>\n"
 
 /***/ }),
 
@@ -4942,7 +4942,7 @@ module.exports = "<div mat-dialog-content>\n    <div class=\"search-control\">\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-width: 200px;\n  max-width: 700px; }\n  @media screen and (min-width: 768px) {\n    :host {\n      width: 70vw; } }\n  :host agm-map {\n    height: 400px; }\n  :host .search-control {\n    width: 100%;\n    line-height: 24px;\n    margin-bottom: 24px; }\n  :host .search-control input {\n      width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdG9vbHMvZ2VuLW1hcHBlci9kaWFsb2dzL2xvY2F0aW9uLWRpYWxvZy9DOlxcUmVwb3NcXHRvb2xzLWNsaWVudC1hbmd1bGFyL3NyY1xcYXBwXFx0b29sc1xcZ2VuLW1hcHBlclxcZGlhbG9nc1xcbG9jYXRpb24tZGlhbG9nXFxsb2NhdGlvbi1kaWFsb2cuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3Rvb2xzL2dlbi1tYXBwZXIvZGlhbG9ncy9sb2NhdGlvbi1kaWFsb2cvQzpcXFJlcG9zXFx0b29scy1jbGllbnQtYW5ndWxhci9zcmNcXHN0eWxlc1xcX21peGlucy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VDREksY0FBYTtFQUNiLHVCQUFzQjtFQUN0QixZQUFXO0VBQ1gsaUJBQWdCO0VBQ2hCLGlCQUFnQixFRGFuQjtFQ1BHO0lEVEo7TUNVUSxZQUFXLEVETWxCLEVBQUE7RUFoQkQ7SUFJUSxjQUFhLEVBQ2hCO0VBTEw7SUFRUSxZQUFXO0lBQ1gsa0JBQWlCO0lBQ2pCLG9CQUFtQixFQUt0QjtFQWZMO01BYVksWUFBVyxFQUNkIiwiZmlsZSI6InNyYy9hcHAvdG9vbHMvZ2VuLW1hcHBlci9kaWFsb2dzL2xvY2F0aW9uLWRpYWxvZy9sb2NhdGlvbi1kaWFsb2cuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0ICd+c3R5bGVzL21peGlucyc7XHJcblxyXG46aG9zdCB7XHJcbiAgICBAaW5jbHVkZSBkaWFsb2coKTtcclxuXHJcbiAgICBhZ20tbWFwIHtcclxuICAgICAgICBoZWlnaHQ6IDQwMHB4O1xyXG4gICAgfVxyXG5cclxuICAgIC5zZWFyY2gtY29udHJvbCB7XHJcbiAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgbGluZS1oZWlnaHQ6IDI0cHg7XHJcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMjRweDtcclxuXHJcbiAgICAgICAgaW5wdXQge1xyXG4gICAgICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuIiwiQG1peGluIGRpYWxvZygpIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtaW4td2lkdGg6IDIwMHB4O1xyXG4gICAgbWF4LXdpZHRoOiA3MDBweDtcclxuXHJcbiAgICAubWF0LWRpYWxvZy1jb250ZW50IHtcclxuICAgICAgICAvLyAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XHJcbiAgICB9XHJcblxyXG4gICAgQG1lZGlhIHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNzY4cHgpIHtcclxuICAgICAgICB3aWR0aDogNzB2dztcclxuICAgIH1cclxufVxyXG4iXX0= */"
+module.exports = ":host {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-width: 200px;\n  max-width: 700px;\n  position: relative; }\n  @media screen and (min-width: 768px) {\n    :host {\n      width: 70vw; } }\n  :host .search-box {\n    position: absolute;\n    top: 16px;\n    left: 16px;\n    width: 80%;\n    z-index: 2; }\n  :host .search-box input {\n      padding: 0 5px;\n      line-height: 40px;\n      background-color: white;\n      width: 100%;\n      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdG9vbHMvZ2VuLW1hcHBlci9kaWFsb2dzL2xvY2F0aW9uLWRpYWxvZy9DOlxcUmVwb3NcXHRvb2xzLWNsaWVudC1hbmd1bGFyL3NyY1xcYXBwXFx0b29sc1xcZ2VuLW1hcHBlclxcZGlhbG9nc1xcbG9jYXRpb24tZGlhbG9nXFxsb2NhdGlvbi1kaWFsb2cuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3Rvb2xzL2dlbi1tYXBwZXIvZGlhbG9ncy9sb2NhdGlvbi1kaWFsb2cvQzpcXFJlcG9zXFx0b29scy1jbGllbnQtYW5ndWxhci9zcmNcXHN0eWxlc1xcX21peGlucy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VDREksY0FBYTtFQUNiLHVCQUFzQjtFQUN0QixZQUFXO0VBQ1gsaUJBQWdCO0VBQ2hCLGlCQUFnQjtFRERoQixtQkFBa0IsRUFxQnJCO0VDZEc7SURUSjtNQ1VRLFlBQVcsRURhbEIsRUFBQTtFQXZCRDtJQVNRLG1CQUFrQjtJQUNsQixVQUFTO0lBQ1QsV0FBVTtJQUNWLFdBQVU7SUFDVixXQUFVLEVBU2I7RUF0Qkw7TUFnQlksZUFBYztNQUNkLGtCQUFpQjtNQUNqQix3QkFBdUI7TUFDdkIsWUFBVztNQUNYLHlDQUFxQyxFQUN4QyIsImZpbGUiOiJzcmMvYXBwL3Rvb2xzL2dlbi1tYXBwZXIvZGlhbG9ncy9sb2NhdGlvbi1kaWFsb2cvbG9jYXRpb24tZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCAnfnN0eWxlcy9taXhpbnMnO1xyXG5cclxuOmhvc3Qge1xyXG4gICAgQGluY2x1ZGUgZGlhbG9nKCk7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcblxyXG4gICAgYWdtLW1hcCB7XHJcbiAgICAgICAgLy8gaGVpZ2h0OiA0MDBweDtcclxuICAgIH1cclxuXHJcbiAgICAuc2VhcmNoLWJveCB7XHJcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICAgIHRvcDogMTZweDtcclxuICAgICAgICBsZWZ0OiAxNnB4O1xyXG4gICAgICAgIHdpZHRoOiA4MCU7XHJcbiAgICAgICAgei1pbmRleDogMjtcclxuXHJcbiAgICAgICAgaW5wdXQge1xyXG4gICAgICAgICAgICBwYWRkaW5nOiAwIDVweDtcclxuICAgICAgICAgICAgbGluZS1oZWlnaHQ6IDQwcHg7XHJcbiAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xyXG4gICAgICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICAgICAgYm94LXNoYWRvdzogMCAzcHggNXB4IHJnYmEoMCwwLDAsMC4yKTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuIiwiQG1peGluIGRpYWxvZygpIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBtaW4td2lkdGg6IDIwMHB4O1xyXG4gICAgbWF4LXdpZHRoOiA3MDBweDtcclxuXHJcbiAgICAubWF0LWRpYWxvZy1jb250ZW50IHtcclxuICAgICAgICAvLyAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XHJcbiAgICB9XHJcblxyXG4gICAgQG1lZGlhIHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNzY4cHgpIHtcclxuICAgICAgICB3aWR0aDogNzB2dztcclxuICAgIH1cclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -4986,16 +4986,22 @@ var LocationDialogComponent = /** @class */ (function () {
         this.longitude = data.coords.longitude;
         this.zoom = 12;
         this.searchControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
+        this.height = window.innerWidth / 2;
         this.initialize();
     }
     LocationDialogComponent.prototype.onSubmit = function () {
         this.dialogRef.close(this.address);
     };
+    LocationDialogComponent.prototype.markerDragEnd = function (event) {
+        console.log(event);
+        this.setAddress(event.coords.lat, event.coords.lng);
+    };
+    LocationDialogComponent.prototype.mapClicked = function (event) {
+        this.setAddress(event.coords.lat, event.coords.lng);
+    };
     LocationDialogComponent.prototype.initialize = function () {
         var _this = this;
         this.mapsAPILoader.load().then(function () {
-            var geocoder = new google.maps.Geocoder();
-            var latLng = new google.maps.LatLng(_this.latitude, _this.longitude);
             var autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
                 types: ['address']
             });
@@ -5008,23 +5014,33 @@ var LocationDialogComponent = /** @class */ (function () {
                     _this.address = place.formatted_address;
                     _this.latitude = place.geometry.location.lat();
                     _this.longitude = place.geometry.location.lng();
+                    _this.markerLatitude = _this.latitude;
+                    _this.markerLongitude = _this.longitude;
                     _this.zoom = 15;
                 });
             });
-            geocoder.geocode({ 'latLng': latLng }, function (res, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    if (res[0]) {
-                        _this.address = res[0].formatted_address;
-                        _this.searchControl.setValue(res[0].formatted_address);
-                    }
-                    else {
-                        console.log('No results found');
-                    }
+            _this.setAddress(_this.latitude, _this.longitude);
+        });
+    };
+    LocationDialogComponent.prototype.setAddress = function (lat, lng) {
+        var _this = this;
+        this.markerLatitude = lat;
+        this.markerLongitude = lng;
+        var latLng = new google.maps.LatLng(lat, lng);
+        this.geocoder = new google.maps.Geocoder();
+        this.geocoder.geocode({ 'latLng': latLng }, function (res, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (res[0]) {
+                    _this.address = res[0].formatted_address;
+                    _this.searchControl.setValue(res[0].formatted_address);
                 }
                 else {
-                    console.log('Geocoder failed due to: ' + status);
+                    console.log('No results found');
                 }
-            });
+            }
+            else {
+                console.log('Geocoder failed due to: ' + status);
+            }
         });
     };
     __decorate([
