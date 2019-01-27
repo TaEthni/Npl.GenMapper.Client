@@ -6377,6 +6377,10 @@ var GenMapperGraphComponent = /** @class */ (function () {
         this.graph.onPasteNode = function (d) {
             // Buttons on graph is not implemented
         };
+        this.graph.addNodeClick = function (d) {
+            _this.graph.addNode(d);
+            _this.snackBar.open(_this.locale.t('childNodeAdded'), 'Ok', { duration: 5000 });
+        };
         this.graph.removeNodeClick = function (node) {
             var name = node.data.name || node.data.leaderName || 'No Name';
             var hasChildren = node.children && node.children.length;
@@ -8766,8 +8770,9 @@ var translations = {
             'en_Undo': 'Undo',
             'en_Yes': 'Yes',
             'en_No': 'No',
-            'createDocument': 'Create Document',
+            'childNodeAdded': 'Child Node added',
             'copiedNodeToClipboard': 'Copied to clipboard!',
+            'createDocument': 'Create Document',
             'createTemporaryDocument': 'Create Temporary Document',
             'deleteDocument': 'Delete Document',
             'emailConfirmed': 'Email Confirmed',
