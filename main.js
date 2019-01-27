@@ -5515,9 +5515,9 @@ var GenMap = /** @class */ (function () {
         this.removeNodeClick(node);
     };
     GenMap.prototype.resize = function () {
-        this.svg
-            .attr('height', window.innerHeight)
-            .attr('width', window.innerWidth);
+        // this.svg
+        //     .attr('height', window.innerHeight)
+        //     .attr('width', window.innerWidth);
     };
     GenMap.prototype.addNode = function (node) {
         var _this = this;
@@ -6259,7 +6259,7 @@ var GenMapperDocumentsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<svg #genMapperGraphSvg\r\n     id=\"genmapper-graph-svg\"\r\n     width=\"100vw\"\r\n     height=\"100vh\"></svg>\r\n"
+module.exports = "<svg #genMapperGraphSvg\r\n     id=\"genmapper-graph-svg\"\r\n     height=\"100%\"></svg>\r\n"
 
 /***/ }),
 
@@ -7277,7 +7277,7 @@ var MapNameControlComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}6\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
+module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}1\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
 
 /***/ }),
 
