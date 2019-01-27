@@ -4,14 +4,13 @@
         <mat-icon>add</mat-icon>
     </button>
     <div>
-        {{'documentsTitle' | locale | async}}
+        {{'documentsTitle' | locale | async}}1
     </div>
     <div fxFlex></div>
 </mat-toolbar>
 
 <div class="scroll-container">
-    <app-gen-mapper-documents fxFlex
-                              (select)="onSelectDocument($event)"
+    <app-gen-mapper-documents (select)="onSelectDocument($event)"
                               [document]="document"
                               [documents]="documents"
                               [documentId]="document?.id"></app-gen-mapper-documents>

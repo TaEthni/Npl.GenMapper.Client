@@ -1,11 +1,13 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LocaleService } from '@core/locale.service';
+import { Utils } from '@core/utils';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 
 import { GMField, GMTemplate, GNode } from '../../gen-mapper.interface';
 import { NodeClipboardService } from '../../node-clipboard.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { TemplateUtils } from '../../template-utils';
 
 export interface EditNodeDialogResponse {
     isCancel: boolean;
@@ -30,12 +32,11 @@ export interface EditNodeDialogConfig {
     templateUrl: './edit-node-dialog.component.html',
     styleUrls: ['./edit-node-dialog.component.scss']
 })
-export class EditNodeDialogComponent {
+export class EditNodeDialogComponent implements OnDestroy {
 
     private template: GMTemplate = null;
     public fields: GMField[];
     public model: any;
-    public locale: any;
     public isNodeClipboard: boolean;
 
     constructor(
@@ -47,21 +48,15 @@ export class EditNodeDialogComponent {
     ) {
         this.isNodeClipboard = !!this.nodeClipboard.getValue();
         this.model = Object.assign({}, data.nodeData);
-        this.locale = data.template.translations[data.language].translation[data.template.format];
+        TemplateUtils.setTemplateLocale(data.template, data.language);
         this.template = data.template;
-
-        this.template.fields.forEach(field => {
-            if (this.locale[field.header]) {
-                field.localeLabel = this.localeService.t(this.template.format + '.' + field.header);
-                if (field.values) {
-                    field.values.forEach((v: any) => {
-                        v.localeLabel = this.localeService.t(this.template.format + '.' + v.header);
-                    });
-                }
-            }
-        });
-
         this.fields = this.template.fields;
+
+        Utils.disableDocumentScroll();
+    }
+
+    public ngOnDestroy(): void {
+        Utils.enableDocumentScroll();
     }
 
     public onSubmit(): void {

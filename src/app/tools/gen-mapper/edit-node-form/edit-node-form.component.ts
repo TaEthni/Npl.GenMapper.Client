@@ -63,6 +63,13 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         }
     }
 
+    public onClearFieldClick(event: Event, field: GMField): void {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.form.get(field.header).setValue(null);
+    }
+
     private _createForm(): FormGroup {
         const group: any = {};
 

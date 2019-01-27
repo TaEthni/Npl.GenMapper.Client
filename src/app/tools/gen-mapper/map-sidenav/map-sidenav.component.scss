@@ -1,12 +1,16 @@
 :host {
     display: flex;
     flex-direction: column;
+    max-height: 100%;
+    overflow: hidden;
 
     .scroll-container {
         position: relative;
         flex: 1;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow: scroll;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        // -webkit-overflow-scrolling: touch;
     }
 
     .mat-toolbar {
@@ -15,8 +19,8 @@
         box-shadow: 0 3px 4px -2px rgba(0,0,0,0.2);
 
         .mat-mini-fab {
-            margin-left: -36px;
-            margin-right: 42px;
+            margin-left: -4px;
+            margin-right: 12px;
         }
     }
 }

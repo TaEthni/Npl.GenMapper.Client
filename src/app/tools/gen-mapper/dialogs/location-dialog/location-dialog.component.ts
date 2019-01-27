@@ -1,7 +1,8 @@
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
     selector: 'app-location-dialog',
@@ -14,9 +15,13 @@ export class LocationDialogComponent {
 
     public latitude: number;
     public longitude: number;
+    public markerLatitude: number;
+    public markerLongitude: number;
     public searchControl: AbstractControl;
     public zoom: number;
     public address: string;
+    public height: number;
+    public geocoder: google.maps.Geocoder;
 
     constructor(
         private mapsAPILoader: MapsAPILoader,
@@ -28,6 +33,7 @@ export class LocationDialogComponent {
         this.longitude = data.coords.longitude;
         this.zoom = 12;
         this.searchControl = new FormControl();
+        this.height = window.innerHeight - 150;
         this.initialize();
     }
 
@@ -35,10 +41,18 @@ export class LocationDialogComponent {
         this.dialogRef.close(this.address);
     }
 
+    public markerDragEnd(event: MouseEvent): void {
+        console.log(event);
+        this.setAddress(event.coords.lat, event.coords.lng);
+    }
+
+    public mapClicked(event: MouseEvent): void {
+        this.setAddress(event.coords.lat, event.coords.lng);
+    }
+
     private initialize(): void {
         this.mapsAPILoader.load().then(() => {
-            const geocoder = new google.maps.Geocoder();
-            const latLng = new google.maps.LatLng(this.latitude, this.longitude);
+
             const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: ['address']
             });
@@ -54,22 +68,32 @@ export class LocationDialogComponent {
                     this.address = place.formatted_address;
                     this.latitude = place.geometry.location.lat();
                     this.longitude = place.geometry.location.lng();
+                    this.markerLatitude = this.latitude;
+                    this.markerLongitude = this.longitude;
                     this.zoom = 15;
                 });
             });
 
-            geocoder.geocode({ 'latLng': latLng } as google.maps.GeocoderRequest, (res, status) => {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    if (res[0]) {
-                        this.address = res[0].formatted_address;
-                        this.searchControl.setValue(res[0].formatted_address);
-                    } else {
-                        console.log('No results found');
-                    }
+            this.setAddress(this.latitude, this.longitude);
+        });
+    }
+
+    private setAddress(lat: any, lng: any): void {
+        this.markerLatitude = lat;
+        this.markerLongitude = lng;
+        const latLng = new google.maps.LatLng(lat, lng);
+        this.geocoder = new google.maps.Geocoder();
+        this.geocoder.geocode({ 'latLng': latLng } as google.maps.GeocoderRequest, (res, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (res[0]) {
+                    this.address = res[0].formatted_address;
+                    this.searchControl.setValue(res[0].formatted_address);
                 } else {
-                    console.log('Geocoder failed due to: ' + status);
+                    console.log('No results found');
                 }
-            });
+            } else {
+                console.log('Geocoder failed due to: ' + status);
+            }
         });
     }
 }

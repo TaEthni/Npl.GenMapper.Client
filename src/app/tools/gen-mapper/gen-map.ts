@@ -115,6 +115,12 @@ export class GenMap {
         this.removeNodeClick(node);
     }
 
+    public resize(): void {
+        this.svg
+            .attr('height', window.innerHeight)
+            .attr('width', window.innerWidth);
+    }
+
     public addNode(node: any): void {
         const newNodeData: any = {};
         this.template.fields.forEach((field: GMField) => {
@@ -237,6 +243,8 @@ export class GenMap {
         this.svg = d3.select(this.graphSvg.nativeElement)
             .call(this.zoom)
             .on('dblclick.zoom', null);
+
+        this.resize();
 
         this.g = this.svg
             .append('g')

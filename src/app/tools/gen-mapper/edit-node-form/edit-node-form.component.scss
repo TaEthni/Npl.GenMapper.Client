@@ -12,6 +12,11 @@
 
     .mat-form-field {
         width: 100%;
+
+        .clear-field {
+            margin-top: 5px;
+            color: mat-color($warn);
+        }
     }
 
     .control-input {

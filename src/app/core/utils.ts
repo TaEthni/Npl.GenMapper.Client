@@ -8,12 +8,12 @@ export namespace Utils {
     }
 
     export function disableDocumentScroll(): void {
-        document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
     }
 
     export function enableDocumentScroll(): void {
-        document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
+        document.body.style.position = '';
     }
 }

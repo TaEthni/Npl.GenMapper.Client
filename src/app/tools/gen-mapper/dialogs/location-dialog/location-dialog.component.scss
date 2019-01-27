@@ -2,18 +2,28 @@
 
 :host {
     @include dialog();
+    position: relative;
 
     agm-map {
-        height: 400px;
+        margin-top: -24px;
+        margin-left: -24px;
+        margin-right: -24px;
     }
 
-    .search-control {
-        width: 100%;
-        line-height: 24px;
-        margin-bottom: 24px;
+    .search-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
 
         input {
-            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            line-height: 1;
+            background-color: white;
+            width: calc(100% - 20px);;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
         }
     }
 }

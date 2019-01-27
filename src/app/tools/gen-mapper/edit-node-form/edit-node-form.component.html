@@ -71,6 +71,11 @@
                                        autocomplete="off"
                                        [placeholder]="field.localeLabel"
                                        [formControl]="form.get(field.header)" />
+
+                                <mat-icon matSuffix
+                                          class="clear-field"
+                                          (click)="onClearFieldClick($event, field)"
+                                          *ngIf="form.get(field.header).value">clear</mat-icon>
                             </mat-form-field>
                         </ng-container>
 
