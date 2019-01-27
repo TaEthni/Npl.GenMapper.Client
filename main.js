@@ -5422,6 +5422,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var i18next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! i18next */ "./node_modules/i18next/dist/es/index.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash-es/lodash.js");
 /* harmony import */ var _template_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./template-utils */ "./src/app/tools/gen-mapper/template-utils.ts");
+/* harmony import */ var _core_platform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/platform */ "./src/app/core/platform.ts");
+
 
 
 
@@ -5618,7 +5620,6 @@ var GenMap = /** @class */ (function () {
      * @private Map Drawing Methods
      */
     GenMap.prototype._createMap = function () {
-        var _this = this;
         this.zoom = d3__WEBPACK_IMPORTED_MODULE_0__["zoom"]()
             .scaleExtent([0.15, 2])
             .on('zoom', function () {
@@ -5626,10 +5627,10 @@ var GenMap = /** @class */ (function () {
         });
         this.svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.graphSvg.nativeElement)
             .call(this.zoom)
-            .on('dblclick.zoom', null)
-            .on('click', function (d) {
-            _this.unFocusAllNodes();
-        });
+            .on('dblclick.zoom', null);
+        // .on('click', (d) => {
+        //     this.unFocusAllNodes();
+        // });
         this.resize();
         this.g = this.svg
             .append('g')
@@ -5745,7 +5746,6 @@ var GenMap = /** @class */ (function () {
         });
         // UPDATE including NEW
         var nodeWithNew = node.merge(newGroup);
-        var self = this;
         nodeWithNew
             .attr('node-id', function (d) { return d.data.id; })
             .attr('class', function (d) {
@@ -5758,26 +5758,28 @@ var GenMap = /** @class */ (function () {
             d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
             _this.unFocusAllNodes();
             _this.focusNodeById(d.data.id);
-            // self.onNodeClick(d);
+            if (_core_platform__WEBPACK_IMPORTED_MODULE_4__["Device"].isDesktop) {
+                _this.onEditNodeClick(d);
+            }
         });
-        nodeWithNew
-            .select('.removeNode')
-            .on('click', function (d) {
-            d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
-            _this.onRemoveNodeClick(d);
-        });
-        nodeWithNew
-            .select('.addNode')
-            .on('click', function (d) {
-            d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
-            _this.onAddNodeClick(d);
-        });
-        nodeWithNew
-            .select('.editNode')
-            .on('click', function (d) {
-            d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
-            _this.onEditNodeClick(d);
-        });
+        // nodeWithNew
+        //     .select('.removeNode')
+        //     .on('click', (d) => {
+        //         d3.event.stopPropagation();
+        //         this.onRemoveNodeClick(d);
+        //     });
+        // nodeWithNew
+        //     .select('.addNode')
+        //     .on('click', (d) => {
+        //         d3.event.stopPropagation();
+        //         this.onAddNodeClick(d);
+        //     });
+        // nodeWithNew
+        //     .select('.editNode')
+        //     .on('click', (d) => {
+        //         d3.event.stopPropagation();
+        //         this.onEditNodeClick(d);
+        //     });
         // refresh class and attributes in SVG elements without fields
         // in order to remove any additional classes or settings from inherited fields
         Object.keys(this.template.svg).forEach(function (svgElement) {
@@ -7243,7 +7245,7 @@ var MapNameControlComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}1\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
+module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}2\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
 
 /***/ }),
 
