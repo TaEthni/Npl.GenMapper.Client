@@ -5620,6 +5620,7 @@ var GenMap = /** @class */ (function () {
      * @private Map Drawing Methods
      */
     GenMap.prototype._createMap = function () {
+        var _this = this;
         this.zoom = d3__WEBPACK_IMPORTED_MODULE_0__["zoom"]()
             .scaleExtent([0.15, 2])
             .on('zoom', function () {
@@ -5627,10 +5628,10 @@ var GenMap = /** @class */ (function () {
         });
         this.svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.graphSvg.nativeElement)
             .call(this.zoom)
-            .on('dblclick.zoom', null);
-        // .on('click', (d) => {
-        //     this.unFocusAllNodes();
-        // });
+            .on('dblclick.zoom', null)
+            .on('click', function (d) {
+            _this.unFocusAllNodes();
+        });
         this.resize();
         this.g = this.svg
             .append('g')
@@ -5762,24 +5763,24 @@ var GenMap = /** @class */ (function () {
                 _this.onEditNodeClick(d);
             }
         });
-        // nodeWithNew
-        //     .select('.removeNode')
-        //     .on('click', (d) => {
-        //         d3.event.stopPropagation();
-        //         this.onRemoveNodeClick(d);
-        //     });
-        // nodeWithNew
-        //     .select('.addNode')
-        //     .on('click', (d) => {
-        //         d3.event.stopPropagation();
-        //         this.onAddNodeClick(d);
-        //     });
-        // nodeWithNew
-        //     .select('.editNode')
-        //     .on('click', (d) => {
-        //         d3.event.stopPropagation();
-        //         this.onEditNodeClick(d);
-        //     });
+        nodeWithNew
+            .select('.removeNode')
+            .on('click', function (d) {
+            d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
+            _this.onRemoveNodeClick(d);
+        });
+        nodeWithNew
+            .select('.addNode')
+            .on('click', function (d) {
+            d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
+            _this.onAddNodeClick(d);
+        });
+        nodeWithNew
+            .select('.editNode')
+            .on('click', function (d) {
+            d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
+            _this.onEditNodeClick(d);
+        });
         // refresh class and attributes in SVG elements without fields
         // in order to remove any additional classes or settings from inherited fields
         Object.keys(this.template.svg).forEach(function (svgElement) {
@@ -5910,7 +5911,9 @@ function _appendAddButton(group, template) {
         .append('svg')
         .attr('y', template.settings.nodeActions.y + 32)
         .attr('x', template.settings.nodeActions.x)
-        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverAddChildGroup') + "</title>\n            </rect>\n            ");
+        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverAddChildGroup') + "</title>\n            </rect>\n\n            ");
+    // <line x1="5" y1="20" x2="20" y2="20" stroke="white" stroke-width="3"></line>
+    // <line x1="12.5" y1="12.5" x2="12.5" y2="27.5" stroke="white" stroke-width="3"></line>
     // <text x="16" y="32px" text-anchor="middle" fill="white" stroke="unset">
     //     <tspan class="material-icons" font-family="Material Icons" font-size="32px" style="font-size: 32px">
     //         add
@@ -7260,7 +7263,7 @@ var MapNameControlComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}4\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
+module.exports = "<mat-toolbar color=\"none\">\r\n    <button mat-mini-fab\r\n            (click)=\"onCreateDocument()\">\r\n        <mat-icon>add</mat-icon>\r\n    </button>\r\n    <div>\r\n        {{'documentsTitle' | locale | async}}5\r\n    </div>\r\n    <div fxFlex></div>\r\n</mat-toolbar>\r\n\r\n<div class=\"scroll-container\">\r\n    <app-gen-mapper-documents (select)=\"onSelectDocument($event)\"\r\n                              [document]=\"document\"\r\n                              [documents]=\"documents\"\r\n                              [documentId]=\"document?.id\"></app-gen-mapper-documents>\r\n</div>\r\n"
 
 /***/ }),
 
