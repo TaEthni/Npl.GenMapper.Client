@@ -5527,6 +5527,7 @@ var GenMap = /** @class */ (function () {
         newNodeData['parentId'] = node.data.id;
         this.data.push(newNodeData);
         this.redraw();
+        this.focusNodeById(newNodeData.id);
     };
     GenMap.prototype.updateNode = function (newData) {
         var nodeToUpdate = this.data.find(function (d) { return d.id === newData.id; });
@@ -5925,7 +5926,7 @@ function _appendRemoveButton(group, template) {
         .append('svg')
         .attr('y', template.settings.nodeActions.y + 64)
         .attr('x', template.settings.nodeActions.x)
-        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverDeleteGroupAndSubtree') + "</title>\n            </rect>\n            ");
+        .html("\n            <rect x=\"0\" y=\"0\" rx=\"7\" width=\"32\" height=\"32\">\n            <title>" + i18next__WEBPACK_IMPORTED_MODULE_1__["default"].t('editGroup.hoverDeleteGroupAndSubtree') + "</title>\n            </rect>\n            <path style=\"transform: translate(4px, 4px)\"\n                fill=\"white\"\n                d=\"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z\"/>\n            ");
     // <text x="16" y="28px" text-anchor="middle" fill="white" stroke="unset">
     //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
     //         delete
