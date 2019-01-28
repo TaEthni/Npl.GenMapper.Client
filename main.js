@@ -8021,6 +8021,35 @@ var ChurchCirclesTemplate = {
             }
         },
         {
+            'header': 'place',
+            'initialTranslationCode': 'initialPlace',
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': movePlace
+                },
+            }
+        },
+        {
+            'header': 'location',
+            'initial': '',
+            'type': 'geoLocation'
+        },
+        {
+            'header': 'date',
+            'initialTranslationCode': 'initialDate',
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': moveDate
+                }
+            }
+        },
+        {
             'header': 'email',
             'initial': null,
             'type': 'text'
@@ -8256,35 +8285,6 @@ var ChurchCirclesTemplate = {
                     'width': boxHeight / 4,
                     'height': boxHeight / 4,
                     'xlink:href': 'assets/church-circles/icons/element-make-disciples.png'
-                }
-            }
-        },
-        {
-            'header': 'place',
-            'initialTranslationCode': 'initialPlace',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': movePlace
-                },
-            }
-        },
-        {
-            'header': 'location',
-            'initial': '',
-            'type': 'geoLocation'
-        },
-        {
-            'header': 'date',
-            'initialTranslationCode': 'initialDate',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': moveDate
                 }
             }
         },
