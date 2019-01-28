@@ -8829,8 +8829,8 @@ var translations = {
                 'notAvailable': 'N/A',
                 'hoverDeleteGroupAndSubtree': 'Delete group &amp; subtree',
                 'hoverAddChildGroup': 'Add child group',
-                'hoverCopyNode': 'Copy Node',
-                'hoverPasteNode': 'Paste Node'
+                'hoverCopyNode': 'Copy',
+                'hoverPasteNode': 'Paste'
             },
             'errors': {
                 'requiredField': 'This field is required',
