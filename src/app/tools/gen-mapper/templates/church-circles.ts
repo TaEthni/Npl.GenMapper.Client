@@ -28,199 +28,11 @@ export const ChurchCirclesTemplate = {
     'title': 'Church Circles',
     'name': 'church-circles',
     'format': 'churchCircles',
-    'translations': {
-        en: {
-            translation: {
-                'churchCircles': {
-                    'translationLabel': 'English',
-                    // tslint:disable-next-line:max-line-length
-                    'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legend</h3><p>Each circle represents a group / church. Dashed circle means group, full circle means church.<br>On the top the numbers describe: # total, # believers, # baptized<br>Inside the circle are the elements that are practiced in the group.<br>On the left there numbers 1 to 7 represent which elements of 3/3 process are practised:<br>1 - Personal care<br>2 - Worship<br>3 - Accountability<br>4 - Vision casting<br>5 - Bible study<br>6 - Practice<br>7 - Set goals and prayer</p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
-                    'name': 'Church Name',
-                    'leaderName': 'Leader\'s Name',
-                    'email': 'Email',
-                    'newGeneration': 'New Generation',
-                    'peopleGroup': 'People Group',
-                    'attenders': '# of Attenders',
-                    'believers': '# of Believers',
-                    'baptized': '# of Baptized',
-                    'newlyBaptized': '# of New Baptized (since church start)',
-                    'church': 'Is church?',
-                    'churchType': 'Church Type',
-                    'legacy': 'Legacy',
-                    'existingBelievers': 'Existing Believers',
-                    'newBelievers': 'New Believers',
-                    'elementBaptism': 'Element: Baptism',
-                    'elementWord': 'Element: God\'s Word',
-                    'elementPrayer': 'Element: Prayer',
-                    'elementLordsSupper': 'Element: Lord\'s supper',
-                    'elementGive': 'Element: Giving',
-                    'elementLove': 'Element: Love',
-                    'elementWorship': 'Element: Worship',
-                    'elementLeaders': 'Element: Leaders',
-                    'elementMakeDisciples': 'Element: Make disciples',
-                    'place': 'Place (City, State, Country)',
-                    'location': 'Geo Location',
-                    'date': 'Date of Start (Ex. 2017-01)',
-                    'threeThirds': 'Elements of 3/3 process (see help for details)',
-                    'active': 'Active',
-                    'inactiveReason': 'Reason for being inactive',
-                    'initialLeadersName': 'Leader\'s Name',
-                    'initialPlace': 'Place',
-                    'initialDate': 'Date',
-                    'threeThirdsPastoralCare': 'Pastoral Care',
-                    'threeThirdsWorship': 'Worship',
-                    'threeThirdsAccountability': 'Accountability',
-                    'threeThirdsVisionCasting': 'Vision Casting',
-                    'threeThirdsBibleTeaching': 'Bible Teaching',
-                    'threeThirdsPractice': 'Practice',
-                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
-                }
-            }
-        },
-        de: {
-            translation: {
-                'churchCircles': {
-                    'translationLabel': 'Deutsch',
-                    'name': 'Name der Kirche',
-                    'leaderName': 'Leiter',
-                    'peopleGroup': 'Sprache / Subkultur',
-                    'attenders': 'Anzahl Teilnehmer',
-                    'believers': 'Anzahl Gläubige',
-                    'baptized': 'Anzahl Getaufte',
-                    'newlyBaptized': 'Anzahl frisch Getaufte (seit Gemeindestart)',
-                    'church': 'Ist Gemeinde?',
-                    'churchType': 'Gemeinde-Typ',
-                    'legacy': 'Traditionell',
-                    'email': 'Bemerkungen',
-                    'existingBelievers': 'Länger Gläubige',
-                    'newGeneration': 'Generation',
-                    'newBelievers': 'Neue Gläubige',
-                    'elementBaptism': 'Element: Taufe',
-                    'elementWord': 'Element: Lehre',
-                    'elementPrayer': 'Element: Gebet',
-                    'elementLordsSupper': 'Element: Abendmahl',
-                    'elementGive': 'Element: Geben',
-                    'elementLove': 'Element: Gemeinschaft',
-                    'elementWorship': 'Element: Lobpreis',
-                    'elementLeaders': 'Element: Leiter',
-                    'elementMakeDisciples': 'Element: Multiplikation',
-                    'place': 'Ort (Stadt, Region, Land)',
-                    'location': 'Adresse',
-                    'date': 'Startdatum (z.B. 2017-01)',
-                    'threeThirds': 'Elemente des 3/3-Prozesses (siehe Hilfe für mehr Informationen)',
-                    'active': 'aktiv',
-                    'inactiveReason': 'Grund inaktiv zu sein',
-                    'initialLeadersName': 'Leiter',
-                    'initialPlace': 'Ort',
-                    'initialDate': 'Datum',
-                    'threeThirdsPastoralCare': 'Pastoral Care',
-                    'threeThirdsWorship': 'Worship',
-                    'threeThirdsAccountability': 'Accountability',
-                    'threeThirdsVisionCasting': 'Vision Casting',
-                    'threeThirdsBibleTeaching': 'Bible Teaching',
-                    'threeThirdsPractice': 'Practice',
-                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
-                }
-            }
-        },
-        es: {
-            translation: {
-                'churchCircles': {
-                    'translationLabel': 'Español',
-                    'name': 'Nombre de la iglesia',
-                    'leaderName': 'Nombre de lider',
-                    'inactiveReason': 'Razón para estar inactivo',
-                    'initialLeadersName': 'Nombre de lider',
-                    'email': 'Email',
-                    'peopleGroup': 'Etnia',
-                    'attenders': '# of participantes',
-                    'believers': '# of creyentes',
-                    'baptized': '# of bautizados',
-                    'newlyBaptized': '# of nuevos bautizados (desde inicio de iglesia)',
-                    'church': 'Iglesia?',
-                    'churchType': 'Tipo de Iglesia',
-                    'legacy': 'Tradicional',
-                    'newGeneration': 'Generacion',
-                    'existingBelievers': 'Creyentes existentes',
-                    'newBelievers': 'Nuevos creyentes',
-                    'elementBaptism': 'Elemento: Bautismo',
-                    'elementWord': 'Elemento: Biblia',
-                    'elementPrayer': 'Elemento: Oración',
-                    'elementLordsSupper': 'Elemento: Santa Cena',
-                    'elementGive': 'Elemento: Dar/Generosidad',
-                    'elementLove': 'Elemento: Amor',
-                    'elementWorship': 'Elemento: Adorar',
-                    'elementLeaders': 'Elemento: Lider',
-                    'elementMakeDisciples': 'Elemento: Hacer discípulos',
-                    'place': 'Lugar (Ciudad, Provincia, Pais):',
-                    'location': 'Ubicación geográfica',
-                    'initialPlace': 'Lugar',
-                    'date': 'Fecha de Inicio (Ex. 2017-01)',
-                    'initialDate': 'Fecha',
-                    'threeThirds': 'Elementos del proceso de 3/3  (Ver ayuda para detalles):',
-                    'active': 'Activo',
-                    'threeThirdsPastoralCare': 'Pastoral Care',
-                    'threeThirdsWorship': 'Worship',
-                    'threeThirdsAccountability': 'Accountability',
-                    'threeThirdsVisionCasting': 'Vision Casting',
-                    'threeThirdsBibleTeaching': 'Bible Teaching',
-                    'threeThirdsPractice': 'Practice',
-                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
-                }
-            }
-        },
-        cs: {
-            translation: {
-                'churchCircles': {
-                    'translationLabel': 'Čeština',
-                    'name': 'Název církve',
-                    'leaderName': 'Jméno vedoucího',
-                    'email': 'Email',
-                    'newGeneration': 'Generace',
-                    'peopleGroup': 'Etnikum',
-                    'attenders': 'Počet účastníků',
-                    'believers': 'Počet věřících',
-                    'baptized': 'Počet pokřtěných',
-                    'newlyBaptized': 'Počet nově pokřtěných (od začátku skupiny)',
-                    'church': 'Je církev/Boží rodina?',
-                    'churchType': 'Typ církve',
-                    'legacy': 'Tradiční',
-                    'existingBelievers': 'Existující věřící',
-                    'newBelievers': 'Noví věřící',
-                    'elementBaptism': 'Prvek: Křest',
-                    'elementWord': 'Prvek: Boží Slovo',
-                    'elementPrayer': 'Prvek: Modlitba',
-                    'elementLordsSupper': 'Prvek: Připomínka Ježíšovy oběti',
-                    'elementGive': 'Prvek: Dávání',
-                    'elementLove': 'Prvek: Láska',
-                    'elementWorship': 'Prvek: Oslava Ježíše',
-                    'elementLeaders': 'Prvek: Vedoucí',
-                    'elementMakeDisciples': 'Prvek: Činění učedníků',
-                    'place': 'Místo',
-                    'location': 'Geo Umístění',
-                    'date': 'Datum začátku (např. 2017-01)',
-                    'threeThirds': 'Prvky 3/3 (viz nápovědu pro více info)',
-                    'active': 'Aktivní',
-                    'inactiveReason': 'Důvod, proč jsou neaktivní',
-                    'initialLeadersName': 'Jméno',
-                    'initialPlace': 'Místo',
-                    'initialDate': 'Datum',
-                    'threeThirdsPastoralCare': 'Vzájmená péče',
-                    'threeThirdsWorship': 'Oslava Ježíše',
-                    'threeThirdsAccountability': 'Návrat / Vykazatelnost',
-                    'threeThirdsVisionCasting': 'Vize',
-                    'threeThirdsBibleTeaching': 'Bible',
-                    'threeThirdsPractice': 'Procvičování',
-                    'threeThirdsGoalSetting': 'Akční kroky a modlitba',
-                }
-            }
-        }
-    },
     'settings': {
         'boxHeight': boxHeight,
         'nodeActions': {
             'x': boxHeight / 2,
-            'y': 10
+            'y': 0
         },
         'nodeSize': {
             'width': boxHeight * 1.5,
@@ -298,6 +110,18 @@ export const ChurchCirclesTemplate = {
             'type': 'checkbox'
         },
         {
+            'header': 'active',
+            'initial': true,
+            'type': 'checkbox'
+            // svg defined currently in genmapper.js
+        },
+        {
+            'header': 'inactiveReason',
+            'initial': '',
+            'type': 'textarea',
+            'dependsOnFalseField': 'active'
+        },
+        {
             'header': 'name',
             'initial': '',
             'type': 'text',
@@ -318,6 +142,35 @@ export const ChurchCirclesTemplate = {
                 'attributes': {
                     'x': 0,
                     'y': moveLeaderName
+                }
+            }
+        },
+        {
+            'header': 'place',
+            'initialTranslationCode': 'initialPlace',
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': movePlace
+                },
+            }
+        },
+        {
+            'header': 'location',
+            'initial': '',
+            'type': 'geoLocation'
+        },
+        {
+            'header': 'date',
+            'initialTranslationCode': 'initialDate',
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': moveDate
                 }
             }
         },
@@ -561,35 +414,6 @@ export const ChurchCirclesTemplate = {
             }
         },
         {
-            'header': 'place',
-            'initialTranslationCode': 'initialPlace',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': movePlace
-                },
-            }
-        },
-        {
-            'header': 'location',
-            'initial': '',
-            'type': 'geoLocation'
-        },
-        {
-            'header': 'date',
-            'initialTranslationCode': 'initialDate',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': moveDate
-                }
-            }
-        },
-        {
             'header': 'threeThirds',
             'initial': ['1', '2', '3', '4', '5', '6', '7'],
             'type': 'multiSelect',
@@ -615,18 +439,194 @@ export const ChurchCirclesTemplate = {
                     'letter-spacing': '0.35em'
                 }
             }
+        }
+    ],
+    'translations': {
+        en: {
+            translation: {
+                'churchCircles': {
+                    'translationLabel': 'English',
+                    // tslint:disable-next-line:max-line-length
+                    'helpLegend': '<img src="assets/church-circles/genmapper-node-example-church-circles.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legend</h3><p>Each circle represents a group / church. Dashed circle means group, full circle means church.<br>On the top the numbers describe: # total, # believers, # baptized<br>Inside the circle are the elements that are practiced in the group.<br>On the left there numbers 1 to 7 represent which elements of 3/3 process are practised:<br>1 - Personal care<br>2 - Worship<br>3 - Accountability<br>4 - Vision casting<br>5 - Bible study<br>6 - Practice<br>7 - Set goals and prayer</p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
+                    'name': 'Church Name',
+                    'leaderName': 'Leader\'s Name',
+                    'email': 'Email',
+                    'newGeneration': 'New Generation',
+                    'peopleGroup': 'People Group',
+                    'attenders': '# of Attenders',
+                    'believers': '# of Believers',
+                    'baptized': '# of Baptized',
+                    'newlyBaptized': '# of New Baptized (since church start)',
+                    'church': 'Is church?',
+                    'churchType': 'Church Type',
+                    'legacy': 'Legacy',
+                    'existingBelievers': 'Existing Believers',
+                    'newBelievers': 'New Believers',
+                    'elementBaptism': 'Element: Baptism',
+                    'elementWord': 'Element: God\'s Word',
+                    'elementPrayer': 'Element: Prayer',
+                    'elementLordsSupper': 'Element: Lord\'s supper',
+                    'elementGive': 'Element: Giving',
+                    'elementLove': 'Element: Love',
+                    'elementWorship': 'Element: Worship',
+                    'elementLeaders': 'Element: Leaders',
+                    'elementMakeDisciples': 'Element: Make disciples',
+                    'place': 'Place (City, State, Country)',
+                    'location': 'Geo Location',
+                    'date': 'Date of Start (Ex. 2017-01)',
+                    'threeThirds': 'Elements of 3/3 process (see help for details)',
+                    'active': 'Active',
+                    'inactiveReason': 'Reason for being inactive',
+                    'initialLeadersName': 'Leader\'s Name',
+                    'initialPlace': 'Place',
+                    'initialDate': 'Date',
+                    'threeThirdsPastoralCare': 'Pastoral Care',
+                    'threeThirdsWorship': 'Worship',
+                    'threeThirdsAccountability': 'Accountability',
+                    'threeThirdsVisionCasting': 'Vision Casting',
+                    'threeThirdsBibleTeaching': 'Bible Teaching',
+                    'threeThirdsPractice': 'Practice',
+                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
+                }
+            }
         },
-        {
-            'header': 'active',
-            'initial': true,
-            'type': 'checkbox'
-            // svg defined currently in genmapper.js
+        de: {
+            translation: {
+                'churchCircles': {
+                    'translationLabel': 'Deutsch',
+                    'name': 'Name der Kirche',
+                    'leaderName': 'Leiter',
+                    'peopleGroup': 'Sprache / Subkultur',
+                    'attenders': 'Anzahl Teilnehmer',
+                    'believers': 'Anzahl Gläubige',
+                    'baptized': 'Anzahl Getaufte',
+                    'newlyBaptized': 'Anzahl frisch Getaufte (seit Gemeindestart)',
+                    'church': 'Ist Gemeinde?',
+                    'churchType': 'Gemeinde-Typ',
+                    'legacy': 'Traditionell',
+                    'email': 'Bemerkungen',
+                    'existingBelievers': 'Länger Gläubige',
+                    'newGeneration': 'Generation',
+                    'newBelievers': 'Neue Gläubige',
+                    'elementBaptism': 'Element: Taufe',
+                    'elementWord': 'Element: Lehre',
+                    'elementPrayer': 'Element: Gebet',
+                    'elementLordsSupper': 'Element: Abendmahl',
+                    'elementGive': 'Element: Geben',
+                    'elementLove': 'Element: Gemeinschaft',
+                    'elementWorship': 'Element: Lobpreis',
+                    'elementLeaders': 'Element: Leiter',
+                    'elementMakeDisciples': 'Element: Multiplikation',
+                    'place': 'Ort (Stadt, Region, Land)',
+                    'location': 'Adresse',
+                    'date': 'Startdatum (z.B. 2017-01)',
+                    'threeThirds': 'Elemente des 3/3-Prozesses (siehe Hilfe für mehr Informationen)',
+                    'active': 'aktiv',
+                    'inactiveReason': 'Grund inaktiv zu sein',
+                    'initialLeadersName': 'Leiter',
+                    'initialPlace': 'Ort',
+                    'initialDate': 'Datum',
+                    'threeThirdsPastoralCare': 'Pastoral Care',
+                    'threeThirdsWorship': 'Worship',
+                    'threeThirdsAccountability': 'Accountability',
+                    'threeThirdsVisionCasting': 'Vision Casting',
+                    'threeThirdsBibleTeaching': 'Bible Teaching',
+                    'threeThirdsPractice': 'Practice',
+                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
+                }
+            }
         },
-        {
-            'header': 'inactiveReason',
-            'initial': '',
-            'type': 'textarea',
-            'dependsOnFalseField': 'active'
+        es: {
+            translation: {
+                'churchCircles': {
+                    'translationLabel': 'Español',
+                    'name': 'Nombre de la iglesia',
+                    'leaderName': 'Nombre de lider',
+                    'inactiveReason': 'Razón para estar inactivo',
+                    'initialLeadersName': 'Nombre de lider',
+                    'email': 'Email',
+                    'peopleGroup': 'Etnia',
+                    'attenders': '# of participantes',
+                    'believers': '# of creyentes',
+                    'baptized': '# of bautizados',
+                    'newlyBaptized': '# of nuevos bautizados (desde inicio de iglesia)',
+                    'church': 'Iglesia?',
+                    'churchType': 'Tipo de Iglesia',
+                    'legacy': 'Tradicional',
+                    'newGeneration': 'Generacion',
+                    'existingBelievers': 'Creyentes existentes',
+                    'newBelievers': 'Nuevos creyentes',
+                    'elementBaptism': 'Elemento: Bautismo',
+                    'elementWord': 'Elemento: Biblia',
+                    'elementPrayer': 'Elemento: Oración',
+                    'elementLordsSupper': 'Elemento: Santa Cena',
+                    'elementGive': 'Elemento: Dar/Generosidad',
+                    'elementLove': 'Elemento: Amor',
+                    'elementWorship': 'Elemento: Adorar',
+                    'elementLeaders': 'Elemento: Lider',
+                    'elementMakeDisciples': 'Elemento: Hacer discípulos',
+                    'place': 'Lugar (Ciudad, Provincia, Pais):',
+                    'location': 'Ubicación geográfica',
+                    'initialPlace': 'Lugar',
+                    'date': 'Fecha de Inicio (Ex. 2017-01)',
+                    'initialDate': 'Fecha',
+                    'threeThirds': 'Elementos del proceso de 3/3  (Ver ayuda para detalles):',
+                    'active': 'Activo',
+                    'threeThirdsPastoralCare': 'Pastoral Care',
+                    'threeThirdsWorship': 'Worship',
+                    'threeThirdsAccountability': 'Accountability',
+                    'threeThirdsVisionCasting': 'Vision Casting',
+                    'threeThirdsBibleTeaching': 'Bible Teaching',
+                    'threeThirdsPractice': 'Practice',
+                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
+                }
+            }
         },
-    ]
+        cs: {
+            translation: {
+                'churchCircles': {
+                    'translationLabel': 'Čeština',
+                    'name': 'Název církve',
+                    'leaderName': 'Jméno vedoucího',
+                    'email': 'Email',
+                    'newGeneration': 'Generace',
+                    'peopleGroup': 'Etnikum',
+                    'attenders': 'Počet účastníků',
+                    'believers': 'Počet věřících',
+                    'baptized': 'Počet pokřtěných',
+                    'newlyBaptized': 'Počet nově pokřtěných (od začátku skupiny)',
+                    'church': 'Je církev/Boží rodina?',
+                    'churchType': 'Typ církve',
+                    'legacy': 'Tradiční',
+                    'existingBelievers': 'Existující věřící',
+                    'newBelievers': 'Noví věřící',
+                    'elementBaptism': 'Prvek: Křest',
+                    'elementWord': 'Prvek: Boží Slovo',
+                    'elementPrayer': 'Prvek: Modlitba',
+                    'elementLordsSupper': 'Prvek: Připomínka Ježíšovy oběti',
+                    'elementGive': 'Prvek: Dávání',
+                    'elementLove': 'Prvek: Láska',
+                    'elementWorship': 'Prvek: Oslava Ježíše',
+                    'elementLeaders': 'Prvek: Vedoucí',
+                    'elementMakeDisciples': 'Prvek: Činění učedníků',
+                    'place': 'Místo',
+                    'location': 'Geo Umístění',
+                    'date': 'Datum začátku (např. 2017-01)',
+                    'threeThirds': 'Prvky 3/3 (viz nápovědu pro více info)',
+                    'active': 'Aktivní',
+                    'inactiveReason': 'Důvod, proč jsou neaktivní',
+                    'initialLeadersName': 'Jméno',
+                    'initialPlace': 'Místo',
+                    'initialDate': 'Datum',
+                    'threeThirdsPastoralCare': 'Vzájmená péče',
+                    'threeThirdsWorship': 'Oslava Ježíše',
+                    'threeThirdsAccountability': 'Návrat / Vykazatelnost',
+                    'threeThirdsVisionCasting': 'Vize',
+                    'threeThirdsBibleTeaching': 'Bible',
+                    'threeThirdsPractice': 'Procvičování',
+                    'threeThirdsGoalSetting': 'Akční kroky a modlitba',
+                }
+            }
+        }
+    }
 };

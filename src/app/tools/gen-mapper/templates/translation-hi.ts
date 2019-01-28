@@ -36,7 +36,7 @@ export const hi_translation = {
     'noSavedDocuments': 'You have no saved documents!',
     'notFound': 'Not Found',
     'selectADocument': 'Please select a document',
-    'signInToSaveDocuments': 'Please sign in to save documents.',
+    'pleaseLoginIn': 'Please sign in to save documents.',
     'tools': 'Tools',
     'underMaintenance': 'underMaintenance',
     'nodeHasBeenReplaces': 'Node has been replaced',
@@ -69,8 +69,8 @@ export const hi_translation = {
         'notAvailable': 'N/A',
         'hoverDeleteGroupAndSubtree': 'Delete group &amp; subtree',
         'hoverAddChildGroup': 'Add child group',
-        'hoverCopyNode': 'Copy Node',
-        'hoverPasteNode': 'Paste Node'
+        'copyNodeButton': 'Copy Node',
+        'pasteNodeButton': 'Paste Node'
     },
     'errors': {
         'requiredField': 'This field is required',

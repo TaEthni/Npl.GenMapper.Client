@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
@@ -8,8 +8,11 @@ import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-d
 import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
-import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
+import { cloneDeep } from 'lodash';
+import { NodeClipboardService } from '../node-clipboard.service';
 
 @Component({
     selector: 'app-gen-mapper',
@@ -17,13 +20,18 @@ import { GenMapperService } from '../gen-mapper.service';
     styleUrls: ['./gen-mapper.component.scss']
 })
 export class GenMapperComponent extends Unsubscribable implements OnInit {
-    public documents: DocumentDto[];
-    public document: DocumentDto;
+    @ViewChild(GenMapperGraphComponent)
+    public genMapperGraph: GenMapperGraphComponent;
+
     public template: GMTemplate;
+    public node: GNode;
+    public document: DocumentDto;
+    public documents: DocumentDto[];
     public isAuthenticated: boolean;
 
     constructor(
         private authService: AuthenticationService,
+        private nodeClipboard: NodeClipboardService,
         private genMapper: GenMapperService,
         private route: ActivatedRoute,
         private router: Router,
@@ -45,6 +53,12 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                 }
             });
 
+        this.genMapper.getNode()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.node = result;
+            });
+
         this.genMapper.getConfig()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
@@ -56,6 +70,30 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         this.document.nodes = nodes;
         this.genMapper.updateDocument(this.document)
             .subscribe(result => { console.log('updated'); });
+    }
+
+    public onNodeClick(node: GNode): void {
+        this.genMapper.setNode(node);
+    }
+
+    public onUpdateNode(node: GNode): void {
+        this.genMapperGraph.graph.updateNode(node);
+    }
+
+    public onCopyNode(node: GNode): void {
+        this.genMapperGraph.copyNode(node);
+    }
+
+    public onPasteNode(node: GNode): void {
+        this.genMapperGraph.pasteNode(node);
+    }
+
+    public onImportSubtree(content: string): void {
+        this.genMapperGraph.importSubtree(this.node, content);
+    }
+
+    public onPrint(printType: PrintType): void {
+        this.genMapperGraph.graph.printMap(printType);
     }
 
     public onCreateDocument(): void {
@@ -77,6 +115,12 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                     this.createDocument(result);
                 }
             });
+    }
+
+    public onNodeDrawerOpenChanged(opened: boolean): void {
+        if (!opened) {
+            this.genMapper.setNode(null);
+        }
     }
 
     private createDocument(doc?: DocumentDto): void {

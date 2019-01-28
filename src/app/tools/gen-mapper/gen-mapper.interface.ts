@@ -2,6 +2,12 @@
 export interface GNode {
     id: string;
     parentId: string;
+
+    active: boolean;
+    inactiveReason: string;
+
+    // Only set on node click from d3 node.descendants();
+    descendants?: GNode[];
 }
 
 export interface GMSvg {
@@ -44,4 +50,10 @@ export interface GMTemplate {
 export interface GMGraphConfig {
     parentElement?: HTMLElement;
     outerHeaderHeight?: number;
+}
+
+
+export enum PrintType {
+    horizontal = 'horizontal',
+    vertical = 'vertical'
 }

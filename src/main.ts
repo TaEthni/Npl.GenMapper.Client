@@ -9,6 +9,8 @@ import { ChurchCirclesTemplate } from './app/tools/gen-mapper/templates/church-c
 import { FourFieldsTemplate } from './app/tools/gen-mapper/templates/four-fields';
 import { translations } from './app/tools/gen-mapper/templates/translations';
 import { environment } from './environments/environment';
+import { Device } from '@core/platform';
+import { Browser } from '@core/browser';
 
 if (environment.production) {
     enableProdMode();
@@ -24,4 +26,8 @@ i18next
     });
 
 platformBrowserDynamic().bootstrapModule(AppModule)
+    .then(() => {
+        Device.setClassList(document.documentElement);
+        Browser.setClassList(document.documentElement);
+    })
     .catch(err => console.log(err));

@@ -302,8 +302,28 @@
         // height: 100%;
     }
 
+    .node--active text, .link-text--active {
+        stroke: black;
+        fill: black;
+    }
+
+    .node--inactive text, .link-text--inactive {
+        stroke: #000;
+        fill: #000;
+        opacity: 0.4;
+    }
+
+    .node--inactive image {
+        opacity: 0.4;
+    }
+
+    .node--inactive > rect, .node--inactive > line {
+        stroke: #ddd !important;
+    }
+
     g.addNode,
     g.removeNode,
+    g.editNode,
     g.copyNode,
     g.pasteNode {
         display: none;
@@ -315,6 +335,15 @@
 
         &:hover {
             opacity: 1;
+        }
+    }
+
+    .addNode,
+    .editNode,
+    .removeNode {
+        text {
+            fill: white;
+            stroke: unset;
         }
     }
 
@@ -331,6 +360,12 @@
     }
 
     .copyNode {
+        rect {
+            fill: $gray;
+        }
+    }
+
+    .editNode {
         rect {
             fill: $gray;
         }
@@ -355,36 +390,37 @@
         }
     }
 
-    .node:hover > rect, .node:hover > line {
-        fill: lightskyblue;
-    }
 
-    .node:hover {
-        g.addNode,
-        g.removeNode,
-        g.copyNode,
-        g.pasteNode {
-            display: block;
+    .device-desktop & {
+        .node:hover > rect, .node:hover > line {
+            fill: lightskyblue;
+        }
+
+        .node:hover {
+            g.addNode,
+            g.editNode,
+            g.copyNode,
+            g.removeNode,
+            g.pasteNode {
+                display: block;
+            }
         }
     }
 
-    .node--active text, .link-text--active {
-        stroke: black;
-        fill: black;
-    }
+    .node.is-focused {
 
-    .node--inactive text, .link-text--inactive {
-        stroke: #000;
-        fill: #000;
-        opacity: 0.4;
-    }
+        > rect,
+        > line {
+            fill: lightskyblue;
+        }
 
-    .node--inactive image {
-        opacity: 0.4;
-    }
-
-    .node--inactive > rect, .node--inactive > line {
-        stroke: #ddd !important;
+        g.addNode,
+        g.editNode,
+        g.copyNode,
+        g.removeNode,
+        g.pasteNode {
+            display: block;
+        }
     }
 
     .link {
@@ -398,6 +434,7 @@
 
         &.new-generation {
             stroke: red;
+            fill: red;
         }
     }
 

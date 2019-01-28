@@ -3,6 +3,7 @@
 :host {
     display: flex;
     flex-direction: column;
+    padding: 16px;
 
     input {
         font-size: 16px;
@@ -16,6 +17,14 @@
         .clear-field {
             margin-top: 5px;
             color: mat-color($warn);
+        }
+    }
+
+    .mat-slide-toggle::ng-deep {
+        width: 100%;
+
+        .mat-slide-toggle-content {
+            flex: 1;
         }
     }
 
@@ -41,7 +50,11 @@
         label.mat-form-field-label,
         input:disabled {
             cursor: pointer;
-            color: mat-color($accent, darker);
+            color: mat-color($primary);
+        }
+
+        .location-icon {
+            color: mat-color($primary);
         }
     }
 

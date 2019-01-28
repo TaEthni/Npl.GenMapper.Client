@@ -1,16 +1,49 @@
 @import '~styles/colors';
 
 :host {
-    display: flex;
-    flex: 1;
+    display: block;
+
+    mat-drawer-container {
+        z-index: unset;
+    }
+
+    mat-drawer {
+        width: 80vw;
+
+        @media screen and (min-width: 768px) {
+            width: 400px;
+        }
+    }
+
+    app-map-name-control {
+        position: absolute;
+        top: 0;
+        left: 62px;
+        right: 62px;
+        margin: 16px 0;
+        z-index: 2;
+        backface-visibility: hidden;
+    }
+
+    app-map-menu-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 16px;
+        z-index: 2;
+        backface-visibility: hidden;
+    }
 
      .empty-state {
-         margin-top: 100px;
 
         h1 {
-            font-size: 36px;
+            text-align: center;
+            font-size: 24px;
             font-weight: normal;
-            margin-bottom: 50px;
+        }
+
+        .login-link {
+            margin-bottom: 24px;
         }
 
         .mat-icon {
@@ -19,6 +52,10 @@
             height: 200px;
             width: 200px;
             user-select: none;
+
+            &.warn {
+                color: rgba(mat-color($warn), 0.3);
+            }
         }
     }
 

@@ -9,23 +9,7 @@
         left: 0;
         margin: 16px;
         z-index: 2;
-    }
-
-    app-map-name-control {
-        position: absolute;
-        top: 0;
-        left: 62px;
-        right: 62px;
-        margin: 16px 0;
-        z-index: 2;
-    }
-
-    app-map-menu-button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 16px;
-        z-index: 2;
+        backface-visibility: hidden;
     }
 
     .map-sidenav-toggle {
@@ -34,10 +18,31 @@
         left: 0;
         margin: 16px;
         z-index: 2;
+        backface-visibility: hidden;
+    }
+
+    .map-sidenav-hint {
+        user-select: none;
+        position: absolute;
+        backface-visibility: hidden;
+        bottom: 12px;
+        left: 62px;
+        margin: 16px;
+        z-index: 2;
+        color: mat-color($accent);
+        font-weight: 600;
     }
 
     mat-drawer {
         &.map-sidenav {
+            width: 75vw;
+
+            @media screen and (min-width: 768px) {
+                width: 400px;
+            }
+        }
+
+        &.node-drawer {
             width: 75vw;
 
             @media screen and (min-width: 768px) {

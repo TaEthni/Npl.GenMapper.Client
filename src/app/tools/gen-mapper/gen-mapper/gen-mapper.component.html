@@ -1,9 +1,36 @@
-<ng-container *ngIf="document; then genMapperGraph else emptyState"></ng-container>
+<mat-drawer-container (backdropClick)="nodeDrawer.onBackdropClick()">
+    <mat-drawer position="end"
+                fxLayout="column"
+                class="node-drawer"
+                (openedChange)="onNodeDrawerOpenChanged($event)">
+        <app-node-drawer #nodeDrawer
+                         [documents]="documents"
+                         [document]="document"
+                         [template]="template"
+                         [node]="node"
+                         (copyNode)="onCopyNode($event)"
+                         (pasteNode)="onPasteNode($event)"
+                         (updateNode)="onUpdateNode($event)"
+                         (importSubtree)="onImportSubtree($event)"></app-node-drawer>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <ng-container *ngIf="document; then genMapperGraph else emptyState"></ng-container>
+    </mat-drawer-content>
+</mat-drawer-container>
+
 <ng-template #genMapperGraph>
+    <ng-container *ngIf="document">
+        <app-map-name-control></app-map-name-control>
+        <app-map-menu-button [document]="document"
+                             [template]="template"
+                             (print)="onPrint($event)"></app-map-menu-button>
+    </ng-container>
     <app-gen-mapper-graph class="{{template.name}}"
                           (change)="onGraphChange($event)"
                           [document]="document"
-                          [template]="template"></app-gen-mapper-graph>
+                          [template]="template"
+                          (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
 </ng-template>
 <ng-template #emptyState>
     <div class="empty-state"
@@ -11,9 +38,8 @@
          fxLayout="column"
          fxLayoutAlign="center center">
 
-
         <div>
-            <mat-icon>warning</mat-icon>
+            <mat-icon [class.warn]="!isAuthenticated">warning</mat-icon>
         </div>
 
         <ng-container *ngIf="isAuthenticated">
@@ -31,11 +57,20 @@
         </ng-container>
 
         <ng-container *ngIf="!isAuthenticated">
-            <h1 i18n="en-Please_log_in_to_save_documents">
-                {{'signInToSaveDocuments' | locale | async}}
-            </h1>
-        </ng-container>
+            <div fxLayout="column"
+                 fxLayoutAlign="center center"
+                 class="context">
+                <h1>
+                    {{'pleaseLoginIn' | locale | async}}
+                </h1>
 
+                <div class="login-link">
+                    <a [routerLink]="['/login']">
+                        - {{'en_Login' | locale | async}} -
+                    </a>
+                </div>
+            </div>
+        </ng-container>
 
         <div fxLayout="row"
              fxLayoutGap="24px">
@@ -48,15 +83,18 @@
                 </ng-container>
 
                 <ng-container *ngIf="!isAuthenticated">
-                    {{'createTemporaryDocument' | locale | async}}
+                    {{'continueWithoutSaving' | locale | async}}
                 </ng-container>
             </button>
-            <button mat-raised-button
-                    color="accent"
-                    (click)="onImport()"
-                    i18n="en-Import_Document">
-                {{'importDocument' | locale | async}}
-            </button>
+
+            <ng-container *ngIf="isAuthenticated">
+                <button mat-raised-button
+                        color="accent"
+                        (click)="onImport()"
+                        i18n="en-Import_Document">
+                    {{'importDocument' | locale | async}}
+                </button>
+            </ng-container>
         </div>
     </div>
 </ng-template>

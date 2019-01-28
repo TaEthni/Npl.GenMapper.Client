@@ -1,0 +1,62 @@
+:host {
+    display: block;
+
+    .mat-toolbar {
+        position: sticky;
+        z-index: 3;
+        top: 0;
+
+        box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    }
+
+    .save-button {
+        height: 40px;
+        position: sticky;
+        top: 64px;
+        z-index: 2;
+
+        @media (max-width: 599px) {
+            top: 56px;
+        }
+
+        button {
+            line-height: 24px;
+        }
+
+        .animated-button-group {
+            opacity: 0;
+            padding: 6px 16px 6px 16px;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+            animation-duration: 0.15s;
+            transform: translateY(-200%);
+            will-change: transform, opacity;
+
+            background-color: white;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+
+            &.slide-down {
+                animation-name: slide-down;
+            }
+        }
+    }
+
+    .drawer-actions {
+        padding: 16px;
+
+        button {
+            line-height: 24px;
+        }
+    }
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-200%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}

@@ -22,6 +22,7 @@ import { EditNodeDialogComponent, EditNodeDialogResponse } from '../dialogs/edit
 import { GenMap } from '../gen-map';
 import { GMTemplate, GNode } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { HierarchyNode } from 'd3';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -41,6 +42,9 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
 
     @Output()
     public change: EventEmitter<GNode[]> = new EventEmitter<GNode[]>(null);
+
+    @Output()
+    public nodeClick: EventEmitter<GNode> = new EventEmitter<GNode>(null);
 
     @ViewChild('genMapperGraphSvg')
     public graphSvg: ElementRef;
@@ -77,6 +81,30 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         }
     }
 
+    public copyNode(node: GNode): void {
+        const graphNode = this.graph.getGraphNodeByDataId(node.id);
+        const descendants = cloneDeep(graphNode.descendants().map(d => d.data));
+        const same = descendants.find(d => d.id === graphNode.data.id);
+        same.parentId = '';
+        this.nodeClipboard.set(descendants);
+        this.snackBar.open(this.locale.t('copiedNodeToClipboard'), 'Ok', { duration: 5000 });
+    }
+
+    public pasteNode(node: GNode): void {
+        const graphNode = this.graph.getGraphNodeByDataId(node.id);
+        const copiedNodes = this.nodeClipboard.getValue();
+        const originalData = cloneDeep(this.graph.data);
+
+        this.graph.pasteNode(graphNode, copiedNodes);
+        this.showUndoPaste(originalData);
+    }
+
+    public importSubtree(node: GNode, content: string): void {
+        const graphNode = this.graph.getGraphNodeByDataId(node.id);
+        this.graph.csvIntoNode(graphNode, content);
+        this.snackBar.open(this.locale.t('subtreeImportedPastTense'), 'Ok', { duration: 5000 });
+    }
+
     private _createGraph(): void {
         this.graph = new GenMap(this.graphSvg, this.template, this.document.nodes);
 
@@ -97,6 +125,11 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             // Buttons on graph is not implemented
         };
 
+        this.graph.addNodeClick = (d: HierarchyNode<GNode>) => {
+            this.graph.addNode(d);
+            this.snackBar.open(this.locale.t('childNodeAdded'), 'Ok', { duration: 5000 });
+        };
+
         this.graph.removeNodeClick = (node: any) => {
             const name = node.data.name || node.data.leaderName || 'No Name';
             const hasChildren = node.children && node.children.length;
@@ -115,44 +148,8 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
                 });
         };
 
-        this.graph.nodeClick = (node: any) => {
-
-            // Setup descendants for copy/paste
-            const descendants = cloneDeep(node.descendants().map(d => d.data));
-            const same = descendants.find(n => n.id === node.data.id);
-            same.parentId = '';
-
-            this.dialog
-                .open(EditNodeDialogComponent, {
-                    minWidth: '400px',
-                    data: {
-                        nodeData: node.data,
-                        descendants: descendants,
-                        template: this.template,
-                        language: this.graph.language,
-                        nodes: this.graph.data
-                    }
-                })
-                .afterClosed()
-                .subscribe((result: EditNodeDialogResponse) => {
-                    if (!result || result.isCancel) {
-                        return;
-                    }
-
-                    if (result.isPasteNode) {
-                        const originalData = cloneDeep(this.graph.data);
-                        this.graph.pasteNode(node, this.nodeClipboard.getValue());
-                        this.showUndoPaste(originalData);
-                    }
-
-                    if (result.isImportSubtree) {
-                        this.graph.csvIntoNode(node, result.content);
-                    }
-
-                    if (result.isUpdate) {
-                        this.graph.updateNode(result.data);
-                    }
-                });
+        this.graph.editNodeClick = (node: any) => {
+            this.nodeClick.emit(node.data);
         };
     }
 

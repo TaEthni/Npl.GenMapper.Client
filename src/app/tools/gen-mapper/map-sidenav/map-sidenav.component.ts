@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSidenav, MatDrawer } from '@angular/material';
 import { Router } from '@angular/router';
 import { DocumentDto } from '@shared/entity/document.model';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { GMTemplate } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { Device } from '@core/platform';
 
 @Component({
     selector: 'app-map-sidenav',
@@ -27,6 +28,7 @@ export class MapSidenavComponent {
         private genMapper: GenMapperService,
         private dialog: MatDialog,
         private router: Router,
+        private drawer: MatDrawer,
     ) { }
 
     public onCreateDocument(): void {
@@ -42,6 +44,10 @@ export class MapSidenavComponent {
 
     public onSelectDocument(doc: DocumentDto): void {
         this.router.navigate([this.template.name, doc.id]);
+
+        if (Device.isHandHeld) {
+            this.drawer.close();
+        }
     }
 
     public createDocument(doc: DocumentDto): void {

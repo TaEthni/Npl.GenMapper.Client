@@ -21,6 +21,7 @@ import { MapNameControlComponent } from './map-name-control/map-name-control.com
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { AgmCoreModule } from '@agm/core';
+import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
 
 @NgModule({
     imports: [
@@ -46,6 +47,7 @@ import { AgmCoreModule } from '@agm/core';
         MapSidenavComponent,
         CreateDocumentDialogComponent,
         LocationDialogComponent,
+        NodeDrawerComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -55,7 +57,8 @@ import { AgmCoreModule } from '@agm/core';
         GenMapperDocumentsComponent,
         MapMenuButtonComponent,
         MapNameControlComponent,
-        MapSidenavComponent
+        MapSidenavComponent,
+        NodeDrawerComponent
     ],
     entryComponents: [
         ConfirmDialogComponent,

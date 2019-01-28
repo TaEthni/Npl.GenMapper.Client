@@ -22,11 +22,18 @@
                 <mat-icon *ngIf="mapSidenav?.opened">clear</mat-icon>
                 <mat-icon *ngIf="!mapSidenav?.opened">filter_list</mat-icon>
             </button>
-        </ng-container>
-        <ng-container *ngIf="document">
-            <app-map-name-control></app-map-name-control>
-            <app-map-menu-button [document]="document"
-                                 [template]="template"></app-map-menu-button>
+
+            <ng-container *ngIf="!document">
+                <div class="map-sidenav-hint"
+                     fxLayout="row"
+                     fxLayoutAlign="start center"
+                     fxLayoutGap="5px">
+                    <mat-icon>arrow_back</mat-icon>
+                    <div>
+                        {{'documentsTitle' | locale | async}}
+                    </div>
+                </div>
+            </ng-container>
         </ng-container>
         <router-outlet></router-outlet>
     </mat-drawer-content>

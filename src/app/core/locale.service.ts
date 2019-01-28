@@ -12,7 +12,7 @@ export interface TranslationType {
 @Injectable()
 export class LocaleService {
     private _translations: BehaviorSubject<TranslationType[]> = new BehaviorSubject<TranslationType[]>(null);
-    private _locale: Subject<string> = new Subject();
+    private _locale: BehaviorSubject<string> = new BehaviorSubject<string>('en');
 
     constructor() {
         i18next.on('languageChanged', (lang: string) => {

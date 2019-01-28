@@ -29,11 +29,27 @@ html {
                 mat-sidenav-container {
                     height: 100%;
 
+                    mat-drawer {
+                        backface-visibility: hidden;
+                    }
+
                     app-gen-mapper-container {
                         height: 100%;
 
                         mat-drawer-container {
                             height: 100%;
+
+                            mat-drawer {
+                                backface-visibility: hidden;
+                            }
+
+                            app-gen-mapper {
+                                height: 100%;
+
+                                app-gen-mapper-graph {
+                                    height: 100%;
+                                }
+                            }
                         }
                     }
                 }

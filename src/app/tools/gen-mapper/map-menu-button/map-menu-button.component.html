@@ -14,9 +14,17 @@
         {{'menu.exportCsv' | locale | async}}
     </button>
     <button mat-menu-item
-            disabled>
+            disabled
+            (click)="onPrintHorizontal()">
         <mat-icon>print</mat-icon>
         {{'menu.btnPrintHorizontal' | locale | async}}
+    </button>
+
+    <button mat-menu-item
+            disabled
+            (click)="onPrintVertical()">
+        <mat-icon>print</mat-icon>
+        {{'menu.btnPrintVertical' | locale | async}}
     </button>
 
     <button mat-menu-item

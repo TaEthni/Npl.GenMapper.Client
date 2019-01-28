@@ -9,20 +9,20 @@
          class="dialog-content-actions">
         <button mat-stroked-button
                 (click)="onCopyNode()">
-            {{'editGroup.hoverCopyNode' | locale | async}}
+            {{'editGroup.copyNodeButton' | locale | async}}
         </button>
 
         <ng-container *ngIf="isNodeClipboard">
             <button mat-stroked-button
                     (click)="onPasteNode()">
-                {{'editGroup.hoverPasteNode' | locale | async}}
+                {{'editGroup.pasteNodeButton' | locale | async}}
             </button>
         </ng-container>
     </div>
-    <app-edit-node-form [fields]="fields"
+    <!-- <app-edit-node-form [fields]="fields"
                         [nodes]="data.nodes"
                         [model]="model"
-                        (change)="onFormChange($event)"></app-edit-node-form>
+                        (change)="onFormChange($event)"></app-edit-node-form> -->
 </div>
 <div mat-dialog-actions>
     <button mat-button

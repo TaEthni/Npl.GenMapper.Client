@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
-import { GMField } from '../gen-mapper.interface';
+import { GMField, GNode } from '../gen-mapper.interface';
 import { MatDialog } from '@angular/material';
 import { MapsService } from '@core/maps.service';
 import { LocationDialogComponent } from '../dialogs/location-dialog/location-dialog.component';
@@ -14,19 +14,17 @@ import { LocationDialogComponent } from '../dialogs/location-dialog/location-dia
     styleUrls: ['./edit-node-form.component.scss']
 })
 export class EditNodeFormComponent extends Unsubscribable implements OnInit {
+    @Input()
+    public model: GNode;
+
+    @Input()
     public form: FormGroup;
-
-    @Input()
-    public model: any;
-
-    @Input()
-    public fields: GMField[];
 
     @Input()
     public nodes: any[];
 
-    @Output()
-    public change: EventEmitter<any> = new EventEmitter<any>(null);
+    @Input()
+    public fields: GMField[];
 
     constructor(
         private dialog: MatDialog,
@@ -34,8 +32,6 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     ) { super(); }
 
     public ngOnInit(): void {
-        this.form = this._createForm();
-
         if (this.form.get('generation')) {
             this.form.get('generation').valueChanges
                 .pipe(takeUntil(this.unsubscribe))
@@ -49,12 +45,6 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (this.form.get('location')) {
             this.form.get('location').disable();
         }
-
-        this.form.valueChanges
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe((value) => {
-                this.change.emit(this.form.getRawValue());
-            });
     }
 
     public onFieldClick(field: GMField): void {
@@ -66,23 +56,7 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     public onClearFieldClick(event: Event, field: GMField): void {
         event.preventDefault();
         event.stopPropagation();
-
         this.form.get(field.header).setValue(null);
-    }
-
-    private _createForm(): FormGroup {
-        const group: any = {};
-
-        this.fields
-            .filter(field => !!field.type)
-            .forEach(field => {
-                group[field.header] = new FormControl(this.model[field.header]);
-            });
-
-        // Add custom control for parentId
-        group.parentId = new FormControl(this.model.parentId);
-
-        return new FormGroup(group);
     }
 
     private onGeoLocationClick(): void {
@@ -95,7 +69,9 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
                 .afterClosed()
                 .subscribe(address => {
                     if (address) {
-                        this.form.get('location').setValue(address);
+                        this.form.get('location').patchValue(address);
+                        this.form.get('location').updateValueAndValidity();
+                        this.form.markAsDirty();
                     }
                 });
         });
