@@ -5265,7 +5265,7 @@ var DocumentService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"24px\">\r\n\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type\">\r\n            <ng-container *ngIf=\"!field.dependsOnFalseField || form.get(field.dependsOnFalseField) && !form.get(field.dependsOnFalseField).value\">\r\n                <div class=\"control\"\r\n                     fxFlex\r\n                     (click)=\"onFieldClick(field)\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'geoLocation'\">\r\n                        <mat-form-field no-error\r\n                                        class=\"geo-location\">\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"clear-field\"\r\n                                      (click)=\"onClearFieldClick($event, field)\"\r\n                                      *ngIf=\"form.get(field.header).value\">clear</mat-icon>\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"location-icon\"\r\n                                      (click)=\"onClearFieldClick($event, field)\">location_on</mat-icon>\r\n\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'textarea'\">\r\n                        <mat-form-field no-error>\r\n                            <textarea type=\"text\"\r\n                                      matInput\r\n                                      cdkTextareaAutosize\r\n                                      cdkAutosizeMinRows=\"1\"\r\n                                      autocomplete=\"off\"\r\n                                      [placeholder]=\"field.localeLabel\"\r\n                                      [formControl]=\"form.get(field.header)\"></textarea>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'number'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"number\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value | joinList}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle labelPosition=\"before\"\r\n                                          [formControl]=\"form.get(field.header)\">\r\n                            {{field.localeLabel}}\r\n                        </mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n                <!-- <label class=\"control control-{{field.type}}\"\r\n                       fxLayout=\"row\"\r\n                       [fxLayout.lt-md]=\"field.type === 'checkbox' ? 'row' : 'column'\"\r\n                       fxLayoutAlign.gt-md=\"center center\"\r\n                       fxLayoutGap.gt-md=\"10px\"\r\n                       (click)=\"onFieldClick(field)\">\r\n\r\n                    <div class=\"control-label\"\r\n                         fxFlex>{{field.localeLabel}}</div>\r\n\r\n                    <div class=\"control-input\">\r\n                        <ng-container *ngIf=\"field.type === 'text'\">\r\n                            <mat-form-field floatPlaceholder=\"never\"\r\n                                            floatLabel=\"never\"\r\n                                            no-error\r\n                                            no-label>\r\n                                <input type=\"text\"\r\n                                       matInput\r\n                                       autocomplete=\"off\"\r\n                                       [placeholder]=\"field.localeLabel\"\r\n                                       [formControl]=\"form.get(field.header)\" />\r\n                            </mat-form-field>\r\n                        </ng-container>\r\n\r\n                        <ng-container *ngIf=\"field.type === 'geoLocation'\">\r\n                            <mat-form-field floatPlaceholder=\"never\"\r\n                                            floatLabel=\"never\"\r\n                                            no-error\r\n                                            no-label\r\n                                            class=\"geo-location\">\r\n                                <input type=\"text\"\r\n                                       matInput\r\n                                       autocomplete=\"off\"\r\n                                       [placeholder]=\"field.localeLabel\"\r\n                                       [formControl]=\"form.get(field.header)\" />\r\n\r\n                                <mat-icon matSuffix\r\n                                          class=\"clear-field\"\r\n                                          (click)=\"onClearFieldClick($event, field)\"\r\n                                          *ngIf=\"form.get(field.header).value\">clear</mat-icon>\r\n                            </mat-form-field>\r\n                        </ng-container>\r\n\r\n                        <ng-container *ngIf=\"field.type === 'textarea'\">\r\n                            <mat-form-field floatPlaceholder=\"never\"\r\n                                            floatLabel=\"never\"\r\n                                            no-error\r\n                                            no-label>\r\n                                <textarea type=\"text\"\r\n                                          matInput\r\n                                          cdkTextareaAutosize\r\n                                          cdkAutosizeMinRows=\"1\"\r\n                                          autocomplete=\"off\"\r\n                                          [placeholder]=\"field.localeLabel\"\r\n                                          [formControl]=\"form.get(field.header)\"></textarea>\r\n                            </mat-form-field>\r\n                        </ng-container>\r\n\r\n                        <ng-container *ngIf=\"field.type === 'number'\">\r\n                            <mat-form-field floatPlaceholder=\"never\"\r\n                                            floatLabel=\"never\"\r\n                                            no-error\r\n                                            no-label>\r\n                                <input type=\"number\"\r\n                                       matInput\r\n                                       autocomplete=\"off\"\r\n                                       [placeholder]=\"field.localeLabel\"\r\n                                       [formControl]=\"form.get(field.header)\" />\r\n                            </mat-form-field>\r\n                        </ng-container>\r\n\r\n                        <ng-container *ngIf=\"field.type === 'radio'\">\r\n                            <mat-form-field floatPlaceholder=\"never\"\r\n                                            floatLabel=\"never\"\r\n                                            no-error\r\n                                            no-label>\r\n                                <mat-select [formControl]=\"form.get(field.header)\">\r\n                                    <mat-option *ngFor=\"let value of field.values\"\r\n                                                [value]=\"value.header\">\r\n                                        {{value.localeLabel}}\r\n                                    </mat-option>\r\n                                </mat-select>\r\n                            </mat-form-field>\r\n                        </ng-container>\r\n\r\n                        <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                            <mat-form-field floatPlaceholder=\"never\"\r\n                                            floatLabel=\"never\"\r\n                                            no-error\r\n                                            no-label>\r\n                                <mat-select [formControl]=\"form.get(field.header)\"\r\n                                            multiple\r\n                                            [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                            #temp>\r\n                                    <mat-select-trigger>\r\n                                        {{form.get(field.header).value | joinList}}\r\n                                    </mat-select-trigger>\r\n                                    <mat-option *ngFor=\"let value of field.values\"\r\n                                                [value]=\"value.value\">\r\n                                        #{{value.value}} {{value.localeLabel}}\r\n                                    </mat-option>\r\n                                </mat-select>\r\n                            </mat-form-field>\r\n                        </ng-container>\r\n\r\n                        <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                            <mat-slide-toggle [formControl]=\"form.get(field.header)\"></mat-slide-toggle>\r\n                        </ng-container>\r\n                    </div>\r\n                </label> -->\r\n            </ng-container>\r\n        </ng-container>\r\n    </ng-container>\r\n\r\n    <div class=\"control\"\r\n         fxFlex\r\n         *ngIf=\"form.get('parentId').value || form.get('parentId').value === 0\">\r\n        <mat-form-field no-error>\r\n            <mat-label>{{'editGroup.elementParent' | locale | async}}</mat-label>\r\n            <mat-select [formControl]=\"form.get('parentId')\">\r\n                <ng-container *ngFor=\"let n of nodes\">\r\n                    <ng-container *ngIf=\"n.id !== model.id\">\r\n                        <mat-option [value]=\"n.id\">\r\n                            <ng-container *ngIf=\"n.name && n.leaderName; then combinedOption else defautOption\"></ng-container>\r\n                            <ng-template #combinedOption>{{n.name}}: {{n.leaderName}}</ng-template>\r\n                            <ng-template #defautOption>{{n.name || n.leaderName || '[No Name]'}}</ng-template>\r\n                        </mat-option>\r\n                    </ng-container>\r\n                </ng-container>\r\n            </mat-select>\r\n        </mat-form-field>\r\n    </div>\r\n    <div fxFlex=\"100px\"></div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"24px\">\r\n\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type\">\r\n            <ng-container *ngIf=\"!field.dependsOnFalseField || form.get(field.dependsOnFalseField) && !form.get(field.dependsOnFalseField).value\">\r\n                <div class=\"control\"\r\n                     fxFlex\r\n                     (click)=\"onFieldClick(field)\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'geoLocation'\">\r\n                        <mat-form-field no-error\r\n                                        class=\"geo-location\">\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"clear-field\"\r\n                                      (click)=\"onClearFieldClick($event, field)\"\r\n                                      *ngIf=\"form.get(field.header).value\">clear</mat-icon>\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"location-icon\"\r\n                                      (click)=\"onClearFieldClick($event, field)\">location_on</mat-icon>\r\n\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'textarea'\">\r\n                        <mat-form-field no-error>\r\n                            <textarea type=\"text\"\r\n                                      matInput\r\n                                      cdkTextareaAutosize\r\n                                      cdkAutosizeMinRows=\"1\"\r\n                                      autocomplete=\"off\"\r\n                                      [placeholder]=\"field.localeLabel\"\r\n                                      [formControl]=\"form.get(field.header)\"></textarea>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'number'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"number\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value | joinList}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle labelPosition=\"before\"\r\n                                          [formControl]=\"form.get(field.header)\">\r\n                            {{field.localeLabel}}\r\n                        </mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n            </ng-container>\r\n        </ng-container>\r\n    </ng-container>\r\n\r\n    <div class=\"control\"\r\n         fxFlex\r\n         *ngIf=\"form.get('parentId').value || form.get('parentId').value === 0\">\r\n        <mat-form-field no-error>\r\n            <mat-label>{{'editGroup.elementParent' | locale | async}}</mat-label>\r\n            <mat-select [formControl]=\"form.get('parentId')\">\r\n                <ng-container *ngFor=\"let n of nodes\">\r\n                    <ng-container *ngIf=\"n.id !== model.id\">\r\n                        <mat-option [value]=\"n.id\">\r\n                            <ng-container *ngIf=\"n.name && n.leaderName; then combinedOption else defautOption\"></ng-container>\r\n                            <ng-template #combinedOption>{{n.name}}: {{n.leaderName}}</ng-template>\r\n                            <ng-template #defautOption>{{n.name || n.leaderName || '[No Name]'}}</ng-template>\r\n                        </mat-option>\r\n                    </ng-container>\r\n                </ng-container>\r\n            </mat-select>\r\n        </mat-form-field>\r\n    </div>\r\n    <div fxFlex=\"100px\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5423,8 +5423,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! d3 */ "./node_modules/d3/index.js");
 /* harmony import */ var i18next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! i18next */ "./node_modules/i18next/dist/es/index.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash-es/lodash.js");
-/* harmony import */ var _template_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./template-utils */ "./src/app/tools/gen-mapper/template-utils.ts");
-/* harmony import */ var _core_platform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/platform */ "./src/app/core/platform.ts");
+/* harmony import */ var _gen_mapper_interface__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./gen-mapper.interface */ "./src/app/tools/gen-mapper/gen-mapper.interface.ts");
+/* harmony import */ var _template_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./template-utils */ "./src/app/tools/gen-mapper/template-utils.ts");
+/* harmony import */ var _core_platform__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @core/platform */ "./src/app/core/platform.ts");
+
 
 
 
@@ -5523,7 +5525,7 @@ var GenMap = /** @class */ (function () {
         var _this = this;
         var newNodeData = {};
         this.template.fields.forEach(function (field) {
-            newNodeData[field.header] = _template_utils__WEBPACK_IMPORTED_MODULE_3__["TemplateUtils"].getInitialTemplateValue(field, _this.template);
+            newNodeData[field.header] = _template_utils__WEBPACK_IMPORTED_MODULE_4__["TemplateUtils"].getInitialTemplateValue(field, _this.template);
         });
         newNodeData['id'] = this.findNewId();
         newNodeData['parentId'] = node.data.id;
@@ -5551,7 +5553,7 @@ var GenMap = /** @class */ (function () {
     };
     GenMap.prototype.csvIntoNode = function (d, csvString) {
         this._deleteAllDescendants(d);
-        var parsedCsv = _template_utils__WEBPACK_IMPORTED_MODULE_3__["TemplateUtils"].parseCsvData(csvString, this.template.format);
+        var parsedCsv = _template_utils__WEBPACK_IMPORTED_MODULE_4__["TemplateUtils"].parseCsvData(csvString, this.template.format);
         this.overwriteNode(d, parsedCsv);
     };
     GenMap.prototype.overwriteNode = function (d, data) {
@@ -5599,6 +5601,60 @@ var GenMap = /** @class */ (function () {
         var origY = this.margin.top;
         var parsedTransform = _parseTransform(this.g.attr('transform'));
         this.zoom.translateBy(this.svg, origX - parsedTransform.translate[0], origY - parsedTransform.translate[1]);
+    };
+    GenMap.prototype.printMap = function (printType) {
+        var boxHeight = this.template.settings.boxHeight;
+        // calculate width and height of the map (printed rotated by 90 degrees)
+        var arrNodes = this.nodes.descendants();
+        var minX = 0;
+        var maxX = 0;
+        var minY = 0;
+        var maxY = 0;
+        for (var i = 0; i < arrNodes.length; i++) {
+            var x = arrNodes[i].x;
+            var y = arrNodes[i].y;
+            minX = Math.min(minX, x);
+            maxX = Math.max(maxX, x);
+            minY = Math.min(minY, y);
+            maxY = Math.max(maxY, y);
+        }
+        // store original values
+        var origWidth = this.svg.attr('width');
+        var origHeight = this.svg.attr('height');
+        var origTransform = this.g.attr('transform');
+        var totalHeight = Math.max(600, this.margin.top + (maxY - minY) + boxHeight + this.margin.top);
+        var totalWidthLeft = Math.max(500, -minX + boxHeight * 1.5 / 2 + 20);
+        var totalWidthRight = Math.max(500, maxX + boxHeight * 1.5 / 2 + 20);
+        var translateX, translateY;
+        if (printType === _gen_mapper_interface__WEBPACK_IMPORTED_MODULE_3__["PrintType"].horizontal) {
+            var printHeight = 700;
+            var printWidth = 1200;
+            // resize for printing
+            this.svg
+                .attr('width', printWidth)
+                .attr('height', printHeight);
+            var printScale = Math.min(1, printWidth / (totalWidthLeft + totalWidthRight), printHeight / totalHeight);
+            translateX = totalWidthLeft * printScale;
+            translateY = this.margin.top * printScale;
+            this.g.attr('transform', 'translate(' + translateX + ', ' + translateY + ') scale(' + printScale + ')');
+        }
+        else {
+            // resize for printing
+            this.svg.attr('width', totalHeight)
+                .attr('height', totalWidthLeft + totalWidthRight);
+            translateX = totalHeight - this.margin.top;
+            translateY = totalWidthLeft;
+            this.g.attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(90)');
+        }
+        // change CSS for printing
+        d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]('#genmapper-graph-svg').style('background', 'white');
+        window.print();
+        // change CSS back after printing
+        this.svg
+            .attr('width', origWidth)
+            .attr('height', origHeight);
+        this.g.attr('transform', origTransform);
+        d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]('#genmapper-graph-svg').style('background', null);
     };
     /**
      * @private Data Parsing Methods
@@ -5762,7 +5818,7 @@ var GenMap = /** @class */ (function () {
             d3__WEBPACK_IMPORTED_MODULE_0__["event"].stopPropagation();
             _this.unFocusAllNodes();
             _this.focusNodeById(d.data.id);
-            if (_core_platform__WEBPACK_IMPORTED_MODULE_4__["Device"].isDesktop) {
+            if (_core_platform__WEBPACK_IMPORTED_MODULE_5__["Device"].isDesktop) {
                 _this.onEditNodeClick(d);
             }
         });
@@ -6404,34 +6460,6 @@ var GenMapperGraphComponent = /** @class */ (function () {
         };
         this.graph.editNodeClick = function (node) {
             _this.nodeClick.emit(node.data);
-            // this.dialog
-            //     .open(EditNodeDialogComponent, {
-            //         minWidth: '400px',
-            //         data: {
-            //             nodeData: node.data,
-            //             descendants: descendants,
-            //             template: this.template,
-            //             language: this.graph.language,
-            //             nodes: this.graph.data
-            //         }
-            //     })
-            //     .afterClosed()
-            //     .subscribe((result: EditNodeDialogResponse) => {
-            //         if (!result || result.isCancel) {
-            //             return;
-            //         }
-            //         if (result.isPasteNode) {
-            //             const originalData = cloneDeep(this.graph.data);
-            //             this.graph.pasteNode(node, this.nodeClipboard.getValue());
-            //             this.showUndoPaste(originalData);
-            //         }
-            //         if (result.isImportSubtree) {
-            //             this.graph.csvIntoNode(node, result.content);
-            //         }
-            //         if (result.isUpdate) {
-            //             this.graph.updateNode(result.data);
-            //         }
-            //     });
         };
     };
     GenMapperGraphComponent.prototype.showUndoPaste = function (originalData) {
@@ -6487,6 +6515,25 @@ var GenMapperGraphComponent = /** @class */ (function () {
     return GenMapperGraphComponent;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/tools/gen-mapper/gen-mapper.interface.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/tools/gen-mapper/gen-mapper.interface.ts ***!
+  \**********************************************************/
+/*! exports provided: PrintType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrintType", function() { return PrintType; });
+var PrintType;
+(function (PrintType) {
+    PrintType["horizontal"] = "horizontal";
+    PrintType["vertical"] = "vertical";
+})(PrintType || (PrintType = {}));
 
 
 /***/ }),
@@ -6841,7 +6888,7 @@ var GenMapperService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-drawer-container (backdropClick)=\"nodeDrawer.onBackdropClick()\">\r\n    <mat-drawer position=\"end\"\r\n                fxLayout=\"column\"\r\n                class=\"node-drawer\"\r\n                (openedChange)=\"onNodeDrawerOpenChanged($event)\">\r\n        <app-node-drawer #nodeDrawer\r\n                         [documents]=\"documents\"\r\n                         [document]=\"document\"\r\n                         [template]=\"template\"\r\n                         [node]=\"node\"\r\n                         (copyNode)=\"onCopyNode($event)\"\r\n                         (pasteNode)=\"onPasteNode($event)\"\r\n                         (updateNode)=\"onUpdateNode($event)\"\r\n                         (importSubtree)=\"onImportSubtree($event)\"></app-node-drawer>\r\n    </mat-drawer>\r\n\r\n    <mat-drawer-content>\r\n        <ng-container *ngIf=\"document; then genMapperGraph else emptyState\"></ng-container>\r\n    </mat-drawer-content>\r\n</mat-drawer-container>\r\n\r\n<ng-template #genMapperGraph>\r\n    <ng-container *ngIf=\"document\">\r\n        <app-map-name-control></app-map-name-control>\r\n        <app-map-menu-button [document]=\"document\"\r\n                             [template]=\"template\"></app-map-menu-button>\r\n    </ng-container>\r\n    <app-gen-mapper-graph class=\"{{template.name}}\"\r\n                          (change)=\"onGraphChange($event)\"\r\n                          [document]=\"document\"\r\n                          [template]=\"template\"\r\n                          (nodeClick)=\"onNodeClick($event)\"></app-gen-mapper-graph>\r\n</ng-template>\r\n<ng-template #emptyState>\r\n    <div class=\"empty-state\"\r\n         fxFlex\r\n         fxLayout=\"column\"\r\n         fxLayoutAlign=\"center center\">\r\n\r\n        <div>\r\n            <mat-icon [class.warn]=\"!isAuthenticated\">warning</mat-icon>\r\n        </div>\r\n\r\n        <ng-container *ngIf=\"isAuthenticated\">\r\n            <ng-container *ngIf=\"documents.length === 0\">\r\n                <h1 i18n=\"en-You_have_no_saved_documents\">\r\n                    {{'noSavedDocuments' | locale | async}}\r\n                </h1>\r\n            </ng-container>\r\n\r\n            <ng-container *ngIf=\"documents.length > 0\">\r\n                <h1 i18n=\"en-Please_select_a_document\">\r\n                    {{'selectADocument' | locale | async}}\r\n                </h1>\r\n            </ng-container>\r\n        </ng-container>\r\n\r\n        <ng-container *ngIf=\"!isAuthenticated\">\r\n            <div fxLayout=\"column\"\r\n                 fxLayoutAlign=\"center center\"\r\n                 class=\"context\">\r\n                <h1>\r\n                    {{'pleaseLoginIn' | locale | async}}\r\n                </h1>\r\n\r\n                <div class=\"login-link\">\r\n                    <a [routerLink]=\"['/login']\">\r\n                        - {{'en_Login' | locale | async}} -\r\n                    </a>\r\n                </div>\r\n            </div>\r\n        </ng-container>\r\n\r\n        <div fxLayout=\"row\"\r\n             fxLayoutGap=\"24px\">\r\n            <button mat-raised-button\r\n                    color=\"accent\"\r\n                    (click)=\"onCreateDocument()\"\r\n                    i18n=\"en-Create_Document\">\r\n                <ng-container *ngIf=\"isAuthenticated\">\r\n                    {{'createDocument' | locale | async}}\r\n                </ng-container>\r\n\r\n                <ng-container *ngIf=\"!isAuthenticated\">\r\n                    {{'continueWithoutSaving' | locale | async}}\r\n                </ng-container>\r\n            </button>\r\n\r\n            <ng-container *ngIf=\"isAuthenticated\">\r\n                <button mat-raised-button\r\n                        color=\"accent\"\r\n                        (click)=\"onImport()\"\r\n                        i18n=\"en-Import_Document\">\r\n                    {{'importDocument' | locale | async}}\r\n                </button>\r\n            </ng-container>\r\n        </div>\r\n    </div>\r\n</ng-template>\r\n"
+module.exports = "<mat-drawer-container (backdropClick)=\"nodeDrawer.onBackdropClick()\">\r\n    <mat-drawer position=\"end\"\r\n                fxLayout=\"column\"\r\n                class=\"node-drawer\"\r\n                (openedChange)=\"onNodeDrawerOpenChanged($event)\">\r\n        <app-node-drawer #nodeDrawer\r\n                         [documents]=\"documents\"\r\n                         [document]=\"document\"\r\n                         [template]=\"template\"\r\n                         [node]=\"node\"\r\n                         (copyNode)=\"onCopyNode($event)\"\r\n                         (pasteNode)=\"onPasteNode($event)\"\r\n                         (updateNode)=\"onUpdateNode($event)\"\r\n                         (importSubtree)=\"onImportSubtree($event)\"></app-node-drawer>\r\n    </mat-drawer>\r\n\r\n    <mat-drawer-content>\r\n        <ng-container *ngIf=\"document; then genMapperGraph else emptyState\"></ng-container>\r\n    </mat-drawer-content>\r\n</mat-drawer-container>\r\n\r\n<ng-template #genMapperGraph>\r\n    <ng-container *ngIf=\"document\">\r\n        <app-map-name-control></app-map-name-control>\r\n        <app-map-menu-button [document]=\"document\"\r\n                             [template]=\"template\"\r\n                             (print)=\"onPrint($event)\"></app-map-menu-button>\r\n    </ng-container>\r\n    <app-gen-mapper-graph class=\"{{template.name}}\"\r\n                          (change)=\"onGraphChange($event)\"\r\n                          [document]=\"document\"\r\n                          [template]=\"template\"\r\n                          (nodeClick)=\"onNodeClick($event)\"></app-gen-mapper-graph>\r\n</ng-template>\r\n<ng-template #emptyState>\r\n    <div class=\"empty-state\"\r\n         fxFlex\r\n         fxLayout=\"column\"\r\n         fxLayoutAlign=\"center center\">\r\n\r\n        <div>\r\n            <mat-icon [class.warn]=\"!isAuthenticated\">warning</mat-icon>\r\n        </div>\r\n\r\n        <ng-container *ngIf=\"isAuthenticated\">\r\n            <ng-container *ngIf=\"documents.length === 0\">\r\n                <h1 i18n=\"en-You_have_no_saved_documents\">\r\n                    {{'noSavedDocuments' | locale | async}}\r\n                </h1>\r\n            </ng-container>\r\n\r\n            <ng-container *ngIf=\"documents.length > 0\">\r\n                <h1 i18n=\"en-Please_select_a_document\">\r\n                    {{'selectADocument' | locale | async}}\r\n                </h1>\r\n            </ng-container>\r\n        </ng-container>\r\n\r\n        <ng-container *ngIf=\"!isAuthenticated\">\r\n            <div fxLayout=\"column\"\r\n                 fxLayoutAlign=\"center center\"\r\n                 class=\"context\">\r\n                <h1>\r\n                    {{'pleaseLoginIn' | locale | async}}\r\n                </h1>\r\n\r\n                <div class=\"login-link\">\r\n                    <a [routerLink]=\"['/login']\">\r\n                        - {{'en_Login' | locale | async}} -\r\n                    </a>\r\n                </div>\r\n            </div>\r\n        </ng-container>\r\n\r\n        <div fxLayout=\"row\"\r\n             fxLayoutGap=\"24px\">\r\n            <button mat-raised-button\r\n                    color=\"accent\"\r\n                    (click)=\"onCreateDocument()\"\r\n                    i18n=\"en-Create_Document\">\r\n                <ng-container *ngIf=\"isAuthenticated\">\r\n                    {{'createDocument' | locale | async}}\r\n                </ng-container>\r\n\r\n                <ng-container *ngIf=\"!isAuthenticated\">\r\n                    {{'continueWithoutSaving' | locale | async}}\r\n                </ng-container>\r\n            </button>\r\n\r\n            <ng-container *ngIf=\"isAuthenticated\">\r\n                <button mat-raised-button\r\n                        color=\"accent\"\r\n                        (click)=\"onImport()\"\r\n                        i18n=\"en-Import_Document\">\r\n                    {{'importDocument' | locale | async}}\r\n                </button>\r\n            </ng-container>\r\n        </div>\r\n    </div>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -6967,6 +7014,9 @@ var GenMapperComponent = /** @class */ (function (_super) {
     GenMapperComponent.prototype.onImportSubtree = function (content) {
         this.genMapperGraph.importSubtree(this.node, content);
     };
+    GenMapperComponent.prototype.onPrint = function (printType) {
+        this.genMapperGraph.graph.printMap(printType);
+    };
     GenMapperComponent.prototype.onCreateDocument = function () {
         var _this = this;
         this.dialog.open(_dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CreateDocumentDialogComponent"])
@@ -7030,7 +7080,7 @@ var GenMapperComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button mat-icon-button\r\n        [matMenuTriggerFor]=\"menu\">\r\n    <mat-icon>more_vert</mat-icon>\r\n</button>\r\n<mat-menu #menu=\"matMenu\">\r\n    <button mat-menu-item\r\n            (click)=\"onImport()\">\r\n        <mat-icon>attachment</mat-icon>\r\n        {{'menu.importXlsxCsv' | locale | async}}\r\n    </button>\r\n    <button mat-menu-item\r\n            (click)=\"onExport()\">\r\n        <mat-icon>cloud_download</mat-icon>\r\n        {{'menu.exportCsv' | locale | async}}\r\n    </button>\r\n    <button mat-menu-item\r\n            disabled>\r\n        <mat-icon>print</mat-icon>\r\n        {{'menu.btnPrintHorizontal' | locale | async}}\r\n    </button>\r\n\r\n    <button mat-menu-item\r\n            (click)=\"onDelete()\">\r\n        <mat-icon>delete</mat-icon>\r\n        {{'menu.btnDelete' | locale | async}}\r\n    </button>\r\n</mat-menu>\r\n"
+module.exports = "<button mat-icon-button\r\n        [matMenuTriggerFor]=\"menu\">\r\n    <mat-icon>more_vert</mat-icon>\r\n</button>\r\n<mat-menu #menu=\"matMenu\">\r\n    <button mat-menu-item\r\n            (click)=\"onImport()\">\r\n        <mat-icon>attachment</mat-icon>\r\n        {{'menu.importXlsxCsv' | locale | async}}\r\n    </button>\r\n    <button mat-menu-item\r\n            (click)=\"onExport()\">\r\n        <mat-icon>cloud_download</mat-icon>\r\n        {{'menu.exportCsv' | locale | async}}\r\n    </button>\r\n    <button mat-menu-item\r\n            disabled\r\n            (click)=\"onPrintHorizontal()\">\r\n        <mat-icon>print</mat-icon>\r\n        {{'menu.btnPrintHorizontal' | locale | async}}\r\n    </button>\r\n\r\n    <button mat-menu-item\r\n            disabled\r\n            (click)=\"onPrintVertical()\">\r\n        <mat-icon>print</mat-icon>\r\n        {{'menu.btnPrintVertical' | locale | async}}\r\n    </button>\r\n\r\n    <button mat-menu-item\r\n            (click)=\"onDelete()\">\r\n        <mat-icon>delete</mat-icon>\r\n        {{'menu.btnDelete' | locale | async}}\r\n    </button>\r\n</mat-menu>\r\n"
 
 /***/ }),
 
@@ -7062,8 +7112,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_entity_document_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shared/entity/document.model */ "./src/app/shared/entity/document.model.ts");
 /* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
 /* harmony import */ var _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dialogs/confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
-/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
-/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
+/* harmony import */ var _gen_mapper_interface__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../gen-mapper.interface */ "./src/app/tools/gen-mapper/gen-mapper.interface.ts");
+/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
+/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7082,6 +7133,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var MapMenuButtonComponent = /** @class */ (function () {
     function MapMenuButtonComponent(locale, downloadService, genMapper, dialog, router) {
         this.locale = locale;
@@ -7089,6 +7141,7 @@ var MapMenuButtonComponent = /** @class */ (function () {
         this.genMapper = genMapper;
         this.dialog = dialog;
         this.router = router;
+        this.print = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     MapMenuButtonComponent.prototype.onImport = function () {
         var _this = this;
@@ -7118,6 +7171,12 @@ var MapMenuButtonComponent = /** @class */ (function () {
     MapMenuButtonComponent.prototype.onExport = function () {
         this.downloadService.downloadDocument(this.document);
     };
+    MapMenuButtonComponent.prototype.onPrintHorizontal = function () {
+        this.print.emit(_gen_mapper_interface__WEBPACK_IMPORTED_MODULE_7__["PrintType"].horizontal);
+    };
+    MapMenuButtonComponent.prototype.onPrintVertical = function () {
+        this.print.emit(_gen_mapper_interface__WEBPACK_IMPORTED_MODULE_7__["PrintType"].vertical);
+    };
     MapMenuButtonComponent.prototype._createDocument = function (document) {
         var _this = this;
         this.genMapper
@@ -7142,15 +7201,19 @@ var MapMenuButtonComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
     ], MapMenuButtonComponent.prototype, "template", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], MapMenuButtonComponent.prototype, "print", void 0);
     MapMenuButtonComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-map-menu-button',
             template: __webpack_require__(/*! ./map-menu-button.component.html */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.html"),
             styles: [__webpack_require__(/*! ./map-menu-button.component.scss */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.scss")]
         }),
-        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_8__["LocaleService"],
+        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_9__["LocaleService"],
             _core_download_service__WEBPACK_IMPORTED_MODULE_3__["DownloadService"],
-            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_7__["GenMapperService"],
+            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__["GenMapperService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], MapMenuButtonComponent);
@@ -7592,9 +7655,6 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
         if (this.clonedNode.hasOwnProperty('active') && this.clonedNode.hasOwnProperty('inactiveReason') && this.clonedNode.active) {
             this.clonedNode.inactiveReason = null;
         }
-        // - Update Model
-        // - Update Graph
-        // this.graph.updateNode(result.data);
         Object(lodash__WEBPACK_IMPORTED_MODULE_8__["merge"])(this.node, this.clonedNode);
         this.updateNode.emit(this.node);
         this.drawer.disableClose = false;
@@ -7612,14 +7672,8 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
             .afterClosed()
             .subscribe(function (result) {
             if (result) {
-                // Paste Node to graph
-                // Close Drawer
-                // Show undo Tooltip
                 _this.pasteNode.emit(_this.node);
                 _this.drawer.close();
-                // const originalData = cloneDeep(this.graph.data);
-                // this.graph.pasteNode(node, this.nodeClipboard.getValue());
-                // this.showUndoPaste(originalData);
             }
         });
     };
@@ -8765,9 +8819,9 @@ var translations = {
             'en_Email': 'Email',
             'en_ForgotPassword': 'Forgot password?',
             'en_Help': 'Help',
+            'en_Language': 'Language',
             'en_Login': 'Login',
             'en_Logout': 'Logout',
-            'en_Language': 'Language',
             'en_Name': 'Name',
             'en_NeedHelp': 'Need Help?',
             'en_NewPassword': 'New Password',
@@ -8830,7 +8884,7 @@ var translations = {
                 'hoverDeleteGroupAndSubtree': 'Delete group &amp; subtree',
                 'hoverAddChildGroup': 'Add child group',
                 'copyNodeButton': 'Copy',
-                'pasteNodeButton': 'Paste'
+                'pasteNodeButton': 'Pegar'
             },
             'errors': {
                 'requiredField': 'This field is required',
@@ -9140,7 +9194,26 @@ var translations = {
             'en_Success': 'Éxito',
             'en_Username': 'Nombre de usuario',
             'en_Undo': 'Deshacer',
-            'nodeHasBeenReplaces': 'El nodo ha sido reemplazado',
+            'en_Yes': 'Sí',
+            'en_No': 'No',
+            'childNodeAdded': 'Grupo de niños añadido',
+            'copiedNodeToClipboard': '¡Copiado al portapapeles!',
+            'createDocument': 'Crear documento',
+            'continueWithoutSaving': 'Continuar sin guardar',
+            'deleteDocument': 'Eliminar documento',
+            'emailConfirmed': 'Correo electrónico confirmado',
+            'importDocument': 'Importar documento',
+            'importSubtree': 'Importar subtree',
+            'noSavedDocuments': 'No tienes documentos guardados!',
+            'notFound': 'Extraviado',
+            'selectADocument': 'Por favor seleccione un documento',
+            'pleaseLoginIn': 'Por favor Iniciar sesión',
+            'tools': 'Tools',
+            'underMaintenance': 'Under Maintenance',
+            'nodeHasBeenReplaces': 'Grupo ha sido reemplazado',
+            'saveChanges': 'Guardar cambios',
+            'saveChangesQuestion': '¿Te gustaría guardar tus cambios?',
+            'subtreeImportedPastTense': 'Subtree importado!',
             'menu': {
                 'appName': 'GenMapper',
                 'defaultProjectName': 'Proyecto',
@@ -9169,7 +9242,9 @@ var translations = {
                 'elementParent': 'Discipulador',
                 'notAvailable': 'Editar grupo',
                 'hoverDeleteGroupAndSubtree': 'Eliminar grupo y sub-árbol',
-                'hoverAddChildGroup': 'Añadir grupo secundario'
+                'hoverAddChildGroup': 'Añadir grupo secundario',
+                'copyNodeButton': 'Dupdo',
+                'pasteNodeButton': 'Pegar'
             },
             'errors': {
                 'requiredField': 'Esto es requerido',
@@ -9189,9 +9264,9 @@ var translations = {
                 'confirmDelete': 'Confirm Delete?',
                 'confirmDeleteGroup': '¿De verdad quiere eliminar {{groupName}}?',
                 'confirmDeleteGroupWithChildren': '¿De verdad quiere eliminar {{groupName}} y todos los descendientes?',
-                'confirmContinue': 'Are you sure you want to continue?',
-                'confirmPasteNode': 'Confirm Paste',
-                'confirmPasteNodeWarning': 'Pasting this node will replace the entire node and its descendants.',
+                'confirmContinue': 'Estás seguro de que quieres continuar?',
+                'confirmPasteNode': 'Confirmar Pegar',
+                'confirmPasteNodeWarning': 'Al pegar este grupo se reemplazará todo el nodo y sus descendientes.',
                 'saveAsInSafari': 'Guardar como<br>(Nota: el navegador Safari tiene problemas con la exportación, consulte genMapper -> Ayuda para obtener más información)',
                 'saveAs': 'Guardar como:',
                 'confirmImportSubtreeOverwrite': 'Advertencia: La importación de subárbol se sobreponen a este grupo y todos los descendientes. ¿Quieres continuar?',
