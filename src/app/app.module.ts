@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
 import { ToolsModule } from './tools/tools.module';
+import { AgmCoreModule } from '@agm/core/core.module';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,10 @@ import { ToolsModule } from './tools/tools.module';
         AccountModule,
         AdminModule,
         AppRoutingModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            libraries: ['places']
+        })
     ],
     providers: [],
     bootstrap: [AppComponent],

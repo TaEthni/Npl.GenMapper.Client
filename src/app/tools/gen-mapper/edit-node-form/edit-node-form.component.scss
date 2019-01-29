@@ -1,6 +1,9 @@
+@import '~styles/colors';
+
 :host {
     display: flex;
     flex-direction: column;
+    padding: 16px;
 
     input {
         font-size: 16px;
@@ -10,6 +13,19 @@
 
     .mat-form-field {
         width: 100%;
+
+        .clear-field {
+            margin-top: 5px;
+            color: mat-color($warn);
+        }
+    }
+
+    .mat-slide-toggle::ng-deep {
+        width: 100%;
+
+        .mat-slide-toggle-content {
+            flex: 1;
+        }
     }
 
     .control-input {
@@ -27,6 +43,19 @@
         user-select: none;
         font-weight: 600;
         margin-right: auto;
+    }
+
+    .mat-form-field.geo-location::ng-deep {
+        cursor: pointer;
+        label.mat-form-field-label,
+        input:disabled {
+            cursor: pointer;
+            color: mat-color($primary);
+        }
+
+        .location-icon {
+            color: mat-color($primary);
+        }
     }
 
     @media screen and (min-width: 768px) {

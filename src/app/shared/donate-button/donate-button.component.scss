@@ -1,0 +1,9 @@
+:host {
+    display: block;
+    padding-left: 16px;
+
+    .mat-raised-button {
+        border-radius: 12px;
+        text-transform: uppercase;
+    }
+}

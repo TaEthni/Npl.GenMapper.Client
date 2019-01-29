@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
 import { takeUntil } from 'rxjs/operators';
 
-import { GMTemplate } from '../gen-mapper.interface';
+import { GMTemplate, GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 
@@ -20,9 +20,7 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
     public document: DocumentDto;
     public template: GMTemplate;
     public isAuthenticated: boolean;
-
-    @ViewChild('matDrawer')
-    public matDrawer: MatDrawer;
+    public node: GNode;
 
     constructor(
         private genMapper: GenMapperService,
@@ -32,6 +30,11 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     public ngOnInit(): void {
         this.isAuthenticated = this.authService.isAuthenticated();
+        this.genMapper.getNode()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.node = result;
+            });
 
         this.genMapper.getDocument()
             .pipe(takeUntil(this.unsubscribe))

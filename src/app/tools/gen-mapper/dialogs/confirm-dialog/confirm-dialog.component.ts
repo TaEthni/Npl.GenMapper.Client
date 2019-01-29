@@ -20,6 +20,7 @@ export class ConfirmDialogComponent implements OnInit {
     public alert: string;
     public prompt: string;
     public content: string[];
+    public buttons: string[];
 
     constructor(
         private locale: LocaleService,
@@ -29,6 +30,10 @@ export class ConfirmDialogComponent implements OnInit {
         this.alert = this.data.alert;
         this.content = this.data.content || [];
         this.prompt = this.data.prompt || this.locale.t('messages.confirmContinue');
+        this.buttons = this.data.buttons || [
+            this.locale.t('en_Continue'),
+            this.locale.t('en_Cancel')
+        ];
     }
 
     public ngOnInit(): void {

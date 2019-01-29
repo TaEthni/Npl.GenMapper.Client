@@ -31,6 +31,22 @@ export namespace TemplateUtils {
         }).join(',');
     }
 
+    export function setTemplateLocale(template: GMTemplate, locale: string): void {
+        // Example: template.translations.en.translation.churchCircles;
+        const translations = template.translations[locale].translation[template.format];
+
+        template.fields.forEach(field => {
+            if (translations[field.header]) {
+                field.localeLabel = i18next.t(template.format + '.' + field.header);
+                if (field.values) {
+                    field.values.forEach((v: any) => {
+                        v.localeLabel = i18next.t(template.format + '.' + v.header);
+                    });
+                }
+            }
+        });
+    }
+
     export function getInitialTemplateValue(field: GMField, template: GMTemplate): any {
         if (field.initialTranslationCode) {
             return i18next.t(template.format + '.' + field.initialTranslationCode);

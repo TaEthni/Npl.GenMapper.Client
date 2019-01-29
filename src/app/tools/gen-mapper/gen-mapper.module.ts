@@ -19,6 +19,9 @@ import { GenMapperComponent } from './gen-mapper/gen-mapper.component';
 import { MapMenuButtonComponent } from './map-menu-button/map-menu-button.component';
 import { MapNameControlComponent } from './map-name-control/map-name-control.component';
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
+import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
+import { AgmCoreModule } from '@agm/core/core.module';
+import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
 
 @NgModule({
     imports: [
@@ -26,6 +29,10 @@ import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
         SharedModule,
         ReactiveFormsModule,
         RouterModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            libraries: ['places']
+        })
     ],
     declarations: [
         ConfirmDialogComponent,
@@ -39,6 +46,8 @@ import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
         MapNameControlComponent,
         MapSidenavComponent,
         CreateDocumentDialogComponent,
+        LocationDialogComponent,
+        NodeDrawerComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -48,12 +57,14 @@ import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
         GenMapperDocumentsComponent,
         MapMenuButtonComponent,
         MapNameControlComponent,
-        MapSidenavComponent
+        MapSidenavComponent,
+        NodeDrawerComponent
     ],
     entryComponents: [
         ConfirmDialogComponent,
         EditNodeDialogComponent,
-        CreateDocumentDialogComponent
+        CreateDocumentDialogComponent,
+        LocationDialogComponent
     ],
     providers: [
         DocumentService,

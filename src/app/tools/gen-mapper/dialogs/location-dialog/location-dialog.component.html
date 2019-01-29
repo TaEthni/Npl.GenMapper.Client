@@ -1,0 +1,41 @@
+<div fxLayout="column">
+    <div class="search-box"
+         fxLayout="column">
+        <div class="search-control">
+            <input matInput
+                   placeholder="Search..."
+                   autocomplete="off"
+                   autocapitalize="off"
+                   spellcheck="off"
+                   type="text"
+                   class="form-control"
+                   #search
+                   [formControl]="searchControl" />
+        </div>
+    </div>
+    <agm-map [latitude]="latitude"
+             [longitude]="longitude"
+             [zoom]="zoom"
+             [disableDefaultUI]="true"
+             [style.height]="height + 'px'"
+             (mapClick)="mapClicked($event)">
+        <agm-marker [latitude]="markerLatitude"
+                    [longitude]="markerLongitude"
+                    [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+</div>
+
+<div mat-dialog-actions
+     fxLayoutAlign="end">
+    <button mat-raised-button
+            color="accent"
+            (click)="onSubmit()">
+        {{'en_Continue' | locale | async}}
+    </button>
+    <button mat-button
+            color="warn"
+            [mat-dialog-close]="false">
+        {{'en_Cancel' | locale | async}}
+    </button>
+</div>

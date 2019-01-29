@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delayWhen, tap } from 'rxjs/operators';
 
 import { DocumentService } from './document.service';
-import { GMTemplate } from './gen-mapper.interface';
+import { GMTemplate, GNode } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
 
 const storageKey = 'offline-locall-save-';
@@ -20,18 +20,23 @@ export interface GenMapperConfig {
 export class GenMapperService {
     private _config: BehaviorSubject<GenMapperConfig> = new BehaviorSubject({} as GenMapperConfig);
     private _document: BehaviorSubject<DocumentDto> = new BehaviorSubject(null);
+    private _node: BehaviorSubject<GNode> = new BehaviorSubject(null);
 
     constructor(
         private authService: AuthenticationService,
         private documentService: DocumentService
     ) { }
 
+    public getConfig(): Observable<GenMapperConfig> {
+        return this._config.asObservable();
+    }
+
     public getDocument(): Observable<DocumentDto> {
         return this._document.asObservable();
     }
 
-    public getConfig(): Observable<GenMapperConfig> {
-        return this._config.asObservable();
+    public getNode(): Observable<GNode> {
+        return this._node.asObservable();
     }
 
     public setConfig(config: GenMapperConfig): void {
@@ -40,6 +45,10 @@ export class GenMapperService {
 
     public setDocument(document: DocumentDto): void {
         this._document.next(document);
+    }
+
+    public setNode(node: GNode): void {
+        this._node.next(node);
     }
 
     public load(template: GMTemplate): Observable<DocumentDto[]> {

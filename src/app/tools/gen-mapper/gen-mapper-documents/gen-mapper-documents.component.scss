@@ -2,7 +2,7 @@
 
 :host {
     display: flex;
-    overflow: auto;
+    flex-direction: column;
 
     .add-button {
         margin-right: 16px;

@@ -1,5 +1,12 @@
 # GenMapper Changelog
 
+## (2019-01-27)
+- Refactor: Improve Mobile UI
+
+## (2019-01-26)
+- Fix: Sort documents by updated.
+- Feature: Add Geo Location.
+
 ## (2019-01-25)
 - Fix: Bug where bottom of graph is sometimes cut off.
 
