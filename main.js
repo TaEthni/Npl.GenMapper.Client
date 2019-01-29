@@ -803,7 +803,7 @@ var EditUserDialogComponent = /** @class */ (function () {
     EditUserDialogComponent.prototype.onSubmit = function (event) {
         event.preventDefault();
         if (this.form.valid && this.form.dirty) {
-            this.dialogRef.close(Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])(this.data.user, this.form.value));
+            this.dialogRef.close(Object(lodash__WEBPACK_IMPORTED_MODULE_3__["assign"])(this.data.user, this.form.value));
         }
     };
     EditUserDialogComponent.prototype.createForm = function () {
@@ -1246,7 +1246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_home_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./home/home.module */ "./src/app/home/home.module.ts");
 /* harmony import */ var _layout_layout_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layout/layout.module */ "./src/app/layout/layout.module.ts");
 /* harmony import */ var _tools_tools_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tools/tools.module */ "./src/app/tools/tools.module.ts");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _agm_core_core_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @agm/core/core.module */ "./node_modules/@agm/core/core.module.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1281,7 +1281,7 @@ var AppModule = /** @class */ (function () {
                 _account_account_module__WEBPACK_IMPORTED_MODULE_4__["AccountModule"],
                 _admin_admin_module__WEBPACK_IMPORTED_MODULE_0__["AdminModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_10__["AgmCoreModule"].forRoot({
+                _agm_core_core_module__WEBPACK_IMPORTED_MODULE_10__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
                     libraries: ['places']
                 })
@@ -3699,7 +3699,7 @@ var LayoutComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card fxLayout=\"row\"\r\n          fxLaoutGap=\"10px\">\r\n    <mat-icon tabindex=\"1\"\r\n              color=\"primary\">account_circle</mat-icon>\r\n    <div fxLayout=\"column\"\r\n         fxLayoutGap=\"5px\">\r\n        <div></div>\r\n        <ng-container *ngIf=\"authenticated\">\r\n            <div *ngIf=\"user?.name\"\r\n                 class=\"user-name\">{{user.name}}</div>\r\n            <div *ngIf=\"user?.email\"\r\n                 class=\"user-email\">{{user.email}}</div>\r\n            <div class=\"auth\">\r\n                <a [routerLink]=\"['/logout']\">\r\n                    {{'en_Logout' | locale | async}}\r\n                </a>\r\n            </div>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"!authenticated\">\r\n            <div class=\"auth\"\r\n                 fxLayout=\"column\"\r\n                 fxLayoutGap=\"10px\">\r\n                <a [routerLink]=\"['/login']\">\r\n                    {{'en_Login' | locale | async}}\r\n                </a>\r\n                <a [routerLink]=\"['/signup']\">\r\n                    {{'en_Signup' | locale | async}}\r\n                </a>\r\n            </div>\r\n        </ng-container>\r\n    </div>\r\n</mat-card>\r\n\r\n<section fxLayout=\"column\">\r\n    <mat-nav-list>\r\n        <ng-container *ngIf=\"authenticated\">\r\n            <mat-list-item routerLink=\"/account\"\r\n                           routerLinkActive=\"active\">\r\n                <h3 matLine>\r\n                    {{'en_Account' | locale | async}}\r\n                </h3>\r\n                <mat-icon matListIcon>person</mat-icon>\r\n                <mat-icon class=\"arrow\">chevron_right</mat-icon>\r\n            </mat-list-item>\r\n        </ng-container>\r\n\r\n        <mat-list-item routerLink=\"/tools\"\r\n                       routerLinkActive=\"active\">\r\n            <h3 matLine>\r\n                {{'tools' | locale | async}}\r\n            </h3>\r\n            <mat-icon matListIcon>device_hub</mat-icon>\r\n            <mat-icon class=\"arrow\">chevron_right</mat-icon>\r\n        </mat-list-item>\r\n    </mat-nav-list>\r\n\r\n    <mat-nav-list>\r\n        <mat-list-item (click)=\"sendFeedback()\">\r\n            <mat-icon matListIcon>feedback</mat-icon>\r\n            <h3 matLine>\r\n                {{'en_SendFeedback' | locale | async}}\r\n            </h3>\r\n        </mat-list-item>\r\n\r\n        <mat-list-item (click)=\"help()\">\r\n            <mat-icon matListIcon>help</mat-icon>\r\n            <h3 matLine>\r\n                {{'en_Help' | locale | async}}\r\n            </h3>\r\n        </mat-list-item>\r\n\r\n        <mat-list-item>\r\n            <mat-icon matListIcon>language</mat-icon>\r\n            <mat-form-field matLine>\r\n                <mat-select placeholder=\"{{'en_Language' | locale | async}}\"\r\n                            [formControl]=\"localeControl\">\r\n                    <mat-option *ngFor=\"let lang of (translations$ | async)\"\r\n                                [value]=\"lang.id\">\r\n                        {{lang.label}}\r\n                    </mat-option>\r\n                </mat-select>\r\n            </mat-form-field>\r\n        </mat-list-item>\r\n    </mat-nav-list>\r\n\r\n    <mat-divider></mat-divider>\r\n\r\n    <mat-nav-list>\r\n        <a mat-list-item\r\n           href=\"http://noplaceleft.net\"\r\n           (click)=\"goto($event, 'http://noplaceleft.net')\">\r\n            <img matListAvatar\r\n                 src=\"assets/npl-logo-2018.png\"\r\n                 alt=\"No Place Left\">\r\n            <h3 matLine> #NoPlaceLeft </h3>\r\n            <mat-icon>launch</mat-icon>\r\n        </a>\r\n\r\n        <a mat-list-item\r\n           href=\"https://github.com/NoPlaceLeft/tools-client-angular/blob/master/changelog.md\"\r\n           target=\"_blank\">\r\n            <mat-icon mat-list-icon\r\n                      class=\"history-icon\">history</mat-icon>\r\n            <h3 matLine>\r\n                {{'help.changelogLink' | locale | async}}\r\n            </h3>\r\n            <mat-icon>launch</mat-icon>\r\n        </a>\r\n    </mat-nav-list>\r\n\r\n    <div fxFlex></div>\r\n\r\n    <div class=\"donate-button\"\r\n         #donate></div>\r\n</section>\r\n"
+module.exports = "<mat-card fxLayout=\"row\"\r\n          fxLaoutGap=\"10px\">\r\n    <mat-icon tabindex=\"1\"\r\n              color=\"primary\">account_circle</mat-icon>\r\n    <div fxLayout=\"column\"\r\n         fxLayoutGap=\"5px\">\r\n        <div></div>\r\n        <ng-container *ngIf=\"authenticated\">\r\n            <div *ngIf=\"user?.name\"\r\n                 class=\"user-name\">{{user.name}}</div>\r\n            <div *ngIf=\"user?.email\"\r\n                 class=\"user-email\">{{user.email}}</div>\r\n            <div class=\"auth\">\r\n                <a [routerLink]=\"['/logout']\">\r\n                    {{'en_Logout' | locale | async}}\r\n                </a>\r\n            </div>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"!authenticated\">\r\n            <div class=\"auth\"\r\n                 fxLayout=\"column\"\r\n                 fxLayoutGap=\"10px\">\r\n                <a [routerLink]=\"['/login']\">\r\n                    {{'en_Login' | locale | async}}\r\n                </a>\r\n                <a [routerLink]=\"['/signup']\">\r\n                    {{'en_Signup' | locale | async}}\r\n                </a>\r\n            </div>\r\n        </ng-container>\r\n    </div>\r\n</mat-card>\r\n\r\n<section fxLayout=\"column\">\r\n    <mat-nav-list>\r\n        <ng-container *ngIf=\"authenticated\">\r\n            <mat-list-item routerLink=\"/account\"\r\n                           routerLinkActive=\"active\">\r\n                <h3 matLine>\r\n                    {{'en_Account' | locale | async}}\r\n                </h3>\r\n                <mat-icon matListIcon>person</mat-icon>\r\n                <mat-icon class=\"arrow\">chevron_right</mat-icon>\r\n            </mat-list-item>\r\n        </ng-container>\r\n\r\n        <mat-list-item routerLink=\"/tools\"\r\n                       routerLinkActive=\"active\">\r\n            <h3 matLine>\r\n                {{'tools' | locale | async}}\r\n            </h3>\r\n            <mat-icon matListIcon>device_hub</mat-icon>\r\n            <mat-icon class=\"arrow\">chevron_right</mat-icon>\r\n        </mat-list-item>\r\n    </mat-nav-list>\r\n\r\n    <mat-nav-list>\r\n        <mat-list-item (click)=\"sendFeedback()\">\r\n            <mat-icon matListIcon>feedback</mat-icon>\r\n            <h3 matLine>\r\n                {{'en_SendFeedback' | locale | async}}\r\n            </h3>\r\n        </mat-list-item>\r\n\r\n        <mat-list-item (click)=\"help()\">\r\n            <mat-icon matListIcon>help</mat-icon>\r\n            <h3 matLine>\r\n                {{'en_Help' | locale | async}}\r\n            </h3>\r\n        </mat-list-item>\r\n\r\n        <mat-list-item>\r\n            <mat-icon matListIcon>language</mat-icon>\r\n            <mat-form-field matLine>\r\n                <mat-select placeholder=\"{{'en_Language' | locale | async}}\"\r\n                            [formControl]=\"localeControl\">\r\n                    <mat-option *ngFor=\"let lang of (translations$ | async)\"\r\n                                [value]=\"lang.id\">\r\n                        {{lang.label}}\r\n                    </mat-option>\r\n                </mat-select>\r\n            </mat-form-field>\r\n        </mat-list-item>\r\n    </mat-nav-list>\r\n\r\n    <mat-divider></mat-divider>\r\n\r\n    <mat-nav-list>\r\n        <a mat-list-item\r\n           href=\"http://noplaceleft.net\"\r\n           (click)=\"goto($event, 'http://noplaceleft.net')\">\r\n            <img matListAvatar\r\n                 src=\"assets/npl-logo-2018.png\"\r\n                 alt=\"No Place Left\">\r\n            <h3 matLine> #NoPlaceLeft </h3>\r\n            <mat-icon>launch</mat-icon>\r\n        </a>\r\n\r\n        <a mat-list-item\r\n           href=\"https://github.com/NoPlaceLeft/tools-client-angular/blob/master/changelog.md\"\r\n           target=\"_blank\">\r\n            <mat-icon mat-list-icon\r\n                      class=\"history-icon\">history</mat-icon>\r\n            <h3 matLine>\r\n                {{'help.changelogLink' | locale | async}}\r\n            </h3>\r\n            <mat-icon>launch</mat-icon>\r\n        </a>\r\n    </mat-nav-list>\r\n\r\n    <div fxFlex></div>\r\n\r\n    <app-donate-button></app-donate-button>\r\n</section>\r\n"
 
 /***/ }),
 
@@ -3791,7 +3791,6 @@ var NavigationComponent = /** @class */ (function (_super) {
             .subscribe(function (result) {
             _this.localeService.set(result);
         });
-        this.donateButton.nativeElement.innerHTML = getPayPalButton();
     };
     NavigationComponent.prototype.goto = function (event, url) {
         event.preventDefault();
@@ -3824,10 +3823,6 @@ var NavigationComponent = /** @class */ (function (_super) {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", _shared_entity_user_model__WEBPACK_IMPORTED_MODULE_5__["User"])
     ], NavigationComponent.prototype, "user", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('donate'),
-        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
-    ], NavigationComponent.prototype, "donateButton", void 0);
     NavigationComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-navigation',
@@ -3840,9 +3835,6 @@ var NavigationComponent = /** @class */ (function (_super) {
     return NavigationComponent;
 }(_core_Unsubscribable__WEBPACK_IMPORTED_MODULE_4__["Unsubscribable"]));
 
-function getPayPalButton() {
-    return "\n    <form action=\"https://www.paypal.com/cgi-bin/webscr\"\n          method=\"post\"\n          target=\"_top\">\n        <input type=\"hidden\"\n               name=\"cmd\"\n               value=\"_donations\" />\n        <input type=\"hidden\"\n               name=\"business\"\n               value=\"WR657KF67GLC2\" />\n        <input type=\"hidden\"\n               name=\"currency_code\"\n               value=\"USD\" />\n        <input type=\"image\"\n               src=\"https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif\"\n               border=\"0\"\n               name=\"submit\"\n               title=\"PayPal - The safer, easier way to pay online!\"\n               alt=\"Donate with PayPal button\" />\n        <img alt=\"\"\n             border=\"0\"\n             src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\"\n             width=\"1\"\n             height=\"1\" />\n    </form>\n    ";
-}
 
 
 /***/ }),
@@ -3986,6 +3978,82 @@ function confirmPasswordValidator(controlKey) {
 
 /***/ }),
 
+/***/ "./src/app/shared/donate-button/donate-button.component.html":
+/*!*******************************************************************!*\
+  !*** ./src/app/shared/donate-button/donate-button.component.html ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div #paypalButton></div>\r\n<button mat-raised-button\r\n        color=\"primary\"\r\n        (click)=\"clickForm()\">\r\n    Donate\r\n</button>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/donate-button/donate-button.component.scss":
+/*!*******************************************************************!*\
+  !*** ./src/app/shared/donate-button/donate-button.component.scss ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\n  display: block;\n  padding-left: 16px; }\n  :host .mat-raised-button {\n    border-radius: 12px;\n    text-transform: uppercase; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2RvbmF0ZS1idXR0b24vQzpcXFJlcG9zXFx0b29scy1jbGllbnQtYW5ndWxhci9zcmNcXGFwcFxcc2hhcmVkXFxkb25hdGUtYnV0dG9uXFxkb25hdGUtYnV0dG9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBYztFQUNkLG1CQUFrQixFQU1yQjtFQVJEO0lBS1Esb0JBQW1CO0lBQ25CLDBCQUF5QixFQUM1QiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9kb25hdGUtYnV0dG9uL2RvbmF0ZS1idXR0b24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XHJcbiAgICBkaXNwbGF5OiBibG9jaztcclxuICAgIHBhZGRpbmctbGVmdDogMTZweDtcclxuXHJcbiAgICAubWF0LXJhaXNlZC1idXR0b24ge1xyXG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDEycHg7XHJcbiAgICAgICAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcclxuICAgIH1cclxufVxyXG4iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/shared/donate-button/donate-button.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/shared/donate-button/donate-button.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: DonateButtonComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DonateButtonComponent", function() { return DonateButtonComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var DonateButtonComponent = /** @class */ (function () {
+    function DonateButtonComponent(elementRef) {
+        this.elementRef = elementRef;
+    }
+    DonateButtonComponent.prototype.ngOnInit = function () {
+        this.paypalButton.nativeElement.innerHTML = getPayPalButton();
+    };
+    DonateButtonComponent.prototype.clickForm = function () {
+        var inputElement = this.elementRef.nativeElement.querySelector('#donate-click-target');
+        inputElement.click();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('paypalButton'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], DonateButtonComponent.prototype, "paypalButton", void 0);
+    DonateButtonComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-donate-button',
+            template: __webpack_require__(/*! ./donate-button.component.html */ "./src/app/shared/donate-button/donate-button.component.html"),
+            styles: [__webpack_require__(/*! ./donate-button.component.scss */ "./src/app/shared/donate-button/donate-button.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+    ], DonateButtonComponent);
+    return DonateButtonComponent;
+}());
+
+function getPayPalButton() {
+    return "\n    <form action=\"https://www.paypal.com/cgi-bin/webscr\"\n          method=\"post\"\n          target=\"_top\"\n          style=\"display: none;\">\n        <input type=\"hidden\"\n               name=\"cmd\"\n               value=\"_donations\" />\n        <input type=\"hidden\"\n               name=\"business\"\n               value=\"WR657KF67GLC2\" />\n        <input type=\"hidden\"\n               name=\"currency_code\"\n               value=\"USD\" />\n        <input type=\"image\"\n               src=\"https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif\"\n               border=\"0\"\n               name=\"submit\"\n               title=\"PayPal - The safer, easier way to pay online!\"\n               alt=\"Donate with PayPal button\"\n               id=\"donate-click-target\"/>\n        <img alt=\"\"\n             border=\"0\"\n             src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\"\n             width=\"1\"\n             height=\"1\" />\n    </form>\n    ";
+}
+
+
+/***/ }),
+
 /***/ "./src/app/shared/entity/document.model.ts":
 /*!*************************************************!*\
   !*** ./src/app/shared/entity/document.model.ts ***!
@@ -4020,7 +4088,7 @@ var DocumentDto = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         // Mapped on client
         _this.entityType = _shared_entity_entity_model__WEBPACK_IMPORTED_MODULE_0__["EntityType"].Documents;
-        Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])(_this, props);
+        Object(lodash__WEBPACK_IMPORTED_MODULE_1__["assign"])(_this, props);
         return _this;
     }
     return DocumentDto;
@@ -4093,7 +4161,7 @@ var User = /** @class */ (function (_super) {
         if (props === void 0) { props = {}; }
         var _this = _super.call(this) || this;
         _this.entityType = _entity_model__WEBPACK_IMPORTED_MODULE_0__["EntityType"].Users;
-        Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])(_this, props);
+        Object(lodash__WEBPACK_IMPORTED_MODULE_1__["assign"])(_this, props);
         return _this;
     }
     return User;
@@ -4493,12 +4561,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _npl_logo_npl_logo_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./npl-logo/npl-logo.component */ "./src/app/shared/npl-logo/npl-logo.component.ts");
 /* harmony import */ var _sidenav_toggle_sidenav_toggle_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sidenav-toggle/sidenav-toggle.component */ "./src/app/shared/sidenav-toggle/sidenav-toggle.component.ts");
 /* harmony import */ var _sort_by_date_pipe__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./sort-by-date.pipe */ "./src/app/shared/sort-by-date.pipe.ts");
+/* harmony import */ var _donate_button_donate_button_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./donate-button/donate-button.component */ "./src/app/shared/donate-button/donate-button.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -4531,6 +4601,7 @@ var SharedModule = /** @class */ (function () {
                 _npl_logo_npl_logo_component__WEBPACK_IMPORTED_MODULE_9__["NplLogoComponent"],
                 _locale_pipe__WEBPACK_IMPORTED_MODULE_7__["LocalePipe"],
                 _join_list_pipe__WEBPACK_IMPORTED_MODULE_6__["JoinListPipe"],
+                _donate_button_donate_button_component__WEBPACK_IMPORTED_MODULE_12__["DonateButtonComponent"],
             ],
             exports: [
                 _material_material_module__WEBPACK_IMPORTED_MODULE_8__["MaterialModule"],
@@ -4540,7 +4611,8 @@ var SharedModule = /** @class */ (function () {
                 _file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_5__["FileInputDialogComponent"],
                 _npl_logo_npl_logo_component__WEBPACK_IMPORTED_MODULE_9__["NplLogoComponent"],
                 _locale_pipe__WEBPACK_IMPORTED_MODULE_7__["LocalePipe"],
-                _join_list_pipe__WEBPACK_IMPORTED_MODULE_6__["JoinListPipe"]
+                _join_list_pipe__WEBPACK_IMPORTED_MODULE_6__["JoinListPipe"],
+                _donate_button_donate_button_component__WEBPACK_IMPORTED_MODULE_12__["DonateButtonComponent"]
             ],
             entryComponents: [
                 _file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_5__["FileInputDialogComponent"]
@@ -5044,7 +5116,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\">\n    <div class=\"search-box\"\n         fxLayout=\"column\">\n        <div class=\"search-control\">\n            <input matInput\n                   placeholder=\"Search...\"\n                   autocomplete=\"off\"\n                   autocapitalize=\"off\"\n                   spellcheck=\"off\"\n                   type=\"text\"\n                   class=\"form-control\"\n                   #search\n                   [formControl]=\"searchControl\" />\n        </div>\n    </div>\n    <agm-map [latitude]=\"latitude\"\n             [longitude]=\"longitude\"\n             [zoom]=\"zoom\"\n             [disableDefaultUI]=\"true\"\n             [style.height]=\"height + 'px'\"\n             (mapClick)=\"mapClicked($event)\">\n        <agm-marker [latitude]=\"markerLatitude\"\n                    [longitude]=\"markerLongitude\"\n                    [markerDraggable]=\"true\"\n                    (dragEnd)=\"markerDragEnd($event)\"></agm-marker>\n    </agm-map>\n</div>\n\n<div mat-dialog-actions\n     fxLayoutAlign=\"end\">\n    <button mat-raised-button\n            color=\"accent\"\n            (click)=\"onSubmit()\">\n        {{'en_Continue' | locale | async}}\n    </button>\n    <button mat-button\n            color=\"warn\"\n            [mat-dialog-close]=\"false\">\n        {{'en_Cancel' | locale | async}}\n    </button>\n</div>\n"
+module.exports = "<div fxLayout=\"column\">\r\n    <div class=\"search-box\"\r\n         fxLayout=\"column\">\r\n        <div class=\"search-control\">\r\n            <input matInput\r\n                   placeholder=\"Search...\"\r\n                   autocomplete=\"off\"\r\n                   autocapitalize=\"off\"\r\n                   spellcheck=\"off\"\r\n                   type=\"text\"\r\n                   class=\"form-control\"\r\n                   #search\r\n                   [formControl]=\"searchControl\" />\r\n        </div>\r\n    </div>\r\n    <agm-map [latitude]=\"latitude\"\r\n             [longitude]=\"longitude\"\r\n             [zoom]=\"zoom\"\r\n             [disableDefaultUI]=\"true\"\r\n             [style.height]=\"height + 'px'\"\r\n             (mapClick)=\"mapClicked($event)\">\r\n        <agm-marker [latitude]=\"markerLatitude\"\r\n                    [longitude]=\"markerLongitude\"\r\n                    [markerDraggable]=\"true\"\r\n                    (dragEnd)=\"markerDragEnd($event)\"></agm-marker>\r\n    </agm-map>\r\n</div>\r\n\r\n<div mat-dialog-actions\r\n     fxLayoutAlign=\"end\">\r\n    <button mat-raised-button\r\n            color=\"accent\"\r\n            (click)=\"onSubmit()\">\r\n        {{'en_Continue' | locale | async}}\r\n    </button>\r\n    <button mat-button\r\n            color=\"warn\"\r\n            [mat-dialog-close]=\"false\">\r\n        {{'en_Cancel' | locale | async}}\r\n    </button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5069,10 +5141,10 @@ module.exports = ":host {\n  display: flex;\n  flex-direction: column;\n  width:
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocationDialogComponent", function() { return LocationDialogComponent; });
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _agm_core_services_maps_api_loader_maps_api_loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @agm/core/services/maps-api-loader/maps-api-loader */ "./node_modules/@agm/core/services/maps-api-loader/maps-api-loader.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5098,7 +5170,7 @@ var LocationDialogComponent = /** @class */ (function () {
         this.latitude = data.coords.latitude;
         this.longitude = data.coords.longitude;
         this.zoom = 12;
-        this.searchControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
+        this.searchControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]();
         this.height = window.innerHeight - 150;
         this.initialize();
     }
@@ -5106,7 +5178,6 @@ var LocationDialogComponent = /** @class */ (function () {
         this.dialogRef.close(this.address);
     };
     LocationDialogComponent.prototype.markerDragEnd = function (event) {
-        console.log(event);
         this.setAddress(event.coords.lat, event.coords.lng);
     };
     LocationDialogComponent.prototype.mapClicked = function (event) {
@@ -5157,19 +5228,19 @@ var LocationDialogComponent = /** @class */ (function () {
         });
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('search'),
-        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('search'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], LocationDialogComponent.prototype, "searchElementRef", void 0);
     LocationDialogComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-location-dialog',
             template: __webpack_require__(/*! ./location-dialog.component.html */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.html"),
             styles: [__webpack_require__(/*! ./location-dialog.component.scss */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.scss")]
         }),
-        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"])),
-        __metadata("design:paramtypes", [_agm_core__WEBPACK_IMPORTED_MODULE_0__["MapsAPILoader"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"], Object])
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_agm_core_services_maps_api_loader_maps_api_loader__WEBPACK_IMPORTED_MODULE_3__["MapsAPILoader"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object])
     ], LocationDialogComponent);
     return LocationDialogComponent;
 }());
@@ -6569,7 +6640,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _map_name_control_map_name_control_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./map-name-control/map-name-control.component */ "./src/app/tools/gen-mapper/map-name-control/map-name-control.component.ts");
 /* harmony import */ var _map_sidenav_map_sidenav_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./map-sidenav/map-sidenav.component */ "./src/app/tools/gen-mapper/map-sidenav/map-sidenav.component.ts");
 /* harmony import */ var _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./dialogs/location-dialog/location-dialog.component */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.ts");
-/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var _agm_core_core_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @agm/core/core.module */ "./node_modules/@agm/core/core.module.js");
 /* harmony import */ var _node_drawer_node_drawer_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./node-drawer/node-drawer.component */ "./src/app/tools/gen-mapper/node-drawer/node-drawer.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6610,7 +6681,7 @@ var GenMapperModule = /** @class */ (function () {
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
-                _agm_core__WEBPACK_IMPORTED_MODULE_21__["AgmCoreModule"].forRoot({
+                _agm_core_core_module__WEBPACK_IMPORTED_MODULE_21__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
                     libraries: ['places']
                 })
@@ -7501,7 +7572,7 @@ var NodeClipboardService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n    <mat-toolbar-row>\n        <span>\n            Edit\n            <ng-container *ngIf=\"clonedNode?.name || clonedNode?.leaderName\">\n                [{{clonedNode?.name || clonedNode?.leaderName}}]\n            </ng-container>\n        </span>\n    </mat-toolbar-row>\n</mat-toolbar>\n<div class=\"save-button\">\n    <div class=\"animated-button-group\"\n         [class.slide-down]=\"form.dirty\"\n         fxLayout=\"row\">\n        <button mat-raised-button\n                color=\"primary\"\n                (click)=\"onSave()\"\n                fxFlex>\n            {{'en_Save' | locale | async}}\n        </button>\n        <button mat-button\n                color=\"primary\"\n                (click)=\"onCancel()\"\n                fxFlex>\n            {{'en_Cancel' | locale | async}}\n        </button>\n    </div>\n</div>\n<div>\n    <div fxLayout=\"row\"\n         fxLayoutGap=\"10px\"\n         class=\"drawer-actions\">\n\n        <button mat-stroked-button\n                (click)=\"onCopyNode()\">\n            {{'editGroup.copyNodeButton' | locale | async}}\n        </button>\n\n        <ng-container *ngIf=\"isNodeInClipboard\">\n            <button mat-stroked-button\n                    (click)=\"onPasteNode()\">\n                {{'editGroup.pasteNodeButton' | locale | async}}\n            </button>\n        </ng-container>\n\n        <div fxFlex></div>\n\n        <button mat-stroked-button\n                color=\"primary\"\n                (click)=\"onImportSubtree()\">\n            {{'importSubtree' | locale | async}}\n        </button>\n    </div>\n    <app-edit-node-form [form]=\"form\"\n                        [fields]=\"fields\"\n                        [nodes]=\"document?.nodes\"\n                        [model]=\"clonedNode\"></app-edit-node-form>\n</div>\n"
+module.exports = "<mat-toolbar>\r\n    <mat-toolbar-row>\r\n        <span>\r\n            Edit\r\n            <ng-container *ngIf=\"clonedNode?.name || clonedNode?.leaderName\">\r\n                [{{clonedNode?.name || clonedNode?.leaderName}}]\r\n            </ng-container>\r\n        </span>\r\n    </mat-toolbar-row>\r\n</mat-toolbar>\r\n<div class=\"save-button\">\r\n    <div class=\"animated-button-group\"\r\n         [class.slide-down]=\"form.dirty\"\r\n         fxLayout=\"row\">\r\n        <button mat-raised-button\r\n                color=\"primary\"\r\n                (click)=\"onSave()\"\r\n                fxFlex>\r\n            {{'en_Save' | locale | async}}\r\n        </button>\r\n        <button mat-button\r\n                color=\"primary\"\r\n                (click)=\"onCancel()\"\r\n                fxFlex>\r\n            {{'en_Cancel' | locale | async}}\r\n        </button>\r\n    </div>\r\n</div>\r\n<div>\r\n    <div fxLayout=\"row\"\r\n         fxLayoutGap=\"10px\"\r\n         class=\"drawer-actions\">\r\n\r\n        <button mat-stroked-button\r\n                (click)=\"onCopyNode()\">\r\n            {{'editGroup.copyNodeButton' | locale | async}}\r\n        </button>\r\n\r\n        <ng-container *ngIf=\"isNodeInClipboard\">\r\n            <button mat-stroked-button\r\n                    (click)=\"onPasteNode()\">\r\n                {{'editGroup.pasteNodeButton' | locale | async}}\r\n            </button>\r\n        </ng-container>\r\n\r\n        <div fxFlex></div>\r\n\r\n        <button mat-stroked-button\r\n                color=\"primary\"\r\n                (click)=\"onImportSubtree()\">\r\n            {{'importSubtree' | locale | async}}\r\n        </button>\r\n    </div>\r\n    <app-edit-node-form [form]=\"form\"\r\n                        [fields]=\"fields\"\r\n                        [nodes]=\"document?.nodes\"\r\n                        [model]=\"clonedNode\"></app-edit-node-form>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -7655,7 +7726,7 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
         if (this.clonedNode.hasOwnProperty('active') && this.clonedNode.hasOwnProperty('inactiveReason') && this.clonedNode.active) {
             this.clonedNode.inactiveReason = null;
         }
-        Object(lodash__WEBPACK_IMPORTED_MODULE_8__["merge"])(this.node, this.clonedNode);
+        Object(lodash__WEBPACK_IMPORTED_MODULE_8__["assign"])(this.node, this.clonedNode);
         this.updateNode.emit(this.node);
         this.drawer.disableClose = false;
         this.genMapper.setNode(null);
@@ -7699,7 +7770,7 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
         this.drawer.disableClose = this.form.dirty;
     };
     NodeDrawerComponent.prototype.onFormChange = function (value) {
-        Object(lodash__WEBPACK_IMPORTED_MODULE_8__["merge"])(this.clonedNode, value);
+        Object(lodash__WEBPACK_IMPORTED_MODULE_8__["assign"])(this.clonedNode, value);
         this.drawer.disableClose = this.form.dirty;
     };
     NodeDrawerComponent.prototype.initializeForm = function () {
@@ -7727,7 +7798,6 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
         }
         if (clipboard) {
             var root = clipboard.find(function (n) { return n.parentId === ''; });
-            console.log(this.node.id, root.id);
             if (root && root.id === this.node.id) {
                 this.isNodeInClipboard = false;
             }
