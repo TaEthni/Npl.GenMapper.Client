@@ -1,5 +1,5 @@
 import { Entity, EntityType } from '@shared/entity/entity.model';
-import { merge } from 'lodash';
+import { assign } from 'lodash';
 
 import { GNode } from '../../tools/gen-mapper/gen-mapper.interface';
 
@@ -18,6 +18,6 @@ export class DocumentDto extends Entity {
 
     constructor(props: object = {}) {
         super();
-        merge<DocumentDto, object>(this, props);
+        assign<DocumentDto, object>(this, props);
     }
 }

@@ -7,7 +7,7 @@ import { TemplateUtils } from '../template-utils';
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { MatDrawer, MatDialog } from '@angular/material';
-import { cloneDeep, without, merge } from 'lodash';
+import { cloneDeep, without, assign } from 'lodash';
 import { FormGroup, FormControl } from '@angular/forms';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
@@ -77,6 +77,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         if (this.node) {
             this.drawer.open();
             this.configureNode();
+            console.log(this.node)
         } else {
             this.drawer.close();
         }
@@ -123,7 +124,8 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         if (this.clonedNode.hasOwnProperty('active') && this.clonedNode.hasOwnProperty('inactiveReason') && this.clonedNode.active) {
             this.clonedNode.inactiveReason = null;
         }
-        merge(this.node, this.clonedNode);
+
+        assign(this.node, this.clonedNode);
 
         this.updateNode.emit(this.node);
         this.drawer.disableClose = false;
@@ -171,7 +173,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     }
 
     public onFormChange(value: GNode): void {
-        merge(
+        assign(
             this.clonedNode,
             value
         );
@@ -208,7 +210,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
         if (clipboard) {
             const root = clipboard.find(n => n.parentId === '');
-            console.log(this.node.id, root.id);
             if (root && root.id === this.node.id) {
                 this.isNodeInClipboard = false;
             } else {
