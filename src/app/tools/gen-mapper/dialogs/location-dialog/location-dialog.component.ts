@@ -1,8 +1,11 @@
-import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Observable, Subject } from 'rxjs';
+import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
+
+interface MouseEvent {
+    coords: { lat: number, lng: number };
+}
 
 @Component({
     selector: 'app-location-dialog',

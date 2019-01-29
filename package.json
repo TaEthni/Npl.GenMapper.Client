@@ -22,7 +22,8 @@
         "moduleNameMapper": {
             "@shared/(.*)": "<rootDir>/src/app/shared/$1",
             "@core/(.*)": "<rootDir>/src/app/core/$1",
-            "@admin/(.*)": "<rootDir>/src/app/admin/$1"
+            "@admin/(.*)": "<rootDir>/src/app/admin/$1",
+            "@agm/core": "<rootDir>/src/app/core/testing/agmcore.mock.ts"
         }
     },
     "dependencies": {

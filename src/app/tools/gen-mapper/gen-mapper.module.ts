@@ -20,7 +20,7 @@ import { MapMenuButtonComponent } from './map-menu-button/map-menu-button.compon
 import { MapNameControlComponent } from './map-name-control/map-name-control.component';
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core/core.module';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
 
 @NgModule({
