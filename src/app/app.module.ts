@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
 import { ToolsModule } from './tools/tools.module';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core/core.module';
 
 @NgModule({
     declarations: [

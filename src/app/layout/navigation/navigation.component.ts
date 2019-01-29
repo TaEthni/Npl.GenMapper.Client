@@ -25,9 +25,6 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     @Input()
     public user: User = null;
 
-    @ViewChild('donate')
-    public donateButton: ElementRef;
-
     public tools = [
         {
             name: 'Church Circles',
@@ -52,8 +49,6 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
             .subscribe(result => {
                 this.localeService.set(result);
             });
-
-        this.donateButton.nativeElement.innerHTML = getPayPalButton();
     }
 
     public goto(event: Event, url: string): void {
@@ -81,34 +76,4 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
             }
         });
     }
-}
-
-
-function getPayPalButton(): string {
-    return `
-    <form action="https://www.paypal.com/cgi-bin/webscr"
-          method="post"
-          target="_top">
-        <input type="hidden"
-               name="cmd"
-               value="_donations" />
-        <input type="hidden"
-               name="business"
-               value="WR657KF67GLC2" />
-        <input type="hidden"
-               name="currency_code"
-               value="USD" />
-        <input type="image"
-               src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
-               border="0"
-               name="submit"
-               title="PayPal - The safer, easier way to pay online!"
-               alt="Donate with PayPal button" />
-        <img alt=""
-             border="0"
-             src="https://www.paypal.com/en_US/i/scr/pixel.gif"
-             width="1"
-             height="1" />
-    </form>
-    `;
 }
