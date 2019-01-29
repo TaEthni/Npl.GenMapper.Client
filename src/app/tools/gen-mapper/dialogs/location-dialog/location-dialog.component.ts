@@ -45,7 +45,6 @@ export class LocationDialogComponent {
     }
 
     public markerDragEnd(event: MouseEvent): void {
-        console.log(event);
         this.setAddress(event.coords.lat, event.coords.lng);
     }
 

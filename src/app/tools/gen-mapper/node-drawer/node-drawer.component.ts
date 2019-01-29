@@ -77,7 +77,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         if (this.node) {
             this.drawer.open();
             this.configureNode();
-            console.log(this.node)
         } else {
             this.drawer.close();
         }
