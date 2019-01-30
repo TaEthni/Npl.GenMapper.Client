@@ -21,7 +21,7 @@
 
 <ng-template #genMapperGraph>
     <ng-container *ngIf="document">
-        <app-map-name-control></app-map-name-control>
+        <app-map-name-control [showErrors]="isAuthenticated"></app-map-name-control>
         <app-map-menu-button [document]="document"
                              [template]="template"
                              (print)="onPrint($event)"></app-map-menu-button>
