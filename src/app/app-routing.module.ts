@@ -23,6 +23,7 @@ import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.com
 import { ChurchCirclesTemplate } from './tools/gen-mapper/templates/church-circles';
 import { FourFieldsTemplate } from './tools/gen-mapper/templates/four-fields';
 import { ToolsComponent } from './tools/tools/tools.component';
+import { ChurchCirclesCzechTemplate } from './tools/gen-mapper/templates/church-circles-czech';
 
 const appRoutes: Routes = [
     {
@@ -98,6 +99,29 @@ const appRoutes: Routes = [
                         },
                         // Configuration is for local mode
                         runGuardsAndResolvers: 'always'
+                    },
+                    {
+                        path: '',
+                        component: GenMapperComponent
+                    },
+                ]
+            },
+            {
+                path: 'church-circles-czech',
+                component: GenMapperContainerComponent,
+                resolve: {
+                    documents: GenMapperContainerResolver,
+                },
+                data: {
+                    template: ChurchCirclesCzechTemplate
+                },
+                children: [
+                    {
+                        path: ':id',
+                        component: GenMapperComponent,
+                        resolve: {
+                            document: GenMapperResolver
+                        }
                     },
                     {
                         path: '',
