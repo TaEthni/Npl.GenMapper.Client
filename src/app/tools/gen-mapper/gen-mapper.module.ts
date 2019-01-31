@@ -22,6 +22,9 @@ import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { AgmCoreModule } from '@agm/core/core.module';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
+import { PeopleGroupDialogComponent } from './dialogs/people-group-dialog/people-group-dialog.component';
+import { CountryPickerComponent } from './country-picker/country-picker.component';
+import { PeopleGroupPickerComponent } from './people-group-picker/people-group-picker.component';
 
 @NgModule({
     imports: [
@@ -48,6 +51,9 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         CreateDocumentDialogComponent,
         LocationDialogComponent,
         NodeDrawerComponent,
+        PeopleGroupDialogComponent,
+        CountryPickerComponent,
+        PeopleGroupPickerComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -58,13 +64,16 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         MapMenuButtonComponent,
         MapNameControlComponent,
         MapSidenavComponent,
-        NodeDrawerComponent
+        NodeDrawerComponent,
+        CountryPickerComponent,
+        PeopleGroupPickerComponent
     ],
     entryComponents: [
         ConfirmDialogComponent,
         EditNodeDialogComponent,
         CreateDocumentDialogComponent,
-        LocationDialogComponent
+        LocationDialogComponent,
+        PeopleGroupDialogComponent
     ],
     providers: [
         DocumentService,

@@ -1,0 +1,32 @@
+<div mat-dialog-title>
+    <ng-container *ngIf="!peopleGroups">
+        <div>
+            Country:
+        </div>
+    </ng-container>
+    <ng-container *ngIf="peopleGroups">
+        <div>
+            {{peopleGroups[0].attributes.Ctry}}
+        </div>
+        <div>
+            People Groups:
+        </div>
+    </ng-container>
+</div>
+
+<div mat-dialog-content
+     fxLayout="column">
+    <mat-progress-bar *ngIf="isLoading"
+                      mode="indeterminate"></mat-progress-bar>
+
+    <ng-container *ngIf="!isLoading">
+        <ng-container *ngIf="!peopleGroups">
+            <app-country-picker [countries]="countries"
+                                (onChange)="onCountrySelected($event)"></app-country-picker>
+        </ng-container>
+        <ng-container *ngIf="peopleGroups">
+            <app-people-group-picker [peopleGroups]="peopleGroups">
+            </app-people-group-picker>
+        </ng-container>
+    </ng-container>
+</div>

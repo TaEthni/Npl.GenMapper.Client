@@ -1,6 +1,6 @@
-const boxHeight = 100
-const textHeight = 14
-const textMargin = 6
+const boxHeight = 100;
+const textHeight = 14;
+const textMargin = 6;
 
 export function moveLeaderName(d: any): number {
     let c = 1;
@@ -182,7 +182,7 @@ export const ChurchCirclesTemplate = {
         {
             'header': 'peopleGroup',
             'initial': null,
-            'type': 'text'
+            'type': 'peidSelect'
         },
         {
             'header': 'attenders',

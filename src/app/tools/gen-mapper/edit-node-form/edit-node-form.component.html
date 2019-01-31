@@ -40,6 +40,29 @@
                         </mat-form-field>
                     </ng-container>
 
+                    <ng-container *ngIf="field.type === 'peidSelect'">
+                        <mat-form-field no-error
+                                        class="peid-select">
+                            <mat-label>
+                                {{field.localeLabel}}
+                            </mat-label>
+                            <input type="text"
+                                   matInput
+                                   autocomplete="off"
+                                   [formControl]="form.get(field.header)" />
+
+                            <mat-icon matSuffix
+                                      class="clear-field"
+                                      (click)="onClearFieldClick($event, field)"
+                                      *ngIf="form.get(field.header).value">clear</mat-icon>
+
+                            <mat-icon matSuffix
+                                      class="location-icon"
+                                      (click)="onClearFieldClick($event, field)">location_on</mat-icon>
+
+                        </mat-form-field>
+                    </ng-container>
+
                     <ng-container *ngIf="field.type === 'textarea'">
                         <mat-form-field no-error>
                             <textarea type="text"

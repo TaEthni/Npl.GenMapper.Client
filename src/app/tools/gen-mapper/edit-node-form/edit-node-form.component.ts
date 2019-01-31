@@ -7,6 +7,7 @@ import { GMField, GNode } from '../gen-mapper.interface';
 import { MatDialog } from '@angular/material';
 import { MapsService } from '@core/maps.service';
 import { LocationDialogComponent } from '../dialogs/location-dialog/location-dialog.component';
+import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -45,11 +46,19 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (this.form.get('location')) {
             this.form.get('location').disable();
         }
+
+        if (this.form.get('peopleGroup')) {
+            this.form.get('peopleGroup').disable();
+        }
     }
 
     public onFieldClick(field: GMField): void {
         if (field.type === 'geoLocation') {
             this.onGeoLocationClick();
+        }
+
+        if (field.type === 'peidSelect') {
+            this.onPeopleGroupClick();
         }
     }
 
@@ -75,5 +84,16 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
                     }
                 });
         });
+    }
+
+    public onPeopleGroupClick(): void {
+        this.dialog
+            .open(PeopleGroupDialogComponent, {
+                data: {}
+            })
+            .afterClosed()
+            .subscribe(() => {
+
+            });
     }
 }

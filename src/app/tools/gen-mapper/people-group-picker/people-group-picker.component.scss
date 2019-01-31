@@ -1,0 +1,36 @@
+@import '~styles/colors';
+
+:host {
+    display: flex;
+    flex-direction: column;
+
+    table {
+        width: 100%;
+    }
+
+    .selection-list {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        flex: 1 0 auto;
+
+        margin-bottom: 24px;
+    }
+
+    .selection-item {
+        display: flex;
+        flex-direction: row;
+
+        padding: 0 5px;
+        line-height: 24px;
+        border-radius: 8px;
+        color: white;
+        background-color: mat-color($accent);
+        margin: 0 5px 5px 0;
+
+        .mat-icon {
+            height: 24px;
+            font-size: 24px;
+        }
+    }
+}

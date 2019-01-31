@@ -1,0 +1,16 @@
+@import '~styles/mixins';
+@import '~styles/colors';
+
+:host {
+    @include dialog();
+
+    table {
+        width: 100%;
+
+        tr {
+            td:first-child {
+                width: 48px;
+            }
+        }
+    }
+}
