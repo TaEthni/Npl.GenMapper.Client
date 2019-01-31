@@ -11,12 +11,21 @@ import { translations } from './app/tools/gen-mapper/templates/translations';
 import { environment } from './environments/environment';
 import { Device } from '@core/platform';
 import { Browser } from '@core/browser';
+import { ChurchCirclesCzechTemplate } from './app/tools/gen-mapper/templates/church-circles-czech';
 
 if (environment.production) {
     enableProdMode();
 }
 
-const resources = defaultsDeep(translations, defaultsDeep(ChurchCirclesTemplate.translations, FourFieldsTemplate.translations));
+let resources = translations;
+
+[
+    ChurchCirclesTemplate.translations,
+    FourFieldsTemplate.translations,
+    ChurchCirclesCzechTemplate.translations
+].forEach(translation => {
+    resources = defaultsDeep(resources, translation);
+});
 
 i18next
     .use(i18nextBrowserLanguageDetector)

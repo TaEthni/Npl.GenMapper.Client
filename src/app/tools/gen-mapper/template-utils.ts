@@ -4,9 +4,11 @@ import i18next from 'i18next';
 import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
 import { ChurchCirclesTemplate } from './templates/church-circles';
 import { FourFieldsTemplate } from './templates/four-fields';
+import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
 
 export const genMapperTemplates = {
     [ChurchCirclesTemplate.format]: ChurchCirclesTemplate,
+    [ChurchCirclesCzechTemplate.format]: ChurchCirclesCzechTemplate,
     [FourFieldsTemplate.format]: FourFieldsTemplate
 };
 
