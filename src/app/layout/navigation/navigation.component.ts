@@ -25,17 +25,6 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     @Input()
     public user: User = null;
 
-    public tools = [
-        {
-            name: 'Church Circles',
-            route: '/church-circles'
-        },
-        {
-            name: 'Four Fields',
-            route: '/four-fields'
-        }
-    ];
-
     constructor(
         private dialog: MatDialog,
         private localeService: LocaleService

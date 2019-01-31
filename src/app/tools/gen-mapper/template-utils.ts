@@ -5,16 +5,22 @@ import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
 import { ChurchCirclesTemplate } from './templates/church-circles';
 import { FourFieldsTemplate } from './templates/four-fields';
 import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
+import { DisciplesTemplate } from './templates/disciples';
+import { groupBy } from 'lodash';
 
-export const genMapperTemplates = {
-    [ChurchCirclesTemplate.format]: ChurchCirclesTemplate,
-    [ChurchCirclesCzechTemplate.format]: ChurchCirclesCzechTemplate,
-    [FourFieldsTemplate.format]: FourFieldsTemplate
-};
+export const GenMapperTemplates = [
+    ChurchCirclesTemplate,
+    ChurchCirclesCzechTemplate,
+    DisciplesTemplate,
+    FourFieldsTemplate,
+];
+
+export const GenMapperTemplatesByFormat = {};
+GenMapperTemplates.forEach(t => GenMapperTemplatesByFormat[t.format] = t);
 
 export namespace TemplateUtils {
     export function getTemplate(templateName: string): GMTemplate {
-        return genMapperTemplates[templateName] as GMTemplate;
+        return (<any>GenMapperTemplatesByFormat)[templateName] as GMTemplate;
     }
 
     export function createCSVHeader(template: GMTemplate): string {

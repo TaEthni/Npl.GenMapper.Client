@@ -438,16 +438,16 @@ export class GenMap {
             .attr('height', 100)
             .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
 
-        _appendRemoveButton(newGroup, this.template);
-        _appendAddButton(newGroup, this.template);
-        _appendEditButton(newGroup, this.template);
-
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach((svgElement) => {
             const svgElementValue = this.template.svg[svgElement];
             const element = newGroup.append(svgElementValue['type']);
             element.attr('class', 'node-' + svgElement);
         });
+
+        _appendRemoveButton(newGroup, this.template);
+        _appendAddButton(newGroup, this.template);
+        _appendEditButton(newGroup, this.template);
 
         // append SVG elements related to fields
         this.template.fields.forEach((field) => {

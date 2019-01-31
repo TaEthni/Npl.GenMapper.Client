@@ -12,6 +12,7 @@ import { environment } from './environments/environment';
 import { Device } from '@core/platform';
 import { Browser } from '@core/browser';
 import { ChurchCirclesCzechTemplate } from './app/tools/gen-mapper/templates/church-circles-czech';
+import { DisciplesTemplate } from './app/tools/gen-mapper/templates/disciples';
 
 if (environment.production) {
     enableProdMode();
@@ -22,7 +23,8 @@ let resources = translations;
 [
     ChurchCirclesTemplate.translations,
     FourFieldsTemplate.translations,
-    ChurchCirclesCzechTemplate.translations
+    ChurchCirclesCzechTemplate.translations,
+    DisciplesTemplate.translations
 ].forEach(translation => {
     resources = defaultsDeep(resources, translation);
 });

@@ -24,6 +24,7 @@ import { ChurchCirclesTemplate } from './tools/gen-mapper/templates/church-circl
 import { FourFieldsTemplate } from './tools/gen-mapper/templates/four-fields';
 import { ToolsComponent } from './tools/tools/tools.component';
 import { ChurchCirclesCzechTemplate } from './tools/gen-mapper/templates/church-circles-czech';
+import { DisciplesTemplate } from './tools/gen-mapper/templates/disciples';
 
 const appRoutes: Routes = [
     {
@@ -114,6 +115,29 @@ const appRoutes: Routes = [
                 },
                 data: {
                     template: ChurchCirclesCzechTemplate
+                },
+                children: [
+                    {
+                        path: ':id',
+                        component: GenMapperComponent,
+                        resolve: {
+                            document: GenMapperResolver
+                        }
+                    },
+                    {
+                        path: '',
+                        component: GenMapperComponent
+                    },
+                ]
+            },
+            {
+                path: 'disciples',
+                component: GenMapperContainerComponent,
+                resolve: {
+                    documents: GenMapperContainerResolver,
+                },
+                data: {
+                    template: DisciplesTemplate
                 },
                 children: [
                     {

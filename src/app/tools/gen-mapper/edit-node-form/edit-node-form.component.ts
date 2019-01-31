@@ -57,6 +57,7 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         event.preventDefault();
         event.stopPropagation();
         this.form.get(field.header).setValue(null);
+        this.form.get(field.header).markAsDirty();
     }
 
     private onGeoLocationClick(): void {

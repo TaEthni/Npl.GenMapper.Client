@@ -1,5 +1,10 @@
 # GenMapper Changelog
 
+## (2019-01-30)
+- Feature: Support Church Circles Czech Template.
+- Feature: Support Disciples Template.
+- Fix: bug where clearing goe-location would not show save button.
+
 ## (2019-01-27)
 - Refactor: Improve Mobile UI
 
