@@ -5469,6 +5469,7 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
         event.preventDefault();
         event.stopPropagation();
         this.form.get(field.header).setValue(null);
+        this.form.get(field.header).markAsDirty();
     };
     EditNodeFormComponent.prototype.onGeoLocationClick = function () {
         var _this = this;
