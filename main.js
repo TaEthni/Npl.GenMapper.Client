@@ -991,12 +991,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tools_gen_mapper_templates_four_fields__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tools/gen-mapper/templates/four-fields */ "./src/app/tools/gen-mapper/templates/four-fields.ts");
 /* harmony import */ var _tools_tools_tools_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tools/tools/tools.component */ "./src/app/tools/tools/tools.component.ts");
 /* harmony import */ var _tools_gen_mapper_templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tools/gen-mapper/templates/church-circles-czech */ "./src/app/tools/gen-mapper/templates/church-circles-czech.ts");
+/* harmony import */ var _tools_gen_mapper_templates_disciples__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tools/gen-mapper/templates/disciples */ "./src/app/tools/gen-mapper/templates/disciples.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1111,6 +1113,29 @@ var appRoutes = [
                 },
                 data: {
                     template: _tools_gen_mapper_templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_24__["ChurchCirclesCzechTemplate"]
+                },
+                children: [
+                    {
+                        path: ':id',
+                        component: _tools_gen_mapper_gen_mapper_gen_mapper_component__WEBPACK_IMPORTED_MODULE_20__["GenMapperComponent"],
+                        resolve: {
+                            document: _tools_gen_mapper_gen_mapper_resolver__WEBPACK_IMPORTED_MODULE_19__["GenMapperResolver"]
+                        }
+                    },
+                    {
+                        path: '',
+                        component: _tools_gen_mapper_gen_mapper_gen_mapper_component__WEBPACK_IMPORTED_MODULE_20__["GenMapperComponent"]
+                    },
+                ]
+            },
+            {
+                path: 'disciples',
+                component: _tools_gen_mapper_gen_mapper_container_gen_mapper_container_component__WEBPACK_IMPORTED_MODULE_18__["GenMapperContainerComponent"],
+                resolve: {
+                    documents: _tools_gen_mapper_gen_mapper_container_resolver__WEBPACK_IMPORTED_MODULE_17__["GenMapperContainerResolver"],
+                },
+                data: {
+                    template: _tools_gen_mapper_templates_disciples__WEBPACK_IMPORTED_MODULE_25__["DisciplesTemplate"]
                 },
                 children: [
                     {
@@ -3796,16 +3821,6 @@ var NavigationComponent = /** @class */ (function (_super) {
         _this.dialog = dialog;
         _this.localeService = localeService;
         _this.user = null;
-        _this.tools = [
-            {
-                name: 'Church Circles',
-                route: '/church-circles'
-            },
-            {
-                name: 'Four Fields',
-                route: '/four-fields'
-            }
-        ];
         return _this;
     }
     NavigationComponent.prototype.ngOnInit = function () {
@@ -5881,15 +5896,15 @@ var GenMap = /** @class */ (function () {
             .attr('width', 36)
             .attr('height', 100)
             .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
-        _appendRemoveButton(newGroup, this.template);
-        _appendAddButton(newGroup, this.template);
-        _appendEditButton(newGroup, this.template);
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach(function (svgElement) {
             var svgElementValue = _this.template.svg[svgElement];
             var element = newGroup.append(svgElementValue['type']);
             element.attr('class', 'node-' + svgElement);
         });
+        _appendRemoveButton(newGroup, this.template);
+        _appendAddButton(newGroup, this.template);
+        _appendEditButton(newGroup, this.template);
         // append SVG elements related to fields
         this.template.fields.forEach(function (field) {
             if (field.svg) {
@@ -7893,33 +7908,38 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
 /*!****************************************************!*\
   !*** ./src/app/tools/gen-mapper/template-utils.ts ***!
   \****************************************************/
-/*! exports provided: genMapperTemplates, TemplateUtils */
+/*! exports provided: GenMapperTemplates, GenMapperTemplatesByFormat, TemplateUtils */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "genMapperTemplates", function() { return genMapperTemplates; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GenMapperTemplates", function() { return GenMapperTemplates; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GenMapperTemplatesByFormat", function() { return GenMapperTemplatesByFormat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemplateUtils", function() { return TemplateUtils; });
 /* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! d3 */ "./node_modules/d3/index.js");
 /* harmony import */ var i18next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! i18next */ "./node_modules/i18next/dist/es/index.js");
 /* harmony import */ var _templates_church_circles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./templates/church-circles */ "./src/app/tools/gen-mapper/templates/church-circles.ts");
 /* harmony import */ var _templates_four_fields__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./templates/four-fields */ "./src/app/tools/gen-mapper/templates/four-fields.ts");
 /* harmony import */ var _templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./templates/church-circles-czech */ "./src/app/tools/gen-mapper/templates/church-circles-czech.ts");
-var _a;
+/* harmony import */ var _templates_disciples__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./templates/disciples */ "./src/app/tools/gen-mapper/templates/disciples.ts");
 
 
 
 
 
-var genMapperTemplates = (_a = {},
-    _a[_templates_church_circles__WEBPACK_IMPORTED_MODULE_2__["ChurchCirclesTemplate"].format] = _templates_church_circles__WEBPACK_IMPORTED_MODULE_2__["ChurchCirclesTemplate"],
-    _a[_templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_4__["ChurchCirclesCzechTemplate"].format] = _templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_4__["ChurchCirclesCzechTemplate"],
-    _a[_templates_four_fields__WEBPACK_IMPORTED_MODULE_3__["FourFieldsTemplate"].format] = _templates_four_fields__WEBPACK_IMPORTED_MODULE_3__["FourFieldsTemplate"],
-    _a);
+
+var GenMapperTemplates = [
+    _templates_church_circles__WEBPACK_IMPORTED_MODULE_2__["ChurchCirclesTemplate"],
+    _templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_4__["ChurchCirclesCzechTemplate"],
+    _templates_disciples__WEBPACK_IMPORTED_MODULE_5__["DisciplesTemplate"],
+    _templates_four_fields__WEBPACK_IMPORTED_MODULE_3__["FourFieldsTemplate"],
+];
+var GenMapperTemplatesByFormat = {};
+GenMapperTemplates.forEach(function (t) { return GenMapperTemplatesByFormat[t.format] = t; });
 var TemplateUtils;
 (function (TemplateUtils) {
     function getTemplate(templateName) {
-        return genMapperTemplates[templateName];
+        return GenMapperTemplatesByFormat[templateName];
     }
     TemplateUtils.getTemplate = getTemplate;
     function createCSVHeader(template) {
@@ -9259,6 +9279,315 @@ var ChurchCirclesTemplate = {
 
 /***/ }),
 
+/***/ "./src/app/tools/gen-mapper/templates/disciples.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/tools/gen-mapper/templates/disciples.ts ***!
+  \*********************************************************/
+/*! exports provided: DisciplesTemplate */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DisciplesTemplate", function() { return DisciplesTemplate; });
+var boxHeight = 80;
+var textHeight = 14;
+var textMargin = 6;
+var DisciplesTemplate = {
+    'version': '0.2',
+    'title': 'Disciples',
+    'name': 'disciples',
+    'format': 'disciples',
+    'translations': {
+        en: {
+            translation: {
+                'disciples': {
+                    'helpLegend': '<p>This version of GenMapper is for mapping individual disciples, not groups/churches. Each rectangle represents a disciple.</p><p>Click on the disciple to edit.<br>Click on red (x) button to remove a disciple.<br>Click on green (+) button to add child disciple.</p>',
+                    'name': 'Name',
+                    'date': 'Date of start following Christ',
+                    'believer': 'Is believer?',
+                    'baptized': 'Is baptized?',
+                    'word': 'Abides in Word',
+                    'prayer': 'Abides in Prayer',
+                    'shares': 'Shares Jesus',
+                    'accountable': 'Is accountable',
+                    'discipleship': 'Has discipleship',
+                    'inChurch': "Part of God's family",
+                    'timothy': 'Is Timothy (key disciple)?',
+                    'discipleType': 'Disciple type',
+                    'individual': 'Individual',
+                    'facilitatesGroup': 'Facilitates Group',
+                    'facilitatesChurch': 'Facilitates Church',
+                    'active': 'Active'
+                }
+            }
+        },
+        cs: {
+            translation: {
+                'disciples': {
+                    'helpLegend': '<p>Tato šablona GenMapperu je pro mapování jednotlivých učedníků, ne skupin/církví. Každý obdélník znázorňuje jednoho učedníka.<br><br>Klikni na učedníka pro editaci.<br>Klikni na červené tlačítko (x) pro odstranění učedníka.<br>Klikni na zelené tlačítko (+) pro přidání učedníka.</p>',
+                    'name': 'Jméno',
+                    'date': 'Datum uvěření',
+                    'believer': 'Věřící',
+                    'baptized': 'Pokřtěný',
+                    'word': 'Zůstává v Božím Slovu',
+                    'prayer': 'Pravidelně se modlí',
+                    'shares': 'Sdílí Ježíše',
+                    'accountable': 'Je vykazatelný',
+                    'discipleship': 'Má učednictví',
+                    'inChurch': 'Součástí Boží rodiny',
+                    'timothy': 'Timoteus (klíčový učedník)',
+                    'discipleType': 'Typ učedníka',
+                    'individual': 'Jednotlivec',
+                    'facilitatesGroup': 'Provází skupinu',
+                    'facilitatesChurch': 'Provází Boží rodinu',
+                    'active': 'Aktivní'
+                }
+            }
+        }
+    },
+    'settings': {
+        'boxHeight': boxHeight,
+        'nodeActions': {
+            'x': boxHeight / 3,
+            'y': 0
+        },
+        'nodeSize': {
+            'width': boxHeight * 1,
+            'height': boxHeight * 1.8
+        }
+    },
+    'svg': {
+        'big-rect': {
+            'type': 'rect',
+            'attributes': {
+                'x': -boxHeight * 0.3,
+                'y': 0,
+                'width': (boxHeight * 0.6) + 32,
+                'height': boxHeight * 1.05,
+                'opacity': '0'
+            }
+        },
+        'box': {
+            'type': 'rect',
+            'attributes': {
+                'x': -boxHeight * 0.3,
+                'y': 0,
+                'width': boxHeight * 0.6,
+                'height': boxHeight * 1.05
+            }
+        }
+    },
+    'fields': [
+        {
+            'header': 'id',
+            'initial': 0,
+            'type': null
+        },
+        {
+            'header': 'parentId',
+            'initial': null,
+            'type': null
+        },
+        {
+            'header': 'name',
+            'initialTranslationCode': 'name',
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': -textMargin - textHeight
+                }
+            }
+        },
+        {
+            'header': 'date',
+            'initial': null,
+            'type': 'text',
+            'svg': {
+                'type': 'text',
+                'attributes': {
+                    'x': 0,
+                    'y': -4
+                }
+            }
+        },
+        {
+            'header': 'believer',
+            'initial': true,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * -0.28,
+                    'y': boxHeight * 0,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/believer.png'
+                }
+            }
+        },
+        {
+            'header': 'baptized',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * 0,
+                    'y': boxHeight * 0,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/baptism.png'
+                }
+            }
+        },
+        {
+            'header': 'word',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * -0.28,
+                    'y': boxHeight * 0.25,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/word.png'
+                }
+            }
+        },
+        {
+            'header': 'prayer',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * 0,
+                    'y': boxHeight * 0.25,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/prayer.png'
+                }
+            }
+        },
+        {
+            'header': 'shares',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * -0.25,
+                    'y': boxHeight * 0.5,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/shares.png'
+                }
+            }
+        },
+        {
+            'header': 'accountable',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * 0,
+                    'y': boxHeight * 0.5,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/accountable.png'
+                }
+            }
+        },
+        {
+            'header': 'discipleship',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * -0.25,
+                    'y': boxHeight * 0.75,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/discipleship.png'
+                }
+            }
+        },
+        {
+            'header': 'inChurch',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * 0,
+                    'y': boxHeight * 0.75,
+                    'width': boxHeight / 4,
+                    'height': boxHeight / 4,
+                    'xlink:href': 'assets/disciples/in-church.png'
+                }
+            }
+        },
+        {
+            'header': 'discipleType',
+            'initial': 'individual',
+            'type': 'radio',
+            'inheritsFrom': 'box',
+            'values': [
+                {
+                    'header': 'individual',
+                    'class': 'disciple-individual',
+                    'attributes': {
+                        'rx': 10
+                    }
+                },
+                {
+                    'header': 'facilitatesGroup',
+                    'class': 'disciple-facilitates-group',
+                    'attributes': {
+                        'rx': 10
+                    }
+                },
+                {
+                    'header': 'facilitatesChurch',
+                    'class': 'disciple-facilitates-church',
+                    'attributes': {
+                        'rx': 0
+                    }
+                }
+            ]
+        },
+        {
+            'header': 'timothy',
+            'initial': false,
+            'type': 'checkbox',
+            'svg': {
+                'type': 'image',
+                'attributes': {
+                    'x': boxHeight * -0.3,
+                    'y': -4 - textHeight,
+                    'width': boxHeight * 0.6,
+                    'height': 2,
+                    'xlink:href': 'assets/disciples/redline.png'
+                }
+            }
+        },
+        {
+            'header': 'active',
+            'initial': true,
+            'type': 'checkbox'
+            // svg defined currently in genmapper.js
+        }
+    ]
+};
+
+
+/***/ }),
+
 /***/ "./src/app/tools/gen-mapper/templates/four-fields.ts":
 /*!***********************************************************!*\
   !*** ./src/app/tools/gen-mapper/templates/four-fields.ts ***!
@@ -10470,7 +10799,7 @@ var ToolsModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header>\r\n    <mat-toolbar>\r\n        <mat-toolbar-row>\r\n            <app-sidenav-toggle></app-sidenav-toggle>\r\n        </mat-toolbar-row>\r\n        <mat-toolbar-row fxLayout=\"row\"\r\n                         fxLayoutAlign=\"center center\">\r\n            <app-npl-logo size=\"150\"></app-npl-logo>\r\n        </mat-toolbar-row>\r\n    </mat-toolbar>\r\n</header>\r\n\r\n<section fxLayout=\"column\"\r\n         fxLayout.gt-sm=\"row wrap\"\r\n         fxLayoutAlign=\"center center\"\r\n         fxLayoutGap=\"24px\">\r\n\r\n    <mat-card [routerLink]=\"['/church-circles']\">\r\n        <img mat-card-image\r\n             height=\"290px\"\r\n             src=\"assets/church-circles-example.png\"\r\n             alt=\"Photo of a Church Circles\">\r\n        <mat-card-header>\r\n            <mat-card-title>\r\n                Church Circles\r\n            </mat-card-title>\r\n            <mat-card-subtitle>\r\n                Generation Map\r\n            </mat-card-subtitle>\r\n        </mat-card-header>\r\n    </mat-card>\r\n\r\n    <mat-card [routerLink]=\"['/church-circles-czech']\">\r\n        <img mat-card-image\r\n             height=\"290px\"\r\n             src=\"assets/church-circles-example.png\"\r\n             alt=\"Photo of a Church Circles\">\r\n        <mat-card-header>\r\n            <mat-card-title>\r\n                Church Circles Czech\r\n            </mat-card-title>\r\n            <mat-card-subtitle>\r\n                Generation Map\r\n            </mat-card-subtitle>\r\n        </mat-card-header>\r\n    </mat-card>\r\n\r\n    <mat-card [routerLink]=\"['/four-fields']\">\r\n        <img mat-card-image\r\n             height=\"290px\"\r\n             src=\"assets/four-fields-example.png\"\r\n             alt=\"Photo of a Four Fields\">\r\n        <mat-card-header>\r\n            <mat-card-title>\r\n                Four Fields\r\n            </mat-card-title>\r\n            <mat-card-subtitle>\r\n                Generation Map\r\n            </mat-card-subtitle>\r\n        </mat-card-header>\r\n    </mat-card>\r\n</section>\r\n"
+module.exports = "<header>\r\n    <mat-toolbar>\r\n        <mat-toolbar-row>\r\n            <app-sidenav-toggle></app-sidenav-toggle>\r\n        </mat-toolbar-row>\r\n        <mat-toolbar-row fxLayout=\"row\"\r\n                         fxLayoutAlign=\"center center\">\r\n            <app-npl-logo size=\"150\"></app-npl-logo>\r\n        </mat-toolbar-row>\r\n    </mat-toolbar>\r\n</header>\r\n\r\n<section fxLayout=\"column\"\r\n         fxLayout.gt-sm=\"row wrap\"\r\n         fxLayoutAlign=\"center center\"\r\n         fxLayoutGap=\"24px\">\r\n\r\n    <mat-card [routerLink]=\"['/church-circles']\">\r\n        <img mat-card-image\r\n             height=\"290px\"\r\n             src=\"assets/church-circles-example.png\"\r\n             alt=\"Photo of a Church Circles\">\r\n        <mat-card-header>\r\n            <mat-card-title>\r\n                Church Circles\r\n            </mat-card-title>\r\n            <mat-card-subtitle>\r\n                Generation Map\r\n            </mat-card-subtitle>\r\n        </mat-card-header>\r\n    </mat-card>\r\n\r\n    <mat-card [routerLink]=\"['/church-circles-czech']\">\r\n        <img mat-card-image\r\n             height=\"290px\"\r\n             src=\"assets/church-circles-example.png\"\r\n             alt=\"Photo of a Church Circles\">\r\n        <mat-card-header>\r\n            <mat-card-title>\r\n                Church Circles Czech\r\n            </mat-card-title>\r\n            <mat-card-subtitle>\r\n                Generation Map\r\n            </mat-card-subtitle>\r\n        </mat-card-header>\r\n    </mat-card>\r\n\r\n    <mat-card [routerLink]=\"['/disciples']\">\r\n        <img mat-card-image\r\n             height=\"290px\"\r\n             src=\"assets/church-circles-example.png\"\r\n             alt=\"Photo of a Church Circles\">\r\n        <mat-card-header>\r\n            <mat-card-title>\r\n                Disciples\r\n            </mat-card-title>\r\n            <mat-card-subtitle>\r\n                Generation Map\r\n            </mat-card-subtitle>\r\n        </mat-card-header>\r\n    </mat-card>\r\n\r\n    <mat-card [routerLink]=\"['/four-fields']\">\r\n        <img mat-card-image\r\n             height=\"290px\"\r\n             src=\"assets/four-fields-example.png\"\r\n             alt=\"Photo of a Four Fields\">\r\n        <mat-card-header>\r\n            <mat-card-title>\r\n                Four Fields\r\n            </mat-card-title>\r\n            <mat-card-subtitle>\r\n                Generation Map\r\n            </mat-card-subtitle>\r\n        </mat-card-header>\r\n    </mat-card>\r\n</section>\r\n"
 
 /***/ }),
 
@@ -10572,6 +10901,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_platform__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @core/platform */ "./src/app/core/platform.ts");
 /* harmony import */ var _core_browser__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @core/browser */ "./src/app/core/browser.ts");
 /* harmony import */ var _app_tools_gen_mapper_templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app/tools/gen-mapper/templates/church-circles-czech */ "./src/app/tools/gen-mapper/templates/church-circles-czech.ts");
+/* harmony import */ var _app_tools_gen_mapper_templates_disciples__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app/tools/gen-mapper/templates/disciples */ "./src/app/tools/gen-mapper/templates/disciples.ts");
+
 
 
 
@@ -10592,7 +10923,8 @@ var resources = _app_tools_gen_mapper_templates_translations__WEBPACK_IMPORTED_M
 [
     _app_tools_gen_mapper_templates_church_circles__WEBPACK_IMPORTED_MODULE_6__["ChurchCirclesTemplate"].translations,
     _app_tools_gen_mapper_templates_four_fields__WEBPACK_IMPORTED_MODULE_7__["FourFieldsTemplate"].translations,
-    _app_tools_gen_mapper_templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_12__["ChurchCirclesCzechTemplate"].translations
+    _app_tools_gen_mapper_templates_church_circles_czech__WEBPACK_IMPORTED_MODULE_12__["ChurchCirclesCzechTemplate"].translations,
+    _app_tools_gen_mapper_templates_disciples__WEBPACK_IMPORTED_MODULE_13__["DisciplesTemplate"].translations
 ].forEach(function (translation) {
     resources = Object(lodash__WEBPACK_IMPORTED_MODULE_4__["defaultsDeep"])(resources, translation);
 });
