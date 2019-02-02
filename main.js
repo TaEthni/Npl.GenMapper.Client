@@ -5282,9 +5282,7 @@ var LocationDialogComponent = /** @class */ (function () {
     LocationDialogComponent.prototype.initialize = function () {
         var _this = this;
         this.mapsAPILoader.load().then(function () {
-            var autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {
-                types: ['address']
-            });
+            var autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement, {});
             autocomplete.addListener('place_changed', function () {
                 _this.ngZone.run(function () {
                     var place = autocomplete.getPlace();
@@ -7446,8 +7444,10 @@ var GenMapperComponent = /** @class */ (function (_super) {
         this.genMapper.updateDocument(this.document)
             .subscribe(function (result) {
             console.log('updated');
+            _this.document = Object(lodash__WEBPACK_IMPORTED_MODULE_10__["cloneDeep"])(_this.document);
             // Changing the document reference triggers a change.
-            _this.genMapper.setDocument(Object(lodash__WEBPACK_IMPORTED_MODULE_10__["cloneDeep"])(_this.document));
+            _this.genMapper.setDocument(_this.document);
+            _this.showMapView = Object(lodash__WEBPACK_IMPORTED_MODULE_10__["some"])(_this.document.nodes, function (d) { return !!d.location; });
         });
     };
     GenMapperComponent.prototype.onNodeClick = function (node) {
