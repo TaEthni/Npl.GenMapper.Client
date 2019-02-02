@@ -80,9 +80,10 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         this.genMapper.updateDocument(this.document)
             .subscribe(result => {
                 console.log('updated');
-
+                this.document = cloneDeep(this.document);
                 // Changing the document reference triggers a change.
-                this.genMapper.setDocument(cloneDeep(this.document));
+                this.genMapper.setDocument(this.document);
+                this.showMapView = some(this.document.nodes, d => !!d.location);
             });
     }
 
