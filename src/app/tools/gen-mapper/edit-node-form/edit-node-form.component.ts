@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { GMField, GNode } from '../gen-mapper.interface';
 import { MatDialog } from '@angular/material';
 import { MapsService } from '@core/maps.service';
-import { LocationDialogComponent } from '../dialogs/location-dialog/location-dialog.component';
+import { LocationDialogComponent, LocationDialogConfig } from '../dialogs/location-dialog/location-dialog.component';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -61,20 +61,33 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     private onGeoLocationClick(): void {
-        this.mapService.getLocation().subscribe(result => {
-            this.dialog
-                .open(LocationDialogComponent, {
-                    minWidth: '400px',
-                    data: { coords: result.coords }
-                })
-                .afterClosed()
-                .subscribe(address => {
-                    if (address) {
-                        this.form.get('location').patchValue(address);
-                        this.form.get('location').updateValueAndValidity();
-                        this.form.markAsDirty();
-                    }
+        if (this.form.get('location').value) {
+            this.showLocationDialog({
+                address: this.form.get('location').value
+            });
+        } else {
+            this.mapService.getLocation().subscribe(result => {
+                this.showLocationDialog({
+                    latitude: result.coords.latitude,
+                    longitude: result.coords.longitude
                 });
-        });
+            });
+        }
+    }
+
+    private showLocationDialog(config: LocationDialogConfig): void {
+        this.dialog
+            .open(LocationDialogComponent, {
+                minWidth: '400px',
+                data: config
+            })
+            .afterClosed()
+            .subscribe(address => {
+                if (address) {
+                    this.form.get('location').patchValue(address);
+                    this.form.get('location').updateValueAndValidity();
+                    this.form.markAsDirty();
+                }
+            });
     }
 }

@@ -9,6 +9,7 @@
 
     mat-drawer {
         width: 80vw;
+        box-shadow: none;
 
         @media screen and (min-width: 768px) {
             width: 400px;
@@ -32,6 +33,21 @@
         margin: 16px;
         z-index: 2;
         backface-visibility: hidden;
+    }
+
+    app-gen-mapper-view-tabs {
+        position: absolute;
+        top: 0;
+        right: 62px;
+        margin: 16px 0;
+        backface-visibility: hidden;
+        z-index: 2;
+    }
+
+    .show-map-view {
+        app-map-name-control {
+            right: 122px;
+        }
     }
 
      .empty-state {

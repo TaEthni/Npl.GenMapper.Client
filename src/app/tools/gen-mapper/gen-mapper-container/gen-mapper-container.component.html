@@ -4,6 +4,7 @@
                 mode="over"
                 position="start"
                 fxLayout="column"
+                [autoFocus]="false"
                 [class.hide-drawer]="!isAuthenticated">
 
         <ng-container *ngIf="isAuthenticated">
@@ -16,11 +17,11 @@
     <mat-drawer-content>
         <app-sidenav-toggle></app-sidenav-toggle>
         <ng-container *ngIf="isAuthenticated">
-            <button mat-fab
+            <button mat-mini-fab
+                    [disableRipple]="true"
                     class="map-sidenav-toggle"
                     (click)="mapSidenav?.toggle()">
-                <mat-icon *ngIf="mapSidenav?.opened">clear</mat-icon>
-                <mat-icon *ngIf="!mapSidenav?.opened">filter_list</mat-icon>
+                <mat-icon>folder</mat-icon>
             </button>
 
             <ng-container *ngIf="!document">

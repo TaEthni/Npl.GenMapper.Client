@@ -2,9 +2,16 @@ import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core'
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
+import { MapsService } from '@core/maps.service';
 
 interface MouseEvent {
     coords: { lat: number, lng: number };
+}
+
+export interface LocationDialogConfig {
+    address?: string;
+    latitude?: number;
+    longitude?: number;
 }
 
 @Component({
@@ -27,15 +34,18 @@ export class LocationDialogComponent {
     public geocoder: google.maps.Geocoder;
 
     constructor(
+        private mapsService: MapsService,
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
         private dialogRef: MatDialogRef<LocationDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { coords: Coordinates }
+        @Inject(MAT_DIALOG_DATA) public data: LocationDialogConfig
     ) {
-        this.latitude = data.coords.latitude;
-        this.longitude = data.coords.longitude;
+        this.address = data.address;
+        this.latitude = data.latitude;
+        this.longitude = data.longitude;
+
         this.zoom = 12;
-        this.searchControl = new FormControl();
+        this.searchControl = new FormControl(this.address);
         this.height = window.innerHeight - 150;
         this.initialize();
     }
@@ -76,7 +86,18 @@ export class LocationDialogComponent {
                 });
             });
 
-            this.setAddress(this.latitude, this.longitude);
+            if (this.address) {
+                this.mapsService.getCoordsForAddress(this.address).subscribe(result => {
+                    this.ngZone.run(() => {
+                        this.latitude = result.latitude;
+                        this.longitude = result.longitude;
+                        this.markerLatitude = this.latitude;
+                        this.markerLongitude = this.longitude;
+                    });
+                });
+            } else {
+                this.setAddress(this.latitude, this.longitude);
+            }
         });
     }
 

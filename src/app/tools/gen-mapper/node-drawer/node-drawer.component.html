@@ -1,7 +1,6 @@
 <mat-toolbar>
     <mat-toolbar-row>
         <span>
-            Edit
             <ng-container *ngIf="clonedNode?.name || clonedNode?.leaderName">
                 [{{clonedNode?.name || clonedNode?.leaderName}}]
             </ng-container>
@@ -29,7 +28,8 @@
 <div>
     <div fxLayout="row"
          fxLayoutGap="10px"
-         class="drawer-actions">
+         class="drawer-actions"
+         *ngIf="!hideActions">
 
         <button mat-stroked-button
                 (click)="onCopyNode()">

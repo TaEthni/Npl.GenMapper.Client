@@ -22,6 +22,8 @@ import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { AgmCoreModule } from '@agm/core/core.module';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
+import { GenMapperMapComponent } from './gen-mapper-map/gen-mapper-map.component';
+import { GenMapperViewTabsComponent } from './gen-mapper-view-tabs/gen-mapper-view-tabs.component';
 
 @NgModule({
     imports: [
@@ -48,6 +50,8 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         CreateDocumentDialogComponent,
         LocationDialogComponent,
         NodeDrawerComponent,
+        GenMapperMapComponent,
+        GenMapperViewTabsComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -58,7 +62,9 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         MapMenuButtonComponent,
         MapNameControlComponent,
         MapSidenavComponent,
-        NodeDrawerComponent
+        NodeDrawerComponent,
+        GenMapperMapComponent,
+        GenMapperViewTabsComponent
     ],
     entryComponents: [
         ConfirmDialogComponent,

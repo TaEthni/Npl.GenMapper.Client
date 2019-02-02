@@ -37,7 +37,12 @@ i18next
     });
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-    .then(() => {
+    .then((ref) => {
+        // Ensure Angular destroys itself on hot reloads.
+        if (window['ngRef']) {
+            window['ngRef'].destroy();
+        }
+        window['ngRef'] = ref;
         Device.setClassList(document.documentElement);
         Browser.setClassList(document.documentElement);
     })

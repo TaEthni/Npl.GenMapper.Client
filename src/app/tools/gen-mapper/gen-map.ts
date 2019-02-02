@@ -214,6 +214,10 @@ export class GenMap {
      * @public Map manipulation methods
      */
     public originalPosition(): void {
+        if (!this.svg || !this.graphSvg.nativeElement) {
+            return;
+        }
+
         this.zoom.scaleTo(this.svg, 1);
         const origX = this.margin.left + (this.graphSvg.nativeElement.clientWidth / 2);
         const origY = this.margin.top;

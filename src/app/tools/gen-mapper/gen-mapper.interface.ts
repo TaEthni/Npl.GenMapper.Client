@@ -6,6 +6,9 @@ export interface GNode {
     active: boolean;
     inactiveReason: string;
 
+    // Optional Properties
+    location?: string;
+
     // Only set on node click from d3 node.descendants();
     descendants?: GNode[];
 }

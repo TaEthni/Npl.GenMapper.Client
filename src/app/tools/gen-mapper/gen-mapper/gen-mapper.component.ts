@@ -11,8 +11,9 @@ import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog
 import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, some } from 'lodash';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { GenMapperViewTabsComponent } from '../gen-mapper-view-tabs/gen-mapper-view-tabs.component';
 
 @Component({
     selector: 'app-gen-mapper',
@@ -23,11 +24,15 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     @ViewChild(GenMapperGraphComponent)
     public genMapperGraph: GenMapperGraphComponent;
 
+    @ViewChild(GenMapperViewTabsComponent)
+    public tabs: GenMapperViewTabsComponent;
+
     public template: GMTemplate;
     public node: GNode;
     public document: DocumentDto;
     public documents: DocumentDto[];
     public isAuthenticated: boolean;
+    public showMapView: boolean;
 
     constructor(
         private authService: AuthenticationService,
@@ -51,6 +56,10 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                 if (!result.document && !this.authService.isAuthenticated() && this.genMapper.hasLocalDocument()) {
                     this.router.navigate([this.template.name, 'local'], { skipLocationChange: true });
                 }
+
+                if (this.document) {
+                    this.showMapView = some(this.document.nodes, d => !!d.location);
+                }
             });
 
         this.genMapper.getNode()
@@ -69,7 +78,12 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public onGraphChange(nodes: GNode[]): void {
         this.document.nodes = nodes;
         this.genMapper.updateDocument(this.document)
-            .subscribe(result => { console.log('updated'); });
+            .subscribe(result => {
+                console.log('updated');
+
+                // Changing the document reference triggers a change.
+                this.genMapper.setDocument(cloneDeep(this.document));
+            });
     }
 
     public onNodeClick(node: GNode): void {
@@ -77,7 +91,16 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public onUpdateNode(node: GNode): void {
-        this.genMapperGraph.graph.updateNode(node);
+        const nodeToUpdate = this.document.nodes.find((d: any) => d.id === node.id);
+        if (nodeToUpdate) {
+            Object.assign(nodeToUpdate, node);
+
+            if (this.genMapperGraph) {
+                this.genMapperGraph.graph.redrawData(this.document.nodes);
+            } else {
+                this.onGraphChange(this.document.nodes);
+            }
+        }
     }
 
     public onCopyNode(node: GNode): void {

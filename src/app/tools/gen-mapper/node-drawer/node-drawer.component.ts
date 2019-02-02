@@ -31,6 +31,9 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     @Input()
     public template: GMTemplate;
 
+    @Input()
+    public hideActions: boolean;
+
     @Output()
     public pasteNode = new EventEmitter<GNode>();
 
@@ -128,6 +131,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
         this.updateNode.emit(this.node);
         this.drawer.disableClose = false;
+        this.form.reset();
         this.genMapper.setNode(null);
     }
 
