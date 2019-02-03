@@ -18,6 +18,8 @@ export const GenMapperTemplates = [
 export const GenMapperTemplatesByFormat = {};
 GenMapperTemplates.forEach(t => GenMapperTemplatesByFormat[t.format] = t);
 
+const isNumberReg = /\d/;
+
 export namespace TemplateUtils {
     export function getTemplate(templateName: string): GMTemplate {
         return (<any>GenMapperTemplatesByFormat)[templateName] as GMTemplate;
@@ -83,7 +85,7 @@ export namespace TemplateUtils {
         return csvParse<GNode>(csvData, (d) => {
             const parsedId = parseFloat(d.id);
             if (parsedId < 0 || isNaN(parsedId)) { throw new Error('Group id must be integer >= 0.'); }
-            const parsedLine = {};
+            const parsedLine: any = {};
             parsedLine['id'] = parsedId;
             parsedLine['parentId'] = d.parentId !== '' ? parseFloat(d.parentId) : '';
 
@@ -100,6 +102,30 @@ export namespace TemplateUtils {
                     parsedLine[field.header] = d[field.header];
                 }
             });
+
+
+            parsedLine.isRoot = !parsedLine.parentId && parsedLine.parentId !== 0;
+
+            // This is for old data.
+            if (parsedLine.hasOwnProperty('threeThirds')) {
+                if (typeof parsedLine.threeThirds === 'string') {
+                    parsedLine.threeThirds = parsedLine.threeThirds.replace(/\W/, '');
+                    parsedLine.threeThirds = parsedLine.threeThirds.split('');
+
+                    const filtered = parsedLine.threeThirds.filter((key: any) => isNumberReg.test(key));
+                    const value: any = [];
+
+                    // dedupe old data
+                    filtered.forEach((a: any) => {
+                        if (!value.includes(a)) {
+                            value.push(a);
+                        }
+                    });
+
+                    parsedLine.threeThirds = value;
+                }
+            }
+
             return parsedLine as GNode;
         });
     }

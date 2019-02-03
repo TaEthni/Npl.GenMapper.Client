@@ -55,7 +55,6 @@ export class GenMap {
     public update(content: GNode[]): void {
         this.data = content;
         this.nodes = null;
-        this.patchNodes(this.data);
 
         this.originalPosition();
         this.redraw();
@@ -68,33 +67,6 @@ export class GenMap {
 
     public getGraphNodeByDataId(id: string): HierarchyNode<GNode> {
         return this.nodes.descendants().find(d => d.data.id === id);
-    }
-
-    public patchNodes(data: any[]): void {
-        data.forEach(item => {
-
-            item.isRoot = !item.parentId && item.parentId !== 0;
-
-            // This is for old data.
-            if (item.hasOwnProperty('threeThirds')) {
-                if (typeof item.threeThirds === 'string') {
-                    item.threeThirds = item.threeThirds.replace(/\W/, '');
-                    item.threeThirds = item.threeThirds.split('');
-                }
-
-                const filtered = item.threeThirds.filter((key: any) => isNumberReg.test(key));
-                const value: any = [];
-
-                // dedupe old data
-                filtered.forEach((a: any) => {
-                    if (!value.includes(a)) {
-                        value.push(a);
-                    }
-                });
-
-                item.threeThirds = value;
-            }
-        });
     }
 
     public onZoomInClick(): void {
