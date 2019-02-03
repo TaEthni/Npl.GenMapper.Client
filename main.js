@@ -1287,16 +1287,16 @@ var AppComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var _admin_admin_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @admin/admin.module */ "./src/app/admin/admin.module.ts");
-/* harmony import */ var _agm_core_core_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @agm/core/core.module */ "./node_modules/@agm/core/core.module.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/core.module */ "./src/app/core/core.module.ts");
-/* harmony import */ var _account_account_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./account/account.module */ "./src/app/account/account.module.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _home_home_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./home/home.module */ "./src/app/home/home.module.ts");
-/* harmony import */ var _layout_layout_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./layout/layout.module */ "./src/app/layout/layout.module.ts");
-/* harmony import */ var _tools_tools_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tools/tools.module */ "./src/app/tools/tools.module.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/core.module */ "./src/app/core/core.module.ts");
+/* harmony import */ var _account_account_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./account/account.module */ "./src/app/account/account.module.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _home_home_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./home/home.module */ "./src/app/home/home.module.ts");
+/* harmony import */ var _layout_layout_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layout/layout.module */ "./src/app/layout/layout.module.ts");
+/* harmony import */ var _tools_tools_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tools/tools.module */ "./src/app/tools/tools.module.ts");
+/* harmony import */ var _agm_core_core_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @agm/core/core.module */ "./node_modules/@agm/core/core.module.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1318,26 +1318,26 @@ var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
             ],
             imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _core_core_module__WEBPACK_IMPORTED_MODULE_4__["CoreModule"],
-                _layout_layout_module__WEBPACK_IMPORTED_MODULE_9__["LayoutModule"],
-                _home_home_module__WEBPACK_IMPORTED_MODULE_8__["HomeModule"],
-                _tools_tools_module__WEBPACK_IMPORTED_MODULE_10__["ToolsModule"],
-                _account_account_module__WEBPACK_IMPORTED_MODULE_5__["AccountModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_3__["CoreModule"],
+                _layout_layout_module__WEBPACK_IMPORTED_MODULE_8__["LayoutModule"],
+                _home_home_module__WEBPACK_IMPORTED_MODULE_7__["HomeModule"],
+                _tools_tools_module__WEBPACK_IMPORTED_MODULE_9__["ToolsModule"],
+                _account_account_module__WEBPACK_IMPORTED_MODULE_4__["AccountModule"],
                 _admin_admin_module__WEBPACK_IMPORTED_MODULE_0__["AdminModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
-                _agm_core_core_module__WEBPACK_IMPORTED_MODULE_1__["AgmCoreModule"].forRoot({
-                    apiKey: 'AIzaSyDiO8O4955sVTiQicnTgRHLX0xEJKbcrL8',
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
+                _agm_core_core_module__WEBPACK_IMPORTED_MODULE_10__["AgmCoreModule"].forRoot({
+                    apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
                     libraries: ['places']
                 })
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
             exports: []
         })
     ], AppModule);
@@ -4201,6 +4201,7 @@ var Entity = /** @class */ (function () {
 
 var EntityType;
 (function (EntityType) {
+    EntityType["AllDocuments"] = "documents-all";
     EntityType["Documents"] = "documents";
     EntityType["Users"] = "users";
 })(EntityType || (EntityType = {}));
@@ -5253,6 +5254,8 @@ var LocationDialogComponent = /** @class */ (function () {
         this.address = data.address;
         this.latitude = data.latitude;
         this.longitude = data.longitude;
+        this.markerLatitude = data.markerLatitude;
+        this.markerLongitude = data.markerLongitude;
         this.zoom = 12;
         this.searchControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](this.address);
         this.height = window.innerHeight - 150;
@@ -5261,7 +5264,9 @@ var LocationDialogComponent = /** @class */ (function () {
     LocationDialogComponent.prototype.onSubmit = function () {
         this.dialogRef.close({
             address: this.address,
-            placeId: this.placeId
+            placeId: this.placeId,
+            latitude: this.markerLatitude,
+            longitude: this.markerLongitude
         });
     };
     LocationDialogComponent.prototype.markerDragEnd = function (event) {
@@ -5289,7 +5294,7 @@ var LocationDialogComponent = /** @class */ (function () {
                     _this.zoom = 15;
                 });
             });
-            if (_this.address) {
+            if (_this.address && !_this.markerLatitude) {
                 _this.mapsService.getCoordsForAddress({ address: _this.address, placeId: _this.placeId }).subscribe(function (result) {
                     _this.ngZone.run(function () {
                         _this.placeId = result.placeId;
@@ -5300,7 +5305,7 @@ var LocationDialogComponent = /** @class */ (function () {
                     });
                 });
             }
-            else {
+            else if (!_this.markerLatitude) {
                 _this.setAddress(_this.latitude, _this.longitude);
             }
         });
@@ -5437,7 +5442,7 @@ var DocumentService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"24px\">\r\n\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type\">\r\n            <ng-container *ngIf=\"!field.dependsOnFalseField || form.get(field.dependsOnFalseField) && !form.get(field.dependsOnFalseField).value\">\r\n                <div class=\"control\"\r\n                     fxFlex\r\n                     (click)=\"onFieldClick(field)\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'geoLocation'\">\r\n                        <mat-form-field no-error\r\n                                        class=\"geo-location\">\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"clear-field\"\r\n                                      (click)=\"onClearFieldClick($event, field)\"\r\n                                      *ngIf=\"form.get(field.header).value\">clear</mat-icon>\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"location-icon\"\r\n                                      (click)=\"onClearFieldClick($event, field)\">location_on</mat-icon>\r\n\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'textarea'\">\r\n                        <mat-form-field no-error>\r\n                            <textarea type=\"text\"\r\n                                      matInput\r\n                                      cdkTextareaAutosize\r\n                                      cdkAutosizeMinRows=\"1\"\r\n                                      autocomplete=\"off\"\r\n                                      [placeholder]=\"field.localeLabel\"\r\n                                      [formControl]=\"form.get(field.header)\"></textarea>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'number'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"number\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value | joinList}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle labelPosition=\"before\"\r\n                                          [formControl]=\"form.get(field.header)\">\r\n                            {{field.localeLabel}}\r\n                        </mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n            </ng-container>\r\n        </ng-container>\r\n    </ng-container>\r\n\r\n    <div class=\"control\"\r\n         fxFlex\r\n         *ngIf=\"form.get('parentId').value || form.get('parentId').value === 0\">\r\n        <mat-form-field no-error>\r\n            <mat-label>{{'editGroup.elementParent' | locale | async}}</mat-label>\r\n            <mat-select [formControl]=\"form.get('parentId')\">\r\n                <ng-container *ngFor=\"let n of nodes\">\r\n                    <ng-container *ngIf=\"n.id !== model.id\">\r\n                        <mat-option [value]=\"n.id\">\r\n                            <ng-container *ngIf=\"n.name && n.leaderName; then combinedOption else defautOption\"></ng-container>\r\n                            <ng-template #combinedOption>{{n.name}}: {{n.leaderName}}</ng-template>\r\n                            <ng-template #defautOption>{{n.name || n.leaderName || '[No Name]'}}</ng-template>\r\n                        </mat-option>\r\n                    </ng-container>\r\n                </ng-container>\r\n            </mat-select>\r\n        </mat-form-field>\r\n    </div>\r\n    <div fxFlex=\"100px\"></div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"column\"\r\n     fxLayoutGap=\"24px\">\r\n\r\n    <ng-container *ngFor=\"let field of fields\">\r\n        <ng-container *ngIf=\"field.type && field.type !== 'hidden'\">\r\n            <ng-container *ngIf=\"!field.dependsOnFalseField || form.get(field.dependsOnFalseField) && !form.get(field.dependsOnFalseField).value\">\r\n                <div class=\"control\"\r\n                     fxFlex\r\n                     (click)=\"onFieldClick(field)\">\r\n                    <ng-container *ngIf=\"field.type === 'text'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'geoLocation'\">\r\n                        <mat-form-field no-error\r\n                                        class=\"geo-location\">\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <input type=\"text\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"clear-field\"\r\n                                      (click)=\"onClearFieldClick($event, field)\"\r\n                                      *ngIf=\"form.get(field.header).value\">clear</mat-icon>\r\n\r\n                            <mat-icon matSuffix\r\n                                      class=\"location-icon\"\r\n                                      (click)=\"onClearFieldClick($event, field)\">location_on</mat-icon>\r\n\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'textarea'\">\r\n                        <mat-form-field no-error>\r\n                            <textarea type=\"text\"\r\n                                      matInput\r\n                                      cdkTextareaAutosize\r\n                                      cdkAutosizeMinRows=\"1\"\r\n                                      autocomplete=\"off\"\r\n                                      [placeholder]=\"field.localeLabel\"\r\n                                      [formControl]=\"form.get(field.header)\"></textarea>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'number'\">\r\n                        <mat-form-field no-error>\r\n                            <input type=\"number\"\r\n                                   matInput\r\n                                   autocomplete=\"off\"\r\n                                   [placeholder]=\"field.localeLabel\"\r\n                                   [formControl]=\"form.get(field.header)\" />\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'radio'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\">\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.header\">\r\n                                    {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'multiSelect'\">\r\n                        <mat-form-field no-error>\r\n                            <mat-label>\r\n                                {{field.localeLabel}}\r\n                            </mat-label>\r\n                            <mat-select [formControl]=\"form.get(field.header)\"\r\n                                        multiple\r\n                                        [placeholder]=\"form.get(field.header).value | joinList\"\r\n                                        #temp>\r\n                                <mat-select-trigger>\r\n                                    {{form.get(field.header).value | joinList}}\r\n                                </mat-select-trigger>\r\n                                <mat-option *ngFor=\"let value of field.values\"\r\n                                            [value]=\"value.value\">\r\n                                    #{{value.value}} {{value.localeLabel}}\r\n                                </mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </ng-container>\r\n\r\n                    <ng-container *ngIf=\"field.type === 'checkbox'\">\r\n                        <mat-slide-toggle labelPosition=\"before\"\r\n                                          [formControl]=\"form.get(field.header)\">\r\n                            {{field.localeLabel}}\r\n                        </mat-slide-toggle>\r\n                    </ng-container>\r\n                </div>\r\n            </ng-container>\r\n        </ng-container>\r\n    </ng-container>\r\n\r\n    <div class=\"control\"\r\n         fxFlex\r\n         *ngIf=\"form.get('parentId').value || form.get('parentId').value === 0\">\r\n        <mat-form-field no-error>\r\n            <mat-label>{{'editGroup.elementParent' | locale | async}}</mat-label>\r\n            <mat-select [formControl]=\"form.get('parentId')\">\r\n                <ng-container *ngFor=\"let n of nodes\">\r\n                    <ng-container *ngIf=\"n.id !== model.id\">\r\n                        <mat-option [value]=\"n.id\">\r\n                            <ng-container *ngIf=\"n.name && n.leaderName; then combinedOption else defautOption\"></ng-container>\r\n                            <ng-template #combinedOption>{{n.name}}: {{n.leaderName}}</ng-template>\r\n                            <ng-template #defautOption>{{n.name || n.leaderName || '[No Name]'}}</ng-template>\r\n                        </mat-option>\r\n                    </ng-container>\r\n                </ng-container>\r\n            </mat-select>\r\n        </mat-form-field>\r\n    </div>\r\n    <div fxFlex=\"100px\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5536,7 +5541,9 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
         var _this = this;
         if (this.form.get('location').value) {
             this.showLocationDialog({
-                address: this.form.get('location').value
+                address: this.form.get('location').value,
+                markerLatitude: this.form.get('latitude').value,
+                markerLongitude: this.form.get('longitude').value
             });
         }
         else {
@@ -5558,6 +5565,8 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
             .afterClosed()
             .subscribe(function (result) {
             if (result) {
+                _this.form.get('latitude').patchValue(result.latitude);
+                _this.form.get('longitude').patchValue(result.longitude);
                 _this.form.get('placeId').patchValue(result.placeId);
                 _this.form.get('location').patchValue(result.address);
                 _this.form.get('location').updateValueAndValidity();
@@ -6695,7 +6704,7 @@ var GenMapperGraphComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container *ngIf=\"isLoading;\">\n    <div class=\"map-loading\">\n        <mat-spinner diameter=\"48\"\n                     color=\"primary\"></mat-spinner>\n    </div>\n</ng-container>\n\n<agm-map [latitude]=\"latitude\"\n         [longitude]=\"longitude\"\n         [zoom]=\"zoom\"\n         [disableDefaultUI]=\"true\"\n         [streetViewControl]=\"false\">\n    <ng-container *ngFor=\"let marker of markers\">\n        <agm-marker [latitude]=\"marker.lat\"\n                    [longitude]=\"marker.lng\"\n                    (markerClick)=\"markerClick(marker)\">\n        </agm-marker>\n    </ng-container>\n</agm-map>\n"
+module.exports = "<ng-container *ngIf=\"isLoading;\">\n    <div class=\"map-loading\">\n        <mat-spinner diameter=\"48\"\n                     color=\"primary\"></mat-spinner>\n        <h1>Locating ({{locatingCount}}) Addresses</h1>\n    </div>\n</ng-container>\n\n<agm-map [latitude]=\"latitude\"\n         [longitude]=\"longitude\"\n         [zoom]=\"zoom\"\n         [disableDefaultUI]=\"true\"\n         [streetViewControl]=\"false\">\n    <ng-container *ngFor=\"let marker of markers\">\n        <agm-marker [latitude]=\"marker.lat\"\n                    [longitude]=\"marker.lng\"\n                    (markerClick)=\"markerClick(marker)\">\n        </agm-marker>\n    </ng-container>\n</agm-map>\n"
 
 /***/ }),
 
@@ -6728,7 +6737,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @core/utils */ "./src/app/core/utils.ts");
 /* harmony import */ var _shared_entity_document_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @shared/entity/document.model */ "./src/app/shared/entity/document.model.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
+/* harmony import */ var _document_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../document.service */ "./src/app/tools/gen-mapper/document.service.ts");
+/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -6760,13 +6770,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var GenMapperMapComponent = /** @class */ (function (_super) {
     __extends(GenMapperMapComponent, _super);
-    function GenMapperMapComponent(mapsAPILoader, mapsService, genMapper, ngZone) {
+    function GenMapperMapComponent(mapsAPILoader, mapsService, genMapper, documentService, ngZone) {
         var _this = _super.call(this) || this;
         _this.mapsAPILoader = mapsAPILoader;
         _this.mapsService = mapsService;
         _this.genMapper = genMapper;
+        _this.documentService = documentService;
         _this.ngZone = ngZone;
         _this.zoom = 11;
         _this.isLoading = true;
@@ -6779,56 +6791,67 @@ var GenMapperMapComponent = /** @class */ (function (_super) {
             .subscribe(function (result) {
             _this.isLoading = true;
             _this.document = result;
-            _this.mapsAPILoader.load().then(function () {
-                _this.runChange();
-            });
+            _this.runChange();
         });
     };
     GenMapperMapComponent.prototype.markerClick = function (marker) {
         this.genMapper.setNode(marker.node);
     };
     GenMapperMapComponent.prototype.runChange = function () {
-        var _this = this;
         this.markers = [];
-        var nodesToSearch = this.document.nodes.filter(function (n) { return !!n.location; });
-        if (nodesToSearch.length === 0) {
+        var nodesWithLocation = this.document.nodes.filter(function (n) { return !!n.location; });
+        var nodesWithLatLng = nodesWithLocation.filter(function (n) { return !!n.latitude; });
+        var nodesWithoutLatLng = nodesWithLocation.filter(function (n) { return !n.latitude; });
+        if (nodesWithLocation.length === 0) {
             this.isLoading = false;
             return;
         }
-        var markers = [];
-        var startOfQueus = function () {
-            // On NgZoneRun, otherwise the template will not see the changes for some reason. :/
-            _this.ngZone.run(function () {
-                var firstMarker = markers[0];
-                _this.longitude = firstMarker.lng;
-                _this.latitude = firstMarker.lat;
-                _this.markers = markers;
-                console.log(_this.isLoading);
-            });
-        };
+        this.markers = nodesWithLatLng.map(function (node) { return ({
+            lat: node.latitude,
+            lng: node.longitude,
+            node: node,
+        }); });
+        if (this.markers.length > 0) {
+            this.latitude = this.markers[0].lat;
+            this.longitude = this.markers[0].lng;
+            this.isLoading = false;
+        }
+        this.locateUnlocatedAddresses(nodesWithoutLatLng);
+    };
+    GenMapperMapComponent.prototype.locateUnlocatedAddresses = function (nodesWithoutLatLng) {
+        var _this = this;
+        if (nodesWithoutLatLng.length === 0) {
+            return;
+        }
+        this.locatingCount = nodesWithoutLatLng.length;
         var finishQueue = function () {
             // On NgZoneRun, otherwise the template will not see the changes for some reason. :/
             _this.ngZone.run(function () {
-                var firstMarker = markers[0];
+                var firstMarker = _this.markers[0];
                 _this.longitude = firstMarker.lng;
                 _this.latitude = firstMarker.lat;
                 _this.isLoading = false;
-                console.log(_this.isLoading);
+                _this.saveDocument();
             });
         };
-        console.log(nodesToSearch.length);
         var runQueue = function (n) {
-            console.log(nodesToSearch.length);
-            console.log('running');
+            _this.ngZone.run(function () {
+                _this.locatingCount = nodesWithoutLatLng.length + 1;
+            });
             _core_utils__WEBPACK_IMPORTED_MODULE_5__["Utils"].timeout(function () {
                 if (n) {
+                    _this.locatingCount = nodesWithoutLatLng.length;
                     _this.mapsService.getCoordsForAddress({ address: n.location, placeId: n.placeId }).subscribe(function (result) {
-                        markers.push({
+                        // Set properties on Node so we can save.
+                        n.latitude = result.latitude;
+                        n.longitude = result.longitude;
+                        n.placeId = result.placeId;
+                        _this.markers.push({
                             lat: result.latitude,
                             lng: result.longitude,
                             node: n,
                         });
-                        var next = nodesToSearch.shift();
+                        var next = nodesWithoutLatLng.shift();
                         if (!next) {
                             finishQueue();
                         }
@@ -6837,9 +6860,15 @@ var GenMapperMapComponent = /** @class */ (function (_super) {
                         }
                     });
                 }
-            }, 1000);
+            }, 600);
         };
-        runQueue(nodesToSearch.shift());
+        runQueue(nodesWithoutLatLng.shift());
+    };
+    GenMapperMapComponent.prototype.saveDocument = function () {
+        this.documentService.update(this.document)
+            .subscribe(function (result) {
+            console.log('Document Updated');
+        });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])(),
@@ -6861,7 +6890,8 @@ var GenMapperMapComponent = /** @class */ (function (_super) {
         }),
         __metadata("design:paramtypes", [_agm_core_services_maps_api_loader_maps_api_loader__WEBPACK_IMPORTED_MODULE_1__["MapsAPILoader"],
             _core_maps_service__WEBPACK_IMPORTED_MODULE_3__["MapsService"],
-            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__["GenMapperService"],
+            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_9__["GenMapperService"],
+            _document_service__WEBPACK_IMPORTED_MODULE_8__["DocumentService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgZone"]])
     ], GenMapperMapComponent);
     return GenMapperMapComponent;
@@ -7042,7 +7072,7 @@ var GenMapperModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"],
                 _agm_core_core_module__WEBPACK_IMPORTED_MODULE_0__["AgmCoreModule"].forRoot({
-                    apiKey: 'AIzaSyDiO8O4955sVTiQicnTgRHLX0xEJKbcrL8',
+                    apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
                     libraries: ['places']
                 })
             ],
@@ -7354,13 +7384,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/authentication.service */ "./src/app/core/authentication.service.ts");
 /* harmony import */ var _core_Unsubscribable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/Unsubscribable */ "./src/app/core/Unsubscribable.ts");
 /* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../dialogs/create-document-dialog/create-document-dialog.component */ "./src/app/tools/gen-mapper/dialogs/create-document-dialog/create-document-dialog.component.ts");
-/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash-es/lodash.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../dialogs/create-document-dialog/create-document-dialog.component */ "./src/app/tools/gen-mapper/dialogs/create-document-dialog/create-document-dialog.component.ts");
 /* harmony import */ var _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../gen-mapper-graph/gen-mapper-graph.component */ "./src/app/tools/gen-mapper/gen-mapper-graph/gen-mapper-graph.component.ts");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lodash */ "./node_modules/lodash-es/lodash.js");
-/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
-/* harmony import */ var _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../gen-mapper-view-tabs/gen-mapper-view-tabs.component */ "./src/app/tools/gen-mapper/gen-mapper-view-tabs/gen-mapper-view-tabs.component.ts");
+/* harmony import */ var _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../gen-mapper-view-tabs/gen-mapper-view-tabs.component */ "./src/app/tools/gen-mapper/gen-mapper-view-tabs/gen-mapper-view-tabs.component.ts");
+/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
+/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -7415,23 +7445,23 @@ var GenMapperComponent = /** @class */ (function (_super) {
         this.template = data.template;
         this.isAuthenticated = this.authService.isAuthenticated();
         this.route.data
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this.unsubscribe))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this.unsubscribe))
             .subscribe(function (result) {
             _this.document = result.document;
             if (!result.document && !_this.authService.isAuthenticated() && _this.genMapper.hasLocalDocument()) {
                 _this.router.navigate([_this.template.name, 'local'], { skipLocationChange: true });
             }
             if (_this.document) {
-                _this.showMapView = Object(lodash__WEBPACK_IMPORTED_MODULE_10__["some"])(_this.document.nodes, function (d) { return !!d.location; });
+                _this.showMapView = Object(lodash__WEBPACK_IMPORTED_MODULE_6__["some"])(_this.document.nodes, function (d) { return !!d.location; });
             }
         });
         this.genMapper.getNode()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this.unsubscribe))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this.unsubscribe))
             .subscribe(function (result) {
             _this.node = result;
         });
         this.genMapper.getConfig()
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this.unsubscribe))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["takeUntil"])(this.unsubscribe))
             .subscribe(function (result) {
             _this.documents = result.documents;
         });
@@ -7442,10 +7472,10 @@ var GenMapperComponent = /** @class */ (function (_super) {
         this.genMapper.updateDocument(this.document)
             .subscribe(function (result) {
             console.log('updated');
-            _this.document = Object(lodash__WEBPACK_IMPORTED_MODULE_10__["cloneDeep"])(_this.document);
+            _this.document = Object(lodash__WEBPACK_IMPORTED_MODULE_6__["cloneDeep"])(_this.document);
             // Changing the document reference triggers a change.
             _this.genMapper.setDocument(_this.document);
-            _this.showMapView = Object(lodash__WEBPACK_IMPORTED_MODULE_10__["some"])(_this.document.nodes, function (d) { return !!d.location; });
+            _this.showMapView = Object(lodash__WEBPACK_IMPORTED_MODULE_6__["some"])(_this.document.nodes, function (d) { return !!d.location; });
         });
     };
     GenMapperComponent.prototype.onNodeClick = function (node) {
@@ -7477,7 +7507,7 @@ var GenMapperComponent = /** @class */ (function (_super) {
     };
     GenMapperComponent.prototype.onCreateDocument = function () {
         var _this = this;
-        this.dialog.open(_dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CreateDocumentDialogComponent"])
+        this.dialog.open(_dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_8__["CreateDocumentDialogComponent"])
             .afterClosed()
             .subscribe(function (result) {
             if (result) {
@@ -7512,8 +7542,8 @@ var GenMapperComponent = /** @class */ (function (_super) {
         __metadata("design:type", _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_9__["GenMapperGraphComponent"])
     ], GenMapperComponent.prototype, "genMapperGraph", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_12__["GenMapperViewTabsComponent"]),
-        __metadata("design:type", _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_12__["GenMapperViewTabsComponent"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_10__["GenMapperViewTabsComponent"]),
+        __metadata("design:type", _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_10__["GenMapperViewTabsComponent"])
     ], GenMapperComponent.prototype, "tabs", void 0);
     GenMapperComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -7522,8 +7552,8 @@ var GenMapperComponent = /** @class */ (function (_super) {
             styles: [__webpack_require__(/*! ./gen-mapper.component.scss */ "./src/app/tools/gen-mapper/gen-mapper/gen-mapper.component.scss")]
         }),
         __metadata("design:paramtypes", [_core_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
-            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_11__["NodeClipboardService"],
-            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__["GenMapperService"],
+            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_12__["NodeClipboardService"],
+            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_11__["GenMapperService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
@@ -8184,6 +8214,8 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
         group.parentId = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null);
         if (group.location) {
             group.placeId = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null);
+            group.latitude = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null);
+            group.longitude = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](null);
         }
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"](group);
         this.form.valueChanges
@@ -8379,7 +8411,12 @@ var TemplateUtils;
                     }
                 }
                 else if (field.type) {
-                    parsedLine[field.header] = d[field.header];
+                    if (field.header === 'latitude' || field.header === 'longitude') {
+                        parsedLine[field.header] = parseFloat(d[field.header]);
+                    }
+                    else {
+                        parsedLine[field.header] = d[field.header];
+                    }
                 }
             });
             parsedLine.isRoot = !parsedLine.parentId && parsedLine.parentId !== 0;
@@ -8721,9 +8758,19 @@ var ChurchCirclesCzechTemplate = {
             'type': 'geoLocation'
         },
         {
+            'header': 'latitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
+            'header': 'longitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
             'header': 'placeId',
             'initial': '',
-            'type': null
+            'type': 'hidden'
         },
         {
             'header': 'date',
@@ -9190,9 +9237,19 @@ var ChurchCirclesTemplate = {
             'type': 'geoLocation'
         },
         {
+            'header': 'latitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
+            'header': 'longitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
             'header': 'placeId',
             'initial': '',
-            'type': null
+            'type': 'hidden'
         },
         {
             'header': 'date',
@@ -11252,8 +11309,7 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
-    production: false,
-    gkey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko'
+    production: false
 };
 /*
  * In development mode, to ignore zone related error stack frames such as
