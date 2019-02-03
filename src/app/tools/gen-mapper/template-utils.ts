@@ -3,10 +3,9 @@ import i18next from 'i18next';
 
 import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
 import { ChurchCirclesTemplate } from './templates/church-circles';
-import { FourFieldsTemplate } from './templates/four-fields';
 import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
 import { DisciplesTemplate } from './templates/disciples';
-import { groupBy } from 'lodash';
+import { FourFieldsTemplate } from './templates/four-fields';
 
 export const GenMapperTemplates = [
     ChurchCirclesTemplate,

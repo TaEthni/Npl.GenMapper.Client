@@ -163,6 +163,11 @@ export const ChurchCirclesTemplate = {
             'type': 'geoLocation'
         },
         {
+            'header': 'placeId',
+            'initial': '',
+            'type': null
+        },
+        {
             'header': 'date',
             'initialTranslationCode': 'initialDate',
             'type': 'text',

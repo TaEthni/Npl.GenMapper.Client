@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { MapsService } from '@core/maps.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
-import { GMField, GNode } from '../gen-mapper.interface';
-import { MatDialog } from '@angular/material';
-import { MapsService } from '@core/maps.service';
 import { LocationDialogComponent, LocationDialogConfig } from '../dialogs/location-dialog/location-dialog.component';
+import { GMField, GNode } from '../gen-mapper.interface';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -77,14 +77,15 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
 
     private showLocationDialog(config: LocationDialogConfig): void {
         this.dialog
-            .open(LocationDialogComponent, {
+            .open<LocationDialogComponent, LocationDialogConfig, { address: string, placeId: string }>(LocationDialogComponent, {
                 minWidth: '400px',
                 data: config
             })
             .afterClosed()
-            .subscribe(address => {
-                if (address) {
-                    this.form.get('location').patchValue(address);
+            .subscribe(result => {
+                if (result) {
+                    this.form.get('placeId').patchValue(result.placeId);
+                    this.form.get('location').patchValue(result.address);
                     this.form.get('location').updateValueAndValidity();
                     this.form.markAsDirty();
                 }

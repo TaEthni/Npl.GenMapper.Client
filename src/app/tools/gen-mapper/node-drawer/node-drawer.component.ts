@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { GNode, GMField, GMTemplate } from '../gen-mapper.interface';
-import { GenMapperService, GenMapperConfig } from '../gen-mapper.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { takeUntil, take } from 'rxjs/operators';
-import { TemplateUtils } from '../template-utils';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog, MatDrawer } from '@angular/material';
 import { LocaleService } from '@core/locale.service';
+import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
-import { MatDrawer, MatDialog } from '@angular/material';
-import { cloneDeep, without, assign } from 'lodash';
-import { FormGroup, FormControl } from '@angular/forms';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { assign, cloneDeep } from 'lodash';
+import { takeUntil } from 'rxjs/operators';
+
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
+import { GMField, GMTemplate, GNode } from '../gen-mapper.interface';
+import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { TemplateUtils } from '../template-utils';
 
 @Component({
     selector: 'app-node-drawer',
@@ -194,6 +195,10 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
         // Add custom control for parentId
         group.parentId = new FormControl(null);
+
+        if (group.location) {
+            group.placeId = new FormControl(null);
+        }
 
         this.form = new FormGroup(group);
 

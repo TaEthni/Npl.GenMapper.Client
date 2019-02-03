@@ -1,7 +1,7 @@
+import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { MapsService } from '@core/maps.service';
 
 interface MouseEvent {
@@ -9,6 +9,7 @@ interface MouseEvent {
 }
 
 export interface LocationDialogConfig {
+    placeId?: string;
     address?: string;
     latitude?: number;
     longitude?: number;
@@ -30,6 +31,7 @@ export class LocationDialogComponent {
     public searchControl: AbstractControl;
     public zoom: number;
     public address: string;
+    public placeId: string;
     public height: number;
     public geocoder: google.maps.Geocoder;
 
@@ -40,6 +42,7 @@ export class LocationDialogComponent {
         private dialogRef: MatDialogRef<LocationDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: LocationDialogConfig
     ) {
+        this.placeId = data.placeId;
         this.address = data.address;
         this.latitude = data.latitude;
         this.longitude = data.longitude;
@@ -51,7 +54,10 @@ export class LocationDialogComponent {
     }
 
     public onSubmit(): void {
-        this.dialogRef.close(this.address);
+        this.dialogRef.close({
+            address: this.address,
+            placeId: this.placeId
+        });
     }
 
     public markerDragEnd(event: MouseEvent): void {
@@ -74,7 +80,7 @@ export class LocationDialogComponent {
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
-
+                    this.placeId = place.place_id;
                     this.address = place.formatted_address;
                     this.latitude = place.geometry.location.lat();
                     this.longitude = place.geometry.location.lng();
@@ -85,8 +91,9 @@ export class LocationDialogComponent {
             });
 
             if (this.address) {
-                this.mapsService.getCoordsForAddress(this.address).subscribe(result => {
+                this.mapsService.getCoordsForAddress({ address: this.address, placeId: this.placeId }).subscribe(result => {
                     this.ngZone.run(() => {
+                        this.placeId = result.placeId;
                         this.latitude = result.latitude;
                         this.longitude = result.longitude;
                         this.markerLatitude = this.latitude;
@@ -107,6 +114,7 @@ export class LocationDialogComponent {
         this.geocoder.geocode({ 'latLng': latLng } as google.maps.GeocoderRequest, (res, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (res[0]) {
+                    this.placeId = res[0].place_id;
                     this.address = res[0].formatted_address;
                     this.searchControl.setValue(res[0].formatted_address);
                 } else {

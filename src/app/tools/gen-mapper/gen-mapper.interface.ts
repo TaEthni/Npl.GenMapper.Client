@@ -8,6 +8,7 @@ export interface GNode {
 
     // Optional Properties
     location?: string;
+    placeId?: string;
 
     // Only set on node click from d3 node.descendants();
     descendants?: GNode[];

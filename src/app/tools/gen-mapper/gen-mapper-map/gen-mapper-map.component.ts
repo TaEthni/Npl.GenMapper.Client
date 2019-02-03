@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, OnChanges, NgZone, AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { DocumentDto } from '@shared/entity/document.model';
-import { GMTemplate, GNode } from '../gen-mapper.interface';
-import { MapsService } from '@core/maps.service';
-import { take, takeUntil, map } from 'rxjs/operators';
-import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
-import { GenMapperService } from '../gen-mapper.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { forkJoin } from 'rxjs';
-import { Utils } from '@core/utils';
 import { AgmMap } from '@agm/core/directives/map';
+import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
+import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { MapsService } from '@core/maps.service';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { DocumentDto } from '@shared/entity/document.model';
+import { forkJoin } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+
+import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { GenMapperService } from '../gen-mapper.service';
 
 export interface MapMarker {
     lat: number;
@@ -72,7 +72,7 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
 
         forkJoin(
             nodesToSearch.map(n => {
-                return this.mapsService.getCoordsForAddress(n.location)
+                return this.mapsService.getCoordsForAddress({ address: n.location, placeId: n.placeId })
                     .pipe(map(res => {
                         return {
                             lat: res.latitude,

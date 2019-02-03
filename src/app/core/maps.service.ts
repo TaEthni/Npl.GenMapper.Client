@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
-import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { assign } from 'lodash';
+import { Observable } from 'rxjs';
 
 const cacheKey = 'gmaps-address-latlng-cache';
 export interface LatLng {
     latitude: number;
     longitude: number;
+    placeId?: string;
 }
 
 @Injectable()
@@ -15,7 +15,7 @@ export class MapsService {
     private cache: any = {};
 
     constructor() {
-        const cache = sessionStorage.getItem(cacheKey);
+        const cache = localStorage.getItem(cacheKey);
         if (cache) {
             assign(this.cache, JSON.parse(cache));
         }
@@ -41,24 +41,20 @@ export class MapsService {
         });
     }
 
-    public getCoordsForAddress(address: string): Observable<LatLng> {
-        const cached = this.getFromCache(address);
-        if (cached) {
-            return of(cached);
-        }
-
+    public getCoordsForAddress(request: google.maps.GeocoderRequest): Observable<LatLng> {
         return Observable.create(observer => {
+            if (request.placeId) {
+                delete request.address;
+            }
+
             const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ address } as google.maps.GeocoderRequest, (res, status) => {
+            geocoder.geocode(request as google.maps.GeocoderRequest, (res, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (res[0]) {
                         const latitude = res[0].geometry.location.lat();
                         const longitude = res[0].geometry.location.lng();
-                        this.cacheAddress(address, { latitude, longitude });
-                        observer.next(this.getFromCache(address));
+                        observer.next({ latitude, longitude, placeId: res[0].place_id });
                         observer.complete();
-                        // this.address = res[0].formatted_address;
-                        // this.searchControl.setValue(res[0].formatted_address);
                     } else {
                         console.log('No results found');
                         observer.error('No results found');
@@ -69,14 +65,5 @@ export class MapsService {
                 }
             });
         });
-    }
-
-    private cacheAddress(address: string, latlng: LatLng): void {
-        this.cache[address] = latlng;
-        sessionStorage.setItem(cacheKey, JSON.stringify(this.cache));
-    }
-
-    private getFromCache(address: string): LatLng {
-        return this.cache[address];
     }
 }
