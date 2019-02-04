@@ -79,6 +79,7 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
             node,
         }));
 
+        this.sortMarkers();
         if (this.markers.length > 0) {
             this.latitude = this.markers[0].lat;
             this.longitude = this.markers[0].lng;
@@ -98,6 +99,7 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
         const finishQueue = () => {
             // On NgZoneRun, otherwise the template will not see the changes for some reason. :/
             this.ngZone.run(() => {
+                this.sortMarkers();
                 const firstMarker = this.markers[0];
                 this.longitude = firstMarker.lng;
                 this.latitude = firstMarker.lat;
@@ -145,5 +147,11 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
             .subscribe(result => {
                 console.log('Document Updated');
             });
+    }
+
+    private sortMarkers(): void {
+        this.markers.sort((a, b) => {
+            return b.lat - a.lat;
+        });
     }
 }
