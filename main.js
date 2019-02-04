@@ -6648,6 +6648,7 @@ var GenMapperMapComponent = /** @class */ (function (_super) {
             lng: node.longitude,
             node: node,
         }); });
+        this.sortMarkers();
         if (this.markers.length > 0) {
             this.latitude = this.markers[0].lat;
             this.longitude = this.markers[0].lng;
@@ -6664,6 +6665,7 @@ var GenMapperMapComponent = /** @class */ (function (_super) {
         var finishQueue = function () {
             // On NgZoneRun, otherwise the template will not see the changes for some reason. :/
             _this.ngZone.run(function () {
+                _this.sortMarkers();
                 var firstMarker = _this.markers[0];
                 _this.longitude = firstMarker.lng;
                 _this.latitude = firstMarker.lat;
@@ -6705,6 +6707,11 @@ var GenMapperMapComponent = /** @class */ (function (_super) {
         this.documentService.update(this.document)
             .subscribe(function (result) {
             console.log('Document Updated');
+        });
+    };
+    GenMapperMapComponent.prototype.sortMarkers = function () {
+        this.markers.sort(function (a, b) {
+            return b.lat - a.lat;
         });
     };
     __decorate([
