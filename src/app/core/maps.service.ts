@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { assign } from 'lodash';
 import { Observable } from 'rxjs';
 
 const cacheKey = 'gmaps-address-latlng-cache';
@@ -11,15 +10,6 @@ export interface LatLng {
 
 @Injectable()
 export class MapsService {
-
-    private cache: any = {};
-
-    constructor() {
-        const cache = localStorage.getItem(cacheKey);
-        if (cache) {
-            assign(this.cache, JSON.parse(cache));
-        }
-    }
 
     public getLocation(): Observable<Position> {
         return Observable.create(observer => {

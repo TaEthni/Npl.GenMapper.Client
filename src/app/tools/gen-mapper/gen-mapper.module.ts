@@ -7,7 +7,6 @@ import { SharedModule } from '@shared/shared.module';
 
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
-import { EditNodeDialogComponent } from './dialogs/edit-node-dialog/edit-node-dialog.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { DocumentService } from './document.service';
 import { EditNodeFormComponent } from './edit-node-form/edit-node-form.component';
@@ -38,7 +37,6 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
     ],
     declarations: [
         ConfirmDialogComponent,
-        EditNodeDialogComponent,
         EditNodeFormComponent,
         GenMapperGraphComponent,
         GenMapperDocumentsComponent,
@@ -55,7 +53,6 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
     ],
     exports: [
         ConfirmDialogComponent,
-        EditNodeDialogComponent,
         EditNodeFormComponent,
         GenMapperGraphComponent,
         GenMapperDocumentsComponent,
@@ -68,7 +65,6 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
     ],
     entryComponents: [
         ConfirmDialogComponent,
-        EditNodeDialogComponent,
         CreateDocumentDialogComponent,
         LocationDialogComponent
     ],

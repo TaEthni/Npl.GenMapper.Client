@@ -1,25 +1,3 @@
 :host {
     display: block;
-    // display: flex;
-    // flex-direction: column;
-
-    .mat-sidenav-container {
-        // min-height: 100vh;
-        // width: 100%;
-    }
-
-    ::ng-deep {
-        .mat-sidenav-content {
-            // min-height: 100vh;
-            // display: flex;
-            // flex-direction: column;
-        }
-    }
-
-    main {
-        // flex: 1;
-        // display: flex;
-        // flex-direction: column;
-        // height: 100%;
-    }
 }

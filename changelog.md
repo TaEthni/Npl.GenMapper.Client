@@ -1,5 +1,9 @@
 # GenMapper Changelog
 
+## (2019-02-01)
+- Feature: World map view of GenMap.
+- Feature: Improve Mobile/Handheld support.
+
 ## (2019-01-30)
 - Feature: Support Church Circles Czech Template.
 - Feature: Support Disciples Template.
