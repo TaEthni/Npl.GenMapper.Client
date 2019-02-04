@@ -5069,8 +5069,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/utils */ "./src/app/core/utils.ts");
 /* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
 /* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
-/* harmony import */ var _confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
-/* harmony import */ var _template_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../template-utils */ "./src/app/tools/gen-mapper/template-utils.ts");
+/* harmony import */ var _template_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../template-utils */ "./src/app/tools/gen-mapper/template-utils.ts");
+/* harmony import */ var _confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5101,7 +5101,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
         this.template = null;
         this.isNodeClipboard = !!this.nodeClipboard.getValue();
         this.model = Object.assign({}, data.nodeData);
-        _template_utils__WEBPACK_IMPORTED_MODULE_7__["TemplateUtils"].setTemplateLocale(data.template, data.language);
+        _template_utils__WEBPACK_IMPORTED_MODULE_6__["TemplateUtils"].setTemplateLocale(data.template, data.language);
         this.template = data.template;
         this.fields = this.template.fields;
         _core_utils__WEBPACK_IMPORTED_MODULE_3__["Utils"].disableDocumentScroll();
@@ -5133,7 +5133,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
     EditNodeDialogComponent.prototype.onPasteNode = function () {
         var _this = this;
         this.matDialog
-            .open(_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDialogComponent"], {
+            .open(_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmDialogComponent"], {
             data: {
                 title: this.localeService.t('messages.confirmPasteNode'),
                 alert: this.localeService.t('messages.confirmPasteNodeWarning'),
@@ -5155,7 +5155,7 @@ var EditNodeDialogComponent = /** @class */ (function () {
     EditNodeDialogComponent.prototype.onImportSubtree = function () {
         var _this = this;
         this.matDialog
-            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_4__["FileInputDialogComponent"], { minWidth: '400px' })
+            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_4__["FileInputDialogComponent"], { minWidth: '350px' })
             .afterClosed()
             .subscribe(function (result) {
             if (result) {
@@ -5471,9 +5471,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _core_maps_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/maps.service */ "./src/app/core/maps.service.ts");
-/* harmony import */ var _core_Unsubscribable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/Unsubscribable */ "./src/app/core/Unsubscribable.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dialogs/location-dialog/location-dialog.component */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.ts");
+/* harmony import */ var _core_platform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/platform */ "./src/app/core/platform.ts");
+/* harmony import */ var _core_Unsubscribable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @core/Unsubscribable */ "./src/app/core/Unsubscribable.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../dialogs/location-dialog/location-dialog.component */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -5503,6 +5504,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var EditNodeFormComponent = /** @class */ (function (_super) {
     __extends(EditNodeFormComponent, _super);
     function EditNodeFormComponent(dialog, mapService) {
@@ -5515,7 +5517,7 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
         var _this = this;
         if (this.form.get('generation')) {
             this.form.get('generation').valueChanges
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this.unsubscribe))
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(this.unsubscribe))
                 .subscribe(function (result) {
                 if (result < 0) {
                     _this.form.get('generation').patchValue(0);
@@ -5555,12 +5557,16 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
             });
         }
     };
-    EditNodeFormComponent.prototype.showLocationDialog = function (config) {
+    EditNodeFormComponent.prototype.showLocationDialog = function (data) {
         var _this = this;
+        var minWidth = '400px';
+        if (_core_platform__WEBPACK_IMPORTED_MODULE_4__["Device"].isHandHeld) {
+            minWidth = '100vw';
+        }
         this.dialog
-            .open(_dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_6__["LocationDialogComponent"], {
-            minWidth: '400px',
-            data: config
+            .open(_dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_7__["LocationDialogComponent"], {
+            minWidth: minWidth,
+            data: data,
         })
             .afterClosed()
             .subscribe(function (result) {
@@ -5600,7 +5606,7 @@ var EditNodeFormComponent = /** @class */ (function (_super) {
             _core_maps_service__WEBPACK_IMPORTED_MODULE_3__["MapsService"]])
     ], EditNodeFormComponent);
     return EditNodeFormComponent;
-}(_core_Unsubscribable__WEBPACK_IMPORTED_MODULE_4__["Unsubscribable"]));
+}(_core_Unsubscribable__WEBPACK_IMPORTED_MODULE_5__["Unsubscribable"]));
 
 
 
@@ -7601,12 +7607,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _core_download_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/download.service */ "./src/app/core/download.service.ts");
-/* harmony import */ var _shared_entity_document_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shared/entity/document.model */ "./src/app/shared/entity/document.model.ts");
-/* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
-/* harmony import */ var _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dialogs/confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
-/* harmony import */ var _gen_mapper_interface__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../gen-mapper.interface */ "./src/app/tools/gen-mapper/gen-mapper.interface.ts");
-/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
-/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
+/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
+/* harmony import */ var _shared_entity_document_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/entity/document.model */ "./src/app/shared/entity/document.model.ts");
+/* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
+/* harmony import */ var _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../dialogs/confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
+/* harmony import */ var _gen_mapper_interface__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../gen-mapper.interface */ "./src/app/tools/gen-mapper/gen-mapper.interface.ts");
+/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7638,7 +7644,7 @@ var MapMenuButtonComponent = /** @class */ (function () {
     MapMenuButtonComponent.prototype.onImport = function () {
         var _this = this;
         this.dialog
-            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_5__["FileInputDialogComponent"], { minWidth: '400px' })
+            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__["FileInputDialogComponent"], { minWidth: '350px' })
             .afterClosed()
             .subscribe(function (result) {
             if (result) {
@@ -7650,7 +7656,7 @@ var MapMenuButtonComponent = /** @class */ (function () {
         var _this = this;
         var title = this.locale.t('deleteDocument') + (" [" + this.document.title + "]");
         this.dialog
-            .open(_dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDialogComponent"], {
+            .open(_dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmDialogComponent"], {
             data: { title: title }
         })
             .afterClosed()
@@ -7664,10 +7670,10 @@ var MapMenuButtonComponent = /** @class */ (function () {
         this.downloadService.downloadDocument(this.document);
     };
     MapMenuButtonComponent.prototype.onPrintHorizontal = function () {
-        this.print.emit(_gen_mapper_interface__WEBPACK_IMPORTED_MODULE_7__["PrintType"].horizontal);
+        this.print.emit(_gen_mapper_interface__WEBPACK_IMPORTED_MODULE_8__["PrintType"].horizontal);
     };
     MapMenuButtonComponent.prototype.onPrintVertical = function () {
-        this.print.emit(_gen_mapper_interface__WEBPACK_IMPORTED_MODULE_7__["PrintType"].vertical);
+        this.print.emit(_gen_mapper_interface__WEBPACK_IMPORTED_MODULE_8__["PrintType"].vertical);
     };
     MapMenuButtonComponent.prototype._createDocument = function (document) {
         var _this = this;
@@ -7687,7 +7693,7 @@ var MapMenuButtonComponent = /** @class */ (function () {
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", _shared_entity_document_model__WEBPACK_IMPORTED_MODULE_4__["DocumentDto"])
+        __metadata("design:type", _shared_entity_document_model__WEBPACK_IMPORTED_MODULE_5__["DocumentDto"])
     ], MapMenuButtonComponent.prototype, "document", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -7703,9 +7709,9 @@ var MapMenuButtonComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./map-menu-button.component.html */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.html"),
             styles: [__webpack_require__(/*! ./map-menu-button.component.scss */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.scss")]
         }),
-        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_9__["LocaleService"],
+        __metadata("design:paramtypes", [_core_locale_service__WEBPACK_IMPORTED_MODULE_4__["LocaleService"],
             _core_download_service__WEBPACK_IMPORTED_MODULE_3__["DownloadService"],
-            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_8__["GenMapperService"],
+            _gen_mapper_service__WEBPACK_IMPORTED_MODULE_9__["GenMapperService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], MapMenuButtonComponent);
@@ -8183,7 +8189,7 @@ var NodeDrawerComponent = /** @class */ (function (_super) {
     NodeDrawerComponent.prototype.onImportSubtree = function () {
         var _this = this;
         this.dialog
-            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__["FileInputDialogComponent"], { minWidth: '400px' })
+            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_6__["FileInputDialogComponent"], { minWidth: '350px' })
             .afterClosed()
             .subscribe(function (result) {
             if (result) {
