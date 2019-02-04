@@ -8,7 +8,7 @@ import { LocaleService } from '@core/locale.service';
 import { Entity } from '@shared/entity/entity.model';
 import { User } from '@shared/entity/user.model';
 import { LocalePipe } from '@shared/locale.pipe';
-import { merge } from 'lodash';
+import { assign } from 'lodash';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
 
@@ -76,7 +76,7 @@ describe('DetailFormComponent', () => {
     it.skip('should use EntityService to update the user', () => {
         fixture.detectChanges();
         const expectedUser = new User({ id: Entity.uuid() });
-        const updatedUser = merge(expectedUser, { username: '1234' });
+        const updatedUser = assign(expectedUser, { username: '1234' });
         entityService.update = jest.fn(() => of(null));
         // component.submit();
         fixture.detectChanges();

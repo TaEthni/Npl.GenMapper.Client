@@ -1,28 +1,10 @@
-<header>
-    <mat-toolbar>
-        <app-sidenav-toggle></app-sidenav-toggle>
-
-        <ng-container *ngIf="document">
-            <app-map-name-control fxFlex></app-map-name-control>
-            <ng-container *ngIf="isAuthenticated">
-                <button mat-icon-button
-                        (click)="matDrawer?.toggle()">
-                    <mat-icon *ngIf="matDrawer?.opened">clear</mat-icon>
-                    <mat-icon *ngIf="!matDrawer?.opened">filter_list</mat-icon>
-                </button>
-            </ng-container>
-            <app-map-menu-button [document]="document"
-                                 [template]="template"></app-map-menu-button>
-        </ng-container>
-    </mat-toolbar>
-</header>
-<mat-drawer-container autosize
-                      fxFlex>
-    <mat-drawer #matDrawer
-                [opened]="isAuthenticated"
-                mode="side"
-                position="end"
+<mat-drawer-container autosize>
+    <mat-drawer #mapSidenav
+                class="map-sidenav"
+                mode="over"
+                position="start"
                 fxLayout="column"
+                [autoFocus]="false"
                 [class.hide-drawer]="!isAuthenticated">
 
         <ng-container *ngIf="isAuthenticated">
@@ -33,6 +15,27 @@
     </mat-drawer>
 
     <mat-drawer-content>
+        <app-sidenav-toggle></app-sidenav-toggle>
+        <ng-container *ngIf="isAuthenticated">
+            <button mat-mini-fab
+                    [disableRipple]="true"
+                    class="map-sidenav-toggle"
+                    (click)="mapSidenav?.toggle()">
+                <mat-icon>folder</mat-icon>
+            </button>
+
+            <ng-container *ngIf="!document">
+                <div class="map-sidenav-hint"
+                     fxLayout="row"
+                     fxLayoutAlign="start center"
+                     fxLayoutGap="5px">
+                    <mat-icon>arrow_back</mat-icon>
+                    <div>
+                        {{'documentsTitle' | locale | async}}
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
         <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>

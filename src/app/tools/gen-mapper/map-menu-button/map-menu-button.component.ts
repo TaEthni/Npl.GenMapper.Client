@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { DownloadService } from '@core/download.service';
+import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { GMTemplate } from '../gen-mapper.interface';
+import { GMTemplate, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
-import { LocaleService } from '@core/locale.service';
 
 @Component({
     selector: 'app-map-menu-button',
@@ -23,6 +23,9 @@ export class MapMenuButtonComponent {
     @Input()
     public template: GMTemplate;
 
+    @Output()
+    public print = new EventEmitter<string>();
+
     constructor(
         private locale: LocaleService,
         private downloadService: DownloadService,
@@ -33,7 +36,7 @@ export class MapMenuButtonComponent {
 
     public onImport(): void {
         this.dialog
-            .open(FileInputDialogComponent, { minWidth: '400px' })
+            .open(FileInputDialogComponent, { minWidth: '350px' })
             .afterClosed()
             .subscribe(result => {
                 if (result) {
@@ -58,6 +61,14 @@ export class MapMenuButtonComponent {
 
     public onExport(): void {
         this.downloadService.downloadDocument(this.document);
+    }
+
+    public onPrintHorizontal(): void {
+        this.print.emit(PrintType.horizontal);
+    }
+
+    public onPrintVertical(): void {
+        this.print.emit(PrintType.vertical);
     }
 
     private _createDocument(document: DocumentDto): void {

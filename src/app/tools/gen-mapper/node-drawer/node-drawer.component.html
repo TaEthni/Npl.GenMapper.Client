@@ -1,0 +1,58 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <span>
+            <ng-container *ngIf="clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName">
+                [{{clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName}}]
+            </ng-container>
+        </span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="save-button">
+    <div class="animated-button-group"
+         [class.slide-down]="form.dirty"
+         fxLayout="row">
+        <button mat-raised-button
+                color="primary"
+                (click)="onSave()"
+                fxFlex>
+            {{'en_Save' | locale | async}}
+        </button>
+        <button mat-button
+                color="primary"
+                (click)="onCancel()"
+                fxFlex>
+            {{'en_Cancel' | locale | async}}
+        </button>
+    </div>
+</div>
+<div>
+    <div fxLayout="row"
+         fxLayoutGap="10px"
+         class="drawer-actions"
+         *ngIf="!hideActions">
+
+        <button mat-stroked-button
+                (click)="onCopyNode()">
+            {{'editGroup.copyNodeButton' | locale | async}}
+        </button>
+
+        <ng-container *ngIf="isNodeInClipboard">
+            <button mat-stroked-button
+                    (click)="onPasteNode()">
+                {{'editGroup.pasteNodeButton' | locale | async}}
+            </button>
+        </ng-container>
+
+        <div fxFlex></div>
+
+        <button mat-stroked-button
+                color="primary"
+                (click)="onImportSubtree()">
+            {{'importSubtree' | locale | async}}
+        </button>
+    </div>
+    <app-edit-node-form [form]="form"
+                        [fields]="fields"
+                        [nodes]="document?.nodes"
+                        [model]="clonedNode"></app-edit-node-form>
+</div>

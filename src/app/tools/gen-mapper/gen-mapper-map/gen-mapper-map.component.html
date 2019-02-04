@@ -1,0 +1,20 @@
+<ng-container *ngIf="isLoading;">
+    <div class="map-loading">
+        <mat-spinner diameter="48"
+                     color="primary"></mat-spinner>
+        <h1>Locating ({{locatingCount}}) Addresses</h1>
+    </div>
+</ng-container>
+
+<agm-map [latitude]="latitude"
+         [longitude]="longitude"
+         [zoom]="zoom"
+         [disableDefaultUI]="true"
+         [streetViewControl]="false">
+    <ng-container *ngFor="let marker of markers">
+        <agm-marker [latitude]="marker.lat"
+                    [longitude]="marker.lng"
+                    (markerClick)="markerClick(marker)">
+        </agm-marker>
+    </ng-container>
+</agm-map>

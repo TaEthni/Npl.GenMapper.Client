@@ -6,13 +6,20 @@
 
     input {
         pointer-events: all;
-        margin-left: 12px;
-        line-height: 2;
-        padding: 0 5px;
-        min-width: 200px;
-        border: none;
+        line-height: 40px;
         font-size: 24px;
         font-weight: 600;
+        width: calc(100% - 10px);
+        padding: 0 5px;
+
+        border-radius: 20px;
+        background-color: rgba(0,0,0,0.04);
+        border: 1px solid transparent;
+
+        &:focus {
+            border-color: $gray;
+            background-color: white;
+        }
 
         &.is-error {
             color: mat-color($warn);
@@ -23,7 +30,7 @@
         font-size: 12px;
         line-height: 1;
         position: absolute;
-        left: 16px;
-        bottom: -5px;
+        left: 6px;
+        bottom: -14px;
     }
 }

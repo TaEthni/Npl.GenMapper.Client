@@ -1,9 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { MapsService } from '@core/maps.service';
+import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
-import { GMField } from '../gen-mapper.interface';
+import {
+    LocationDialogComponent,
+    LocationDialogConfig,
+    LocationDialogResponse,
+} from '../dialogs/location-dialog/location-dialog.component';
+import { GMField, GNode } from '../gen-mapper.interface';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -11,25 +19,24 @@ import { GMField } from '../gen-mapper.interface';
     styleUrls: ['./edit-node-form.component.scss']
 })
 export class EditNodeFormComponent extends Unsubscribable implements OnInit {
+    @Input()
+    public model: GNode;
+
+    @Input()
     public form: FormGroup;
-
-    @Input()
-    public model: any;
-
-    @Input()
-    public fields: GMField[];
 
     @Input()
     public nodes: any[];
 
-    @Output()
-    public change: EventEmitter<any> = new EventEmitter<any>(null);
+    @Input()
+    public fields: GMField[];
 
-    constructor() { super(); }
+    constructor(
+        private dialog: MatDialog,
+        private mapService: MapsService
+    ) { super(); }
 
     public ngOnInit(): void {
-        this.form = this._createForm();
-
         if (this.form.get('generation')) {
             this.form.get('generation').valueChanges
                 .pipe(takeUntil(this.unsubscribe))
@@ -40,25 +47,63 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
                 });
         }
 
-        this.form.valueChanges
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe((value) => {
-                this.change.emit(value);
-            });
+        if (this.form.get('location')) {
+            this.form.get('location').disable();
+        }
     }
 
-    private _createForm(): FormGroup {
-        const group: any = {};
+    public onFieldClick(field: GMField): void {
+        if (field.type === 'geoLocation') {
+            this.onGeoLocationClick();
+        }
+    }
 
-        this.fields
-            .filter(field => !!field.type)
-            .forEach(field => {
-                group[field.header] = new FormControl(this.model[field.header]);
+    public onClearFieldClick(event: Event, field: GMField): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this.form.get(field.header).setValue(null);
+        this.form.get(field.header).markAsDirty();
+    }
+
+    private onGeoLocationClick(): void {
+        if (this.form.get('location').value) {
+            this.showLocationDialog({
+                address: this.form.get('location').value,
+                markerLatitude: this.form.get('latitude').value,
+                markerLongitude: this.form.get('longitude').value
             });
+        } else {
+            this.mapService.getLocation().subscribe(result => {
+                this.showLocationDialog({
+                    latitude: result.coords.latitude,
+                    longitude: result.coords.longitude
+                });
+            });
+        }
+    }
 
-        // Add custom control for parentId
-        group.parentId = new FormControl(this.model.parentId);
+    private showLocationDialog(data: LocationDialogConfig): void {
+        let minWidth = '400px';
 
-        return new FormGroup(group);
+        if (Device.isHandHeld) {
+            minWidth = '100vw';
+        }
+
+        this.dialog
+            .open<LocationDialogComponent, LocationDialogConfig, LocationDialogResponse>(LocationDialogComponent, {
+                minWidth,
+                data,
+            })
+            .afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.form.get('latitude').patchValue(result.latitude);
+                    this.form.get('longitude').patchValue(result.longitude);
+                    this.form.get('placeId').patchValue(result.placeId);
+                    this.form.get('location').patchValue(result.address);
+                    this.form.get('location').updateValueAndValidity();
+                    this.form.markAsDirty();
+                }
+            });
     }
 }

@@ -8,8 +8,58 @@
 
 html,body {
     margin: 0;
-    height: 100%;
     font-family: 'Roboto';
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+
+// App structure
+html {
+    position: relative;
+    height: 100%;
+
+    body {
+        height: 100%;
+
+        app-root {
+            height: 100%;
+
+            app-layout {
+                height: 100%;
+
+                mat-sidenav-container {
+                    height: 100%;
+
+                    mat-drawer {
+                        backface-visibility: hidden;
+                    }
+
+                    app-gen-mapper-container {
+                        height: 100%;
+
+                        mat-drawer-container {
+                            height: 100%;
+
+                            mat-drawer {
+                                backface-visibility: hidden;
+                            }
+
+                            app-gen-mapper {
+                                height: 100%;
+
+                                app-gen-mapper-graph {
+                                    height: 100%;
+                                }
+
+                                app-gen-mapper-map {
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 a:not(.mat-button) {

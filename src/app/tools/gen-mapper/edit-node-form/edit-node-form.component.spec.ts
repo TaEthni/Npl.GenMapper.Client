@@ -1,17 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditNodeFormComponent } from './edit-node-form.component';
+import { configureTestSuite } from 'ng-bullet';
 
-xdescribe('EditNodeFormComponent', () => {
+describe.skip('EditNodeFormComponent', () => {
     let component: EditNodeFormComponent;
     let fixture: ComponentFixture<EditNodeFormComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             declarations: [EditNodeFormComponent]
-        })
-            .compileComponents();
-    }));
+        });
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(EditNodeFormComponent);

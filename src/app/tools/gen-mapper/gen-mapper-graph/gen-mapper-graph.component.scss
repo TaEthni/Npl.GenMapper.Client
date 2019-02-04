@@ -6,6 +6,11 @@
     position: relative;
     flex: 1;
 
+    #content {
+        display: flex;
+        flex: 1;
+    }
+
     button {
         background-color: steelblue;
         border: none;
@@ -294,73 +299,7 @@
 
     #genmapper-graph-svg {
         // background: whitesmoke;
-        height: 100%;
-    }
-
-    g.addNode,
-    g.removeNode,
-    g.copyNode,
-    g.pasteNode {
-        display: none;
-        opacity: 0.6;
-
-        line, rect ~ rect {
-            pointer-events: none;
-        }
-
-        &:hover {
-            opacity: 1;
-        }
-    }
-
-    .addNode {
-        rect {
-            fill: lime;
-        }
-    }
-
-    .removeNode {
-        rect {
-            fill: red;
-        }
-    }
-
-    .copyNode {
-        rect {
-            fill: $gray;
-        }
-    }
-
-    .node text {
-        font: 15px sans-serif;
-        text-anchor: middle;
-
-        &.node-name,
-        &.node-place,
-        &.node-date,
-        &.node-leaderName, {
-            font-size: 12px;
-        }
-
-        &.node-believers,
-        &.node-baptized,
-        &.node-attenders,
-        &.node-newlyBaptized {
-            font-size: 11px;
-        }
-    }
-
-    .node:hover > rect, .node:hover > line {
-        fill: lightskyblue;
-    }
-
-    .node:hover {
-        g.addNode,
-        g.removeNode,
-        g.copyNode,
-        g.pasteNode {
-            display: block;
-        }
+        // height: 100%;
     }
 
     .node--active text, .link-text--active {
@@ -382,6 +321,110 @@
         stroke: #ddd !important;
     }
 
+    g.addNode,
+    g.removeNode,
+    g.editNode,
+    g.copyNode,
+    g.pasteNode {
+        display: none;
+        opacity: 0.6;
+
+        line, rect ~ rect {
+            pointer-events: none;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .addNode,
+    .editNode,
+    .removeNode {
+        text {
+            fill: white;
+            stroke: unset;
+        }
+    }
+
+    .addNode {
+        rect {
+            fill: lime;
+        }
+    }
+
+    .removeNode {
+        rect {
+            fill: red;
+        }
+    }
+
+    .copyNode {
+        rect {
+            fill: $gray;
+        }
+    }
+
+    .editNode {
+        rect {
+            fill: $gray;
+        }
+    }
+
+    .node text {
+        font: 15px sans-serif;
+        text-anchor: middle;
+
+        &.node-name,
+        &.node-place,
+        &.node-date,
+        &.node-leaderName,
+        &.node-leadersName,
+        &.node-mentor {
+            font-size: 12px;
+        }
+
+        &.node-believers,
+        &.node-baptized,
+        &.node-attenders,
+        &.node-newlyBaptized {
+            font-size: 11px;
+        }
+    }
+
+
+    .device-desktop & {
+        .node:hover > rect, .node:hover > line {
+            fill: lightskyblue;
+        }
+
+        .node:hover {
+            g.addNode,
+            g.editNode,
+            g.copyNode,
+            g.removeNode,
+            g.pasteNode {
+                display: block;
+            }
+        }
+    }
+
+    .node.is-focused {
+
+        > rect,
+        > line {
+            fill: lightskyblue;
+        }
+
+        g.addNode,
+        g.editNode,
+        g.copyNode,
+        g.removeNode,
+        g.pasteNode {
+            display: block;
+        }
+    }
+
     .link {
         fill: none;
         stroke: #ccc;
@@ -393,6 +436,7 @@
 
         &.new-generation {
             stroke: red;
+            fill: red;
         }
     }
 

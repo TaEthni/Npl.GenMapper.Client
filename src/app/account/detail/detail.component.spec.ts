@@ -12,7 +12,6 @@ import { EntityService } from '@core/entity.service';
 import { configureTestSuite } from 'ng-bullet';
 import { Entity } from '@shared/entity/entity.model';
 import { By } from '@angular/platform-browser';
-import { cloneDeep, merge } from 'lodash';
 
 describe('DetailComponent', () => {
     let component: DetailComponent;

@@ -1,0 +1,16 @@
+<ng-container *ngIf="activeTab.view === viewTypes.GoogleMap; then goToGenMap else goToGoogleMap"></ng-container>
+
+<ng-template #goToGoogleMap>
+    <button mat-icon-button
+            color="default"
+            (click)="selectTab(viewTypes.GoogleMap)">
+        <mat-icon>place</mat-icon>
+    </button>
+</ng-template>
+<ng-template #goToGenMap>
+    <button mat-mini-fab
+            color="default"
+            (click)="selectTab(viewTypes.GenMap)">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</ng-template>

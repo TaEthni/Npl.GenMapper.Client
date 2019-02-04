@@ -13,11 +13,12 @@ import { AccountService } from './account.service';
 import { LocaleService } from './locale.service';
 import { SupportService } from './support.service';
 import { UserResolver } from './user.resolver';
+import { MapsService } from './maps.service';
 
 @NgModule({
     imports: [
         CommonModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
@@ -31,6 +32,7 @@ import { UserResolver } from './user.resolver';
         SupportService,
         LocaleService,
         AccountService,
+        MapsService
     ]
 })
 export class CoreModule { }

@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DonateButtonComponent } from './donate-button/donate-button.component';
 import { FileInputDialogComponent } from './file-input-dialog/file-input-dialog.component';
 import { JoinListPipe } from './join-list.pipe';
 import { LocalePipe } from './locale.pipe';
@@ -15,11 +16,10 @@ import { SortByDatePipe } from './sort-by-date.pipe';
 @NgModule({
     imports: [
         CommonModule,
-        MaterialModule,
-        FlexLayoutModule,
-        BrowserAnimationsModule,
         BrowserModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FlexLayoutModule,
+        MaterialModule
     ],
     declarations: [
         SidenavToggleComponent,
@@ -28,6 +28,7 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         NplLogoComponent,
         LocalePipe,
         JoinListPipe,
+        DonateButtonComponent,
     ],
     exports: [
         MaterialModule,
@@ -37,7 +38,8 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         FileInputDialogComponent,
         NplLogoComponent,
         LocalePipe,
-        JoinListPipe
+        JoinListPipe,
+        DonateButtonComponent
     ],
     entryComponents: [
         FileInputDialogComponent

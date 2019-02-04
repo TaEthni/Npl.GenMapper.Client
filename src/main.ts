@@ -9,12 +9,25 @@ import { ChurchCirclesTemplate } from './app/tools/gen-mapper/templates/church-c
 import { FourFieldsTemplate } from './app/tools/gen-mapper/templates/four-fields';
 import { translations } from './app/tools/gen-mapper/templates/translations';
 import { environment } from './environments/environment';
+import { Device } from '@core/platform';
+import { Browser } from '@core/browser';
+import { ChurchCirclesCzechTemplate } from './app/tools/gen-mapper/templates/church-circles-czech';
+import { DisciplesTemplate } from './app/tools/gen-mapper/templates/disciples';
 
 if (environment.production) {
     enableProdMode();
 }
 
-const resources = defaultsDeep(translations, defaultsDeep(ChurchCirclesTemplate.translations, FourFieldsTemplate.translations));
+let resources = translations;
+
+[
+    ChurchCirclesTemplate.translations,
+    FourFieldsTemplate.translations,
+    ChurchCirclesCzechTemplate.translations,
+    DisciplesTemplate.translations
+].forEach(translation => {
+    resources = defaultsDeep(resources, translation);
+});
 
 i18next
     .use(i18nextBrowserLanguageDetector)
@@ -24,4 +37,13 @@ i18next
     });
 
 platformBrowserDynamic().bootstrapModule(AppModule)
+    .then((ref) => {
+        // Ensure Angular destroys itself on hot reloads.
+        if (window['ngRef']) {
+            window['ngRef'].destroy();
+        }
+        window['ngRef'] = ref;
+        Device.setClassList(document.documentElement);
+        Browser.setClassList(document.documentElement);
+    })
     .catch(err => console.log(err));

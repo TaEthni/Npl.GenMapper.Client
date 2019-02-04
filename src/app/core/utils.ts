@@ -6,4 +6,14 @@ export namespace Utils {
         }, time);
         return timeoutId;
     }
+
+    export function disableDocumentScroll(): void {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+    }
+
+    export function enableDocumentScroll(): void {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+    }
 }

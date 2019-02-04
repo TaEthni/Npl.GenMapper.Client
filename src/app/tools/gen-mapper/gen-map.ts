@@ -3,10 +3,11 @@ import * as d3 from 'd3';
 import i18next from 'i18next';
 import * as _ from 'lodash';
 
-import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
+import { GMField, GMTemplate, GNode, PrintType } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
-import { HierarchyNode } from 'd3';
+import { HierarchyNode, select } from 'd3';
 import { cloneDeep } from 'lodash';
+import { Device } from '@core/platform';
 
 export const MapStyles = {
     boxHeight: 80,
@@ -54,7 +55,6 @@ export class GenMap {
     public update(content: GNode[]): void {
         this.data = content;
         this.nodes = null;
-        this.patchNodes(this.data);
 
         this.originalPosition();
         this.redraw();
@@ -65,31 +65,8 @@ export class GenMap {
         this.redraw();
     }
 
-    public patchNodes(data: any[]): void {
-        data.forEach(item => {
-
-            item.isRoot = !item.parentId && item.parentId !== 0;
-
-            // This is for old data.
-            if (item.hasOwnProperty('threeThirds')) {
-                if (typeof item.threeThirds === 'string') {
-                    item.threeThirds = item.threeThirds.replace(/\W/, '');
-                    item.threeThirds = item.threeThirds.split('');
-                }
-
-                const filtered = item.threeThirds.filter((key: any) => isNumberReg.test(key));
-                const value: any = [];
-
-                // dedupe old data
-                filtered.forEach((a: any) => {
-                    if (!value.includes(a)) {
-                        value.push(a);
-                    }
-                });
-
-                item.threeThirds = value;
-            }
-        });
+    public getGraphNodeByDataId(id: string): HierarchyNode<GNode> {
+        return this.nodes.descendants().find(d => d.data.id === id);
     }
 
     public onZoomInClick(): void {
@@ -105,6 +82,11 @@ export class GenMap {
         this.nodeClick(node);
     }
 
+    public editNodeClick = (node: any): void => { };
+    private onEditNodeClick(node: Node): void {
+        this.editNodeClick(node);
+    }
+
     public addNodeClick = (node: any): void => { this.addNode(node); };
     private onAddNodeClick(node: Node): void {
         this.addNodeClick(node);
@@ -113,6 +95,12 @@ export class GenMap {
     public removeNodeClick = (node: any) => { this.removeNode(node); };
     private onRemoveNodeClick(node: Node): void {
         this.removeNodeClick(node);
+    }
+
+    public resize(): void {
+        // this.svg
+        //     .attr('height', window.innerHeight)
+        //     .attr('width', window.innerWidth);
     }
 
     public addNode(node: any): void {
@@ -124,6 +112,7 @@ export class GenMap {
         newNodeData['parentId'] = node.data.id;
         this.data.push(newNodeData);
         this.redraw();
+        this.focusNodeById(newNodeData.id);
     }
 
     public updateNode(newData: any): void {
@@ -188,7 +177,7 @@ export class GenMap {
         this.redraw();
     }
 
-    public pasteNode(d: any, copiedNodes: GNode[]): void {
+    public pasteNode(d: HierarchyNode<GNode>, copiedNodes: GNode[]): void {
         this._deleteAllDescendants(d);
         this.overwriteNode(d, cloneDeep(copiedNodes));
     }
@@ -197,11 +186,79 @@ export class GenMap {
      * @public Map manipulation methods
      */
     public originalPosition(): void {
+        if (!this.svg || !this.graphSvg.nativeElement) {
+            return;
+        }
+
         this.zoom.scaleTo(this.svg, 1);
         const origX = this.margin.left + (this.graphSvg.nativeElement.clientWidth / 2);
         const origY = this.margin.top;
         const parsedTransform = _parseTransform(this.g.attr('transform'));
         this.zoom.translateBy(this.svg, origX - parsedTransform.translate[0], origY - parsedTransform.translate[1]);
+    }
+
+    public printMap(printType: PrintType): void {
+        const boxHeight = this.template.settings.boxHeight;
+
+        // calculate width and height of the map (printed rotated by 90 degrees)
+        const arrNodes = this.nodes.descendants();
+        let minX = 0;
+        let maxX = 0;
+        let minY = 0;
+        let maxY = 0;
+        for (let i = 0; i < arrNodes.length; i++) {
+            const x = arrNodes[i].x;
+            const y = arrNodes[i].y;
+            minX = Math.min(minX, x);
+            maxX = Math.max(maxX, x);
+            minY = Math.min(minY, y);
+            maxY = Math.max(maxY, y);
+        }
+
+        // store original values
+        const origWidth = this.svg.attr('width');
+        const origHeight = this.svg.attr('height');
+        const origTransform = this.g.attr('transform');
+
+        const totalHeight = Math.max(
+            600, this.margin.top + (maxY - minY) + boxHeight + this.margin.top);
+        const totalWidthLeft = Math.max(500, -minX + boxHeight * 1.5 / 2 + 20);
+        const totalWidthRight = Math.max(500, maxX + boxHeight * 1.5 / 2 + 20);
+
+        let translateX, translateY;
+
+        if (printType === PrintType.horizontal) {
+            const printHeight = 700;
+            const printWidth = 1200;
+
+            // resize for printing
+            this.svg
+                .attr('width', printWidth)
+                .attr('height', printHeight);
+            const printScale = Math.min(1, printWidth / (totalWidthLeft + totalWidthRight), printHeight / totalHeight);
+            translateX = totalWidthLeft * printScale;
+            translateY = this.margin.top * printScale;
+            this.g.attr('transform', 'translate(' + translateX + ', ' + translateY + ') scale(' + printScale + ')');
+        } else {
+            // resize for printing
+            this.svg.attr('width', totalHeight)
+                .attr('height', totalWidthLeft + totalWidthRight);
+            translateX = totalHeight - this.margin.top;
+            translateY = totalWidthLeft;
+            this.g.attr('transform', 'translate(' + translateX + ', ' + translateY + ') rotate(90)');
+        }
+
+        // change CSS for printing
+        d3.selectAll('#genmapper-graph-svg').style('background', 'white');
+
+        window.print();
+
+        // change CSS back after printing
+        this.svg
+            .attr('width', origWidth)
+            .attr('height', origHeight);
+        this.g.attr('transform', origTransform);
+        d3.selectAll('#genmapper-graph-svg').style('background', null);
     }
 
     /**
@@ -234,11 +291,14 @@ export class GenMap {
                 d3.select('g').attr('transform', d3.event.transform);
             });
 
-        this._setSvgHeight();
-
         this.svg = d3.select(this.graphSvg.nativeElement)
             .call(this.zoom)
-            .on('dblclick.zoom', null);
+            .on('dblclick.zoom', null)
+            .on('click', (d) => {
+                this.unFocusAllNodes();
+            });
+
+        this.resize();
 
         this.g = this.svg
             .append('g')
@@ -259,13 +319,6 @@ export class GenMap {
         this.update(this.data);
     }
 
-    private _setSvgHeight(): void {
-        const windowHeight = document.documentElement.clientHeight;
-        const leftMenuHeight = document.getElementById('left-menu').clientHeight;
-        const height = Math.max(windowHeight, leftMenuHeight + 10);
-        d3.select('#genmapper-graph-svg').attr('height', height);
-    }
-
     private redraw(): void {
         // declares a tree layout and assigns the size
         const tree = d3.tree()
@@ -283,6 +336,7 @@ export class GenMap {
             (this.data);
 
         this.nodes = tree(stratifiedData);
+
         // update the links between the nodes
         const link = this.gLinks.selectAll('.link')
             .data(this.nodes.descendants().slice(1));
@@ -356,12 +410,9 @@ export class GenMap {
 
         newGroup.append('rect')
             .attr('class', 'hidden-rect')
-            .attr('width', 28)
+            .attr('width', 36)
             .attr('height', 100)
             .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
-
-        _appendRemoveButton(newGroup, this.template);
-        _appendAddButton(newGroup, this.template);
 
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach((svgElement) => {
@@ -369,6 +420,10 @@ export class GenMap {
             const element = newGroup.append(svgElementValue['type']);
             element.attr('class', 'node-' + svgElement);
         });
+
+        _appendRemoveButton(newGroup, this.template);
+        _appendAddButton(newGroup, this.template);
+        _appendEditButton(newGroup, this.template);
 
         // append SVG elements related to fields
         this.template.fields.forEach((field) => {
@@ -383,8 +438,8 @@ export class GenMap {
 
         // UPDATE including NEW
         const nodeWithNew = node.merge(newGroup);
-
         nodeWithNew
+            .attr('node-id', d => d.data.id)
             .attr('class', (d) => {
                 return 'node' + (d.data.active ? ' node--active' : ' node--inactive');
             })
@@ -392,7 +447,13 @@ export class GenMap {
                 return 'translate(' + d.x + ',' + d.y + ')';
             })
             .on('click', (d) => {
-                this.onNodeClick(d);
+                d3.event.stopPropagation();
+                this.unFocusAllNodes();
+                this.focusNodeById(d.data.id);
+
+                if (Device.isDesktop) {
+                    this.onEditNodeClick(d);
+                }
             });
 
         nodeWithNew
@@ -407,6 +468,13 @@ export class GenMap {
             .on('click', (d) => {
                 d3.event.stopPropagation();
                 this.onAddNodeClick(d);
+            });
+
+        nodeWithNew
+            .select('.editNode')
+            .on('click', (d) => {
+                d3.event.stopPropagation();
+                this.onEditNodeClick(d);
             });
 
         // refresh class and attributes in SVG elements without fields
@@ -510,6 +578,61 @@ export class GenMap {
             }
         });
     }
+
+    private unFocusAllNodes(): void {
+        this.svg.selectAll('.node').classed('is-focused', false);
+    }
+
+    private focusNodeById(id: string): void {
+        this.svg.select(`.node[node-id="${id}"]`).classed('is-focused', true);
+    }
+}
+
+function _appendEditButton(group: any, template: GMTemplate): void {
+    group.append('g')
+        .attr('class', 'editNode')
+        .attr('cursor', 'pointer')
+        .style('transform', n => n.data.isRoot ? 'translateY(20px)' : '')
+        .append('svg')
+        .attr('y', template.settings.nodeActions.y)
+        .attr('x', template.settings.nodeActions.x)
+        .html(`
+            <rect x="0" y="0" rx="7" width="32" height="32">
+            <title>${i18next.t('editGroup.copyNodeButton')}</title>
+            </rect>
+            <path style="transform: translate(4px, 4px)"
+                fill="white"
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02
+            0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        `);
+
+    // <text x="16" y="28" text-anchor="middle" fill="white" stroke="unset">
+    //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
+    //         edit
+    //     </tspan>
+    // </text>
+}
+
+function _appendAddButton(group: any, template: GMTemplate): void {
+    group.append('g')
+        .attr('class', 'addNode')
+        .attr('cursor', 'pointer')
+        .style('transform', n => n.data.isRoot ? 'translateY(20px)' : '')
+        .append('svg')
+        .attr('y', template.settings.nodeActions.y + 32)
+        .attr('x', template.settings.nodeActions.x)
+        .html(`
+            <rect x="0" y="0" rx="7" width="32" height="32">
+            <title>${i18next.t('editGroup.hoverAddChildGroup')}</title>
+            </rect>
+            <line x1="5" y1="16" x2="27" y2="16" stroke="white" stroke-width="3"></line>
+            <line x1="16" y1="5" x2="16" y2="27" stroke="white" stroke-width="3"></line>
+        `);
+    // <text x="16" y="32px" text-anchor="middle" fill="white" stroke="unset">
+    //     <tspan class="material-icons" font-family="Material Icons" font-size="32px" style="font-size: 32px">
+    //         add
+    //     </tspan>
+    // </text>
 }
 
 function _appendRemoveButton(group: any, template: GMTemplate): void {
@@ -517,32 +640,23 @@ function _appendRemoveButton(group: any, template: GMTemplate): void {
         .attr('class', 'removeNode')
         .attr('cursor', 'pointer')
         .append('svg')
-        .attr('y', template.settings.nodeActions.y)
+        .attr('y', template.settings.nodeActions.y + 64)
         .attr('x', template.settings.nodeActions.x)
         .html(`
-            <rect x="0" y="0" rx="7" width="25" height="40">
+            <rect x="0" y="0" rx="7" width="32" height="32">
             <title>${i18next.t('editGroup.hoverDeleteGroupAndSubtree')}</title>
             </rect>
-            <line x1="6" y1="13.5" x2="19" y2="26.5" stroke="white" stroke-width="3"></line>
-            <line x1="19" y1="13.5" x2="6" y2="26.5" stroke="white" stroke-width="3"></line>
-        `);
-}
-
-function _appendAddButton(group: any, template: GMTemplate): void {
-    group.append('g')
-        .attr('class', 'addNode')
-        .attr('cursor', 'pointer')
-        .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
-        .append('svg')
-        .attr('y', template.settings.nodeActions.y + 40)
-        .attr('x', template.settings.nodeActions.x)
-        .html(`
-            <rect x="0" y="0" rx="7" width="25" height="40">
-            <title>${i18next.t('editGroup.hoverAddChildGroup')}</title>
-            </rect>
-            <line x1="5" y1="20" x2="20" y2="20" stroke="white" stroke-width="3"></line>
-            <line x1="12.5" y1="12.5" x2="12.5" y2="27.5" stroke="white" stroke-width="3"></line>
-        `);
+            <path style="transform: translate(4px, 4px)"
+                fill="white"
+                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+            `);
+    // <text x="16" y="28px" text-anchor="middle" fill="white" stroke="unset">
+    //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
+    //         delete
+    //     </tspan>
+    // </text>
+    // <line x1="6" y1="13.5" x2="19" y2="26.5" stroke="white" stroke-width="3"></line>
+    // <line x1="19" y1="13.5" x2="6" y2="26.5" stroke="white" stroke-width="3"></line>
 }
 
 function _appendCopyButton(group: any, template: GMTemplate): void {
@@ -555,7 +669,7 @@ function _appendCopyButton(group: any, template: GMTemplate): void {
         .attr('x', template.settings.nodeActions.x)
         .html(`
             <rect x="0" y="0" rx="7" width="25" height="25">
-            <title>${i18next.t('editGroup.hoverCopyNode')}</title>
+            <title>${i18next.t('editGroup.copyNodeButton')}</title>
             </rect>
             <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
             <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>
@@ -573,7 +687,7 @@ function _appendPasteButton(group: any, template: GMTemplate): void {
         .attr('x', template.settings.nodeActions.x)
         .html(`
             <rect x="0" y="0" rx="7" width="25" height="25">
-                <title>${i18next.t('editGroup.hoverPasteNode')}</title>
+                <title>${i18next.t('editGroup.pasteNodeButton')}</title>
             </rect>
             <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
             <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>

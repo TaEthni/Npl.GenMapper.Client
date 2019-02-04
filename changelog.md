@@ -1,5 +1,24 @@
 # GenMapper Changelog
 
+## (2019-02-01)
+- Feature: World map view of GenMap.
+- Feature: Improve Mobile/Handheld support.
+
+## (2019-01-30)
+- Feature: Support Church Circles Czech Template.
+- Feature: Support Disciples Template.
+- Fix: bug where clearing goe-location would not show save button.
+
+## (2019-01-27)
+- Refactor: Improve Mobile UI
+
+## (2019-01-26)
+- Fix: Sort documents by updated.
+- Feature: Add Geo Location.
+
+## (2019-01-25)
+- Fix: Bug where bottom of graph is sometimes cut off.
+
 ## (2019-01-24)
 - Fix: Bug where bottom of node dialog was cut off on small devices.
 - Feature: Add `newGeneration` field to church-circles.

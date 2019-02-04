@@ -1,5 +1,5 @@
 import { Entity, EntityType } from './entity.model';
-import { merge } from 'lodash';
+import { assign } from 'lodash';
 
 export class User extends Entity {
     public username?: string;
@@ -10,6 +10,6 @@ export class User extends Entity {
 
     constructor(props: object = {}) {
         super();
-        merge(this, props);
+        assign(this, props);
     }
 }

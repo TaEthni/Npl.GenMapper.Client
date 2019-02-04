@@ -1,10 +1,10 @@
-<mat-sidenav-container autosize>
+<mat-sidenav-container>
     <mat-sidenav #matsidenav
                  mode="over">
         <app-navigation [authenticated]="isAuthenticated"
                         [user]="user"></app-navigation>
     </mat-sidenav>
-    <main>
+    <mat-sidenav-content>
         <router-outlet></router-outlet>
-    </main>
+    </mat-sidenav-content>
 </mat-sidenav-container>

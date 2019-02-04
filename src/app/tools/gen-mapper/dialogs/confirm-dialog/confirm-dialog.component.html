@@ -19,11 +19,11 @@
     <button mat-button
             color="accent"
             [mat-dialog-close]="true">
-        {{'en_Continue' | locale | async}}
+        {{buttons[0]}}
     </button>
     <button mat-button
             color="warn"
             [mat-dialog-close]="false">
-        {{'en_Cancel' | locale | async}}
+        {{buttons[1]}}
     </button>
 </div>

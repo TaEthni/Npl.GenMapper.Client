@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { User } from '@shared/entity/user.model';
-import { merge } from 'lodash';
+import { assign } from 'lodash';
 
 export interface EditUserConfig {
     user: User;
@@ -29,7 +29,7 @@ export class EditUserDialogComponent {
         event.preventDefault();
 
         if (this.form.valid && this.form.dirty) {
-            this.dialogRef.close(merge(this.data.user, this.form.value));
+            this.dialogRef.close(assign(this.data.user, this.form.value));
         }
     }
 

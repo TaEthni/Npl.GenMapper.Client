@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
@@ -17,12 +17,20 @@ export class MapNameControlComponent extends Unsubscribable implements OnInit {
     public control: FormControl;
     public subscription: Subscription;
 
+    @Input()
+    public showErrors: boolean;
+
     constructor(
         private genMapper: GenMapperService,
     ) { super(); }
 
     public ngOnInit(): void {
-        this.control = new FormControl(null, [Validators.minLength(2), Validators.required]);
+        this.control = new FormControl(null);
+
+        if (this.showErrors) {
+            this.control.setValidators([Validators.minLength(2), Validators.required]);
+        }
+
         this.genMapper.getDocument()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(document => {
