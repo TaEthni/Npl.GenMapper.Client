@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';

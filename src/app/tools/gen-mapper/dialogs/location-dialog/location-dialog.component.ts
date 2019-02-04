@@ -13,6 +13,15 @@ export interface LocationDialogConfig {
     address?: string;
     latitude?: number;
     longitude?: number;
+    markerLatitude?: number;
+    markerLongitude?: number;
+}
+
+export interface LocationDialogResponse {
+    address?: string;
+    placeId?: string;
+    latitude?: number;
+    longitude?: number;
 }
 
 @Component({
@@ -46,6 +55,8 @@ export class LocationDialogComponent {
         this.address = data.address;
         this.latitude = data.latitude;
         this.longitude = data.longitude;
+        this.markerLatitude = data.markerLatitude;
+        this.markerLongitude = data.markerLongitude;
 
         this.zoom = 12;
         this.searchControl = new FormControl(this.address);
@@ -56,7 +67,9 @@ export class LocationDialogComponent {
     public onSubmit(): void {
         this.dialogRef.close({
             address: this.address,
-            placeId: this.placeId
+            placeId: this.placeId,
+            latitude: this.markerLatitude,
+            longitude: this.markerLongitude
         });
     }
 
@@ -90,7 +103,7 @@ export class LocationDialogComponent {
                 });
             });
 
-            if (this.address) {
+            if (this.address && !this.markerLatitude) {
                 this.mapsService.getCoordsForAddress({ address: this.address, placeId: this.placeId }).subscribe(result => {
                     this.ngZone.run(() => {
                         this.placeId = result.placeId;
@@ -100,7 +113,7 @@ export class LocationDialogComponent {
                         this.markerLongitude = this.longitude;
                     });
                 });
-            } else {
+            } else if (!this.markerLatitude) {
                 this.setAddress(this.latitude, this.longitude);
             }
         });

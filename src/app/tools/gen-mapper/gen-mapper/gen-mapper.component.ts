@@ -5,15 +5,15 @@ import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { cloneDeep, some } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
+import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
+import { GenMapperViewTabsComponent } from '../gen-mapper-view-tabs/gen-mapper-view-tabs.component';
 import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
-import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
-import { cloneDeep, some } from 'lodash';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { GenMapperViewTabsComponent } from '../gen-mapper-view-tabs/gen-mapper-view-tabs.component';
 
 @Component({
     selector: 'app-gen-mapper',

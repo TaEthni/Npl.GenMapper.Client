@@ -11,6 +11,7 @@ export class Entity {
 }
 
 export enum EntityType {
+    AllDocuments = 'documents-all',
     Documents = 'documents',
     Users = 'users'
 }

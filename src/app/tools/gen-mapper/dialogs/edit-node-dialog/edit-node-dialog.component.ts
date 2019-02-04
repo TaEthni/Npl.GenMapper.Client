@@ -6,8 +6,8 @@ import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-d
 
 import { GMField, GMTemplate, GNode } from '../../gen-mapper.interface';
 import { NodeClipboardService } from '../../node-clipboard.service';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { TemplateUtils } from '../../template-utils';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 export interface EditNodeDialogResponse {
     isCancel: boolean;
@@ -110,7 +110,7 @@ export class EditNodeDialogComponent implements OnDestroy {
 
     public onImportSubtree(): void {
         this.matDialog
-            .open(FileInputDialogComponent, { minWidth: '400px' })
+            .open(FileInputDialogComponent, { minWidth: '350px' })
             .afterClosed()
             .subscribe(result => {
                 if (result) {

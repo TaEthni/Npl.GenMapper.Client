@@ -98,10 +98,14 @@ export namespace TemplateUtils {
                         parsedLine[field.header] = field.initial;
                     }
                 } else if (field.type) {
-                    parsedLine[field.header] = d[field.header];
+
+                    if (field.header === 'latitude' || field.header === 'longitude') {
+                        parsedLine[field.header] = parseFloat(d[field.header]);
+                    } else {
+                        parsedLine[field.header] = d[field.header];
+                    }
                 }
             });
-
 
             parsedLine.isRoot = !parsedLine.parentId && parsedLine.parentId !== 0;
 

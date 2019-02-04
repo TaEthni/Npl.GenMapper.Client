@@ -2,10 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { MapsService } from '@core/maps.service';
+import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
-import { LocationDialogComponent, LocationDialogConfig } from '../dialogs/location-dialog/location-dialog.component';
+import {
+    LocationDialogComponent,
+    LocationDialogConfig,
+    LocationDialogResponse,
+} from '../dialogs/location-dialog/location-dialog.component';
 import { GMField, GNode } from '../gen-mapper.interface';
 
 @Component({
@@ -63,7 +68,9 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     private onGeoLocationClick(): void {
         if (this.form.get('location').value) {
             this.showLocationDialog({
-                address: this.form.get('location').value
+                address: this.form.get('location').value,
+                markerLatitude: this.form.get('latitude').value,
+                markerLongitude: this.form.get('longitude').value
             });
         } else {
             this.mapService.getLocation().subscribe(result => {
@@ -75,15 +82,23 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         }
     }
 
-    private showLocationDialog(config: LocationDialogConfig): void {
+    private showLocationDialog(data: LocationDialogConfig): void {
+        let minWidth = '400px';
+
+        if (Device.isHandHeld) {
+            minWidth = '100vw';
+        }
+
         this.dialog
-            .open<LocationDialogComponent, LocationDialogConfig, { address: string, placeId: string }>(LocationDialogComponent, {
-                minWidth: '400px',
-                data: config
+            .open<LocationDialogComponent, LocationDialogConfig, LocationDialogResponse>(LocationDialogComponent, {
+                minWidth,
+                data,
             })
             .afterClosed()
             .subscribe(result => {
                 if (result) {
+                    this.form.get('latitude').patchValue(result.latitude);
+                    this.form.get('longitude').patchValue(result.longitude);
                     this.form.get('placeId').patchValue(result.placeId);
                     this.form.get('location').patchValue(result.address);
                     this.form.get('location').updateValueAndValidity();

@@ -159,7 +159,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
     public onImportSubtree(): void {
         this.dialog
-            .open(FileInputDialogComponent, { minWidth: '400px' })
+            .open(FileInputDialogComponent, { minWidth: '350px' })
             .afterClosed()
             .subscribe(result => {
                 if (result) {
@@ -198,6 +198,8 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
         if (group.location) {
             group.placeId = new FormControl(null);
+            group.latitude = new FormControl(null);
+            group.longitude = new FormControl(null);
         }
 
         this.form = new FormGroup(group);

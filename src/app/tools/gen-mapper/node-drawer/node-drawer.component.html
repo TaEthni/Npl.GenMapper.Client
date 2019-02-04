@@ -1,8 +1,8 @@
 <mat-toolbar>
     <mat-toolbar-row>
         <span>
-            <ng-container *ngIf="clonedNode?.name || clonedNode?.leaderName">
-                [{{clonedNode?.name || clonedNode?.leaderName}}]
+            <ng-container *ngIf="clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName">
+                [{{clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName}}]
             </ng-container>
         </span>
     </mat-toolbar-row>

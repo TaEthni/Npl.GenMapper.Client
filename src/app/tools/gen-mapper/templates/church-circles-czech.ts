@@ -283,9 +283,19 @@ export const ChurchCirclesCzechTemplate = {
             'type': 'geoLocation'
         },
         {
+            'header': 'latitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
+            'header': 'longitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
             'header': 'placeId',
             'initial': '',
-            'type': null
+            'type': 'hidden'
         },
         {
             'header': 'date',
