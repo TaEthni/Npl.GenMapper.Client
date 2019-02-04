@@ -2061,31 +2061,21 @@ var LocaleService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapsService", function() { return MapsService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash-es/lodash.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
 
 
 var cacheKey = 'gmaps-address-latlng-cache';
 var MapsService = /** @class */ (function () {
     function MapsService() {
-        this.cache = {};
-        var cache = localStorage.getItem(cacheKey);
-        if (cache) {
-            Object(lodash__WEBPACK_IMPORTED_MODULE_1__["assign"])(this.cache, JSON.parse(cache));
-        }
     }
     MapsService.prototype.getLocation = function () {
-        return rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"].create(function (observer) {
+        return rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"].create(function (observer) {
             if (window.navigator.geolocation) {
                 window.navigator.geolocation.getCurrentPosition(function (position) {
                     observer.next(position);
@@ -2100,7 +2090,7 @@ var MapsService = /** @class */ (function () {
         });
     };
     MapsService.prototype.getCoordsForAddress = function (request) {
-        return rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"].create(function (observer) {
+        return rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"].create(function (observer) {
             if (request.placeId) {
                 delete request.address;
             }
@@ -2126,8 +2116,7 @@ var MapsService = /** @class */ (function () {
         });
     };
     MapsService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
     ], MapsService);
     return MapsService;
 }());
@@ -3673,7 +3662,7 @@ module.exports = "<mat-sidenav-container>\r\n    <mat-sidenav #matsidenav\r\n   
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  display: block; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbGF5b3V0L2xheW91dC9DOlxcUmVwb3NcXHRvb2xzLWNsaWVudC1hbmd1bGFyL3NyY1xcYXBwXFxsYXlvdXRcXGxheW91dFxcbGF5b3V0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBYyxFQXVCakIiLCJmaWxlIjoic3JjL2FwcC9sYXlvdXQvbGF5b3V0L2xheW91dC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcclxuICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgLy8gZGlzcGxheTogZmxleDtcclxuICAgIC8vIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcblxyXG4gICAgLm1hdC1zaWRlbmF2LWNvbnRhaW5lciB7XHJcbiAgICAgICAgLy8gbWluLWhlaWdodDogMTAwdmg7XHJcbiAgICAgICAgLy8gd2lkdGg6IDEwMCU7XHJcbiAgICB9XHJcblxyXG4gICAgOjpuZy1kZWVwIHtcclxuICAgICAgICAubWF0LXNpZGVuYXYtY29udGVudCB7XHJcbiAgICAgICAgICAgIC8vIG1pbi1oZWlnaHQ6IDEwMHZoO1xyXG4gICAgICAgICAgICAvLyBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICAvLyBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICBtYWluIHtcclxuICAgICAgICAvLyBmbGV4OiAxO1xyXG4gICAgICAgIC8vIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgLy8gZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgICAvLyBoZWlnaHQ6IDEwMCU7XHJcbiAgICB9XHJcbn1cclxuIl19 */"
+module.exports = ":host {\n  display: block; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbGF5b3V0L2xheW91dC9DOlxcUmVwb3NcXHRvb2xzLWNsaWVudC1hbmd1bGFyL3NyY1xcYXBwXFxsYXlvdXRcXGxheW91dFxcbGF5b3V0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBYyxFQUNqQiIsImZpbGUiOiJzcmMvYXBwL2xheW91dC9sYXlvdXQvbGF5b3V0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -5025,164 +5014,6 @@ var CreateDocumentDialogComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"]])
     ], CreateDocumentDialogComponent);
     return CreateDocumentDialogComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.html":
-/*!*******************************************************************************************!*\
-  !*** ./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.html ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<h1 mat-dialog-title>Edit\r\n    <ng-container *ngIf=\"model.name || model.leaderName\">\r\n        [{{model.name || model.leaderName}}]\r\n    </ng-container>\r\n\r\n</h1>\r\n<div mat-dialog-content>\r\n    <div fxLayout=\"row\"\r\n         class=\"dialog-content-actions\">\r\n        <button mat-stroked-button\r\n                (click)=\"onCopyNode()\">\r\n            {{'editGroup.copyNodeButton' | locale | async}}\r\n        </button>\r\n\r\n        <ng-container *ngIf=\"isNodeClipboard\">\r\n            <button mat-stroked-button\r\n                    (click)=\"onPasteNode()\">\r\n                {{'editGroup.pasteNodeButton' | locale | async}}\r\n            </button>\r\n        </ng-container>\r\n    </div>\r\n    <!-- <app-edit-node-form [fields]=\"fields\"\r\n                        [nodes]=\"data.nodes\"\r\n                        [model]=\"model\"\r\n                        (change)=\"onFormChange($event)\"></app-edit-node-form> -->\r\n</div>\r\n<div mat-dialog-actions>\r\n    <button mat-button\r\n            color=\"accent\"\r\n            cdkFocusInitial\r\n            (click)=\"onSubmit()\">\r\n        {{'en_Save' | locale | async}}\r\n    </button>\r\n    <button mat-button\r\n            color=\"primary\"\r\n            (click)=\"onImportSubtree()\">\r\n        {{'importSubtree' | locale | async}}\r\n    </button>\r\n\r\n    <div fxFlex></div>\r\n    <button mat-button\r\n            color=\"warn\"\r\n            (click)=\"onCancel()\">\r\n        {{'en_Cancel' | locale | async}}\r\n    </button>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.scss":
-/*!*******************************************************************************************!*\
-  !*** ./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.scss ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  min-width: 200px;\n  max-width: 700px; }\n  @media screen and (min-width: 768px) {\n    :host {\n      width: 70vw; } }\n  :host .mat-dialog-content {\n    overflow: auto;\n    margin: 0;\n    padding: 0;\n    padding: 10px 0; }\n  :host .dialog-content-actions {\n    margin-bottom: 24px; }\n  :host .dialog-content-actions .mat-stroked-button {\n      line-height: 24px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdG9vbHMvZ2VuLW1hcHBlci9kaWFsb2dzL2VkaXQtbm9kZS1kaWFsb2cvQzpcXFJlcG9zXFx0b29scy1jbGllbnQtYW5ndWxhci9zcmNcXGFwcFxcdG9vbHNcXGdlbi1tYXBwZXJcXGRpYWxvZ3NcXGVkaXQtbm9kZS1kaWFsb2dcXGVkaXQtbm9kZS1kaWFsb2cuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3Rvb2xzL2dlbi1tYXBwZXIvZGlhbG9ncy9lZGl0LW5vZGUtZGlhbG9nL0M6XFxSZXBvc1xcdG9vbHMtY2xpZW50LWFuZ3VsYXIvc3JjXFxzdHlsZXNcXF9taXhpbnMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQ0RJLGNBQWE7RUFDYix1QkFBc0I7RUFDdEIsWUFBVztFQUNYLGlCQUFnQjtFQUNoQixpQkFBZ0IsRURZbkI7RUNORztJRFRKO01DVVEsWUFBVyxFREtsQixFQUFBO0VBZkQ7SUFHUSxlQUFjO0lBQ2QsVUFBUztJQUNULFdBQVU7SUFDVixnQkFBZSxFQUNsQjtFQVBMO0lBVVEsb0JBQW1CLEVBSXRCO0VBZEw7TUFZWSxrQkFBaUIsRUFDcEIiLCJmaWxlIjoic3JjL2FwcC90b29scy9nZW4tbWFwcGVyL2RpYWxvZ3MvZWRpdC1ub2RlLWRpYWxvZy9lZGl0LW5vZGUtZGlhbG9nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCAnfnN0eWxlcy9taXhpbnMnO1xyXG5cclxuOmhvc3Qge1xyXG4gICAgQGluY2x1ZGUgZGlhbG9nKCk7XHJcbiAgICAubWF0LWRpYWxvZy1jb250ZW50IHtcclxuICAgICAgICBvdmVyZmxvdzogYXV0bztcclxuICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgcGFkZGluZzogMDtcclxuICAgICAgICBwYWRkaW5nOiAxMHB4IDA7XHJcbiAgICB9XHJcblxyXG4gICAgLmRpYWxvZy1jb250ZW50LWFjdGlvbnMge1xyXG4gICAgICAgIG1hcmdpbi1ib3R0b206IDI0cHg7XHJcbiAgICAgICAgLm1hdC1zdHJva2VkLWJ1dHRvbiB7XHJcbiAgICAgICAgICAgIGxpbmUtaGVpZ2h0OiAyNHB4O1xyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG4iLCJAbWl4aW4gZGlhbG9nKCkge1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIG1pbi13aWR0aDogMjAwcHg7XHJcbiAgICBtYXgtd2lkdGg6IDcwMHB4O1xyXG5cclxuICAgIC5tYXQtZGlhbG9nLWNvbnRlbnQge1xyXG4gICAgICAgIC8vIC13ZWJraXQtb3ZlcmZsb3ctc2Nyb2xsaW5nOiB0b3VjaDtcclxuICAgIH1cclxuXHJcbiAgICBAbWVkaWEgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA3NjhweCkge1xyXG4gICAgICAgIHdpZHRoOiA3MHZ3O1xyXG4gICAgfVxyXG59XHJcbiJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.ts":
-/*!*****************************************************************************************!*\
-  !*** ./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.ts ***!
-  \*****************************************************************************************/
-/*! exports provided: EditNodeDialogComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditNodeDialogComponent", function() { return EditNodeDialogComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
-/* harmony import */ var _core_locale_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/locale.service */ "./src/app/core/locale.service.ts");
-/* harmony import */ var _core_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @core/utils */ "./src/app/core/utils.ts");
-/* harmony import */ var _shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shared/file-input-dialog/file-input-dialog.component */ "./src/app/shared/file-input-dialog/file-input-dialog.component.ts");
-/* harmony import */ var _node_clipboard_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../node-clipboard.service */ "./src/app/tools/gen-mapper/node-clipboard.service.ts");
-/* harmony import */ var _template_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../template-utils */ "./src/app/tools/gen-mapper/template-utils.ts");
-/* harmony import */ var _confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-
-
-
-
-
-var EditNodeDialogComponent = /** @class */ (function () {
-    function EditNodeDialogComponent(dialogRef, matDialog, localeService, nodeClipboard, data) {
-        this.dialogRef = dialogRef;
-        this.matDialog = matDialog;
-        this.localeService = localeService;
-        this.nodeClipboard = nodeClipboard;
-        this.data = data;
-        this.template = null;
-        this.isNodeClipboard = !!this.nodeClipboard.getValue();
-        this.model = Object.assign({}, data.nodeData);
-        _template_utils__WEBPACK_IMPORTED_MODULE_6__["TemplateUtils"].setTemplateLocale(data.template, data.language);
-        this.template = data.template;
-        this.fields = this.template.fields;
-        _core_utils__WEBPACK_IMPORTED_MODULE_3__["Utils"].disableDocumentScroll();
-    }
-    EditNodeDialogComponent.prototype.ngOnDestroy = function () {
-        _core_utils__WEBPACK_IMPORTED_MODULE_3__["Utils"].enableDocumentScroll();
-    };
-    EditNodeDialogComponent.prototype.onSubmit = function () {
-        // if node is active, then remove reason for being inactive.
-        if (this.model.hasOwnProperty('active') && this.model.hasOwnProperty('inactiveReason') && this.model.active) {
-            this.model.inactiveReason = null;
-        }
-        this.dialogRef.close({
-            isUpdate: true,
-            data: this.model
-        });
-    };
-    EditNodeDialogComponent.prototype.onCancel = function () {
-        this.dialogRef.close({
-            isCancel: true
-        });
-    };
-    EditNodeDialogComponent.prototype.onDeleteSubtree = function () {
-        this.dialogRef.close({
-            isDeleteSubtree: true,
-            data: this.model,
-        });
-    };
-    EditNodeDialogComponent.prototype.onPasteNode = function () {
-        var _this = this;
-        this.matDialog
-            .open(_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmDialogComponent"], {
-            data: {
-                title: this.localeService.t('messages.confirmPasteNode'),
-                alert: this.localeService.t('messages.confirmPasteNodeWarning'),
-            }
-        })
-            .afterClosed()
-            .subscribe(function (result) {
-            if (result) {
-                _this.dialogRef.close({
-                    isPasteNode: true,
-                    data: _this.model,
-                });
-            }
-        });
-    };
-    EditNodeDialogComponent.prototype.onCopyNode = function () {
-        this.nodeClipboard.set(this.data.descendants);
-    };
-    EditNodeDialogComponent.prototype.onImportSubtree = function () {
-        var _this = this;
-        this.matDialog
-            .open(_shared_file_input_dialog_file_input_dialog_component__WEBPACK_IMPORTED_MODULE_4__["FileInputDialogComponent"], { minWidth: '350px' })
-            .afterClosed()
-            .subscribe(function (result) {
-            if (result) {
-                _this.dialogRef.close({
-                    isImportSubtree: true,
-                    data: _this.model,
-                    content: result.content,
-                });
-            }
-        });
-    };
-    EditNodeDialogComponent.prototype.onFormChange = function (value) {
-        Object.assign(this.model, value);
-    };
-    EditNodeDialogComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-edit-node-dialog',
-            template: __webpack_require__(/*! ./edit-node-dialog.component.html */ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.html"),
-            styles: [__webpack_require__(/*! ./edit-node-dialog.component.scss */ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.scss")]
-        }),
-        __param(4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
-        __metadata("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
-            _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
-            _core_locale_service__WEBPACK_IMPORTED_MODULE_2__["LocaleService"],
-            _node_clipboard_service__WEBPACK_IMPORTED_MODULE_5__["NodeClipboardService"], Object])
-    ], EditNodeDialogComponent);
-    return EditNodeDialogComponent;
 }());
 
 
@@ -7019,30 +6850,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dialogs/confirm-dialog/confirm-dialog.component */ "./src/app/tools/gen-mapper/dialogs/confirm-dialog/confirm-dialog.component.ts");
 /* harmony import */ var _dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./dialogs/create-document-dialog/create-document-dialog.component */ "./src/app/tools/gen-mapper/dialogs/create-document-dialog/create-document-dialog.component.ts");
-/* harmony import */ var _dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dialogs/edit-node-dialog/edit-node-dialog.component */ "./src/app/tools/gen-mapper/dialogs/edit-node-dialog/edit-node-dialog.component.ts");
-/* harmony import */ var _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dialogs/location-dialog/location-dialog.component */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.ts");
-/* harmony import */ var _document_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./document.service */ "./src/app/tools/gen-mapper/document.service.ts");
-/* harmony import */ var _edit_node_form_edit_node_form_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./edit-node-form/edit-node-form.component */ "./src/app/tools/gen-mapper/edit-node-form/edit-node-form.component.ts");
-/* harmony import */ var _gen_mapper_container_resolver__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./gen-mapper-container.resolver */ "./src/app/tools/gen-mapper/gen-mapper-container.resolver.ts");
-/* harmony import */ var _gen_mapper_container_gen_mapper_container_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./gen-mapper-container/gen-mapper-container.component */ "./src/app/tools/gen-mapper/gen-mapper-container/gen-mapper-container.component.ts");
-/* harmony import */ var _gen_mapper_documents_gen_mapper_documents_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./gen-mapper-documents/gen-mapper-documents.component */ "./src/app/tools/gen-mapper/gen-mapper-documents/gen-mapper-documents.component.ts");
-/* harmony import */ var _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./gen-mapper-graph/gen-mapper-graph.component */ "./src/app/tools/gen-mapper/gen-mapper-graph/gen-mapper-graph.component.ts");
-/* harmony import */ var _gen_mapper_map_gen_mapper_map_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./gen-mapper-map/gen-mapper-map.component */ "./src/app/tools/gen-mapper/gen-mapper-map/gen-mapper-map.component.ts");
-/* harmony import */ var _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./gen-mapper-view-tabs/gen-mapper-view-tabs.component */ "./src/app/tools/gen-mapper/gen-mapper-view-tabs/gen-mapper-view-tabs.component.ts");
-/* harmony import */ var _gen_mapper_resolver__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./gen-mapper.resolver */ "./src/app/tools/gen-mapper/gen-mapper.resolver.ts");
-/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
-/* harmony import */ var _gen_mapper_gen_mapper_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./gen-mapper/gen-mapper.component */ "./src/app/tools/gen-mapper/gen-mapper/gen-mapper.component.ts");
-/* harmony import */ var _map_menu_button_map_menu_button_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./map-menu-button/map-menu-button.component */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.ts");
-/* harmony import */ var _map_name_control_map_name_control_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./map-name-control/map-name-control.component */ "./src/app/tools/gen-mapper/map-name-control/map-name-control.component.ts");
-/* harmony import */ var _map_sidenav_map_sidenav_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./map-sidenav/map-sidenav.component */ "./src/app/tools/gen-mapper/map-sidenav/map-sidenav.component.ts");
-/* harmony import */ var _node_drawer_node_drawer_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./node-drawer/node-drawer.component */ "./src/app/tools/gen-mapper/node-drawer/node-drawer.component.ts");
+/* harmony import */ var _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dialogs/location-dialog/location-dialog.component */ "./src/app/tools/gen-mapper/dialogs/location-dialog/location-dialog.component.ts");
+/* harmony import */ var _document_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./document.service */ "./src/app/tools/gen-mapper/document.service.ts");
+/* harmony import */ var _edit_node_form_edit_node_form_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./edit-node-form/edit-node-form.component */ "./src/app/tools/gen-mapper/edit-node-form/edit-node-form.component.ts");
+/* harmony import */ var _gen_mapper_container_resolver__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./gen-mapper-container.resolver */ "./src/app/tools/gen-mapper/gen-mapper-container.resolver.ts");
+/* harmony import */ var _gen_mapper_container_gen_mapper_container_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./gen-mapper-container/gen-mapper-container.component */ "./src/app/tools/gen-mapper/gen-mapper-container/gen-mapper-container.component.ts");
+/* harmony import */ var _gen_mapper_documents_gen_mapper_documents_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./gen-mapper-documents/gen-mapper-documents.component */ "./src/app/tools/gen-mapper/gen-mapper-documents/gen-mapper-documents.component.ts");
+/* harmony import */ var _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./gen-mapper-graph/gen-mapper-graph.component */ "./src/app/tools/gen-mapper/gen-mapper-graph/gen-mapper-graph.component.ts");
+/* harmony import */ var _gen_mapper_map_gen_mapper_map_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./gen-mapper-map/gen-mapper-map.component */ "./src/app/tools/gen-mapper/gen-mapper-map/gen-mapper-map.component.ts");
+/* harmony import */ var _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./gen-mapper-view-tabs/gen-mapper-view-tabs.component */ "./src/app/tools/gen-mapper/gen-mapper-view-tabs/gen-mapper-view-tabs.component.ts");
+/* harmony import */ var _gen_mapper_resolver__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./gen-mapper.resolver */ "./src/app/tools/gen-mapper/gen-mapper.resolver.ts");
+/* harmony import */ var _gen_mapper_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./gen-mapper.service */ "./src/app/tools/gen-mapper/gen-mapper.service.ts");
+/* harmony import */ var _gen_mapper_gen_mapper_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./gen-mapper/gen-mapper.component */ "./src/app/tools/gen-mapper/gen-mapper/gen-mapper.component.ts");
+/* harmony import */ var _map_menu_button_map_menu_button_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./map-menu-button/map-menu-button.component */ "./src/app/tools/gen-mapper/map-menu-button/map-menu-button.component.ts");
+/* harmony import */ var _map_name_control_map_name_control_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./map-name-control/map-name-control.component */ "./src/app/tools/gen-mapper/map-name-control/map-name-control.component.ts");
+/* harmony import */ var _map_sidenav_map_sidenav_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./map-sidenav/map-sidenav.component */ "./src/app/tools/gen-mapper/map-sidenav/map-sidenav.component.ts");
+/* harmony import */ var _node_drawer_node_drawer_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./node-drawer/node-drawer.component */ "./src/app/tools/gen-mapper/node-drawer/node-drawer.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -7084,45 +6913,42 @@ var GenMapperModule = /** @class */ (function () {
             ],
             declarations: [
                 _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDialogComponent"],
-                _dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_8__["EditNodeDialogComponent"],
-                _edit_node_form_edit_node_form_component__WEBPACK_IMPORTED_MODULE_11__["EditNodeFormComponent"],
-                _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_15__["GenMapperGraphComponent"],
-                _gen_mapper_documents_gen_mapper_documents_component__WEBPACK_IMPORTED_MODULE_14__["GenMapperDocumentsComponent"],
-                _gen_mapper_gen_mapper_component__WEBPACK_IMPORTED_MODULE_20__["GenMapperComponent"],
-                _gen_mapper_container_gen_mapper_container_component__WEBPACK_IMPORTED_MODULE_13__["GenMapperContainerComponent"],
-                _map_menu_button_map_menu_button_component__WEBPACK_IMPORTED_MODULE_21__["MapMenuButtonComponent"],
-                _map_name_control_map_name_control_component__WEBPACK_IMPORTED_MODULE_22__["MapNameControlComponent"],
-                _map_sidenav_map_sidenav_component__WEBPACK_IMPORTED_MODULE_23__["MapSidenavComponent"],
+                _edit_node_form_edit_node_form_component__WEBPACK_IMPORTED_MODULE_10__["EditNodeFormComponent"],
+                _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_14__["GenMapperGraphComponent"],
+                _gen_mapper_documents_gen_mapper_documents_component__WEBPACK_IMPORTED_MODULE_13__["GenMapperDocumentsComponent"],
+                _gen_mapper_gen_mapper_component__WEBPACK_IMPORTED_MODULE_19__["GenMapperComponent"],
+                _gen_mapper_container_gen_mapper_container_component__WEBPACK_IMPORTED_MODULE_12__["GenMapperContainerComponent"],
+                _map_menu_button_map_menu_button_component__WEBPACK_IMPORTED_MODULE_20__["MapMenuButtonComponent"],
+                _map_name_control_map_name_control_component__WEBPACK_IMPORTED_MODULE_21__["MapNameControlComponent"],
+                _map_sidenav_map_sidenav_component__WEBPACK_IMPORTED_MODULE_22__["MapSidenavComponent"],
                 _dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CreateDocumentDialogComponent"],
-                _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_9__["LocationDialogComponent"],
-                _node_drawer_node_drawer_component__WEBPACK_IMPORTED_MODULE_24__["NodeDrawerComponent"],
-                _gen_mapper_map_gen_mapper_map_component__WEBPACK_IMPORTED_MODULE_16__["GenMapperMapComponent"],
-                _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_17__["GenMapperViewTabsComponent"],
+                _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_8__["LocationDialogComponent"],
+                _node_drawer_node_drawer_component__WEBPACK_IMPORTED_MODULE_23__["NodeDrawerComponent"],
+                _gen_mapper_map_gen_mapper_map_component__WEBPACK_IMPORTED_MODULE_15__["GenMapperMapComponent"],
+                _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_16__["GenMapperViewTabsComponent"],
             ],
             exports: [
                 _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDialogComponent"],
-                _dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_8__["EditNodeDialogComponent"],
-                _edit_node_form_edit_node_form_component__WEBPACK_IMPORTED_MODULE_11__["EditNodeFormComponent"],
-                _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_15__["GenMapperGraphComponent"],
-                _gen_mapper_documents_gen_mapper_documents_component__WEBPACK_IMPORTED_MODULE_14__["GenMapperDocumentsComponent"],
-                _map_menu_button_map_menu_button_component__WEBPACK_IMPORTED_MODULE_21__["MapMenuButtonComponent"],
-                _map_name_control_map_name_control_component__WEBPACK_IMPORTED_MODULE_22__["MapNameControlComponent"],
-                _map_sidenav_map_sidenav_component__WEBPACK_IMPORTED_MODULE_23__["MapSidenavComponent"],
-                _node_drawer_node_drawer_component__WEBPACK_IMPORTED_MODULE_24__["NodeDrawerComponent"],
-                _gen_mapper_map_gen_mapper_map_component__WEBPACK_IMPORTED_MODULE_16__["GenMapperMapComponent"],
-                _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_17__["GenMapperViewTabsComponent"]
+                _edit_node_form_edit_node_form_component__WEBPACK_IMPORTED_MODULE_10__["EditNodeFormComponent"],
+                _gen_mapper_graph_gen_mapper_graph_component__WEBPACK_IMPORTED_MODULE_14__["GenMapperGraphComponent"],
+                _gen_mapper_documents_gen_mapper_documents_component__WEBPACK_IMPORTED_MODULE_13__["GenMapperDocumentsComponent"],
+                _map_menu_button_map_menu_button_component__WEBPACK_IMPORTED_MODULE_20__["MapMenuButtonComponent"],
+                _map_name_control_map_name_control_component__WEBPACK_IMPORTED_MODULE_21__["MapNameControlComponent"],
+                _map_sidenav_map_sidenav_component__WEBPACK_IMPORTED_MODULE_22__["MapSidenavComponent"],
+                _node_drawer_node_drawer_component__WEBPACK_IMPORTED_MODULE_23__["NodeDrawerComponent"],
+                _gen_mapper_map_gen_mapper_map_component__WEBPACK_IMPORTED_MODULE_15__["GenMapperMapComponent"],
+                _gen_mapper_view_tabs_gen_mapper_view_tabs_component__WEBPACK_IMPORTED_MODULE_16__["GenMapperViewTabsComponent"]
             ],
             entryComponents: [
                 _dialogs_confirm_dialog_confirm_dialog_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDialogComponent"],
-                _dialogs_edit_node_dialog_edit_node_dialog_component__WEBPACK_IMPORTED_MODULE_8__["EditNodeDialogComponent"],
                 _dialogs_create_document_dialog_create_document_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CreateDocumentDialogComponent"],
-                _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_9__["LocationDialogComponent"]
+                _dialogs_location_dialog_location_dialog_component__WEBPACK_IMPORTED_MODULE_8__["LocationDialogComponent"]
             ],
             providers: [
-                _document_service__WEBPACK_IMPORTED_MODULE_10__["DocumentService"],
-                _gen_mapper_service__WEBPACK_IMPORTED_MODULE_19__["GenMapperService"],
-                _gen_mapper_container_resolver__WEBPACK_IMPORTED_MODULE_12__["GenMapperContainerResolver"],
-                _gen_mapper_resolver__WEBPACK_IMPORTED_MODULE_18__["GenMapperResolver"],
+                _document_service__WEBPACK_IMPORTED_MODULE_9__["DocumentService"],
+                _gen_mapper_service__WEBPACK_IMPORTED_MODULE_18__["GenMapperService"],
+                _gen_mapper_container_resolver__WEBPACK_IMPORTED_MODULE_11__["GenMapperContainerResolver"],
+                _gen_mapper_resolver__WEBPACK_IMPORTED_MODULE_17__["GenMapperResolver"],
             ]
         })
     ], GenMapperModule);
