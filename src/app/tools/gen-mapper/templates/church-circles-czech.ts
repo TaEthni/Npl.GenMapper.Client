@@ -12,14 +12,14 @@ export function moveLeadersName(d: any): number {
 export function moveMentor(d: any): number {
     let c = 1;
     if (d.data.name) { c++; }
-    if (d.data.leaderName) { c++; }
+    if (d.data.leadersName) { c++; }
     return boxHeight + c * textHeight;
 }
 
 export function movePlace(d: any): number {
     let c = 1;
     if (d.data.name) { c++; }
-    if (d.data.leaderName) { c++; }
+    if (d.data.leadersName) { c++; }
     if (d.data.mentor) { c++; }
     return boxHeight + c * textHeight;
 }
@@ -27,7 +27,7 @@ export function movePlace(d: any): number {
 export function moveDate(d: any): number {
     let c = 1;
     if (d.data.name) { c++; }
-    if (d.data.leaderName) { c++; }
+    if (d.data.leadersName) { c++; }
     if (d.data.mentor) { c++; }
     if (d.data.place) { c++; }
     return boxHeight + c * textHeight;
@@ -37,15 +37,17 @@ export const ChurchCirclesCzechTemplate = {
     'version': '0.3',
     'title': 'Church Circles Czech',
     'name': 'church-circles-czech',
-    'format': 'church-circles-czech',
+    'format': 'churchCirclesCzech',
     'translations': {
         en: {
             translation: {
-                'template': {
+                'churchCirclesCzech': {
+                    'translationLabel': 'English',
                     'helpLegend': '<img src="assets/church-circles-czech/genmapper-node-example-church-circles-czech.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legend</h3><p>Each circle represents a group / church. Dashed circle means group, full circle means church.<br>On the top the numbers describe: # total, # believers, # baptized, # newly baptized.<br>Inside the circle are the elements that are practiced in the group.<br>On the left there numbers 1 to 7 represent which elements of 3/3 process are practised:<br>1 - Personal care<br>2 - Worship<br>3 - Accountability<br>4 - Vision casting<br>5 - Bible study<br>6 - Practice<br>7 - Set goals and prayer</p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
                     'name': 'Group Name',
                     'leadersName': "Leader's Name",
                     'mentor': 'Mentor',
+                    'newGeneration': 'New Generation',
                     'attenders': '# of Attenders',
                     'believers': '# of Believers',
                     'baptized': '# of Baptized',
@@ -65,6 +67,7 @@ export const ChurchCirclesCzechTemplate = {
                     'elementLeaders': 'Element: Leaders',
                     'elementMakeDisciples': 'Element: Make disciples',
                     'place': 'Place',
+                    'location': 'Geo Location',
                     'date': 'Date of Start (Finish)',
                     'threeThirds': 'Elements of 3/3 process (1=Care, 2=Worship, 3=Accountability, 4=Vision, 5=Bible, 6=Practice, 7=Goals and prayer)',
                     'active': 'Active',
@@ -85,7 +88,8 @@ export const ChurchCirclesCzechTemplate = {
         },
         cs: {
             translation: {
-                'template': {
+                'churchCirclesCzech': {
+                    'translationLabel': 'Čeština',
                     'helpLegend': '<img src="assets/church-circles-czech/genmapper-node-example-church-circles-czech.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legenda</h3><p>Každý kruh(čtverec) symbolizuje skupinu nebo Boží rodinu(církev). Přerušovaná čára značí skupinu, plná čára Boží rodinu.<br>Tvar značí typ církve:<br><ul><li>kruh - Boží rodina s většinou nových věřících</li><li>čtverec - Boží rodina s většinou existujících věřících</li><li>zelený čtverec - sbor</li></ul><br>Čísla nahoře značí: Počet účastníků / věřících / pokřtěných / nově pokřtěných.<br>Uvnitř kruhu jsou prvky, které skupina dělá.<br><br>Čísla vlevo od 1 do 7 značí prvky 3/3, která skupina dělá:<br>1 - vzájemná péče<br>2 - oslava Ježíše<br>3 - vykazatelnost<br>4 - sdílení vize<br>5 - studium Bible<br>6 - procvičování <br>7 - akční kroky a modlitba</p><p>Klikni na skupinu pro editaci.<br>Klikni na červené tlačítko (x) pro odstranění skupiny.<br>Klikni na zelené tlačítko (+) pro přidání dceřinné skupiny.</p>',
                     'name': 'Jméno skupiny',
                     'leadersName': 'Jméno vedoucího',
@@ -277,6 +281,21 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'location',
             'initial': '',
             'type': 'geoLocation'
+        },
+        {
+            'header': 'latitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
+            'header': 'longitude',
+            'initial': null,
+            'type': 'hidden'
+        },
+        {
+            'header': 'placeId',
+            'initial': '',
+            'type': 'hidden'
         },
         {
             'header': 'date',
@@ -549,7 +568,8 @@ export const ChurchCirclesCzechTemplate = {
         {
             'header': 'note',
             'initial': ' ',
-            'type': 'text'
+            'type': 'textarea'
         }
     ]
-}
+};
+

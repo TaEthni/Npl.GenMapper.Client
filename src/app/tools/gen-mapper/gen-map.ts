@@ -55,7 +55,6 @@ export class GenMap {
     public update(content: GNode[]): void {
         this.data = content;
         this.nodes = null;
-        this.patchNodes(this.data);
 
         this.originalPosition();
         this.redraw();
@@ -68,33 +67,6 @@ export class GenMap {
 
     public getGraphNodeByDataId(id: string): HierarchyNode<GNode> {
         return this.nodes.descendants().find(d => d.data.id === id);
-    }
-
-    public patchNodes(data: any[]): void {
-        data.forEach(item => {
-
-            item.isRoot = !item.parentId && item.parentId !== 0;
-
-            // This is for old data.
-            if (item.hasOwnProperty('threeThirds')) {
-                if (typeof item.threeThirds === 'string') {
-                    item.threeThirds = item.threeThirds.replace(/\W/, '');
-                    item.threeThirds = item.threeThirds.split('');
-                }
-
-                const filtered = item.threeThirds.filter((key: any) => isNumberReg.test(key));
-                const value: any = [];
-
-                // dedupe old data
-                filtered.forEach((a: any) => {
-                    if (!value.includes(a)) {
-                        value.push(a);
-                    }
-                });
-
-                item.threeThirds = value;
-            }
-        });
     }
 
     public onZoomInClick(): void {
@@ -214,6 +186,10 @@ export class GenMap {
      * @public Map manipulation methods
      */
     public originalPosition(): void {
+        if (!this.svg || !this.graphSvg.nativeElement) {
+            return;
+        }
+
         this.zoom.scaleTo(this.svg, 1);
         const origX = this.margin.left + (this.graphSvg.nativeElement.clientWidth / 2);
         const origY = this.margin.top;
@@ -438,16 +414,16 @@ export class GenMap {
             .attr('height', 100)
             .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
 
-        _appendRemoveButton(newGroup, this.template);
-        _appendAddButton(newGroup, this.template);
-        _appendEditButton(newGroup, this.template);
-
         // append SVG elements without fields
         Object.keys(this.template.svg).forEach((svgElement) => {
             const svgElementValue = this.template.svg[svgElement];
             const element = newGroup.append(svgElementValue['type']);
             element.attr('class', 'node-' + svgElement);
         });
+
+        _appendRemoveButton(newGroup, this.template);
+        _appendAddButton(newGroup, this.template);
+        _appendEditButton(newGroup, this.template);
 
         // append SVG elements related to fields
         this.template.fields.forEach((field) => {

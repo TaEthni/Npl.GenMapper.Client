@@ -1,10 +1,19 @@
 
 export interface GNode {
     id: string;
+    name: string;
     parentId: string;
 
     active: boolean;
     inactiveReason: string;
+
+    // Optional Properties
+    location?: string;
+    latitude?: number;
+    longitude?: number;
+    placeId?: string;
+    leaderName?: string;
+    leadersName?: string;
 
     // Only set on node click from d3 node.descendants();
     descendants?: GNode[];

@@ -1,13 +1,16 @@
-<mat-drawer-container (backdropClick)="nodeDrawer.onBackdropClick()">
+<mat-drawer-container (backdropClick)="nodeDrawer.onBackdropClick()"
+                      [class.show-map-view]="showMapView">
     <mat-drawer position="end"
                 fxLayout="column"
                 class="node-drawer"
+                [autoFocus]="false"
                 (openedChange)="onNodeDrawerOpenChanged($event)">
         <app-node-drawer #nodeDrawer
                          [documents]="documents"
                          [document]="document"
                          [template]="template"
                          [node]="node"
+                         [hideActions]="showMapView && tabs?.activeTab?.view === 'googleMap'"
                          (copyNode)="onCopyNode($event)"
                          (pasteNode)="onPasteNode($event)"
                          (updateNode)="onUpdateNode($event)"
@@ -26,11 +29,27 @@
                              [template]="template"
                              (print)="onPrint($event)"></app-map-menu-button>
     </ng-container>
-    <app-gen-mapper-graph class="{{template.name}}"
-                          (change)="onGraphChange($event)"
-                          [document]="document"
-                          [template]="template"
-                          (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
+
+    <ng-container *ngIf="showMapView">
+        <app-gen-mapper-view-tabs></app-gen-mapper-view-tabs>
+    </ng-container>
+
+    <ng-container *ngIf="showMapView && tabs?.activeTab?.view === 'googleMap'; then googleMap else genMapGraph"></ng-container>
+
+    <ng-template #googleMap>
+        <app-gen-mapper-map [document]="document"
+                            [template]="template"
+                            (nodeClick)="onNodeClick($event)"></app-gen-mapper-map>
+    </ng-template>
+
+    <ng-template #genMapGraph>
+        <app-gen-mapper-graph class="{{template.name}}"
+                              (change)="onGraphChange($event)"
+                              [document]="document"
+                              [template]="template"
+                              (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
+    </ng-template>
+
 </ng-template>
 <ng-template #emptyState>
     <div class="empty-state"

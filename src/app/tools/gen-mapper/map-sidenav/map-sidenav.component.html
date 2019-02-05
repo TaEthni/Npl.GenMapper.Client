@@ -1,12 +1,14 @@
 <mat-toolbar color="none">
-    <button mat-mini-fab
-            (click)="onCreateDocument()">
-        <mat-icon>add</mat-icon>
-    </button>
-    <div>
+    <div style="margin-left: 4px;">
         {{'documentsTitle' | locale | async}}
     </div>
     <div fxFlex></div>
+    <button mat-icon-button
+            disableRipple
+            color="primary"
+            (click)="onCreateDocument()">
+        <mat-icon>add</mat-icon>
+    </button>
 </mat-toolbar>
 
 <div class="scroll-container">

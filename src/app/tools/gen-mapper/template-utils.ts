@@ -3,16 +3,25 @@ import i18next from 'i18next';
 
 import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
 import { ChurchCirclesTemplate } from './templates/church-circles';
+import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
+import { DisciplesTemplate } from './templates/disciples';
 import { FourFieldsTemplate } from './templates/four-fields';
 
-export const genMapperTemplates = {
-    [ChurchCirclesTemplate.format]: ChurchCirclesTemplate,
-    [FourFieldsTemplate.format]: FourFieldsTemplate
-};
+export const GenMapperTemplates = [
+    ChurchCirclesTemplate,
+    ChurchCirclesCzechTemplate,
+    DisciplesTemplate,
+    FourFieldsTemplate,
+];
+
+export const GenMapperTemplatesByFormat = {};
+GenMapperTemplates.forEach(t => GenMapperTemplatesByFormat[t.format] = t);
+
+const isNumberReg = /\d/;
 
 export namespace TemplateUtils {
     export function getTemplate(templateName: string): GMTemplate {
-        return genMapperTemplates[templateName] as GMTemplate;
+        return (<any>GenMapperTemplatesByFormat)[templateName] as GMTemplate;
     }
 
     export function createCSVHeader(template: GMTemplate): string {
@@ -75,7 +84,7 @@ export namespace TemplateUtils {
         return csvParse<GNode>(csvData, (d) => {
             const parsedId = parseFloat(d.id);
             if (parsedId < 0 || isNaN(parsedId)) { throw new Error('Group id must be integer >= 0.'); }
-            const parsedLine = {};
+            const parsedLine: any = {};
             parsedLine['id'] = parsedId;
             parsedLine['parentId'] = d.parentId !== '' ? parseFloat(d.parentId) : '';
 
@@ -89,9 +98,37 @@ export namespace TemplateUtils {
                         parsedLine[field.header] = field.initial;
                     }
                 } else if (field.type) {
-                    parsedLine[field.header] = d[field.header];
+
+                    if (field.header === 'latitude' || field.header === 'longitude') {
+                        parsedLine[field.header] = parseFloat(d[field.header]);
+                    } else {
+                        parsedLine[field.header] = d[field.header];
+                    }
                 }
             });
+
+            parsedLine.isRoot = !parsedLine.parentId && parsedLine.parentId !== 0;
+
+            // This is for old data.
+            if (parsedLine.hasOwnProperty('threeThirds')) {
+                if (typeof parsedLine.threeThirds === 'string') {
+                    parsedLine.threeThirds = parsedLine.threeThirds.replace(/\W/, '');
+                    parsedLine.threeThirds = parsedLine.threeThirds.split('');
+
+                    const filtered = parsedLine.threeThirds.filter((key: any) => isNumberReg.test(key));
+                    const value: any = [];
+
+                    // dedupe old data
+                    filtered.forEach((a: any) => {
+                        if (!value.includes(a)) {
+                            value.push(a);
+                        }
+                    });
+
+                    parsedLine.threeThirds = value;
+                }
+            }
+
             return parsedLine as GNode;
         });
     }

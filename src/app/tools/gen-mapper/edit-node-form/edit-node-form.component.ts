@@ -1,13 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { MapsService } from '@core/maps.service';
+import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
-import { GMField, GNode } from '../gen-mapper.interface';
-import { MatDialog } from '@angular/material';
-import { MapsService } from '@core/maps.service';
-import { LocationDialogComponent } from '../dialogs/location-dialog/location-dialog.component';
+import {
+    LocationDialogComponent,
+    LocationDialogConfig,
+    LocationDialogResponse,
+} from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
+import { GMField, GNode } from '../gen-mapper.interface';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -66,24 +71,49 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         event.preventDefault();
         event.stopPropagation();
         this.form.get(field.header).setValue(null);
+        this.form.get(field.header).markAsDirty();
     }
 
     private onGeoLocationClick(): void {
-        this.mapService.getLocation().subscribe(result => {
-            this.dialog
-                .open(LocationDialogComponent, {
-                    minWidth: '400px',
-                    data: { coords: result.coords }
-                })
-                .afterClosed()
-                .subscribe(address => {
-                    if (address) {
-                        this.form.get('location').patchValue(address);
-                        this.form.get('location').updateValueAndValidity();
-                        this.form.markAsDirty();
-                    }
+        if (this.form.get('location').value) {
+            this.showLocationDialog({
+                address: this.form.get('location').value,
+                markerLatitude: this.form.get('latitude').value,
+                markerLongitude: this.form.get('longitude').value
+            });
+        } else {
+            this.mapService.getLocation().subscribe(result => {
+                this.showLocationDialog({
+                    latitude: result.coords.latitude,
+                    longitude: result.coords.longitude
                 });
-        });
+            });
+        }
+    }
+
+    private showLocationDialog(data: LocationDialogConfig): void {
+        let minWidth = '400px';
+
+        if (Device.isHandHeld) {
+            minWidth = '100vw';
+        }
+
+        this.dialog
+            .open<LocationDialogComponent, LocationDialogConfig, LocationDialogResponse>(LocationDialogComponent, {
+                minWidth,
+                data,
+            })
+            .afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.form.get('latitude').patchValue(result.latitude);
+                    this.form.get('longitude').patchValue(result.longitude);
+                    this.form.get('placeId').patchValue(result.placeId);
+                    this.form.get('location').patchValue(result.address);
+                    this.form.get('location').updateValueAndValidity();
+                    this.form.markAsDirty();
+                }
+            });
     }
 
     public onPeopleGroupClick(): void {

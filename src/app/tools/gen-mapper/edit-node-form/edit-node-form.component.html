@@ -2,7 +2,7 @@
      fxLayoutGap="24px">
 
     <ng-container *ngFor="let field of fields">
-        <ng-container *ngIf="field.type">
+        <ng-container *ngIf="field.type && field.type !== 'hidden'">
             <ng-container *ngIf="!field.dependsOnFalseField || form.get(field.dependsOnFalseField) && !form.get(field.dependsOnFalseField).value">
                 <div class="control"
                      fxFlex

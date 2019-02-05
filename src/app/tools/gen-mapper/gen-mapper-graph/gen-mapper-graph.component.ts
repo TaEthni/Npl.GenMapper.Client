@@ -14,15 +14,14 @@ import { MatSnackBar } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
+import { HierarchyNode } from 'd3';
 import { cloneDeep } from 'lodash';
 import { take } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { EditNodeDialogComponent, EditNodeDialogResponse } from '../dialogs/edit-node-dialog/edit-node-dialog.component';
 import { GenMap } from '../gen-map';
 import { GMTemplate, GNode } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { HierarchyNode } from 'd3';
 
 @Component({
     selector: 'app-gen-mapper-graph',
