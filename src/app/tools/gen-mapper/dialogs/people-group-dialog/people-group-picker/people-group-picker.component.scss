@@ -1,0 +1,55 @@
+@import '~styles/colors';
+
+:host {
+    display: block;
+
+    .mat-form-field {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+
+        td:first-child {
+            width: 50px;
+        }
+    }
+
+    .table-wrap {
+        margin-bottom: 10px;
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .empty-state {
+        padding: 24px;
+    }
+
+    .selection-list {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        flex: 1 0 auto;
+
+        margin-bottom: 24px;
+    }
+
+    .selection-item {
+        display: flex;
+        flex-direction: row;
+
+        user-select: none;
+        padding: 0 8px 0px 8px;
+        line-height: 24px;
+        border-radius: 8px;
+        color: white;
+        background-color: mat-color($accent);
+        margin: 0 5px 5px 0;
+
+        .mat-icon {
+            height: 24px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    }
+}

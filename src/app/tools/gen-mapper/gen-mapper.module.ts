@@ -8,6 +8,9 @@ import { SharedModule } from '@shared/shared.module';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
+import { CountryPickerComponent } from './dialogs/people-group-dialog/country-picker/country-picker.component';
+import { PeopleGroupDialogComponent } from './dialogs/people-group-dialog/people-group-dialog.component';
+import { PeopleGroupPickerComponent } from './dialogs/people-group-dialog/people-group-picker/people-group-picker.component';
 import { DocumentService } from './document.service';
 import { EditNodeFormComponent } from './edit-node-form/edit-node-form.component';
 import { GenMapperContainerResolver } from './gen-mapper-container.resolver';
@@ -48,6 +51,9 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         CreateDocumentDialogComponent,
         LocationDialogComponent,
         NodeDrawerComponent,
+        PeopleGroupDialogComponent,
+        CountryPickerComponent,
+        PeopleGroupPickerComponent,
         GenMapperMapComponent,
         GenMapperViewTabsComponent,
     ],
@@ -60,13 +66,16 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         MapNameControlComponent,
         MapSidenavComponent,
         NodeDrawerComponent,
+        CountryPickerComponent,
+        PeopleGroupPickerComponent,
         GenMapperMapComponent,
         GenMapperViewTabsComponent
     ],
     entryComponents: [
         ConfirmDialogComponent,
         CreateDocumentDialogComponent,
-        LocationDialogComponent
+        LocationDialogComponent,
+        PeopleGroupDialogComponent
     ],
     providers: [
         DocumentService,

@@ -1,0 +1,29 @@
+<ng-container *ngIf="isHandHeld; then nativeTemplate else defaultTemplate"></ng-container>
+
+<ng-template #nativeTemplate>
+    <mat-form-field floatLabel="always">
+        <mat-label>{{'en_Country' | locale | async}}</mat-label>
+        <select matNativeControl
+                required
+                [formControl]="control">
+            <option></option>
+            <option *ngFor="let country of countries"
+                    [value]="country">
+                {{country}}
+            </option>
+        </select>
+    </mat-form-field>
+</ng-template>
+<ng-template #defaultTemplate>
+    <mat-form-field floatLabel="always">
+        <mat-label>{{'en_Country' | locale | async}}</mat-label>
+        <mat-select placeholder="Country"
+                    [formControl]="control"
+                    required>
+            <mat-option *ngFor="let country of countries"
+                        [value]="country">
+                {{country}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</ng-template>

@@ -3,6 +3,7 @@
 :host {
     @include dialog();
     position: relative;
+    min-height: 280px;
 
     agm-map {
         margin-top: -24px;

@@ -1,0 +1,54 @@
+<div class="selection-list">
+    <div *ngFor="let item of selection.selected"
+         class="selection-item">
+        <div class="selection-item-title">
+            {{item.attributes.NmDisp}}
+        </div>
+        <mat-icon (click)="selection.deselect(item)">clear</mat-icon>
+    </div>
+</div>
+
+<mat-form-field>
+    <input matInput
+           name="none"
+           autocomplete="off"
+           (keyup)="applyFilter($event.target.value)"
+           placeholder="Filter">
+</mat-form-field>
+
+<div class="table-wrap">
+    <ng-container *ngIf="dataSource.filteredData.length === 0">
+        <div class="empty-state">
+            <i>No People Groups found!</i>
+        </div>
+    </ng-container>
+    <div [style.display]="dataSource.filteredData.length > 0 ? '' : 'none'">
+        <table mat-table
+               [dataSource]="dataSource">
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+                <td mat-cell
+                    *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <td mat-cell
+                    *matCellDef="let element"> {{element.attributes.NmDisp}} </td>
+            </ng-container>
+
+            <tr mat-row
+                (click)="selection.toggle(row)"
+                *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator hidePageSize
+                       pageSize="5"></mat-paginator>
+    </div>
+</div>
