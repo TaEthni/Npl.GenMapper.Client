@@ -2,7 +2,6 @@
 
 :host {
     display: block;
-    min-height: 400px;
 
     .mat-form-field {
         width: 100%;
@@ -18,9 +17,8 @@
 
     .table-wrap {
         margin-bottom: 10px;
-        margin-left: -25px;
-        margin-right: -24px;
-        width: calc(100% + 48px);
+        width: 100%;
+        min-height: 300px;
     }
 
     .empty-state {

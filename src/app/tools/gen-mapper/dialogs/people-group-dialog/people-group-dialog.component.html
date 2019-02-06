@@ -57,11 +57,20 @@
      fxLayoutGap="15px">
 
     <ng-container *ngIf="country">
-        <button mat-raised-button
-                color="primary"
-                (click)="onSave()">
-            {{'en_Save' | locale | async}}
-        </button>
+        <ng-container *ngIf="!peopleGroups">
+            <button mat-raised-button
+                    color="primary"
+                    (click)="onCountrySelected(country)">
+                {{'en_Continue' | locale | async}}
+            </button>
+        </ng-container>
+        <ng-container *ngIf="peopleGroups">
+            <button mat-raised-button
+                    color="primary"
+                    (click)="onSave()">
+                {{'en_Save' | locale | async}}
+            </button>
+        </ng-container>
     </ng-container>
 
     <button mat-button

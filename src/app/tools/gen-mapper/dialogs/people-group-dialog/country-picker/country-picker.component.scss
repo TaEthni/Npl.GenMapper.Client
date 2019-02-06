@@ -3,23 +3,4 @@
 :host {
     display: flex;
     flex-direction: column;
-    max-height: 400px;
-    min-height: 400px;
-
-    .mat-form-field {
-        .mat-icon {
-            cursor: pointer;
-            user-select: none;
-            color: mat-color($warn);
-        }
-    }
-
-    .empty-state {
-        padding: 24px;
-    }
-
-    .mat-nav-list {
-        overflow: auto;
-        margin-bottom: 10px;
-    }
 }

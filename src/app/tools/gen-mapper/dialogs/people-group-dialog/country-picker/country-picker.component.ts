@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
@@ -18,32 +19,15 @@ export class CountryPickerComponent extends Unsubscribable implements OnInit {
     @Output()
     public onChange = new EventEmitter<string>();
 
-    public filtered: string[];
     public control: FormControl = new FormControl();
+    public isHandHeld = Device.isHandHeld;
 
     public ngOnInit(): void {
-        this.filtered = this.countries.slice();
         this.control.setValue(this.country);
-
-        if (this.country) {
-            this.applyFilter(this.country);
-        }
-
         this.control.valueChanges
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.applyFilter(result);
+                this.onChange.emit(result);
             });
-    }
-
-    public applyFilter(filterValue: string): void {
-        filterValue = filterValue.trim().toLowerCase();
-        this.filtered = this.countries.filter((c) => {
-            return c.toLowerCase().indexOf(filterValue) > -1;
-        });
-    }
-
-    public onSelectionChange(event: string): void {
-        this.onChange.emit(event);
     }
 }

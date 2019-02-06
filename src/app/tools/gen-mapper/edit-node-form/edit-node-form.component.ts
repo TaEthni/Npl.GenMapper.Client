@@ -94,10 +94,10 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     private showLocationDialog(data: LocationDialogConfig): void {
-        let minWidth = '400px';
+        let minWidth = '100vw';
 
-        if (Device.isHandHeld) {
-            minWidth = '100vw';
+        if (Device.isDesktop) {
+            minWidth = '400px';
         }
 
         this.dialog
@@ -119,10 +119,10 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     public onPeopleGroupClick(): void {
-        let minWidth = '400px';
+        let minWidth = '100vw';
 
-        if (Device.isHandHeld) {
-            minWidth = '100vw';
+        if (Device.isDesktop) {
+            minWidth = '400px';
         }
 
         const peids = this.form.get('peopleGroups');
