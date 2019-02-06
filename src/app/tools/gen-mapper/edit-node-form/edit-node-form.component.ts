@@ -65,7 +65,7 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         }
 
         if (field.type === 'peidSelect') {
-            this.onPeopleGroupClick(field);
+            this.onPeopleGroupClick();
         }
     }
 
@@ -118,13 +118,20 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
             });
     }
 
-    public onPeopleGroupClick(field: GMField): void {
-        const peids = this.form.get(field.header);
-        const names = this.form.get(field.header + 'Names');
+    public onPeopleGroupClick(): void {
+        let minWidth = '400px';
+
+        if (Device.isHandHeld) {
+            minWidth = '100vw';
+        }
+
+        const peids = this.form.get('peopleGroups');
+        const names = this.form.get('peopleGroupsNames');
 
         this.dialog
             .open(PeopleGroupDialogComponent, {
                 autoFocus: false,
+                minWidth,
                 data: {
                     peids: peids.value
                 }

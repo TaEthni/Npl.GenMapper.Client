@@ -15,6 +15,15 @@
                 <span class="country-name">{{peopleGroups[0].attributes.Ctry}}</span>
                 {{'peopleGroups' | locale | async}}:
             </div>
+            <div fxLayout="row">
+                <div class="change-country"
+                     fxLayout="row"
+                     fxLayoutAlign="start center"
+                     (click)="resetCountry()">
+                    <mat-icon>chevron_left</mat-icon>
+                    <div>{{'changeCountry' | locale | async}}</div>
+                </div>
+            </div>
         </ng-container>
     </ng-container>
 </div>
@@ -33,15 +42,7 @@
                                 (onChange)="onCountrySelected($event)"></app-country-picker>
         </ng-container>
         <ng-container *ngIf="peopleGroups">
-            <div fxLayout="row">
-                <div class="change-country"
-                     fxLayout="row"
-                     fxLayoutAlign="start center"
-                     (click)="resetCountry()">
-                    <mat-icon>chevron_left</mat-icon>
-                    <div>{{'changeCountry' | locale | async}}</div>
-                </div>
-            </div>
+
             <app-people-group-picker [selected]="selectedPeopleGroups"
                                      [peopleGroups]="peopleGroups"
                                      (selectionChange)="onPeopleGroupsChange($event)">

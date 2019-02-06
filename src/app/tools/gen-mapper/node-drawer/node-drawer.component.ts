@@ -12,7 +12,6 @@ import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog
 import { GMField, GMTemplate, GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { PeopleGroupService } from '../people-group.service';
 import { TemplateUtils } from '../template-utils';
 
 @Component({
@@ -21,8 +20,6 @@ import { TemplateUtils } from '../template-utils';
     styleUrls: ['./node-drawer.component.scss']
 })
 export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnChanges {
-    public peopleGroups: { peid: number, name: string };
-
     @Input()
     public node: GNode;
 
@@ -56,7 +53,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     public form: FormGroup;
 
     constructor(
-        private peopleGroupService: PeopleGroupService,
         private localeService: LocaleService,
         private genMapper: GenMapperService,
         private nodeClipboard: NodeClipboardService,

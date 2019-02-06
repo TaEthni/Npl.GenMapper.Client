@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { take } from 'rxjs/operators';
 
-import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupService } from '../../people-group.service';
+import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupService } from './people-group.service';
 
 export interface PeopleGroupDialogResponse {
     peids: number[];

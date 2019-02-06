@@ -5,11 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 
-import { CountryPickerComponent } from './country-picker/country-picker.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
+import { CountryPickerComponent } from './dialogs/people-group-dialog/country-picker/country-picker.component';
 import { PeopleGroupDialogComponent } from './dialogs/people-group-dialog/people-group-dialog.component';
+import { PeopleGroupPickerComponent } from './dialogs/people-group-dialog/people-group-picker/people-group-picker.component';
 import { DocumentService } from './document.service';
 import { EditNodeFormComponent } from './edit-node-form/edit-node-form.component';
 import { GenMapperContainerResolver } from './gen-mapper-container.resolver';
@@ -25,7 +26,6 @@ import { MapMenuButtonComponent } from './map-menu-button/map-menu-button.compon
 import { MapNameControlComponent } from './map-name-control/map-name-control.component';
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
-import { PeopleGroupPickerComponent } from './people-group-picker/people-group-picker.component';
 
 @NgModule({
     imports: [

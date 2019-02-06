@@ -60,6 +60,7 @@
     .mat-form-field.peid-select::ng-deep,
     .mat-form-field.geo-location::ng-deep {
         cursor: pointer;
+
         label.mat-form-field-label,
         input.mat-input-element:disabled {
             cursor: pointer;

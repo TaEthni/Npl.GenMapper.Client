@@ -29,8 +29,6 @@
 
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
-            <th mat-header-cell
-                *matHeaderCellDef></th>
             <td mat-cell
                 *matCellDef="let row">
                 <mat-checkbox (click)="$event.stopPropagation()"
@@ -40,26 +38,17 @@
             </td>
         </ng-container>
 
+        <!-- Name Column -->
         <ng-container matColumnDef="name">
-            <th mat-header-cell
-                *matHeaderCellDef> Name </th>
             <td mat-cell
                 *matCellDef="let element"> {{element.attributes.NmDisp}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="peid">
-            <th mat-header-cell
-                *matHeaderCellDef> PEID </th>
-            <td mat-cell
-                *matCellDef="let element"> {{element.attributes.PEID}} </td>
-        </ng-container>
-
-        <tr mat-header-row
-            *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row
             (click)="selection.toggle(row)"
             *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+    <mat-paginator hidePageSize
+                   pageSize="5"></mat-paginator>
 </div>

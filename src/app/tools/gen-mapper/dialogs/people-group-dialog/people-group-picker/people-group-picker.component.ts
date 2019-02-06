@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { PeopleGroupModel } from '../people-group.service';
 
+
 @Component({
     selector: 'app-people-group-picker',
     templateUrl: './people-group-picker.component.html',
@@ -24,19 +25,18 @@ export class PeopleGroupPickerComponent extends Unsubscribable implements OnInit
     @ViewChild(MatPaginator)
     public paginator: MatPaginator;
 
-    public displayedColumns: string[] = ['select', 'name', 'peid'];
+    public displayedColumns: string[] = ['select', 'name'];
     public dataSource = new MatTableDataSource<PeopleGroupModel>();
     public selection = new SelectionModel<PeopleGroupModel>(true, []);
 
     public ngOnInit(): void {
         this.dataSource.paginator = this.paginator;
+        this.dataSource.data = this.peopleGroups;
         this.dataSource.filterPredicate = (d: PeopleGroupModel, f: string) => {
             f = f.trim().toLowerCase();
             return d.attributes.NmDisp.toLowerCase().indexOf(f) > -1
                 || d.attributes.Ctry.toLowerCase().indexOf(f) > -1;
         };
-
-        this.dataSource.data = this.peopleGroups;
 
         if (this.selected && this.selected.length) {
             this.selected.forEach(s => this.selection.select(s));
