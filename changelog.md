@@ -1,5 +1,8 @@
 # GenMapper Changelog
 
+## (2019-02-05)
+- Feature: Add People Groups selector from PeopleGroups.org API
+
 ## (2019-02-01)
 - Feature: World map view of GenMap.
 - Feature: Improve Mobile/Handheld support.

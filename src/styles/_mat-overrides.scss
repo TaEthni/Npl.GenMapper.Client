@@ -1,10 +1,3 @@
-
-@media screen and (max-width: 769px) {
-    .mat-dialog-container {
-        min-width: 80vw;
-    }
-}
-
 .mat-card {
     .mat-card-header-text {
         margin-left: 0;
@@ -23,6 +16,23 @@
         svg circle {
             stroke: white;
         }
+    }
+}
+
+.cdk-overlay-pane {
+    max-width: unset;
+}
+
+.device-handheld {
+    .mat-dialog-container {
+        min-width: 80vw;
+    }
+}
+
+.device-desktop {
+    .mat-dialog-container {
+        width: 100%;
+        max-width: 80vw;
     }
 }
 

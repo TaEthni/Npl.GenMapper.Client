@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 
 const devUrl = 'https://dev-api.noplaceleft.tools/api/';
 const prodUrl = 'https://api.noplaceleft.tools/api/';
+// const localUrl = 'http://localhost:9000/api/';
 const localUrl = devUrl;
 
 let _BaseUrl: string = localUrl;

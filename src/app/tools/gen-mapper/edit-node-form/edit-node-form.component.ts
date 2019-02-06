@@ -11,6 +11,7 @@ import {
     LocationDialogConfig,
     LocationDialogResponse,
 } from '../dialogs/location-dialog/location-dialog.component';
+import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 import { GMField, GNode } from '../gen-mapper.interface';
 
 @Component({
@@ -50,11 +51,21 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (this.form.get('location')) {
             this.form.get('location').disable();
         }
+
+
+        if (this.form.get('peopleGroups')) {
+            this.form.get('peopleGroups').disable();
+            this.form.get('peopleGroupsNames').disable();
+        }
     }
 
     public onFieldClick(field: GMField): void {
         if (field.type === 'geoLocation') {
             this.onGeoLocationClick();
+        }
+
+        if (field.type === 'peidSelect') {
+            this.onPeopleGroupClick();
         }
     }
 
@@ -83,10 +94,10 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     private showLocationDialog(data: LocationDialogConfig): void {
-        let minWidth = '400px';
+        let minWidth = '100vw';
 
-        if (Device.isHandHeld) {
-            minWidth = '100vw';
+        if (Device.isDesktop) {
+            minWidth = '400px';
         }
 
         this.dialog
@@ -103,6 +114,35 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
                     this.form.get('location').patchValue(result.address);
                     this.form.get('location').updateValueAndValidity();
                     this.form.markAsDirty();
+                }
+            });
+    }
+
+    public onPeopleGroupClick(): void {
+        let minWidth = '100vw';
+
+        if (Device.isDesktop) {
+            minWidth = '400px';
+        }
+
+        const peids = this.form.get('peopleGroups');
+        const names = this.form.get('peopleGroupsNames');
+
+        this.dialog
+            .open(PeopleGroupDialogComponent, {
+                autoFocus: false,
+                minWidth,
+                data: {
+                    peids: peids.value
+                }
+            })
+            .afterClosed()
+            .subscribe((result) => {
+                if (result) {
+                    peids.setValue(result.peids);
+                    names.setValue(result.names);
+                    peids.markAsDirty();
+                    names.markAsDirty();
                 }
             });
     }

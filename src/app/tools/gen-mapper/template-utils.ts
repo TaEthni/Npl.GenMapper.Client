@@ -109,6 +109,9 @@ export namespace TemplateUtils {
 
             parsedLine.isRoot = !parsedLine.parentId && parsedLine.parentId !== 0;
 
+            convertPropertyToArray(parsedLine, 'peopleGroups', true);
+            convertPropertyToArray(parsedLine, 'peopleGroupsNames');
+
             // This is for old data.
             if (parsedLine.hasOwnProperty('threeThirds')) {
                 if (typeof parsedLine.threeThirds === 'string') {
@@ -131,6 +134,24 @@ export namespace TemplateUtils {
 
             return parsedLine as GNode;
         });
+    }
+}
+
+function convertPropertyToArray(parsedLine: any, property: string, isNumber?: boolean): void {
+    if (parsedLine.hasOwnProperty(property)) {
+        if (typeof parsedLine[property] === 'string') {
+            parsedLine[property] = parsedLine[property].split(',');
+            if (isNumber) {
+                const result = [];
+                parsedLine[property].forEach((num) => {
+                    num = parseFloat(num);
+                    if (num) {
+                        result.push(num);
+                    }
+                });
+                parsedLine[property] = result;
+            }
+        }
     }
 }
 

@@ -1,6 +1,6 @@
-const boxHeight = 100
-const textHeight = 14
-const textMargin = 6
+const boxHeight = 100;
+const textHeight = 14;
+const textMargin = 6;
 
 export function moveLeaderName(d: any): number {
     let c = 1;
@@ -195,9 +195,14 @@ export const ChurchCirclesTemplate = {
             'type': 'text'
         },
         {
-            'header': 'peopleGroup',
+            'header': 'peopleGroups',
             'initial': null,
-            'type': 'text'
+            'type': 'peidSelect',
+        },
+        {
+            'header': 'peopleGroupsNames',
+            'initial': null,
+            'type': 'hidden'
         },
         {
             'header': 'attenders',
@@ -467,7 +472,7 @@ export const ChurchCirclesTemplate = {
                     'leaderName': 'Leader\'s Name',
                     'email': 'Email',
                     'newGeneration': 'New Generation',
-                    'peopleGroup': 'People Group',
+                    'peopleGroups': 'People Groups',
                     'attenders': '# of Attenders',
                     'believers': '# of Believers',
                     'baptized': '# of Baptized',
@@ -511,7 +516,7 @@ export const ChurchCirclesTemplate = {
                     'translationLabel': 'Deutsch',
                     'name': 'Name der Kirche',
                     'leaderName': 'Leiter',
-                    'peopleGroup': 'Sprache / Subkultur',
+                    'peopleGroups': 'Sprache / Subkultur',
                     'attenders': 'Anzahl Teilnehmer',
                     'believers': 'Anzahl Gläubige',
                     'baptized': 'Anzahl Getaufte',
@@ -560,7 +565,7 @@ export const ChurchCirclesTemplate = {
                     'inactiveReason': 'Razón para estar inactivo',
                     'initialLeadersName': 'Nombre de lider',
                     'email': 'Email',
-                    'peopleGroup': 'Etnia',
+                    'peopleGroups': 'Etnia',
                     'attenders': '# of participantes',
                     'believers': '# of creyentes',
                     'baptized': '# of bautizados',
@@ -605,7 +610,7 @@ export const ChurchCirclesTemplate = {
                     'leaderName': 'Jméno vedoucího',
                     'email': 'Email',
                     'newGeneration': 'Generace',
-                    'peopleGroup': 'Etnikum',
+                    'peopleGroups': 'Etnikum',
                     'attenders': 'Počet účastníků',
                     'believers': 'Počet věřících',
                     'baptized': 'Počet pokřtěných',
