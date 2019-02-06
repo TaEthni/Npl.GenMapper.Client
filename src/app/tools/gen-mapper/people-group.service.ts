@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable, BehaviorSubject } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BaseUrl } from '@core/entity.service';
+import { EntityType } from '@shared/entity/entity.model';
 import { Dictionary, groupBy } from 'lodash';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
-// tslint:disable-next-line:max-line-length
-const URL = 'https://gis.imb.org/arcgis/rest/services/LIVE/PeopleGroupsOrg/MapServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&gdbVersion=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&f=json';
 let peopleGroupsConfig: PeopleGroupConfig;
+
+export interface PeopleGroupResponse {
+    data: PeopleGroupConfig;
+}
 
 export interface PeopleGroupModel {
     attributes: {
@@ -29,6 +33,7 @@ export interface PeopleGroupConfig {
     providedIn: 'root'
 })
 export class PeopleGroupService {
+    public isLoading = false;
     public config: PeopleGroupConfig;
     public countries: string[];
     public peopleGroups: PeopleGroupModel[];
@@ -40,7 +45,15 @@ export class PeopleGroupService {
     ) { }
 
     public getPeopleGroups(): Observable<PeopleGroupConfig> {
+        if (!this._config.getValue() && !this.isLoading) {
+            this.load().subscribe();
+        }
+
         return this._config.asObservable().pipe(filter(d => !!d));
+    }
+
+    public getByPeid(peid: number): PeopleGroupModel {
+        return this.config.features.find(f => f.attributes.PEID === peid);
     }
 
     public load(): Observable<PeopleGroupConfig> {
@@ -48,9 +61,12 @@ export class PeopleGroupService {
             return of(peopleGroupsConfig);
         }
 
-        return this.http.get<PeopleGroupConfig>(URL).pipe(map(p => {
-            this.config = peopleGroupsConfig = p;
+        this.isLoading = true;
+
+        return this.http.get<PeopleGroupResponse>(BaseUrl + EntityType.PeopleGroups).pipe(map(p => {
+            this.config = peopleGroupsConfig = p.data;
             this.config.byCountry = groupBy(this.config.features, (d) => d.attributes.Ctry);
+            this.isLoading = false;
             this._config.next(this.config);
             return this.config;
         }));

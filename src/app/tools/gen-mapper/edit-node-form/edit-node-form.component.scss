@@ -20,6 +20,18 @@
         }
     }
 
+    .device-desktop & .mat-form-field {
+        .clear-field {
+            opacity: 0;
+        }
+
+        &:hover {
+            .clear-field {
+                opacity: 1;
+            }
+        }
+    }
+
     .mat-slide-toggle::ng-deep {
         width: 100%;
 
@@ -45,14 +57,16 @@
         margin-right: auto;
     }
 
+    .mat-form-field.peid-select::ng-deep,
     .mat-form-field.geo-location::ng-deep {
         cursor: pointer;
         label.mat-form-field-label,
-        input:disabled {
+        input.mat-input-element:disabled {
             cursor: pointer;
             color: mat-color($primary);
         }
 
+        .peid-icon,
         .location-icon {
             color: mat-color($primary);
         }

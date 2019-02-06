@@ -1,32 +1,71 @@
 <div mat-dialog-title>
-    <ng-container *ngIf="!peopleGroups">
-        <div>
-            Country:
-        </div>
+    <ng-container *ngIf="isLoading">
+        Loading {{'peopleGroups' | locale | async}}
     </ng-container>
-    <ng-container *ngIf="peopleGroups">
-        <div>
-            {{peopleGroups[0].attributes.Ctry}}
-        </div>
-        <div>
-            People Groups:
-        </div>
+
+    <ng-container *ngIf="!isLoading">
+        <ng-container *ngIf="!peopleGroups">
+            <div>
+                {{'en_Country' | locale | async}}:
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="peopleGroups">
+            <div>
+                <span class="country-name">{{peopleGroups[0].attributes.Ctry}}</span>
+                {{'peopleGroups' | locale | async}}:
+            </div>
+        </ng-container>
     </ng-container>
 </div>
 
 <div mat-dialog-content
      fxLayout="column">
-    <mat-progress-bar *ngIf="isLoading"
-                      mode="indeterminate"></mat-progress-bar>
-
+    <div fxLayout="row"
+         fxLayoutAlign="center center"
+         *ngIf="isLoading">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
     <ng-container *ngIf="!isLoading">
         <ng-container *ngIf="!peopleGroups">
-            <app-country-picker [countries]="countries"
+            <app-country-picker [country]="country"
+                                [countries]="countries"
                                 (onChange)="onCountrySelected($event)"></app-country-picker>
         </ng-container>
         <ng-container *ngIf="peopleGroups">
-            <app-people-group-picker [peopleGroups]="peopleGroups">
+            <div fxLayout="row">
+                <div class="change-country"
+                     fxLayout="row"
+                     fxLayoutAlign="start center"
+                     (click)="resetCountry()">
+                    <mat-icon>chevron_left</mat-icon>
+                    <div>{{'changeCountry' | locale | async}}</div>
+                </div>
+            </div>
+            <app-people-group-picker [selected]="selectedPeopleGroups"
+                                     [peopleGroups]="peopleGroups"
+                                     (selectionChange)="onPeopleGroupsChange($event)">
             </app-people-group-picker>
         </ng-container>
     </ng-container>
+</div>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center"
+     fxLayoutGap="15px">
+
+    <ng-container *ngIf="country">
+        <button mat-raised-button
+                color="primary"
+                (click)="onSave()">
+            {{'en_Save' | locale | async}}
+        </button>
+    </ng-container>
+
+    <button mat-button
+            color="primary"
+            (click)="onCancel()">
+        {{'en_Cancel' | locale | async}}
+    </button>
 </div>

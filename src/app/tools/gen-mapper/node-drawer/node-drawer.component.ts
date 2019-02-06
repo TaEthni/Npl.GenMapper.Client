@@ -79,11 +79,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
             .subscribe(result => {
                 this.checkClipboard(result);
             });
-
-        this.peopleGroupService.getPeopleGroups()
-            .subscribe(result => {
-                console.log(result);
-            });
     }
 
     public ngOnChanges(): void {

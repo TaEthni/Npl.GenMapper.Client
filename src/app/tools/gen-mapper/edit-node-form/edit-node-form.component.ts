@@ -52,8 +52,10 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
             this.form.get('location').disable();
         }
 
-        if (this.form.get('peopleGroup')) {
-            this.form.get('peopleGroup').disable();
+
+        if (this.form.get('peopleGroups')) {
+            this.form.get('peopleGroups').disable();
+            this.form.get('peopleGroupsNames').disable();
         }
     }
 
@@ -63,7 +65,7 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         }
 
         if (field.type === 'peidSelect') {
-            this.onPeopleGroupClick();
+            this.onPeopleGroupClick(field);
         }
     }
 
@@ -116,14 +118,25 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
             });
     }
 
-    public onPeopleGroupClick(): void {
+    public onPeopleGroupClick(field: GMField): void {
+        const peids = this.form.get(field.header);
+        const names = this.form.get(field.header + 'Names');
+
         this.dialog
             .open(PeopleGroupDialogComponent, {
-                data: {}
+                autoFocus: false,
+                data: {
+                    peids: peids.value
+                }
             })
             .afterClosed()
-            .subscribe(() => {
-
+            .subscribe((result) => {
+                if (result) {
+                    peids.setValue(result.peids);
+                    names.setValue(result.names);
+                    peids.markAsDirty();
+                    names.markAsDirty();
+                }
             });
     }
 }

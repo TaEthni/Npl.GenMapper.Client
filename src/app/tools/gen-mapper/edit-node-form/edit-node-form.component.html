@@ -49,7 +49,7 @@
                             <input type="text"
                                    matInput
                                    autocomplete="off"
-                                   [formControl]="form.get(field.header)" />
+                                   [formControl]="form.get(field.header + 'Names')" />
 
                             <mat-icon matSuffix
                                       class="clear-field"
@@ -57,8 +57,8 @@
                                       *ngIf="form.get(field.header).value">clear</mat-icon>
 
                             <mat-icon matSuffix
-                                      class="location-icon"
-                                      (click)="onClearFieldClick($event, field)">location_on</mat-icon>
+                                      class="peid-icon"
+                                      (click)="onClearFieldClick($event, field)">people</mat-icon>
 
                         </mat-form-field>
                     </ng-container>
