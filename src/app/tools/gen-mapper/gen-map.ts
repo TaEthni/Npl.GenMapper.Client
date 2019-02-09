@@ -422,6 +422,7 @@ export class GenMap {
             const svgElementValue = this.template.svg[svgElement];
             const element = newGroup.append(svgElementValue['type']);
             element.attr('class', 'node-' + svgElement);
+            applySVGAttrsAndStyle(svgElementValue, element);
         });
 
         _appendRemoveButton(newGroup, this.template);
@@ -435,7 +436,7 @@ export class GenMap {
                 g.append('title').text(i18next.t(this.template.format + '.' + field.header));
                 const element = g.append(field.svg['type']);
                 element.attr('class', 'node-' + field.header);
-                applySVGAttrsAndStyle(field, element);
+                applySVGAttrsAndStyle(field.svg, element);
             }
         });
 
@@ -484,11 +485,8 @@ export class GenMap {
         // in order to remove any additional classes or settings from inherited fields
         Object.keys(this.template.svg).forEach((svgElement) => {
             const svgElementValue = this.template.svg[svgElement];
-            const element = nodeWithNew.select('.node-' + svgElement)
-                .attr('class', 'node-' + svgElement);
-            Object.keys(svgElementValue.attributes).forEach((attribute) => {
-                element.attr(attribute, svgElementValue.attributes[attribute]);
-            });
+            const element = nodeWithNew.select('.node-' + svgElement);
+            applySVGAttrsAndStyle(svgElementValue, element);
         });
 
         // update node elements which have SVG in template
@@ -509,7 +507,7 @@ export class GenMap {
     }
 
     private _updateSvgForFields(field: any, element: any): void {
-        applySVGAttrsAndStyle(field, element);
+        applySVGAttrsAndStyle(field.svg, element);
         element.text((d) => {
             // InstallTrigger???
             // add spaces between each character for Firefox
@@ -736,16 +734,16 @@ function findNewIdFromArray(arr: any[]): any {
 }
 
 
-function applySVGAttrsAndStyle(field: GMField, element: any): void {
-    if (field.svg.attributes) {
-        Object.keys(field.svg.attributes).forEach((attribute) => {
-            element.attr(attribute, field.svg.attributes[attribute]);
+function applySVGAttrsAndStyle(svg: { attributes?: {}, style?: {} }, element: any): void {
+    if (svg.attributes) {
+        Object.keys(svg.attributes).forEach((attribute) => {
+            element.attr(attribute, svg.attributes[attribute]);
         });
     }
 
-    if (field.svg.style) {
-        Object.keys(field.svg.style).forEach((styleKey) => {
-            element.style(styleKey, field.svg.style[styleKey]);
+    if (svg.style) {
+        Object.keys(svg.style).forEach((styleKey) => {
+            element.style(styleKey, svg.style[styleKey]);
         });
     }
 }

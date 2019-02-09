@@ -59,7 +59,7 @@ export const ChurchCirclesTemplate = {
                 'y': -2.8 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'assets/church-circles/icons/attenders.png'
+                'xlink:href': 'assets/church-circles/icons/attenders.png'
             }
         },
         'believers-image': {
@@ -69,7 +69,7 @@ export const ChurchCirclesTemplate = {
                 'y': -2.8 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'assets/church-circles/icons/believers.png'
+                'xlink:href': 'assets/church-circles/icons/believers.png'
             }
         },
         'baptized-image': {
@@ -79,7 +79,7 @@ export const ChurchCirclesTemplate = {
                 'y': -2.8 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'assets/church-circles/icons/element-baptism.png'
+                'xlink:href': 'assets/church-circles/icons/element-baptism.png'
             }
         },
         'church-box': {

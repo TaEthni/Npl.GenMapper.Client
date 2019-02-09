@@ -75,8 +75,13 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         }
 
         if (this.graph) {
+            // Only recenter graph if there is a new document.
             const recenterGraph = this.document.id !== this._documentId;
+
+            // Set updating property to prevent onChange from firing.
             this._updating = true;
+
+            // update graph
             this.graph.update(this.document.nodes, recenterGraph);
         }
 

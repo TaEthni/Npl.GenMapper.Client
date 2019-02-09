@@ -163,7 +163,7 @@ export const ChurchCirclesCzechTemplate = {
                 'y': -2.5 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'assets/church-circles-czech/icons/attenders.png'
+                'xlink:href': 'assets/church-circles-czech/icons/attenders.png'
             }
         },
         'believers-image': {
@@ -173,7 +173,7 @@ export const ChurchCirclesCzechTemplate = {
                 'y': -2.5 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'assets/church-circles-czech/icons/believers.png'
+                'xlink:href': 'assets/church-circles-czech/icons/believers.png'
             }
         },
         'baptized-image': {
@@ -183,7 +183,7 @@ export const ChurchCirclesCzechTemplate = {
                 'y': -2.5 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'assets/church-circles-czech/icons/baptism.png'
+                'xlink:href': 'assets/church-circles-czech/icons/baptism.png'
             }
         },
         'new-baptized-image': {
@@ -193,7 +193,7 @@ export const ChurchCirclesCzechTemplate = {
                 'y': -2.5 * textHeight,
                 'width': boxHeight / 4,
                 'height': boxHeight / 4,
-                'href': 'assets/church-circles-czech/icons/new-baptism.png'
+                'xlink:href': 'assets/church-circles-czech/icons/new-baptism.png'
             }
         },
         'church-box': {
