@@ -35,6 +35,19 @@
         backface-visibility: hidden;
     }
 
+    app-map-report-legend {
+        position: absolute;
+        top: 56px;
+        left: 0;
+        margin: 16px;
+        z-index: 2;
+        backface-visibility: hidden;
+    }
+
+    &.is-authenticated app-map-report-legend {
+        top: 120px;
+    }
+
     app-gen-mapper-view-tabs {
         position: absolute;
         top: 0;
@@ -50,7 +63,7 @@
         }
     }
 
-     .empty-state {
+    .empty-state {
 
         h1 {
             text-align: center;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
@@ -27,11 +27,13 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     @ViewChild(GenMapperViewTabsComponent)
     public tabs: GenMapperViewTabsComponent;
 
+    @HostBinding('class.is-authenticated')
+    public isAuthenticated: boolean;
+
     public template: GMTemplate;
     public node: GNode;
     public document: DocumentDto;
     public documents: DocumentDto[];
-    public isAuthenticated: boolean;
     public showMapView: boolean;
 
     constructor(
@@ -79,7 +81,6 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         this.document.nodes = nodes;
         this.genMapper.updateDocument(this.document)
             .subscribe(result => {
-                console.log('updated');
                 this.document = cloneDeep(this.document);
                 // Changing the document reference triggers a change.
                 this.genMapper.setDocument(this.document);

@@ -46,9 +46,9 @@ export const ChurchCirclesTemplate = {
             'type': 'rect',
             'attributes': {
                 'x': -boxHeight / 2,
-                'y': 0,
+                'y': -40,
                 'width': boxHeight,
-                'height': boxHeight,
+                'height': boxHeight + 40,
                 'opacity': '0'
             }
         },
@@ -93,6 +93,32 @@ export const ChurchCirclesTemplate = {
             }
         }
     },
+    'reports': [
+        {
+            name: 'active',
+            type: 'boolean'
+        },
+        {
+            name: 'attenders',
+            type: 'number'
+        },
+        {
+            name: 'believers',
+            type: 'number'
+        },
+        {
+            name: 'baptized',
+            type: 'number'
+        },
+        {
+            name: 'newlyBaptized',
+            type: 'number'
+        },
+        {
+            name: 'church',
+            type: 'boolean'
+        }
+    ],
     'fields': [
         {
             'header': 'id',

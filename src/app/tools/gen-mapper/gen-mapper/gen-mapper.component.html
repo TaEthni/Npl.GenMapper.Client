@@ -28,13 +28,16 @@
         <app-map-menu-button [document]="document"
                              [template]="template"
                              (print)="onPrint($event)"></app-map-menu-button>
+        <app-map-report-legend [template]="template"
+                               [document]="document"></app-map-report-legend>
     </ng-container>
 
     <ng-container *ngIf="showMapView">
         <app-gen-mapper-view-tabs></app-gen-mapper-view-tabs>
     </ng-container>
 
-    <ng-container *ngIf="showMapView && tabs?.activeTab?.view === 'googleMap'; then googleMap else genMapGraph"></ng-container>
+    <ng-container *ngIf="showMapView && tabs?.activeTab?.view === 'googleMap'; then googleMap else genMapGraph">
+    </ng-container>
 
     <ng-template #googleMap>
         <app-gen-mapper-map [document]="document"
@@ -44,9 +47,9 @@
 
     <ng-template #genMapGraph>
         <app-gen-mapper-graph class="{{template.name}}"
-                              (change)="onGraphChange($event)"
                               [document]="document"
                               [template]="template"
+                              (change)="onGraphChange($event)"
                               (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
     </ng-template>
 

@@ -45,6 +45,14 @@ export interface GMField {
     values?: any;
 }
 
+export interface GMReport {
+    name: string;
+    type: 'boolean' | 'number';
+
+    // Mapped on client
+    value: number;
+}
+
 export interface GMTemplate {
     name: string;
     title: string;
@@ -53,6 +61,7 @@ export interface GMTemplate {
     translations: any;
     settings: any;
     svg: any;
+    reports: GMReport[];
     fields: GMField[];
 }
 

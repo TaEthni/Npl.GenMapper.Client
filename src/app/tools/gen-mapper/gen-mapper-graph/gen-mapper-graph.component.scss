@@ -6,6 +6,10 @@
     position: relative;
     flex: 1;
 
+    svg {
+        user-select: none;
+    }
+
     #content {
         display: flex;
         flex: 1;
@@ -314,7 +318,7 @@
     }
 
     .node--inactive image {
-        opacity: 0.4;
+        opacity: 0.4 !important;
     }
 
     .node--inactive > rect, .node--inactive > line {

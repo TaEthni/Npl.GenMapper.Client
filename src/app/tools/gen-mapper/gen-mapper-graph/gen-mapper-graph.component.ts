@@ -29,10 +29,6 @@ import { NodeClipboardService } from '../node-clipboard.service';
     styleUrls: ['./gen-mapper-graph.component.scss']
 })
 export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
-
-    public graph: GenMap;
-    private _updating: boolean;
-
     @Input()
     public document: DocumentDto;
 
@@ -47,6 +43,10 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
 
     @ViewChild('genMapperGraphSvg')
     public graphSvg: ElementRef;
+
+    public graph: GenMap;
+    private _updating: boolean;
+    private _documentId: string;
 
     constructor(
         private locale: LocaleService,
@@ -75,9 +75,19 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         }
 
         if (this.graph) {
+            const recenterGraph = this.document.id !== this._documentId;
             this._updating = true;
-            this.graph.update(this.document.nodes);
+            this.graph.update(this.document.nodes, recenterGraph);
         }
+
+        // Only set the document ID if it is a saved document.
+        // The documentId is used to determine when to recenter the graph on a change.
+        if (this.document && this.document.id !== 'local') {
+            this._documentId = this.document.id;
+        } else {
+            this._documentId = null;
+        }
+
     }
 
     public copyNode(node: GNode): void {

@@ -52,11 +52,14 @@ export class GenMap {
         this._createMap();
     }
 
-    public update(content: GNode[]): void {
+    public update(content: GNode[], originalPosition: boolean = true): void {
         this.data = content;
         this.nodes = null;
 
-        this.originalPosition();
+        if (originalPosition) {
+            this.originalPosition();
+        }
+
         this.redraw();
     }
 
