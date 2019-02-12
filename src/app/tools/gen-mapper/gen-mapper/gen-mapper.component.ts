@@ -108,7 +108,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             Object.assign(nodeToUpdate, node);
 
             if (this.genMapperGraph) {
-                this.genMapperGraph.graph.redrawData(this.document.nodes);
+                this.genMapperGraph.graph.update(this.document.nodes, false);
             } else {
                 this.onGraphChange(this.document.nodes);
             }

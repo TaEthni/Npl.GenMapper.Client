@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { Entity } from '@shared/entity/entity.model';
+import { groupBy } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delayWhen, tap } from 'rxjs/operators';
 
@@ -44,6 +45,7 @@ export class GenMapperService {
     }
 
     public setDocument(document: DocumentDto): void {
+        this.updateDocumentNodes(document);
         this._document.next(document);
     }
 
@@ -168,5 +170,35 @@ export class GenMapperService {
     public hasLocalDocument(): boolean {
         const config = this._config.getValue();
         return !!localStorage.getItem(storageKey + config.template.name);
+    }
+
+    public updateDocumentNodes(doc: DocumentDto): void {
+        const byId = groupBy(doc.nodes, (n) => n.id);
+
+        doc.nodes.forEach(node => {
+            if (node.newGeneration) {
+                node.gen = getParentGenCount(node);
+            }
+        });
+
+        function getParentGenCount(node: GNode): number {
+            let depth = 1;
+            let parent: GNode;
+
+            if (!node.parentId) {
+                return depth;
+            }
+
+            parent = byId[node.parentId][0];
+
+            while (parent) {
+                if (parent.newGeneration) {
+                    depth++;
+                }
+                parent = byId[parent.parentId] && byId[parent.parentId][0];
+            }
+
+            return depth;
+        }
     }
 }

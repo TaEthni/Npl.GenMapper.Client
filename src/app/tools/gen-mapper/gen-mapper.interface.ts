@@ -6,6 +6,7 @@ export interface GNode {
 
     active: boolean;
     inactiveReason: string;
+    newGeneration?: boolean;
 
     // Optional Properties
     location?: string;
@@ -14,6 +15,9 @@ export interface GNode {
     placeId?: string;
     leaderName?: string;
     leadersName?: string;
+
+    // Mapped on client
+    gen: number;
 
     // Only set on node click from d3 node.descendants();
     descendants?: GNode[];

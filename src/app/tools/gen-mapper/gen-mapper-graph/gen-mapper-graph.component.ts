@@ -71,6 +71,10 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
 
     public ngOnChanges(simpleChanges: SimpleChanges): void {
         if (simpleChanges.document.firstChange) {
+            if (this.document) {
+                this._documentId = this.document.id;
+            }
+
             return;
         }
 
@@ -92,7 +96,6 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         } else {
             this._documentId = null;
         }
-
     }
 
     public copyNode(node: GNode): void {

@@ -15,8 +15,8 @@ export class DocumentDto extends Entity {
 
     // Mapped on client
     public entityType = EntityType.Documents;
-    public nodes: GNode[];
     public parsedElements: GMElement[];
+    public nodes: GNode[];
 
     constructor(props: object = {}) {
         super();

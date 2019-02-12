@@ -30,5 +30,11 @@
                 <td class="report-value">{{report.value}}</td>
             </tr>
         </ng-container>
+        <ng-container *ngFor="let report of generations">
+            <tr>
+                <td>{{report.name}}</td>
+                <td class="report-value">{{report.value}}</td>
+            </tr>
+        </ng-container>
     </table>
 </ng-template>
