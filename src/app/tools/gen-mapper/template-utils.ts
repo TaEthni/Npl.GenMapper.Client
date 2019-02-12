@@ -1,7 +1,7 @@
 import { csvFormatRows, csvParse } from 'd3';
 import i18next from 'i18next';
 
-import { GMField, GMTemplate, GNode } from './gen-mapper.interface';
+import { GMElement, GMField, GMTemplate, GNode } from './gen-mapper.interface';
 import { ChurchCirclesTemplate } from './templates/church-circles';
 import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
 import { DisciplesTemplate } from './templates/disciples';
@@ -134,6 +134,15 @@ export namespace TemplateUtils {
 
             return parsedLine as GNode;
         });
+    }
+
+    export function parseElements(elementsData: string, templateName: string): GMElement[] {
+        if (!elementsData) {
+            return [];
+        }
+
+        const elements = JSON.parse(elementsData);
+        return elements;
     }
 }
 

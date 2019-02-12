@@ -1,13 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-export enum GenMapperViews {
-    GenMap = 'genMap',
-    GoogleMap = 'googleMap'
-}
-
-export interface Tab {
-    view: GenMapperViews;
-}
+import { GenMapperView } from '../gen-mapper/gen-mapper.component';
 
 @Component({
     selector: 'app-gen-mapper-view-tabs',
@@ -15,18 +8,22 @@ export interface Tab {
     styleUrls: ['./gen-mapper-view-tabs.component.scss']
 })
 export class GenMapperViewTabsComponent {
-    public viewTypes = GenMapperViews;
-    public tabs: Tab[] = [
-        {
-            view: GenMapperViews.GenMap
-        }, {
-            view: GenMapperViews.GoogleMap
-        }
-    ];
+    @Input()
+    public view: GenMapperView;
 
-    public activeTab: Tab = this.tabs[0];
+    @Output()
+    public mapIconClick = new EventEmitter<void>();
 
-    public selectTab(view: GenMapperViews): void {
-        this.activeTab = this.tabs.find(t => t.view === view);
+    @Output()
+    public backIconClick = new EventEmitter<void>();
+
+    public viewTypes = GenMapperView;
+
+    public onMapIconClick(): void {
+        this.mapIconClick.emit();
+    }
+
+    public onBackIconClick(): void {
+        this.backIconClick.emit();
     }
 }

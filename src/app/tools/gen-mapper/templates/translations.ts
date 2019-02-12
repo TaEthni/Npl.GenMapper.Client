@@ -68,7 +68,8 @@ export const translations: any = {
                 'printing': 'Printing',
                 'btnPrintVertical': 'Print Vertical Multipage',
                 'btnPrintHorizontal': 'Print Horizontal One-page',
-                'btnDelete': 'Delete'
+                'btnDelete': 'Delete',
+                'btnSettings': 'Settings'
             },
             'editGroup': {
                 'editGroup': 'Edit group',

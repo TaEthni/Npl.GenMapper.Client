@@ -1,16 +1,16 @@
-<ng-container *ngIf="activeTab.view === viewTypes.GoogleMap; then goToGenMap else goToGoogleMap"></ng-container>
+<ng-container *ngIf="view === viewTypes.WorldMap; then backIcon else worldMapIcon"></ng-container>
 
-<ng-template #goToGoogleMap>
+<ng-template #worldMapIcon>
     <button mat-icon-button
             color="default"
-            (click)="selectTab(viewTypes.GoogleMap)">
+            (click)="onMapIconClick()">
         <mat-icon>place</mat-icon>
     </button>
 </ng-template>
-<ng-template #goToGenMap>
+<ng-template #backIcon>
     <button mat-mini-fab
             color="default"
-            (click)="selectTab(viewTypes.GenMap)">
+            (click)="onBackIconClick()">
         <mat-icon>arrow_back</mat-icon>
     </button>
 </ng-template>

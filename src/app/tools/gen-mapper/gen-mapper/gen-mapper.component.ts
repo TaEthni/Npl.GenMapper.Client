@@ -10,10 +10,15 @@ import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
-import { GenMapperViewTabsComponent } from '../gen-mapper-view-tabs/gen-mapper-view-tabs.component';
 import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
+
+export enum GenMapperView {
+    GenMap = 'GenMap',
+    Settings = 'Settings',
+    WorldMap = 'WorldMap',
+}
 
 @Component({
     selector: 'app-gen-mapper',
@@ -24,9 +29,6 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     @ViewChild(GenMapperGraphComponent)
     public genMapperGraph: GenMapperGraphComponent;
 
-    @ViewChild(GenMapperViewTabsComponent)
-    public tabs: GenMapperViewTabsComponent;
-
     @HostBinding('class.is-authenticated')
     public isAuthenticated: boolean;
 
@@ -35,6 +37,8 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public document: DocumentDto;
     public documents: DocumentDto[];
     public showMapView: boolean;
+    public viewTypes = GenMapperView;
+    public view = GenMapperView.GenMap;
 
     constructor(
         private authService: AuthenticationService,
@@ -75,6 +79,12 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .subscribe(result => {
                 this.documents = result.documents;
             });
+    }
+
+    public setView(view: GenMapperView): void {
+        if (this.document) {
+            this.view = view;
+        }
     }
 
     public onGraphChange(nodes: GNode[]): void {

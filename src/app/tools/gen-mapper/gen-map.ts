@@ -289,7 +289,7 @@ export class GenMap {
 
     private _createMap(): void {
         this.zoom = d3.zoom()
-            .scaleExtent([0.15, 2])
+            .scaleExtent([0.05, 2])
             .on('zoom', () => {
                 d3.select('g').attr('transform', d3.event.transform);
             });

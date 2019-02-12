@@ -24,6 +24,7 @@ export class DocumentService {
                     .filter(doc => doc.type === type)
                     .map(doc => {
                         doc.nodes = TemplateUtils.parseCsvData(doc.content, type);
+                        // doc.parsedElements = TemplateUtils.parseElements(doc.elements, type);
                         return doc;
                     });
             }));
@@ -43,6 +44,7 @@ export class DocumentService {
         const data = cloneDeep(doc);
         data.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type);
         delete data.nodes;
+        delete data.elements;
         delete data.createdAt;
         delete data.updatedAt;
         return this.entityService.update(data);

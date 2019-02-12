@@ -63,6 +63,16 @@
         }
     }
 
+    @media print {
+        app-gen-mapper-view-tabs {
+            display: none;
+        }
+
+        app-map-menu-button {
+            display: none;
+        }
+    }
+
     .empty-state {
 
         h1 {

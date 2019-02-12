@@ -22,11 +22,13 @@ import { GenMapperViewTabsComponent } from './gen-mapper-view-tabs/gen-mapper-vi
 import { GenMapperResolver } from './gen-mapper.resolver';
 import { GenMapperService } from './gen-mapper.service';
 import { GenMapperComponent } from './gen-mapper/gen-mapper.component';
+import { GmElementsComponent } from './gm-elements/gm-elements.component';
 import { MapMenuButtonComponent } from './map-menu-button/map-menu-button.component';
 import { MapNameControlComponent } from './map-name-control/map-name-control.component';
+import { MapReportLegendComponent } from './map-report-legend/map-report-legend.component';
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
-import { MapReportLegendComponent } from './map-report-legend/map-report-legend.component';
+import { GmSettingsComponent } from './gm-settings/gm-settings.component';
 
 @NgModule({
     imports: [
@@ -58,6 +60,8 @@ import { MapReportLegendComponent } from './map-report-legend/map-report-legend.
         GenMapperMapComponent,
         GenMapperViewTabsComponent,
         MapReportLegendComponent,
+        GmElementsComponent,
+        GmSettingsComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -72,7 +76,9 @@ import { MapReportLegendComponent } from './map-report-legend/map-report-legend.
         PeopleGroupPickerComponent,
         GenMapperMapComponent,
         GenMapperViewTabsComponent,
-        MapReportLegendComponent
+        MapReportLegendComponent,
+        GmElementsComponent,
+        GmSettingsComponent,
     ],
     entryComponents: [
         ConfirmDialogComponent,

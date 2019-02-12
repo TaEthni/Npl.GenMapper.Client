@@ -33,6 +33,22 @@ export interface GMSvgSet {
     [key: string]: GMSvg;
 }
 
+
+export interface GMElement {
+    templateElement: string; // reference to the associated templateElement Name
+    isVisible: boolean;
+    value: string;
+}
+
+export interface GMTemplateElement {
+    name: string; // Primary Identifier
+    canHide: boolean; // Whether the user can hide the element
+
+    // Mapped on client
+    value: any;
+    isVisible: boolean;
+}
+
 export interface GMField {
     header: string;
     initial: number;
@@ -43,6 +59,8 @@ export interface GMField {
     inheritsFrom?: string;
     class?: any;
     values?: any;
+    canModifyLabel: boolean;
+    canModifyVisibility: boolean;
 }
 
 export interface GMReport {
@@ -69,7 +87,6 @@ export interface GMGraphConfig {
     parentElement?: HTMLElement;
     outerHeaderHeight?: number;
 }
-
 
 export enum PrintType {
     horizontal = 'horizontal',
