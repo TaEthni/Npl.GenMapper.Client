@@ -1,0 +1,27 @@
+<div class="header"
+     fxLayout="row"
+     fxLayoutAlign="end">
+    <mat-slide-toggle [checked]="includeInactive"
+                      (toggleChange)="toggleIncludeInactive()">
+        Include inactive groups
+    </mat-slide-toggle>
+</div>
+
+<div fxLayout="row wrap"
+     class="graphs">
+    <ng-container *ngFor="let report of reports">
+        <ng-container *ngIf="report.type === 'radio'">
+            <app-gm-pie-chart [label]="template.format + '.'+ report.name | locale | async"
+                              [data]="report.values"></app-gm-pie-chart>
+        </ng-container>
+        <ng-container *ngIf="report.type === 'multiSelect'">
+            <!-- <app-gm-pie-grid [label]="template.format + '.'+ report.name | locale | async"
+                             [designatedTotal]="includeInactive ? nodeCount : activeNodeCount"
+                             [data]="report.values"></app-gm-pie-grid> -->
+        </ng-container>
+        <ng-container *ngIf="report.type === 'multiField'">
+            <!-- <app-gm-bar-chart [label]="template.format + '.'+ report.name | locale | async"
+                              [data]="report.values"></app-gm-bar-chart> -->
+        </ng-container>
+    </ng-container>
+</div>

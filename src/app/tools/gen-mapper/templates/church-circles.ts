@@ -119,6 +119,36 @@ export const ChurchCirclesTemplate = {
             type: 'boolean'
         }
     ],
+    'templateReports': [
+        {
+            name: 'churchFunctions',
+            fields: [
+                'elementBaptism',
+                'elementWord',
+                'elementPrayer',
+                'elementLordsSupper',
+                'elementGive',
+                'elementLove',
+                'elementWorship',
+                'elementLeaders',
+                'elementMakeDisciples',
+            ],
+            graph: 'pieGrid',
+            order: 1,
+        },
+        {
+            name: 'churchType',
+            field: 'churchType',
+            graph: 'pieChart',
+            order: 2
+        },
+        {
+            name: 'threeThirds',
+            field: 'threeThirds',
+            graph: 'pieGrid',
+            order: 3
+        }
+    ],
     'fields': [
         {
             'header': 'id',
@@ -555,6 +585,7 @@ export const ChurchCirclesTemplate = {
                     'newlyBaptized': '# of New Baptized (since church start)',
                     'church': 'Is church?',
                     'churchType': 'Church Type',
+                    'churchFunctions': 'Church Functions',
                     'legacy': 'Legacy',
                     'existingBelievers': 'Existing Believers',
                     'newBelievers': 'New Believers',
@@ -570,7 +601,7 @@ export const ChurchCirclesTemplate = {
                     'place': 'Place (City, State, Country)',
                     'location': 'Geo Location',
                     'date': 'Date of Start (Ex. 2017-01)',
-                    'threeThirds': 'Elements of 3/3 process (see help for details)',
+                    'threeThirds': 'Elements of 3/3 process',
                     'active': 'Active',
                     'inactiveReason': 'Reason for being inactive',
                     'initialLeadersName': 'Leader\'s Name',

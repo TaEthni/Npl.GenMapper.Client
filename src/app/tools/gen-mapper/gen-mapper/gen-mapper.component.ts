@@ -17,6 +17,7 @@ import { NodeClipboardService } from '../node-clipboard.service';
 export enum GenMapperView {
     GenMap = 'GenMap',
     Settings = 'Settings',
+    Reports = 'Reports',
     WorldMap = 'WorldMap',
 }
 
@@ -37,6 +38,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public document: DocumentDto;
     public documents: DocumentDto[];
     public showMapView: boolean;
+    public showReportsView: boolean;
     public viewTypes = GenMapperView;
     public view = GenMapperView.GenMap;
 
@@ -54,6 +56,10 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         const data = snapshot.parent.data;
         this.template = data.template;
         this.isAuthenticated = this.authService.isAuthenticated();
+
+        if (this.template.reports) {
+            this.showReportsView = true;
+        }
 
         this.route.data
             .pipe(takeUntil(this.unsubscribe))

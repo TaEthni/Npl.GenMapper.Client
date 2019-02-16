@@ -1,0 +1,15 @@
+:host {
+    display: block;
+    padding: 100px 24px 24px 24px;
+
+    .header {
+        margin-bottom: 24px;
+    }
+
+    .graphs {
+        > * {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}

@@ -45,7 +45,10 @@ export class GenMapperService {
     }
 
     public setDocument(document: DocumentDto): void {
-        this.updateDocumentNodes(document);
+        if (document) {
+            this.updateDocumentNodes(document);
+        }
+
         this._document.next(document);
     }
 

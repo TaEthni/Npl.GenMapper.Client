@@ -1,0 +1,14 @@
+<div class="chart-label">
+    {{label}}
+</div>
+<ngx-charts-bar-horizontal [view]="[800, 400]"
+                           [scheme]="{domain: colors}"
+                           [results]="data"
+                           [gradient]="false"
+                           [xAxis]="true"
+                           [yAxis]="true"
+                           [legend]="fals"
+                           [showXAxisLabel]="true"
+                           [showYAxisLabel]="true"
+                           (select)="onSelect($event)">
+</ngx-charts-bar-horizontal>

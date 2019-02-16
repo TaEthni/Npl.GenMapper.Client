@@ -32,6 +32,7 @@ export const translations: any = {
             'en_Undo': 'Undo',
             'en_Yes': 'Yes',
             'en_No': 'No',
+            'en_Total': 'Total',
             'changeCountry': 'Change Country',
             'childNodeAdded': 'Child Node added',
             'copiedNodeToClipboard': 'Copied to clipboard!',

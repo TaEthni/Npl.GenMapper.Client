@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { GenMapperView } from '../gen-mapper/gen-mapper.component';
+import { GenMapperView } from '../../gen-mapper/gen-mapper.component';
 
 @Component({
-    selector: 'app-gen-mapper-view-tabs',
-    templateUrl: './gen-mapper-view-tabs.component.html',
-    styleUrls: ['./gen-mapper-view-tabs.component.scss']
+    selector: 'app-gm-world-map-toggle',
+    templateUrl: './gm-world-map-toggle.component.html',
+    styleUrls: ['./gm-world-map-toggle.component.scss']
 })
-export class GenMapperViewTabsComponent {
+export class GmWorldMapToggleComponent {
+
     @Input()
     public view: GenMapperView;
 

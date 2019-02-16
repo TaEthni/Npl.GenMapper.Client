@@ -1,5 +1,6 @@
 <mat-drawer-container (backdropClick)="nodeDrawer.onBackdropClick()"
-                      [class.show-map-view]="showMapView">
+                      [class.show-map-view]="showMapView"
+                      [class.show-reports-view]="showReportsView">
     <mat-drawer position="end"
                 fxLayout="column"
                 class="node-drawer"
@@ -30,16 +31,23 @@
                              (print)="onPrint($event)"
                              (settingsButtonClick)="setView(viewTypes.Settings)"></app-map-menu-button>
 
-        <ng-container *ngIf="view === viewTypes.GenMap">
+        <ng-container *ngIf="view === viewTypes.GenMap && showReportsView">
             <app-map-report-legend [template]="template"
                                    [document]="document"></app-map-report-legend>
         </ng-container>
     </ng-container>
 
     <ng-container *ngIf="showMapView">
-        <app-gen-mapper-view-tabs [view]="view"
-                                  (mapIconClick)="setView(viewTypes.WorldMap)"
-                                  (backIconClick)="setView(viewTypes.GenMap)"></app-gen-mapper-view-tabs>
+        <app-gm-world-map-toggle [view]="view"
+                                 (mapIconClick)="setView(viewTypes.WorldMap)"
+                                 (backIconClick)="setView(viewTypes.GenMap)"></app-gm-world-map-toggle>
+    </ng-container>
+
+    <ng-container *ngIf="showReportsView">
+        <app-gm-reports-toggle [view]="view"
+                               (reportsIconClick)="setView(viewTypes.Reports)"
+                               (backIconClick)="setView(viewTypes.GenMap)">
+        </app-gm-reports-toggle>
     </ng-container>
 
     <ng-container [ngSwitch]="view">
@@ -47,6 +55,11 @@
             <!-- <app-gm-settings [document]="document"
                              [template]="template">
             </app-gm-settings> -->
+        </ng-container>
+        <ng-container *ngSwitchCase="viewTypes.Reports">
+            <app-gm-reports [document]="document"
+                            [template]="template">
+            </app-gm-reports>
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.WorldMap">
             <app-gen-mapper-map [document]="document"

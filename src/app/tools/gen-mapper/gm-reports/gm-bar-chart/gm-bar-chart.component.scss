@@ -1,0 +1,13 @@
+:host::ng-deep {
+    display: block;
+    padding: 10px;
+    background-color: #eeeeee;
+
+    .chart-label {
+        font-weight: 600;
+    }
+
+    .ngx-charts {
+        float: none;
+    }
+}

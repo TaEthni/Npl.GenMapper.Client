@@ -1,4 +1,3 @@
-
 export interface GNode {
     id: string;
     name: string;
@@ -69,10 +68,31 @@ export interface GMField {
 
 export interface GMReport {
     name: string;
-    type: 'boolean' | 'number';
+    label?: string;
+    type: 'boolean' | 'number' | 'radio' | 'multiSelect' | 'multiField';
 
     // Mapped on client
-    value: number;
+    value?: number;
+    values?: GMReportValue[];
+    order?: number;
+}
+
+export interface GMTemplateReport {
+    name: string;
+    fields?: string[];
+    field?: string;
+    order: number;
+    graph: 'pieChart' | 'pieGrid';
+}
+
+export interface GMReportValue {
+    // used for graph
+    name: string;
+    value?: number;
+
+    // used for mapping
+    key: string;
+    option?: string;
 }
 
 export interface GMTemplate {
@@ -85,6 +105,7 @@ export interface GMTemplate {
     svg: any;
     reports: GMReport[];
     fields: GMField[];
+    templateReports: GMTemplateReport[];
 }
 
 export interface GMGraphConfig {

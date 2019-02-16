@@ -1,0 +1,16 @@
+<ng-container *ngIf="view === viewTypes.Reports; then backIcon else reportsIcon"></ng-container>
+
+<ng-template #reportsIcon>
+    <button mat-icon-button
+            color="default"
+            (click)="onMapIconClick()">
+        <mat-icon>pie_chart</mat-icon>
+    </button>
+</ng-template>
+<ng-template #backIcon>
+    <button mat-mini-fab
+            color="default"
+            (click)="onBackIconClick()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</ng-template>
