@@ -164,7 +164,7 @@ export const ChurchCirclesTemplate = {
             propertyName: 'email',
             type: 'text',
             order: 6,
-            isLabel: true,
+            isLabel: false,
             isVisible: true,
         },
         {
