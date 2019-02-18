@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { GMTemplate, GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { GenMapperView } from '../gen-mapper-view.enum';
 
 @Component({
     selector: 'app-gen-mapper-container',
@@ -20,6 +21,8 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
     public template: GMTemplate;
     public isAuthenticated: boolean;
     public node: GNode;
+    public view: GenMapperView;
+    public viewType = GenMapperView;
 
     constructor(
         private genMapper: GenMapperService,

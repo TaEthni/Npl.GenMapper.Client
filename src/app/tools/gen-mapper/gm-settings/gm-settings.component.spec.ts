@@ -1,20 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GenMapperViewTabsComponent } from './gen-mapper-view-tabs.component';
+import { GmSettingsComponent } from './gm-settings.component';
 import { configureTestSuite } from 'ng-bullet';
 
-describe.skip('GenMapperViewTabsComponent', () => {
-    let component: GenMapperViewTabsComponent;
-    let fixture: ComponentFixture<GenMapperViewTabsComponent>;
+describe.skip('GmSettingsComponent', () => {
+    let component: GmSettingsComponent;
+    let fixture: ComponentFixture<GmSettingsComponent>;
 
     configureTestSuite(() => {
+
         TestBed.configureTestingModule({
-            declarations: [GenMapperViewTabsComponent]
+            declarations: [GmSettingsComponent]
         });
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(GenMapperViewTabsComponent);
+        fixture = TestBed.createComponent(GmSettingsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

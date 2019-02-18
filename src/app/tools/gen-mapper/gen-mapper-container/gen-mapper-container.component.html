@@ -16,7 +16,7 @@
 
     <mat-drawer-content>
         <app-sidenav-toggle></app-sidenav-toggle>
-        <ng-container *ngIf="isAuthenticated">
+        <ng-container *ngIf="isAuthenticated && view !== viewType.Reports && view !== viewType.WorldMap">
             <button mat-mini-fab
                     [disableRipple]="true"
                     class="map-sidenav-toggle"

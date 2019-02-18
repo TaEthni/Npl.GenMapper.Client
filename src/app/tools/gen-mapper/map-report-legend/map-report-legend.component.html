@@ -24,9 +24,19 @@
 
 <ng-template #report>
     <table class="gen-mapper-report-table">
+        <tr>
+            <td>{{'en_Total' | locale | async}}</td>
+            <td class="report-value">{{document?.nodes?.length}}</td>
+        </tr>
         <ng-container *ngFor="let report of reports">
             <tr>
                 <td>{{template.format + '.' + report.name | locale | async}}</td>
+                <td class="report-value">{{report.value}}</td>
+            </tr>
+        </ng-container>
+        <ng-container *ngFor="let report of generations">
+            <tr>
+                <td>{{report.name}}</td>
                 <td class="report-value">{{report.value}}</td>
             </tr>
         </ng-container>

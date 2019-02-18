@@ -98,12 +98,14 @@ export const DisciplesTemplate = {
         {
             'header': 'parentId',
             'initial': null,
-            'type': null
+            'type': null,
+            'canModify': false
         },
         {
             'header': 'name',
             'initialTranslationCode': 'name',
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -116,6 +118,7 @@ export const DisciplesTemplate = {
             'header': 'date',
             'initial': null,
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -128,6 +131,7 @@ export const DisciplesTemplate = {
             'header': 'believer',
             'initial': true,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -143,6 +147,7 @@ export const DisciplesTemplate = {
             'header': 'baptized',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -158,6 +163,7 @@ export const DisciplesTemplate = {
             'header': 'word',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -173,6 +179,7 @@ export const DisciplesTemplate = {
             'header': 'prayer',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -188,6 +195,7 @@ export const DisciplesTemplate = {
             'header': 'shares',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -203,6 +211,7 @@ export const DisciplesTemplate = {
             'header': 'accountable',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -218,6 +227,7 @@ export const DisciplesTemplate = {
             'header': 'discipleship',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -233,6 +243,7 @@ export const DisciplesTemplate = {
             'header': 'inChurch',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -248,6 +259,7 @@ export const DisciplesTemplate = {
             'header': 'discipleType',
             'initial': 'individual',
             'type': 'radio',
+            'canModify': true,
             'inheritsFrom': 'box',
             'values': [
                 {
@@ -277,6 +289,7 @@ export const DisciplesTemplate = {
             'header': 'timothy',
             'initial': false,
             'type': 'checkbox',
+            'canModify': true,
             'svg': {
                 'type': 'image',
                 'attributes': {
@@ -291,7 +304,8 @@ export const DisciplesTemplate = {
         {
             'header': 'active',
             'initial': true,
-            'type': 'checkbox'
+            'type': 'checkbox',
+            'canModify': true,
             // svg defined currently in genmapper.js
         }
     ]
