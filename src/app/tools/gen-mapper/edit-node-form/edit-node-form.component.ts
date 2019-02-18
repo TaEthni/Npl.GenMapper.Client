@@ -12,7 +12,8 @@ import {
     LocationDialogResponse,
 } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
-import { GMField, GNode } from '../gen-mapper.interface';
+import { GMField, GNode, GMStreamAttribute } from '../gen-mapper.interface';
+import { Dictionary, keyBy } from 'lodash';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -32,12 +33,19 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     @Input()
     public fields: GMField[];
 
+    @Input()
+    public attributes: GMStreamAttribute[];
+
+    public fieldByProperty: Dictionary<GMField>;
+
     constructor(
         private dialog: MatDialog,
         private mapService: MapsService
     ) { super(); }
 
     public ngOnInit(): void {
+        this.fieldByProperty = keyBy(this.fields, f => f.header);
+
         if (this.form.get('generation')) {
             this.form.get('generation').valueChanges
                 .pipe(takeUntil(this.unsubscribe))
@@ -51,7 +59,6 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (this.form.get('location')) {
             this.form.get('location').disable();
         }
-
 
         if (this.form.get('peopleGroups')) {
             this.form.get('peopleGroups').disable();

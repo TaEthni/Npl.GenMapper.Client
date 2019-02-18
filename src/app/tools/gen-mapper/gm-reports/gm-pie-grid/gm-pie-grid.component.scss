@@ -1,0 +1,24 @@
+
+:host::ng-deep {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 20px 10px;
+    // background-color: #eeeeee;
+    width: 100%;
+    min-height: 300px;
+    max-height: 400px;
+    margin-bottom: 10px;
+
+    .chart-wrapper {
+        position: relative;
+        flex: 1;
+    }
+
+    .chart-label {
+        font-weight: 600;
+    }
+
+    .ngx-charts {
+        float: none;
+    }
+}

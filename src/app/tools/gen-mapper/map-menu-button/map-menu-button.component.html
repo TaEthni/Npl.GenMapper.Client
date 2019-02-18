@@ -6,30 +6,36 @@
     <button mat-menu-item
             (click)="onImport()">
         <mat-icon>attachment</mat-icon>
-        {{'menu.importXlsxCsv' | locale | async}}
+        {{'menu.importXlsxCsv' | locale : true}}
     </button>
     <button mat-menu-item
             (click)="onExport()">
         <mat-icon>cloud_download</mat-icon>
         {{'menu.exportCsv' | locale | async}}
     </button>
-    <button mat-menu-item
+    <!-- <button mat-menu-item
             disabled
             (click)="onPrintHorizontal()">
         <mat-icon>print</mat-icon>
-        {{'menu.btnPrintHorizontal' | locale | async}}
+        {{'menu.btnPrintHorizontal' | locale : true}}
     </button>
 
     <button mat-menu-item
             disabled
             (click)="onPrintVertical()">
         <mat-icon>print</mat-icon>
-        {{'menu.btnPrintVertical' | locale | async}}
-    </button>
+        {{'menu.btnPrintVertical' | locale : true}}
+    </button> -->
+
+    <!-- <button mat-menu-item
+            (click)="onSettingsButtonClick()">
+        <mat-icon>settings</mat-icon>
+        {{'menu.btnSettings' | locale : true}}
+    </button> -->
 
     <button mat-menu-item
             (click)="onDelete()">
         <mat-icon>delete</mat-icon>
-        {{'menu.btnDelete' | locale | async}}
+        {{'menu.btnDelete' | locale : true}}
     </button>
 </mat-menu>

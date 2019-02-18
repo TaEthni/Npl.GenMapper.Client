@@ -1,0 +1,35 @@
+<div class="chart-label">
+    {{label}}
+</div>
+
+<ng-container *ngIf="type === 'horizontal'; then horizontalTemplate else verticalTemplate"></ng-container>
+
+<ng-template #horizontalTemplate>
+    <ngx-charts-bar-horizontal [view]="[width, 300]"
+                               [scheme]="{domain: colors}"
+                               [results]="data"
+                               [gradient]="false"
+                               [xAxis]="true"
+                               [yAxis]="true"
+                               [legend]="false"
+                               [showXAxisLabel]="true"
+                               [showYAxisLabel]="true"
+                               [showDataLabel]="true"
+                               (select)="onSelect($event)">
+    </ngx-charts-bar-horizontal>
+</ng-template>
+
+<ng-template #verticalTemplate>
+    <ngx-charts-bar-vertical [view]="[width, 300]"
+                             [scheme]="{domain: colors}"
+                             [results]="data"
+                             [gradient]="false"
+                             [xAxis]="true"
+                             [yAxis]="true"
+                             [legend]="false"
+                             [showXAxisLabel]="true"
+                             [showYAxisLabel]="true"
+                             [showDataLabel]="true"
+                             (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
+</ng-template>

@@ -1,7 +1,16 @@
 # GenMapper Changelog
 
+## (2019-02-17)
+- Feature: Add Beta reports view.
+
+## (2019-02-08)
+- Feature: Add legend of map statistics.
+- Fix: Bug where map would re-center after a change.
+- Fix: Bug where inactive groups still had active icons.
+- Fix: Bug where icons above the node would not appear on mobile devices.
+
 ## (2019-02-05)
-- Feature: Add People Groups selector from PeopleGroups.org API
+- Feature: Add People Groups selector from PeopleGroups.org API.
 
 ## (2019-02-01)
 - Feature: World map view of GenMap.

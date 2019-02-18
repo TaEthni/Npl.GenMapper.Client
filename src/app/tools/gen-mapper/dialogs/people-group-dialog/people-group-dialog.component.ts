@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupService } from './people-group.service';
+import { Unsubscribable } from '@core/Unsubscribable';
 
 export interface PeopleGroupDialogResponse {
     peids: number[];
@@ -14,7 +15,7 @@ export interface PeopleGroupDialogResponse {
     templateUrl: './people-group-dialog.component.html',
     styleUrls: ['./people-group-dialog.component.scss']
 })
-export class PeopleGroupDialogComponent implements OnInit {
+export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit {
     public peopleGroupConfig: PeopleGroupConfig;
     public peopleGroups: PeopleGroupModel[];
     public selectedPeopleGroups: PeopleGroupModel[];
@@ -27,12 +28,16 @@ export class PeopleGroupDialogComponent implements OnInit {
         private peopleGroupService: PeopleGroupService,
         @Inject(MAT_DIALOG_DATA) private data: { peids: number[] }
     ) {
+        super();
     }
 
     public ngOnInit(): void {
         this.isLoading = true;
         this.peopleGroupService.getPeopleGroups()
-            .pipe(take(1))
+            .pipe(
+                take(1),
+                takeUntil(this.unsubscribe)
+            )
             .subscribe(result => {
                 this.isLoading = false;
                 this.peopleGroupConfig = result;

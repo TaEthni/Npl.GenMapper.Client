@@ -33,10 +33,6 @@ From Master Branch
 
 Run `npm run ghpages`
 
->Publish to noplaceleft.tools
-
-Run `npm run ghpages-production`;
-
 ## Further help
 
 Contact dev@noplaceleft.tools

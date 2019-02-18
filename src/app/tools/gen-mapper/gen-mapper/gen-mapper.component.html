@@ -1,5 +1,6 @@
 <mat-drawer-container (backdropClick)="nodeDrawer.onBackdropClick()"
-                      [class.show-map-view]="showMapView">
+                      [class.show-map-view]="showMapView"
+                      [class.show-reports-view]="showReportsView">
     <mat-drawer position="end"
                 fxLayout="column"
                 class="node-drawer"
@@ -10,7 +11,7 @@
                          [document]="document"
                          [template]="template"
                          [node]="node"
-                         [hideActions]="showMapView && tabs?.activeTab?.view === 'googleMap'"
+                         [hideActions]="view === viewTypes.WorldMap"
                          (copyNode)="onCopyNode($event)"
                          (pasteNode)="onPasteNode($event)"
                          (updateNode)="onUpdateNode($event)"
@@ -27,30 +28,58 @@
         <app-map-name-control [showErrors]="isAuthenticated"></app-map-name-control>
         <app-map-menu-button [document]="document"
                              [template]="template"
-                             (print)="onPrint($event)"></app-map-menu-button>
+                             (print)="onPrint($event)"
+                             (settingsButtonClick)="setView(viewTypes.Settings)"></app-map-menu-button>
+
+        <ng-container *ngIf="view === viewTypes.GenMap && showReportsView">
+            <app-map-report-legend [template]="template"
+                                   [document]="document"></app-map-report-legend>
+        </ng-container>
     </ng-container>
 
     <ng-container *ngIf="showMapView">
-        <app-gen-mapper-view-tabs></app-gen-mapper-view-tabs>
+        <app-gm-world-map-toggle [view]="view"
+                                 (mapIconClick)="setView(viewTypes.WorldMap)"
+                                 (backIconClick)="setView(viewTypes.GenMap)"></app-gm-world-map-toggle>
     </ng-container>
 
-    <ng-container *ngIf="showMapView && tabs?.activeTab?.view === 'googleMap'; then googleMap else genMapGraph"></ng-container>
+    <ng-container *ngIf="showReportsView">
+        <app-gm-reports-toggle [view]="view"
+                               (reportsIconClick)="setView(viewTypes.Reports)"
+                               (backIconClick)="setView(viewTypes.GenMap)">
+        </app-gm-reports-toggle>
+    </ng-container>
 
-    <ng-template #googleMap>
-        <app-gen-mapper-map [document]="document"
-                            [template]="template"
-                            (nodeClick)="onNodeClick($event)"></app-gen-mapper-map>
-    </ng-template>
-
-    <ng-template #genMapGraph>
-        <app-gen-mapper-graph class="{{template.name}}"
-                              (change)="onGraphChange($event)"
-                              [document]="document"
-                              [template]="template"
-                              (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
-    </ng-template>
-
+    <ng-container [ngSwitch]="view">
+        <ng-container *ngSwitchCase="viewTypes.Settings">
+            <app-gm-settings [document]="document"
+                             [template]="template"
+                             (cancelClick)="setView(viewTypes.GenMap)">
+            </app-gm-settings>
+        </ng-container>
+        <ng-container *ngSwitchCase="viewTypes.Reports">
+            <app-gm-reports [document]="document"
+                            [template]="template">
+            </app-gm-reports>
+        </ng-container>
+        <ng-container *ngSwitchCase="viewTypes.WorldMap">
+            <app-gen-mapper-map [document]="document"
+                                [template]="template"
+                                (nodeClick)="onNodeClick($event)"></app-gen-mapper-map>
+        </ng-container>
+        <ng-container *ngSwitchCase="viewTypes.GenMap">
+            <app-gen-mapper-graph class="{{template.name}}"
+                                  [document]="document"
+                                  [template]="template"
+                                  (change)="onGraphChange($event)"
+                                  (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <h1>OOPS</h1>
+        </ng-container>
+    </ng-container>
 </ng-template>
+
 <ng-template #emptyState>
     <div class="empty-state"
          fxFlex

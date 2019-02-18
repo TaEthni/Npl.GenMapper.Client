@@ -103,12 +103,14 @@ export const FourFieldsTemplate = {
         {
             'header': 'parentId',
             'initial': null,
-            'type': null
+            'type': null,
+            'canModify': false
         },
         {
             'header': 'name',
             'initial': 'Name',
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -120,13 +122,15 @@ export const FourFieldsTemplate = {
         {
             'header': 'coach',
             'initial': 'Coach',
-            'type': 'text'
+            'type': 'text',
+            'canModify': true,
             // svg defined currently in genmapper.js
         },
         {
             'header': 'field1',
             'initial': 0,
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -142,6 +146,7 @@ export const FourFieldsTemplate = {
             'header': 'field2',
             'initial': 0,
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -157,6 +162,7 @@ export const FourFieldsTemplate = {
             'header': 'field3',
             'initial': 0,
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -172,6 +178,7 @@ export const FourFieldsTemplate = {
             'header': 'field4',
             'initial': 'No',
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -187,6 +194,7 @@ export const FourFieldsTemplate = {
             'header': 'field5',
             'initial': 0,
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -199,6 +207,7 @@ export const FourFieldsTemplate = {
             'header': 'placeDate',
             'initial': 'Place & Date',
             'type': 'text',
+            'canModify': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
@@ -210,7 +219,8 @@ export const FourFieldsTemplate = {
         {
             'header': 'active',
             'initial': true,
-            'type': 'checkbox'
+            'type': 'checkbox',
+            'canModify': true,
             // svg defined currently in genmapper.js
         }
     ]

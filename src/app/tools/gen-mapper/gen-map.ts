@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import i18next from 'i18next';
 import * as _ from 'lodash';
 
-import { GMField, GMTemplate, GNode, PrintType } from './gen-mapper.interface';
+import { GMField, GMTemplate, GNode, PrintType, GMStreamAttribute } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
 import { HierarchyNode, select } from 'd3';
 import { cloneDeep } from 'lodash';
@@ -11,7 +11,7 @@ import { Device } from '@core/platform';
 
 export const MapStyles = {
     boxHeight: 80,
-    testHeight: 14,
+    textHeight: 14,
     textMargin: 6
 };
 
@@ -29,6 +29,7 @@ export class GenMap {
     public gNodes: any;
     public gLinks: any;
     public gLinksText: any;
+    public nodeLabelAttributes: GMStreamAttribute[];
 
     public margin = { top: 110, right: 30, bottom: 50, left: 30 };
 
@@ -39,8 +40,13 @@ export class GenMap {
     constructor(
         private graphSvg: ElementRef,
         private template: GMTemplate,
+        public attributes: GMStreamAttribute[],
         public data?: GNode[],
-    ) { }
+    ) {
+        if (this.attributes) {
+            this.nodeLabelAttributes = this.attributes.filter(a => a.isLabel);
+        }
+    }
 
     public init(): void {
         if (this.template.translations[i18next.language]) {
@@ -52,16 +58,23 @@ export class GenMap {
         this._createMap();
     }
 
-    public update(content: GNode[]): void {
+    public update(content: GNode[], attributes: GMStreamAttribute[], originalPosition: boolean = true): void {
         this.data = content;
         this.nodes = null;
+        this.attributes = attributes;
+        this.nodeLabelAttributes = attributes.filter(a => a.isLabel);
 
-        this.originalPosition();
+        if (originalPosition) {
+            this.originalPosition();
+        }
+
         this.redraw();
     }
 
-    public redrawData(data: GNode[]): void {
+    public redrawData(data: GNode[], attributes: GMStreamAttribute[]): void {
         this.data = data;
+        this.attributes = attributes;
+        this.nodeLabelAttributes = attributes.filter(a => a.isLabel);
         this.redraw();
     }
 
@@ -108,6 +121,13 @@ export class GenMap {
         this.template.fields.forEach((field: GMField) => {
             newNodeData[field.header] = TemplateUtils.getInitialTemplateValue(field, this.template);
         });
+
+        this.attributes.forEach(attr => {
+            if (!this.template.fieldsByKey[attr.propertyName]) {
+                newNodeData[attr.propertyName] = '';
+            }
+        });
+
         newNodeData['id'] = this.findNewId();
         newNodeData['parentId'] = node.data.id;
         this.data.push(newNodeData);
@@ -286,7 +306,7 @@ export class GenMap {
 
     private _createMap(): void {
         this.zoom = d3.zoom()
-            .scaleExtent([0.15, 2])
+            .scaleExtent([0.05, 2])
             .on('zoom', () => {
                 d3.select('g').attr('transform', d3.event.transform);
             });
@@ -316,7 +336,7 @@ export class GenMap {
             .append('g')
             .attr('class', 'group-nodes');
 
-        this.update(this.data);
+        this.update(this.data, this.attributes);
     }
 
     private redraw(): void {
@@ -419,6 +439,7 @@ export class GenMap {
             const svgElementValue = this.template.svg[svgElement];
             const element = newGroup.append(svgElementValue['type']);
             element.attr('class', 'node-' + svgElement);
+            applySVGAttrsAndStyle(svgElementValue, element);
         });
 
         _appendRemoveButton(newGroup, this.template);
@@ -432,9 +453,12 @@ export class GenMap {
                 g.append('title').text(i18next.t(this.template.format + '.' + field.header));
                 const element = g.append(field.svg['type']);
                 element.attr('class', 'node-' + field.header);
-                applySVGAttrsAndStyle(field, element);
+                applySVGAttrsAndStyle(field.svg, element);
             }
         });
+
+        newGroup.append('g')
+            .attr('class', 'node-labels');
 
         // UPDATE including NEW
         const nodeWithNew = node.merge(newGroup);
@@ -454,6 +478,25 @@ export class GenMap {
                 if (Device.isDesktop) {
                     this.onEditNodeClick(d);
                 }
+            });
+
+        this.nodeLabelAttributes.sort((a, b) => a.order - b.order);
+        nodeWithNew.select('.node-labels')
+            .html(d => {
+                let line = 1;
+                const textHeight = this.template.settings.textHeight;
+                const boxHeight = this.template.settings.boxHeight;
+                if (d.data.name) {
+                    line++;
+                }
+
+                let svg = '';
+                this.nodeLabelAttributes
+                    .filter(attr => d.data[attr.propertyName])
+                    .forEach((attr, i) => {
+                        svg += `<text text-anchor="start" y="${boxHeight + (i + line) * textHeight}">${d.data[attr.propertyName]}</text>`;
+                    });
+                return svg;
             });
 
         nodeWithNew
@@ -481,11 +524,8 @@ export class GenMap {
         // in order to remove any additional classes or settings from inherited fields
         Object.keys(this.template.svg).forEach((svgElement) => {
             const svgElementValue = this.template.svg[svgElement];
-            const element = nodeWithNew.select('.node-' + svgElement)
-                .attr('class', 'node-' + svgElement);
-            Object.keys(svgElementValue.attributes).forEach((attribute) => {
-                element.attr(attribute, svgElementValue.attributes[attribute]);
-            });
+            const element = nodeWithNew.select('.node-' + svgElement);
+            applySVGAttrsAndStyle(svgElementValue, element);
         });
 
         // update node elements which have SVG in template
@@ -506,7 +546,7 @@ export class GenMap {
     }
 
     private _updateSvgForFields(field: any, element: any): void {
-        applySVGAttrsAndStyle(field, element);
+        applySVGAttrsAndStyle(field.svg, element);
         element.text((d) => {
             // InstallTrigger???
             // add spaces between each character for Firefox
@@ -719,30 +759,20 @@ function _getFieldValueForRadioType(field: any, d: any): any {
 function findNewIdFromArray(arr: any[]): any {
     // copy and sort
     arr = arr.slice().sort((a, b) => a - b);
-    let tmp = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] >= 0) { // ids must be >= 0
-            if (arr[i] === tmp) {
-                tmp += 1;
-            } else {
-                break;
-            }
-        }
-    }
-    return tmp;
+    return parseFloat(arr[arr.length - 1]) + 1 + '';
 }
 
 
-function applySVGAttrsAndStyle(field: GMField, element: any): void {
-    if (field.svg.attributes) {
-        Object.keys(field.svg.attributes).forEach((attribute) => {
-            element.attr(attribute, field.svg.attributes[attribute]);
+function applySVGAttrsAndStyle(svg: { attributes?: {}, style?: {} }, element: any): void {
+    if (svg.attributes) {
+        Object.keys(svg.attributes).forEach((attribute) => {
+            element.attr(attribute, svg.attributes[attribute]);
         });
     }
 
-    if (field.svg.style) {
-        Object.keys(field.svg.style).forEach((styleKey) => {
-            element.style(styleKey, field.svg.style[styleKey]);
+    if (svg.style) {
+        Object.keys(svg.style).forEach((styleKey) => {
+            element.style(styleKey, svg.style[styleKey]);
         });
     }
 }

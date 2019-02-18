@@ -26,6 +26,9 @@ export class MapMenuButtonComponent {
     @Output()
     public print = new EventEmitter<string>();
 
+    @Output()
+    public settingsButtonClick = new EventEmitter<void>();
+
     constructor(
         private locale: LocaleService,
         private downloadService: DownloadService,
@@ -69,6 +72,10 @@ export class MapMenuButtonComponent {
 
     public onPrintVertical(): void {
         this.print.emit(PrintType.vertical);
+    }
+
+    public onSettingsButtonClick(): void {
+        this.settingsButtonClick.emit();
     }
 
     private _createDocument(document: DocumentDto): void {

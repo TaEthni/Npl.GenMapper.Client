@@ -26,6 +26,24 @@
         backface-visibility: hidden;
     }
 
+    app-gm-world-map-toggle {
+        position: absolute;
+        top: 0;
+        right: 56px;
+        margin: 16px 0;
+        backface-visibility: hidden;
+        z-index: 2;
+    }
+
+     app-gm-reports-toggle {
+        position: absolute;
+        top: 0;
+        right: 56px;
+        margin: 16px 0;
+        backface-visibility: hidden;
+        z-index: 2;
+    }
+
     app-map-menu-button {
         position: absolute;
         top: 0;
@@ -35,22 +53,53 @@
         backface-visibility: hidden;
     }
 
-    app-gen-mapper-view-tabs {
-        position: absolute;
-        top: 0;
-        right: 62px;
-        margin: 16px 0;
-        backface-visibility: hidden;
-        z-index: 2;
-    }
-
-    .show-map-view {
-        app-map-name-control {
-            right: 122px;
+    .show-reports-view {
+        app-gm-world-map-toggle {
+            right: 96px;
         }
     }
 
-     .empty-state {
+    .show-map-view,
+    .show-reports-view {
+        app-map-name-control {
+            right: 104px;
+        }
+    }
+
+    .show-map-view.show-reports-view {
+        app-map-name-control {
+            right: 144px;
+        }
+    }
+
+    @media print {
+        app-gm-world-map-toggle {
+            display: none;
+        }
+
+        app-map-menu-button {
+            display: none;
+        }
+
+        app-gm-reports-toggle {
+            display: none;
+        }
+    }
+
+    app-map-report-legend {
+        position: absolute;
+        top: 56px;
+        left: 0;
+        margin: 16px;
+        z-index: 2;
+        backface-visibility: hidden;
+    }
+
+    &.is-authenticated app-map-report-legend {
+        top: 120px;
+    }
+
+    .empty-state {
 
         h1 {
             text-align: center;
