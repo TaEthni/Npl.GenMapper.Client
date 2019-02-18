@@ -69,7 +69,7 @@ export interface GMField {
     inheritsFrom?: string;
     class?: any;
     values?: any;
-    canModifyLabel: boolean;
+    canModify: boolean;
     canModifyVisibility: boolean;
     order?: number;
 }

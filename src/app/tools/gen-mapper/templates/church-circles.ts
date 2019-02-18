@@ -193,20 +193,20 @@ export const ChurchCirclesTemplate = {
             'header': 'parentId',
             'initial': null,
             'type': null,
-            'canModifyLabel': false,
+            'canModify': false,
         },
         {
             'header': 'newGeneration',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'order': 1,
         },
         {
             'header': 'active',
             'initial': true,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'order': 2,
             // svg defined currently in genmapper.js
         },
@@ -215,7 +215,7 @@ export const ChurchCirclesTemplate = {
             'initial': '',
             'type': 'textarea',
             'dependsOnFalseField': 'active',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': true,
             'order': 3,
         },
@@ -230,14 +230,14 @@ export const ChurchCirclesTemplate = {
                     'y': boxHeight + textHeight
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'order': 4,
         },
         // {
         //     'header': 'startDate',
         //     'type': 'date',
-        //     'canModifyLabel': true,
+        //     'canModify': true,
         //     'canModifyVisibility': false,
         //     'order': 5,
         // },
@@ -245,7 +245,7 @@ export const ChurchCirclesTemplate = {
             'header': 'location',
             'initial': '',
             'type': 'geoLocation',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': true,
         },
         {
@@ -267,14 +267,14 @@ export const ChurchCirclesTemplate = {
             'header': 'peopleGroups',
             'initial': null,
             'type': 'peidSelect',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': true,
         },
         {
             'header': 'peopleGroupsNames',
             'initial': null,
             'type': 'hidden',
-            'canModifyLabel': false,
+            'canModify': false,
             'canModifyVisibility': false,
         },
         {
@@ -291,7 +291,7 @@ export const ChurchCirclesTemplate = {
                     'text-anchor': 'center'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -308,7 +308,7 @@ export const ChurchCirclesTemplate = {
                     'text-anchor': 'center'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -325,7 +325,7 @@ export const ChurchCirclesTemplate = {
                     'text-anchor': 'center'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -342,7 +342,7 @@ export const ChurchCirclesTemplate = {
                     'text-anchor': 'center'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -354,7 +354,7 @@ export const ChurchCirclesTemplate = {
                 'checkedTrue': 'is-church',
                 'checkedFalse': 'is-not-church'
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -380,7 +380,7 @@ export const ChurchCirclesTemplate = {
                     'header': 'newBelievers'
                 }
             ],
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -397,7 +397,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-baptism.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -414,7 +414,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-word.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -431,7 +431,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-prayer.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -448,7 +448,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-lords-supper.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -465,7 +465,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-give.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -482,7 +482,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-love.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -499,7 +499,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-worship.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -516,7 +516,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-leaders.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -533,7 +533,7 @@ export const ChurchCirclesTemplate = {
                     'xlink:href': 'assets/church-circles/icons/element-make-disciples.png'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         },
         {
@@ -562,7 +562,7 @@ export const ChurchCirclesTemplate = {
                     'letter-spacing': '0.35em'
                 }
             },
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
         }
     ],

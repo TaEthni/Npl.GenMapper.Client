@@ -254,14 +254,14 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'newGeneration',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'order': 1,
         },
         {
             'header': 'active',
             'initial': true,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'order': 2,
             // svg defined currently in genmapper.js
         },
@@ -269,7 +269,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'name',
             'initialTranslationCode': 'initialName',
             'type': 'text',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': true,
             'order': 3,
             'svg': {
@@ -284,7 +284,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'location',
             'initial': '',
             'type': 'geoLocation',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': true
         },
         {
@@ -306,7 +306,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'attenders',
             'initial': 0,
             'type': 'text',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'text',
@@ -323,7 +323,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'believers',
             'initial': 0,
             'type': 'text',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'text',
@@ -340,7 +340,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'baptized',
             'initial': 0,
             'type': 'text',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'text',
@@ -357,7 +357,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'newlyBaptized',
             'initial': 0,
             'type': 'text',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'text',
@@ -374,7 +374,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'church',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'inheritsFrom': 'church-box',
             'class': {
@@ -386,7 +386,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'churchType',
             'initial': 'newBelievers',
             'type': 'radio',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'inheritsFrom': 'church-box',
             'values': [
@@ -412,7 +412,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementBaptism',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -429,7 +429,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementWord',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -446,7 +446,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementPrayer',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -463,7 +463,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementLordsSupper',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -480,7 +480,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementGive',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -497,7 +497,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementLove',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -514,7 +514,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementWorship',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -531,7 +531,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementLeaders',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -548,7 +548,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'elementMakeDisciples',
             'initial': false,
             'type': 'checkbox',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'image',
@@ -574,7 +574,7 @@ export const ChurchCirclesCzechTemplate = {
                 { value: '6', header: 'threeThirdsPractice' },
                 { value: '7', header: 'threeThirdsGoalSetting' },
             ],
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': false,
             'svg': {
                 'type': 'text',
@@ -594,7 +594,7 @@ export const ChurchCirclesCzechTemplate = {
             'header': 'note',
             'initial': ' ',
             'type': 'textarea',
-            'canModifyLabel': true,
+            'canModify': true,
             'canModifyVisibility': true,
         }
     ]

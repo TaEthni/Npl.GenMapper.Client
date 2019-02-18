@@ -130,7 +130,7 @@ export namespace TemplateUtils {
 
                     if (field.type) {
                         if (field.header === 'latitude' || field.header === 'longitude') {
-                            parsedLine[key] = parseFloat(d[key]);
+                            parsedLine[key] = parseFloat(d[key]) || null;
                             return;
                         }
                     }
@@ -150,11 +150,11 @@ export namespace TemplateUtils {
                 }
             });
 
-            template.defaultAttributes.forEach(attr => {
-                if (!parsedLine.hasOwnProperty(attr.propertyName)) {
-                    //
-                }
-            });
+            // template.defaultAttributes.forEach(attr => {
+            //     if (!parsedLine.hasOwnProperty(attr.propertyName)) {
+            //         //
+            //     }
+            // });
 
             parsedLine.isRoot = !parsedLine.parentId && parsedLine.parentId !== 0;
 
@@ -234,7 +234,7 @@ function getDefaultAttributesForTemplate(templateName: string): GMStreamAttribut
     }
 
     template.fields.forEach(field => {
-        if (field.canModifyLabel) {
+        if (field.canModify) {
             attrs.push({
                 propertyName: field.header,
                 value: i18next.t(template.format + '.' + field.header),
