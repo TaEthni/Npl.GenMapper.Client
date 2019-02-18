@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild, Optional } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
@@ -10,10 +10,12 @@ import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
-import { GenMapperViewTabsComponent } from '../gen-mapper-view-tabs/gen-mapper-view-tabs.component';
 import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { GenMapperContainerComponent } from '../gen-mapper-container/gen-mapper-container.component';
+import { GenMapperView } from '../gen-mapper-view.enum';
+
 
 @Component({
     selector: 'app-gen-mapper',
@@ -24,9 +26,6 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     @ViewChild(GenMapperGraphComponent)
     public genMapperGraph: GenMapperGraphComponent;
 
-    @ViewChild(GenMapperViewTabsComponent)
-    public tabs: GenMapperViewTabsComponent;
-
     @HostBinding('class.is-authenticated')
     public isAuthenticated: boolean;
 
@@ -35,21 +34,31 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public document: DocumentDto;
     public documents: DocumentDto[];
     public showMapView: boolean;
+    public showReportsView: boolean;
+    public viewTypes = GenMapperView;
+    public view = GenMapperView.GenMap;
 
     constructor(
         private authService: AuthenticationService,
-        private nodeClipboard: NodeClipboardService,
         private genMapper: GenMapperService,
         private route: ActivatedRoute,
         private router: Router,
-        private dialog: MatDialog
-    ) { super(); }
+        private dialog: MatDialog,
+        @Optional() public genMapperContainer: GenMapperContainerComponent
+    ) {
+        super();
+        this.genMapperContainer.view = this.view;
+    }
 
     public ngOnInit(): void {
         const snapshot = this.route.snapshot;
         const data = snapshot.parent.data;
         this.template = data.template;
         this.isAuthenticated = this.authService.isAuthenticated();
+
+        if (this.template.reports) {
+            this.showReportsView = true;
+        }
 
         this.route.data
             .pipe(takeUntil(this.unsubscribe))
@@ -61,6 +70,10 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
 
                 if (this.document) {
                     this.showMapView = some(this.document.nodes, d => !!d.location);
+                }
+
+                if (this.view === GenMapperView.Reports) {
+                    this.view = GenMapperView.GenMap;
                 }
             });
 
@@ -75,6 +88,13 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .subscribe(result => {
                 this.documents = result.documents;
             });
+    }
+
+    public setView(view: GenMapperView): void {
+        if (this.document) {
+            this.view = view;
+            this.genMapperContainer.view = this.view;
+        }
     }
 
     public onGraphChange(nodes: GNode[]): void {
@@ -95,10 +115,8 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public onUpdateNode(node: GNode): void {
         const nodeToUpdate = this.document.nodes.find((d: any) => d.id === node.id);
         if (nodeToUpdate) {
-            Object.assign(nodeToUpdate, node);
-
             if (this.genMapperGraph) {
-                this.genMapperGraph.graph.redrawData(this.document.nodes);
+                this.genMapperGraph.graph.update(this.document.nodes, this.document.attributes, false);
             } else {
                 this.onGraphChange(this.document.nodes);
             }

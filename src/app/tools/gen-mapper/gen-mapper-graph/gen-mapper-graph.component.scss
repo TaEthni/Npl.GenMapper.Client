@@ -318,11 +318,17 @@
     }
 
     .node--inactive image {
-        opacity: 0.4 !important;
+        // opacity: 0.4 !important;
     }
 
     .node--inactive > rect, .node--inactive > line {
         stroke: #ddd !important;
+    }
+
+    .node--inactive {
+        > image {
+            opacity: 0.4 !important;
+        }
     }
 
     g.addNode,
@@ -396,6 +402,10 @@
         }
     }
 
+    .node .node-labels text {
+        font-size: 12px;
+    }
+
 
     .device-desktop & {
         .node:hover > rect, .node:hover > line {
@@ -451,6 +461,10 @@
 
     rect.hidden-rect {
         fill: transparent !important;
+        stroke: transparent !important;
+    }
+
+    svg text {
         stroke: transparent !important;
     }
 }

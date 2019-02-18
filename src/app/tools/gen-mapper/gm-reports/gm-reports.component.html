@@ -1,0 +1,56 @@
+<div class="header"
+     fxLayout="column"
+     fxLayoutAlign="space-between">
+    <div fxLayout="row"
+         fxLayoutAlign="end">
+        <mat-slide-toggle [checked]="includeInactive"
+                          (toggleChange)="toggleIncludeInactive()">
+            Include inactive groups
+        </mat-slide-toggle>
+    </div>
+    <div class="legend">
+        <table>
+            <tr>
+                <td>Total Churches</td>
+                <td>{{stats.totalNodes}}</td>
+            </tr>
+            <tr>
+                <td>Active Churches</td>
+                <td>{{stats.activeNodes}}</td>
+            </tr>
+            <tr>
+                <td>Inactive Churches</td>
+                <td>{{stats.inactiveNodes}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div fxLayout="row wrap"
+     class="graphs">
+
+    <app-gm-bar-chart [label]="'Baptisms'"
+                      [data]="baptismsReport"></app-gm-bar-chart>
+
+    <ng-container *ngFor="let report of reports">
+        <ng-container *ngIf="report.type === 'radio'">
+            <app-gm-pie-chart [label]="template.format + '.'+ report.name | locale | async"
+                              [data]="report.values"></app-gm-pie-chart>
+        </ng-container>
+        <ng-container *ngIf="report.type === 'multiField'">
+            <app-gm-bar-chart [label]="template.format + '.'+ report.name | locale | async"
+                              [data]="report.values"
+                              type="horizontal"></app-gm-bar-chart>
+        </ng-container>
+        <ng-container *ngIf="report.type === 'multiSelect'">
+            <!-- <app-gm-pie-grid [label]="template.format + '.'+ report.name | locale | async"
+                             [designatedTotal]="includeInactive ? nodeCount : activeNodeCount"
+                             [data]="report.values"></app-gm-pie-grid> -->
+        </ng-container>
+        <ng-container *ngIf="report.type === 'multiField'">
+            <!-- <app-gm-bar-chart [label]="template.format + '.'+ report.name | locale | async"
+                              [data]="report.values"></app-gm-bar-chart> -->
+        </ng-container>
+    </ng-container>
+
+</div>

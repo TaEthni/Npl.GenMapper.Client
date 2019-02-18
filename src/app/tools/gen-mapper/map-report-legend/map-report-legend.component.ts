@@ -17,6 +17,7 @@ export class MapReportLegendComponent implements OnChanges {
     public document: DocumentDto;
 
     public reports: GMReport[];
+    public generations: GMReport[];
     public isDesktop = Device.isDesktop;
 
     public ngOnChanges(change: SimpleChanges): void {
@@ -42,19 +43,33 @@ export class MapReportLegendComponent implements OnChanges {
 
     private updateReports(): void {
         this.reports.forEach(r => r.value = 0);
+        this.generations = [];
+        const generations = {};
 
         this.document.nodes.forEach(node => {
+            if (node.gen) {
+                generations[node.gen] = generations[node.gen] || 0;
+                generations[node.gen]++;
+            }
+
             this.reports.forEach(report => {
                 if (report.type === 'number') {
                     const v = parseFloat(node[report.name]) || 0;
                     report.value += v;
                 }
+
                 if (report.type === 'boolean') {
                     if (node[report.name]) {
                         report.value += 1;
                     }
                 }
             });
+        });
+
+        Object.keys(generations).forEach(gen => {
+            const name = 'G' + gen;
+            const value = generations[gen];
+            this.generations.push({ name, value, type: 'number' });
         });
     }
 }

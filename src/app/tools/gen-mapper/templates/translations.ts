@@ -32,6 +32,7 @@ export const translations: any = {
             'en_Undo': 'Undo',
             'en_Yes': 'Yes',
             'en_No': 'No',
+            'en_Total': 'Total',
             'changeCountry': 'Change Country',
             'childNodeAdded': 'Child Node added',
             'copiedNodeToClipboard': 'Copied to clipboard!',
@@ -68,7 +69,8 @@ export const translations: any = {
                 'printing': 'Printing',
                 'btnPrintVertical': 'Print Vertical Multipage',
                 'btnPrintHorizontal': 'Print Horizontal One-page',
-                'btnDelete': 'Delete'
+                'btnDelete': 'Delete',
+                'btnSettings': 'Settings'
             },
             'editGroup': {
                 'editGroup': 'Edit group',
@@ -82,7 +84,7 @@ export const translations: any = {
                 'hoverDeleteGroupAndSubtree': 'Delete group &amp; subtree',
                 'hoverAddChildGroup': 'Add child group',
                 'copyNodeButton': 'Copy',
-                'pasteNodeButton': 'Pegar'
+                'pasteNodeButton': 'Paste'
             },
             'errors': {
                 'requiredField': 'This field is required',

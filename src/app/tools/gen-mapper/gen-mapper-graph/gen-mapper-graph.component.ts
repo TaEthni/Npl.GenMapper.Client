@@ -71,6 +71,10 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
 
     public ngOnChanges(simpleChanges: SimpleChanges): void {
         if (simpleChanges.document.firstChange) {
+            if (this.document) {
+                this._documentId = this.document.id;
+            }
+
             return;
         }
 
@@ -82,7 +86,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             this._updating = true;
 
             // update graph
-            this.graph.update(this.document.nodes, recenterGraph);
+            this.graph.update(this.document.nodes, this.document.attributes, recenterGraph);
         }
 
         // Only set the document ID if it is a saved document.
@@ -92,7 +96,6 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         } else {
             this._documentId = null;
         }
-
     }
 
     public copyNode(node: GNode): void {
@@ -120,7 +123,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     }
 
     private _createGraph(): void {
-        this.graph = new GenMap(this.graphSvg, this.template, this.document.nodes);
+        this.graph = new GenMap(this.graphSvg, this.template, this.document.attributes, this.document.nodes);
 
         this.graph.init();
 
@@ -175,7 +178,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             .onAction()
             .pipe(take(1))
             .subscribe(result => {
-                this.graph.redrawData(originalData);
+                this.graph.redrawData(originalData, this.document.attributes);
             });
     }
 }
