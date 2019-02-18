@@ -141,7 +141,18 @@ export namespace TemplateUtils {
 
             template.fields.forEach((field) => {
                 if (!parsedLine.hasOwnProperty(field.header) && field.initial) {
-                    parsedLine[field.header] = field.initial;
+                    if (field.type === 'checkbox') {
+                        const fieldValue = d[field.header].toUpperCase();
+                        parsedLine[field.header] = !!['TRUE', '1'].includes(fieldValue);
+                    } else {
+                        parsedLine[field.header] = field.initial;
+                    }
+                }
+            });
+
+            template.defaultAttributes.forEach(attr => {
+                if (!parsedLine.hasOwnProperty(attr.propertyName)) {
+                    //
                 }
             });
 
