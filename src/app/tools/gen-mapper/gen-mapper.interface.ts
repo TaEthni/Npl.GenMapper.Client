@@ -1,3 +1,5 @@
+import { Dictionary } from 'lodash';
+
 export interface GNode {
     id: string;
     name: string;
@@ -36,20 +38,25 @@ export interface GMSvgSet {
     [key: string]: GMSvg;
 }
 
-
-export interface GMElement {
-    templateElement: string; // reference to the associated templateElement Name
-    isVisible: boolean;
+export interface GMStreamAttribute {
+    propertyName: string;
+    type: string;
     value: string;
+    isVisible?: boolean;
+    icon?: string;
+    isLabel?: boolean;
+    order?: number;
+    deprecated?: boolean;
 }
 
-export interface GMTemplateElement {
-    name: string; // Primary Identifier
-    canHide: boolean; // Whether the user can hide the element
-
-    // Mapped on client
+export interface GMTemplateAttribute {
+    propertyName: string;
+    type: string;
+    canHide: boolean;
     value: any;
     isVisible: boolean;
+    isLabel?: boolean;
+    order?: number;
 }
 
 export interface GMField {
@@ -64,12 +71,13 @@ export interface GMField {
     values?: any;
     canModifyLabel: boolean;
     canModifyVisibility: boolean;
+    order?: number;
 }
 
 export interface GMReport {
     name: string;
     label?: string;
-    type: 'boolean' | 'number' | 'radio' | 'multiSelect' | 'multiField';
+    type?: 'boolean' | 'number' | 'radio' | 'multiSelect' | 'multiField' | 'multiNumber';
 
     // Mapped on client
     value?: number;
@@ -82,7 +90,7 @@ export interface GMTemplateReport {
     fields?: string[];
     field?: string;
     order: number;
-    graph: 'pieChart' | 'pieGrid';
+    graph: 'pieChart' | 'pieGrid' | 'verticalBarChart';
 }
 
 export interface GMReportValue {
@@ -106,6 +114,10 @@ export interface GMTemplate {
     reports: GMReport[];
     fields: GMField[];
     templateReports: GMTemplateReport[];
+    defaultAttributes: GMStreamAttribute[];
+
+    // Manually Mapped
+    fieldsByKey: Dictionary<GMField>;
 }
 
 export interface GMGraphConfig {

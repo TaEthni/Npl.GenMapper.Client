@@ -16,11 +16,23 @@ export class GmBarChartComponent implements OnInit {
     @Input()
     public label: string;
 
-    public colors = GraphColors;
+    @Input()
+    public type: 'vertical' | 'horizontal' = 'horizontal';
+
+    public colors = [GraphColors[0]];
+
+    public width = 600;
+
+    public x: any;
+    public y: any;
+    public svg: any;
 
     constructor() { }
 
     public ngOnInit(): void {
+        if (window.innerWidth < 768) {
+            this.width = 300;
+        }
     }
 
     public onSelect(): void { }

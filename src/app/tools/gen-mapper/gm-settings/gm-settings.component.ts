@@ -1,9 +1,14 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
 
-import { GMTemplate, GMTemplateElement } from '../gen-mapper.interface';
+import { GMTemplate, GMTemplateAttribute, GMStreamAttribute } from '../gen-mapper.interface';
+import { keyBy } from 'lodash';
+import { DocumentService } from '../document.service';
+import { GenMapperService } from '../gen-mapper.service';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-gm-settings',
@@ -17,11 +22,15 @@ export class GmSettingsComponent implements OnInit, OnChanges {
     @Input()
     public template: GMTemplate;
 
+    @Output()
+    public cancelClick = new EventEmitter<void>();
+
     public form: FormGroup;
-    private defaultElements: GMTemplateElement[];
 
     constructor(
-        private locale: LocaleService
+        private genMapService: GenMapperService,
+        private snackBar: MatSnackBar,
+        private router: Router,
     ) { }
 
     public ngOnInit(): void {
@@ -33,56 +42,107 @@ export class GmSettingsComponent implements OnInit, OnChanges {
         }
     }
 
-    private createForm(): void {
-        const elements = this.document.parsedElements;
-        const defaultElements: GMTemplateElement[] = [];
-        const additionalElements: GMTemplateElement[] = [];
+    public cancel(): void {
+        this.cancelClick.emit();
+    }
 
-        this.template.fields.map(field => {
-            if (field.canModifyLabel) {
-                const el = {
-                    name: field.header,
-                    canHide: field.canModifyVisibility,
-                    value: this.locale.t(this.template.format + '.' + field.header),
-                    isVisible: field.canModifyVisibility
-                };
+    public save(): void {
+        const value = this.form.getRawValue();
 
-                defaultElements.push(el);
-            }
+        this.document.title = value.title;
+        this.document.attributes = [];
+
+        value.attributes.forEach(attr => {
+            this.document.attributes.push({
+                propertyName: attr.propertyName,
+                value: attr.value,
+                isVisible: attr.isVisible,
+                order: attr.order,
+                type: attr.type,
+            } as GMStreamAttribute);
         });
 
-        elements.forEach(element => {
-            const def = defaultElements.find(d => d.name === element.templateElement);
+        value.additional.forEach(attr => {
+            this.document.attributes.push({
+                propertyName: attr.propertyName,
+                value: attr.value,
+                isVisible: attr.isVisible,
+                isLabel: attr.isLabel,
+                order: attr.order,
+                type: attr.type,
+            } as GMStreamAttribute);
+        });
 
-            // If it is a default elements, and the element has a value;
-            if (def) {
-                def.value = element.value || def.value;
+        this.genMapService.updateDocument(this.document)
+            .subscribe(result => {
+                this.genMapService.setDocument(this.document);
+                this.cancelClick.emit();
+                this.router.navigate([this.template.name, this.document.id]);
 
-                if (def.canHide && element.hasOwnProperty('isVisible')) {
-                    def.isVisible = element.isVisible;
+                this.snackBar.open('Attributes Saved', 'Ok', { duration: 3000 });
+            });
+    }
+
+    private createForm(): void {
+        const attributes = this.document.attributes;
+        const defaultAttributes: GMTemplateAttribute[] = [];
+        const additionalAttributes: GMTemplateAttribute[] = [];
+
+        attributes.forEach(attr => {
+            const field = this.template.fieldsByKey[attr.propertyName];
+
+            const templateAttr = {
+                propertyName: attr.propertyName,
+                canHide: true,
+                type: attr.type,
+                value: attr.value,
+                isVisible: true,
+                isLabel: attr.isLabel,
+                order: attr.order,
+            } as GMTemplateAttribute;
+
+            // If it is a default attrs, and the attr has a value;
+            if (field) {
+                templateAttr.canHide = field.canModifyVisibility;
+                templateAttr.type = field.type;
+                templateAttr.order = templateAttr.order || field.order;
+
+                if (field.canModifyVisibility && attr.hasOwnProperty('isVisible')) {
+                    templateAttr.isVisible = attr.isVisible;
                 }
+
+                defaultAttributes.push(templateAttr);
 
             } else {
-                const templateEl = {
-                    name: element.templateElement,
-                    canHide: true,
-                    value: element.value,
-                    isVisible: true,
-                } as GMTemplateElement;
-
-                if (element.hasOwnProperty('isVisible')) {
-                    templateEl.isVisible = element.isVisible;
+                if (attr.hasOwnProperty('isVisible')) {
+                    templateAttr.isVisible = attr.isVisible;
                 }
 
-                additionalElements.push(templateEl);
+                additionalAttributes.push(templateAttr);
             }
         });
 
-        console.log(defaultElements.concat(additionalElements));
+        this.form = new FormGroup({
+            title: new FormControl(this.document.title, [Validators.required, Validators.minLength(2)]),
+            attributes: new FormArray(defaultAttributes.map(attr => this.createAttrControl(attr))),
+            additional: new FormArray(additionalAttributes.map(attr => this.createAttrControl(attr)))
+        });
+    }
 
-        // this.form = new FormGroup({
-        //     title: new FormControl(this.document.title, [Validators.required, Validators.minLength(2)]),
-        //     elements: new FormArray(),
-        // });
+    private createAttrControl(attr: GMTemplateAttribute): AbstractControl {
+        return new FormGroup({
+            propertyName: new FormControl({
+                value: attr.propertyName,
+                disabled: true,
+            }),
+            value: new FormControl(attr.value, [Validators.required]),
+            isVisible: new FormControl({
+                value: attr.isVisible,
+                disabled: !attr.canHide,
+            }),
+            isLabel: new FormControl(attr.isLabel),
+            order: new FormControl(attr.order),
+            type: new FormControl(attr.type)
+        });
     }
 }

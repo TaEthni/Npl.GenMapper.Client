@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { GenMapperView } from '../../gen-mapper/gen-mapper.component';
+import { GenMapperView } from '../../gen-mapper-view.enum';
 
 @Component({
     selector: 'app-gm-world-map-toggle',

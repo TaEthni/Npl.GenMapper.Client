@@ -42,7 +42,7 @@ export class FileInputDialogComponent implements OnInit {
 
             reader.onload = () => {
                 this.form.patchValue({
-                    title: file.name,
+                    title: file.name.replace(/\.csv/, ''),
                     content: reader.result
                 });
 

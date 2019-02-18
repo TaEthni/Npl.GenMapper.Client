@@ -23,8 +23,8 @@ export class DocumentService {
                 return docs
                     .filter(doc => doc.type === type)
                     .map(doc => {
+                        doc.attributes = TemplateUtils.parseAttributes('', type);
                         doc.nodes = TemplateUtils.parseCsvData(doc.content, type);
-                        // doc.parsedElements = TemplateUtils.parseElements(doc.elements, type);
                         return doc;
                     });
             }));
@@ -42,9 +42,13 @@ export class DocumentService {
 
     public update(doc: DocumentDto): Observable<DocumentDto> {
         const data = cloneDeep(doc);
-        data.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type);
-        delete data.nodes;
+        data.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type, doc.attributes);
+
+        // data.elements = TemplateUtils.getOutputAttributesJSON(doc.attributes);
         delete data.elements;
+
+        delete data.nodes;
+        delete data.attributes;
         delete data.createdAt;
         delete data.updatedAt;
         return this.entityService.update(data);

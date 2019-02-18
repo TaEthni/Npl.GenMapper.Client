@@ -92,6 +92,10 @@ export class GenMapperService {
             document.content = TemplateUtils.createInitialCSV(template);
         }
 
+        if (!document.attributes) {
+            document.attributes = TemplateUtils.parseAttributes(document.elements, template.format);
+        }
+
         document.nodes = TemplateUtils.parseCsvData(document.content, template.format);
 
         const config = this._config.getValue();
@@ -139,7 +143,7 @@ export class GenMapperService {
 
         // If nodes, then replace content with current nodes converted to CSV
         if (doc.nodes && doc.nodes.length) {
-            doc.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type);
+            doc.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type, doc.attributes);
         }
 
         localStorage.setItem(storageKey + config.template.name, JSON.stringify(doc));

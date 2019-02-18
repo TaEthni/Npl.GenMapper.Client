@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GenMapperView } from '../../gen-mapper-view.enum';
 
-import { GenMapperView } from '../../gen-mapper/gen-mapper.component';
 
 @Component({
     selector: 'app-gm-reports-toggle',

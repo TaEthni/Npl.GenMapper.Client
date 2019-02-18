@@ -402,6 +402,10 @@
         }
     }
 
+    .node .node-labels text {
+        font-size: 12px;
+    }
+
 
     .device-desktop & {
         .node:hover > rect, .node:hover > line {
@@ -460,9 +464,7 @@
         stroke: transparent !important;
     }
 
-    @media print {
-        svg text {
-            stroke: transparent !important;
-        }
+    svg text {
+        stroke: transparent !important;
     }
 }

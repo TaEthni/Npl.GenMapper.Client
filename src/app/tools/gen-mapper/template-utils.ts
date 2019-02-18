@@ -1,7 +1,8 @@
 import { csvFormatRows, csvParse } from 'd3';
 import i18next from 'i18next';
+import { assign, keyBy } from 'lodash';
 
-import { GMElement, GMField, GMTemplate, GNode } from './gen-mapper.interface';
+import { GMField, GMStreamAttribute, GMTemplate, GNode } from './gen-mapper.interface';
 import { ChurchCirclesTemplate } from './templates/church-circles';
 import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
 import { DisciplesTemplate } from './templates/disciples';
@@ -16,6 +17,9 @@ export const GenMapperTemplates = [
 
 export const GenMapperTemplatesByFormat = {};
 GenMapperTemplates.forEach(t => GenMapperTemplatesByFormat[t.format] = t);
+GenMapperTemplates.forEach(template => {
+    template['fieldsByKey'] = keyBy(template.fields, (f) => f['header']);
+});
 
 const isNumberReg = /\d/;
 
@@ -24,8 +28,16 @@ export namespace TemplateUtils {
         return (<any>GenMapperTemplatesByFormat)[templateName] as GMTemplate;
     }
 
-    export function createCSVHeader(template: GMTemplate): string {
-        return template.fields.map(field => field.header).join(',') + '\n';
+    export function createCSVHeader(template: GMTemplate, attributes?: GMStreamAttribute[]): string {
+        const fields = template.fields.map(field => field.header);
+
+        if (attributes) {
+            attributes
+                .filter(a => !template.fieldsByKey[a.propertyName])
+                .forEach(a => fields.push(a.propertyName));
+        }
+
+        return fields.join(',') + '\n';
     }
 
     export function createInitialCSV(template: GMTemplate): string {
@@ -64,20 +76,37 @@ export namespace TemplateUtils {
         }
     }
 
-    export function getOutputCsv(data: GNode[], templateName: string): string {
+    export function getOutputCsv(data: GNode[], templateName: string, attributes: GMStreamAttribute[]): string {
         const template = TemplateUtils.getTemplate(templateName);
-        const csvHeader = TemplateUtils.createCSVHeader(template);
+        const csvHeader = TemplateUtils.createCSVHeader(template, attributes);
+
         return csvHeader + csvFormatRows(data.map((d, i) => {
+
             const output = [];
-            template.fields.forEach((field) => {
-                if (field.type === 'checkbox') {
-                    output.push(d[field.header] ? '1' : '0');
+            const out = {};
+
+            template.fields.forEach(field => {
+                if (field && field.type === 'checkbox') {
+                    out[field.header] = d[field.header] ? '1' : '0';
+                    output.push(out[field.header]);
                 } else {
+                    out[field.header] = d[field.header];
                     output.push(d[field.header]);
                 }
             });
+
+            if (attributes) {
+                attributes
+                    .filter(a => !template.fieldsByKey[a.propertyName])
+                    .forEach(a => output.push(d[a.propertyName]));
+            }
+
             return output;
         }));
+    }
+
+    export function getOutputAttributesJSON(attributes: GMStreamAttribute[]): string {
+        return JSON.stringify(attributes);
     }
 
     export function parseCsvData(csvData: string, templateName: string): GNode[] {
@@ -89,21 +118,30 @@ export namespace TemplateUtils {
             parsedLine['parentId'] = d.parentId !== '' ? parseFloat(d.parentId) : '';
 
             const template = TemplateUtils.getTemplate(templateName);
-            template.fields.forEach((field) => {
-                if (field.type === 'checkbox') {
-                    if (field.header in d) {
-                        const fieldValue = d[field.header].toUpperCase();
-                        parsedLine[field.header] = !!['TRUE', '1'].includes(fieldValue);
-                    } else {
-                        parsedLine[field.header] = field.initial;
-                    }
-                } else if (field.type) {
 
-                    if (field.header === 'latitude' || field.header === 'longitude') {
-                        parsedLine[field.header] = parseFloat(d[field.header]);
-                    } else {
-                        parsedLine[field.header] = d[field.header];
+            Object.keys(d).forEach(key => {
+                const field = template.fieldsByKey[key];
+                if (field) {
+                    if (field.type === 'checkbox') {
+                        const fieldValue = d[key].toUpperCase();
+                        parsedLine[key] = !!['TRUE', '1'].includes(fieldValue);
+                        return;
                     }
+
+                    if (field.type) {
+                        if (field.header === 'latitude' || field.header === 'longitude') {
+                            parsedLine[key] = parseFloat(d[key]);
+                            return;
+                        }
+                    }
+                }
+
+                parsedLine[key] = d[key];
+            });
+
+            template.fields.forEach((field) => {
+                if (!parsedLine.hasOwnProperty(field.header) && field.initial) {
+                    parsedLine[field.header] = field.initial;
                 }
             });
 
@@ -136,13 +174,21 @@ export namespace TemplateUtils {
         });
     }
 
-    export function parseElements(elementsData: string, templateName: string): GMElement[] {
+    export function parseAttributes(elementsData: string, templateName: string): GMStreamAttribute[] {
+        let attrs;
         if (!elementsData) {
-            return [];
+            attrs = getDefaultAttributesForTemplate(templateName);
+        } else {
+            attrs = JSON.parse(elementsData);
         }
 
-        const elements = JSON.parse(elementsData);
-        return elements;
+        attrs.forEach(attr => {
+            if (!attr.order && attr.order !== 0) {
+                attr.order = 1000;
+            }
+        });
+        attrs.sort((a, b) => a.order - b.order);
+        return attrs;
     }
 }
 
@@ -164,3 +210,29 @@ function convertPropertyToArray(parsedLine: any, property: string, isNumber?: bo
     }
 }
 
+function getDefaultAttributesForTemplate(templateName: string): GMStreamAttribute[] {
+    const template = TemplateUtils.getTemplate(templateName);
+    const attrs = [];
+
+    if (template.defaultAttributes) {
+        template.defaultAttributes.forEach(a => {
+            attrs.push(assign({
+                value: i18next.t(template.format + '.' + a.propertyName)
+            }, a));
+        });
+    }
+
+    template.fields.forEach(field => {
+        if (field.canModifyLabel) {
+            attrs.push({
+                propertyName: field.header,
+                value: i18next.t(template.format + '.' + field.header),
+                type: field.type,
+                isVisible: true,
+                order: field.order,
+            });
+        }
+    });
+
+    return attrs;
+}

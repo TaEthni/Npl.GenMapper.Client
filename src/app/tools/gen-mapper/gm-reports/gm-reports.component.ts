@@ -17,7 +17,32 @@ export class GmReportsComponent implements OnInit, OnChanges {
     @Input()
     public template: GMTemplate;
 
+    public stats = {
+        attenders: 0,
+        believers: 0,
+        unbaptized: 0,
+        baptized: 0,
+        newlyBaptized: 0,
+        bigChurches: 0,
+        smallChurches: 0,
+        totalNodes: 0,
+        activeNodes: 0,
+        inactiveNodes: 0,
+        averageNodeSize: 0,
+
+        nodesWithLeaders: 0,
+        nodesWithoutLeaders: 0,
+
+        nodesWithBaptized: 0,
+        nodesWithoutBaptized: 0,
+
+        newBelieversLeading: 0,
+        existingBelieversLeading: 0,
+    };
+
     public reports: GMReport[];
+    public baptismsReport: GMReport[];
+    public churchFunctionsReport: GMReport[];
     public generations: GMReport[];
 
     public nodeCount: number;
@@ -54,7 +79,6 @@ export class GmReportsComponent implements OnInit, OnChanges {
 
     private createReports(): void {
         this.reports = [];
-        const byFieldName = keyBy(this.template.fields, 'header');
 
         this.template.templateReports.forEach(treport => {
             const report = {
@@ -63,7 +87,7 @@ export class GmReportsComponent implements OnInit, OnChanges {
             } as GMReport;
 
             if (treport.field) {
-                const field = byFieldName[treport.field];
+                const field = this.template.fieldsByKey[treport.field];
                 if (treport.graph === 'pieChart' && field.type === 'radio') {
                     report.type = 'radio';
                     report.values = [];
@@ -90,11 +114,11 @@ export class GmReportsComponent implements OnInit, OnChanges {
                 }
             }
 
-            if (treport.fields) {
+            if (treport.fields && treport.graph === 'verticalBarChart') {
                 report.type = 'multiField';
                 report.values = [];
                 treport.fields.forEach(fieldName => {
-                    const field = byFieldName[fieldName];
+                    const field = this.template.fieldsByKey[fieldName];
                     const value = {
                         name: this.locale.t(this.template.format + '.' + field.header),
                         key: field.header,
@@ -111,9 +135,19 @@ export class GmReportsComponent implements OnInit, OnChanges {
         this.reports.sort((a, b) => {
             return a.order - b.order;
         });
+
+        this.reports.forEach(rep => {
+            rep.values.forEach(v => {
+                v.name = v.name.replace(/.+\:/, '');
+            });
+        });
     }
 
     private updateReports(): void {
+        Object.keys(this.stats).forEach(key => {
+            this.stats[key] = 0;
+        });
+
         this.reports.forEach(r => {
             if (r.value) {
                 r.value = 0;
@@ -130,27 +164,32 @@ export class GmReportsComponent implements OnInit, OnChanges {
         });
 
         this.generations = [];
-        this.churchTypes = [];
-        const churchTypes = {};
         const generations = {};
 
-        let nodes = this.document.nodes;
+        const nodes = this.document.nodes;
+        const activeNodes = nodes.filter(n => n.active);
+
+        this.stats.totalNodes = nodes.length;
+        this.stats.activeNodes = activeNodes.length;
+        this.stats.inactiveNodes = this.stats.totalNodes - this.stats.activeNodes;
+
+        let ns = nodes;
 
         if (!this.includeInactive) {
-            nodes = nodes.filter(n => n.active);
+            ns = activeNodes;
         }
 
-        nodes.forEach(node => {
-
+        ns.forEach((node: any) => {
             if (node.gen) {
                 generations[node.gen] = generations[node.gen] || 0;
                 generations[node.gen]++;
             }
 
-            if (node['churchType']) {
-                churchTypes[node['churchType']] = churchTypes[node['churchType']] || 0;
-                churchTypes[node['churchType']]++;
-            }
+            this.stats.attenders += parseFloat(node.attenders) || 0;
+            this.stats.believers += parseFloat(node.believers) || 0;
+            this.stats.baptized += parseFloat(node.baptized) || 0;
+            this.stats.unbaptized = this.stats.attenders - this.stats.baptized;
+            this.stats.newlyBaptized += parseFloat(node.newlyBaptized) || 0;
 
             this.reports.forEach(report => {
                 if (report.type === 'radio') {
@@ -179,6 +218,15 @@ export class GmReportsComponent implements OnInit, OnChanges {
                     });
                 }
 
+                if (report.type === 'multiNumber') {
+                    report.values.forEach(rv => {
+                        const v = node[rv.key];
+                        if (v) {
+                            rv.value += parseFloat(v) || 0;
+                        }
+                    });
+                }
+
                 if (report.type === 'number') {
                     const v = parseFloat(node[report.name]) || 0;
                     report.value += v;
@@ -192,12 +240,30 @@ export class GmReportsComponent implements OnInit, OnChanges {
             });
         });
 
-        Object.keys(churchTypes).forEach(churchType => {
-            this.churchTypes.push({
-                name: churchType,
-                value: churchTypes[churchType]
-            });
-        });
+        this.baptismsReport = [
+            {
+                name: 'Attenders',
+                value: this.stats.attenders,
+            },
+            {
+                name: 'Believers',
+                value: this.stats.believers,
+            },
+            {
+                name: 'Unbaptized',
+                value: this.stats.unbaptized,
+            },
+            {
+                name: 'Baptized',
+                value: this.stats.baptized,
+            },
+            {
+                name: 'Newly Baptized',
+                value: this.stats.newlyBaptized,
+            }
+        ];
+
+        // debugger;
 
         Object.keys(generations).forEach(gen => {
             const name = 'G' + gen;

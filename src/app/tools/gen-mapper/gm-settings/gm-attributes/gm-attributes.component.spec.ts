@@ -1,21 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GmSettingsComponent } from './gm-settings.component';
+import { GmAttributesComponent } from './gm-attributes.component';
 import { configureTestSuite } from 'ng-bullet';
 
-describe.skip('GmSettingsComponent', () => {
-    let component: GmSettingsComponent;
-    let fixture: ComponentFixture<GmSettingsComponent>;
+describe.skip('GmAttributesComponent', () => {
+    let component: GmAttributesComponent;
+    let fixture: ComponentFixture<GmAttributesComponent>;
 
     configureTestSuite(() => {
-
         TestBed.configureTestingModule({
-            declarations: [GmSettingsComponent]
+            declarations: [GmAttributesComponent]
         });
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(GmSettingsComponent);
+        fixture = TestBed.createComponent(GmAttributesComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

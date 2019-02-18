@@ -29,6 +29,7 @@ export const ChurchCirclesTemplate = {
     'name': 'church-circles',
     'format': 'churchCircles',
     'settings': {
+        'textHeight': textHeight,
         'boxHeight': boxHeight,
         'nodeActions': {
             'x': boxHeight / 2,
@@ -132,9 +133,11 @@ export const ChurchCirclesTemplate = {
                 'elementWorship',
                 'elementLeaders',
                 'elementMakeDisciples',
+                'church',
+                'active'
             ],
-            graph: 'pieGrid',
-            order: 1,
+            graph: 'verticalBarChart',
+            order: 4,
         },
         {
             name: 'churchType',
@@ -149,6 +152,37 @@ export const ChurchCirclesTemplate = {
             order: 3
         }
     ],
+    'defaultAttributes': [
+        {
+            propertyName: 'leaderName',
+            type: 'text',
+            order: 5,
+            isLabel: true,
+            isVisible: true,
+        },
+        {
+            propertyName: 'email',
+            type: 'text',
+            order: 6,
+            isLabel: true,
+            isVisible: true,
+        },
+        {
+            propertyName: 'date',
+            type: 'text',
+            order: 7,
+            isLabel: true,
+            isVisible: true,
+            deprecated: true,
+        },
+        {
+            propertyName: 'place',
+            type: 'text',
+            order: 8,
+            isLabel: true,
+            isVisible: true,
+        }
+    ],
     'fields': [
         {
             'header': 'id',
@@ -159,19 +193,21 @@ export const ChurchCirclesTemplate = {
             'header': 'parentId',
             'initial': null,
             'type': null,
-            'canModifyLabel': true,
+            'canModifyLabel': false,
         },
         {
             'header': 'newGeneration',
             'initial': false,
             'type': 'checkbox',
             'canModifyLabel': true,
+            'order': 1,
         },
         {
             'header': 'active',
             'initial': true,
             'type': 'checkbox',
             'canModifyLabel': true,
+            'order': 2,
             // svg defined currently in genmapper.js
         },
         {
@@ -181,48 +217,30 @@ export const ChurchCirclesTemplate = {
             'dependsOnFalseField': 'active',
             'canModifyLabel': true,
             'canModifyVisibility': true,
+            'order': 3,
         },
         {
             'header': 'name',
             'initial': '',
             'type': 'text',
-            'canModifyLabel': true,
             'svg': {
                 'type': 'text',
                 'attributes': {
                     'x': 0,
                     'y': boxHeight + textHeight
                 }
-            }
-        },
-        {
-            'header': 'leaderName',
-            'initialTranslationCode': 'initialLeadersName',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': moveLeaderName
-                }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
+            'order': 4,
         },
-        {
-            'header': 'place',
-            'initialTranslationCode': 'initialPlace',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': movePlace
-                },
-            },
-            'canModifyLabel': true,
-            'canModifyVisibility': true,
-        },
+        // {
+        //     'header': 'startDate',
+        //     'type': 'date',
+        //     'canModifyLabel': true,
+        //     'canModifyVisibility': false,
+        //     'order': 5,
+        // },
         {
             'header': 'location',
             'initial': '',
@@ -246,27 +264,6 @@ export const ChurchCirclesTemplate = {
             'type': 'hidden'
         },
         {
-            'header': 'date',
-            'initialTranslationCode': 'initialDate',
-            'type': 'text',
-            'svg': {
-                'type': 'text',
-                'attributes': {
-                    'x': 0,
-                    'y': moveDate
-                }
-            },
-            'canModifyLabel': true,
-            'canModifyVisibility': true,
-        },
-        {
-            'header': 'email',
-            'initial': null,
-            'type': 'text',
-            'canModifyLabel': true,
-            'canModifyVisibility': true,
-        },
-        {
             'header': 'peopleGroups',
             'initial': null,
             'type': 'peidSelect',
@@ -277,6 +274,8 @@ export const ChurchCirclesTemplate = {
             'header': 'peopleGroupsNames',
             'initial': null,
             'type': 'hidden',
+            'canModifyLabel': false,
+            'canModifyVisibility': false,
         },
         {
             'header': 'attenders',
@@ -293,7 +292,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'believers',
@@ -310,7 +309,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'baptized',
@@ -327,7 +326,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'newlyBaptized',
@@ -344,7 +343,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'church',
@@ -356,7 +355,7 @@ export const ChurchCirclesTemplate = {
                 'checkedFalse': 'is-not-church'
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'churchType',
@@ -382,7 +381,7 @@ export const ChurchCirclesTemplate = {
                 }
             ],
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementBaptism',
@@ -399,7 +398,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementWord',
@@ -416,7 +415,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementPrayer',
@@ -433,7 +432,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementLordsSupper',
@@ -450,7 +449,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementGive',
@@ -467,7 +466,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementLove',
@@ -484,7 +483,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementWorship',
@@ -501,7 +500,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementLeaders',
@@ -518,7 +517,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'elementMakeDisciples',
@@ -535,7 +534,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         },
         {
             'header': 'threeThirds',
@@ -564,7 +563,7 @@ export const ChurchCirclesTemplate = {
                 }
             },
             'canModifyLabel': true,
-            'canModifyVisibility': true,
+            'canModifyVisibility': false,
         }
     ],
     'translations': {

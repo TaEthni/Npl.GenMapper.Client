@@ -22,7 +22,6 @@ import { GenMapperMapComponent } from './gen-mapper-map/gen-mapper-map.component
 import { GenMapperResolver } from './gen-mapper.resolver';
 import { GenMapperService } from './gen-mapper.service';
 import { GenMapperComponent } from './gen-mapper/gen-mapper.component';
-import { GmElementsComponent } from './gm-elements/gm-elements.component';
 import { GmBarChartComponent } from './gm-reports/gm-bar-chart/gm-bar-chart.component';
 import { GmPieChartComponent } from './gm-reports/gm-pie-chart/gm-pie-chart.component';
 import { GmPieGridComponent } from './gm-reports/gm-pie-grid/gm-pie-grid.component';
@@ -35,6 +34,7 @@ import { MapNameControlComponent } from './map-name-control/map-name-control.com
 import { MapReportLegendComponent } from './map-report-legend/map-report-legend.component';
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
+import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes.component';
 
 @NgModule({
     imports: [
@@ -66,7 +66,6 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         PeopleGroupPickerComponent,
         GenMapperMapComponent,
         MapReportLegendComponent,
-        GmElementsComponent,
         GmSettingsComponent,
         GmReportsComponent,
         GmPieChartComponent,
@@ -74,6 +73,7 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         GmPieGridComponent,
         GmReportsToggleComponent,
         GmWorldMapToggleComponent,
+        GmAttributesComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -88,7 +88,6 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         PeopleGroupPickerComponent,
         GenMapperMapComponent,
         MapReportLegendComponent,
-        GmElementsComponent,
         GmSettingsComponent,
         GmReportsComponent,
         GmPieChartComponent,
@@ -96,6 +95,7 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         GmPieGridComponent,
         GmReportsToggleComponent,
         GmWorldMapToggleComponent,
+        GmAttributesComponent,
     ],
     entryComponents: [
         ConfirmDialogComponent,

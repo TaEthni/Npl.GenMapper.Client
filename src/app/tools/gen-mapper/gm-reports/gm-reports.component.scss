@@ -1,9 +1,24 @@
+@import '~styles/colors';
+
+
 :host {
     display: block;
     padding: 100px 24px 24px 24px;
 
     .header {
         margin-bottom: 24px;
+
+        table {
+            tr {
+                td {
+                    font-weight: bold;
+                    &:last-child {
+                        color: mat-color($primary);
+                        text-align: right;
+                    }
+                }
+            }
+        }
     }
 
     .graphs {

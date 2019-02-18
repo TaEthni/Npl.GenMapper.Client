@@ -1,0 +1,48 @@
+<table mat-table
+       [dataSource]="dataSource"
+       class="mat-elevation-z1">
+
+    <ng-container matColumnDef="propertyName">
+        <th mat-header-cell
+            *matHeaderCellDef> Property Name </th>
+        <td mat-cell
+            *matCellDef="let row">
+            {{row.get('propertyName').value}}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+        <th mat-header-cell
+            *matHeaderCellDef> Value </th>
+        <td mat-cell
+            *matCellDef="let row">
+            <input type="text"
+                   [formControl]="row.get('value')" />
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isVisible">
+        <th mat-header-cell
+            *matHeaderCellDef> Visible on Form </th>
+        <td mat-cell
+            *matCellDef="let row">
+            <ng-container *ngIf="row.get('isVisible').enabled">
+                <mat-checkbox [formControl]="row.get('isVisible')"></mat-checkbox>
+            </ng-container>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isLabel">
+        <th mat-header-cell
+            *matHeaderCellDef> Visible on Map </th>
+        <td mat-cell
+            *matCellDef="let row">
+            <mat-checkbox [formControl]="row.get('isLabel')"></mat-checkbox>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row
+        *matHeaderRowDef="columns"></tr>
+    <tr mat-row
+        *matRowDef="let row; columns: columns;"></tr>
+</table>

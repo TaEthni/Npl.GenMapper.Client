@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild, Optional } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
@@ -13,13 +13,9 @@ import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.co
 import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { GenMapperContainerComponent } from '../gen-mapper-container/gen-mapper-container.component';
+import { GenMapperView } from '../gen-mapper-view.enum';
 
-export enum GenMapperView {
-    GenMap = 'GenMap',
-    Settings = 'Settings',
-    Reports = 'Reports',
-    WorldMap = 'WorldMap',
-}
 
 @Component({
     selector: 'app-gen-mapper',
@@ -44,12 +40,15 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
 
     constructor(
         private authService: AuthenticationService,
-        private nodeClipboard: NodeClipboardService,
         private genMapper: GenMapperService,
         private route: ActivatedRoute,
         private router: Router,
-        private dialog: MatDialog
-    ) { super(); }
+        private dialog: MatDialog,
+        @Optional() public genMapperContainer: GenMapperContainerComponent
+    ) {
+        super();
+        this.genMapperContainer.view = this.view;
+    }
 
     public ngOnInit(): void {
         const snapshot = this.route.snapshot;
@@ -72,6 +71,10 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                 if (this.document) {
                     this.showMapView = some(this.document.nodes, d => !!d.location);
                 }
+
+                if (this.view === GenMapperView.Reports) {
+                    this.view = GenMapperView.GenMap;
+                }
             });
 
         this.genMapper.getNode()
@@ -90,6 +93,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public setView(view: GenMapperView): void {
         if (this.document) {
             this.view = view;
+            this.genMapperContainer.view = this.view;
         }
     }
 
@@ -111,10 +115,8 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public onUpdateNode(node: GNode): void {
         const nodeToUpdate = this.document.nodes.find((d: any) => d.id === node.id);
         if (nodeToUpdate) {
-            Object.assign(nodeToUpdate, node);
-
             if (this.genMapperGraph) {
-                this.genMapperGraph.graph.update(this.document.nodes, false);
+                this.genMapperGraph.graph.update(this.document.nodes, this.document.attributes, false);
             } else {
                 this.onGraphChange(this.document.nodes);
             }
