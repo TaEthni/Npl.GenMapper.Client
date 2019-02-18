@@ -84,7 +84,7 @@ export const translations: any = {
                 'hoverDeleteGroupAndSubtree': 'Delete group &amp; subtree',
                 'hoverAddChildGroup': 'Add child group',
                 'copyNodeButton': 'Copy',
-                'pasteNodeButton': 'Pegar'
+                'pasteNodeButton': 'Paste'
             },
             'errors': {
                 'requiredField': 'This field is required',
