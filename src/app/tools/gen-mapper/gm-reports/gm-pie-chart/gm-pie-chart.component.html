@@ -1,0 +1,19 @@
+<div class="chart-label">
+    {{label}}
+</div>
+<div fxLayout="column"
+     fxLayoutAlign="start center">
+    <div #chart></div>
+    <div class="legend"
+         fxLayout="column"
+         fxLayoutGap="5px">
+        <ng-container *ngFor="let row of data; let idx=index">
+            <div class="item"
+                 fxLayout="row"
+                 fxLayoutAlign="start center">
+                <mat-icon [style.color]="colors[idx]">lens</mat-icon>
+                <div>{{row.name}}</div>
+            </div>
+        </ng-container>
+    </div>
+</div>

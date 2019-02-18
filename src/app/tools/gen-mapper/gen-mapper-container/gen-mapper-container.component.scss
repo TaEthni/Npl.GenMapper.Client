@@ -58,15 +58,15 @@
             display: none !important;
         }
 
-        app-sidenav-toggle {
-            display: none !important;
-        }
-
-        app-map-menu-button {
-            display: none !important;
+        .mat-drawer-container {
+            background-color: white;
         }
 
         .map-sidenav-toggle {
+            display: none !important;
+        }
+
+        app-sidenav-toggle {
             display: none !important;
         }
     }

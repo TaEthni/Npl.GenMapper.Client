@@ -1,0 +1,32 @@
+@import '~styles/colors';
+
+:host {
+    display: block;
+    pointer-events: all;
+
+    .mat-icon-button.active {
+        color: mat-color($accent);
+        background-color: white;
+    }
+
+    .gen-mapper-report-legend {
+        position: fixed;
+        top: 68px;
+        left: 72px;
+    }
+
+    @media print {
+        .mat-icon-button {
+            display: none;
+        }
+    }
+}
+
+.gen-mapper-report-table {
+    .report-value  {
+        color: mat-color($primary);
+        min-width: 80px;
+        padding-left: 10px;
+        text-align: right;
+    }
+}

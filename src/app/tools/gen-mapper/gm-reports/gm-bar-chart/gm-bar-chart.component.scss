@@ -1,0 +1,19 @@
+:host::ng-deep {
+    display: block;
+    padding: 10px;
+    background-color: #eeeeee;
+
+    .chart-label {
+        font-weight: 600;
+        font-size: 38px;
+        margin-bottom: 24px;
+    }
+
+    .ngx-charts {
+        float: none;
+    }
+
+    svg text {
+        font-weight: 600;
+    }
+}

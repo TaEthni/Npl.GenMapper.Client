@@ -1,15 +1,15 @@
 <mat-toolbar>
     <mat-toolbar-row>
         <span>
-            <ng-container *ngIf="clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName">
-                [{{clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName}}]
+            <ng-container>
+                [{{clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName || 'No Name'}}]
             </ng-container>
         </span>
     </mat-toolbar-row>
 </mat-toolbar>
 <div class="save-button">
     <div class="animated-button-group"
-         [class.slide-down]="form.dirty"
+         [class.slide-down]="form?.dirty"
          fxLayout="row">
         <button mat-raised-button
                 color="primary"
@@ -51,8 +51,11 @@
             {{'importSubtree' | locale | async}}
         </button>
     </div>
-    <app-edit-node-form [form]="form"
-                        [fields]="fields"
-                        [nodes]="document?.nodes"
-                        [model]="clonedNode"></app-edit-node-form>
+    <ng-container *ngIf="form">
+        <app-edit-node-form [form]="form"
+                            [fields]="fields"
+                            [attributes]="document?.attributes"
+                            [nodes]="document?.nodes"
+                            [model]="clonedNode"></app-edit-node-form>
+    </ng-container>
 </div>
