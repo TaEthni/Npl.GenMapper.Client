@@ -1,6 +1,8 @@
 # GenMapper Changelog
 
 ## (2019-02-17)
+- Fix: Bug where node would remain green after deselecting legacy church.
+- Feature: Center on newly created group.
 - Feature: Add Beta reports view.
 
 ## (2019-02-08)
