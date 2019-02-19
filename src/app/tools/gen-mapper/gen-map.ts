@@ -518,6 +518,9 @@ export class GenMap {
             .select('.editNode')
             .on('click', (d) => {
                 d3.event.stopPropagation();
+                this.unFocusAllNodes();
+                this.focusNodeById(d.data.id);
+
                 this.onEditNodeClick(d);
             });
 
