@@ -1,5 +1,9 @@
 # GenMapper Changelog
 
+## (2019-02-18)
+- Feature: Fade Icons on World Map when group is inactive.
+- Feature: World Map will initially load with the root nodes geo location.
+
 ## (2019-02-17)
 - Fix: Bug where node would remain green after deselecting legacy church.
 - Feature: Center on newly created group.

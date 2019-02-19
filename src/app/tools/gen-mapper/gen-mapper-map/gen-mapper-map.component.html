@@ -14,6 +14,7 @@
     <ng-container *ngFor="let marker of markers">
         <agm-marker [latitude]="marker.lat"
                     [longitude]="marker.lng"
+                    [opacity]="marker.node.active ? 1 : 0.5"
                     (markerClick)="markerClick(marker)">
         </agm-marker>
     </ng-container>
