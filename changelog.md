@@ -1,5 +1,8 @@
 # GenMapper Changelog
 
+## (2019-02-19)
+- Fix: Bug where graph would be deleted upon navigating away.
+
 ## (2019-02-18)
 - Feature: Fade Icons on World Map when group is inactive.
 - Feature: World Map will initially load with the root nodes geo location.

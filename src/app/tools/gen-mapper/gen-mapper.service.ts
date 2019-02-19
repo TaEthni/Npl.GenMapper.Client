@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { Entity } from '@shared/entity/entity.model';
-import { groupBy } from 'lodash';
+import { groupBy, assign } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delayWhen, tap } from 'rxjs/operators';
 
@@ -134,7 +134,13 @@ export class GenMapperService {
             return this.updateLocalStorage(doc);
         }
 
-        return this.documentService.update(doc);
+        return this.documentService.update(doc).pipe(tap(() => {
+            const list = this._config.getValue().documents;
+            const found = list.find(n => n.id === doc.id);
+            if (found) {
+                assign(found, doc);
+            }
+        }));
     }
 
     public updateLocalStorage(doc: DocumentDto): Observable<DocumentDto> {
