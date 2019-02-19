@@ -160,6 +160,10 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             });
     }
 
+    public onDeleteNode(node: GNode): void {
+        this.genMapperGraph.deleteNode(node);
+    }
+
     public onNodeDrawerOpenChanged(opened: boolean): void {
         if (!opened) {
             this.genMapper.setNode(null);

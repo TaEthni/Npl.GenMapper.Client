@@ -58,4 +58,13 @@
                             [nodes]="document?.nodes"
                             [model]="clonedNode"></app-edit-node-form>
     </ng-container>
+    <div fxLayout="row">
+        <button mat-raised-button
+                fxFlex
+                color="warn"
+                class="delete-button"
+                (click)="onDeleteNode()">
+            {{'editGroup.btnDelete' | locale | async}}
+        </button>
+    </div>
 </div>
