@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 
 import { GMField, GMTemplate, GNode, PrintType, GMStreamAttribute } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
-import { HierarchyNode, select } from 'd3';
+import { HierarchyNode, zoomTransform, zoomIdentity } from 'd3';
 import { cloneDeep } from 'lodash';
 import { Device } from '@core/platform';
 
@@ -133,6 +133,7 @@ export class GenMap {
         this.data.push(newNodeData);
         this.redraw();
         this.focusNodeById(newNodeData.id);
+        this.centerNodeById(newNodeData.id);
     }
 
     public updateNode(newData: any): void {
@@ -216,6 +217,21 @@ export class GenMap {
         const origY = this.margin.top;
         const parsedTransform = _parseTransform(this.g.attr('transform'));
         this.zoom.translateBy(this.svg, origX - parsedTransform.translate[0], origY - parsedTransform.translate[1]);
+    }
+
+    public centerNodeById(id: string): void {
+        const node = this.getGraphNodeByDataId(id);
+        const height = this.graphSvg.nativeElement.clientHeight;
+        const width = this.graphSvg.nativeElement.clientWidth;
+        const t = zoomTransform(this.svg.node());
+        let x = -node['x'];
+        let y = -node['y'];
+        x = x * t.k + width / 2;
+        y = y * t.k + height / 2;
+        this.svg
+            .transition()
+            .duration(1000)
+            .call(this.zoom.transform, zoomIdentity.translate(x, y).scale(t.k));
     }
 
     public printMap(printType: PrintType): void {
@@ -544,6 +560,9 @@ export class GenMap {
             }
         });
 
+        node.exit()
+            .remove();
+
         if (this.onChange) {
             this.onChange(this.data);
         }
@@ -585,11 +604,9 @@ export class GenMap {
     private _updateCheckboxField(field: any, element: any): void {
         // add class to the element which the field inherits from
         if (field.class) {
-            element.attr('class', function (d: any): any {
-                const checked = d.data[field.header];
-                const class_ = checked ? field.class.checkedTrue : field.class.checkedFalse;
-                return this.classList.value + ' ' + class_;
-            });
+
+            element.classed(field.class.checkedTrue, (d) => d.data[field.header]);
+            element.classed(field.class.checkedFalse, (d) => !d.data[field.header]);
         }
         if (typeof field.attributes !== 'undefined' &&
             typeof field.attributes.rx !== 'undefined') {
@@ -604,14 +621,12 @@ export class GenMap {
 
     private _updateRadioField(field: any, element: any): void {
         // add class to the element which the field inherits from
-        element.attr('class', function (d: any): any {
-            const fieldValue = _getFieldValueForRadioType(field, d);
-            if (fieldValue.class) {
-                return this.classList.value + ' ' + fieldValue.class;
-            } else {
-                return this.classList.value;
+        field.values.forEach(v => {
+            if (v.class) {
+                element.classed(v.class, (d) => d.data[field.header] === v.header);
             }
         });
+
         element.attr('rx', function (d: any): any {
             const fieldValue = _getFieldValueForRadioType(field, d);
             if (typeof fieldValue.attributes !== 'undefined' &&
