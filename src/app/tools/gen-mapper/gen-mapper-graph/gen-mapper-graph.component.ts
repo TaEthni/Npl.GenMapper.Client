@@ -122,6 +122,28 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         this.snackBar.open(this.locale.t('subtreeImportedPastTense'), 'Ok', { duration: 5000 });
     }
 
+    public deleteNode(node: GNode): void {
+        const graphNode = this.graph.getGraphNodeByDataId(node.id);
+        const name = graphNode.data.name || graphNode.data.leaderName || 'No Name';
+        const hasChildren = graphNode.children && graphNode.children.length;
+        const localeKey = hasChildren ? 'messages.confirmDeleteGroupWithChildren' : 'messages.confirmDeleteGroup';
+        const message = this.locale.t(localeKey, { groupName: name });
+        const descendants = graphNode.descendants().map(d => d.data);
+        const items = descendants.map(d => d.name || d.leaderName || d.leadersName || 'No Name');
+        this.dialog
+            .open(ConfirmDialogComponent, {
+                data: {
+                    alert: message,
+                    items: items,
+                    title: this.locale.t('messages.confirmDelete', { groupName: name })
+                }
+            })
+            .afterClosed()
+            .subscribe(result => {
+                if (result) { this.graph.removeNode(graphNode); }
+            });
+    }
+
     private _createGraph(): void {
         this.graph = new GenMap(this.graphSvg, this.template, this.document.attributes, this.document.nodes);
 
@@ -148,21 +170,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         };
 
         this.graph.removeNodeClick = (node: any) => {
-            const name = node.data.name || node.data.leaderName || 'No Name';
-            const hasChildren = node.children && node.children.length;
-            const localeKey = hasChildren ? 'messages.confirmDeleteGroupWithChildren' : 'messages.confirmDeleteGroup';
-            const message = this.locale.t(localeKey, { groupName: name });
-            this.dialog
-                .open(ConfirmDialogComponent, {
-                    data: {
-                        content: [message],
-                        title: this.locale.t('messages.confirmDelete', { groupName: name })
-                    }
-                })
-                .afterClosed()
-                .subscribe(result => {
-                    if (result) { this.graph.removeNode(node); }
-                });
+
         };
 
         this.graph.editNodeClick = (node: any) => {

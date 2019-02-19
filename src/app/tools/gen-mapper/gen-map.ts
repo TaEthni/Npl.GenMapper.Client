@@ -144,6 +144,7 @@ export class GenMap {
     }
 
     public removeNode(node: any): void {
+
         if (!node.parent) {
             return;
         }
@@ -285,7 +286,7 @@ export class GenMap {
      * @private Data Parsing Methods
      */
     private _deleteAllDescendants(node: any): void {
-        let idsToDelete = _.map(node.children, (row) => parseFloat(row.id));
+        let idsToDelete = _.map(node.children, (row) => row.id);
         while (idsToDelete.length > 0) {
             const currentId = idsToDelete.pop();
             const childrenIdsToDelete = _.map(_.filter(this.data, { parentId: currentId }), (row: any) => row.id);
@@ -442,7 +443,7 @@ export class GenMap {
             applySVGAttrsAndStyle(svgElementValue, element);
         });
 
-        _appendRemoveButton(newGroup, this.template);
+        // _appendRemoveButton(newGroup, this.template);
         _appendAddButton(newGroup, this.template);
         _appendEditButton(newGroup, this.template);
 
@@ -517,6 +518,9 @@ export class GenMap {
             .select('.editNode')
             .on('click', (d) => {
                 d3.event.stopPropagation();
+                this.unFocusAllNodes();
+                this.focusNodeById(d.data.id);
+
                 this.onEditNodeClick(d);
             });
 
@@ -632,15 +636,14 @@ function _appendEditButton(group: any, template: GMTemplate): void {
     group.append('g')
         .attr('class', 'editNode')
         .attr('cursor', 'pointer')
-        .style('transform', n => n.data.isRoot ? 'translateY(20px)' : '')
         .append('svg')
-        .attr('y', template.settings.nodeActions.y)
+        .attr('y', template.settings.nodeActions.y + 10)
         .attr('x', template.settings.nodeActions.x)
         .html(`
-            <rect x="0" y="0" rx="7" width="32" height="32">
+            <rect x="0" y="0" rx="7" width="32" height="40">
             <title>${i18next.t('editGroup.copyNodeButton')}</title>
             </rect>
-            <path style="transform: translate(4px, 4px)"
+            <path style="transform: translate(4px, 8px)"
                 fill="white"
                 d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02
             0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
@@ -657,16 +660,15 @@ function _appendAddButton(group: any, template: GMTemplate): void {
     group.append('g')
         .attr('class', 'addNode')
         .attr('cursor', 'pointer')
-        .style('transform', n => n.data.isRoot ? 'translateY(20px)' : '')
         .append('svg')
-        .attr('y', template.settings.nodeActions.y + 32)
+        .attr('y', template.settings.nodeActions.y + 50)
         .attr('x', template.settings.nodeActions.x)
         .html(`
-            <rect x="0" y="0" rx="7" width="32" height="32">
+            <rect x="0" y="0" rx="7" width="32" height="40">
             <title>${i18next.t('editGroup.hoverAddChildGroup')}</title>
             </rect>
-            <line x1="5" y1="16" x2="27" y2="16" stroke="white" stroke-width="3"></line>
-            <line x1="16" y1="5" x2="16" y2="27" stroke="white" stroke-width="3"></line>
+            <line x1="5" y1="20" x2="27" y2="20" stroke="white" stroke-width="3"></line>
+            <line x1="16" y1="8" x2="16" y2="32" stroke="white" stroke-width="3"></line>
         `);
     // <text x="16" y="32px" text-anchor="middle" fill="white" stroke="unset">
     //     <tspan class="material-icons" font-family="Material Icons" font-size="32px" style="font-size: 32px">

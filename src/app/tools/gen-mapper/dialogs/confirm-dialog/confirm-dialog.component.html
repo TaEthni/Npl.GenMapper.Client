@@ -10,6 +10,13 @@
             {{text}}
         </p>
     </ng-container>
+    <ng-container *ngIf="items && items.length > 0">
+        <ul class="list-items">
+            <li *ngFor="let item of items">
+                [{{item}}]
+            </li>
+        </ul>
+    </ng-container>
     <ng-container *ngIf="prompt">
         <p>{{ prompt }}</p>
     </ng-container>

@@ -46,6 +46,9 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     public updateNode = new EventEmitter<GNode>();
 
     @Output()
+    public deleteNode = new EventEmitter<GNode>();
+
+    @Output()
     public importSubtree = new EventEmitter<GNode>();
 
     public isNodeInClipboard: boolean;
@@ -183,6 +186,10 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     public onCancel(): void {
         this.configureNode();
         this.drawer.disableClose = this.form.dirty;
+    }
+
+    public onDeleteNode(): void {
+        this.deleteNode.emit(this.node);
     }
 
     public onFormChange(value: GNode): void {
