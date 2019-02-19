@@ -1,5 +1,23 @@
 @import '~styles/mixins';
+@import '~styles/colors';
 
 :host {
     @include dialog();
+
+    .dialog-alert {
+        color: mat-color($warn);
+        font-weight: 600;
+    }
+
+    ul.list-items {
+        list-style: none;
+        padding-left: 16px;
+
+        li {
+            padding: 5px;
+            color: mat-color($warn);
+            background: $lightest-gray;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+    }
 }
