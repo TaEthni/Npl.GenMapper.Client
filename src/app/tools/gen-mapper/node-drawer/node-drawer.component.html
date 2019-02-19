@@ -59,7 +59,8 @@
                             [model]="clonedNode"></app-edit-node-form>
     </ng-container>
     <div fxLayout="row">
-        <button mat-raised-button
+        <button *ngIf="node && !node.isRoot"
+                mat-raised-button
                 fxFlex
                 color="warn"
                 class="delete-button"
