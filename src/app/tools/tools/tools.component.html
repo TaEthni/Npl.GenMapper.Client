@@ -2,76 +2,49 @@
     <mat-toolbar>
         <mat-toolbar-row>
             <app-sidenav-toggle></app-sidenav-toggle>
+            <span>Tools</span>
         </mat-toolbar-row>
-        <mat-toolbar-row fxLayout="row"
-                         fxLayoutAlign="center center">
-            <app-npl-logo size="150"></app-npl-logo>
-        </mat-toolbar-row>
+
     </mat-toolbar>
 </header>
 
 <section fxLayout="column"
-         fxLayout.gt-sm="row wrap"
+         fxLayoutGap="5px"
+         fxLayoutAlign="center center">
+    <h1>Gen Mapper</h1>
+    <h4>I pray these tools serve you to advance Jesus' kingdom.</h4>
+    <p>Please select gen map variant:</p>
+</section>
+
+<section fxLayout="row wrap"
          fxLayoutAlign="center center"
          fxLayoutGap="24px">
 
-    <mat-card [routerLink]="['/church-circles']">
-        <img mat-card-image
-             height="290px"
-             src="assets/church-circles-example.png"
-             alt="Photo of a Church Circles">
-        <mat-card-header>
-            <mat-card-title>
-                Church Circles
-            </mat-card-title>
-            <mat-card-subtitle>
-                Generation Map
-            </mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
-    <!--
-    <mat-card [routerLink]="['/church-circles-czech']">
-        <img mat-card-image
-             height="290px"
-             src="assets/church-circles-example.png"
-             alt="Photo of a Church Circles">
-        <mat-card-header>
-            <mat-card-title>
-                Church Circles Czech
-            </mat-card-title>
-            <mat-card-subtitle>
-                Generation Map
-            </mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
+    <ng-container *ngFor="let template of templatesWithIcons">
+        <mat-card [routerLink]="['/' + template.name]">
+            <img mat-card-image
+                 [src]="template.icon"
+                 alt="Photo of a Church Circles">
+            <mat-card-header>
+                <mat-card-title>
+                    {{template.title}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Generation Map
+                </mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+    </ng-container>
 
-    <mat-card [routerLink]="['/disciples']">
-        <img mat-card-image
-             height="290px"
-             src="assets/disciples/disciples-example.png"
-             alt="Photo of a Church Circles">
-        <mat-card-header>
-            <mat-card-title>
-                Disciples
-            </mat-card-title>
-            <mat-card-subtitle>
-                Generation Map
-            </mat-card-subtitle>
-        </mat-card-header>
-    </mat-card> -->
-
-    <mat-card [routerLink]="['/four-fields']">
-        <img mat-card-image
-             height="290px"
-             src="assets/four-fields-example.png"
-             alt="Photo of a Four Fields">
-        <mat-card-header>
-            <mat-card-title>
-                Four Fields
-            </mat-card-title>
-            <mat-card-subtitle>
-                Generation Map
-            </mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
+</section>
+<section fxLayout="column"
+         fxLayoutAlign="center center">
+    <h4>Additional GenMappers</h4>
+    <ul>
+        <li *ngFor="let template of templateWithoutIcons">
+            <a [routerLink]="['/' + template.name]">
+                {{template.title}}
+            </a>
+        </li>
+    </ul>
 </section>

@@ -10,11 +10,12 @@ import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
-import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
+import { GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { GenMapperContainerComponent } from '../gen-mapper-container/gen-mapper-container.component';
 import { GenMapperView } from '../gen-mapper-view.enum';
+import { GMTemplate } from '@templates';
 
 
 @Component({

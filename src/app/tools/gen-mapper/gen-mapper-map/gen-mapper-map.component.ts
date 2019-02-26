@@ -8,8 +8,9 @@ import { DocumentDto } from '@shared/entity/document.model';
 import { takeUntil } from 'rxjs/operators';
 
 import { DocumentService } from '../document.service';
-import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { GMTemplate } from '@templates';
 
 export interface MapMarker {
     lat: number;

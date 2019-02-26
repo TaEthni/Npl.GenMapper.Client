@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
+import { translations } from '@templates';
 import * as i18next from 'i18next';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-
-import { translations } from '../tools/gen-mapper/templates/translations';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface TranslationType {
     label: string;
@@ -25,6 +24,7 @@ export class LocaleService {
             const id = t;
             _translations.push({ label, id });
         });
+
         this._translations.next(_translations);
     }
 

@@ -9,11 +9,12 @@ import { assign, cloneDeep, keyBy } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { GMField, GMTemplate, GNode, GMStreamAttribute } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { TemplateUtils } from '../template-utils';
 import { Utils } from '@core/utils';
+import { GNode } from '../gen-mapper.interface';
+import { GMTemplate, GMField } from '@templates';
 
 @Component({
     selector: 'app-node-drawer',

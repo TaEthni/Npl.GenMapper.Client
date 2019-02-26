@@ -12,8 +12,9 @@ import {
     LocationDialogResponse,
 } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
-import { GMField, GNode, GMStreamAttribute } from '../gen-mapper.interface';
 import { Dictionary, keyBy } from 'lodash';
+import { GNode } from '../gen-mapper.interface';
+import { GMField, GMStreamAttribute } from '@templates';
 
 @Component({
     selector: 'app-edit-node-form',

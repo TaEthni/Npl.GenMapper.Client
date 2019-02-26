@@ -3,11 +3,12 @@ import * as d3 from 'd3';
 import i18next from 'i18next';
 import * as _ from 'lodash';
 
-import { GMField, GMTemplate, GNode, PrintType, GMStreamAttribute } from './gen-mapper.interface';
+import { GNode, PrintType } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
 import { HierarchyNode, zoomTransform, zoomIdentity } from 'd3';
 import { cloneDeep } from 'lodash';
 import { Device } from '@core/platform';
+import { GMStreamAttribute, GMTemplate, GMField } from '@templates';
 
 export const MapStyles = {
     boxHeight: 80,

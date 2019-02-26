@@ -1,13 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
+import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
+import { GMTemplate } from '@templates';
 import { takeUntil } from 'rxjs/operators';
 
-import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { GenMapperView } from '../gen-mapper-view.enum';
+import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { GenMapperView } from '../gen-mapper-view.enum';
 
 @Component({
     selector: 'app-gen-mapper-container',
@@ -28,6 +30,7 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
         private genMapper: GenMapperService,
         private authService: AuthenticationService,
         private nodeClipboard: NodeClipboardService,
+        private localeService: LocaleService,
     ) { super(); }
 
     public ngOnInit(): void {
@@ -50,11 +53,30 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
                 this.template = config.template;
                 this.documents = config.documents;
             });
+
+        let firstCall = false;
+        this.localeService.get()
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe((result) => {
+                if (firstCall) {
+                    window.location.reload();
+                } else {
+                    firstCall = true;
+                }
+            });
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
         this.genMapper.setDocument(null);
         this.nodeClipboard.set(null);
+    }
+
+    public reloadGenMapper(): void {
+        const doc = this.document;
+        this.genMapper.load(this.template).subscribe(result => {
+            const newDoc = result.find(d => d.id === doc.id);
+            this.genMapper.setDocument(newDoc);
+        });
     }
 }

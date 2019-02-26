@@ -1,19 +1,9 @@
+import { GenMapperTemplates, GMField, GMStreamAttribute, GMTemplate } from '@templates';
 import { csvFormatRows, csvParse } from 'd3';
 import i18next from 'i18next';
 import { assign, keyBy } from 'lodash';
 
-import { GMField, GMStreamAttribute, GMTemplate, GNode } from './gen-mapper.interface';
-import { ChurchCirclesTemplate } from './templates/church-circles';
-import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
-import { DisciplesTemplate } from './templates/disciples';
-import { FourFieldsTemplate } from './templates/four-fields';
-
-export const GenMapperTemplates = [
-    ChurchCirclesTemplate,
-    ChurchCirclesCzechTemplate,
-    DisciplesTemplate,
-    FourFieldsTemplate,
-];
+import { GNode } from './gen-mapper.interface';
 
 export const GenMapperTemplatesByFormat = {};
 GenMapperTemplates.forEach(t => GenMapperTemplatesByFormat[t.format] = t);
@@ -55,6 +45,10 @@ export namespace TemplateUtils {
     export function setTemplateLocale(template: GMTemplate, locale: string): void {
         // Example: template.translations.en.translation.churchCircles;
         const translations = template.translations[locale].translation[template.format];
+
+        if (!translations) {
+            return;
+        }
 
         template.fields.forEach(field => {
             if (translations[field.header]) {
@@ -198,6 +192,7 @@ export namespace TemplateUtils {
                 attr.order = 1000;
             }
         });
+
         attrs.sort((a, b) => a.order - b.order);
         return attrs;
     }
@@ -225,6 +220,8 @@ function getDefaultAttributesForTemplate(templateName: string): GMStreamAttribut
     const template = TemplateUtils.getTemplate(templateName);
     const attrs = [];
 
+
+    console.log(i18next.t('churchCircles.name'))
     if (template.defaultAttributes) {
         template.defaultAttributes.forEach(a => {
             attrs.push(assign({
