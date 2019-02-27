@@ -1,8 +1,9 @@
 # GenMapper Changelog
 
 ## (2019-02-26)
-- Feature: Add field Gospel shares per day
-- Feature: Add Template SubModule
+- Feature: Use Number Keyboard on mobile devices.
+- Feature: Add field Gospel shares per day.
+- Feature: Add Template SubModule.
 
 ## (2019-02-19)
 - Fix: Bug where graph would be deleted upon navigating away.
