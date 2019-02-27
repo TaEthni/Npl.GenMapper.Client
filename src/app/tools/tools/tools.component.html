@@ -2,22 +2,23 @@
     <mat-toolbar>
         <mat-toolbar-row>
             <app-sidenav-toggle></app-sidenav-toggle>
-            <span>Tools</span>
+            <span>NPL Tools</span>
         </mat-toolbar-row>
-
     </mat-toolbar>
 </header>
 
 <section fxLayout="column"
          fxLayoutGap="5px"
-         fxLayoutAlign="center center">
+         fxLayoutAlign="center center"
+         fxLayoutAlign.lt-md="start start">
     <h1>Gen Mapper</h1>
-    <h4>I pray these tools serve you to advance Jesus' kingdom.</h4>
-    <p>Please select gen map variant:</p>
+    <!-- <h4>I pray these tools serve you to advance Jesus' kingdom.</h4> -->
+    <!-- <p>Please select gen map variant:</p> -->
 </section>
 
 <section fxLayout="row wrap"
-         fxLayoutAlign="center center"
+         fxLayout.lt-md="column"
+         fxLayoutAlign.gt-sm="center center"
          fxLayoutGap="24px">
 
     <ng-container *ngFor="let template of templatesWithIcons">
@@ -25,7 +26,7 @@
             <img mat-card-image
                  [src]="template.icon"
                  alt="Photo of a Church Circles">
-            <mat-card-header>
+            <mat-card-header fxLayoutAlign="start center">
                 <mat-card-title>
                     {{template.title}}
                 </mat-card-title>

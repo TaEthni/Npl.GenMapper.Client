@@ -30,10 +30,13 @@
 
         .mat-card {
             outline: none;
-            width: 250px;
             margin-bottom: 24px;
             cursor: pointer;
             transition: box-shadow 0.1s ease-out 0s;
+
+            .mat-card-subtitle {
+                margin-bottom: 0;
+            }
 
             &:hover {
                 box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
@@ -50,12 +53,13 @@
         font-weight: bold;
     }
 
-
-    .device-handheld & {
-        h1 {
-            text-align: left;
+    @media screen and (min-width: 960px){
+        .mat-card {
+            width: 250px;
         }
+    }
 
+    @media screen and (max-width: 959px) {
         .mat-card {
             flex: 1;
             display: flex;
