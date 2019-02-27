@@ -1,20 +1,20 @@
-import { Component, HostBinding, OnInit, ViewChild, Optional } from '@angular/core';
+import { Component, HostBinding, OnInit, Optional, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { GMTemplate } from '@templates';
 import { cloneDeep, some } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
-import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
-import { GMTemplate, GNode, PrintType } from '../gen-mapper.interface';
-import { GenMapperService } from '../gen-mapper.service';
-import { NodeClipboardService } from '../node-clipboard.service';
 import { GenMapperContainerComponent } from '../gen-mapper-container/gen-mapper-container.component';
+import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
 import { GenMapperView } from '../gen-mapper-view.enum';
+import { GNode, PrintType } from '../gen-mapper.interface';
+import { GenMapperService } from '../gen-mapper.service';
 
 
 @Component({

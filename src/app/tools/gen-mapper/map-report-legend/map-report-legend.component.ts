@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Device } from '@core/platform';
 import { DocumentDto } from '@shared/entity/document.model';
+import { GMTemplate, GMReport } from '@templates';
 
-import { GMReport, GMTemplate } from '../gen-mapper.interface';
 
 @Component({
     selector: 'app-map-report-legend',

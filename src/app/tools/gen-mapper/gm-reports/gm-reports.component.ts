@@ -2,8 +2,8 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { keyBy } from 'lodash';
+import { GMTemplate, GMReport } from '@templates';
 
-import { GMReport, GMTemplate } from '../gen-mapper.interface';
 
 @Component({
     selector: 'app-gm-reports',

@@ -1,0 +1,3 @@
+[submodule "src/templates"]
+	path = src/templates
+	url = https://github.com/NoPlaceLeft/GenMapper-templates

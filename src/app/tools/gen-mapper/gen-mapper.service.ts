@@ -7,8 +7,9 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delayWhen, tap } from 'rxjs/operators';
 
 import { DocumentService } from './document.service';
-import { GMTemplate, GNode } from './gen-mapper.interface';
+import { GNode } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
+import { GMTemplate } from '@templates';
 
 const storageKey = 'offline-locall-save-';
 

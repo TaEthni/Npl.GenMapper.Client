@@ -7,8 +7,9 @@ import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { GMTemplate, PrintType } from '../gen-mapper.interface';
+import { PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { GMTemplate } from '@templates';
 
 @Component({
     selector: 'app-map-menu-button',

@@ -3,12 +3,12 @@ import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
 
-import { GMTemplate, GMTemplateAttribute, GMStreamAttribute } from '../gen-mapper.interface';
 import { keyBy } from 'lodash';
 import { DocumentService } from '../document.service';
 import { GenMapperService } from '../gen-mapper.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { GMTemplate, GMStreamAttribute, GMTemplateAttribute } from '@templates';
 
 @Component({
     selector: 'app-gm-settings',

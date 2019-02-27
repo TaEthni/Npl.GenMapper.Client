@@ -20,8 +20,9 @@ import { take } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { GenMap } from '../gen-map';
-import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { GNode } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { GMTemplate } from '@templates';
 
 @Component({
     selector: 'app-gen-mapper-graph',

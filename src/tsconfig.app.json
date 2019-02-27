@@ -14,6 +14,9 @@
             "@admin/*": [
                 "app/admin/*"
             ],
+            "@templates": [
+                "templates/index"
+            ],
             "lodash": [
                 "../node_modules/lodash-es"
             ],

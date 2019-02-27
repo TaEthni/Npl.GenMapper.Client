@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { DocumentDto } from '@shared/entity/document.model';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
-import { GMTemplate } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { Device } from '@core/platform';
+import { GMTemplate } from '@templates';
 
 @Component({
     selector: 'app-map-sidenav',
