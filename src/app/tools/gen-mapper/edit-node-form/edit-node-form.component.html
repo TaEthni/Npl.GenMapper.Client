@@ -82,7 +82,9 @@
                             <input type="number"
                                    matInput
                                    appNumberInput
+                                   min="0"
                                    autocomplete="off"
+                                   (change)="onNumberFieldChange(attr.propertyName)"
                                    [placeholder]="attr.value"
                                    [formControl]="form.get(attr.propertyName)" />
                         </mat-form-field>
