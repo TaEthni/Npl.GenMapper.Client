@@ -12,6 +12,7 @@ import { MaterialModule } from './material/material.module';
 import { NplLogoComponent } from './npl-logo/npl-logo.component';
 import { SidenavToggleComponent } from './sidenav-toggle/sidenav-toggle.component';
 import { SortByDatePipe } from './sort-by-date.pipe';
+import { NumberInputDirective } from './number-input.directive';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         LocalePipe,
         JoinListPipe,
         DonateButtonComponent,
+        NumberInputDirective,
     ],
     exports: [
         MaterialModule,
@@ -39,7 +41,8 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         NplLogoComponent,
         LocalePipe,
         JoinListPipe,
-        DonateButtonComponent
+        DonateButtonComponent,
+        NumberInputDirective
     ],
     entryComponents: [
         FileInputDialogComponent
