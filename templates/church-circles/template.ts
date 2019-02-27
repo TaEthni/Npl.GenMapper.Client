@@ -275,7 +275,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
         {
             header: 'attenders',
             initial: 0,
-            type: 'text',
+            type: 'number',
             canModify: true,
             canModifyVisibility: false,
             svg: {
@@ -292,7 +292,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
         {
             header: 'believers',
             initial: 0,
-            type: 'text',
+            type: 'number',
             canModify: true,
             canModifyVisibility: false,
             svg: {
@@ -309,7 +309,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
         {
             header: 'baptized',
             initial: 0,
-            type: 'text',
+            type: 'number',
             canModify: true,
             canModifyVisibility: false,
             svg: {
@@ -326,7 +326,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
         {
             header: 'newlyBaptized',
             initial: 0,
-            type: 'text',
+            type: 'number',
             canModify: true,
             canModifyVisibility: false,
             svg: {
