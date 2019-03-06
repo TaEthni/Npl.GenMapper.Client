@@ -32,7 +32,7 @@ export class ConfirmDialogComponent implements OnInit {
         this.alert = this.data.alert;
         this.content = this.data.content || [];
         this.items = this.data.items;
-        this.prompt = this.data.prompt || this.locale.t('messages.confirmContinue');
+        this.prompt = this.data.prompt || this.locale.t('Message_confirmContinue');
         this.buttons = this.data.buttons || [
             this.locale.t('en_Continue'),
             this.locale.t('en_Cancel')

@@ -153,8 +153,8 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: {
-                    title: this.localeService.t('messages.confirmPasteNode'),
-                    alert: this.localeService.t('messages.confirmPasteNodeWarning'),
+                    title: this.localeService.t('Message_confirmPasteNode'),
+                    alert: this.localeService.t('Message_confirmPasteNodeWarning'),
                 }
             })
             .afterClosed()

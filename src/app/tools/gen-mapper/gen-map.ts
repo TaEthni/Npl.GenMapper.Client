@@ -444,7 +444,7 @@ export class GenMap {
         const newGroup = node.enter()
             .append('g');
 
-        newGroup.append('title').text(i18next.t('editGroup.editGroup'));
+        newGroup.append('title').text(i18next.t('Node_editGroup'));
 
         newGroup.append('rect')
             .attr('class', 'hidden-rect')
@@ -657,7 +657,7 @@ function _appendEditButton(group: any, template: GMTemplate): void {
         .attr('x', template.settings.nodeActions.x)
         .html(`
             <rect x="0" y="0" rx="7" width="32" height="40">
-            <title>${i18next.t('editGroup.copyNodeButton')}</title>
+            <title>${i18next.t('Node_copyNodeButton')}</title>
             </rect>
             <path style="transform: translate(4px, 8px)"
                 fill="white"
@@ -681,7 +681,7 @@ function _appendAddButton(group: any, template: GMTemplate): void {
         .attr('x', template.settings.nodeActions.x)
         .html(`
             <rect x="0" y="0" rx="7" width="32" height="40">
-            <title>${i18next.t('editGroup.hoverAddChildGroup')}</title>
+            <title>${i18next.t('Node_hoverAddChildGroup')}</title>
             </rect>
             <line x1="5" y1="20" x2="27" y2="20" stroke="white" stroke-width="3"></line>
             <line x1="16" y1="8" x2="16" y2="32" stroke="white" stroke-width="3"></line>
@@ -702,7 +702,7 @@ function _appendRemoveButton(group: any, template: GMTemplate): void {
         .attr('x', template.settings.nodeActions.x)
         .html(`
             <rect x="0" y="0" rx="7" width="32" height="32">
-            <title>${i18next.t('editGroup.hoverDeleteGroupAndSubtree')}</title>
+            <title>${i18next.t('Node_hoverDeleteGroupAndSubtree')}</title>
             </rect>
             <path style="transform: translate(4px, 4px)"
                 fill="white"
@@ -727,7 +727,7 @@ function _appendCopyButton(group: any, template: GMTemplate): void {
         .attr('x', template.settings.nodeActions.x)
         .html(`
             <rect x="0" y="0" rx="7" width="25" height="25">
-            <title>${i18next.t('editGroup.copyNodeButton')}</title>
+            <title>${i18next.t('Node_copyNodeButton')}</title>
             </rect>
             <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
             <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>
@@ -745,7 +745,7 @@ function _appendPasteButton(group: any, template: GMTemplate): void {
         .attr('x', template.settings.nodeActions.x)
         .html(`
             <rect x="0" y="0" rx="7" width="25" height="25">
-                <title>${i18next.t('editGroup.pasteNodeButton')}</title>
+                <title>${i18next.t('Node_pasteNodeButton')}</title>
             </rect>
             <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
             <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>

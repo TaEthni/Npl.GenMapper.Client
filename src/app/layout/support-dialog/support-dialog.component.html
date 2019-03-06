@@ -31,11 +31,11 @@
                        formControlName="email" />
 
                 <mat-error *ngIf="form.controls.email.errors?.pattern">
-                    {{'errors.emailFormat' | locale | async}}
+                    {{'Error_emailFormat' | locale | async}}
                 </mat-error>
 
                 <mat-error *ngIf="form.controls.email.errors?.required">
-                    {{'errors.requiredField' | locale | async}}
+                    {{'Error_requiredField' | locale | async}}
                 </mat-error>
             </mat-form-field>
         </ng-container>
@@ -50,13 +50,13 @@
                       cdkAutosizeMaxRows="30"></textarea>
 
             <mat-error *ngIf="form.controls.content.errors?.required">
-                {{'errors.requiredField' | locale | async}}
+                {{'Error_requiredField' | locale | async}}
             </mat-error>
         </mat-form-field>
     </form>
 
     <p>
-        {{'messages.orSendEmailTo' | locale | async}}:
+        {{'Message_orSendEmailTo' | locale | async}}:
     </p>
     <ng-container *ngIf="data.isFeedback; then feedbackEmail else supportEmail"></ng-container>
 

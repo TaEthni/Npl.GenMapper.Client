@@ -33,13 +33,13 @@
 
         <button mat-stroked-button
                 (click)="onCopyNode()">
-            {{'editGroup.copyNodeButton' | locale | async}}
+            {{'Node_copyNodeButton' | locale | async}}
         </button>
 
         <ng-container *ngIf="isNodeInClipboard">
             <button mat-stroked-button
                     (click)="onPasteNode()">
-                {{'editGroup.pasteNodeButton' | locale | async}}
+                {{'Node_pasteNodeButton' | locale | async}}
             </button>
         </ng-container>
 
@@ -65,7 +65,7 @@
                 color="warn"
                 class="delete-button"
                 (click)="onDeleteNode()">
-            {{'editGroup.btnDelete' | locale | async}}
+            {{'Node_btnDelete' | locale | async}}
         </button>
     </div>
 </div>

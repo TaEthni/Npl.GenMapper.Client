@@ -1,4 +1,4 @@
-import { GenMapperTemplates, GMField, GMStreamAttribute, GMTemplate } from '@templates';
+import { GenMapperTemplates, GMField, GMStreamAttribute, GMTemplate, translations } from '@templates';
 import { csvFormatRows, csvParse } from 'd3';
 import i18next from 'i18next';
 import { assign, keyBy } from 'lodash';
@@ -13,7 +13,38 @@ GenMapperTemplates.forEach(template => {
 
 const isNumberReg = /\d/;
 
+console.log(i18next);
+
+
 export namespace TemplateUtils {
+    export function outputEnglishTranslation(templateName: string): string {
+        const template = getTemplate(templateName);
+        const header = 'key,english,khmer' + '\n';
+        const translation = translations.en.translation;
+        const kn = translations.kn.translation;
+        const data = [];
+
+        Object.keys(translation).forEach(key => {
+            if (key === 'disciples' || key === 'churchCirclesCzech' || key === 'fourFields') {
+                return;
+            }
+
+            const value = translation[key];
+            const knValue = kn[key];
+            if (typeof value === 'string') {
+                data.push([key, value, knValue]);
+            } else if (typeof value === 'object') {
+                Object.keys(value).forEach(k => {
+                    const v = value[k];
+                    const knv = knValue[k];
+                    data.push([key + '.' + k, v, knv]);
+                });
+            }
+        });
+
+        return header + csvFormatRows(data);
+    }
+
     export function getTemplate(templateName: string): GMTemplate {
         return (<any>GenMapperTemplatesByFormat)[templateName] as GMTemplate;
     }
@@ -44,14 +75,14 @@ export namespace TemplateUtils {
 
     export function setTemplateLocale(template: GMTemplate, locale: string): void {
         // Example: template.translations.en.translation.churchCircles;
-        const translations = template.translations[locale].translation[template.format];
+        const ts = template.translations[locale].translation[template.format];
 
-        if (!translations) {
+        if (!ts) {
             return;
         }
 
         template.fields.forEach(field => {
-            if (translations[field.header]) {
+            if (ts[field.header]) {
                 field.localeLabel = i18next.t(template.format + '.' + field.header);
                 if (field.values) {
                     field.values.forEach((v: any) => {
@@ -73,7 +104,6 @@ export namespace TemplateUtils {
     export function getOutputCsv(data: GNode[], templateName: string, attributes: GMStreamAttribute[]): string {
         const template = TemplateUtils.getTemplate(templateName);
         const csvHeader = TemplateUtils.createCSVHeader(template, attributes);
-
         return csvHeader + csvFormatRows(data.map((d, i) => {
 
             const output = [];
