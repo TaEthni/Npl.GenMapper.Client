@@ -77,11 +77,11 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         }
     }
 
-    public onClearFieldClick(event: Event, field: GMField): void {
+    public onClearFieldClick(event: Event, attr: GMStreamAttribute): void {
         event.preventDefault();
         event.stopPropagation();
-        this.form.get(field.header).setValue(null);
-        this.form.get(field.header).markAsDirty();
+        this.form.get(attr.propertyName).setValue(null);
+        this.form.get(attr.propertyName).markAsDirty();
     }
 
     public onNumberFieldChange(propertyName: string): void {
@@ -95,6 +95,8 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (this.form.get('location').value) {
             this.showLocationDialog({
                 address: this.form.get('location').value,
+                latitude: this.form.get('latitude').value,
+                longitude: this.form.get('longitude').value,
                 markerLatitude: this.form.get('latitude').value,
                 markerLongitude: this.form.get('longitude').value
             });

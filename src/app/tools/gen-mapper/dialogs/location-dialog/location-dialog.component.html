@@ -12,6 +12,10 @@
                    class="form-control"
                    #search
                    [formControl]="searchControl" />
+
+            <mat-icon *ngIf="searchControl.value"
+                      (click)="clear()"
+                      class="clear-icon">clear</mat-icon>
         </div>
     </div>
     <agm-map [latitude]="latitude"
