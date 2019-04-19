@@ -8,6 +8,80 @@ const boxHeight = 100;
 const textHeight = 14;
 const textMargin = 6;
 
+const svgs = [
+    {
+        propertyName: 'name',
+        type: 'text',
+        attributes: {
+            'x': 0,
+            'y': boxHeight + textHeight
+        }
+    },
+    {
+        propertyName: 'attenders',
+        type: 'text',
+        attributes: {
+            'x': -boxHeight * 0.39,
+            'y': -0.8 * textMargin
+        },
+        style: {
+            'text-anchor': 'center'
+        }
+    },
+    {
+        propertyName: 'believers',
+        type: 'text',
+        attributes: {
+            'x': -boxHeight * 0.13,
+            'y': -0.8 * textMargin
+        },
+        style: {
+            'text-anchor': 'center'
+        }
+    },
+    {
+        propertyName: 'baptized',
+        type: 'text',
+        attributes: {
+            'x': boxHeight * 0.13,
+            'y': -0.8 * textMargin
+        },
+        style: {
+            'text-anchor': 'center'
+        }
+    },
+    {
+        name: 'newlyBaptized',
+        type: 'text',
+        attributes: {
+            'x': boxHeight * 0.39,
+            'y': -0.8 * textMargin
+        },
+        style: {
+            'text-anchor': 'center'
+        }
+    },
+    {
+        propertyName: 'churchType',
+        type: 'radio',
+        options: [
+            {
+                value: 'legacy',
+                class: 'church-legacy',
+                attributes: {
+                    'rx': 0
+                }
+            },
+            {
+                value: 'existingBelievers',
+                attributes: {
+                    'rx': 0
+                }
+            }
+        ]
+    }
+];
+
 export const ChurchCirclesTemplate: GMTemplate = {
     version: '0.6',
     title: 'Church Circles',
@@ -755,6 +829,53 @@ export const ChurchCirclesTemplate: GMTemplate = {
                     'threeThirdsBibleTeaching': 'Bible',
                     'threeThirdsPractice': 'Procvičování',
                     'threeThirdsGoalSetting': 'Akční kroky a modlitba',
+                }
+            }
+        },
+        kn: {
+            translation: {
+                'churchCircles': {
+                    'name': 'ឈ្មោះសាសនាចក្រ',
+                    'leaderName': 'ឈ្មោះអ្នកដឹកនាំ',
+                    'email': 'អ៊ីមែល',
+                    'newGeneration': 'ជំនាន់​ថ្មី',
+                    'peopleGroups': 'ក្រុមមនុស្ស',
+                    'attenders': 'ចំនួនអ្នកចូលរួម',
+                    'believers': '# នៃអ្នកជឿ',
+                    'baptized': '# នៃពិធីបុណ្យជ្រមុជទឹក',
+                    'newlyBaptized': '# នៃពិធីបុណ្យជ្រមុជទឹកថ្មី(ចាប់តាំងពីការចាប់ផ្តើមនៅព្រះវិហារ)',
+                    'church': 'តើក្រុមជំនុំ ?',
+                    'churchType': 'ប្រភេទសាសនាចក្រ',
+                    'churchFunctions': 'មុខងារសាសនាចក្រ',
+                    'legacy': 'កេរ្តិ៍ដំណែល',
+                    'existingBelievers': 'អ្នកជឿដែលមានស្រាប់',
+                    'newBelievers': 'អ្នកជឿថ្មី',
+                    'elementBaptism': 'ធាតុ: ពិធីបុណ្យជ្រមុជទឹក',
+                    'elementWord': 'ធាតុ: ព្រះបន្ទូលរបស់ព្រះ',
+                    'elementPrayer': 'ធាតុ: ការអធិស្ឋាន',
+                    'elementLordsSupper': 'ធាតុ: ពិធីជប់លៀងរបស់ព្រះអម្ចាស់',
+                    'elementGive': 'ធាតុ: ការផ្តល់',
+                    'elementLove': 'ធាតុ: ស្នេហា',
+                    'elementWorship': 'ធាតុ: ការថ្វាយបង្គំ',
+                    'elementLeaders': 'ធាតុ: មេដឹកនាំ',
+                    'elementMakeDisciples': 'ធាតុ: បង្កើតសិស្ស',
+                    'gospelShares': 'ការចែករំលែកដំណឹងល្អក្នុងមួយថ្ងៃ',
+                    'place': 'ទីកន្លែង(ទីក្រុង, រដ្ឋ, ប្រទេស)',
+                    'location': 'ទីតាំងភូមិសាស្ដ្រ',
+                    'date': 'កាលបរិច្ឆេទចាប់ផ្តើម(ឧ។ 2017 - 01)',
+                    'threeThirds': 'ធាតុនៃដំណើរការ 3 / 3',
+                    'active': 'សកម្ម',
+                    'inactiveReason': 'មូលហេតុនៃការអសកម្ម',
+                    'initialLeadersName': 'ឈ្មោះអ្នកដឹកនាំ',
+                    'initialPlace': 'ទីកន្លែង',
+                    'initialDate': 'កាលបរិច្ឆេទ',
+                    'threeThirdsPastoralCare': 'ការថែរក្សាគ្រូគង្វាល',
+                    'threeThirdsWorship': 'ការថ្វាយបង្គំ',
+                    'threeThirdsAccountability': 'គណនេយ្យភាព',
+                    'threeThirdsVisionCasting': 'ចក្ខុវិស័យដេញ',
+                    'threeThirdsBibleTeaching': 'បង្រៀនព្រះគម្ពីរ',
+                    'threeThirdsPractice': 'អនុវត្ត',
+                    'threeThirdsGoalSetting': 'ការកំណត់គោលដៅ & គណៈកម្មការ',
                 }
             }
         }

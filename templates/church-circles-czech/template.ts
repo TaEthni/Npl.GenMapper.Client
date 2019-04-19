@@ -543,8 +543,6 @@ export const ChurchCirclesCzechTemplate: GMTemplate = {
             translation: {
                 'churchCirclesCzech': {
                     'translationLabel': 'English',
-                    // tslint:disable-next-line:max-line-length
-                    'helpLegend': '<img src="templates/church-circles-czech/genmapper-node-example-church-circles-czech.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legend</h3><p>Each circle represents a group / church. Dashed circle means group, full circle means church.<br>On the top the numbers describe: # total, # believers, # baptized, # newly baptized.<br>Inside the circle are the elements that are practiced in the group.<br>On the left there numbers 1 to 7 represent which elements of 3/3 process are practised:<br>1 - Personal care<br>2 - Worship<br>3 - Accountability<br>4 - Vision casting<br>5 - Bible study<br>6 - Practice<br>7 - Set goals and prayer</p><p>Click on the group to edit it.<br>Click on red (x) button to remove group.<br>Click on green (+) button to add child group.</p>',
                     'name': 'Group Name',
                     'leadersName': "Leader's Name",
                     'mentor': 'Mentor',
@@ -570,7 +568,6 @@ export const ChurchCirclesCzechTemplate: GMTemplate = {
                     'place': 'Place',
                     'location': 'Geo Location',
                     'date': 'Date of Start (Finish)',
-                    // tslint:disable-next-line:max-line-length
                     'threeThirds': 'Elements of 3/3 process (1=Care, 2=Worship, 3=Accountability, 4=Vision, 5=Bible, 6=Practice, 7=Goals and prayer)',
                     'active': 'Active',
                     'note': 'Note',
@@ -592,8 +589,6 @@ export const ChurchCirclesCzechTemplate: GMTemplate = {
             translation: {
                 'churchCirclesCzech': {
                     'translationLabel': 'Čeština',
-                    // tslint:disable-next-line:max-line-length
-                    'helpLegend': '<img src="templates/church-circles-czech/genmapper-node-example-church-circles-czech.png" style="float:right;margin:10px; margin-left:0px;" alt="legend"><h3>Legenda</h3><p>Každý kruh(čtverec) symbolizuje skupinu nebo Boží rodinu(církev). Přerušovaná čára značí skupinu, plná čára Boží rodinu.<br>Tvar značí typ církve:<br><ul><li>kruh - Boží rodina s většinou nových věřících</li><li>čtverec - Boží rodina s většinou existujících věřících</li><li>zelený čtverec - sbor</li></ul><br>Čísla nahoře značí: Počet účastníků / věřících / pokřtěných / nově pokřtěných.<br>Uvnitř kruhu jsou prvky, které skupina dělá.<br><br>Čísla vlevo od 1 do 7 značí prvky 3/3, která skupina dělá:<br>1 - vzájemná péče<br>2 - oslava Ježíše<br>3 - vykazatelnost<br>4 - sdílení vize<br>5 - studium Bible<br>6 - procvičování <br>7 - akční kroky a modlitba</p><p>Klikni na skupinu pro editaci.<br>Klikni na červené tlačítko (x) pro odstranění skupiny.<br>Klikni na zelené tlačítko (+) pro přidání dceřinné skupiny.</p>',
                     'name': 'Jméno skupiny',
                     'leadersName': 'Jméno vedoucího',
                     'mentor': 'Mentor',
@@ -617,7 +612,6 @@ export const ChurchCirclesCzechTemplate: GMTemplate = {
                     'elementMakeDisciples': 'Prvek: Činění učedníků',
                     'place': 'Místo',
                     'date': 'Datum začátku (popř. konce)',
-                    // tslint:disable-next-line:max-line-length
                     'threeThirds': 'Prvky 3/3 (1=Péče, 2=Oslava Ježíše, 3=Vykazatelnost, 4=Vize, 5=Bible, 6=Procvičování, 7=Cíle a modlitba)',
                     'active': 'Aktivní',
                     'note': 'Poznámka',
