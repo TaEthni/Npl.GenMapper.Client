@@ -147,8 +147,12 @@ export namespace TemplateUtils {
                 const field = template.fieldsByKey[key];
                 if (field) {
                     if (field.type === 'checkbox') {
-                        const fieldValue = d[key].toUpperCase();
-                        parsedLine[key] = !!['TRUE', '1'].includes(fieldValue);
+                        if (d[key]) {
+                            const fieldValue = d[key].toUpperCase();
+                            parsedLine[key] = !!['TRUE', '1'].includes(fieldValue);
+                        } else {
+                            parsedLine[key] = false;
+                        }
                         return;
                     }
 
