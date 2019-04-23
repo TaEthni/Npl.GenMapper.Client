@@ -1,6 +1,9 @@
 # GenMapper Changelog
 
 ## (2019-02-26)
+- Fix: Bug where bad csv imports could break gen-map view.
+
+## (2019-02-26)
 - Feature: Use Number Keyboard on mobile devices.
 - Feature: Add field Gospel shares per day.
 - Feature: Add Template SubModule.
