@@ -1,4 +1,5 @@
 import { ChurchCirclesCzechTemplate } from './church-circles-czech/template';
+import { ChurchCirclesOkcTemplate } from './church-circles-okc/template';
 import { ChurchCirclesTemplate } from './church-circles/template';
 import { DisciplesTemplate } from './disciples/template';
 import { FourFieldsTemplate } from './four-fields/template';
@@ -20,6 +21,7 @@ import { translations } from './translations';
 const GenMapperTemplates = [
     ChurchCirclesTemplate,
     ChurchCirclesCzechTemplate,
+    ChurchCirclesOkcTemplate,
     FourFieldsTemplate,
     DisciplesTemplate,
     // MovementeerTemplate
