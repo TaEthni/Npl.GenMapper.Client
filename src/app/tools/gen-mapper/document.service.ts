@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { EntityService } from '@core/entity.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { EntityType } from '@shared/entity/entity.model';
+import { GMTemplate } from '@templates';
 import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { GMTemplate } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
 
 @Injectable()

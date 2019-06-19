@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GMReport } from '@templates';
 
-import { GMReport } from '../../gen-mapper.interface';
 import { GraphColors } from '../gm-report.interface';
 
 

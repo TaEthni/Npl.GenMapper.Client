@@ -17,15 +17,15 @@
                required />
 
         <mat-error *ngIf="form.controls.email.errors?.required">
-            {{'errors.requiredField' | locale | async}}
+            {{'Error_requiredField' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.email.errors?.emailInUse">
-            {{'errors.emailInUse' | locale | async}}
+            {{'Error_emailInUse' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.email.errors?.pattern">
-            {{'errors.emailFormat' | locale | async}}
+            {{'Error_emailFormat' | locale | async}}
         </mat-error>
     </mat-form-field>
 
@@ -39,15 +39,15 @@
                autocomplete="off" />
 
         <mat-hint>
-            {{'messages.uniqueUsername' | locale | async}}
+            {{'Message_uniqueUsername' | locale | async}}
         </mat-hint>
 
         <mat-error *ngIf="form.controls.username.errors?.minlength">
-            {{'errors.valueIsTooShort' | locale | async}}
+            {{'Error_valueIsTooShort' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
-            {{'errors.usernameInUse' | locale | async}}
+            {{'Error_usernameInUse' | locale | async}}
         </mat-error>
     </mat-form-field>
 
@@ -68,7 +68,7 @@
                type="password" />
 
         <mat-error *ngIf="form.controls.password.errors?.minlength">
-            {{'errors.valueIsTooShort' | locale | async}}
+            {{'Error_valueIsTooShort' | locale | async}}
         </mat-error>
     </mat-form-field>
 
@@ -83,15 +83,15 @@
                [required]="form.get('password').value" />
 
         <mat-error *ngIf="form.controls.confirm.errors?.required">
-            {{'errors.requiredField' | locale | async}}
+            {{'Error_requiredField' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.confirm.errors?.invalidPasswordMatch">
-            {{'errors.passwordsDontMatch' | locale | async}}
+            {{'Error_passwordsDontMatch' | locale | async}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.confirm.errors?.minlength">
-            {{'errors.valueIsTooShort' | locale | async}}
+            {{'Error_valueIsTooShort' | locale | async}}
         </mat-error>
     </mat-form-field>
 

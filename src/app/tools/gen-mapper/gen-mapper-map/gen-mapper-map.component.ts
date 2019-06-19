@@ -8,8 +8,9 @@ import { DocumentDto } from '@shared/entity/document.model';
 import { takeUntil } from 'rxjs/operators';
 
 import { DocumentService } from '../document.service';
-import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { GMTemplate } from '@templates';
 
 export interface MapMarker {
     lat: number;
@@ -64,6 +65,7 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
 
     private runChange(): void {
         this.markers = [];
+        const parentMarker = this.document.nodes.find(n => !n.parentId);
         const nodesWithLocation = this.document.nodes.filter(n => !!n.location);
         const nodesWithLatLng = nodesWithLocation.filter(n => !!n.latitude);
         const nodesWithoutLatLng = nodesWithLocation.filter(n => !n.latitude);
@@ -79,12 +81,20 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
             node,
         }));
 
-        this.sortMarkers();
         if (this.markers.length > 0) {
-            this.latitude = this.markers[0].lat;
-            this.longitude = this.markers[0].lng;
+
+            if (parentMarker && parentMarker.latitude && parentMarker.longitude) {
+                this.latitude = parentMarker.latitude;
+                this.longitude = parentMarker.longitude;
+            } else {
+                this.latitude = this.markers[0].lat;
+                this.longitude = this.markers[0].lng;
+            }
+
             this.isLoading = false;
         }
+
+        this.sortMarkers();
 
         this.locateUnlocatedAddresses(nodesWithoutLatLng);
     }

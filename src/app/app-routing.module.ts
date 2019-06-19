@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserResolver } from '@core/user.resolver';
+import { GenMapperTemplates } from '@templates';
 
 import { DetailComponent } from './account/detail/detail.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
@@ -20,11 +21,37 @@ import { GenMapperContainerResolver } from './tools/gen-mapper/gen-mapper-contai
 import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-container/gen-mapper-container.component';
 import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
 import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
-import { ChurchCirclesTemplate } from './tools/gen-mapper/templates/church-circles';
-import { FourFieldsTemplate } from './tools/gen-mapper/templates/four-fields';
 import { ToolsComponent } from './tools/tools/tools.component';
-import { ChurchCirclesCzechTemplate } from './tools/gen-mapper/templates/church-circles-czech';
-import { DisciplesTemplate } from './tools/gen-mapper/templates/disciples';
+
+
+const genMapperRoutes = [];
+GenMapperTemplates.forEach(template => {
+    genMapperRoutes.push({
+        path: template.name,
+        component: GenMapperContainerComponent,
+        resolve: {
+            documents: GenMapperContainerResolver,
+        },
+        data: {
+            template: template
+        },
+        children: [
+            {
+                path: ':id',
+                component: GenMapperComponent,
+                resolve: {
+                    document: GenMapperResolver
+                },
+                // Configuration is for local mode
+                runGuardsAndResolvers: 'always'
+            },
+            {
+                path: '',
+                component: GenMapperComponent
+            },
+        ]
+    });
+});
 
 const appRoutes: Routes = [
     {
@@ -81,102 +108,8 @@ const appRoutes: Routes = [
             {
                 path: 'tools',
                 component: ToolsComponent
-            },
-            {
-                path: 'church-circles',
-                component: GenMapperContainerComponent,
-                resolve: {
-                    documents: GenMapperContainerResolver,
-                },
-                data: {
-                    template: ChurchCirclesTemplate
-                },
-                children: [
-                    {
-                        path: ':id',
-                        component: GenMapperComponent,
-                        resolve: {
-                            document: GenMapperResolver
-                        },
-                        // Configuration is for local mode
-                        runGuardsAndResolvers: 'always'
-                    },
-                    {
-                        path: '',
-                        component: GenMapperComponent
-                    },
-                ]
-            },
-            {
-                path: 'church-circles-czech',
-                component: GenMapperContainerComponent,
-                resolve: {
-                    documents: GenMapperContainerResolver,
-                },
-                data: {
-                    template: ChurchCirclesCzechTemplate
-                },
-                children: [
-                    {
-                        path: ':id',
-                        component: GenMapperComponent,
-                        resolve: {
-                            document: GenMapperResolver
-                        }
-                    },
-                    {
-                        path: '',
-                        component: GenMapperComponent
-                    },
-                ]
-            },
-            {
-                path: 'disciples',
-                component: GenMapperContainerComponent,
-                resolve: {
-                    documents: GenMapperContainerResolver,
-                },
-                data: {
-                    template: DisciplesTemplate
-                },
-                children: [
-                    {
-                        path: ':id',
-                        component: GenMapperComponent,
-                        resolve: {
-                            document: GenMapperResolver
-                        }
-                    },
-                    {
-                        path: '',
-                        component: GenMapperComponent
-                    },
-                ]
-            },
-            {
-                path: 'four-fields',
-                component: GenMapperContainerComponent,
-                resolve: {
-                    documents: GenMapperContainerResolver,
-                },
-                data: {
-                    template: FourFieldsTemplate
-                },
-                children: [
-                    {
-                        path: ':id',
-                        component: GenMapperComponent,
-                        resolve: {
-                            document: GenMapperResolver
-                        }
-                    },
-                    {
-                        path: '',
-                        component: GenMapperComponent
-                    },
-                ]
             }
-        ]
+        ].concat(genMapperRoutes)
     },
     {
         path: '**',

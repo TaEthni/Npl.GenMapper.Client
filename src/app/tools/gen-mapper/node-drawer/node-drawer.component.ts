@@ -9,11 +9,12 @@ import { assign, cloneDeep, keyBy } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { GMField, GMTemplate, GNode, GMStreamAttribute } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { TemplateUtils } from '../template-utils';
 import { Utils } from '@core/utils';
+import { GNode } from '../gen-mapper.interface';
+import { GMTemplate, GMField } from '@templates';
 
 @Component({
     selector: 'app-node-drawer',
@@ -152,8 +153,8 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: {
-                    title: this.localeService.t('messages.confirmPasteNode'),
-                    alert: this.localeService.t('messages.confirmPasteNodeWarning'),
+                    title: this.localeService.t('Message_confirmPasteNode'),
+                    alert: this.localeService.t('Message_confirmPasteNodeWarning'),
                 }
             })
             .afterClosed()

@@ -20,8 +20,9 @@ import { take } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { GenMap } from '../gen-map';
-import { GMTemplate, GNode } from '../gen-mapper.interface';
+import { GNode } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { GMTemplate } from '@templates';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -126,7 +127,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         const graphNode = this.graph.getGraphNodeByDataId(node.id);
         const name = graphNode.data.name || graphNode.data.leaderName || 'No Name';
         const hasChildren = graphNode.children && graphNode.children.length;
-        const localeKey = hasChildren ? 'messages.confirmDeleteGroupWithChildren' : 'messages.confirmDeleteGroup';
+        const localeKey = hasChildren ? 'Message_confirmDeleteGroupWithChildren' : 'Message_confirmDeleteGroup';
         const message = this.locale.t(localeKey, { groupName: name });
         const descendants = graphNode.descendants().map(d => d.data);
         const items = descendants.map(d => d.name || d.leaderName || d.leadersName || 'No Name');
@@ -135,7 +136,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
                 data: {
                     alert: message,
                     items: items,
-                    title: this.locale.t('messages.confirmDelete', { groupName: name })
+                    title: this.locale.t('Message_confirmDelete', { groupName: name })
                 }
             })
             .afterClosed()

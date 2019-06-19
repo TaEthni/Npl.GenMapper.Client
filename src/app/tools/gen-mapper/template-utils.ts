@@ -1,34 +1,59 @@
+import { GenMapperTemplates, GMField, GMStreamAttribute, GMTemplate, translations } from '@templates';
 import { csvFormatRows, csvParse } from 'd3';
 import i18next from 'i18next';
 import { assign, keyBy } from 'lodash';
 
-import { GMField, GMStreamAttribute, GMTemplate, GNode } from './gen-mapper.interface';
-import { ChurchCirclesTemplate } from './templates/church-circles';
-import { ChurchCirclesCzechTemplate } from './templates/church-circles-czech';
-import { DisciplesTemplate } from './templates/disciples';
-import { FourFieldsTemplate } from './templates/four-fields';
-
-export const GenMapperTemplates = [
-    ChurchCirclesTemplate,
-    ChurchCirclesCzechTemplate,
-    DisciplesTemplate,
-    FourFieldsTemplate,
-];
+import { GNode } from './gen-mapper.interface';
 
 export const GenMapperTemplatesByFormat = {};
-GenMapperTemplates.forEach(t => GenMapperTemplatesByFormat[t.format] = t);
+GenMapperTemplates.forEach(t => (GenMapperTemplatesByFormat[t.format] = t));
 GenMapperTemplates.forEach(template => {
-    template['fieldsByKey'] = keyBy(template.fields, (f) => f['header']);
+    template["fieldsByKey"] = keyBy(template.fields, f => f["header"]);
 });
 
 const isNumberReg = /\d/;
 
 export namespace TemplateUtils {
+    export function outputEnglishTranslation(templateName: string): string {
+        const template = getTemplate(templateName);
+        const header = "key,english,khmer" + "\n";
+        const translation = translations.en.translation;
+        const kn = translations.kn.translation;
+        const data = [];
+
+        Object.keys(translation).forEach(key => {
+            if (
+                key === "disciples" ||
+                key === "churchCirclesCzech" ||
+                key === "fourFields"
+            ) {
+                return;
+            }
+
+            const value = translation[key];
+            const knValue = kn[key];
+            if (typeof value === "string") {
+                data.push([key, value, knValue]);
+            } else if (typeof value === "object") {
+                Object.keys(value).forEach(k => {
+                    const v = value[k];
+                    const knv = knValue[k];
+                    data.push([key + "." + k, v, knv]);
+                });
+            }
+        });
+
+        return header + csvFormatRows(data);
+    }
+
     export function getTemplate(templateName: string): GMTemplate {
         return (<any>GenMapperTemplatesByFormat)[templateName] as GMTemplate;
     }
 
-    export function createCSVHeader(template: GMTemplate, attributes?: GMStreamAttribute[]): string {
+    export function createCSVHeader(
+        template: GMTemplate,
+        attributes?: GMStreamAttribute[]
+    ): string {
         const fields = template.fields.map(field => field.header);
 
         if (attributes) {
@@ -37,99 +62,144 @@ export namespace TemplateUtils {
                 .forEach(a => fields.push(a.propertyName));
         }
 
-        return fields.join(',') + '\n';
+        return fields.join(",") + "\n";
     }
 
     export function createInitialCSV(template: GMTemplate): string {
-        return createCSVHeader(template) + template.fields.map(field => {
-            // Patch to convert arrays to CSV readable values
-            let v = getInitialTemplateValue(field, template);
+        return (
+            createCSVHeader(template) +
+            template.fields
+                .map(field => {
+                    // Patch to convert arrays to CSV readable values
+                    let v = getInitialTemplateValue(field, template);
 
-            if (Array.isArray(v)) {
-                v = '"' + v.join(',') + '"';
-            }
-            return v;
-        }).join(',');
+                    if (Array.isArray(v)) {
+                        v = '"' + v.join(",") + '"';
+                    }
+                    return v;
+                })
+                .join(",")
+        );
     }
 
-    export function setTemplateLocale(template: GMTemplate, locale: string): void {
+    export function setTemplateLocale(
+        template: GMTemplate,
+        locale: string
+    ): void {
         // Example: template.translations.en.translation.churchCircles;
-        const translations = template.translations[locale].translation[template.format];
+        const ts = template.translations[locale].translation[template.format];
+
+        if (!ts) {
+            return;
+        }
 
         template.fields.forEach(field => {
-            if (translations[field.header]) {
-                field.localeLabel = i18next.t(template.format + '.' + field.header);
+            if (ts[field.header]) {
+                field.localeLabel = i18next.t(
+                    template.format + "." + field.header
+                );
                 if (field.values) {
                     field.values.forEach((v: any) => {
-                        v.localeLabel = i18next.t(template.format + '.' + v.header);
+                        v.localeLabel = i18next.t(
+                            template.format + "." + v.header
+                        );
                     });
                 }
             }
         });
     }
 
-    export function getInitialTemplateValue(field: GMField, template: GMTemplate): any {
+    export function getInitialTemplateValue(
+        field: GMField,
+        template: GMTemplate
+    ): any {
         if (field.initialTranslationCode) {
-            return i18next.t(template.format + '.' + field.initialTranslationCode);
+            return i18next.t(
+                template.format + "." + field.initialTranslationCode
+            );
         } else {
             return field.initial;
         }
     }
 
-    export function getOutputCsv(data: GNode[], templateName: string, attributes: GMStreamAttribute[]): string {
+    export function getOutputCsv(
+        data: GNode[],
+        templateName: string,
+        attributes: GMStreamAttribute[]
+    ): string {
         const template = TemplateUtils.getTemplate(templateName);
         const csvHeader = TemplateUtils.createCSVHeader(template, attributes);
+        return (
+            csvHeader +
+            csvFormatRows(
+                data.map((d, i) => {
+                    const output = [];
+                    const out = {};
 
-        return csvHeader + csvFormatRows(data.map((d, i) => {
+                    template.fields.forEach(field => {
+                        if (field && field.type === "checkbox") {
+                            out[field.header] = d[field.header] ? "1" : "0";
+                            output.push(out[field.header]);
+                        } else {
+                            out[field.header] = d[field.header];
+                            output.push(d[field.header]);
+                        }
+                    });
 
-            const output = [];
-            const out = {};
+                    if (attributes) {
+                        attributes
+                            .filter(a => !template.fieldsByKey[a.propertyName])
+                            .forEach(a => output.push(d[a.propertyName]));
+                    }
 
-            template.fields.forEach(field => {
-                if (field && field.type === 'checkbox') {
-                    out[field.header] = d[field.header] ? '1' : '0';
-                    output.push(out[field.header]);
-                } else {
-                    out[field.header] = d[field.header];
-                    output.push(d[field.header]);
-                }
-            });
-
-            if (attributes) {
-                attributes
-                    .filter(a => !template.fieldsByKey[a.propertyName])
-                    .forEach(a => output.push(d[a.propertyName]));
-            }
-
-            return output;
-        }));
+                    return output;
+                })
+            )
+        );
     }
 
-    export function getOutputAttributesJSON(attributes: GMStreamAttribute[]): string {
+    export function getOutputAttributesJSON(
+        attributes: GMStreamAttribute[]
+    ): string {
         return JSON.stringify(attributes);
     }
 
-    export function parseCsvData(csvData: string, templateName: string): GNode[] {
-        return csvParse<GNode>(csvData, (d) => {
+    export function parseCsvData(
+        csvData: string,
+        templateName: string
+    ): GNode[] {
+        return csvParse<GNode>(csvData, d => {
             const parsedId = parseFloat(d.id);
-            if (parsedId < 0 || isNaN(parsedId)) { throw new Error('Group id must be integer >= 0.'); }
+            if (parsedId < 0 || isNaN(parsedId)) {
+                throw new Error("Group id must be integer >= 0.");
+            }
             const parsedLine: any = {};
-            parsedLine['id'] = parsedId;
-            parsedLine['parentId'] = d.parentId !== '' ? parseFloat(d.parentId) : '';
+            parsedLine["id"] = parsedId;
+            parsedLine["parentId"] =
+                d.parentId !== "" ? parseFloat(d.parentId) : "";
 
             const template = TemplateUtils.getTemplate(templateName);
 
             Object.keys(d).forEach(key => {
                 const field = template.fieldsByKey[key];
                 if (field) {
-                    if (field.type === 'checkbox') {
-                        const fieldValue = d[key].toUpperCase();
-                        parsedLine[key] = !!['TRUE', '1'].includes(fieldValue);
+                    if (field.type === "checkbox") {
+                        if (d[key]) {
+                            const fieldValue = d[key].toUpperCase();
+                            parsedLine[key] = !!["TRUE", "1"].includes(
+                                fieldValue
+                            );
+                        } else {
+                            parsedLine[key] = false;
+                        }
                         return;
                     }
 
                     if (field.type) {
-                        if (field.header === 'latitude' || field.header === 'longitude') {
+                        if (
+                            field.header === "latitude" ||
+                            field.header === "longitude"
+                        ) {
                             parsedLine[key] = parseFloat(d[key]) || null;
                             return;
                         }
@@ -139,11 +209,13 @@ export namespace TemplateUtils {
                 parsedLine[key] = d[key];
             });
 
-            template.fields.forEach((field) => {
+            template.fields.forEach(field => {
                 if (!parsedLine.hasOwnProperty(field.header) && field.initial) {
-                    if (field.type === 'checkbox') {
+                    if (field.type === "checkbox") {
                         const fieldValue = d[field.header].toUpperCase();
-                        parsedLine[field.header] = !!['TRUE', '1'].includes(fieldValue);
+                        parsedLine[field.header] = !!["TRUE", "1"].includes(
+                            fieldValue
+                        );
                     } else {
                         parsedLine[field.header] = field.initial;
                     }
@@ -156,18 +228,24 @@ export namespace TemplateUtils {
             //     }
             // });
 
-            parsedLine.isRoot = !parsedLine.parentId && parsedLine.parentId !== 0;
+            parsedLine.isRoot =
+                !parsedLine.parentId && parsedLine.parentId !== 0;
 
-            convertPropertyToArray(parsedLine, 'peopleGroups', true);
-            convertPropertyToArray(parsedLine, 'peopleGroupsNames');
+            convertPropertyToArray(parsedLine, "peopleGroups", true);
+            convertPropertyToArray(parsedLine, "peopleGroupsNames");
 
             // This is for old data.
-            if (parsedLine.hasOwnProperty('threeThirds')) {
-                if (typeof parsedLine.threeThirds === 'string') {
-                    parsedLine.threeThirds = parsedLine.threeThirds.replace(/\W/, '');
-                    parsedLine.threeThirds = parsedLine.threeThirds.split('');
+            if (parsedLine.hasOwnProperty("threeThirds")) {
+                if (typeof parsedLine.threeThirds === "string") {
+                    parsedLine.threeThirds = parsedLine.threeThirds.replace(
+                        /\W/,
+                        ""
+                    );
+                    parsedLine.threeThirds = parsedLine.threeThirds.split("");
 
-                    const filtered = parsedLine.threeThirds.filter((key: any) => isNumberReg.test(key));
+                    const filtered = parsedLine.threeThirds.filter((key: any) =>
+                        isNumberReg.test(key)
+                    );
                     const value: any = [];
 
                     // dedupe old data
@@ -185,7 +263,10 @@ export namespace TemplateUtils {
         });
     }
 
-    export function parseAttributes(elementsData: string, templateName: string): GMStreamAttribute[] {
+    export function parseAttributes(
+        elementsData: string,
+        templateName: string
+    ): GMStreamAttribute[] {
         let attrs;
         if (!elementsData) {
             attrs = getDefaultAttributesForTemplate(templateName);
@@ -198,18 +279,23 @@ export namespace TemplateUtils {
                 attr.order = 1000;
             }
         });
+
         attrs.sort((a, b) => a.order - b.order);
         return attrs;
     }
 }
 
-function convertPropertyToArray(parsedLine: any, property: string, isNumber?: boolean): void {
+function convertPropertyToArray(
+    parsedLine: any,
+    property: string,
+    isNumber?: boolean
+): void {
     if (parsedLine.hasOwnProperty(property)) {
-        if (typeof parsedLine[property] === 'string') {
-            parsedLine[property] = parsedLine[property].split(',');
+        if (typeof parsedLine[property] === "string") {
+            parsedLine[property] = parsedLine[property].split(",");
             if (isNumber) {
                 const result = [];
-                parsedLine[property].forEach((num) => {
+                parsedLine[property].forEach(num => {
                     num = parseFloat(num);
                     if (num) {
                         result.push(num);
@@ -221,15 +307,23 @@ function convertPropertyToArray(parsedLine: any, property: string, isNumber?: bo
     }
 }
 
-function getDefaultAttributesForTemplate(templateName: string): GMStreamAttribute[] {
+function getDefaultAttributesForTemplate(
+    templateName: string
+): GMStreamAttribute[] {
     const template = TemplateUtils.getTemplate(templateName);
     const attrs = [];
 
+    console.log(i18next.t("churchCircles.name"));
     if (template.defaultAttributes) {
         template.defaultAttributes.forEach(a => {
-            attrs.push(assign({
-                value: i18next.t(template.format + '.' + a.propertyName)
-            }, a));
+            attrs.push(
+                assign(
+                    {
+                        value: i18next.t(template.format + "." + a.propertyName)
+                    },
+                    a
+                )
+            );
         });
     }
 
@@ -237,10 +331,10 @@ function getDefaultAttributesForTemplate(templateName: string): GMStreamAttribut
         if (field.canModify) {
             attrs.push({
                 propertyName: field.header,
-                value: i18next.t(template.format + '.' + field.header),
+                value: i18next.t(template.format + "." + field.header),
                 type: field.type,
                 isVisible: true,
-                order: field.order,
+                order: field.order
             });
         }
     });

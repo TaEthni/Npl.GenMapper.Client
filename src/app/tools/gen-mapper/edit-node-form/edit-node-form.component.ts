@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material';
 import { MapsService } from '@core/maps.service';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { GMField, GMStreamAttribute } from '@templates';
+import { Dictionary, keyBy } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -12,8 +14,7 @@ import {
     LocationDialogResponse,
 } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
-import { GMField, GNode, GMStreamAttribute } from '../gen-mapper.interface';
-import { Dictionary, keyBy } from 'lodash';
+import { GNode } from '../gen-mapper.interface';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -76,17 +77,26 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         }
     }
 
-    public onClearFieldClick(event: Event, field: GMField): void {
+    public onClearFieldClick(event: Event, attr: GMStreamAttribute): void {
         event.preventDefault();
         event.stopPropagation();
-        this.form.get(field.header).setValue(null);
-        this.form.get(field.header).markAsDirty();
+        this.form.get(attr.propertyName).setValue(null);
+        this.form.get(attr.propertyName).markAsDirty();
+    }
+
+    public onNumberFieldChange(propertyName: string): void {
+        const control = this.form.get(propertyName);
+        if (!control.value && control.value !== 0) {
+            control.patchValue(0);
+        }
     }
 
     private onGeoLocationClick(): void {
         if (this.form.get('location').value) {
             this.showLocationDialog({
                 address: this.form.get('location').value,
+                latitude: this.form.get('latitude').value,
+                longitude: this.form.get('longitude').value,
                 markerLatitude: this.form.get('latitude').value,
                 markerLongitude: this.form.get('longitude').value
             });

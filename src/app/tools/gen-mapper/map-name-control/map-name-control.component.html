@@ -7,10 +7,10 @@
            [class.is-error]="control.errors">
 
     <mat-error *ngIf="control.errors?.required">
-        {{'errors.requiredField' | locale | async}}
+        {{'Error_requiredField' | locale | async}}
     </mat-error>
 
     <mat-error *ngIf="control.errors?.minlength">
-        {{'errors.valueIsTooShort' | locale | async}}
+        {{'Error_valueIsTooShort' | locale | async}}
     </mat-error>
 </ng-container>

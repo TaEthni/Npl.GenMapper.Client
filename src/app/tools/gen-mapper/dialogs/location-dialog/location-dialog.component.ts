@@ -73,6 +73,10 @@ export class LocationDialogComponent {
         });
     }
 
+    public clear(): void {
+        this.searchControl.setValue('');
+    }
+
     public markerDragEnd(event: MouseEvent): void {
         this.setAddress(event.coords.lat, event.coords.lng);
     }

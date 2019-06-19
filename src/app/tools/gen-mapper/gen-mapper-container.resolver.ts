@@ -4,9 +4,9 @@ import 'rxjs/add/operator/delay';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { DocumentDto } from '@shared/entity/document.model';
+import { GMTemplate } from '@templates';
 import { Observable } from 'rxjs/Observable';
 
-import { GMTemplate } from './gen-mapper.interface';
 import { GenMapperService } from './gen-mapper.service';
 
 @Injectable()

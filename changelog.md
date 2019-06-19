@@ -1,6 +1,26 @@
 # GenMapper Changelog
 
+## (2019-06-18)
+- Feature: Add church circles okc with 12 elements
+
+## (2019-02-26)
+- Fix: Bug where bad csv imports could break gen-map view.
+
+## (2019-02-26)
+- Feature: Use Number Keyboard on mobile devices.
+- Feature: Add field Gospel shares per day.
+- Feature: Add Template SubModule.
+
+## (2019-02-19)
+- Fix: Bug where graph would be deleted upon navigating away.
+
+## (2019-02-18)
+- Feature: Fade Icons on World Map when group is inactive.
+- Feature: World Map will initially load with the root nodes geo location.
+
 ## (2019-02-17)
+- Fix: Bug where node would remain green after deselecting legacy church.
+- Feature: Center on newly created group.
 - Feature: Add Beta reports view.
 
 ## (2019-02-08)

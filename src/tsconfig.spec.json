@@ -17,6 +17,9 @@
             ],
             "@admin/*": [
                 "app/admin/*"
+            ],
+            "@templates": [
+                "templates/index"
             ]
         }
     },

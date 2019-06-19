@@ -26,5 +26,15 @@
             width: calc(100% - 20px);;
             box-shadow: 0 3px 5px rgba(0,0,0,0.2);
         }
+
+        .clear-icon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 7px;
+            color: red;
+            cursor: pointer;
+            user-select: none;
+        }
     }
 }
