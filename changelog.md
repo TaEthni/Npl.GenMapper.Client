@@ -1,5 +1,8 @@
 # GenMapper Changelog
 
+## (2019-06-18)
+- Feature: Add church circles okc with 12 elements
+
 ## (2019-02-26)
 - Fix: Bug where bad csv imports could break gen-map view.
 
