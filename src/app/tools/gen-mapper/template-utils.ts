@@ -8,7 +8,7 @@ import { GNode } from './gen-mapper.interface';
 export const GenMapperTemplatesByFormat = {};
 GenMapperTemplates.forEach(t => (GenMapperTemplatesByFormat[t.format] = t));
 GenMapperTemplates.forEach(template => {
-    template["fieldsByKey"] = keyBy(template.fields, f => f["header"]);
+    template['fieldsByKey'] = keyBy(template.fields, f => f['header']);
 });
 
 const isNumberReg = /\d/;
@@ -16,29 +16,29 @@ const isNumberReg = /\d/;
 export namespace TemplateUtils {
     export function outputEnglishTranslation(templateName: string): string {
         const template = getTemplate(templateName);
-        const header = "key,english,khmer" + "\n";
+        const header = 'key,english,khmer' + '\n';
         const translation = translations.en.translation;
         const kn = translations.kn.translation;
         const data = [];
 
         Object.keys(translation).forEach(key => {
             if (
-                key === "disciples" ||
-                key === "churchCirclesCzech" ||
-                key === "fourFields"
+                key === 'disciples' ||
+                key === 'churchCirclesCzech' ||
+                key === 'fourFields'
             ) {
                 return;
             }
 
             const value = translation[key];
             const knValue = kn[key];
-            if (typeof value === "string") {
+            if (typeof value === 'string') {
                 data.push([key, value, knValue]);
-            } else if (typeof value === "object") {
+            } else if (typeof value === 'object') {
                 Object.keys(value).forEach(k => {
                     const v = value[k];
                     const knv = knValue[k];
-                    data.push([key + "." + k, v, knv]);
+                    data.push([key + '.' + k, v, knv]);
                 });
             }
         });
@@ -62,7 +62,7 @@ export namespace TemplateUtils {
                 .forEach(a => fields.push(a.propertyName));
         }
 
-        return fields.join(",") + "\n";
+        return fields.join(',') + '\n';
     }
 
     export function createInitialCSV(template: GMTemplate): string {
@@ -74,11 +74,11 @@ export namespace TemplateUtils {
                     let v = getInitialTemplateValue(field, template);
 
                     if (Array.isArray(v)) {
-                        v = '"' + v.join(",") + '"';
+                        v = '\'' + v.join(', ') + '\'';
                     }
                     return v;
                 })
-                .join(",")
+                .join(',')
         );
     }
 
@@ -96,12 +96,12 @@ export namespace TemplateUtils {
         template.fields.forEach(field => {
             if (ts[field.header]) {
                 field.localeLabel = i18next.t(
-                    template.format + "." + field.header
+                    template.format + '.' + field.header
                 );
                 if (field.values) {
                     field.values.forEach((v: any) => {
                         v.localeLabel = i18next.t(
-                            template.format + "." + v.header
+                            template.format + '.' + v.header
                         );
                     });
                 }
@@ -115,7 +115,7 @@ export namespace TemplateUtils {
     ): any {
         if (field.initialTranslationCode) {
             return i18next.t(
-                template.format + "." + field.initialTranslationCode
+                template.format + '.' + field.initialTranslationCode
             );
         } else {
             return field.initial;
@@ -137,8 +137,8 @@ export namespace TemplateUtils {
                     const out = {};
 
                     template.fields.forEach(field => {
-                        if (field && field.type === "checkbox") {
-                            out[field.header] = d[field.header] ? "1" : "0";
+                        if (field && field.type === 'checkbox') {
+                            out[field.header] = d[field.header] ? '1' : '0';
                             output.push(out[field.header]);
                         } else {
                             out[field.header] = d[field.header];
@@ -171,22 +171,22 @@ export namespace TemplateUtils {
         return csvParse<GNode>(csvData, d => {
             const parsedId = parseFloat(d.id);
             if (parsedId < 0 || isNaN(parsedId)) {
-                throw new Error("Group id must be integer >= 0.");
+                throw new Error('Group id must be integer >= 0.');
             }
             const parsedLine: any = {};
-            parsedLine["id"] = parsedId;
-            parsedLine["parentId"] =
-                d.parentId !== "" ? parseFloat(d.parentId) : "";
+            parsedLine['id'] = parsedId;
+            parsedLine['parentId'] =
+                d.parentId !== '' ? parseFloat(d.parentId) : '';
 
             const template = TemplateUtils.getTemplate(templateName);
 
             Object.keys(d).forEach(key => {
                 const field = template.fieldsByKey[key];
                 if (field) {
-                    if (field.type === "checkbox") {
+                    if (field.type === 'checkbox') {
                         if (d[key]) {
                             const fieldValue = d[key].toUpperCase();
-                            parsedLine[key] = !!["TRUE", "1"].includes(
+                            parsedLine[key] = !!['TRUE', '1'].includes(
                                 fieldValue
                             );
                         } else {
@@ -197,8 +197,8 @@ export namespace TemplateUtils {
 
                     if (field.type) {
                         if (
-                            field.header === "latitude" ||
-                            field.header === "longitude"
+                            field.header === 'latitude' ||
+                            field.header === 'longitude'
                         ) {
                             parsedLine[key] = parseFloat(d[key]) || null;
                             return;
@@ -211,9 +211,9 @@ export namespace TemplateUtils {
 
             template.fields.forEach(field => {
                 if (!parsedLine.hasOwnProperty(field.header) && field.initial) {
-                    if (field.type === "checkbox") {
+                    if (field.type === 'checkbox') {
                         const fieldValue = d[field.header].toUpperCase();
-                        parsedLine[field.header] = !!["TRUE", "1"].includes(
+                        parsedLine[field.header] = !!['TRUE', '1'].includes(
                             fieldValue
                         );
                     } else {
@@ -231,17 +231,17 @@ export namespace TemplateUtils {
             parsedLine.isRoot =
                 !parsedLine.parentId && parsedLine.parentId !== 0;
 
-            convertPropertyToArray(parsedLine, "peopleGroups", true);
-            convertPropertyToArray(parsedLine, "peopleGroupsNames");
+            convertPropertyToArray(parsedLine, 'peopleGroups', true);
+            convertPropertyToArray(parsedLine, 'peopleGroupsNames');
 
             // This is for old data.
-            if (parsedLine.hasOwnProperty("threeThirds")) {
-                if (typeof parsedLine.threeThirds === "string") {
+            if (parsedLine.hasOwnProperty('threeThirds')) {
+                if (typeof parsedLine.threeThirds === 'string') {
                     parsedLine.threeThirds = parsedLine.threeThirds.replace(
                         /\W/,
-                        ""
+                        ''
                     );
-                    parsedLine.threeThirds = parsedLine.threeThirds.split("");
+                    parsedLine.threeThirds = parsedLine.threeThirds.split('');
 
                     const filtered = parsedLine.threeThirds.filter((key: any) =>
                         isNumberReg.test(key)
@@ -291,8 +291,8 @@ function convertPropertyToArray(
     isNumber?: boolean
 ): void {
     if (parsedLine.hasOwnProperty(property)) {
-        if (typeof parsedLine[property] === "string") {
-            parsedLine[property] = parsedLine[property].split(",");
+        if (typeof parsedLine[property] === 'string') {
+            parsedLine[property] = parsedLine[property].split(',');
             if (isNumber) {
                 const result = [];
                 parsedLine[property].forEach(num => {
@@ -313,13 +313,13 @@ function getDefaultAttributesForTemplate(
     const template = TemplateUtils.getTemplate(templateName);
     const attrs = [];
 
-    console.log(i18next.t("churchCircles.name"));
+    console.log(i18next.t('churchCircles.name'));
     if (template.defaultAttributes) {
         template.defaultAttributes.forEach(a => {
             attrs.push(
                 assign(
                     {
-                        value: i18next.t(template.format + "." + a.propertyName)
+                        value: i18next.t(template.format + '.' + a.propertyName)
                     },
                     a
                 )
@@ -331,7 +331,7 @@ function getDefaultAttributesForTemplate(
         if (field.canModify) {
             attrs.push({
                 propertyName: field.header,
-                value: i18next.t(template.format + "." + field.header),
+                value: i18next.t(template.format + '.' + field.header),
                 type: field.type,
                 isVisible: true,
                 order: field.order
