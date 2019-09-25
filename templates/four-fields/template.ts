@@ -9,7 +9,7 @@ export const FourFieldsTemplate: GMTemplate = {
     'name': 'four-fields',
     'title': 'Four Fields',
     'format': 'fourFields',
-    'icon': 'templates/four-fields/icons/display.png',
+    // 'icon': 'templates/four-fields/icons/display.png',
     'settings': {
         'boxHeight': boxHeight,
         'nodeActions': {

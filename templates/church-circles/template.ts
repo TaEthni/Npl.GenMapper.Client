@@ -641,6 +641,13 @@ export const ChurchCirclesTemplate: GMTemplate = {
                     'letter-spacing': '0.35em'
                 }
             }
+        },
+        {
+            header: 'note',
+            initial: '',
+            type: 'textarea',
+            canModify: true,
+            canModifyVisibility: true,
         }
     ],
     translations: {
@@ -688,6 +695,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
                     'threeThirdsBibleTeaching': 'Bible Teaching',
                     'threeThirdsPractice': 'Practice',
                     'threeThirdsGoalSetting': 'Goal Setting & Commission',
+                    'note': 'Note'
                 }
             }
         },
@@ -735,6 +743,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
                     'threeThirdsBibleTeaching': 'Bible Teaching',
                     'threeThirdsPractice': 'Practice',
                     'threeThirdsGoalSetting': 'Goal Setting & Commission',
+                    'note': 'Hinweis',
                 }
             }
         },
@@ -782,6 +791,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
                     'threeThirdsBibleTeaching': 'Bible Teaching',
                     'threeThirdsPractice': 'Practice',
                     'threeThirdsGoalSetting': 'Goal Setting & Commission',
+                    'note': 'Nota',
                 }
             }
         },
@@ -829,6 +839,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
                     'threeThirdsBibleTeaching': 'Bible',
                     'threeThirdsPractice': 'Procvičování',
                     'threeThirdsGoalSetting': 'Akční kroky a modlitba',
+                    'note': 'Poznámka',
                 }
             }
         },
@@ -876,6 +887,7 @@ export const ChurchCirclesTemplate: GMTemplate = {
                     'threeThirdsBibleTeaching': 'បង្រៀនព្រះគម្ពីរ',
                     'threeThirdsPractice': 'អនុវត្ត',
                     'threeThirdsGoalSetting': 'ការកំណត់គោលដៅ & គណៈកម្មការ',
+                    'note': 'ಸೂಚನೆ',
                 }
             }
         }
