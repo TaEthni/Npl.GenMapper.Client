@@ -22,13 +22,14 @@
     </ng-container>
 </div>
 <div mat-dialog-actions
-     fxLayoutAlign="end">
+     fxLayoutAlign="end"
+     fxLayoutGap="24px">
     <button mat-button
             color="accent"
             [mat-dialog-close]="true">
         {{buttons[0]}}
     </button>
-    <button mat-button
+    <button mat-flat-button
             color="warn"
             [mat-dialog-close]="false">
         {{buttons[1]}}

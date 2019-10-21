@@ -60,7 +60,7 @@ export class LocationDialogComponent {
 
         this.zoom = 12;
         this.searchControl = new FormControl(this.address);
-        this.height = window.innerHeight - 150;
+        this.height = window.innerHeight - 350;
         this.initialize();
     }
 

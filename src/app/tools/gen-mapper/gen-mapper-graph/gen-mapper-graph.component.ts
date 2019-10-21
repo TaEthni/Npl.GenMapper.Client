@@ -23,6 +23,7 @@ import { GenMap } from '../gen-map';
 import { GNode } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { GMTemplate } from '@templates';
+import { Template } from '../template.model';
 
 @Component({
     selector: 'app-gen-mapper-graph',
@@ -34,7 +35,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     public document: DocumentDto;
 
     @Input()
-    public template: GMTemplate;
+    public template: Template;
 
     @Output()
     public change: EventEmitter<GNode[]> = new EventEmitter<GNode[]>(null);
@@ -87,7 +88,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             this._updating = true;
 
             // update graph
-            this.graph.update(this.document.nodes, this.document.attributes, recenterGraph);
+            this.graph.update(this.document.nodes, recenterGraph);
         }
 
         // Only set the document ID if it is a saved document.
@@ -146,7 +147,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     }
 
     private _createGraph(): void {
-        this.graph = new GenMap(this.graphSvg, this.template, this.document.attributes, this.document.nodes);
+        this.graph = new GenMap(this.graphSvg, this.template, this.document.nodes);
 
         this.graph.init();
 
@@ -187,7 +188,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             .onAction()
             .pipe(take(1))
             .subscribe(result => {
-                this.graph.redrawData(originalData, this.document.attributes);
+                this.graph.redrawData(originalData);
             });
     }
 }

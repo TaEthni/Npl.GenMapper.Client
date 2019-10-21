@@ -27,14 +27,12 @@ import { GmPieChartComponent } from './gm-reports/gm-pie-chart/gm-pie-chart.comp
 import { GmPieGridComponent } from './gm-reports/gm-pie-grid/gm-pie-grid.component';
 import { GmReportsToggleComponent } from './gm-reports/gm-reports-toggle/gm-reports-toggle.component';
 import { GmReportsComponent } from './gm-reports/gm-reports.component';
-import { GmSettingsComponent } from './gm-settings/gm-settings.component';
 import { GmWorldMapToggleComponent } from './gm-world-map/gm-world-map-toggle/gm-world-map-toggle.component';
 import { MapMenuButtonComponent } from './map-menu-button/map-menu-button.component';
 import { MapNameControlComponent } from './map-name-control/map-name-control.component';
 import { MapReportLegendComponent } from './map-report-legend/map-report-legend.component';
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
-import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes.component';
 
 @NgModule({
     imports: [
@@ -66,14 +64,12 @@ import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes
         PeopleGroupPickerComponent,
         GenMapperMapComponent,
         MapReportLegendComponent,
-        GmSettingsComponent,
         GmReportsComponent,
         GmPieChartComponent,
         GmBarChartComponent,
         GmPieGridComponent,
         GmReportsToggleComponent,
         GmWorldMapToggleComponent,
-        GmAttributesComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -88,14 +84,12 @@ import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes
         PeopleGroupPickerComponent,
         GenMapperMapComponent,
         MapReportLegendComponent,
-        GmSettingsComponent,
         GmReportsComponent,
         GmPieChartComponent,
         GmBarChartComponent,
         GmPieGridComponent,
         GmReportsToggleComponent,
         GmWorldMapToggleComponent,
-        GmAttributesComponent,
     ],
     entryComponents: [
         ConfirmDialogComponent,

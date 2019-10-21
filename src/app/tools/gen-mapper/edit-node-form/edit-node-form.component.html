@@ -1,137 +1,200 @@
 <div fxLayout="column"
      fxLayoutGap="24px">
 
-    <ng-container *ngFor="let attr of attributes">
-        <ng-container *ngIf="attr.type && attr.type !== 'hidden' && attr.isVisible">
+    <ng-container *ngFor="let field of fields">
+        <ng-container *ngIf="field.type && field.type !== types.hidden && field.type !== types.none">
 
-            <ng-container
-                          *ngIf="!fieldByProperty[attr.propertyName]?.dependsOnFalseField || form.get(fieldByProperty[attr.propertyName]?.dependsOnFalseField) && !form.get(fieldByProperty[attr.propertyName]?.dependsOnFalseField).value">
-                <div class="control"
-                     fxFlex
-                     (click)="onFieldClick(attr)">
-                    <ng-container *ngIf="attr.type === 'text'">
-                        <mat-form-field no-error>
-                            <input type="text"
-                                   matInput
-                                   autocomplete="off"
-                                   [placeholder]="attr.value"
-                                   [formControl]="form.get(attr.propertyName)" />
-                        </mat-form-field>
-                    </ng-container>
-
-                    <ng-container *ngIf="attr.type === 'geoLocation'">
-                        <mat-form-field no-error
-                                        class="geo-location">
-                            <mat-label>
-                                {{attr.value}}
-                            </mat-label>
-                            <input type="text"
-                                   matInput
-                                   autocomplete="off"
-                                   [formControl]="form.get(attr.propertyName)" />
-
-                            <mat-icon matSuffix
-                                      class="clear-field"
-                                      (click)="onClearFieldClick($event, attr)"
-                                      *ngIf="form.get(attr.propertyName).value">clear</mat-icon>
-
-                            <mat-icon matSuffix
-                                      class="location-icon">location_on</mat-icon>
-
-                        </mat-form-field>
-                    </ng-container>
-
-                    <ng-container *ngIf="attr.type === 'peidSelect'">
-                        <mat-form-field no-error
-                                        class="peid-select">
-                            <mat-label>
-                                {{attr.value}}
-                            </mat-label>
-                            <input type="text"
-                                   matInput
-                                   autocomplete="off"
-                                   [formControl]="form.get('peopleGroupsNames')" />
-
-                            <mat-icon matSuffix
-                                      class="clear-field"
-                                      (click)="onClearFieldClick($event, field)"
-                                      *ngIf="form.get(attr.propertyName).value">clear</mat-icon>
-
-                            <mat-icon matSuffix
-                                      class="peid-icon"
-                                      (click)="onClearFieldClick($event, field)">people</mat-icon>
-
-                        </mat-form-field>
-                    </ng-container>
-
-                    <ng-container *ngIf="attr.type === 'textarea'">
-                        <mat-form-field no-error>
-                            <textarea type="text"
-                                      matInput
-                                      cdkTextareaAutosize
-                                      cdkAutosizeMinRows="1"
-                                      autocomplete="off"
-                                      [placeholder]="attr.value"
-                                      [formControl]="form.get(attr.propertyName)"></textarea>
-                        </mat-form-field>
-                    </ng-container>
-
-                    <ng-container *ngIf="attr.type === 'number'">
-                        <mat-form-field no-error>
-                            <input type="number"
-                                   matInput
-                                   appNumberInput
-                                   min="0"
-                                   autocomplete="off"
-                                   (change)="onNumberFieldChange(attr.propertyName)"
-                                   [placeholder]="attr.value"
-                                   [formControl]="form.get(attr.propertyName)" />
-                        </mat-form-field>
-                    </ng-container>
-
-                    <ng-container *ngIf="attr.type === 'radio'">
-                        <mat-form-field no-error>
-                            <mat-label>
-                                {{attr.value}}
-                            </mat-label>
-                            <mat-select [formControl]="form.get(attr.propertyName)">
-                                <mat-option *ngFor="let value of fieldByProperty[attr.propertyName].values"
-                                            [value]="value.header">
-                                    {{value.localeLabel}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </ng-container>
-
-                    <ng-container *ngIf="attr.type === 'multiSelect'">
-                        <mat-form-field no-error>
-                            <mat-label>
-                                {{attr.value}}
-                            </mat-label>
-                            <mat-select [formControl]="form.get(attr.propertyName)"
-                                        multiple
-                                        [placeholder]="form.get(attr.propertyName).value | joinList"
-                                        #temp>
-                                <mat-select-trigger>
-                                    {{form.get(attr.propertyName).value | joinList}}
-                                </mat-select-trigger>
-                                <mat-option *ngFor="let value of fieldByProperty[attr.propertyName].values"
-                                            [value]="value.value">
-                                    #{{value.value}} {{value.localeLabel}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </ng-container>
-
-                    <ng-container *ngIf="attr.type === 'checkbox'">
-                        <mat-slide-toggle labelPosition="before"
-                                          [formControl]="form.get(attr.propertyName)">
-                            {{attr.value}}
-                        </mat-slide-toggle>
-                    </ng-container>
-                </div>
+            <!-- <ng-container
+                          *ngIf="!field.dependsOnTrueField || form.get(field.dependsOnTrueField).value; then controlTemplate else falseFieldTemplate">
             </ng-container>
 
+            <ng-template #falseFieldTemplate>
+                <ng-container
+                              *ngIf="!field.dependsOnFalseField || !form.get(field.dependsOnFalseField).value; then controlTemplate">
+                </ng-container>
+            </ng-template> -->
+
+            <ng-container *ngTemplateOutlet="getTemplate(controlTemplate, noneTemplate, field)"></ng-container>
+
+            <ng-template #noneTemplate></ng-template>
+            <ng-template #controlTemplate>
+                <div class="control"
+                     [class.has-dependency]="field.dependsOnFalseField || field.dependsOnTrueField || field.dependsOnFieldId"
+                     fxFlex
+                     (click)="onFieldClick(field)">
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center"
+                         fxLayoutGap="15px">
+                        <ng-container *ngIf="field.iconRefValue">
+                            <img [src]="field.iconRefValue"
+                                 height="40"
+                                 width="40" />
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.text">
+                            <mat-form-field>
+                                <input type="text"
+                                       matInput
+                                       autocomplete="off"
+                                       [placeholder]="field.i18nValue"
+                                       [formControl]="form.get(field.id)" />
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.geoLocation">
+                            <mat-form-field class="geo-location">
+                                <mat-label>
+                                    {{field.i18nValue}}
+                                </mat-label>
+                                <input type="text"
+                                       matInput
+                                       autocomplete="off"
+                                       [formControl]="form.get(field.id)" />
+
+                                <mat-icon matSuffix
+                                          class="clear-field"
+                                          (click)="onClearFieldClick($event, field)"
+                                          *ngIf="form.get(field.id).value">clear</mat-icon>
+
+                                <mat-icon matSuffix
+                                          class="location-icon">location_on</mat-icon>
+
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.date && field.id !== 'date'">
+                            <div fxLayout="column"
+                                 fxFlex>
+                                <mat-form-field (click)="picker.open()"
+                                                class="date-picker">
+                                    <input matInput
+                                           autocomplete="off"
+                                           [matDatepicker]="picker"
+                                           [placeholder]="field.i18nValue"
+                                           [formControl]="form.get(field.id)">
+                                    <mat-datepicker-toggle matSuffix
+                                                           [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+
+                                <!-- For deprecated date field -->
+                                <ng-container *ngIf="form.get('date')?.value">
+                                    <div class="deprecated"
+                                         fxLayout="row">
+                                        <div>
+                                            <div>
+                                                original date (deprecated):
+                                            </div>
+                                            <pre><code>{{form.get('date').value}}</code></pre>
+                                        </div>
+                                        <mat-icon class="clear-icon"
+                                                  (click)="removeDeprecatedDate()">clear</mat-icon>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.peidSelect">
+                            <mat-form-field no-error
+                                            class="peid-select">
+                                <mat-label>
+                                    {{field.i18nValue}}
+                                </mat-label>
+                                <input type="text"
+                                       matInput
+                                       autocomplete="off"
+                                       [formControl]="form.get('peopleGroupsNames')" />
+
+                                <mat-icon matSuffix
+                                          class="clear-field"
+                                          (click)="onClearFieldClick($event, field)"
+                                          *ngIf="form.get(field.id).value">clear</mat-icon>
+
+                                <mat-icon matSuffix
+                                          class="peid-icon"
+                                          (click)="onClearFieldClick($event, field)">people</mat-icon>
+
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.textarea">
+                            <mat-form-field no-error>
+                                <textarea type="text"
+                                          matInput
+                                          cdkTextareaAutosize
+                                          cdkAutosizeMinRows="1"
+                                          autocomplete="off"
+                                          [placeholder]="field.i18nValue"
+                                          [formControl]="form.get(field.id)"></textarea>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.number">
+                            <mat-form-field no-error>
+                                <input type="number"
+                                       matInput
+                                       appNumberInput
+                                       min="0"
+                                       autocomplete="off"
+                                       (change)="onNumberFieldChange(field.id)"
+                                       [placeholder]="field.i18nValue"
+                                       [formControl]="form.get(field.id)" />
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.radio || field.type === types.select">
+                            <mat-form-field no-error>
+                                <mat-label>
+                                    {{field.i18nValue}}
+                                </mat-label>
+                                <mat-select [formControl]="form.get(field.id)">
+                                    <mat-option *ngFor="let option of fieldByProperty[field.id].options"
+                                                [value]="option.value">
+                                        {{option.i18nValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.multiSelect">
+                            <mat-form-field no-error>
+                                <mat-label>
+                                    {{field.i18nValue}}
+                                </mat-label>
+                                <mat-select [formControl]="form.get(field.id)"
+                                            multiple
+                                            [placeholder]="form.get(field.id).value | joinList"
+                                            #temp>
+                                    <mat-select-trigger>
+                                        {{form.get(field.id).value | joinList}}
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let option of fieldByProperty[field.id].options"
+                                                [value]="option.value">
+                                        #{{option.value}} {{option.i18nValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.checkbox">
+
+                            <mat-slide-toggle labelPosition="before"
+                                              [formControl]="form.get(field.id)">
+                                <div fxLayout="row">
+                                    <div>
+                                        {{field.i18nValue}}
+                                    </div>
+                                    <div fxFlex></div>
+                                    <ng-container *ngIf="field.i18nDescriptionValue">
+                                        <ng-container *ngTemplateOutlet="tooltipTemplate; context: {field: field}">
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </mat-slide-toggle>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-template>
         </ng-container>
     </ng-container>
 
@@ -156,3 +219,10 @@
     </div>
     <div fxFlex="80px"></div>
 </div>
+
+<ng-template #tooltipTemplate
+             let-field="field">
+    <mat-icon class="help-icon"
+              [matTooltip]="field.i18nDescriptionValue"
+              matTooltipPosition="above">help</mat-icon>
+</ng-template>

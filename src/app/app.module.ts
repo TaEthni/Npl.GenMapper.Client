@@ -8,8 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
-import { ToolsModule } from './tools/tools.module';
 import { AgmCoreModule } from '@agm/core/core.module';
+import { ToolsModule } from './tools/tools.module';
+import { GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
+import { GenMapperTemplates } from '@templates';
 
 @NgModule({
     declarations: [
@@ -29,7 +31,12 @@ import { AgmCoreModule } from '@agm/core/core.module';
             libraries: ['places']
         })
     ],
-    providers: [],
+    providers: [
+        {
+            provide: GM_TEMPLATES,
+            useValue: GenMapperTemplates
+        }
+    ],
     bootstrap: [AppComponent],
     exports: []
 })

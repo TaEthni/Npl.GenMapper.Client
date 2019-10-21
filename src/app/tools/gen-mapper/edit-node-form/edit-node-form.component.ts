@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { MapsService } from '@core/maps.service';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { GMField, GMStreamAttribute } from '@templates';
+import { GMField, GMStreamAttribute, ControlType } from '@templates';
 import { Dictionary, keyBy } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 
@@ -15,6 +15,7 @@ import {
 } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 import { GNode } from '../gen-mapper.interface';
+import { fileURLToPath } from 'url';
 
 @Component({
     selector: 'app-edit-node-form',
@@ -34,10 +35,8 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     @Input()
     public fields: GMField[];
 
-    @Input()
-    public attributes: GMStreamAttribute[];
-
     public fieldByProperty: Dictionary<GMField>;
+    public types = ControlType;
 
     constructor(
         private dialog: MatDialog,
@@ -45,7 +44,7 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     ) { super(); }
 
     public ngOnInit(): void {
-        this.fieldByProperty = keyBy(this.fields, f => f.header);
+        this.fieldByProperty = keyBy(this.fields, f => f.id);
 
         if (this.form.get('generation')) {
             this.form.get('generation').valueChanges
@@ -68,20 +67,20 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     public onFieldClick(field: GMField): void {
-        if (field.type === 'geoLocation') {
+        if (field.type === ControlType.geoLocation) {
             this.onGeoLocationClick();
         }
 
-        if (field.type === 'peidSelect') {
-            this.onPeopleGroupClick();
-        }
+        // if (field.type === 'peidSelect') {
+        //     this.onPeopleGroupClick();
+        // }
     }
 
-    public onClearFieldClick(event: Event, attr: GMStreamAttribute): void {
+    public onClearFieldClick(event: Event, field: GMField): void {
         event.preventDefault();
         event.stopPropagation();
-        this.form.get(attr.propertyName).setValue(null);
-        this.form.get(attr.propertyName).markAsDirty();
+        this.form.get(field.id).setValue(null);
+        this.form.get(field.id).markAsDirty();
     }
 
     public onNumberFieldChange(propertyName: string): void {
@@ -89,6 +88,42 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (!control.value && control.value !== 0) {
             control.patchValue(0);
         }
+    }
+
+    public removeDeprecatedDate(): void {
+        this.form.get('date').patchValue(null);
+    }
+
+    public getTemplate(controlTemplate: TemplateRef<any>, noneTemplate: TemplateRef<any>, field: GMField): any {
+        if (field.dependsOnFieldId) {
+            const dependency = this.form.get(field.dependsOnFieldId);
+
+            if (dependency.value === field.dependsOnFieldValue) {
+                return controlTemplate;
+            } else {
+                return noneTemplate;
+            }
+        }
+
+        if (field.dependsOnTrueField) {
+            const dependency = this.form.get(field.dependsOnTrueField);
+            if (dependency.value) {
+                return controlTemplate;
+            } else {
+                return noneTemplate;
+            }
+        }
+
+        if (field.dependsOnFalseField) {
+            const dependency = this.form.get(field.dependsOnFalseField);
+            if (!dependency.value) {
+                return controlTemplate;
+            } else {
+                return noneTemplate;
+            }
+        }
+
+        return controlTemplate;
     }
 
     private onGeoLocationClick(): void {

@@ -15,6 +15,7 @@ import { TemplateUtils } from '../template-utils';
 import { Utils } from '@core/utils';
 import { GNode } from '../gen-mapper.interface';
 import { GMTemplate, GMField } from '@templates';
+import { Template } from '../template.model';
 
 @Component({
     selector: 'app-node-drawer',
@@ -32,7 +33,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     public documents: DocumentDto[];
 
     @Input()
-    public template: GMTemplate;
+    public template: Template;
 
     @Input()
     public hideActions: boolean;
@@ -68,12 +69,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
     public ngOnInit(): void {
         this.fields = this.template.fields;
-        this.localeService.get()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(locale => {
-                TemplateUtils.setTemplateLocale(this.template, locale);
-                this.fields = this.template.fields;
-            });
 
         this.nodeClipboard.get()
             .pipe(takeUntil(this.unsubscribe))
@@ -118,7 +113,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
                         prompt: this.localeService.t('saveChangesQuestion'),
                         buttons: [
                             this.localeService.t('en_Yes'),
-                            this.localeService.t('en_No')
+                            this.localeService.t('en_Cancel'),
                         ],
                     }
                 })
@@ -126,9 +121,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
                 .subscribe(result => {
                     if (result) {
                         this.onSave();
-                    } else {
-                        this.onCancel();
-                        this.drawer.close();
                     }
                 });
         } else {
@@ -141,6 +133,20 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         if (this.clonedNode.hasOwnProperty('active') && this.clonedNode.hasOwnProperty('inactiveReason') && this.clonedNode.active) {
             this.clonedNode.inactiveReason = null;
         }
+
+        this.template.fields.forEach(field => {
+            if (field.sumOfFields) {
+                let v: number = 0;
+                field.sumOfFields.forEach((fieldId) => {
+                    // const otherField = this.template.getField(fieldId);
+                    const value = parseInt(this.clonedNode[fieldId]);
+                    if (value) {
+                        v += value;
+                    }
+                });
+                this.clonedNode[field.id] = v;
+            }
+        });
 
         assign(this.node, this.clonedNode);
 
@@ -208,14 +214,14 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         this.template.fields
             .filter(field => !!field.type)
             .forEach(field => {
-                fields.push({ name: field.header, order: field.order });
+                fields.push({ name: field.id, order: field.controlOrder });
             });
 
-        this.document.attributes
-            .filter(attr => !!attr.type && !this.template.fieldsByKey[attr.propertyName])
-            .forEach(attr => {
-                fields.push({ name: attr.propertyName, order: attr.order });
-            });
+        // this.document.attributes
+        //     .filter(attr => !!attr.type && !this.template.fieldsByKey[attr.propertyName])
+        //     .forEach(attr => {
+        //         fields.push({ name: attr.propertyName, order: attr.order });
+        //     });
 
         fields.sort((a, b) => a.order - b.order)
             .forEach(field => {

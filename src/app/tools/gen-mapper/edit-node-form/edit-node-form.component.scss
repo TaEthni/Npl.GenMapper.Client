@@ -11,6 +11,16 @@
         padding: 0;
     }
 
+    .date-picker {
+        input {
+            pointer-events: none;
+        }
+    }
+
+    .help-icon {
+        opacity: 0.5;
+    }
+
     .mat-form-field {
         width: 100%;
 
@@ -40,6 +50,10 @@
         }
     }
 
+    .control.has-dependency {
+        padding-left: 55px;
+    }
+
     .control-input {
         min-width: 250px;
     }
@@ -55,6 +69,17 @@
         user-select: none;
         font-weight: 600;
         margin-right: auto;
+    }
+
+    .deprecated {
+        background-color: #eee;
+        border-radius: 4px;
+        padding: 4px;
+    }
+
+    .clear-icon {
+        color: red;
+        cursor: pointer;
     }
 
     .mat-form-field.peid-select::ng-deep,

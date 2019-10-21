@@ -3,12 +3,16 @@ import * as d3 from 'd3';
 import i18next from 'i18next';
 import * as _ from 'lodash';
 
-import { GNode, PrintType } from './gen-mapper.interface';
+import { GNode, PrintType, NodeDatum } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
-import { HierarchyNode, zoomTransform, zoomIdentity } from 'd3';
+import { HierarchyNode, zoomTransform, zoomIdentity, drag, DragBehavior, event as d3Event } from 'd3';
 import { cloneDeep } from 'lodash';
 import { Device } from '@core/platform';
-import { GMStreamAttribute, GMTemplate, GMField } from '@templates';
+import { GMStreamAttribute, GMTemplate, GMField, ControlType, GMSvgAction } from '@templates';
+import { GMSvg } from '@templates';
+import * as uuid from 'uuid/v4';
+import { FileDetector } from 'protractor';
+import { Template } from './template.model';
 
 export const MapStyles = {
     boxHeight: 80,
@@ -16,13 +20,11 @@ export const MapStyles = {
     textMargin: 6
 };
 
-const isNumberReg = /\d/;
-
 export class GenMap {
     public initialCsv: string;
     public csvHeader: string;
     public language: any;
-
+    public dragBehavior: DragBehavior<Element, {}, {} | d3.SubjectPosition>;
     public zoom: any;
     public svg: any;
     public g: any;
@@ -30,9 +32,16 @@ export class GenMap {
     public gNodes: any;
     public gLinks: any;
     public gLinksText: any;
-    public nodeLabelAttributes: GMStreamAttribute[];
+    // public nodeLabelAttributes: GMStreamAttribute[];
 
+    public nodeLabelFields: GMField[];
     public margin = { top: 110, right: 30, bottom: 50, left: 30 };
+
+    public draggingNode: NodeDatum;
+    public draggingNodeSiblings: NodeDatum[];
+
+    private _dragStarted: boolean;
+    private _dragStartEvent: MouseEvent;
 
     public onChange = (v: GNode[]) => { };
     public onCopyNode = (v: GNode[]) => { };
@@ -40,13 +49,10 @@ export class GenMap {
 
     constructor(
         private graphSvg: ElementRef,
-        private template: GMTemplate,
-        public attributes: GMStreamAttribute[],
+        private template: Template,
         public data?: GNode[],
     ) {
-        if (this.attributes) {
-            this.nodeLabelAttributes = this.attributes.filter(a => a.isLabel);
-        }
+        this.nodeLabelFields = template.fields.filter(f => f.isNodeSvgLabel);
     }
 
     public init(): void {
@@ -59,11 +65,9 @@ export class GenMap {
         this._createMap();
     }
 
-    public update(content: GNode[], attributes: GMStreamAttribute[], originalPosition: boolean = true): void {
+    public update(content: GNode[], originalPosition: boolean = true): void {
         this.data = content;
         this.nodes = null;
-        this.attributes = attributes;
-        this.nodeLabelAttributes = attributes.filter(a => a.isLabel);
 
         if (originalPosition) {
             this.originalPosition();
@@ -72,10 +76,8 @@ export class GenMap {
         this.redraw();
     }
 
-    public redrawData(data: GNode[], attributes: GMStreamAttribute[]): void {
+    public redrawData(data: GNode[]): void {
         this.data = data;
-        this.attributes = attributes;
-        this.nodeLabelAttributes = attributes.filter(a => a.isLabel);
         this.redraw();
     }
 
@@ -119,22 +121,18 @@ export class GenMap {
 
     public addNode(node: any): void {
         const newNodeData: any = {};
+
         this.template.fields.forEach((field: GMField) => {
-            newNodeData[field.header] = TemplateUtils.getInitialTemplateValue(field, this.template);
+            newNodeData[field.id] = field.defaultValue;
         });
 
-        this.attributes.forEach(attr => {
-            if (!this.template.fieldsByKey[attr.propertyName]) {
-                newNodeData[attr.propertyName] = '';
-            }
-        });
+        newNodeData.id = uuid();
+        newNodeData.parentId = node.data.id;
 
-        newNodeData['id'] = this.findNewId();
-        newNodeData['parentId'] = node.data.id;
         this.data.push(newNodeData);
         this.redraw();
-        this.focusNodeById(newNodeData.id);
         this.centerNodeById(newNodeData.id);
+        this.focusNodeById(newNodeData.id);
     }
 
     public updateNode(newData: any): void {
@@ -146,7 +144,6 @@ export class GenMap {
     }
 
     public removeNode(node: any): void {
-
         if (!node.parent) {
             return;
         }
@@ -161,14 +158,15 @@ export class GenMap {
 
     public csvIntoNode(d: any, csvString: any): void {
         this._deleteAllDescendants(d);
-        const parsedCsv = TemplateUtils.parseCsvData(csvString, this.template.format);
+
+        const parsedCsv = TemplateUtils.parseCsvData(csvString, this.template.id);
         this.overwriteNode(d, parsedCsv);
     }
 
     public overwriteNode(d: any, data: GNode[]): void {
         // replace node by root of imported
-        const nodeToDelete: any = _.filter(this.data, { id: d.data.id })[0];
-        const rowRootOfImported: any = _.filter(data, { parentId: '' })[0];
+        const nodeToDelete: any = this.data.find(n => n.id === d.data.id);
+        const rowRootOfImported: GNode = data.find(n => !n.parentId);
         const mapOldIdToNewId = {};
         mapOldIdToNewId[rowRootOfImported.id] = nodeToDelete.id;
         data = _.without(data, rowRootOfImported);
@@ -235,8 +233,15 @@ export class GenMap {
             .call(this.zoom.transform, zoomIdentity.translate(x, y).scale(t.k));
     }
 
+    public onDragStart(node: NodeDatum, element: Element): void {
+    }
+    public onDragged(node: NodeDatum, element: Element): void {
+    }
+    public onDragEnd(node: NodeDatum, element: Element): void {
+    }
+
     public printMap(printType: PrintType): void {
-        const boxHeight = this.template.settings.boxHeight;
+        const boxHeight = this.template.svgSettings.boxHeight;
 
         // calculate width and height of the map (printed rotated by 90 degrees)
         const arrNodes = this.nodes.descendants();
@@ -313,21 +318,22 @@ export class GenMap {
         }
     }
 
-    private findNewId(): string {
-        const ids = _.map(this.data, (row) => row.id);
-        return findNewIdFromArray(ids);
-    }
-
     /**
      * @private Map Drawing Methods
      */
-
     private _createMap(): void {
+        const self = this;
         this.zoom = d3.zoom()
             .scaleExtent([0.05, 2])
             .on('zoom', () => {
                 d3.select('g').attr('transform', d3.event.transform);
             });
+
+        this.dragBehavior = drag<Element, NodeDatum>()
+            .subject(d => d)
+            .on('start', function (d: NodeDatum): void { self.onDragStart(d, this); })
+            .on('drag', function (d: NodeDatum): void { self.onDragged(d, this); })
+            .on('end', function (d: NodeDatum): void { self.onDragEnd(d, this); })
 
         this.svg = d3.select(this.graphSvg.nativeElement)
             .call(this.zoom)
@@ -354,15 +360,15 @@ export class GenMap {
             .append('g')
             .attr('class', 'group-nodes');
 
-        this.update(this.data, this.attributes);
+        this.update(this.data);
     }
 
     private redraw(): void {
         // declares a tree layout and assigns the size
         const tree = d3.tree()
             .nodeSize([
-                this.template.settings.nodeSize.width + 5,
-                this.template.settings.nodeSize.height + 12
+                this.template.svgSettings.nodeWidth,
+                this.template.svgSettings.nodeHeight
             ])
             .separation((a, b) => {
                 return a.parent === b.parent ? 1 : 1.2;
@@ -433,6 +439,7 @@ export class GenMap {
                 }
             });
 
+
         // update nodes
         const node = this.gNodes.selectAll('.node')
             .data(this.nodes.descendants());
@@ -441,8 +448,7 @@ export class GenMap {
             .remove();
 
         // NEW ELEMENTS
-        const newGroup = node.enter()
-            .append('g');
+        const newGroup = node.enter().append('g');
 
         newGroup.append('title').text(i18next.t('Node_editGroup'));
 
@@ -450,33 +456,29 @@ export class GenMap {
             .attr('class', 'hidden-rect')
             .attr('width', 36)
             .attr('height', 100)
-            .attr('x', (this.template.settings.nodeSize.width / 2) - 26);
+            .attr('x', (this.template.svgSettings.nodeBounds.width / 2) - 26);
 
-        // append SVG elements without fields
-        Object.keys(this.template.svg).forEach((svgElement) => {
-            const svgElementValue = this.template.svg[svgElement];
-            const element = newGroup.append(svgElementValue['type']);
-            element.attr('class', 'node-' + svgElement);
-            applySVGAttrsAndStyle(svgElementValue, element);
-        });
-
-        // _appendRemoveButton(newGroup, this.template);
-        _appendAddButton(newGroup, this.template);
-        _appendEditButton(newGroup, this.template);
-
-        // append SVG elements related to fields
-        this.template.fields.forEach((field) => {
-            if (field.svg) {
-                const g = newGroup.append('g');
-                g.append('title').text(i18next.t(this.template.format + '.' + field.header));
-                const element = g.append(field.svg['type']);
-                element.attr('class', 'node-' + field.header);
-                applySVGAttrsAndStyle(field.svg, element);
+        // append Template SVGS
+        this.template.svgs.forEach((svg) => {
+            if (svg.type === 'image') {
+                svg.attributes.width = svg.attributes.width || this.template.svgSettings.iconSize;
+                svg.attributes.height = svg.attributes.height || this.template.svgSettings.iconSize;
             }
+
+            const g = newGroup.append('g');
+            g.classed('group-' + svg.id, true);
+            g.append('title').text(svg.tooltipi18nValue);
+            const element = g.append(svg.type);
+            element.classed('node-' + svg.id, true);
+            applySVGAttrsAndStyle(svg, element);
         });
 
-        newGroup.append('g')
-            .attr('class', 'node-labels');
+        this.template.svgActions.forEach(action => {
+            _appendAction(newGroup, this.template, action);
+        });
+
+
+        newGroup.append('g').attr('class', 'node-labels');
 
         // UPDATE including NEW
         const nodeWithNew = node.merge(newGroup);
@@ -498,34 +500,33 @@ export class GenMap {
                 }
             });
 
-        this.nodeLabelAttributes.sort((a, b) => a.order - b.order);
+        this.nodeLabelFields.sort((a, b) => a.nodeSvgLabelOrder - b.nodeSvgLabelOrder);
+
         nodeWithNew.select('.node-labels')
             .html(d => {
                 let line = 1;
-                const textHeight = this.template.settings.textHeight;
-                const boxHeight = this.template.settings.boxHeight;
-                if (d.data.name) {
-                    line++;
-                }
+                const textHeight = this.template.svgSettings.textHeight;
+                const boxHeight = this.template.svgSettings.boxHeight;
 
                 let svg = '';
-                this.nodeLabelAttributes
-                    .filter(attr => d.data[attr.propertyName])
-                    .forEach((attr, i) => {
-                        svg += `<text text-anchor="start" y="${boxHeight + (i + line) * textHeight}">${d.data[attr.propertyName]}</text>`;
+                this.nodeLabelFields
+                    .filter(field => d.data[field.id])
+                    .forEach((field, i) => {
+                        svg += `<text text-anchor="start" y="${boxHeight + (i + line) * textHeight}">${d.data[field.id]}</text>`;
                     });
                 return svg;
             });
 
+
         nodeWithNew
-            .select('.removeNode')
+            .select('.remove-node-action')
             .on('click', (d) => {
                 d3.event.stopPropagation();
                 this.onRemoveNodeClick(d);
             });
 
         nodeWithNew
-            .select('.addNode')
+            .select('.addChildNode')
             .on('click', (d) => {
                 d3.event.stopPropagation();
                 this.onAddNodeClick(d);
@@ -537,29 +538,85 @@ export class GenMap {
                 d3.event.stopPropagation();
                 this.unFocusAllNodes();
                 this.focusNodeById(d.data.id);
-
                 this.onEditNodeClick(d);
             });
 
         // refresh class and attributes in SVG elements without fields
-        // in order to remove any additional classes or settings from inherited fields
-        Object.keys(this.template.svg).forEach((svgElement) => {
-            const svgElementValue = this.template.svg[svgElement];
-            const element = nodeWithNew.select('.node-' + svgElement);
-            applySVGAttrsAndStyle(svgElementValue, element);
+        // // in order to remove any additional classes or settings from inherited fields
+        this.template.svgs.forEach((svg) => {
+            const element = nodeWithNew.select('.node-' + svg.id);
+            applySVGAttrsAndStyle(svg, element);
+
+            if (svg.state) {
+                svg.state.forEach(state => {
+                    if (state.setText) {
+                        element.text((d) => {
+                            if (d.data[state.fieldRef] || d.data[state.fieldRef] === 0) {
+                                if (Array.isArray(d.data[state.fieldRef])) {
+                                    return d.data[state.fieldRef].join('');
+                                }
+
+                                return d.data[state.fieldRef];
+                            }
+                        });
+                    }
+
+                    if (state.setIcon) {
+                        element.attr('xlink:href', (d) => {
+                            const fieldValue = d.data[state.fieldRef];
+                            const stateValue = state.fieldRefValues.find(v => v.iconRefValue && v.value === fieldValue);
+
+                            if (stateValue) {
+                                return stateValue.iconRefValue;
+                            }
+
+                            return svg.attributes['xlink:href'];
+                        });
+                    }
+
+                    if (state.attr) {
+                        const defaultAttrValue = svg.attributes ? svg.attributes[state.attr] : '';
+                        element.attr(state.attr, (d) => {
+                            const len = state.fieldRefValues.length;
+                            for (let i = 0; i < len; i++) {
+                                if (d.data[state.fieldRef] === state.fieldRefValues[i].value) {
+                                    return state.fieldRefValues[i].attrValue;
+                                }
+                            }
+                            return defaultAttrValue;
+                        });
+                    }
+
+                    if (state.style) {
+                        const defaultStyleValue = svg.style ? svg.style[state.style] : '';
+                        element.style(state.style, (d) => {
+                            const len = state.fieldRefValues.length;
+                            for (let i = 0; i < len; i++) {
+                                if (state.fieldRefValues[i].hasOwnProperty('styleValue')) {
+                                    if (d.data[state.fieldRef] === state.fieldRefValues[i].value) {
+                                        return state.fieldRefValues[i].styleValue;
+                                    }
+                                }
+                            }
+                            return defaultStyleValue;
+                        });
+                    }
+                });
+            }
         });
 
-        // update node elements which have SVG in template
-        this.template.fields.forEach((field) => {
-            if (field.svg) {
-                const element = nodeWithNew.select('.node-' + field.header);
-                this._updateSvgForFields(field, element);
-            }
-            if (field.inheritsFrom) {
-                const element = nodeWithNew.select('.node-' + field.inheritsFrom);
-                this._updateFieldWithInherit(field, element);
-            }
-        });
+        // const _template = this.template;
+        // nodeWithNew.each(function (d) {
+        //     const el = d3.select(this);
+        //     _template.svgElementIcons.forEach(icon => {
+        //         if (!icon.state) { return; }
+        //         icon.state.forEach(state => {
+        //             if (d.data[state.fieldRef] === state.fieldValue) {
+        //                 applySVGAttrsAndStyle(state, el.select('.node-' + icon.id));
+        //             }
+        //         });
+        //     });
+        // });
 
         node.exit()
             .remove();
@@ -569,74 +626,18 @@ export class GenMap {
         }
     }
 
-    private _updateSvgForFields(field: any, element: any): void {
-        applySVGAttrsAndStyle(field.svg, element);
-        element.text((d) => {
-            // InstallTrigger???
-            // add spaces between each character for Firefox
-            // if (field.header === 'threeThirds' && typeof InstallTrigger !== 'undefined') {
-            //     return d.data[field.header].replace(/(.)/g, '$1 ');
-            // } else {
-            //     return d.data[field.header];
-            // }
-
-            // Only for old data when threeThirds was a string.
-            if (field.header === 'threeThirds' && Array.isArray(d.data[field.header])) {
-                return d.data[field.header].join('');
-            }
-
-            return d.data[field.header];
-        });
-
-        if (field.svg.type === 'image') {
-            element.style('opacity', (s) => {
-                return s.data[field.header] ? '1' : '0.2';
-            });
+    private _isDraggingDisabled(draggingNode: NodeDatum): boolean {
+        // Ignore Drag if RootNode
+        if (draggingNode.data.isRoot) {
+            return true;
         }
-    }
 
-    private _updateFieldWithInherit(field: any, element: any): void {
-        if (!element.empty()) {
-            if (field.type === 'checkbox') { this._updateCheckboxField(field, element); }
-            if (field.type === 'radio') { this._updateRadioField(field, element); }
+        // Ignore Drag if only child
+        if (draggingNode.parent.children.length < 2) {
+            return true;
         }
-    }
 
-    private _updateCheckboxField(field: any, element: any): void {
-        // add class to the element which the field inherits from
-        if (field.class) {
-
-            element.classed(field.class.checkedTrue, (d) => d.data[field.header]);
-            element.classed(field.class.checkedFalse, (d) => !d.data[field.header]);
-        }
-        if (typeof field.attributes !== 'undefined' &&
-            typeof field.attributes.rx !== 'undefined') {
-            element.attr('rx', function (d: any): any {
-                const checked = d.data[field.header];
-                const rxObj = field.attributes.rx;
-                const rx = checked ? rxObj.checkedTrue : rxObj.checkedFalse;
-                return String(rx);
-            });
-        }
-    }
-
-    private _updateRadioField(field: any, element: any): void {
-        // add class to the element which the field inherits from
-        field.values.forEach(v => {
-            if (v.class) {
-                element.classed(v.class, (d) => d.data[field.header] === v.header);
-            }
-        });
-
-        element.attr('rx', function (d: any): any {
-            const fieldValue = _getFieldValueForRadioType(field, d);
-            if (typeof fieldValue.attributes !== 'undefined' &&
-                typeof fieldValue.attributes.rx !== 'undefined') {
-                return String(fieldValue.attributes.rx);
-            } else {
-                return this.rx.baseVal.valueAsString;
-            }
-        });
+        return false;
     }
 
     private unFocusAllNodes(): void {
@@ -648,108 +649,37 @@ export class GenMap {
     }
 }
 
-function _appendEditButton(group: any, template: GMTemplate): void {
-    group.append('g')
-        .attr('class', 'editNode')
-        .attr('cursor', 'pointer')
-        .append('svg')
-        .attr('y', template.settings.nodeActions.y + 10)
-        .attr('x', template.settings.nodeActions.x)
-        .html(`
-            <rect x="0" y="0" rx="7" width="32" height="40">
-            <title>${i18next.t('Node_copyNodeButton')}</title>
-            </rect>
-            <path style="transform: translate(4px, 8px)"
-                fill="white"
-                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02
-            0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-        `);
 
-    // <text x="16" y="28" text-anchor="middle" fill="white" stroke="unset">
-    //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
-    //         edit
-    //     </tspan>
-    // </text>
-}
+function _appendAction(group: any, template: GMTemplate, action: GMSvgAction): void {
+    const width = action.attributes.width || 28;
+    const height = action.attributes.height || 40;
 
-function _appendAddButton(group: any, template: GMTemplate): void {
-    group.append('g')
-        .attr('class', 'addNode')
+    const svg = group.append('g')
+        .attr('class', action.id)
         .attr('cursor', 'pointer')
+        .classed('node-action', true)
+        .classed(action.control, true)
         .append('svg')
-        .attr('y', template.settings.nodeActions.y + 50)
-        .attr('x', template.settings.nodeActions.x)
-        .html(`
-            <rect x="0" y="0" rx="7" width="32" height="40">
+        .attr('viewBox', `0 0 ${width} ${height}`)
+
+    // .attr('y', template.svgSettings.nodeActions.y + 50)
+    // .attr('x', template.svgSettings.nodeActions.x)
+    // .attr('height', height)
+    // .attr('width', width)
+
+    action.attributes = action.attributes || {};
+    action.attributes.width = action.attributes.width || width;
+    action.attributes.height = action.attributes.height || height;
+
+    applySVGAttrsAndStyle(action, svg);
+
+    svg.html(`
+            <rect x="2px" y="2px" rx="7" height="${height - 4}" width="${width - 4}"></rect>
             <title>${i18next.t('Node_hoverAddChildGroup')}</title>
             </rect>
-            <line x1="5" y1="20" x2="27" y2="20" stroke="white" stroke-width="3"></line>
-            <line x1="16" y1="8" x2="16" y2="32" stroke="white" stroke-width="3"></line>
-        `);
-    // <text x="16" y="32px" text-anchor="middle" fill="white" stroke="unset">
-    //     <tspan class="material-icons" font-family="Material Icons" font-size="32px" style="font-size: 32px">
-    //         add
-    //     </tspan>
-    // </text>
-}
-
-function _appendRemoveButton(group: any, template: GMTemplate): void {
-    group.filter(n => !n.data.isRoot).append('g')
-        .attr('class', 'removeNode')
-        .attr('cursor', 'pointer')
-        .append('svg')
-        .attr('y', template.settings.nodeActions.y + 64)
-        .attr('x', template.settings.nodeActions.x)
-        .html(`
-            <rect x="0" y="0" rx="7" width="32" height="32">
-            <title>${i18next.t('Node_hoverDeleteGroupAndSubtree')}</title>
-            </rect>
-            <path style="transform: translate(4px, 4px)"
-                fill="white"
-                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-            `);
-    // <text x="16" y="28px" text-anchor="middle" fill="white" stroke="unset">
-    //     <tspan class="material-icons" font-family="Material Icons" font-size="24px" style="font-size: 24px">
-    //         delete
-    //     </tspan>
-    // </text>
-    // <line x1="6" y1="13.5" x2="19" y2="26.5" stroke="white" stroke-width="3"></line>
-    // <line x1="19" y1="13.5" x2="6" y2="26.5" stroke="white" stroke-width="3"></line>
-}
-
-function _appendCopyButton(group: any, template: GMTemplate): void {
-    group.append('g')
-        .attr('class', 'copyNode')
-        .attr('cursor', 'pointer')
-        .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
-        .append('svg')
-        .attr('y', template.settings.nodeActions.y + 50)
-        .attr('x', template.settings.nodeActions.x)
-        .html(`
-            <rect x="0" y="0" rx="7" width="25" height="25">
-            <title>${i18next.t('Node_copyNodeButton')}</title>
-            </rect>
-            <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
-            <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>
-            <rect x="8" y="8" height="12" width="12" stroke-width="2" stroke="#fff"></rect>
-        `);
-}
-
-function _appendPasteButton(group: any, template: GMTemplate): void {
-    group.append('g')
-        .attr('class', 'pasteNode')
-        .attr('cursor', 'pointer')
-        .style('transform', n => n.data.isRoot ? 'translateY(-20px)' : '')
-        .append('svg')
-        .attr('y', template.settings.nodeActions.y + 75)
-        .attr('x', template.settings.nodeActions.x)
-        .html(`
-            <rect x="0" y="0" rx="7" width="25" height="25">
-                <title>${i18next.t('Node_pasteNodeButton')}</title>
-            </rect>
-            <line x1="4" y1="4" x2="16" y2="4" stroke="white" stroke-width="2"></line>
-            <line x1="4" y1="4" x2="4" y2="16" stroke="white" stroke-width="2"></line>
-            <rect x="8" y="8" height="12" width="12" stroke-width="2" stroke="#fff"></rect>
+            <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle">
+                <tspan class="material-icons">${action.iconName}</tspan>
+            </text>
         `);
 }
 
@@ -766,14 +696,6 @@ function _parseTransform(a: any): any {
     return b;
 }
 
-function _getFieldValueForRadioType(field: any, d: any): any {
-    let fieldValue = _.filter(field.values, { header: d.data[field.header] })[0];
-    if (typeof fieldValue === 'undefined') {
-        fieldValue = _.filter(field.values, { header: field.initial })[0];
-    }
-    return fieldValue;
-}
-
 function findNewIdFromArray(arr: any[]): any {
     // copy and sort
     arr = arr.slice().sort((a, b) => a - b);
@@ -781,11 +703,13 @@ function findNewIdFromArray(arr: any[]): any {
 }
 
 
-function applySVGAttrsAndStyle(svg: { attributes?: {}, style?: {} }, element: any): void {
+function applySVGAttrsAndStyle(svg: GMSvg, element: any): void {
+    if (svg.class) {
+        element.attr('class', svg.class);
+    }
+
     if (svg.attributes) {
-        Object.keys(svg.attributes).forEach((attribute) => {
-            element.attr(attribute, svg.attributes[attribute]);
-        });
+        applyAttributesToSvg(svg.attributes, element);
     }
 
     if (svg.style) {
@@ -793,4 +717,14 @@ function applySVGAttrsAndStyle(svg: { attributes?: {}, style?: {} }, element: an
             element.style(styleKey, svg.style[styleKey]);
         });
     }
+}
+
+function applyAttributesToSvg(attributes: any, element: any) {
+    Object.keys(attributes).forEach((attribute) => {
+        if (attribute === 'icon') {
+            attribute = 'xlink:href';
+        }
+
+        element.attr(attribute, attributes[attribute]);
+    });
 }

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { translations } from '@templates';
-import * as i18next from 'i18next';
+import i18next from 'i18next';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface TranslationType {
     label: string;
     id: string;
 }
+
+console.log(i18next)
 
 @Injectable()
 export class LocaleService {

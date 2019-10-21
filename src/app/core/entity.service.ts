@@ -38,6 +38,12 @@ export class EntityService {
         return this.http.get<ResponseData>(url).pipe(map((a => {
             a.data.forEach((node: Entity) => {
                 node['entityType'] = entityType;
+
+                if (entityType === EntityType.Documents) {
+                    if (node['type'] === 'churchCirclesOkc') {
+                        node['type'] = 'churchCircles12'
+                    }
+                }
             });
             return a.data;
         })));

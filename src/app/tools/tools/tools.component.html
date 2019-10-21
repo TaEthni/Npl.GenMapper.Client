@@ -22,13 +22,13 @@
          fxLayoutGap="24px">
 
     <ng-container *ngFor="let template of templatesWithIcons">
-        <mat-card [routerLink]="['/' + template.name]">
+        <mat-card [routerLink]="['/' + template.id]">
             <img mat-card-image
-                 [src]="template.icon"
+                 [src]="template.settings.iconUrl"
                  alt="Photo of a Church Circles">
             <mat-card-header fxLayoutAlign="start center">
                 <mat-card-title>
-                    {{template.title}}
+                    {{template.name}}
                 </mat-card-title>
                 <mat-card-subtitle>
                     Generation Map
@@ -43,8 +43,8 @@
     <h4>Additional GenMappers</h4>
     <ul>
         <li *ngFor="let template of templateWithoutIcons">
-            <a [routerLink]="['/' + template.name]">
-                {{template.title}}
+            <a [routerLink]="['/' + template.id]">
+                {{template.name}}
             </a>
         </li>
     </ul>

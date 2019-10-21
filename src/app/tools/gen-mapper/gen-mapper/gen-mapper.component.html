@@ -52,10 +52,7 @@
 
     <ng-container [ngSwitch]="view">
         <ng-container *ngSwitchCase="viewTypes.Settings">
-            <app-gm-settings [document]="document"
-                             [template]="template"
-                             (cancelClick)="setView(viewTypes.GenMap)">
-            </app-gm-settings>
+
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.Reports">
             <app-gm-reports [document]="document"
@@ -68,7 +65,7 @@
                                 (nodeClick)="onNodeClick($event)"></app-gen-mapper-map>
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.GenMap">
-            <app-gen-mapper-graph class="{{template.name}}"
+            <app-gen-mapper-graph class="{{template.theme}}"
                                   [document]="document"
                                   [template]="template"
                                   (change)="onGraphChange($event)"

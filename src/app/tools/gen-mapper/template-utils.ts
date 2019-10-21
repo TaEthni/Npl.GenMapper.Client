@@ -1,14 +1,15 @@
-import { GenMapperTemplates, GMField, GMStreamAttribute, GMTemplate, translations } from '@templates';
-import { csvFormatRows, csvParse } from 'd3';
+import { GenMapperTemplates, GMField, GMStreamAttribute, GMTemplate, translations, ControlType } from '@templates';
+import { csvFormatRows, csvParse, local } from 'd3';
 import i18next from 'i18next';
 import { assign, keyBy } from 'lodash';
-
+import * as uuid from 'uuid/v4';
 import { GNode } from './gen-mapper.interface';
+import { Template } from './template.model';
 
 export const GenMapperTemplatesByFormat = {};
-GenMapperTemplates.forEach(t => (GenMapperTemplatesByFormat[t.format] = t));
+GenMapperTemplates.forEach(t => (GenMapperTemplatesByFormat[t.id] = t));
 GenMapperTemplates.forEach(template => {
-    template['fieldsByKey'] = keyBy(template.fields, f => f['header']);
+    template.fieldsByKey = keyBy(template.fields, f => f.id);
 });
 
 const isNumberReg = /\d/;
@@ -51,27 +52,32 @@ export namespace TemplateUtils {
     }
 
     export function createCSVHeader(
-        template: GMTemplate,
+        template: Template,
         attributes?: GMStreamAttribute[]
     ): string {
-        const fields = template.fields.map(field => field.header);
+        const fields = template.fields.map(field => field.id);
 
-        if (attributes) {
-            attributes
-                .filter(a => !template.fieldsByKey[a.propertyName])
-                .forEach(a => fields.push(a.propertyName));
-        }
+        // if (attributes) {
+        //     attributes
+        //         .filter(a => !template.fieldsByKey[a.propertyName])
+        //         .forEach(a => fields.push(a.propertyName));
+        // }
 
         return fields.join(',') + '\n';
     }
 
-    export function createInitialCSV(template: GMTemplate): string {
+    export function createInitialCSV(template: Template): string {
         return (
             createCSVHeader(template) +
             template.fields
                 .map(field => {
                     // Patch to convert arrays to CSV readable values
-                    let v = getInitialTemplateValue(field, template);
+                    // let v = getInitialTemplateValue(field, template);
+                    let v = field.defaultValue;
+
+                    if (field.id === 'id') {
+                        v = uuid();
+                    }
 
                     if (Array.isArray(v)) {
                         v = '\'' + v.join(', ') + '\'';
@@ -84,27 +90,26 @@ export namespace TemplateUtils {
 
     export function setTemplateLocale(
         template: GMTemplate,
-        locale: string
+        locale: any
     ): void {
+        template.svgs.forEach(svg => {
+            if (svg.tooltipi18nRef) {
+                svg.tooltipi18nValue = locale.t(svg.tooltipi18nRef);
+            }
+        });
+
         // Example: template.translations.en.translation.churchCircles;
-        const ts = template.translations[locale].translation[template.format];
-
-        if (!ts) {
-            return;
-        }
-
         template.fields.forEach(field => {
-            if (ts[field.header]) {
-                field.localeLabel = i18next.t(
-                    template.format + '.' + field.header
-                );
-                if (field.values) {
-                    field.values.forEach((v: any) => {
-                        v.localeLabel = i18next.t(
-                            template.format + '.' + v.header
-                        );
-                    });
-                }
+            if (field.i18nRef) {
+                field.i18nValue = locale.t(field.i18nRef);
+            }
+
+            if (field.options) {
+                field.options.forEach(o => {
+                    if (o.i18nRef) {
+                        o.i18nValue = locale.t(o.i18nRef);
+                    }
+                });
             }
         });
     }
@@ -113,22 +118,21 @@ export namespace TemplateUtils {
         field: GMField,
         template: GMTemplate
     ): any {
-        if (field.initialTranslationCode) {
-            return i18next.t(
-                template.format + '.' + field.initialTranslationCode
-            );
-        } else {
-            return field.initial;
-        }
+        // if (field.initialTranslationCode) {
+        //     return i18next.t(
+        //         template.format + '.' + field.initialTranslationCode
+        //     );
+        // } else {
+        //     return field.initial;
+        // }
     }
 
     export function getOutputCsv(
         data: GNode[],
-        templateName: string,
-        attributes: GMStreamAttribute[]
+        template: Template,
+        attributes?: GMStreamAttribute[]
     ): string {
-        const template = TemplateUtils.getTemplate(templateName);
-        const csvHeader = TemplateUtils.createCSVHeader(template, attributes);
+        const csvHeader = TemplateUtils.createCSVHeader(template);
         return (
             csvHeader +
             csvFormatRows(
@@ -136,21 +140,22 @@ export namespace TemplateUtils {
                     const output = [];
                     const out = {};
 
+                    // parsign checkboxes in CSV from 1&0 to true&false
                     template.fields.forEach(field => {
-                        if (field && field.type === 'checkbox') {
-                            out[field.header] = d[field.header] ? '1' : '0';
-                            output.push(out[field.header]);
+                        if (field && field.type === ControlType.checkbox) {
+                            out[field.id] = d[field.id] ? '1' : '0';
+                            output.push(out[field.id]);
                         } else {
-                            out[field.header] = d[field.header];
-                            output.push(d[field.header]);
+                            out[field.id] = d[field.id];
+                            output.push(d[field.id]);
                         }
                     });
 
-                    if (attributes) {
-                        attributes
-                            .filter(a => !template.fieldsByKey[a.propertyName])
-                            .forEach(a => output.push(d[a.propertyName]));
-                    }
+                    // if (attributes) {
+                    //     attributes
+                    //         .filter(a => !template.fieldsByKey[a.propertyName])
+                    //         .forEach(a => output.push(d[a.propertyName]));
+                    // }
 
                     return output;
                 })
@@ -164,28 +169,28 @@ export namespace TemplateUtils {
         return JSON.stringify(attributes);
     }
 
-    export function parseCsvData(
-        csvData: string,
-        templateName: string
-    ): GNode[] {
-        return csvParse<GNode>(csvData, d => {
-            const parsedId = parseFloat(d.id);
-            if (parsedId < 0 || isNaN(parsedId)) {
-                throw new Error('Group id must be integer >= 0.');
-            }
+    export function parseCsvData(csvData: string, templateName: string): GNode[] {
+        return csvParse<GNode>(csvData, row => {
+
+            // const parsedId = parseFloat(row.id);
+            // if (parsedId < 0 || isNaN(parsedId)) {
+            //     throw new Error('Group id must be integer >= 0.');
+            // }
+
+
             const parsedLine: any = {};
-            parsedLine['id'] = parsedId;
+            parsedLine['id'] = row.id;
             parsedLine['parentId'] =
-                d.parentId !== '' ? parseFloat(d.parentId) : '';
+                row.parentId !== '' ? parseFloat(row.parentId) : '';
 
             const template = TemplateUtils.getTemplate(templateName);
 
-            Object.keys(d).forEach(key => {
+            Object.keys(row).forEach(key => {
                 const field = template.fieldsByKey[key];
                 if (field) {
-                    if (field.type === 'checkbox') {
-                        if (d[key]) {
-                            const fieldValue = d[key].toUpperCase();
+                    if (field.type === ControlType.checkbox) {
+                        if (row[key]) {
+                            const fieldValue = row[key].toUpperCase();
                             parsedLine[key] = !!['TRUE', '1'].includes(
                                 fieldValue
                             );
@@ -195,29 +200,31 @@ export namespace TemplateUtils {
                         return;
                     }
 
-                    if (field.type) {
-                        if (
-                            field.header === 'latitude' ||
-                            field.header === 'longitude'
-                        ) {
-                            parsedLine[key] = parseFloat(d[key]) || null;
-                            return;
+                    if (field.parseValueAsInt) {
+                        parsedLine[key] = parseInt(row[key]) || null;
+                    }
+
+                    if (field.parseOptionValueAsInt) {
+                        if (row[key] && Array.isArray(row[key])) {
+                            const v: string[] = row[key] as any;
+                            parsedLine[key] = v.map(value => parseInt(value));
                         }
                     }
                 }
 
-                parsedLine[key] = d[key];
+                parsedLine[key] = row[key];
             });
 
+            // Iterate Fields and set defaultValue if the property has not been set
             template.fields.forEach(field => {
-                if (!parsedLine.hasOwnProperty(field.header) && field.initial) {
-                    if (field.type === 'checkbox') {
-                        const fieldValue = d[field.header].toUpperCase();
-                        parsedLine[field.header] = !!['TRUE', '1'].includes(
+                if (!parsedLine.hasOwnProperty(field.id) && field.defaultValue) {
+                    if (field.type === ControlType.checkbox) {
+                        const fieldValue = row[field.id].toUpperCase();
+                        parsedLine[field.id] = !!['TRUE', '1'].includes(
                             fieldValue
                         );
                     } else {
-                        parsedLine[field.header] = field.initial;
+                        parsedLine[field.id] = field.defaultValue;
                     }
                 }
             });
@@ -231,10 +238,14 @@ export namespace TemplateUtils {
             parsedLine.isRoot =
                 !parsedLine.parentId && parsedLine.parentId !== 0;
 
+            // TODO: remove
             convertPropertyToArray(parsedLine, 'peopleGroups', true);
+            // TODO: remove
             convertPropertyToArray(parsedLine, 'peopleGroupsNames');
 
-            // This is for old data.
+            // This is for CSV files coming from the old-gen-mapper v1
+            // when the threeThirds value was a string '1234567'
+            // converts '1234567' to [1,2,3,4,5,6,7]
             if (parsedLine.hasOwnProperty('threeThirds')) {
                 if (typeof parsedLine.threeThirds === 'string') {
                     parsedLine.threeThirds = parsedLine.threeThirds.replace(
@@ -263,26 +274,26 @@ export namespace TemplateUtils {
         });
     }
 
-    export function parseAttributes(
-        elementsData: string,
-        templateName: string
-    ): GMStreamAttribute[] {
-        let attrs;
-        if (!elementsData) {
-            attrs = getDefaultAttributesForTemplate(templateName);
-        } else {
-            attrs = JSON.parse(elementsData);
-        }
+    // export function parseAttributes(
+    //     elementsData: string,
+    //     templateName: string
+    // ): GMStreamAttribute[] {
+    //     let attrs;
+    //     if (!elementsData) {
+    //         attrs = getDefaultAttributesForTemplate(templateName);
+    //     } else {
+    //         attrs = JSON.parse(elementsData);
+    //     }
 
-        attrs.forEach(attr => {
-            if (!attr.order && attr.order !== 0) {
-                attr.order = 1000;
-            }
-        });
+    //     attrs.forEach(attr => {
+    //         if (!attr.order && attr.order !== 0) {
+    //             attr.order = 1000;
+    //         }
+    //     });
 
-        attrs.sort((a, b) => a.order - b.order);
-        return attrs;
-    }
+    //     attrs.sort((a, b) => a.order - b.order);
+    //     return attrs;
+    // }
 }
 
 function convertPropertyToArray(
@@ -307,37 +318,37 @@ function convertPropertyToArray(
     }
 }
 
-function getDefaultAttributesForTemplate(
-    templateName: string
-): GMStreamAttribute[] {
-    const template = TemplateUtils.getTemplate(templateName);
-    const attrs = [];
+// function getDefaultAttributesForTemplate(
+//     templateName: string
+// ): GMStreamAttribute[] {
+//     const template = TemplateUtils.getTemplate(templateName);
+//     const attrs = [];
 
-    console.log(i18next.t('churchCircles.name'));
-    if (template.defaultAttributes) {
-        template.defaultAttributes.forEach(a => {
-            attrs.push(
-                assign(
-                    {
-                        value: i18next.t(template.format + '.' + a.propertyName)
-                    },
-                    a
-                )
-            );
-        });
-    }
+//     console.log(i18next.t('churchCircles.name'));
+//     if (template.defaultAttributes) {
+//         template.defaultAttributes.forEach(a => {
+//             attrs.push(
+//                 assign(
+//                     {
+//                         value: i18next.t(template.format + '.' + a.propertyName)
+//                     },
+//                     a
+//                 )
+//             );
+//         });
+//     }
 
-    template.fields.forEach(field => {
-        if (field.canModify) {
-            attrs.push({
-                propertyName: field.header,
-                value: i18next.t(template.format + '.' + field.header),
-                type: field.type,
-                isVisible: true,
-                order: field.order
-            });
-        }
-    });
+//     template.fields.forEach(field => {
+//         if (field.canModify) {
+//             attrs.push({
+//                 propertyName: field.header,
+//                 value: i18next.t(template.format + '.' + field.header),
+//                 type: field.type,
+//                 isVisible: true,
+//                 order: field.order
+//             });
+//         }
+//     });
 
-    return attrs;
-}
+//     return attrs;
+// }

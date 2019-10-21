@@ -15,6 +15,8 @@ import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.co
 import { GenMapperView } from '../gen-mapper-view.enum';
 import { GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { LocaleService } from '@core/locale.service';
+import { TemplateUtils } from '../template-utils';
 
 
 @Component({
@@ -44,6 +46,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog,
+        private locale: LocaleService,
         @Optional() public genMapperContainer: GenMapperContainerComponent
     ) {
         super();
@@ -53,19 +56,23 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public ngOnInit(): void {
         const snapshot = this.route.snapshot;
         const data = snapshot.parent.data;
-        this.template = data.template;
+        this.template = data.config.template;
         this.isAuthenticated = this.authService.isAuthenticated();
 
         if (this.template.reports) {
             this.showReportsView = true;
         }
 
+        this.locale.get().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+            TemplateUtils.setTemplateLocale(this.template, this.locale);
+        });
+
         this.route.data
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.document = result.document;
                 if (!result.document && !this.authService.isAuthenticated() && this.genMapper.hasLocalDocument()) {
-                    this.router.navigate([this.template.name, 'local'], { skipLocationChange: true });
+                    this.router.navigate([this.template.id, 'local'], { skipLocationChange: true });
                 }
 
                 if (this.document) {
@@ -116,7 +123,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         const nodeToUpdate = this.document.nodes.find((d: any) => d.id === node.id);
         if (nodeToUpdate) {
             if (this.genMapperGraph) {
-                this.genMapperGraph.graph.update(this.document.nodes, this.document.attributes, false);
+                this.genMapperGraph.graph.update(this.document.nodes, false);
             } else {
                 this.onGraphChange(this.document.nodes);
             }

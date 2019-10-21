@@ -30,7 +30,7 @@
         </tr>
         <ng-container *ngFor="let report of reports">
             <tr>
-                <td>{{template.format + '.' + report.name | locale | async}}</td>
+                <td>{{template.id + '.' + report.name | locale | async}}</td>
                 <td class="report-value">{{report.value}}</td>
             </tr>
         </ng-container>

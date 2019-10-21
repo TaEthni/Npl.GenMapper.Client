@@ -40,3 +40,9 @@
     display: flex !important;
     max-height: 90vh !important;
 }
+
+body {
+    .mat-tooltip {
+        font-size: 16px;
+    }
+}

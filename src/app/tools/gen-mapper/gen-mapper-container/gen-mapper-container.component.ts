@@ -10,6 +10,7 @@ import { GenMapperView } from '../gen-mapper-view.enum';
 import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { Template } from '../template.model';
 
 @Component({
     selector: 'app-gen-mapper-container',
@@ -20,7 +21,7 @@ import { NodeClipboardService } from '../node-clipboard.service';
 export class GenMapperContainerComponent extends Unsubscribable implements OnInit, OnDestroy {
     public documents: DocumentDto[];
     public document: DocumentDto;
-    public template: GMTemplate;
+    public template: Template;
     public isAuthenticated: boolean;
     public node: GNode;
     public view: GenMapperView;

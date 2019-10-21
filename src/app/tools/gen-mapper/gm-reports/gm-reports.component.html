@@ -34,11 +34,11 @@
 
     <ng-container *ngFor="let report of reports">
         <ng-container *ngIf="report.type === 'radio'">
-            <app-gm-pie-chart [label]="template.format + '.'+ report.name | locale | async"
+            <app-gm-pie-chart [label]="template.id + '.'+ report.name | locale | async"
                               [data]="report.values"></app-gm-pie-chart>
         </ng-container>
         <ng-container *ngIf="report.type === 'multiField'">
-            <app-gm-bar-chart [label]="template.format + '.'+ report.name | locale | async"
+            <app-gm-bar-chart [label]="template.id + '.'+ report.name | locale | async"
                               [data]="report.values"
                               type="horizontal"></app-gm-bar-chart>
         </ng-container>

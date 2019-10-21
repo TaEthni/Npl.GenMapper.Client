@@ -43,7 +43,7 @@ export class MapSidenavComponent {
     }
 
     public onSelectDocument(doc: DocumentDto): void {
-        this.router.navigate([this.template.name, doc.id]);
+        this.router.navigate([this.template.id, doc.id]);
 
         if (Device.isHandHeld) {
             this.drawer.close();
@@ -54,7 +54,7 @@ export class MapSidenavComponent {
         doc = new DocumentDto(doc);
         this.genMapper.createDocument(doc)
             .subscribe(result => {
-                this.router.navigate([this.template.name, result.id]);
+                this.router.navigate([this.template.id, result.id]);
             });
     }
 }

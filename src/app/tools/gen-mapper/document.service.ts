@@ -3,37 +3,45 @@ import { EntityService } from '@core/entity.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { EntityType } from '@shared/entity/entity.model';
 import { GMTemplate } from '@templates';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, keyBy } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { TemplateUtils } from './template-utils';
+import { GNode } from './gen-mapper.interface';
+import { parseCSVData } from './resources/csv-parser';
+import { TemplateService } from './template.service';
+import { Template } from './template.model';
 
 @Injectable()
 export class DocumentService {
 
     constructor(
-        private entityService: EntityService
+        private entityService: EntityService,
+        private templateService: TemplateService,
     ) { }
 
-    public getDocumentsByType(type: string): Observable<DocumentDto[]> {
+    public getDocumentsByType(type: string, dbFormat?: string): Observable<DocumentDto[]> {
         return this.entityService
             .getAll<DocumentDto>(EntityType.Documents)
             .pipe(map(docs => {
+
                 return docs
                     .filter(doc => doc.type === type)
                     .map(doc => {
-                        doc.attributes = TemplateUtils.parseAttributes('', type);
-                        doc.nodes = TemplateUtils.parseCsvData(doc.content, type);
+                        const template = this.templateService.getTemplate(type);
+                        // doc.attributes = TemplateUtils.parseAttributes('', type);
+                        doc.nodes = parseCSVData(doc.content, template);
+                        this.processNodesOnLoad(doc.nodes);
                         return doc;
                     });
             }));
     }
 
-    public create(props: any = {}, template: GMTemplate): Observable<DocumentDto> {
+    public create(props: any = {}, template: Template): Observable<DocumentDto> {
         const doc = new DocumentDto({
             title: props.title || 'No name',
-            type: template.format,
+            type: template.id,
             content: props.content || TemplateUtils.createInitialCSV(template)
         });
 
@@ -42,7 +50,8 @@ export class DocumentService {
 
     public update(doc: DocumentDto): Observable<DocumentDto> {
         const data = cloneDeep(doc);
-        data.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type, doc.attributes);
+        const template = this.templateService.getTemplate(doc.type);
+        data.content = TemplateUtils.getOutputCsv(doc.nodes, template);
 
         // data.elements = TemplateUtils.getOutputAttributesJSON(doc.attributes);
         delete data.elements;
@@ -56,5 +65,16 @@ export class DocumentService {
 
     public remove(document: DocumentDto): Observable<DocumentDto> {
         return this.entityService.delete(document);
+    }
+
+    private processNodesOnLoad(nodes: GNode[]): void {
+        const byId = keyBy(nodes, (n) => n.id);
+
+        nodes.forEach(node => {
+            if (node.parentId) {
+                const parent = byId[node.parentId];
+                parent.hasChildNodes = true;
+            }
+        });
     }
 }

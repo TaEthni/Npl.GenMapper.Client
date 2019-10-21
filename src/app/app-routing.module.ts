@@ -17,20 +17,20 @@ import { SignupComponent } from './home/signup/signup.component';
 import { UnverifiedEmailComponent } from './home/unverified-email/unverified-email.component';
 import { LayoutUnauthenticatedComponent } from './layout/layout-unauthenticated/layout-unauthenticated.component';
 import { LayoutComponent } from './layout/layout/layout.component';
-import { GenMapperContainerResolver } from './tools/gen-mapper/gen-mapper-container.resolver';
 import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-container/gen-mapper-container.component';
-import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
+import { GenMapperContainerResolver } from './tools/gen-mapper/gen-mapper-container.resolver';
 import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
+import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
 import { ToolsComponent } from './tools/tools/tools.component';
 
 
 const genMapperRoutes = [];
 GenMapperTemplates.forEach(template => {
     genMapperRoutes.push({
-        path: template.name,
+        path: template.id,
         component: GenMapperContainerComponent,
         resolve: {
-            documents: GenMapperContainerResolver,
+            config: GenMapperContainerResolver,
         },
         data: {
             template: template
