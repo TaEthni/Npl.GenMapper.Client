@@ -1,7 +1,7 @@
-import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
+import { MapsAPILoader } from '@agm/core';
 import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MapsService } from '@core/maps.service';
 
 interface MouseEvent {
@@ -30,7 +30,7 @@ export interface LocationDialogResponse {
     styleUrls: ['./location-dialog.component.scss']
 })
 export class LocationDialogComponent {
-    @ViewChild('search')
+    @ViewChild('search', { static: true })
     public searchElementRef: ElementRef;
 
     public latitude: number;

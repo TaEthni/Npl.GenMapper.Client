@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
-import { AgmCoreModule } from '@agm/core/core.module';
+import { AgmCoreModule } from '@agm/core';
 import { ToolsModule } from './tools/tools.module';
 import { GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
 import { GenMapperTemplates } from '@templates';
@@ -26,10 +26,10 @@ import { GenMapperTemplates } from '@templates';
         AccountModule,
         AdminModule,
         AppRoutingModule,
-        // AgmCoreModule.forRoot({
-        //     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-        //     libraries: ['places']
-        // })
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            libraries: ['places']
+        })
     ],
     providers: [
         {

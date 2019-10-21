@@ -24,7 +24,7 @@ export class GmPieChartComponent implements OnInit, OnChanges {
     @Input()
     public value2: number;
 
-    @ViewChild('chart')
+    @ViewChild('chart', { static: true })
     public chartRef: ElementRef;
 
     public svg: any;

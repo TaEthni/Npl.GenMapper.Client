@@ -5,7 +5,7 @@ import { ControlType } from "@templates";
 const isNumberReg = /\d/;
 
 export function parseCSVData(csvData: string, template: Template) {
-    return csvParse<GNode>(csvData, (row) => {
+    return csvParse<GNode, any>(csvData, (row) => {
 
         const node: any = {};
 

@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
@@ -22,7 +23,7 @@ export class PeopleGroupPickerComponent extends Unsubscribable implements OnInit
     @Output()
     public selectionChange = new EventEmitter<PeopleGroupModel[]>();
 
-    @ViewChild(MatPaginator)
+    @ViewChild(MatPaginator, { static: true })
     public paginator: MatPaginator;
 
     public displayedColumns: string[] = ['select', 'name'];

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { LocaleService, TranslationType } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { User } from '@shared/entity/user.model';

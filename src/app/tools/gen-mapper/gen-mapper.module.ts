@@ -1,4 +1,4 @@
-import { AgmCoreModule } from '@agm/core/core.module';
+import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -41,10 +41,10 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         ReactiveFormsModule,
         RouterModule,
         NgxChartsModule,
-        // AgmCoreModule.forRoot({
-        //     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-        //     libraries: ['places']
-        // })
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            libraries: ['places']
+        })
     ],
     declarations: [
         ConfirmDialogComponent,

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupService } from './people-group.service';

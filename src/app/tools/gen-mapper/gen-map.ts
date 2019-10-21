@@ -13,6 +13,7 @@ import { GMSvg } from '@templates';
 import * as uuid from 'uuid/v4';
 import { FileDetector } from 'protractor';
 import { Template } from './template.model';
+import { parseCSVData } from './resources/csv-parser';
 
 export const MapStyles = {
     boxHeight: 80,
@@ -159,7 +160,7 @@ export class GenMap {
     public csvIntoNode(d: any, csvString: any): void {
         this._deleteAllDescendants(d);
 
-        const parsedCsv = TemplateUtils.parseCsvData(csvString, this.template.id);
+        const parsedCsv = parseCSVData(csvString, this.template);
         this.overwriteNode(d, parsedCsv);
     }
 

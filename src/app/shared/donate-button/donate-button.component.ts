@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
     styleUrls: ['./donate-button.component.scss']
 })
 export class DonateButtonComponent implements OnInit {
-    @ViewChild('paypalButton')
+    @ViewChild('paypalButton', { static: true })
     public paypalButton: ElementRef;
 
     constructor(private elementRef: ElementRef) { }

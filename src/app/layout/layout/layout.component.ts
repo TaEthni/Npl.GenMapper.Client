@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationStart, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { LayoutService } from '@core/layout.service';
@@ -21,7 +21,7 @@ export class LayoutComponent extends Unsubscribable implements OnInit {
     public user: User;
     public isAuthenticated: boolean;
 
-    @ViewChild(MatSidenav)
+    @ViewChild(MatSidenav, { static: true })
     public matSidenav: MatSidenav;
 
     constructor(

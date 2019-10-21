@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatSidenav, MatDrawer } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { DocumentDto } from '@shared/entity/document.model';
 

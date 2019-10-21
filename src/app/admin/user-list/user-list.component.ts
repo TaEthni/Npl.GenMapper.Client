@@ -1,6 +1,10 @@
 import { EditUserConfig, EditUserDialogComponent } from '@admin/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { EntityService } from '@core/entity.service';
 import { EntityType } from '@shared/entity/entity.model';
 import { User } from '@shared/entity/user.model';
@@ -16,10 +20,10 @@ export class UserListComponent implements OnInit {
     public dataSource = new MatTableDataSource<User>();
     public displayedColumns: string[] = ['id', 'email', 'username', 'role', 'actions'];
 
-    @ViewChild(MatPaginator)
+    @ViewChild(MatPaginator, { static: true })
     public paginator: MatPaginator;
 
-    @ViewChild(MatSort)
+    @ViewChild(MatSort, { static: true })
     public sort: MatSort;
 
     constructor(

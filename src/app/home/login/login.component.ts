@@ -15,10 +15,10 @@ export class LoginComponent implements OnInit, AfterViewChecked {
     public showError: boolean;
     public isLoading: boolean;
 
-    @ViewChild('emailField')
+    @ViewChild('emailField', { static: true })
     public emailField: ElementRef;
 
-    @ViewChild('passwordField')
+    @ViewChild('passwordField', { static: true })
     public passwordField: ElementRef;
 
     constructor(

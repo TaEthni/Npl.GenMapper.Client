@@ -10,7 +10,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
@@ -43,7 +43,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     @Output()
     public nodeClick: EventEmitter<GNode> = new EventEmitter<GNode>(null);
 
-    @ViewChild('genMapperGraphSvg')
+    @ViewChild('genMapperGraphSvg', { static: true })
     public graphSvg: ElementRef;
 
     public graph: GenMap;

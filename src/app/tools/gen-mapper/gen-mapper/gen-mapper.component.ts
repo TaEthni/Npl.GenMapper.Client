@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit, Optional, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { Unsubscribable } from '@core/Unsubscribable';
@@ -25,7 +25,7 @@ import { TemplateUtils } from '../template-utils';
     styleUrls: ['./gen-mapper.component.scss']
 })
 export class GenMapperComponent extends Unsubscribable implements OnInit {
-    @ViewChild(GenMapperGraphComponent)
+    @ViewChild(GenMapperGraphComponent, { static: false })
     public genMapperGraph: GenMapperGraphComponent;
 
     @HostBinding('class.is-authenticated')
