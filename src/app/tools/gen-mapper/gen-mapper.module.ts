@@ -41,7 +41,10 @@ import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
         ReactiveFormsModule,
         RouterModule,
         NgxChartsModule,
-        AgmCoreModule
+        // AgmCoreModule.forRoot({
+        //     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+        //     libraries: ['places']
+        // })
     ],
     declarations: [
         ConfirmDialogComponent,

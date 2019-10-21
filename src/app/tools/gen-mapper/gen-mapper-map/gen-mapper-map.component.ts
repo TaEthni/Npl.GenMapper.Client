@@ -31,8 +31,8 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
     @Input()
     public document: DocumentDto;
 
-    @ViewChild(AgmMap)
-    public agmMap: AgmMap;
+    // @ViewChild(AgmMap)
+    // public agmMap: AgmMap;
 
     public latitude: number;
     public longitude: number;

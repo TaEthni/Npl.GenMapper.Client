@@ -26,7 +26,10 @@ import { GenMapperTemplates } from '@templates';
         AccountModule,
         AdminModule,
         AppRoutingModule,
-        AgmCoreModule
+        // AgmCoreModule.forRoot({
+        //     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+        //     libraries: ['places']
+        // })
     ],
     providers: [
         {
