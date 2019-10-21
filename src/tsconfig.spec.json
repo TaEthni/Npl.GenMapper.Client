@@ -4,8 +4,7 @@
         "baseUrl": "./",
         "outDir": "../out-tsc/spec",
         "types": [
-            "jasmine",
-            "node"
+            "jest"
         ],
         "paths": {
             "@shared/*": [
@@ -23,7 +22,6 @@
         }
     },
     "files": [
-        "test.ts",
         "polyfills.ts"
     ],
     "include": [

@@ -24,8 +24,8 @@
     "exclude": [
         "**/translations.ts",
         "**/templates/*.ts",
-        "src/test.ts",
+        "setupJest.ts",
         "**/*.spec.ts",
-        "src/app/tools/gen-mapper/gen-map.ts"
+        "app/tools/gen-mapper/gen-map.ts"
     ]
 }

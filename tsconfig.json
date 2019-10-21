@@ -6,14 +6,15 @@
     },
     "compilerOptions": {
         "baseUrl": "./",
-    "downlevelIteration": true,
-    "module": "esnext",
+        "downlevelIteration": true,
+        "module": "esnext",
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "declaration": false,
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
         "target": "es2015",
         "typeRoots": [
             "node_modules/@types"
@@ -37,15 +38,7 @@
             ],
             "lodash": [
                 "../node_modules/lodash-es"
-            ],
+            ]
         }
-        // "allowUnreachableCode": false,
-        // "alwaysStrict": true,
-        // "forceConsistentCasingInFileNames": true,
-        // "noUnusedLocals": true,
-        // "noImplicitReturns": true,
-        // "noImplicitAny": true,
-        // "noImplicitThis": false,
-        // "allowSyntheticDefaultImports": true
     }
 }
