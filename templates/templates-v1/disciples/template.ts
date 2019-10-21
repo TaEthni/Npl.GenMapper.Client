@@ -1,4 +1,4 @@
-import { GMTemplate } from '@templates';
+import { GMTemplate } from '../template.interface';
 
 const boxHeight = 80;
 const textHeight = 14;

@@ -2,82 +2,236 @@ interface Dictionary<T> {
     [index: string]: T;
 }
 
+export enum ControlType {
+    text = 'text',
+    number = 'number',
+    textarea = 'textarea',
+    checkbox = 'checkbox',
+    geoLocation = 'geoLocation',
+    hidden = 'hidden',
+    radio = 'radio',
+    select = 'select',
+    multiSelect = 'multiSelect',
+    date = 'date',
 
-export interface GMSvg {
-    type: 'image' | 'text';
-    attributes?: Dictionary<any>;
-    style?: Dictionary<any>;
+    // Internal
+    parentSelector = 'parentSelector',
+    none = 'none'
 }
 
-export interface GMSettings {
-    nodeSize: { width: number, height: number };
+export interface TemplateConfiguration {
+    id: string;
+    fields: GMField[];
+    icons: { [key: string]: string };
+    svgMap?: {
+        svgRef?: string;
+        iconRef?: string;
+        state?: GMFieldState[];
+        attributes?: any;
+        style?: any;
+    }[];
 }
 
-export interface GMSvgSet {
-    [key: string]: GMSvg;
+export class GMTemplate {
+    // Primary Identifier
+    id?: string;
+
+    // Css Class theme to use
+    theme?: string;
+
+    // English readable name
+    name?: string;
+
+    // Translation Key for name
+    i18nName?: string;
+
+    // Default Configuration Id
+    defaultConfiguration?: string;
+
+    // Settings applied to the template as a whole
+    settings?: GMTemplateSettings;
+
+    svgSettings?: GMTemplateSvgSettings;
+
+    svgs?: GMSvg[];
+    svgActions?: GMSvgAction[];
+
+    reports?: any;
+    templateReports?: any;
+    translations?: any;
+
+    // Set By Client
+    fields?: GMField[];
+
+    // Set By Client
+    fieldsByKey?: Dictionary<GMField>;
+
+    // Set by Client
+    icons?: { [key: string]: string };
 }
 
-export interface GMStreamAttribute {
-    propertyName: string;
-    type: string;
-    value?: string;
-    isVisible?: boolean;
-    icon?: string;
-    isLabel?: boolean;
-    order?: number;
-    deprecated?: boolean;
+export interface GMTemplateSettings {
+    // Icon used on home screen
+    iconUrl: string;
 }
 
-export interface GMTemplateAttribute {
-    propertyName: string;
-    type: string;
-    canHide: boolean;
-    value: any;
-    isVisible: boolean;
-    isLabel?: boolean;
-    order?: number;
+export interface GMTemplateSvgSettings {
+    // default text height
+    textHeight: number;
+
+    // height of node bounds
+    boxHeight: number;
+
+    // Width & height of element icons
+    iconSize: number;
+
+    // x & y of nodeActions group
+    nodeActions: {
+        x: number;
+        y: number;
+        height: number;
+        width: number;
+    };
+
+    // Bounds
+    nodeBounds: {
+        width: number;
+        height: number;
+    };
+
+    nodeWidth: number;
+    nodeHeight: number;
 }
 
 export interface GMField {
-    header: string;
-    canModify: boolean;
+    // Primary Identifier
+    id: string;
 
-    // Reference to the i18n key in the translations file.
-    // Auto Mapped
+    // i18n key for displaying the field label
     i18nRef?: string;
+    i18nValue?: string; // mapped on client
 
-    type: string;
-    initial?: any;
-    initialTranslationCode?: string;
-    localeLabel?: string;
+    i18nDescriptionRef?: string;
+    i18nDescriptionValue?: string;
 
-    // SVG settings for the field
-    svg?: GMSvg;
+    // Default value for the control
+    defaultValue?: any;
 
-    // Reference to another svg settings within the template.
-    inheritsFrom?: string;
+    // The form control type
+    type?: ControlType;
 
-    // The class name applied to the svg element
-    class?: any;
+    // The order of the form control in the UI
+    controlOrder?: number;
 
     // Child values for the field.
-    values?: any;
+    options?: GMFieldOption[];
 
-    // Experimental: Whether you can show/hide this field
-    canModifyVisibility?: boolean;
+    // Whether it can be modified
+    canModify: boolean;
 
-    // The order in which the field will appear on the form.
-    order?: number;
+    // List of fields to apply add up for this value
+    sumOfFields?: string[];
 
-    // The order in which the column will appear on a csv export
-    exportOrder?: number;
+    // Option will convert incoming option values of '1' to 1
+    parseOptionValueAsInt?: boolean;
 
-    // Reference to a header that has a type[check-box].
-    // When the referenced field is false, this field will be displayed.
+    // Option will convert incoming value to an int
+    parseValueAsInt?: boolean;
+
+    // Appears in UI only when property of the referenced field is false
     dependsOnFalseField?: string;
 
-    // Attributes to be applied to the inheritsFrom target.
-    attributes?: Dictionary<Dictionary<any>>;
+    // Appears in UI only when property of the referenced field is true
+    dependsOnTrueField?: string;
+
+    // Appears in UI only when property of the referenced field is false
+    dependsOnFieldId?: string;
+    dependsOnFieldValue?: any;
+
+    // Ref to the icons
+    iconRef?: string;
+
+    // actual Icon url // mapped on client
+    iconRefValue?: string;
+
+    // Whether the text value of this field is displayed as a label on the GenMap
+    isNodeSvgLabel?: boolean;
+
+    // The order of the label on the GenMap
+    nodeSvgLabelOrder?: number;
+
+    deprecated?: boolean;
+
+    // Whether the field is required or not
+    nullable?: boolean;
+}
+
+export interface GMFieldOption {
+    // Value of the Option
+    value: any;
+
+    // i18n reference to the option label
+    i18nRef?: string;
+    i18nValue?: string; // mapped on client
+
+    // attributes to apply to the node when option is selected
+    nodeSvg?: Svg;
+
+    svgRefClass?: string;
+
+    svgRefAttributes?: {};
+
+    svgRefOptions?: Svg;
+
+    // Whether the option is an other option or not.
+    // Used to display a text field to input other option
+    isOther?: boolean;
+}
+
+export interface Svg {
+    id?: string;
+    type?: 'image' | 'text' | 'rect' | 'circle';
+    attributes?: Dictionary<any>;
+    style?: Dictionary<any>;
+    class?: string;
+}
+
+export interface GMSvg extends Svg {
+    // used by gn-map to select the node to apply he svg props to
+    target?: string;
+
+    // Reference to template icons
+    iconRef?: string;
+    // Actual icon set by client
+    iconRefValue?: string;
+
+    state?: GMFieldState[];
+}
+
+export interface GMSvgAction extends Svg {
+    control: 'addChildNode' | 'editNode';
+    iconName: string;
+    rect?: Svg;
+}
+
+export interface GMFieldState {
+    attr?: string;
+    style?: string;
+    setText?: boolean,
+    setIcon?: boolean,
+    fieldRef?: string;
+    fieldRefValues?: {
+        value?: any;
+        attrValue?: any;
+        styleValue?: any;
+        iconRef?: string;
+        iconRefValue?: string;
+    }[]
+}
+
+export interface SvgState extends Svg {
+    fieldValue?: any;
+    fieldRef?: string;
 }
 
 export interface GMReport {
@@ -91,13 +245,6 @@ export interface GMReport {
     order?: number;
 }
 
-export interface GMTemplateReport {
-    name: string;
-    fields?: string[];
-    field?: string;
-    order: number;
-    graph: 'pieChart' | 'pieGrid' | 'verticalBarChart';
-}
 
 export interface GMReportValue {
     // used for graph
@@ -109,20 +256,11 @@ export interface GMReportValue {
     option?: string;
 }
 
-export interface GMTemplate {
+export interface GMTemplateReport {
     name: string;
-    title: string;
-    version: string;
-    icon?: string; // image for the reference in the navigation
-    format: string;
-    translations: any;
-    settings: any;
-    svg: any;
-    fields: GMField[];
-    reports?: GMReport[];
-    templateReports?: GMTemplateReport[];
-    defaultAttributes?: GMStreamAttribute[];
-
-    // Manually Mapped
-    fieldsByKey?: Dictionary<GMField>;
+    fields?: string[];
+    field?: string;
+    order: number;
+    graph: 'pieChart' | 'pieGrid' | 'verticalBarChart';
 }
+
