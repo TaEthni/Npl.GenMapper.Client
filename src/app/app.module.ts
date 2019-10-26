@@ -10,8 +10,9 @@ import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
 import { AgmCoreModule } from '@agm/core';
 import { ToolsModule } from './tools/tools.module';
-import { GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
-import { GenMapperTemplates } from '@templates';
+import { GM_TEMPLATES, GM_CONFIGS } from './tools/gen-mapper/template.injecttoken';
+import { GenMapperTemplates, GenMapperConfigs } from '@templates';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,12 @@ import { GenMapperTemplates } from '@templates';
         AccountModule,
         AdminModule,
         AppRoutingModule,
+        OAuthModule.forRoot({
+            resourceServer: {
+                allowedUrls: ['http://localhost:8000/api'],
+                sendAccessToken: true
+            }
+        }),
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
             libraries: ['places']
@@ -35,6 +42,10 @@ import { GenMapperTemplates } from '@templates';
         {
             provide: GM_TEMPLATES,
             useValue: GenMapperTemplates
+        },
+        {
+            provide: GM_CONFIGS,
+            useValue: GenMapperConfigs
         }
     ],
     bootstrap: [AppComponent],

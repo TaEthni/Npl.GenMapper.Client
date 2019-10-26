@@ -17,6 +17,9 @@ import { GNode, PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { LocaleService } from '@core/locale.service';
 import { TemplateUtils } from '../template-utils';
+import { parseCSVData } from '../resources/csv-parser';
+import { Template } from '../template.model';
+import uuid from 'uuid';
 
 
 @Component({
@@ -31,7 +34,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     @HostBinding('class.is-authenticated')
     public isAuthenticated: boolean;
 
-    public template: GMTemplate;
+    public template: Template;
     public node: GNode;
     public document: DocumentDto;
     public documents: DocumentDto[];
@@ -119,6 +122,23 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         this.genMapper.setNode(node);
     }
 
+    public onAddNode(node: GNode): void {
+        const newNode = {} as GNode;
+
+        newNode.id = uuid();
+        newNode.parentId = node.id;
+        newNode.nodeOrder = 1000;
+
+        this.template.fields.forEach(field => {
+            if (field.defaultValue) {
+                newNode[field.id] = field.defaultValue;
+            }
+        });
+
+        this.document.nodes.push(node);
+        this.onGraphChange(this.document.nodes);
+    }
+
     public onUpdateNode(node: GNode): void {
         const nodeToUpdate = this.document.nodes.find((d: any) => d.id === node.id);
         if (nodeToUpdate) {
@@ -139,7 +159,13 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public onImportSubtree(content: string): void {
-        this.genMapperGraph.importSubtree(this.node, content);
+        if (!content) {
+            return;
+        }
+
+        const parsedCSV = parseCSVData(content, this.template);
+
+        this.genMapperGraph.importSubtree(this.node, parsedCSV);
     }
 
     public onPrint(printType: PrintType): void {

@@ -8,8 +8,6 @@ export interface TranslationType {
     id: string;
 }
 
-console.log(i18next)
-
 @Injectable()
 export class LocaleService {
     private _translations: BehaviorSubject<TranslationType[]> = new BehaviorSubject<TranslationType[]>(null);

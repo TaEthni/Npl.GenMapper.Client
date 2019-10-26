@@ -6,11 +6,11 @@ import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
 import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    selector: 'app-login-v2',
+    templateUrl: './login-v2.component.html',
+    styleUrls: ['./login-v2.component.scss']
 })
-export class LoginComponent implements OnInit, AfterViewChecked {
+export class LoginV2Component implements OnInit, AfterViewChecked {
 
     public form: FormGroup;
     public showError: boolean;
@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit, AfterViewChecked {
     public passwordField: ElementRef;
 
     constructor(
-        private authService: AuthenticationService,
         private router: Router,
+        private oauthService: OAuthService
     ) { }
 
     public ngOnInit(): void {
@@ -51,16 +51,20 @@ export class LoginComponent implements OnInit, AfterViewChecked {
         if (this.form.valid) {
             this.isLoading = true;
 
-            this.authService.authenticate(this.form.value).subscribe(
-                success => {
+            const { email, password } = this.form.value;
+            this.oauthService.fetchTokenUsingPasswordFlow(email, password)
+                .then((resp) => {
+                    // Using the loaded user data
+                    let claims = this.oauthService.getIdentityClaims();
+                    if (claims) console.debug('claims', claims);
+
                     this.isLoading = false;
                     this.router.navigate(['']);
-                },
-                error => {
+                })
+                .catch(() => {
                     this.isLoading = false;
                     this.showError = true;
-                }
-            );
+                });
         }
     }
 

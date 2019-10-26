@@ -89,7 +89,7 @@ export namespace TemplateUtils {
     }
 
     export function setTemplateLocale(
-        template: GMTemplate,
+        template: Template,
         locale: any
     ): void {
         template.svgs.forEach(svg => {

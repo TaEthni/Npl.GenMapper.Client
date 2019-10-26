@@ -16,21 +16,25 @@ import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { HierarchyNode } from 'd3';
 import { cloneDeep } from 'lodash';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { GenMap } from '../gen-map';
-import { GNode } from '../gen-mapper.interface';
+import { GNode, NodeDatum } from '../gen-mapper.interface';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { GMTemplate } from '@templates';
 import { Template } from '../template.model';
+import { parseCSVData } from '../resources/csv-parser';
+import { D3NodeTree } from '../node-tree/d3-node-tree';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { Device } from '@core/platform';
 
 @Component({
     selector: 'app-gen-mapper-graph',
     templateUrl: './gen-mapper-graph.component.html',
     styleUrls: ['./gen-mapper-graph.component.scss']
 })
-export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
+export class GenMapperGraphComponent extends Unsubscribable implements AfterViewInit, OnChanges {
     @Input()
     public document: DocumentDto;
 
@@ -38,14 +42,18 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     public template: Template;
 
     @Output()
-    public change: EventEmitter<GNode[]> = new EventEmitter<GNode[]>(null);
+    public change = new EventEmitter<GNode[]>(null);
 
     @Output()
-    public nodeClick: EventEmitter<GNode> = new EventEmitter<GNode>(null);
+    public nodeClick = new EventEmitter<GNode>(null);
+
+    @Output()
+    public addNode = new EventEmitter<GNode>(null);
 
     @ViewChild('genMapperGraphSvg', { static: true })
     public graphSvg: ElementRef;
 
+    public nodeTree: D3NodeTree;
     public graph: GenMap;
     private _updating: boolean;
     private _documentId: string;
@@ -56,7 +64,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         private nodeClipboard: NodeClipboardService,
         private snackBar: MatSnackBar,
         private elementRef: ElementRef
-    ) { }
+    ) { super(); }
 
     @HostListener('window:resize')
     public onWindowResize(): void {
@@ -80,7 +88,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             return;
         }
 
-        if (this.graph) {
+        if (this.graph || this.nodeTree) {
             // Only recenter graph if there is a new document.
             const recenterGraph = this.document.id !== this._documentId;
 
@@ -88,7 +96,9 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
             this._updating = true;
 
             // update graph
-            this.graph.update(this.document.nodes, recenterGraph);
+            // this.graph.update(this.document.nodes, recenterGraph);
+
+            this.nodeTree.update(this.document.nodes, recenterGraph);
         }
 
         // Only set the document ID if it is a saved document.
@@ -118,7 +128,7 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
         this.showUndoPaste(originalData);
     }
 
-    public importSubtree(node: GNode, content: string): void {
+    public importSubtree(node: GNode, content: GNode[]): void {
         const graphNode = this.graph.getGraphNodeByDataId(node.id);
         this.graph.csvIntoNode(graphNode, content);
         this.snackBar.open(this.locale.t('subtreeImportedPastTense'), 'Ok', { duration: 5000 });
@@ -147,37 +157,71 @@ export class GenMapperGraphComponent implements AfterViewInit, OnChanges {
     }
 
     private _createGraph(): void {
-        this.graph = new GenMap(this.graphSvg, this.template, this.document.nodes);
+        this.nodeTree = new D3NodeTree(this.template);
+        this.nodeTree.attach(this.elementRef.nativeElement);
+        this.nodeTree.update(this.document.nodes);
 
-        this.graph.init();
+        this.nodeTree.editButtonClick
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe((node: NodeDatum) => {
+                this.nodeClick.emit(node.data);
+            });
 
-        this.graph.onChange = (data: GNode[]) => {
-            if (!this._updating) {
-                this.change.emit(data);
-            }
-            this._updating = false;
-        };
+        this.nodeTree.nodeClick
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe((node: NodeDatum) => {
 
-        this.graph.onCopyNode = (nodes: GNode[]) => {
-            // Buttons on graph is not implemented
-        };
+                if (Device.isDesktop) {
+                    this.nodeClick.emit(node.data);
+                }
+            });
 
-        this.graph.onPasteNode = (d: any) => {
-            // Buttons on graph is not implemented
-        };
+        this.nodeTree.addButtonClick
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(d => {
+                this.addNode.emit(d.data);
+                this.snackBar.open(this.locale.t('childNodeAdded'), 'Ok', { duration: 5000 });
+            });
 
-        this.graph.addNodeClick = (d: HierarchyNode<GNode>) => {
-            this.graph.addNode(d);
-            this.snackBar.open(this.locale.t('childNodeAdded'), 'Ok', { duration: 5000 });
-        };
+        // this.nodeTree.onChange = (data: GNode[]) => {
+        //     if (!this._updating) {
+        //         this.change.emit(data);
+        //     }
 
-        this.graph.removeNodeClick = (node: any) => {
+        //     this._updating = false;
+        // };
 
-        };
+        // this.graph = new GenMap(this.graphSvg, this.template, this.document.nodes);
 
-        this.graph.editNodeClick = (node: any) => {
-            this.nodeClick.emit(node.data);
-        };
+        // this.graph.init();
+
+        // this.graph.onChange = (data: GNode[]) => {
+        //     if (!this._updating) {
+        //         this.change.emit(data);
+        //     }
+        //     this._updating = false;
+        // };
+
+        // this.graph.onCopyNode = (nodes: GNode[]) => {
+        //     // Buttons on graph is not implemented
+        // };
+
+        // this.graph.onPasteNode = (d: any) => {
+        //     // Buttons on graph is not implemented
+        // };
+
+        // this.graph.addNodeClick = (d: HierarchyNode<GNode>) => {
+        //     this.graph.addNode(d);
+        //     this.snackBar.open(this.locale.t('childNodeAdded'), 'Ok', { duration: 5000 });
+        // };
+
+        // this.graph.removeNodeClick = (node: any) => {
+
+        // };
+
+        // this.graph.editNodeClick = (node: any) => {
+        //     this.nodeClick.emit(node.data);
+        // };
     }
 
     private showUndoPaste(originalData: GNode[]): void {

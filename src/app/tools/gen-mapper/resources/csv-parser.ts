@@ -4,7 +4,7 @@ import { Template } from "../template.model";
 import { ControlType } from "@templates";
 const isNumberReg = /\d/;
 
-export function parseCSVData(csvData: string, template: Template) {
+export function parseCSVData(csvData: string, template: Template): GNode[] {
     return csvParse<GNode, any>(csvData, (row) => {
 
         const node: any = {};

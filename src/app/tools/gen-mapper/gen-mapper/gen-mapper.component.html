@@ -69,6 +69,7 @@
                                   [document]="document"
                                   [template]="template"
                                   (change)="onGraphChange($event)"
+                                  (addNode)="onAddNode($event)"
                                   (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
         </ng-container>
         <ng-container *ngSwitchDefault>

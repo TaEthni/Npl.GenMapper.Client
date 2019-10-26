@@ -46,6 +46,7 @@
         "@angular/router": "^8.2.11",
         "@asymmetrik/ngx-leaflet": "^6.0.1",
         "@swimlane/ngx-charts": "^12.0.1",
+        "angular-oauth2-oidc": "^8.0.4",
         "core-js": "^3.3.2",
         "d3": "^5.7.0",
         "file-saver": "^2.0.0",

@@ -4,14 +4,12 @@ import i18next from 'i18next';
 import * as _ from 'lodash';
 
 import { GNode, PrintType, NodeDatum } from './gen-mapper.interface';
-import { TemplateUtils } from './template-utils';
 import { HierarchyNode, zoomTransform, zoomIdentity, drag, DragBehavior, event as d3Event } from 'd3';
 import { cloneDeep } from 'lodash';
 import { Device } from '@core/platform';
-import { GMStreamAttribute, GMTemplate, GMField, ControlType, GMSvgAction } from '@templates';
+import { GMTemplate, GMField, GMSvgAction } from '@templates';
 import { GMSvg } from '@templates';
 import * as uuid from 'uuid/v4';
-import { FileDetector } from 'protractor';
 import { Template } from './template.model';
 import { parseCSVData } from './resources/csv-parser';
 

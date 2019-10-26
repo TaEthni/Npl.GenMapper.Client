@@ -1,0 +1,81 @@
+<div fxLayout="column"
+     fxLayoutGap="24px">
+    <app-npl-logo size="100"></app-npl-logo>
+    <form fxLayout="column"
+          fxLayoutGap="24px"
+          [formGroup]="form"
+          (submit)="onSubmit($event)">
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    {{'en_Login' | locale | async}}
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content fxLayout="column"
+                              fxLayoutGap="30px">
+                <mat-form-field>
+                    <input matInput
+                           #emailField
+                           type="email"
+                           placeholder="{{'en_Email' | locale | async}}"
+                           formControlName="email">
+
+                    <mat-error *ngIf="form.controls.email.errors?.required">
+                        {{'Error_requiredField' | locale | async}}
+                    </mat-error>
+
+                    <mat-error *ngIf="form.controls.email.errors?.pattern">
+                        {{'Error_emailFormat' | locale | async}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput
+                           #passwordField
+                           type="password"
+                           placeholder="{{'en_Password' | locale | async}}"
+                           formControlName="password">
+
+                    <mat-hint align="end">
+                        <a [routerLink]="['/recover-password']">
+                            {{'en_ForgotPassword' | locale | async}}
+                        </a>
+                    </mat-hint>
+                </mat-form-field>
+
+            </mat-card-content>
+
+            <mat-card-content *ngIf="showError"
+                              class="error">
+                <p>{{'Error_invalidEmailOrPassword' | locale | async}}</p>
+            </mat-card-content>
+
+            <mat-card-actions fxLayout="row">
+                <button mat-raised-button
+                        type="submit"
+                        color="primary"
+                        class="mat-spinner-button">
+                    <div>
+                        {{'en_Login' | locale | async}}
+                    </div>
+                    <mat-spinner diameter="24"
+                                 *ngIf="isLoading"></mat-spinner>
+                </button>
+
+                <a mat-button
+                   type="button"
+                   color="primary"
+                   [routerLink]="['/']">
+                    {{'en_Cancel' | locale | async}}
+                </a>
+                <div fxFlex></div>
+                <a mat-button
+                   [routerLink]="['/signup']">
+                    {{'en_CreateAccount' | locale | async}}
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

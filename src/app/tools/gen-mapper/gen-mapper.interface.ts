@@ -24,7 +24,7 @@ export interface GNode {
     // Only set on node click from d3 node.descendants();
     descendants?: GNode[];
     hasChildNodes?: boolean;
-
+    nodeOrder?: number;
     threeThirds?: any;
 }
 
@@ -38,7 +38,15 @@ export enum PrintType {
     vertical = 'vertical'
 }
 
-
 export interface NodeDatum extends HierarchyPointNode<GNode> {
-
+    isRoot: boolean;
+    id: any;
+    depth: number;
+    class: string;
+    name: string;
+    x: number;
+    x0: number;
+    y: number;
+    y0: number;
+    tw?: number;
 }
