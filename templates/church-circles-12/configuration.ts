@@ -1,4 +1,4 @@
-import { TemplateConfiguration, ControlType } from '../template.interface';
+import { ControlType, TemplateConfiguration } from '../template.interface';
 
 export const ChurchCircles12Configuration: TemplateConfiguration = {
     id: 'churchCircles12',
@@ -86,6 +86,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'topIcon1',
             iconRef: 'attenders',
+            tooltipFieldRef: 'attenders',
             state: [
                 {
                     style: 'opacity',
@@ -102,6 +103,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'topIcon2',
             iconRef: 'believers',
+            tooltipFieldRef: 'believers',
             state: [
                 {
                     style: 'opacity',
@@ -118,6 +120,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'topIcon3',
             iconRef: 'baptism',
+            tooltipFieldRef: 'baptized',
             state: [
                 {
                     style: 'opacity',
@@ -133,6 +136,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         },
         {
             svgRef: 'topNumber1',
+            tooltipFieldRef: 'attenders',
             state: [
                 {
                     fieldRef: 'attenders',
@@ -142,6 +146,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         },
         {
             svgRef: 'topNumber2',
+            tooltipFieldRef: 'believers',
             state: [
                 {
                     fieldRef: 'believers',
@@ -151,6 +156,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         },
         {
             svgRef: 'topNumber3',
+            tooltipFieldRef: 'baptized',
             state: [
                 {
                     fieldRef: 'baptized',
@@ -160,6 +166,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         },
         {
             svgRef: 'topNumber4',
+            tooltipFieldRef: 'newlyBaptized',
             state: [
                 {
                     fieldRef: 'newlyBaptized',
@@ -169,6 +176,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         },
         {
             svgRef: 'leftText1',
+            tooltipFieldRef: 'threeThirds',
             state: [
                 {
                     fieldRef: 'threeThirds',
@@ -179,6 +187,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon1',
             iconRef: 'elementGospel',
+            tooltipFieldRef: 'elementGospel',
             state: [
                 {
                     style: 'opacity',
@@ -199,6 +208,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon2',
             iconRef: 'elementRepent',
+            tooltipFieldRef: 'elementRepent',
             state: [
                 {
                     style: 'opacity',
@@ -219,6 +229,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon3',
             iconRef: 'elementBaptism',
+            tooltipFieldRef: 'elementBaptism',
             state: [
                 {
                     style: 'opacity',
@@ -239,6 +250,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon4',
             iconRef: 'elementHolySpirit',
+            tooltipFieldRef: 'elementHolySpirit',
             state: [
                 {
                     style: 'opacity',
@@ -259,6 +271,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon5',
             iconRef: 'elementWord',
+            tooltipFieldRef: 'elementWord',
             state: [
                 {
                     style: 'opacity',
@@ -279,6 +292,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon6',
             iconRef: 'elementLove',
+            tooltipFieldRef: 'elementLove',
             state: [
                 {
                     style: 'opacity',
@@ -299,6 +313,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon7',
             iconRef: 'elementLordsSupper',
+            tooltipFieldRef: 'elementLordsSupper',
             state: [
                 {
                     style: 'opacity',
@@ -319,6 +334,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon8',
             iconRef: 'elementPrayer',
+            tooltipFieldRef: 'elementPrayer',
             state: [
                 {
                     style: 'opacity',
@@ -339,6 +355,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon9',
             iconRef: 'elementSignsWonders',
+            tooltipFieldRef: 'elementSignsWonders',
             state: [
                 {
                     style: 'opacity',
@@ -359,6 +376,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon10',
             iconRef: 'elementGive',
+            tooltipFieldRef: 'elementGive',
             state: [
                 {
                     style: 'opacity',
@@ -379,6 +397,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon11',
             iconRef: 'elementWorship',
+            tooltipFieldRef: 'elementWorship',
             state: [
                 {
                     style: 'opacity',
@@ -399,6 +418,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             svgRef: 'icon12',
             iconRef: 'elementMakeDisciples',
+            tooltipFieldRef: 'elementMakeDisciples',
             state: [
                 {
                     style: 'opacity',
@@ -418,6 +438,14 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         }
     ],
     fields: [
+        {
+            id: 'nodeOrder',
+            canModify: false,
+        },
+        {
+            id: 'hasChildNodes',
+            canModify: false,
+        },
         {
             id: 'id',
             canModify: false
@@ -649,18 +677,17 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             id: 'latitude',
             canModify: false,
-            parseValueAsInt: true,
+            parseValueAsFloat: true,
         },
         {
             id: 'longitude',
             canModify: false,
-            parseValueAsInt: true,
+            parseValueAsFloat: true,
         },
         {
             id: 'placeId',
             canModify: false,
         },
-
         {
             id: 'church',
             i18nRef: 'churchCircles12.isChurch',

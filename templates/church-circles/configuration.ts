@@ -1,4 +1,4 @@
-import { TemplateConfiguration, ControlType } from '../template.interface';
+import { ControlType, TemplateConfiguration } from '../template.interface';
 
 export const ChurchCirclesConfiguration: TemplateConfiguration = {
     id: 'churchCircles',
@@ -16,345 +16,15 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         elementWord: 'templates/church-circles/icons/element-word.png',
         elementLeaders: 'templates/church-circles/icons/element-leaders.png',
     },
-    svgMap: [
-        {
-            svgRef: 'church-box',
-            state: [
-                {
-                    style: 'stroke-dasharray',
-                    fieldRef: 'church',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: '0'
-                        },
-                        {
-                            value: false,
-                            styleValue: '7,7'
-                        }
-                    ]
-                },
-                {
-                    style: 'stroke-width',
-                    fieldRef: 'churchType',
-                    fieldRefValues: [
-                        {
-                            value: 'legacy',
-                            styleValue: 4,
-                        }
-                    ]
-                },
-                {
-                    style: 'stroke-opacity',
-                    fieldRef: 'active',
-                    fieldRefValues: [
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                },
-                {
-                    style: 'stroke',
-                    fieldRef: 'churchType',
-                    fieldRefValues: [
-                        {
-                            value: 'legacy',
-                            styleValue: 'green',
-                        }
-                    ]
-                },
-                {
-                    attr: 'rx',
-                    fieldRef: 'churchType',
-                    fieldRefValues: [
-                        {
-                            value: 'legacy',
-                            styleValue: 0,
-                        },
-                        {
-                            value: 'existingBelievers',
-                            styleValue: 0,
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'topIcon1',
-            iconRef: 'attenders',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'active',
-                    fieldRefValues: [
-                        {
-                            value: false,
-                            styleValue: 0.4
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'topIcon2',
-            iconRef: 'believers',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'active',
-                    fieldRefValues: [
-                        {
-                            value: false,
-                            styleValue: 0.4
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'topIcon3',
-            iconRef: 'baptism',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'active',
-                    fieldRefValues: [
-                        {
-                            value: false,
-                            styleValue: 0.4
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'topNumber1',
-            state: [
-                {
-                    fieldRef: 'attenders',
-                    setText: true,
-                }
-            ]
-        },
-        {
-            svgRef: 'topNumber2',
-            state: [
-                {
-                    fieldRef: 'believers',
-                    setText: true,
-                }
-            ]
-        },
-        {
-            svgRef: 'topNumber3',
-            state: [
-                {
-                    fieldRef: 'baptized',
-                    setText: true,
-                }
-            ]
-        },
-        {
-            svgRef: 'topNumber4',
-            state: [
-                {
-                    fieldRef: 'newlyBaptized',
-                    setText: true,
-                }
-            ]
-        },
-        {
-            svgRef: 'leftText1',
-            state: [
-                {
-                    fieldRef: 'threeThirds',
-                    setText: true
-                }
-            ]
-        },
-        {
-            svgRef: 'icon1',
-            iconRef: 'elementBaptism',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementBaptism',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon2',
-            iconRef: 'elementPrayer',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementPrayer',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon3',
-            iconRef: 'elementMakeDisciples',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementMakeDisciples',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon4',
-            iconRef: 'elementLove',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementLove',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon5',
-            iconRef: 'elementWorship',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementWorship',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon6',
-            iconRef: 'elementLordsSupper',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementLordsSupper',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon7',
-            iconRef: 'elementGive',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementGive',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon8',
-            iconRef: 'elementWord',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementWord',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            svgRef: 'icon9',
-            iconRef: 'elementLeaders',
-            state: [
-                {
-                    style: 'opacity',
-                    fieldRef: 'elementLeaders',
-                    fieldRefValues: [
-                        {
-                            value: true,
-                            styleValue: 1
-                        },
-                        {
-                            value: false,
-                            styleValue: 0.2
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
     fields: [
+        {
+            id: 'nodeOrder',
+            canModify: false,
+        },
+        {
+            id: 'hasChildNodes',
+            canModify: false,
+        },
         {
             id: 'id',
             canModify: false
@@ -478,7 +148,6 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             canModify: true,
             iconRef: 'believers',
         },
-
         {
             id: 'baptized',
             i18nRef: 'churchCircles.baptized',
@@ -556,12 +225,12 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         {
             id: 'latitude',
             canModify: false,
-            parseValueAsInt: true,
+            parseValueAsFloat: true,
         },
         {
             id: 'longitude',
             canModify: false,
-            parseValueAsInt: true,
+            parseValueAsFloat: true,
         },
         {
             id: 'placeId',
@@ -637,31 +306,31 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             parseOptionValueAsInt: true,
             options: [
                 {
-                    value: 1,
+                    value: "1",
                     i18nRef: 'churchCircles.threeThirdsPastoralCare'
                 },
                 {
-                    value: 2,
+                    value: "2",
                     i18nRef: 'churchCircles.threeThirdsWorship'
                 },
                 {
-                    value: 3,
+                    value: "3",
                     i18nRef: 'churchCircles.threeThirdsAccountability'
                 },
                 {
-                    value: 4,
+                    value: "4",
                     i18nRef: 'churchCircles.threeThirdsVisionCasting'
                 },
                 {
-                    value: 5,
+                    value: "5",
                     i18nRef: 'churchCircles.threeThirdsBibleTeaching'
                 },
                 {
-                    value: 6,
+                    value: "6",
                     i18nRef: 'churchCircles.threeThirdsPractice'
                 },
                 {
-                    value: 7,
+                    value: "7",
                     i18nRef: 'churchCircles.threeThirdsGoalSetting'
                 },
             ],
@@ -671,6 +340,361 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             i18nRef: 'churchCircles.note',
             type: ControlType.textarea,
             canModify: true,
+        }
+    ],
+    svgMap: [
+        {
+            svgRef: 'church-box',
+            state: [
+                {
+                    style: 'stroke-dasharray',
+                    fieldRef: 'church',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: '0'
+                        },
+                        {
+                            value: false,
+                            styleValue: '7,7'
+                        }
+                    ]
+                },
+                {
+                    style: 'stroke-width',
+                    fieldRef: 'churchType',
+                    fieldRefValues: [
+                        {
+                            value: 'legacy',
+                            styleValue: 4,
+                        }
+                    ]
+                },
+                {
+                    style: 'stroke-opacity',
+                    fieldRef: 'active',
+                    fieldRefValues: [
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                },
+                {
+                    style: 'stroke',
+                    fieldRef: 'churchType',
+                    fieldRefValues: [
+                        {
+                            value: 'legacy',
+                            styleValue: 'green',
+                        }
+                    ]
+                },
+                {
+                    attr: 'rx',
+                    fieldRef: 'churchType',
+                    fieldRefValues: [
+                        {
+                            value: 'legacy',
+                            styleValue: 0,
+                        },
+                        {
+                            value: 'existingBelievers',
+                            styleValue: 0,
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'topIcon1',
+            iconRef: 'attenders',
+            tooltipFieldRef: 'attenders',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'active',
+                    fieldRefValues: [
+                        {
+                            value: false,
+                            styleValue: 0.4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'topIcon2',
+            iconRef: 'believers',
+            tooltipFieldRef: 'believers',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'active',
+                    fieldRefValues: [
+                        {
+                            value: false,
+                            styleValue: 0.4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'topIcon3',
+            iconRef: 'baptism',
+            tooltipFieldRef: 'baptized',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'active',
+                    fieldRefValues: [
+                        {
+                            value: false,
+                            styleValue: 0.4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'topNumber1',
+            tooltipFieldRef: 'attenders',
+            state: [
+                {
+                    fieldRef: 'attenders',
+                    setText: true,
+                }
+            ]
+        },
+        {
+            svgRef: 'topNumber2',
+            tooltipFieldRef: 'believers',
+            state: [
+                {
+                    fieldRef: 'believers',
+                    setText: true,
+                }
+            ]
+        },
+        {
+            svgRef: 'topNumber3',
+            tooltipFieldRef: 'baptized',
+            state: [
+                {
+                    fieldRef: 'baptized',
+                    setText: true,
+                }
+            ]
+        },
+        {
+            svgRef: 'topNumber4',
+            tooltipFieldRef: 'newlyBaptized',
+            state: [
+                {
+                    fieldRef: 'newlyBaptized',
+                    setText: true,
+                }
+            ]
+        },
+        {
+            svgRef: 'leftText1',
+            tooltipFieldRef: 'threeThirds',
+            state: [
+                {
+                    fieldRef: 'threeThirds',
+                    setText: true
+                }
+            ]
+        },
+        {
+            svgRef: 'icon1',
+            iconRef: 'elementBaptism',
+            tooltipFieldRef: 'elementBaptism',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementBaptism',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon2',
+            iconRef: 'elementPrayer',
+            tooltipFieldRef: 'elementPrayer',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementPrayer',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon3',
+            iconRef: 'elementMakeDisciples',
+            tooltipFieldRef: 'elementMakeDisciples',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementMakeDisciples',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon4',
+            iconRef: 'elementLove',
+            tooltipFieldRef: 'elementLove',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementLove',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon5',
+            iconRef: 'elementWorship',
+            tooltipFieldRef: 'elementWorship',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementWorship',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon6',
+            iconRef: 'elementLordsSupper',
+            tooltipFieldRef: 'elementLordsSupper',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementLordsSupper',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon7',
+            iconRef: 'elementGive',
+            tooltipFieldRef: 'elementGive',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementGive',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon8',
+            iconRef: 'elementWord',
+            tooltipFieldRef: 'elementWord',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementWord',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            svgRef: 'icon9',
+            iconRef: 'elementLeaders',
+            tooltipFieldRef: 'elementLeaders',
+            state: [
+                {
+                    style: 'opacity',
+                    fieldRef: 'elementLeaders',
+                    fieldRefValues: [
+                        {
+                            value: true,
+                            styleValue: 1
+                        },
+                        {
+                            value: false,
+                            styleValue: 0.2
+                        }
+                    ]
+                }
+            ]
         }
     ],
 }

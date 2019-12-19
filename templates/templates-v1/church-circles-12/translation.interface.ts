@@ -33,7 +33,7 @@ export interface ChurchCirclesTranslation {
     newBelievers: string;
     newGeneration: string;
     newlyBaptized: string;
-    peopleGroups: string;
+    Common_PeopleGroups: string;
     place: string;
     threeThirds: string;
     threeThirdsAccountability: string;

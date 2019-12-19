@@ -23,10 +23,13 @@ export interface TemplateConfiguration {
     id: string;
     fields: GMField[];
     icons: { [key: string]: string };
+    svgStates?: any;
     svgMap?: {
         svgRef?: string;
         iconRef?: string;
+        tooltipFieldRef?: string;
         state?: GMFieldState[];
+        rules?: any[];
         attributes?: any;
         style?: any;
     }[];
@@ -68,6 +71,8 @@ export class GMTemplate {
 
     // Set by Client
     icons?: { [key: string]: string };
+
+    svgStates?: Dictionary<Svg>;
 }
 
 export interface GMTemplateSettings {
@@ -138,6 +143,9 @@ export interface GMField {
     // Option will convert incoming value to an int
     parseValueAsInt?: boolean;
 
+    // Option will convert incoming value to an float
+    parseValueAsFloat?: boolean;
+
     // Appears in UI only when property of the referenced field is false
     dependsOnFalseField?: string;
 
@@ -194,6 +202,8 @@ export interface Svg {
     attributes?: Dictionary<any>;
     style?: Dictionary<any>;
     class?: string;
+    tooltipi18nRef?: string;
+    tooltipi18nValue?: string;
 }
 
 export interface GMSvg extends Svg {
@@ -206,6 +216,10 @@ export interface GMSvg extends Svg {
     iconRefValue?: string;
 
     state?: GMFieldState[];
+
+    rules?: any[];
+
+    states?: any[];
 }
 
 export interface GMSvgAction extends Svg {
@@ -243,6 +257,7 @@ export interface GMReport {
     value?: number;
     values?: GMReportValue[];
     order?: number;
+    i18nRef?: string;
 }
 
 
