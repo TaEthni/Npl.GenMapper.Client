@@ -27,8 +27,8 @@ import { ToolsModule } from './tools/tools.module';
         AdminModule,
         AppRoutingModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBzA-YQSy5_7DQggb73_6iGhwHs9mAjkZE',
-            // apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            // apiKey: 'AIzaSyBzA-YQSy5_7DQggb73_6iGhwHs9mAjkZE',
+            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
             libraries: ['places']
         })
     ],

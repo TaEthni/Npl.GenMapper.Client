@@ -45,8 +45,8 @@ import { SavingSnackbarComponent } from './snackbars/saving-snackbar/saving-snac
         RouterModule,
         NgxChartsModule,
         AgmCoreModule.forRoot({
-            // apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-            apiKey: 'AIzaSyBzA-YQSy5_7DQggb73_6iGhwHs9mAjkZE',
+            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            // apiKey: 'AIzaSyBzA-YQSy5_7DQggb73_6iGhwHs9mAjkZE',
             libraries: ['places']
         })
     ],
