@@ -1,0 +1,13 @@
+@import '~styles/colors';
+
+:host {
+    h3 {
+        color: mat-color($warn);
+        margin: 0 auto 0 0;
+    }
+
+    .mat-icon {
+        color: mat-color($warn);
+        margin-left: 15px;
+    }
+}

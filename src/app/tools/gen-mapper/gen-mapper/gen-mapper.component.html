@@ -29,7 +29,8 @@
         <app-map-menu-button [document]="document"
                              [template]="template"
                              (print)="onPrint($event)"
-                             (settingsButtonClick)="setView(viewTypes.Settings)"></app-map-menu-button>
+                             (settingsButtonClick)="setView(viewTypes.Settings)"
+                             (importButtonClick)="onImport($event)"></app-map-menu-button>
 
         <ng-container *ngIf="view === viewTypes.GenMap && showReportsView">
             <app-map-report-legend [template]="template"
@@ -91,13 +92,13 @@
         <ng-container *ngIf="isAuthenticated">
             <ng-container *ngIf="documents.length === 0">
                 <h1 i18n="en-You_have_no_saved_documents">
-                    {{'noSavedDocuments' | locale | async}}
+                    {{'Common_NoSavedDocuments' | locale | async}}
                 </h1>
             </ng-container>
 
             <ng-container *ngIf="documents.length > 0">
                 <h1 i18n="en-Please_select_a_document">
-                    {{'selectADocument' | locale | async}}
+                    {{'Common_SelectADocument' | locale | async}}
                 </h1>
             </ng-container>
         </ng-container>
@@ -107,12 +108,12 @@
                  fxLayoutAlign="center center"
                  class="context">
                 <h1>
-                    {{'pleaseLoginIn' | locale | async}}
+                    {{'Common_PleaseLogIn' | locale | async}}
                 </h1>
 
                 <div class="login-link">
                     <a [routerLink]="['/login']">
-                        - {{'en_Login' | locale | async}} -
+                        - {{'Common_Login' | locale | async}} -
                     </a>
                 </div>
             </div>
@@ -125,11 +126,11 @@
                     (click)="onCreateDocument()"
                     i18n="en-Create_Document">
                 <ng-container *ngIf="isAuthenticated">
-                    {{'createDocument' | locale | async}}
+                    {{'Common_CreateDocument' | locale | async}}
                 </ng-container>
 
                 <ng-container *ngIf="!isAuthenticated">
-                    {{'continueWithoutSaving' | locale | async}}
+                    {{'Common_ContinueWithoutSaving' | locale | async}}
                 </ng-container>
             </button>
 
@@ -138,7 +139,7 @@
                         color="accent"
                         (click)="onImport()"
                         i18n="en-Import_Document">
-                    {{'importDocument' | locale | async}}
+                    {{'Common_ImportDocument' | locale | async}}
                 </button>
             </ng-container>
         </div>

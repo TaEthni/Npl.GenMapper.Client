@@ -1,26 +1,36 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDatepicker, MatDialog, MAT_DATE_FORMATS } from '@angular/material';
 import { MapsService } from '@core/maps.service';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { GMField, GMStreamAttribute, ControlType } from '@templates';
+import { ControlType, GMField } from '@templates';
 import { Dictionary, keyBy } from 'lodash';
+import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
-
-import {
-    LocationDialogComponent,
-    LocationDialogConfig,
-    LocationDialogResponse,
-} from '../dialogs/location-dialog/location-dialog.component';
+import { LocationDialogComponent, LocationDialogConfig, LocationDialogResponse } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 import { GNode } from '../gen-mapper.interface';
-import { fileURLToPath } from 'url';
+
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'YYYY-MM',
+    },
+    display: {
+        dateInput: 'YYYY-MM',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 @Component({
     selector: 'app-edit-node-form',
     templateUrl: './edit-node-form.component.html',
-    styleUrls: ['./edit-node-form.component.scss']
+    styleUrls: ['./edit-node-form.component.scss'],
+    providers: [
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    ],
 })
 export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     @Input()
@@ -91,7 +101,21 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     public removeDeprecatedDate(): void {
-        this.form.get('date').patchValue(null);
+        this.form.get('date').setValue(null);
+        this.form.get('date').markAsDirty();
+    }
+
+    public chosenYearHandler(normalizedYear: Moment, control: FormControl) {
+        const ctrlValue = control.value || moment();
+        ctrlValue.year(normalizedYear.year());
+        control.setValue(ctrlValue);
+    }
+
+    public chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
+        const ctrlValue = control.value;
+        ctrlValue.month(normalizedMonth.month());
+        control.setValue(ctrlValue);
+        datepicker.close();
     }
 
     public getTemplate(controlTemplate: TemplateRef<any>, noneTemplate: TemplateRef<any>, field: GMField): any {

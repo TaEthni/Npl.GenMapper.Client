@@ -15,13 +15,13 @@
                 color="primary"
                 (click)="onSave()"
                 fxFlex>
-            {{'en_Save' | locale | async}}
+            {{'Common_Save' | locale | async}}
         </button>
         <button mat-button
                 color="primary"
                 (click)="onCancel()"
                 fxFlex>
-            {{'en_Cancel' | locale | async}}
+            {{'Common_Cancel' | locale | async}}
         </button>
     </div>
 </div>
@@ -33,13 +33,13 @@
 
         <button mat-stroked-button
                 (click)="onCopyNode()">
-            {{'Node_copyNodeButton' | locale | async}}
+            {{'Common_Copy' | locale | async}}
         </button>
 
         <ng-container *ngIf="isNodeInClipboard">
             <button mat-stroked-button
                     (click)="onPasteNode()">
-                {{'Node_pasteNodeButton' | locale | async}}
+                {{'Common_Paste' | locale | async}}
             </button>
         </ng-container>
 
@@ -48,7 +48,7 @@
         <button mat-stroked-button
                 color="primary"
                 (click)="onImportSubtree()">
-            {{'importSubtree' | locale | async}}
+            {{'Common_ImportSubtree' | locale | async}}
         </button>
     </div>
     <ng-container *ngIf="form">
@@ -64,7 +64,7 @@
                 color="warn"
                 class="delete-button"
                 (click)="onDeleteNode()">
-            {{'Node_btnDelete' | locale | async}}
+            {{'Common_DeleteSubtree' | locale | async}}
         </button>
     </div>
 </div>

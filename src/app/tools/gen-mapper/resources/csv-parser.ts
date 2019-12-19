@@ -1,7 +1,7 @@
-import { GNode } from "../gen-mapper.interface"
-import { csvParse } from "d3";
-import { Template } from "../template.model";
 import { ControlType } from "@templates";
+import { csvParse } from "d3";
+import { GNode } from "../gen-mapper.interface";
+import { Template } from "../template.model";
 const isNumberReg = /\d/;
 
 export function parseCSVData(csvData: string, template: Template): GNode[] {
@@ -27,14 +27,28 @@ export function parseCSVData(csvData: string, template: Template): GNode[] {
                     return;
                 }
 
+                if (field.type === ControlType.date) {
+                    if (row[column]) {
+                        node[column] = new Date(row[column]);
+                    }
+                    return;
+                }
+
                 if (field.parseValueAsInt) {
                     node[column] = parseInt(row[column]) || null;
+                    return;
+                }
+
+                if (field.parseValueAsFloat) {
+                    node[column] = parseFloat(row[column]) || null;
+                    return;
                 }
 
                 if (field.parseOptionValueAsInt) {
                     if (row[column] && Array.isArray(row[column])) {
                         const v: string[] = row[column] as any;
                         node[column] = v.map(value => parseInt(value));
+                        return;
                     }
                 }
             }
@@ -45,8 +59,8 @@ export function parseCSVData(csvData: string, template: Template): GNode[] {
         // Iterate back over fields just incase the CSV was missing any fields
         template.fields.forEach(field => {
             if (!node.hasOwnProperty(field.id)) {
-                if (field.defaultValue) {
-                    if (field.type === ControlType.checkbox) {
+                if (field.defaultValue || field.hasOwnProperty('defaultValue')) {
+                    if (field.type === ControlType.checkbox && row.hasOwnProperty(field.id)) {
                         const fieldValue = row[field.id].toUpperCase();
                         node[field.id] = !!['TRUE', '1'].includes(
                             fieldValue
@@ -55,6 +69,8 @@ export function parseCSVData(csvData: string, template: Template): GNode[] {
                         node[field.id] = field.defaultValue;
                     }
                 }
+
+                node[field.id] = null;
             }
         });
 

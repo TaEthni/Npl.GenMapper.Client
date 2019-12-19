@@ -1,12 +1,12 @@
 <div mat-dialog-title>
-    {{'createDocument' | locale | async}}
+    {{'Common_CreateDocument' | locale | async}}
 </div>
 <form mat-dialog-content
       [formGroup]="form"
       fxLayout="column">
     <mat-form-field>
         <mat-label>
-            {{'en_Name' | locale | async}}
+            {{'Common_Name' | locale | async}}
         </mat-label>
         <input matInput
                formControlName="title" />
@@ -26,11 +26,11 @@
             color="accent"
             [disabled]="form.invalid"
             (click)="onSubmit()">
-        {{'en_Save' | locale | async}}
+        {{'Common_Save' | locale | async}}
     </button>
     <button mat-button
             color="warn"
             [mat-dialog-close]="false">
-        {{'en_Cancel' | locale | async}}
+        {{'Common_Cancel' | locale | async}}
     </button>
 </div>

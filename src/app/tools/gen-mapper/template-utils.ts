@@ -1,7 +1,6 @@
-import { GenMapperTemplates, GMField, GMStreamAttribute, GMTemplate, translations, ControlType } from '@templates';
-import { csvFormatRows, csvParse, local } from 'd3';
-import i18next from 'i18next';
-import { assign, keyBy } from 'lodash';
+import { ControlType, GenMapperTemplates, GMStreamAttribute, GMTemplate, translations } from '@templates';
+import { csvFormatRows } from 'd3';
+import { keyBy } from 'lodash';
 import * as uuid from 'uuid/v4';
 import { GNode } from './gen-mapper.interface';
 import { Template } from './template.model';
@@ -57,12 +56,6 @@ export namespace TemplateUtils {
     ): string {
         const fields = template.fields.map(field => field.id);
 
-        // if (attributes) {
-        //     attributes
-        //         .filter(a => !template.fieldsByKey[a.propertyName])
-        //         .forEach(a => fields.push(a.propertyName));
-        // }
-
         return fields.join(',') + '\n';
     }
 
@@ -114,23 +107,9 @@ export namespace TemplateUtils {
         });
     }
 
-    export function getInitialTemplateValue(
-        field: GMField,
-        template: GMTemplate
-    ): any {
-        // if (field.initialTranslationCode) {
-        //     return i18next.t(
-        //         template.format + '.' + field.initialTranslationCode
-        //     );
-        // } else {
-        //     return field.initial;
-        // }
-    }
-
     export function getOutputCsv(
         data: GNode[],
         template: Template,
-        attributes?: GMStreamAttribute[]
     ): string {
         const csvHeader = TemplateUtils.createCSVHeader(template);
         return (
@@ -145,17 +124,16 @@ export namespace TemplateUtils {
                         if (field && field.type === ControlType.checkbox) {
                             out[field.id] = d[field.id] ? '1' : '0';
                             output.push(out[field.id]);
+                        } else if (field.type === ControlType.date) {
+                            if (d[field.id]) {
+                                out[field.id] = d[field.id].toString();
+                                output.push(out[field.id]);
+                            }
                         } else {
                             out[field.id] = d[field.id];
-                            output.push(d[field.id]);
+                            output.push(out[field.id]);
                         }
                     });
-
-                    // if (attributes) {
-                    //     attributes
-                    //         .filter(a => !template.fieldsByKey[a.propertyName])
-                    //         .forEach(a => output.push(d[a.propertyName]));
-                    // }
 
                     return output;
                 })
@@ -169,81 +147,4 @@ export namespace TemplateUtils {
         return JSON.stringify(attributes);
     }
 
-    // export function parseAttributes(
-    //     elementsData: string,
-    //     templateName: string
-    // ): GMStreamAttribute[] {
-    //     let attrs;
-    //     if (!elementsData) {
-    //         attrs = getDefaultAttributesForTemplate(templateName);
-    //     } else {
-    //         attrs = JSON.parse(elementsData);
-    //     }
-
-    //     attrs.forEach(attr => {
-    //         if (!attr.order && attr.order !== 0) {
-    //             attr.order = 1000;
-    //         }
-    //     });
-
-    //     attrs.sort((a, b) => a.order - b.order);
-    //     return attrs;
-    // }
 }
-
-function convertPropertyToArray(
-    parsedLine: any,
-    property: string,
-    isNumber?: boolean
-): void {
-    if (parsedLine.hasOwnProperty(property)) {
-        if (typeof parsedLine[property] === 'string') {
-            parsedLine[property] = parsedLine[property].split(',');
-            if (isNumber) {
-                const result = [];
-                parsedLine[property].forEach(num => {
-                    num = parseFloat(num);
-                    if (num) {
-                        result.push(num);
-                    }
-                });
-                parsedLine[property] = result;
-            }
-        }
-    }
-}
-
-// function getDefaultAttributesForTemplate(
-//     templateName: string
-// ): GMStreamAttribute[] {
-//     const template = TemplateUtils.getTemplate(templateName);
-//     const attrs = [];
-
-//     console.log(i18next.t('churchCircles.name'));
-//     if (template.defaultAttributes) {
-//         template.defaultAttributes.forEach(a => {
-//             attrs.push(
-//                 assign(
-//                     {
-//                         value: i18next.t(template.format + '.' + a.propertyName)
-//                     },
-//                     a
-//                 )
-//             );
-//         });
-//     }
-
-//     template.fields.forEach(field => {
-//         if (field.canModify) {
-//             attrs.push({
-//                 propertyName: field.header,
-//                 value: i18next.t(template.format + '.' + field.header),
-//                 type: field.type,
-//                 isVisible: true,
-//                 order: field.order
-//             });
-//         }
-//     });
-
-//     return attrs;
-// }

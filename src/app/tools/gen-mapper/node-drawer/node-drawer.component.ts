@@ -106,11 +106,11 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
             this.dialog
                 .open(ConfirmDialogComponent, {
                     data: {
-                        title: this.localeService.t('saveChanges'),
-                        prompt: this.localeService.t('saveChangesQuestion'),
+                        title: this.localeService.t('Common_SaveChanges'),
+                        prompt: this.localeService.t('Common_SaveChangesQuestion'),
                         buttons: [
-                            this.localeService.t('en_Yes'),
-                            this.localeService.t('en_Cancel'),
+                            this.localeService.t('Common_Yes'),
+                            this.localeService.t('Common_Cancel'),
                         ],
                     }
                 })

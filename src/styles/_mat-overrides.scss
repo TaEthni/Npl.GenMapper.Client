@@ -46,3 +46,15 @@ body {
         font-size: 16px;
     }
 }
+
+.month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.month-picker .mat-calendar-arrow {
+    display: none;
+}
+
+.mat-snack-bar-container.white-snack-bar {
+    background-color: white;
+}

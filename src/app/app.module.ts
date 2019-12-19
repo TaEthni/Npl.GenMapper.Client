@@ -1,18 +1,17 @@
 import { AdminModule } from '@admin/admin.module';
+import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CoreModule } from '@core/core.module';
-
+import { GenMapperConfigs, GenMapperTemplates } from '@templates';
 import { AccountModule } from './account/account.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
-import { AgmCoreModule } from '@agm/core';
+import { GM_CONFIGS, GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
 import { ToolsModule } from './tools/tools.module';
-import { GM_TEMPLATES, GM_CONFIGS } from './tools/gen-mapper/template.injecttoken';
-import { GenMapperTemplates, GenMapperConfigs } from '@templates';
-import { OAuthModule } from 'angular-oauth2-oidc';
+
 
 @NgModule({
     declarations: [
@@ -27,14 +26,9 @@ import { OAuthModule } from 'angular-oauth2-oidc';
         AccountModule,
         AdminModule,
         AppRoutingModule,
-        OAuthModule.forRoot({
-            resourceServer: {
-                allowedUrls: ['http://localhost:8000/api'],
-                sendAccessToken: true
-            }
-        }),
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            apiKey: 'AIzaSyBzA-YQSy5_7DQggb73_6iGhwHs9mAjkZE',
+            // apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
             libraries: ['places']
         })
     ],

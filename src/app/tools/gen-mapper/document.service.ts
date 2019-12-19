@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { EntityService } from '@core/entity.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { EntityType } from '@shared/entity/entity.model';
-import { GMTemplate } from '@templates';
 import { cloneDeep, keyBy } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { TemplateUtils } from './template-utils';
 import { GNode } from './gen-mapper.interface';
 import { parseCSVData } from './resources/csv-parser';
-import { TemplateService } from './template.service';
+import { TemplateUtils } from './template-utils';
 import { Template } from './template.model';
+import { TemplateService } from './template.service';
 
 @Injectable()
 export class DocumentService {
@@ -25,12 +23,10 @@ export class DocumentService {
         return this.entityService
             .getAll<DocumentDto>(EntityType.Documents)
             .pipe(map(docs => {
-
                 return docs
                     .filter(doc => doc.type === type)
                     .map(doc => {
                         const template = this.templateService.getTemplate(type);
-                        // doc.attributes = TemplateUtils.parseAttributes('', type);
                         doc.nodes = parseCSVData(doc.content, template);
                         this.processNodesOnLoad(doc.nodes);
                         return doc;
@@ -53,9 +49,7 @@ export class DocumentService {
         const template = this.templateService.getTemplate(doc.type);
         data.content = TemplateUtils.getOutputCsv(doc.nodes, template);
 
-        // data.elements = TemplateUtils.getOutputAttributesJSON(doc.attributes);
         delete data.elements;
-
         delete data.nodes;
         delete data.attributes;
         delete data.createdAt;
@@ -73,7 +67,9 @@ export class DocumentService {
         nodes.forEach(node => {
             if (node.parentId) {
                 const parent = byId[node.parentId];
-                parent.hasChildNodes = true;
+                if (parent) {
+                    parent.hasChildNodes = true;
+                }
             }
         });
     }

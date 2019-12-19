@@ -1,5 +1,5 @@
-import { NodeDatum } from "../gen-mapper.interface";
 import { Selection } from 'd3';
+import { NodeDatum } from "../gen-mapper.interface";
 import { Template } from "../template.model";
 
 const LINK_TEXT_POSITION = 0.3;

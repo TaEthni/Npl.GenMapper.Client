@@ -1,4 +1,4 @@
-import { GMTemplate, TemplateConfiguration, GMSvg, GMField } from "@templates";
+import { GMField, GMSvg, GMTemplate, TemplateConfiguration } from "@templates";
 import { cloneDeep, Dictionary, keyBy } from "lodash";
 
 export class Template extends GMTemplate {
@@ -18,8 +18,43 @@ export class Template extends GMTemplate {
         this.fields = config.fields;
         this._fieldsById = keyBy(this.fields, (f) => f.id);
 
-        config.svgMap.forEach(map => {
-            const svg = this._svgsById[map.svgRef];
+        this.svgStates = config.svgStates;
+
+        // config.svgMap.forEach(map => {
+        //     const svg = this._svgsById[map.svgRef];
+
+        //     if (map.attributes) {
+        //         Object.assign(svg.attributes, map.attributes);
+        //     }
+
+        //     if (map.style) {
+        //         Object.assign(svg.style, map.style);
+        //     }
+
+        //     if (map.iconRef) {
+        //         svg.attributes['xlink:href'] = this.icons[map.iconRef];
+        //     }
+
+        //     if (map.tooltipFieldRef) {
+        //         const field = this.getField(map.tooltipFieldRef);
+        //         svg.tooltipi18nRef = field.i18nRef;
+        //     }
+
+        //     if (map.state) {
+        //         svg.state = map.state;
+
+        //         map.state.forEach(state => {
+        //             if (state.setIcon) {
+        //                 state.fieldRefValues.forEach(v => {
+        //                     v.iconRefValue = this.icons[v.iconRef];
+        //                 });
+        //             }
+        //         })
+        //     }
+        // });
+
+        config.svgStates.forEach(map => {
+            const svg = this._svgsById[map.selector];
 
             if (map.attributes) {
                 Object.assign(svg.attributes, map.attributes);
@@ -38,14 +73,14 @@ export class Template extends GMTemplate {
                 svg.tooltipi18nRef = field.i18nRef;
             }
 
-            if (map.state) {
-                svg.state = map.state;
+            if (map.states) {
+                svg.states = map.states;
 
-                map.state.forEach(state => {
+                svg.states.forEach(state => {
                     if (state.setIcon) {
-                        state.fieldRefValues.forEach(v => {
-                            v.iconRefValue = this.icons[v.iconRef];
-                        });
+                        state.svg = state.svg || {};
+                        state.svg.attributes = state.svg.attributes || {};
+                        state.svg.attributes['xlink:href'] = this.icons[state.iconRef];
                     }
                 })
             }

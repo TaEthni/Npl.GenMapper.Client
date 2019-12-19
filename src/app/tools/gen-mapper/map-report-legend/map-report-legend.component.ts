@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Device } from '@core/platform';
 import { DocumentDto } from '@shared/entity/document.model';
-import { GMTemplate, GMReport } from '@templates';
+import { GMReport } from '@templates';
+import { Template } from '../template.model';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { GMTemplate, GMReport } from '@templates';
 })
 export class MapReportLegendComponent implements OnChanges {
     @Input()
-    public template: GMTemplate;
+    public template: Template;
 
     @Input()
     public document: DocumentDto;
@@ -33,10 +34,12 @@ export class MapReportLegendComponent implements OnChanges {
     private createReports(): void {
         this.reports = [];
         this.template.reports.forEach(rep => {
+            const field = this.template.getField(rep.name);
             const report = {} as GMReport;
             report.value = 0;
             report.name = rep.name;
             report.type = rep.type;
+            report.i18nRef = field.i18nRef;
             this.reports.push(report);
         });
     }

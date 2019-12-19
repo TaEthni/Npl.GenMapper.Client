@@ -1,19 +1,19 @@
 <div mat-dialog-title>
     <ng-container *ngIf="isLoading">
-        Loading {{'peopleGroups' | locale | async}}
+        Loading {{'Common_PeopleGroups' | locale | async}}
     </ng-container>
 
     <ng-container *ngIf="!isLoading">
         <ng-container *ngIf="!peopleGroups">
             <div>
-                {{'en_Country' | locale | async}}:
+                {{'Common_Country' | locale | async}}:
             </div>
         </ng-container>
 
         <ng-container *ngIf="peopleGroups">
             <div>
                 <span class="country-name">{{peopleGroups[0].attributes.Ctry}}</span>
-                {{'peopleGroups' | locale | async}}:
+                {{'Common_PeopleGroups' | locale | async}}:
             </div>
             <div fxLayout="row">
                 <div class="change-country"
@@ -21,7 +21,7 @@
                      fxLayoutAlign="start center"
                      (click)="resetCountry()">
                     <mat-icon>chevron_left</mat-icon>
-                    <div>{{'changeCountry' | locale | async}}</div>
+                    <div>{{'Common_ChangeCountry' | locale | async}}</div>
                 </div>
             </div>
         </ng-container>
@@ -61,14 +61,14 @@
             <button mat-raised-button
                     color="primary"
                     (click)="onCountrySelected(country)">
-                {{'en_Continue' | locale | async}}
+                {{'Common_Continue' | locale | async}}
             </button>
         </ng-container>
         <ng-container *ngIf="peopleGroups">
             <button mat-raised-button
                     color="primary"
                     (click)="onSave()">
-                {{'en_Save' | locale | async}}
+                {{'Common_Save' | locale | async}}
             </button>
         </ng-container>
     </ng-container>
@@ -76,6 +76,6 @@
     <button mat-button
             color="primary"
             (click)="onCancel()">
-        {{'en_Cancel' | locale | async}}
+        {{'Common_Cancel' | locale | async}}
     </button>
 </div>

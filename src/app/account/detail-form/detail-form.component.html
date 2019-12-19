@@ -4,11 +4,11 @@
       fxLayoutGap="24px"
       *ngIf="form">
     <h1>
-        {{'en_AccountDetails' | locale | async}}
+        {{'Common_AccountDetails' | locale | async}}
     </h1>
     <mat-form-field>
         <mat-label>
-            {{'en_Email' | locale | async}}
+            {{'Common_Email' | locale | async}}
         </mat-label>
         <input matInput
                formControlName="email"
@@ -31,7 +31,7 @@
 
     <mat-form-field>
         <mat-label>
-            {{'en_Username' | locale | async}}
+            {{'Common_Username' | locale | async}}
         </mat-label>
         <input matInput
                formControlName="username"
@@ -55,12 +55,12 @@
 
 
     <h1>
-        {{'en_ChangePassword' | locale | async}}
+        {{'Common_ChangePassword' | locale | async}}
     </h1>
 
     <mat-form-field>
         <mat-label>
-            {{'en_Password' | locale | async}}
+            {{'Common_Password' | locale | async}}
         </mat-label>
         <input matInput
                formControlName="password"
@@ -74,7 +74,7 @@
 
     <mat-form-field>
         <mat-label>
-            {{'en_ConfirmPassword' | locale | async}}
+            {{'Common_ConfirmPassword' | locale | async}}
         </mat-label>
         <input matInput
                formControlName="confirm"
@@ -103,7 +103,7 @@
                 color="primary"
                 type="submit">
             <div>
-                {{'en_Save' | locale | async}}
+                {{'Common_Save' | locale | async}}
             </div>
             <mat-spinner diameter="24"
                          *ngIf="isSaving"></mat-spinner>
@@ -111,6 +111,6 @@
         <a mat-button
            color="primary"
            type="button"
-           [routerLink]="['/tools']">{{'en_Cancel' | locale | async}}</a>
+           [routerLink]="['/tools']">{{'Common_Cancel' | locale | async}}</a>
     </div>
 </form>

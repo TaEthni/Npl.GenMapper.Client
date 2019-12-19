@@ -1,17 +1,16 @@
 import { ElementRef } from '@angular/core';
+import { Device } from '@core/platform';
+import { GMField, GMSvg, GMSvgAction, GMTemplate } from '@templates';
 import * as d3 from 'd3';
+import { drag, DragBehavior, HierarchyNode, zoomIdentity, zoomTransform } from 'd3';
 import i18next from 'i18next';
 import * as _ from 'lodash';
-
-import { GNode, PrintType, NodeDatum } from './gen-mapper.interface';
-import { HierarchyNode, zoomTransform, zoomIdentity, drag, DragBehavior, event as d3Event } from 'd3';
 import { cloneDeep } from 'lodash';
-import { Device } from '@core/platform';
-import { GMTemplate, GMField, GMSvgAction } from '@templates';
-import { GMSvg } from '@templates';
 import * as uuid from 'uuid/v4';
-import { Template } from './template.model';
+import { GNode, NodeDatum, PrintType } from './gen-mapper.interface';
 import { parseCSVData } from './resources/csv-parser';
+import { Template } from './template.model';
+
 
 export const MapStyles = {
     boxHeight: 80,
@@ -31,7 +30,6 @@ export class GenMap {
     public gNodes: any;
     public gLinks: any;
     public gLinksText: any;
-    // public nodeLabelAttributes: GMStreamAttribute[];
 
     public nodeLabelFields: GMField[];
     public margin = { top: 110, right: 30, bottom: 50, left: 30 };
@@ -449,7 +447,7 @@ export class GenMap {
         // NEW ELEMENTS
         const newGroup = node.enter().append('g');
 
-        newGroup.append('title').text(i18next.t('Node_editGroup'));
+        newGroup.append('title').text(i18next.t('Node_EditGroup'));
 
         newGroup.append('rect')
             .attr('class', 'hidden-rect')

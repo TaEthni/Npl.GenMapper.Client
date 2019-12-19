@@ -2,7 +2,7 @@
 
 <ng-template #nativeTemplate>
     <mat-form-field floatLabel="always">
-        <mat-label>{{'en_Country' | locale | async}}</mat-label>
+        <mat-label>{{'Common_Country' | locale | async}}</mat-label>
         <select matNativeControl
                 required
                 [formControl]="control">
@@ -16,7 +16,7 @@
 </ng-template>
 <ng-template #defaultTemplate>
     <mat-form-field floatLabel="always">
-        <mat-label>{{'en_Country' | locale | async}}</mat-label>
+        <mat-label>{{'Common_Country' | locale | async}}</mat-label>
         <mat-select placeholder="Country"
                     [formControl]="control"
                     required>

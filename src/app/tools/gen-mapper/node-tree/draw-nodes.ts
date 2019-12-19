@@ -1,4 +1,6 @@
-import { Selection } from 'd3';
+import { ControlType } from '@templates';
+import { select, Selection } from 'd3';
+import moment from 'moment';
 import { NodeDatum } from '../gen-mapper.interface';
 import { Template } from '../template.model';
 import { applySVGAttrsAndStyle } from './d3-util';
@@ -81,10 +83,18 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
             nodeLabelFields
                 .filter(field => d.data[field.id])
                 .forEach((field, i) => {
-                    svg += `<text text-anchor="start" y="${boxHeight + (i + line) * textHeight}">${d.data[field.id]}</text>`;
+                    let value = d.data[field.id];
+
+                    if (field.type === ControlType.date) {
+                        value = moment(new Date(value)).format('YYYY-MM');
+                    }
+
+                    svg += `<text text-anchor="start" y="${boxHeight + (i + line) * textHeight}">${value}</text>`;
                 });
             return svg;
         });
+
+
 
     // refresh class and attributes in SVG elements without fields
     // // in order to remove any additional classes or settings from inherited fields
@@ -148,5 +158,34 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
                 }
             });
         }
+    });
+
+    nodeUpdate.each(function (d) {
+
+        const node = select(this);
+
+        template.svgs.forEach(svg => {
+            if (!svg.states) { return; }
+
+            const element = node.select('.node-' + svg.id);
+
+            svg.states.forEach(state => {
+                const fieldId = state.fieldRefId;
+                const value = d.data[fieldId];
+
+                if (state.setText) {
+                    if (Array.isArray(value)) {
+                        element.text(value.join(''));
+                    } else {
+                        element.text(value);
+                    }
+                    return;
+                }
+
+                if (value === state.fieldRefValue) {
+                    applySVGAttrsAndStyle(state.svg, element);
+                }
+            });
+        });
     });
 }

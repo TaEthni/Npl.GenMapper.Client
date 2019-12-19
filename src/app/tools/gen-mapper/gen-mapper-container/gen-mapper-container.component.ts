@@ -3,9 +3,7 @@ import { AuthenticationService } from '@core/authentication.service';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
-import { GMTemplate } from '@templates';
 import { takeUntil } from 'rxjs/operators';
-
 import { GenMapperView } from '../gen-mapper-view.enum';
 import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
@@ -36,11 +34,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     public ngOnInit(): void {
         this.isAuthenticated = this.authService.isAuthenticated();
-        this.genMapper.getNode()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.node = result;
-            });
 
         this.genMapper.getDocument()
             .pipe(takeUntil(this.unsubscribe))

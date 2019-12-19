@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { Entity } from '@shared/entity/entity.model';
-import { groupBy, assign } from 'lodash';
+import { assign, groupBy } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delayWhen, tap, map } from 'rxjs/operators';
-
+import { delayWhen, map, tap } from 'rxjs/operators';
 import { DocumentService } from './document.service';
 import { GNode } from './gen-mapper.interface';
-import { TemplateUtils } from './template-utils';
-import { GMTemplate } from '@templates';
-import { Template } from './template.model';
 import { parseCSVData } from './resources/csv-parser';
+import { TemplateUtils } from './template-utils';
+import { Template } from './template.model';
 
 const storageKey = 'offline-locall-save-';
 
@@ -75,9 +73,8 @@ export class GenMapperService {
                     const config = this._config.getValue();
                     config.documents = docs;
                     config.template = template;
-
-                    console.log(template.getField('elementLeaders'))
                     this.setConfig(config);
+
                 })
             );
     }

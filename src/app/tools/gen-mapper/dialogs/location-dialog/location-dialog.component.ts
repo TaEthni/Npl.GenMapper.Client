@@ -1,7 +1,7 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MapsService } from '@core/maps.service';
 
 interface MouseEvent {
@@ -88,11 +88,11 @@ export class LocationDialogComponent {
     private initialize(): void {
         this.mapsAPILoader.load().then(() => {
 
-            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
+            const autocomplete = new google.maps.places.SearchBox(this.searchElementRef.nativeElement);
 
-            autocomplete.addListener('place_changed', () => {
+            autocomplete.addListener('places_changed', () => {
                 this.ngZone.run(() => {
-                    const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    const place: google.maps.places.PlaceResult = autocomplete.getPlaces()[0];
 
                     if (place.geometry === undefined || place.geometry === null) {
                         return;

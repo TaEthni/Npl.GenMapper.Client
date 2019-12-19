@@ -1,10 +1,10 @@
 <div mat-dialog-title>
     <ng-container *ngIf="data.isFeedback; then feedbackTemp else helpTemp"></ng-container>
     <ng-template #feedbackTemp>
-        {{'en_SendFeedback' | locale | async}}
+        {{'Common_SendFeedback' | locale | async}}
     </ng-template>
     <ng-template #helpTemp>
-        {{'en_NeedHelp' | locale | async}}
+        {{'Common_NeedHelp' | locale | async}}
     </ng-template>
 </div>
 <div mat-dialog-content>
@@ -16,7 +16,7 @@
         <ng-container *ngIf="!data.authenticated">
             <mat-form-field>
                 <mat-label>
-                    {{'en_Name' | locale | async}}
+                    {{'Common_Name' | locale | async}}
                 </mat-label>
                 <input matInput
                        formControlName="name" />
@@ -24,7 +24,7 @@
 
             <mat-form-field>
                 <mat-label>
-                    {{'en_Email' | locale | async}}
+                    {{'Common_Email' | locale | async}}
                 </mat-label>
                 <input matInput
                        required
@@ -79,7 +79,7 @@
             type="button"
             (click)="onSubmit()">
         <div>
-            {{'en_Send' | locale | async}}
+            {{'Common_Send' | locale | async}}
         </div>
         <mat-spinner *ngIf="isLoading"
                      diameter="24"></mat-spinner>
@@ -88,6 +88,6 @@
     <button mat-button
             color="primary"
             mat-dialog-close>
-        {{'en_Cancel' | locale | async}}
+        {{'Common_Cancel' | locale | async}}
     </button>
 </div>

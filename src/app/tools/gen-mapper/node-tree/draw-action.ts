@@ -14,7 +14,7 @@ export function drawAction(group: Selection<SVGGElement, NodeDatum, SVGGElement,
         .classed('node-action', true)
         .classed(action.control, true)
         .append('svg')
-        .attr('viewBox', `0 0 ${width} ${height}`)
+        .attr('viewBox', `0 0 ${width} ${height}`);
 
     action.attributes = action.attributes || {};
     action.attributes.width = action.attributes.width || width;
