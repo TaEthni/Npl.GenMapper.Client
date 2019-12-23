@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBarConfig, MatSnackBarHorizontalPosition } from '@angular/material';
 
 export class SavingErrorSnackBarConfig extends MatSnackBarConfig {
-    horizontalPosition: MatSnackBarHorizontalPosition = 'right';
-    panelClass = 'white-snack-bar';
+    public horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+    public panelClass = 'white-snack-bar';
 }
 
 @Component({
@@ -13,6 +13,6 @@ export class SavingErrorSnackBarConfig extends MatSnackBarConfig {
 })
 export class SavingErrorSnackbarComponent implements OnInit {
     constructor() { }
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 }

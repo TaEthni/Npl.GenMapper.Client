@@ -21,7 +21,10 @@ import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { NodeTreeService } from '../node-tree/node-tree.service';
 import { parseCSVData } from '../resources/csv-parser';
-import { SavingErrorSnackbarComponent, SavingErrorSnackBarConfig } from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
+import {
+    SavingErrorSnackbarComponent,
+    SavingErrorSnackBarConfig
+} from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
 import { SavingSnackbarComponent, SavingSnackBarConfig } from '../snackbars/saving-snackbar/saving-snackbar.component';
 import { TemplateUtils } from '../template-utils';
 import { Template } from '../template.model';
@@ -291,7 +294,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         });
     }
 
-    private showBadDocumentDialog(content: string) {
+    private showBadDocumentDialog(content: string): void {
         this.dialog.open(InvalidCsvDialogComponent, {
             data: { content }
         });
