@@ -8,12 +8,6 @@
 
 <section>
     <div fxLayout="column">
-        <div>
-            <button mat-raised-button
-                    color="primary">
-                EXPORT i18n
-            </button>
-        </div>
 
         <div>
             <mat-list>
@@ -21,10 +15,18 @@
                                [class.complete]="lang.completion === 100">
                     <mat-icon mat-list-icon>{{lang.completion === 100 ? 'check_circle' : 'warning'}}</mat-icon>
                     <h4 mat-line>{{lang.name}} {{lang.code}}: <strong>{{lang.i18nName}}</strong></h4>
-                    <p mat-line>
+                    <p mat-line
+                       fxLayout="row"
+                       fxLayoutGap="24px"
+                       fxLayoutAlign="start center">
+
                         <mat-progress-bar mode="determinate"
                                           [value]="lang.completion"
                                           [color]="lang.completion === 100 ? 'accent' : 'warn'"></mat-progress-bar>
+
+                        <button mat-button
+                                color="primary"
+                                (click)="export(lang)"> EXPORT </button>
                     </p>
                 </mat-list-item>
             </mat-list>

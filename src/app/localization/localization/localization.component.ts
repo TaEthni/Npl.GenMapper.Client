@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DownloadService } from '@core/download.service';
 import { translations as i18nTranslations } from '@templates';
+import { csvFormatRows } from 'd3';
 
 interface Key {
     key: string;
@@ -24,7 +26,9 @@ export class LocalizationComponent implements OnInit {
     public languages: Language[] = [];
     public defaultLang: Language;
 
-    constructor() { }
+    constructor(
+        private downloadService: DownloadService
+    ) { }
 
     public ngOnInit(): void {
         Object.keys(i18nTranslations).forEach(code => {
@@ -46,6 +50,28 @@ export class LocalizationComponent implements OnInit {
         this.languages.forEach(lang => {
             lang.completion = ((100 / max) * lang.keys.length);
         });
+    }
+
+    public export(lang: Language): void {
+        const header = `key,en-US,` + lang.code + '\n';
+
+        const csv = header + csvFormatRows(
+            this.defaultLang.keys.map(english => {
+                const output = [];
+                const translation = lang.keys.find(k => k.key === english.key);
+
+                output.push(english.key);
+                output.push(english.value);
+
+                if (translation) {
+                    output.push(translation.value);
+                }
+
+                return output;
+            })
+        );
+
+        this.downloadService.downloadCSV(csv, 'Translation_en-US_' + lang.code);
     }
 
     private collectKeys(languages: Language, keys: Key[], prefix: string = ''): any[] {
