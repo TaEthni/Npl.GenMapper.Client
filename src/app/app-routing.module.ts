@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserResolver } from '@core/user.resolver';
 import { GenMapperTemplates } from '@templates';
-
 import { DetailComponent } from './account/detail/detail.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './home/forbidden/forbidden.component';
@@ -17,11 +16,12 @@ import { SignupComponent } from './home/signup/signup.component';
 import { UnverifiedEmailComponent } from './home/unverified-email/unverified-email.component';
 import { LayoutUnauthenticatedComponent } from './layout/layout-unauthenticated/layout-unauthenticated.component';
 import { LayoutComponent } from './layout/layout/layout.component';
-import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-container/gen-mapper-container.component';
 import { GenMapperContainerResolver } from './tools/gen-mapper/gen-mapper-container.resolver';
-import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
+import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-container/gen-mapper-container.component';
 import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
+import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
 import { ToolsComponent } from './tools/tools/tools.component';
+
 
 
 const genMapperRoutes = [];
@@ -108,6 +108,10 @@ const appRoutes: Routes = [
             {
                 path: 'tools',
                 component: ToolsComponent
+            },
+            {
+                path: 'localization',
+                loadChildren: () => import('./localization/localization.module').then(m => m.LocalizationModule)
             }
         ].concat(genMapperRoutes)
     },

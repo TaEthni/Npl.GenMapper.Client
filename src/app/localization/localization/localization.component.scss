@@ -1,0 +1,19 @@
+@import '~styles/colors';
+
+:host {
+    section {
+        padding: 24px;
+    }
+
+    .mat-list-item {
+        .mat-icon {
+            color: mat-color($warn);
+        }
+    }
+
+    .mat-list-item.complete {
+        .mat-icon {
+            color: green;
+        }
+    }
+}

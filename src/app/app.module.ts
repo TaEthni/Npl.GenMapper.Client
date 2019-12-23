@@ -2,6 +2,8 @@ import { AdminModule } from '@admin/admin.module';
 import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@core/core.module';
 import { GenMapperConfigs, GenMapperTemplates } from '@templates';
 import { AccountModule } from './account/account.module';
@@ -19,6 +21,8 @@ import { ToolsModule } from './tools/tools.module';
     ],
     imports: [
         CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
         CoreModule,
         LayoutModule,
         HomeModule,
