@@ -226,6 +226,8 @@ export interface GMSvgAction extends Svg {
     control: 'addChildNode' | 'editNode';
     iconName: string;
     rect?: Svg;
+    iconX: string;
+    iconY: string;
 }
 
 export interface GMFieldState {

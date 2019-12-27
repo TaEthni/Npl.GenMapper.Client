@@ -19,6 +19,339 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         elementWorshipIcon: 'templates/church-circles-12/icons/element-worship.png',
         elementMakeDisciplesIcon: 'templates/church-circles-12/icons/element-make-disciples.png',
     },
+    fields: [
+        {
+            id: 'nodeOrder',
+            canModify: false,
+        },
+        {
+            id: 'hasChildNodes',
+            canModify: false,
+        },
+        {
+            id: 'id',
+            canModify: false
+        },
+        {
+            id: 'parentId',
+            i18nRef: 'churchCircles12.parent',
+            type: ControlType.parentSelector,
+            canModify: true,
+        },
+        {
+            id: 'newGeneration',
+            i18nRef: 'churchCircles12.newGeneration',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            controlOrder: 1,
+            canModify: true,
+        },
+        {
+            id: 'active',
+            i18nRef: 'churchCircles12.active',
+            defaultValue: true,
+            type: ControlType.checkbox,
+            controlOrder: 2,
+            canModify: true,
+            // svg defined currently in genmapper.js
+        },
+        {
+            id: 'inactiveReason',
+            i18nRef: 'churchCircles12.inactiveReason',
+            type: ControlType.textarea,
+            controlOrder: 3,
+            canModify: true,
+            dependsOnFalseField: 'active',
+        },
+        {
+            id: 'elementGospel',
+            i18nRef: 'churchCircles12.elementGospel',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementGospelIcon'
+        },
+        {
+            id: 'elementRepent',
+            i18nRef: 'churchCircles12.elementRepent',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementRepentIcon'
+        },
+        {
+            id: 'elementBaptism',
+            i18nRef: 'churchCircles12.elementBaptism',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementBaptismIcon'
+        },
+        {
+            id: 'elementHolySpirit',
+            i18nRef: 'churchCircles12.elementHolySpirit',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementHolySpiritIcon'
+        },
+        {
+            id: 'elementWord',
+            i18nRef: 'churchCircles12.elementWord',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementWordIcon',
+        },
+        {
+            id: 'elementLove',
+            i18nRef: 'churchCircles12.elementLove',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementLoveIcon',
+        },
+        {
+            id: 'elementLordsSupper',
+            i18nRef: 'churchCircles12.elementLordsSupper',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementLordsSupperIcon',
+        },
+        {
+            id: 'elementPrayer',
+            i18nRef: 'churchCircles12.elementPrayer',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementPrayerIcon',
+        },
+        {
+            id: 'elementSignsWonders',
+            i18nRef: 'churchCircles12.elementSignsWonders',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementSignsWondersIcon'
+        },
+        {
+            id: 'elementGive',
+            i18nRef: 'churchCircles12.elementGive',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementGiveIcon',
+        },
+        {
+            id: 'elementWorship',
+            i18nRef: 'churchCircles12.elementWorship',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementWorshipIcon',
+        },
+        {
+            id: 'elementMakeDisciples',
+            i18nRef: 'churchCircles12.elementMakeDisciples',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            iconRef: 'elementMakeDisciplesIcon'
+        },
+        {
+            id: 'attenders',
+            i18nRef: 'churchCircles12.attenders',
+            defaultValue: 0,
+            type: ControlType.number,
+            canModify: true,
+            iconRef: 'attendersIcon',
+        },
+        {
+            id: 'believers',
+            i18nRef: 'churchCircles12.believers',
+            defaultValue: 0,
+            type: ControlType.number,
+            canModify: true,
+            iconRef: 'believersIcon',
+        },
+        {
+            id: 'baptized',
+            i18nRef: 'churchCircles12.baptized',
+            defaultValue: 0,
+            type: ControlType.number,
+            canModify: true,
+            iconRef: 'elementBaptismIcon'
+        },
+        {
+            id: 'newlyBaptized',
+            i18nRef: 'churchCircles12.newlyBaptized',
+            defaultValue: 0,
+            type: ControlType.number,
+            canModify: true,
+        },
+        {
+            id: 'gospelShares',
+            i18nRef: 'churchCircles12.gospelShares',
+            defaultValue: 0,
+            type: ControlType.number,
+            canModify: true,
+        },
+        {
+            id: 'name',
+            i18nRef: 'churchCircles12.name',
+            type: ControlType.text,
+            controlOrder: 4,
+            canModify: true,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 1,
+        },
+        {
+            id: 'leaderName',
+            i18nRef: 'churchCircles12.leaderName',
+            type: ControlType.text,
+            controlOrder: 5,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 2,
+            canModify: true,
+        },
+        {
+            id: 'email',
+            i18nRef: 'churchCircles12.email',
+            type: ControlType.text,
+            controlOrder: 6,
+            isNodeSvgLabel: false,
+            nodeSvgLabelOrder: 3,
+            canModify: true,
+        },
+        {
+            id: 'startDate',
+            i18nRef: 'churchCircles12.date',
+            type: ControlType.date,
+            controlOrder: 7,
+            canModify: true,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 3,
+        },
+        {
+            id: 'date',
+            i18nRef: 'churchCircles12.date',
+            canModify: false,
+            type: ControlType.none,
+            deprecated: true,
+        },
+        {
+            id: 'place',
+            i18nRef: 'churchCircles12.place',
+            type: ControlType.text,
+            controlOrder: 9,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 4,
+            deprecated: true,
+            canModify: true,
+        },
+        {
+            id: 'location',
+            i18nRef: 'churchCircles12.location',
+            type: ControlType.geoLocation,
+            canModify: true,
+        },
+        {
+            id: 'latitude',
+            canModify: false,
+            parseValueAsFloat: true,
+        },
+        {
+            id: 'longitude',
+            canModify: false,
+            parseValueAsFloat: true,
+        },
+        {
+            id: 'placeId',
+            canModify: false,
+        },
+        {
+            id: 'church',
+            i18nRef: 'churchCircles12.isChurch',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            canModify: true,
+            options: [
+                {
+                    value: true,
+                    svgRefClass: 'is-church',
+                },
+                {
+                    value: false,
+                    svgRefClass: 'is-not-church'
+                }
+            ],
+        },
+        {
+            id: 'churchType',
+            i18nRef: 'churchCircles12.churchType',
+            defaultValue: 'newBelievers',
+            type: ControlType.radio,
+            canModify: true,
+            options: [
+                {
+                    value: 'legacy',
+                    i18nRef: 'churchCircles12.churchTypeLegacy',
+                },
+                {
+                    value: 'existingBelievers',
+                    i18nRef: 'churchCircles12.churchTypeExistingBelievers',
+                },
+                {
+                    value: 'newBelievers',
+                    i18nRef: 'churchCircles12.churchTypeNewBelievers',
+                }
+            ]
+        },
+        {
+            id: 'threeThirds',
+            i18nRef: 'churchCircles12.threeThirds',
+            defaultValue: [],
+            type: ControlType.multiSelect,
+            canModify: true,
+            options: [
+                {
+                    value: "1",
+                    i18nRef: 'churchCircles12.threeThirdsPastoralCare'
+                },
+                {
+                    value: "2",
+                    i18nRef: 'churchCircles12.threeThirdsWorship'
+                },
+                {
+                    value: "3",
+                    i18nRef: 'churchCircles12.threeThirdsAccountability'
+                },
+                {
+                    value: "4",
+                    i18nRef: 'churchCircles12.threeThirdsVisionCasting'
+                },
+                {
+                    value: "5",
+                    i18nRef: 'churchCircles12.threeThirdsBibleTeaching'
+                },
+                {
+                    value: "6",
+                    i18nRef: 'churchCircles12.threeThirdsPractice'
+                },
+                {
+                    value: "7",
+                    i18nRef: 'churchCircles12.threeThirdsGoalSetting'
+                },
+            ],
+        },
+        {
+            id: 'note',
+            i18nRef: 'churchCircles12.note',
+            type: ControlType.textarea,
+            canModify: true,
+        }
+    ],
     svgStates: [
         {
             selector: 'church-box',
@@ -480,339 +813,6 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     }
                 }
             ]
-        }
-    ],
-    fields: [
-        {
-            id: 'nodeOrder',
-            canModify: false,
-        },
-        {
-            id: 'hasChildNodes',
-            canModify: false,
-        },
-        {
-            id: 'id',
-            canModify: false
-        },
-        {
-            id: 'parentId',
-            i18nRef: 'churchCircles12.parent',
-            type: ControlType.parentSelector,
-            canModify: true,
-        },
-        {
-            id: 'elementGospel',
-            i18nRef: 'churchCircles12.elementGospel',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementGospel'
-        },
-        {
-            id: 'elementRepent',
-            i18nRef: 'churchCircles12.elementRepent',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementRepent'
-        },
-        {
-            id: 'elementBaptism',
-            i18nRef: 'churchCircles12.elementBaptism',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementBaptism'
-        },
-        {
-            id: 'elementHolySpirit',
-            i18nRef: 'churchCircles12.elementHolySpirit',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementHolySpirit'
-        },
-        {
-            id: 'elementWord',
-            i18nRef: 'churchCircles12.elementWord',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementWord',
-        },
-        {
-            id: 'elementLove',
-            i18nRef: 'churchCircles12.elementLove',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementLove',
-        },
-        {
-            id: 'elementLordsSupper',
-            i18nRef: 'churchCircles12.elementLordsSupper',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementLordsSupper',
-        },
-        {
-            id: 'elementPrayer',
-            i18nRef: 'churchCircles12.elementPrayer',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementPrayer',
-        },
-        {
-            id: 'elementSignsWonders',
-            i18nRef: 'churchCircles12.elementSignsWonders',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementSignsWonders'
-        },
-        {
-            id: 'elementGive',
-            i18nRef: 'churchCircles12.elementGive',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementGive',
-        },
-        {
-            id: 'elementWorship',
-            i18nRef: 'churchCircles12.elementWorship',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementWorship',
-        },
-        {
-            id: 'elementMakeDisciples',
-            i18nRef: 'churchCircles12.elementMakeDisciples',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            iconRef: 'elementMakeDisciples'
-        },
-        {
-            id: 'attenders',
-            i18nRef: 'churchCircles12.attenders',
-            defaultValue: 0,
-            type: ControlType.number,
-            canModify: true,
-            iconRef: 'attenders',
-        },
-        {
-            id: 'believers',
-            i18nRef: 'churchCircles12.believers',
-            defaultValue: 0,
-            type: ControlType.number,
-            canModify: true,
-            iconRef: 'believers',
-        },
-        {
-            id: 'baptized',
-            i18nRef: 'churchCircles12.baptized',
-            defaultValue: 0,
-            type: ControlType.number,
-            canModify: true,
-            iconRef: 'elementBaptism'
-        },
-        {
-            id: 'newlyBaptized',
-            i18nRef: 'churchCircles12.newlyBaptized',
-            defaultValue: 0,
-            type: ControlType.number,
-            canModify: true,
-        },
-        {
-            id: 'gospelShares',
-            i18nRef: 'churchCircles12.gospelShares',
-            defaultValue: 0,
-            type: ControlType.number,
-            canModify: true,
-        },
-        {
-            id: 'newGeneration',
-            i18nRef: 'churchCircles12.newGeneration',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            controlOrder: 1,
-            canModify: true,
-        },
-        {
-            id: 'active',
-            i18nRef: 'churchCircles12.active',
-            defaultValue: true,
-            type: ControlType.checkbox,
-            controlOrder: 2,
-            canModify: true,
-            // svg defined currently in genmapper.js
-        },
-        {
-            id: 'inactiveReason',
-            i18nRef: 'churchCircles12.inactiveReason',
-            type: ControlType.textarea,
-            controlOrder: 3,
-            canModify: true,
-            dependsOnFalseField: 'active',
-        },
-        {
-            id: 'name',
-            i18nRef: 'churchCircles12.name',
-            type: ControlType.text,
-            controlOrder: 4,
-            canModify: true,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 1,
-        },
-        {
-            id: 'leaderName',
-            i18nRef: 'churchCircles12.leaderName',
-            type: ControlType.text,
-            controlOrder: 5,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 2,
-            canModify: true,
-        },
-        {
-            id: 'email',
-            i18nRef: 'churchCircles12.email',
-            type: ControlType.text,
-            controlOrder: 6,
-            isNodeSvgLabel: false,
-            nodeSvgLabelOrder: 3,
-            canModify: true,
-        },
-        {
-            id: 'startDate',
-            i18nRef: 'churchCircles12.date',
-            type: ControlType.date,
-            controlOrder: 7,
-            canModify: true,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 3,
-        },
-        {
-            id: 'date',
-            i18nRef: 'churchCircles12.date',
-            canModify: false,
-            type: ControlType.none,
-            deprecated: true,
-        },
-        {
-            id: 'place',
-            i18nRef: 'churchCircles12.place',
-            type: ControlType.text,
-            controlOrder: 9,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 4,
-            deprecated: true,
-            canModify: true,
-        },
-        {
-            id: 'location',
-            i18nRef: 'churchCircles12.location',
-            type: ControlType.geoLocation,
-            canModify: true,
-        },
-        {
-            id: 'latitude',
-            canModify: false,
-            parseValueAsFloat: true,
-        },
-        {
-            id: 'longitude',
-            canModify: false,
-            parseValueAsFloat: true,
-        },
-        {
-            id: 'placeId',
-            canModify: false,
-        },
-        {
-            id: 'church',
-            i18nRef: 'churchCircles12.isChurch',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-            options: [
-                {
-                    value: true,
-                    svgRefClass: 'is-church',
-                },
-                {
-                    value: false,
-                    svgRefClass: 'is-not-church'
-                }
-            ],
-        },
-        {
-            id: 'churchType',
-            i18nRef: 'churchCircles12.churchType',
-            defaultValue: 'newBelievers',
-            type: ControlType.radio,
-            canModify: true,
-            options: [
-                {
-                    value: 'legacy',
-                    i18nRef: 'churchCircles12.churchTypeLegacy',
-                },
-                {
-                    value: 'existingBelievers',
-                    i18nRef: 'churchCircles12.churchTypeExistingBelievers',
-                },
-                {
-                    value: 'newBelievers',
-                    i18nRef: 'churchCircles12.churchTypeNewBelievers',
-                }
-            ]
-        },
-        {
-            id: 'threeThirds',
-            i18nRef: 'churchCircles12.threeThirds',
-            defaultValue: [],
-            type: ControlType.multiSelect,
-            canModify: true,
-            options: [
-                {
-                    value: "1",
-                    i18nRef: 'churchCircles12.threeThirdsPastoralCare'
-                },
-                {
-                    value: "2",
-                    i18nRef: 'churchCircles12.threeThirdsWorship'
-                },
-                {
-                    value: "3",
-                    i18nRef: 'churchCircles12.threeThirdsAccountability'
-                },
-                {
-                    value: "4",
-                    i18nRef: 'churchCircles12.threeThirdsVisionCasting'
-                },
-                {
-                    value: "5",
-                    i18nRef: 'churchCircles12.threeThirdsBibleTeaching'
-                },
-                {
-                    value: "6",
-                    i18nRef: 'churchCircles12.threeThirdsPractice'
-                },
-                {
-                    value: "7",
-                    i18nRef: 'churchCircles12.threeThirdsGoalSetting'
-                },
-            ],
-        },
-        {
-            id: 'note',
-            i18nRef: 'churchCircles12.note',
-            type: ControlType.textarea,
-            canModify: true,
         }
     ],
 }

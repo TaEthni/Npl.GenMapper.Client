@@ -46,6 +46,8 @@ export const ChurchCircles12Template: GMTemplate = {
                 x: boxHeight / 2,
                 y: 10,
             },
+            iconX: '14px',
+            iconY: '32px'
         },
         {
             id: 'add-child-node-action',
@@ -55,6 +57,8 @@ export const ChurchCircles12Template: GMTemplate = {
                 x: boxHeight / 2,
                 y: 50,
             },
+            iconX: '14px',
+            iconY: '32px'
         }
     ],
 
@@ -301,14 +305,17 @@ export const ChurchCircles12Template: GMTemplate = {
         {
             name: 'churchFunctions',
             fields: [
+                'elementGospel',
+                'elementRepent',
                 'elementBaptism',
+                'elementHolySpirit',
                 'elementWord',
-                'elementPrayer',
-                'elementLordsSupper',
-                'elementGive',
                 'elementLove',
+                'elementLordsSupper',
+                'elementPrayer',
+                'elementSignsWonders',
+                'elementGive',
                 'elementWorship',
-                'elementLeaders',
                 'elementMakeDisciples',
                 'church',
                 'active'

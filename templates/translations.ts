@@ -700,5 +700,10 @@ export const translations: any = {
             'Help_changelogLink': '版本历史连接',
             'Help_creditsJavaScriptLibraries': '使用了JavaScript/CSS库',
         }
+    },
+    fa: {
+        translation: {
+            esName: 'Farsi',
+        }
     }
 };

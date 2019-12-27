@@ -1,9 +1,5 @@
 import { GMTemplate } from '../template.interface';
 
-// export interface ChurchCirclesTemplateType extends GMTemplate {
-//     translations: { [key: string]: { translation: { [key: string]: ChurchCirclesTranslation } } };
-// }
-
 export const boxHeight = 100;
 export const textHeight = 14;
 export const textMargin = 6;
@@ -220,6 +216,8 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
                 'x': -(nodeWidth / 2) - 1,
                 'y': 10
             },
+            iconX: '14px',
+            iconY: '32px'
         },
         {
             id: 'add-child-node-action',
@@ -229,6 +227,8 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
                 'x': -(nodeWidth / 2) - 1,
                 'y': 50
             },
+            iconX: '14px',
+            iconY: '32px'
         }
     ],
     reports: [
