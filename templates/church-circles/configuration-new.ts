@@ -31,13 +31,13 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'parentId',
-            i18nRef: 'churchCircles.parent',
+            i18nRef: 'Common_Parent',
             type: ControlType.parentSelector,
             canModify: true,
         },
         {
             id: 'newGeneration',
-            i18nRef: 'churchCircles.newGeneration',
+            i18nRef: 'Common_NewGeneration',
             defaultValue: false,
             type: ControlType.checkbox,
             controlOrder: 1,
@@ -45,7 +45,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'active',
-            i18nRef: 'churchCircles.active',
+            i18nRef: 'Common_Active',
             defaultValue: true,
             type: ControlType.checkbox,
             controlOrder: 2,
@@ -54,7 +54,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'inactiveReason',
-            i18nRef: 'churchCircles.inactiveReason',
+            i18nRef: 'Common_InactiveReason',
             type: ControlType.textarea,
             controlOrder: 3,
             canModify: true,
@@ -62,7 +62,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementBaptism',
-            i18nRef: 'churchCircles.elementBaptism',
+            i18nRef: 'Element_Baptism',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -70,7 +70,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementPrayer',
-            i18nRef: 'churchCircles.elementPrayer',
+            i18nRef: 'Element_Prayer',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -78,7 +78,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementMakeDisciples',
-            i18nRef: 'churchCircles.elementMakeDisciples',
+            i18nRef: 'Element_MakeDisciples',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -86,7 +86,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementLove',
-            i18nRef: 'churchCircles.elementLove',
+            i18nRef: 'Element_Love',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -94,7 +94,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementWorship',
-            i18nRef: 'churchCircles.elementWorship',
+            i18nRef: 'Element_Worship',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -102,7 +102,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementLordsSupper',
-            i18nRef: 'churchCircles.elementLordsSupper',
+            i18nRef: 'Element_LordsSupper',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -110,7 +110,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementGive',
-            i18nRef: 'churchCircles.elementGive',
+            i18nRef: 'Element_Give',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -118,7 +118,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementWord',
-            i18nRef: 'churchCircles.elementWord',
+            i18nRef: 'Element_Word',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -126,7 +126,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementLeaders',
-            i18nRef: 'churchCircles.elementLeaders',
+            i18nRef: 'Element_Leaders',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
@@ -134,7 +134,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'attenders',
-            i18nRef: 'churchCircles.attenders',
+            i18nRef: 'Common_NumberOfAttenders',
             defaultValue: 0,
             type: ControlType.number,
             canModify: true,
@@ -142,7 +142,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'believers',
-            i18nRef: 'churchCircles.believers',
+            i18nRef: 'Common_NumberOfBelievers',
             defaultValue: 0,
             type: ControlType.number,
             canModify: true,
@@ -150,7 +150,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'baptized',
-            i18nRef: 'churchCircles.baptized',
+            i18nRef: 'Common_NumberOfBaptized',
             defaultValue: 0,
             type: ControlType.number,
             canModify: true,
@@ -158,14 +158,14 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'newlyBaptized',
-            i18nRef: 'churchCircles.newlyBaptized',
+            i18nRef: 'Common_NumberOfNewlyBaptized',
             defaultValue: 0,
             type: ControlType.number,
             canModify: true,
         },
         {
             id: 'name',
-            i18nRef: 'churchCircles.name',
+            i18nRef: 'Common_GroupName',
             type: ControlType.text,
             controlOrder: 4,
             canModify: true,
@@ -174,7 +174,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'leaderName',
-            i18nRef: 'churchCircles.leaderName',
+            i18nRef: 'Common_LeaderName',
             type: ControlType.text,
             controlOrder: 5,
             isNodeSvgLabel: true,
@@ -183,7 +183,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'email',
-            i18nRef: 'churchCircles.email',
+            i18nRef: 'Common_Email',
             type: ControlType.text,
             controlOrder: 6,
             isNodeSvgLabel: false,
@@ -192,7 +192,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'startDate',
-            i18nRef: 'churchCircles.date',
+            i18nRef: 'Common_StartDate',
             type: ControlType.date,
             controlOrder: 7,
             canModify: true,
@@ -201,14 +201,14 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'date',
-            i18nRef: 'churchCircles.date',
+            i18nRef: 'Common_Date',
             canModify: false,
             type: ControlType.none,
             deprecated: true,
         },
         {
             id: 'place',
-            i18nRef: 'churchCircles.place',
+            i18nRef: 'Common_PlaceCityStateCountry',
             type: ControlType.text,
             controlOrder: 9,
             isNodeSvgLabel: true,
@@ -218,7 +218,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'location',
-            i18nRef: 'churchCircles.location',
+            i18nRef: 'Common_GeoLocation',
             type: ControlType.geoLocation,
             canModify: true,
         },
@@ -238,79 +238,79 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'gospelShares',
-            i18nRef: 'churchCircles.gospelShares',
+            i18nRef: 'Common_GospelShares',
             defaultValue: 0,
             type: ControlType.number,
             canModify: true,
         },
         {
             id: 'church',
-            i18nRef: 'churchCircles.isChurch',
+            i18nRef: 'Common_IsChurch',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
         },
         {
             id: 'churchType',
-            i18nRef: 'churchCircles.churchType',
+            i18nRef: 'Common_ChurchType',
             defaultValue: 'newBelievers',
             type: ControlType.radio,
             canModify: true,
             options: [
                 {
                     value: 'legacy',
-                    i18nRef: 'churchCircles.churchTypeLegacy',
+                    i18nRef: 'ChurchType_Legacy',
                 },
                 {
                     value: 'existingBelievers',
-                    i18nRef: 'churchCircles.churchTypeExistingBelievers',
+                    i18nRef: 'ChurchType_ExistingBelievers',
                 },
                 {
                     value: 'newBelievers',
-                    i18nRef: 'churchCircles.churchTypeNewBelievers',
+                    i18nRef: 'ChurchType_NewBelievers',
                 }
             ]
         },
         {
             id: 'threeThirds',
-            i18nRef: 'churchCircles.threeThirds',
+            i18nRef: 'Common_ThreeThirds',
             defaultValue: [],
             type: ControlType.multiSelect,
             canModify: true,
             options: [
                 {
                     value: "1",
-                    i18nRef: 'churchCircles.threeThirdsPastoralCare'
+                    i18nRef: 'ThreeThirds_PastoralCare'
                 },
                 {
                     value: "2",
-                    i18nRef: 'churchCircles.threeThirdsWorship'
+                    i18nRef: 'ThreeThirds_Worship'
                 },
                 {
                     value: "3",
-                    i18nRef: 'churchCircles.threeThirdsAccountability'
+                    i18nRef: 'ThreeThirds_Accountability'
                 },
                 {
                     value: "4",
-                    i18nRef: 'churchCircles.threeThirdsVisionCasting'
+                    i18nRef: 'ThreeThirds_VisionCasting'
                 },
                 {
                     value: "5",
-                    i18nRef: 'churchCircles.threeThirdsBibleTeaching'
+                    i18nRef: 'ThreeThirds_BibleTeaching'
                 },
                 {
                     value: "6",
-                    i18nRef: 'churchCircles.threeThirdsPractice'
+                    i18nRef: 'ThreeThirds_Practice'
                 },
                 {
                     value: "7",
-                    i18nRef: 'churchCircles.threeThirdsGoalSetting'
+                    i18nRef: 'ThreeThirds_GoalSetting'
                 },
             ],
         },
         {
             id: 'note',
-            i18nRef: 'churchCircles.note',
+            i18nRef: 'Common_Note',
             type: ControlType.textarea,
             canModify: true,
         }

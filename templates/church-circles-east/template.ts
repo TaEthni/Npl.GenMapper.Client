@@ -212,6 +212,7 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
             id: 'edit-node-action',
             control: 'editNode',
             iconName: 'edit',
+            tooltipi18nRef: 'Node_EditGroup',
             attributes: {
                 'x': -(nodeWidth / 2) - 1,
                 'y': 10
@@ -223,6 +224,7 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
             id: 'add-child-node-action',
             control: 'addChildNode',
             iconName: 'add',
+            tooltipi18nRef: 'Node_hoverAddChildGroup',
             attributes: {
                 'x': -(nodeWidth / 2) - 1,
                 'y': 50

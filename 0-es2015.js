@@ -9,7 +9,20 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header>\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <app-sidenav-toggle></app-sidenav-toggle>\n        </mat-toolbar-row>\n    </mat-toolbar>\n</header>\n\n<section>\n    <div fxLayout=\"column\">\n\n        <div>\n            <mat-list>\n                <mat-list-item *ngFor=\"let lang of languages\"\n                               [class.complete]=\"lang.completion === 100\">\n                    <mat-icon mat-list-icon>{{lang.completion === 100 ? 'check_circle' : 'warning'}}</mat-icon>\n                    <h4 mat-line>{{lang.name}} {{lang.code}}: <strong>{{lang.i18nName}}</strong></h4>\n                    <p mat-line\n                       fxLayout=\"row\"\n                       fxLayoutGap=\"24px\"\n                       fxLayoutAlign=\"start center\">\n\n                        <mat-progress-bar mode=\"determinate\"\n                                          [value]=\"lang.completion\"\n                                          [color]=\"lang.completion === 100 ? 'accent' : 'warn'\"></mat-progress-bar>\n\n                        <button mat-button\n                                color=\"primary\"\n                                (click)=\"export(lang)\"> EXPORT </button>\n                    </p>\n                </mat-list-item>\n            </mat-list>\n        </div>\n    </div>\n</section>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<header>\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <app-sidenav-toggle></app-sidenav-toggle>\n        </mat-toolbar-row>\n    </mat-toolbar>\n</header>\n\n<section>\n    <div fxLayout=\"column\">\n        <div>\n            <mat-list>\n                <mat-list-item *ngFor=\"let lang of languages\"\n                               [class.complete]=\"lang.completion === 100\">\n                    <mat-icon mat-list-icon>{{lang.completion === 100 ? 'check_circle' : 'warning'}}</mat-icon>\n                    <h4 mat-line>{{lang.name}} {{lang.code}}: <strong>{{lang.i18nName}}</strong></h4>\n                    <span mat-line\n                          fxLayout=\"row\"\n                          fxLayoutGap=\"24px\"\n                          fxLayoutAlign=\"start center\">\n\n                        <mat-progress-bar mode=\"determinate\"\n                                          [value]=\"lang.completion\"\n                                          [color]=\"lang.completion === 100 ? 'accent' : 'warn'\"></mat-progress-bar>\n\n\n                        <div>\n                            <button mat-button\n                                    color=\"primary\"\n                                    [routerLink]=\"['/localization', lang.code]\">\n                                TRANSLATE\n                            </button>\n                        </div>\n                    </span>\n                </mat-list-item>\n            </mat-list>\n        </div>\n    </div>\n</section>\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/localization/translate/translate.component.html":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/localization/translate/translate.component.html ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<header>\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <app-sidenav-toggle></app-sidenav-toggle>\n            <button mat-icon-button\n                    routerLink=\"/localization\">\n                <mat-icon>arrow_back</mat-icon>\n            </button>\n        </mat-toolbar-row>\n    </mat-toolbar>\n</header>\n\n<section fxLayout=\"column\"\n         fxLayoutGap=\"24px\">\n\n    <ng-container *ngFor=\"let item of english.keys\">\n        <div>\n            <div class=\"card-title\">\n                {{item.key}}\n            </div>\n\n            <mat-card fxLayout=\"column\">\n                <div fxLayout=\"row\"\n                     fxLayoutGap=\"8px\">\n                    <div fxFlex\n                         class=\"lang-value\">\n                        {{item.value}}\n                    </div>\n\n                    <mat-divider vertical></mat-divider>\n\n                    <mat-form-field fxFlex\n                                    no-errors>\n                        <textarea matInput\n                                  cdkTextareaAutosize\n                                  #autosize=\"cdkTextareaAutosize\"\n                                  cdkAutosizeMinRows=\"3\"\n                                  cdkAutosizeMaxRows=\"10\"\n                                  [formControl]=\"form.get(item.key)\"></textarea>\n                    </mat-form-field>\n                </div>\n            </mat-card>\n        </div>\n    </ng-container>\n\n</section>\n");
 
 /***/ }),
 
@@ -29,6 +42,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _localization_localization_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./localization/localization.component */ "./src/app/localization/localization/localization.component.ts");
+/* harmony import */ var _translate_translate_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./translate/translate.component */ "./src/app/localization/translate/translate.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,23 +60,34 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
+
+
 const routes = [
     {
         path: '',
         component: _localization_localization_component__WEBPACK_IMPORTED_MODULE_5__["LocalizationComponent"]
+    },
+    {
+        path: ':code',
+        component: _translate_translate_component__WEBPACK_IMPORTED_MODULE_6__["TranslateComponent"]
     }
 ];
 let LocalizationModule = class LocalizationModule {
 };
 LocalizationModule = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_localization_localization_component__WEBPACK_IMPORTED_MODULE_5__["LocalizationComponent"]],
+        declarations: [_localization_localization_component__WEBPACK_IMPORTED_MODULE_5__["LocalizationComponent"], _translate_translate_component__WEBPACK_IMPORTED_MODULE_6__["TranslateComponent"]],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(routes),
+            _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsModule"],
             _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["FlexLayoutModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatCardModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatFormFieldModule"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_8__["MatInputModule"]
         ]
     })
 ], LocalizationModule);
@@ -94,8 +121,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalizationComponent", function() { return LocalizationComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _core_download_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @core/download.service */ "./src/app/core/download.service.ts");
-/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @templates */ "./src/templates/index.ts");
-/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! d3 */ "./node_modules/d3/index.js");
+/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! d3 */ "./node_modules/d3/index.js");
+/* harmony import */ var _translation_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../translation.service */ "./src/app/localization/translation.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -113,13 +140,166 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 let LocalizationComponent = class LocalizationComponent {
-    constructor(downloadService) {
+    constructor(translationService, downloadService) {
+        this.translationService = translationService;
         this.downloadService = downloadService;
         this.languages = [];
     }
     ngOnInit() {
-        Object.keys(_templates__WEBPACK_IMPORTED_MODULE_2__["translations"]).forEach(code => {
-            const translation = _templates__WEBPACK_IMPORTED_MODULE_2__["translations"][code];
+        this.languages = this.translationService.languages;
+        this.defaultLang = this.translationService.defaultLang;
+    }
+    export(lang) {
+        const header = `key,en-US,` + lang.code + '\n';
+        const csv = header + Object(d3__WEBPACK_IMPORTED_MODULE_2__["csvFormatRows"])(this.defaultLang.keys.map(english => {
+            const output = [];
+            const translation = lang.keys.find(k => k.key === english.key);
+            output.push(english.key);
+            if (english.key === 'esName') {
+                output.push(lang.name);
+            }
+            else if (english.key === 'translationName') {
+                output.push(lang.i18nName);
+            }
+            else {
+                output.push(english.value);
+            }
+            if (translation) {
+                output.push(translation.value);
+            }
+            return output;
+        }));
+        this.downloadService.downloadCSV(csv, 'Translation_en-US_' + lang.code);
+    }
+};
+LocalizationComponent.ctorParameters = () => [
+    { type: _translation_service__WEBPACK_IMPORTED_MODULE_3__["TranslationService"] },
+    { type: _core_download_service__WEBPACK_IMPORTED_MODULE_1__["DownloadService"] }
+];
+LocalizationComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        selector: 'app-localization',
+        template: __importDefault(__webpack_require__(/*! raw-loader!./localization.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/localization/localization/localization.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./localization.component.scss */ "./src/app/localization/localization/localization.component.scss")).default]
+    }),
+    __metadata("design:paramtypes", [_translation_service__WEBPACK_IMPORTED_MODULE_3__["TranslationService"],
+        _core_download_service__WEBPACK_IMPORTED_MODULE_1__["DownloadService"]])
+], LocalizationComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/localization/translate/translate.component.scss":
+/*!*****************************************************************!*\
+  !*** ./src/app/localization/translate/translate.component.scss ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  display: block;\n}\n:host section {\n  padding: 24px;\n}\n:host .card-title {\n  font-size: 14px;\n  opacity: 0.7;\n  margin-bottom: 5px;\n}\n:host ::ng-deep .mat-form-field-infix {\n  border-top: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qb2VsY294L1Byb2plY3RzL05vUGxhY2VMZWZ0L3RlbXAvdG9vbHMtY2xpZW50LWFuZ3VsYXIvc3JjL2FwcC9sb2NhbGl6YXRpb24vdHJhbnNsYXRlL3RyYW5zbGF0ZS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvbG9jYWxpemF0aW9uL3RyYW5zbGF0ZS90cmFuc2xhdGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0FDQ0o7QURDSTtFQUNJLGFBQUE7QUNDUjtBREVJO0VBQ0ksZUFBQTtFQUNBLFlBQUE7RUFDQSxrQkFBQTtBQ0FSO0FER0k7RUFDSSxhQUFBO0FDRFIiLCJmaWxlIjoic3JjL2FwcC9sb2NhbGl6YXRpb24vdHJhbnNsYXRlL3RyYW5zbGF0ZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcbiAgICBkaXNwbGF5OiBibG9jaztcblxuICAgIHNlY3Rpb24ge1xuICAgICAgICBwYWRkaW5nOiAyNHB4O1xuICAgIH1cblxuICAgIC5jYXJkLXRpdGxlIHtcbiAgICAgICAgZm9udC1zaXplOiAxNHB4O1xuICAgICAgICBvcGFjaXR5OiAwLjc7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDVweDtcbiAgICB9XG5cbiAgICA6Om5nLWRlZXAgLm1hdC1mb3JtLWZpZWxkLWluZml4IHtcbiAgICAgICAgYm9yZGVyLXRvcDogMDtcbiAgICB9XG59XG4iLCI6aG9zdCB7XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuOmhvc3Qgc2VjdGlvbiB7XG4gIHBhZGRpbmc6IDI0cHg7XG59XG46aG9zdCAuY2FyZC10aXRsZSB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgb3BhY2l0eTogMC43O1xuICBtYXJnaW4tYm90dG9tOiA1cHg7XG59XG46aG9zdCA6Om5nLWRlZXAgLm1hdC1mb3JtLWZpZWxkLWluZml4IHtcbiAgYm9yZGVyLXRvcDogMDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./src/app/localization/translate/translate.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/localization/translate/translate.component.ts ***!
+  \***************************************************************/
+/*! exports provided: TranslateComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TranslateComponent", function() { return TranslateComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _translation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../translation.service */ "./src/app/localization/translation.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+let TranslateComponent = class TranslateComponent {
+    constructor(route, translationService) {
+        this.route = route;
+        this.translationService = translationService;
+    }
+    ngOnInit() {
+        const code = this.route.snapshot.params.code;
+        this.language = this.translationService.getLanguage(code);
+        this.english = this.english = this.translationService.getLanguage('en');
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({});
+        this.english.keys.forEach(item => {
+            const translation = this.language.keys.find(k => k.key === item.key);
+            const value = translation ? translation.value : '';
+            this.form.setControl(item.key, new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](value));
+        });
+        console.log(this.language);
+    }
+};
+TranslateComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"] },
+    { type: _translation_service__WEBPACK_IMPORTED_MODULE_2__["TranslationService"] }
+];
+TranslateComponent = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        selector: 'app-translate',
+        template: __importDefault(__webpack_require__(/*! raw-loader!./translate.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/localization/translate/translate.component.html")).default,
+        styles: [__importDefault(__webpack_require__(/*! ./translate.component.scss */ "./src/app/localization/translate/translate.component.scss")).default]
+    }),
+    __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+        _translation_service__WEBPACK_IMPORTED_MODULE_2__["TranslationService"]])
+], TranslateComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/localization/translation.service.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/localization/translation.service.ts ***!
+  \*****************************************************/
+/*! exports provided: TranslationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TranslationService", function() { return TranslationService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @templates */ "./src/templates/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+let TranslationService = class TranslationService {
+    constructor() {
+        this.languages = [];
+        Object.keys(_templates__WEBPACK_IMPORTED_MODULE_1__["translations"]).forEach(code => {
+            const translation = _templates__WEBPACK_IMPORTED_MODULE_1__["translations"][code];
             const keys = [];
             const model = {
                 name: translation.translation.esName,
@@ -136,19 +316,8 @@ let LocalizationComponent = class LocalizationComponent {
             lang.completion = ((100 / max) * lang.keys.length);
         });
     }
-    export(lang) {
-        const header = `key,en-US,` + lang.code + '\n';
-        const csv = header + Object(d3__WEBPACK_IMPORTED_MODULE_3__["csvFormatRows"])(this.defaultLang.keys.map(english => {
-            const output = [];
-            const translation = lang.keys.find(k => k.key === english.key);
-            output.push(english.key);
-            output.push(english.value);
-            if (translation) {
-                output.push(translation.value);
-            }
-            return output;
-        }));
-        this.downloadService.downloadCSV(csv, 'Translation_en-US_' + lang.code);
+    getLanguage(code) {
+        return this.languages.find(lang => lang.code === code);
     }
     collectKeys(languages, keys, prefix = '') {
         Object.keys(languages).forEach(key => {
@@ -164,17 +333,12 @@ let LocalizationComponent = class LocalizationComponent {
         return keys;
     }
 };
-LocalizationComponent.ctorParameters = () => [
-    { type: _core_download_service__WEBPACK_IMPORTED_MODULE_1__["DownloadService"] }
-];
-LocalizationComponent = __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-        selector: 'app-localization',
-        template: __importDefault(__webpack_require__(/*! raw-loader!./localization.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/localization/localization/localization.component.html")).default,
-        styles: [__importDefault(__webpack_require__(/*! ./localization.component.scss */ "./src/app/localization/localization/localization.component.scss")).default]
+TranslationService = __decorate([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+        providedIn: 'root'
     }),
-    __metadata("design:paramtypes", [_core_download_service__WEBPACK_IMPORTED_MODULE_1__["DownloadService"]])
-], LocalizationComponent);
+    __metadata("design:paramtypes", [])
+], TranslationService);
 
 
 

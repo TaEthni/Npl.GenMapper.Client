@@ -225,6 +225,8 @@ export interface GMSvg extends Svg {
 export interface GMSvgAction extends Svg {
     control: 'addChildNode' | 'editNode';
     iconName: string;
+    tooltipi18nRef: string;
+    tooltipi18nValue?: string;
     rect?: Svg;
     iconX: string;
     iconY: string;
