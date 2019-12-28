@@ -13,6 +13,7 @@ import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
 import { GM_CONFIGS, GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
 import { ToolsModule } from './tools/tools.module';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -31,8 +32,7 @@ import { ToolsModule } from './tools/tools.module';
         AdminModule,
         AppRoutingModule,
         AgmCoreModule.forRoot({
-            // apiKey: 'AIzaSyBzA-YQSy5_7DQggb73_6iGhwHs9mAjkZE',
-            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            apiKey: environment.apiKey,
             libraries: ['places']
         })
     ],

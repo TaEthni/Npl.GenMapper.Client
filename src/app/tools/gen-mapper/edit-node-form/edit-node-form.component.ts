@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDatepicker, MatDialog, MAT_DATE_FORMATS } from '@angular/material';
+import { MatDatepicker, MatDialog, MAT_DATE_FORMATS, MatDialogRef } from '@angular/material';
 import { MapsService } from '@core/maps.service';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
@@ -8,7 +8,11 @@ import { ControlType, GMField } from '@templates';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
-import { LocationDialogComponent, LocationDialogConfig, LocationDialogResponse } from '../dialogs/location-dialog/location-dialog.component';
+import {
+    LocationDialogComponent,
+    LocationDialogConfig,
+    LocationDialogResponse
+} from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 import { GNode } from '../gen-mapper.interface';
 
@@ -47,6 +51,8 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
 
     public fieldByProperty: Dictionary<GMField>;
     public types = ControlType;
+
+    private _locationDialog: MatDialogRef<LocationDialogComponent>;
 
     constructor(
         private dialog: MatDialog,
@@ -105,13 +111,13 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         this.form.get('date').markAsDirty();
     }
 
-    public chosenYearHandler(normalizedYear: Moment, control: FormControl) {
+    public chosenYearHandler(normalizedYear: Moment, control: FormControl): void {
         const ctrlValue = control.value || moment();
         ctrlValue.year(normalizedYear.year());
         control.setValue(ctrlValue);
     }
 
-    public chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
+    public chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, control: FormControl): void {
         const ctrlValue = control.value;
         ctrlValue.month(normalizedMonth.month());
         control.setValue(ctrlValue);
@@ -176,11 +182,17 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
             minWidth = '400px';
         }
 
-        this.dialog
+        if (this._locationDialog) {
+            return;
+        }
+
+        this._locationDialog = this.dialog
             .open<LocationDialogComponent, LocationDialogConfig, LocationDialogResponse>(LocationDialogComponent, {
                 minWidth,
                 data,
-            })
+            });
+
+        this._locationDialog
             .afterClosed()
             .subscribe(result => {
                 if (result) {
@@ -191,6 +203,8 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
                     this.form.get('location').updateValueAndValidity();
                     this.form.markAsDirty();
                 }
+
+                this._locationDialog = null;
             });
     }
 

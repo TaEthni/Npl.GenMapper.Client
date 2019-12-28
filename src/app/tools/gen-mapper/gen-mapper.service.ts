@@ -7,9 +7,10 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delayWhen, map, tap } from 'rxjs/operators';
 import { DocumentService } from './document.service';
 import { GNode } from './gen-mapper.interface';
-import { parseCSVData } from './resources/csv-parser';
 import { TemplateUtils } from './template-utils';
 import { Template } from './template.model';
+import { JSONToCSV } from './resources/json-to-csv';
+import { CSVToJSON } from './resources/csv-to-json';
 
 const storageKey = 'offline-locall-save-';
 
@@ -103,7 +104,7 @@ export class GenMapperService {
             document.type = 'churchCircles12';
         }
 
-        document.nodes = parseCSVData(document.content, template);
+        document.nodes = CSVToJSON(document.content, template);
 
         const config = this._config.getValue();
         config.documents = [document];
@@ -156,7 +157,7 @@ export class GenMapperService {
 
         // If nodes, then replace content with current nodes converted to CSV
         if (doc.nodes && doc.nodes.length) {
-            doc.content = TemplateUtils.getOutputCsv(doc.nodes, config.template);
+            doc.content = JSONToCSV(doc.nodes, config.template);
         }
 
         localStorage.setItem(storageKey + config.template.name, JSON.stringify(doc));

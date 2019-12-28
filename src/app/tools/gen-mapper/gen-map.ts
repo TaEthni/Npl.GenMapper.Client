@@ -8,8 +8,8 @@ import * as _ from 'lodash';
 import { cloneDeep } from 'lodash';
 import * as uuid from 'uuid/v4';
 import { GNode, NodeDatum, PrintType } from './gen-mapper.interface';
-import { parseCSVData } from './resources/csv-parser';
 import { Template } from './template.model';
+import { CSVToJSON } from './resources/csv-to-json';
 
 
 export const MapStyles = {
@@ -156,7 +156,7 @@ export class GenMap {
     public csvIntoNode(d: any, csvString: any): void {
         this._deleteAllDescendants(d);
 
-        const parsedCsv = parseCSVData(csvString, this.template);
+        const parsedCsv = CSVToJSON(csvString, this.template);
         this.overwriteNode(d, parsedCsv);
     }
 

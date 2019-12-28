@@ -20,39 +20,6 @@ export class Template extends GMTemplate {
 
         this.svgStates = config.svgStates;
 
-        // config.svgMap.forEach(map => {
-        //     const svg = this._svgsById[map.svgRef];
-
-        //     if (map.attributes) {
-        //         Object.assign(svg.attributes, map.attributes);
-        //     }
-
-        //     if (map.style) {
-        //         Object.assign(svg.style, map.style);
-        //     }
-
-        //     if (map.iconRef) {
-        //         svg.attributes['xlink:href'] = this.icons[map.iconRef];
-        //     }
-
-        //     if (map.tooltipFieldRef) {
-        //         const field = this.getField(map.tooltipFieldRef);
-        //         svg.tooltipi18nRef = field.i18nRef;
-        //     }
-
-        //     if (map.state) {
-        //         svg.state = map.state;
-
-        //         map.state.forEach(state => {
-        //             if (state.setIcon) {
-        //                 state.fieldRefValues.forEach(v => {
-        //                     v.iconRefValue = this.icons[v.iconRef];
-        //                 });
-        //             }
-        //         })
-        //     }
-        // });
-
         config.svgStates.forEach(map => {
             const svg = this._svgsById[map.selector];
 

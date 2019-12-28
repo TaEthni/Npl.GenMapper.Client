@@ -1,0 +1,17 @@
+:host {
+    display: block;
+
+    section {
+        padding: 24px;
+    }
+
+    .card-title {
+        font-size: 14px;
+        opacity: 0.7;
+        margin-bottom: 5px;
+    }
+
+    ::ng-deep .mat-form-field-infix {
+        border-top: 0;
+    }
+}

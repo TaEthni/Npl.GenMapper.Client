@@ -1,5 +1,5 @@
 import { ControlType, GenMapperTemplates, GMStreamAttribute, GMTemplate, translations } from '@templates';
-import { csvFormatRows } from 'd3';
+import { csvFormatRows, local } from 'd3';
 import { keyBy } from 'lodash';
 import * as uuid from 'uuid/v4';
 import { GNode } from './gen-mapper.interface';
@@ -81,14 +81,15 @@ export namespace TemplateUtils {
         );
     }
 
-    export function setTemplateLocale(
-        template: Template,
-        locale: any
-    ): void {
+    export function setTemplateLocale(template: Template, locale: any): void {
         template.svgs.forEach(svg => {
             if (svg.tooltipi18nRef) {
                 svg.tooltipi18nValue = locale.t(svg.tooltipi18nRef);
             }
+        });
+
+        template.svgActions.forEach(action => {
+            action.tooltipi18nValue = locale.t(action.tooltipi18nRef);
         });
 
         // Example: template.translations.en.translation.churchCircles;
@@ -123,16 +124,22 @@ export namespace TemplateUtils {
                     template.fields.forEach(field => {
                         if (field && field.type === ControlType.checkbox) {
                             out[field.id] = d[field.id] ? '1' : '0';
-                            output.push(out[field.id]);
-                        } else if (field.type === ControlType.date) {
+                        }
+
+                        else if (field.type === ControlType.date) {
                             if (d[field.id]) {
                                 out[field.id] = d[field.id].toString();
-                                output.push(out[field.id]);
                             }
-                        } else {
-                            out[field.id] = d[field.id];
-                            output.push(out[field.id]);
+                            else {
+                                out[field.id] = null;
+                            }
                         }
+
+                        else {
+                            out[field.id] = d[field.id];
+                        }
+
+                        output.push(out[field.id]);
                     });
 
                     return output;

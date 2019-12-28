@@ -1,5 +1,5 @@
 import { MapsAPILoader } from '@agm/core';
-import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, NgZone, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MapsService } from '@core/maps.service';
@@ -29,7 +29,7 @@ export interface LocationDialogResponse {
     templateUrl: './location-dialog.component.html',
     styleUrls: ['./location-dialog.component.scss']
 })
-export class LocationDialogComponent {
+export class LocationDialogComponent implements AfterViewInit {
     @ViewChild('search', { static: true })
     public searchElementRef: ElementRef;
 
@@ -61,6 +61,9 @@ export class LocationDialogComponent {
         this.zoom = 12;
         this.searchControl = new FormControl(this.address);
         this.height = window.innerHeight - 350;
+    }
+
+    public ngAfterViewInit(): void {
         this.initialize();
     }
 

@@ -20,7 +20,6 @@ import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { NodeTreeService } from '../node-tree/node-tree.service';
-import { parseCSVData } from '../resources/csv-parser';
 import {
     SavingErrorSnackbarComponent,
     SavingErrorSnackBarConfig
@@ -28,6 +27,7 @@ import {
 import { SavingSnackbarComponent, SavingSnackBarConfig } from '../snackbars/saving-snackbar/saving-snackbar.component';
 import { TemplateUtils } from '../template-utils';
 import { Template } from '../template.model';
+import { CSVToJSON } from '../resources/csv-to-json';
 
 @Component({
     selector: 'app-gen-mapper',
@@ -238,7 +238,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         }
 
         const originalData = cloneDeep(this.nodeTree.getData());
-        const parsedCSV = parseCSVData(content, this.template);
+        const parsedCSV = CSVToJSON(content, this.template);
 
         if (!this.nodeTree.validateTree(parsedCSV)) {
             return this.showBadDocumentDialog(content);
@@ -272,7 +272,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .afterClosed()
             .subscribe(result => {
                 if (result) {
-                    const nodes = parseCSVData(result.content, this.template);
+                    const nodes = CSVToJSON(result.content, this.template);
                     if (this.nodeTree.validateTree(nodes)) {
                         this.createDocument(result);
                     } else {

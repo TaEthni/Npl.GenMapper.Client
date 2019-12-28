@@ -6,10 +6,11 @@ import { cloneDeep, keyBy } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GNode } from './gen-mapper.interface';
-import { parseCSVData } from './resources/csv-parser';
 import { TemplateUtils } from './template-utils';
 import { Template } from './template.model';
 import { TemplateService } from './template.service';
+import { CSVToJSON } from './resources/csv-to-json';
+import { JSONToCSV } from './resources/json-to-csv';
 
 @Injectable()
 export class DocumentService {
@@ -27,7 +28,7 @@ export class DocumentService {
                     .filter(doc => doc.type === type)
                     .map(doc => {
                         const template = this.templateService.getTemplate(type);
-                        doc.nodes = parseCSVData(doc.content, template);
+                        doc.nodes = CSVToJSON(doc.content, template);
                         this.processNodesOnLoad(doc.nodes);
                         return doc;
                     });
@@ -47,7 +48,7 @@ export class DocumentService {
     public update(doc: DocumentDto): Observable<DocumentDto> {
         const data = cloneDeep(doc);
         const template = this.templateService.getTemplate(doc.type);
-        data.content = TemplateUtils.getOutputCsv(doc.nodes, template);
+        data.content = JSONToCSV(doc.nodes, template);
 
         delete data.elements;
         delete data.nodes;

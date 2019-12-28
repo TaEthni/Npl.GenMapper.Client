@@ -24,9 +24,9 @@ export function drawAction(group: Selection<SVGGElement, NodeDatum, SVGGElement,
 
     svg.html(`
             <rect x="2px" y="2px" rx="7" height="${height - 4}" width="${width - 4}"></rect>
-            <title>Localize me</title>
+            <title>${action.tooltipi18nValue}</title>
             </rect>
-            <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle">
+            <text x="${action.iconX}" y="${action.iconY}" dominant-baseline="middle" text-anchor="middle">
                 <tspan class="material-icons">${action.iconName}</tspan>
             </text>
         `);

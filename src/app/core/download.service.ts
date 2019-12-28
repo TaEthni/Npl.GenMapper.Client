@@ -3,6 +3,7 @@ import { DocumentDto } from '@shared/entity/document.model';
 import { saveAs } from 'file-saver';
 import { TemplateUtils } from '../tools/gen-mapper/template-utils';
 import { TemplateService } from '../tools/gen-mapper/template.service';
+import { JSONToCSV } from '../tools/gen-mapper/resources/json-to-csv';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class DownloadService {
 
     public downloadDocument(doc: DocumentDto): void {
         const template = this.templateService.getTemplate(doc.type);
-        const content = TemplateUtils.getOutputCsv(doc.nodes, template);
+        const content = JSONToCSV(doc.nodes, template);
         this.downloadCSV(content, doc.title);
     }
 

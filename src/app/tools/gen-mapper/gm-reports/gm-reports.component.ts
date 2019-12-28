@@ -84,6 +84,7 @@ export class GmReportsComponent implements OnInit, OnChanges {
             const report = {
                 name: treport.name,
                 order: treport.order,
+                i18nRef: treport.i18nRef
             } as GMReport;
 
             if (treport.field) {

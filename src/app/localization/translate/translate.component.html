@@ -1,0 +1,46 @@
+<header>
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <app-sidenav-toggle></app-sidenav-toggle>
+            <button mat-icon-button
+                    routerLink="/localization">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</header>
+
+<section fxLayout="column"
+         fxLayoutGap="24px">
+
+    <ng-container *ngFor="let item of english.keys">
+        <div>
+            <div class="card-title">
+                {{item.key}}
+            </div>
+
+            <mat-card fxLayout="column">
+                <div fxLayout="row"
+                     fxLayoutGap="8px">
+                    <div fxFlex
+                         class="lang-value">
+                        {{item.value}}
+                    </div>
+
+                    <mat-divider vertical></mat-divider>
+
+                    <mat-form-field fxFlex
+                                    no-errors>
+                        <textarea matInput
+                                  cdkTextareaAutosize
+                                  #autosize="cdkTextareaAutosize"
+                                  cdkAutosizeMinRows="3"
+                                  cdkAutosizeMaxRows="10"
+                                  [formControl]="form.get(item.key)"></textarea>
+                    </mat-form-field>
+                </div>
+            </mat-card>
+        </div>
+    </ng-container>
+
+</section>

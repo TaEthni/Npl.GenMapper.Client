@@ -35,6 +35,7 @@ import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
 import { SavingErrorSnackbarComponent } from './snackbars/saving-error-snackbar/saving-error-snackbar.component';
 import { SavingSnackbarComponent } from './snackbars/saving-snackbar/saving-snackbar.component';
+import { environment } from '../../../environments/environment';
 
 
 @NgModule({
@@ -45,8 +46,7 @@ import { SavingSnackbarComponent } from './snackbars/saving-snackbar/saving-snac
         RouterModule,
         NgxChartsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-            // apiKey: 'AIzaSyBzA-YQSy5_7DQggb73_6iGhwHs9mAjkZE',
+            apiKey: environment.apiKey,
             libraries: ['places']
         })
     ],
