@@ -7,6 +7,7 @@ import { LocalizationComponent } from './localization/localization.component';
 import { TranslateComponent } from './translate/translate.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { LanguageListComponent } from './language-list/language-list.component';
 
 const routes: Routes = [
     {
@@ -20,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [LocalizationComponent, TranslateComponent],
+    declarations: [LocalizationComponent, TranslateComponent, LanguageListComponent],
     imports: [
         CommonModule,
         RouterModule,

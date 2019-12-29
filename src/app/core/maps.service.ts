@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { COUNTRIES } from '@templates';
 
 const cacheKey = 'gmaps-address-latlng-cache';
 export interface LatLng {
     latitude: number;
     longitude: number;
     placeId?: string;
+    country?: string;
 }
 
 @Injectable()
@@ -55,5 +57,15 @@ export class MapsService {
                 }
             });
         });
+    }
+
+    public getISO3Country(place: google.maps.places.PlaceResult | google.maps.GeocoderResult): string {
+        const address_components = place.address_components;
+        if (address_components) {
+            const country_component = address_components.find(c => c.types.indexOf('country') > -1);
+            const iso2_country = country_component.short_name;
+            return COUNTRIES.find(c => c['alpha-2'] === iso2_country)['alpha-3'];
+        }
+        return null;
     }
 }

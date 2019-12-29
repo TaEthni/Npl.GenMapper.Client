@@ -1,0 +1,29 @@
+<div fxLayout="column">
+    <div>
+        <mat-list>
+            <mat-list-item *ngFor="let lang of languages"
+                           [class.complete]="lang.completion === 100">
+                <mat-icon mat-list-icon>{{lang.completion === 100 ? 'check_circle' : 'warning'}}</mat-icon>
+                <h4 mat-line>{{lang.name}} {{lang.code}}: <strong>{{lang.i18nName}}</strong></h4>
+                <span mat-line
+                      fxLayout="row"
+                      fxLayoutGap="24px"
+                      fxLayoutAlign="start center">
+
+                    <mat-progress-bar mode="determinate"
+                                      [value]="lang.completion"
+                                      [color]="lang.completion === 100 ? 'accent' : 'warn'"></mat-progress-bar>
+
+
+                    <div>
+                        <button mat-button
+                                color="primary"
+                                [routerLink]="['/localization', lang.code]">
+                            TRANSLATE
+                        </button>
+                    </div>
+                </span>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

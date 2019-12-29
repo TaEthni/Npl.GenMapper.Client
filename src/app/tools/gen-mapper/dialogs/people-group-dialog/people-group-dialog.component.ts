@@ -4,6 +4,7 @@ import { take, takeUntil } from 'rxjs/operators';
 
 import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupService } from './people-group.service';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { COUNTRIES } from '@templates';
 
 export interface PeopleGroupDialogResponse {
     peids: number[];
@@ -43,6 +44,9 @@ export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit
                 this.peopleGroupConfig = result;
                 this.countries = Object.keys(result.byCountry);
                 this.countries.sort();
+
+                console.log(this.countries.length)
+                console.log(COUNTRIES)
 
                 if (this.data.peids && this.data.peids.length > 0) {
                     const first = this.peopleGroupService.getByPeid(this.data.peids[0]);

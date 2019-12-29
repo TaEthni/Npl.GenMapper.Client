@@ -28,6 +28,11 @@ import { SavingSnackbarComponent, SavingSnackBarConfig } from '../snackbars/savi
 import { TemplateUtils } from '../template-utils';
 import { Template } from '../template.model';
 import { CSVToJSON } from '../resources/csv-to-json';
+import { HttpClient } from '@angular/common/http';
+import { BaseUrl } from '@core/entity.service';
+import { EntityType } from '@shared/entity/entity.model';
+import { PeopleGroupService } from '../dialogs/people-group-dialog/people-group.service';
+import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 
 @Component({
     selector: 'app-gen-mapper',
@@ -55,6 +60,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     private _savingErrorSnackBar: MatSnackBarRef<SavingErrorSnackbarComponent>;
 
     constructor(
+        private pgService: PeopleGroupService,
         private authService: AuthenticationService,
         private genMapper: GenMapperService,
         private route: ActivatedRoute,
@@ -71,6 +77,9 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public ngOnInit(): void {
+        // console.log('ngOnInit');
+        // this.dialog.open(PeopleGroupDialogComponent);
+
         const snapshot = this.route.snapshot;
         const data = snapshot.parent.data;
         this.template = data.config.template;

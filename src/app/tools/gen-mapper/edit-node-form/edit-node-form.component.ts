@@ -4,7 +4,7 @@ import { MatDatepicker, MatDialog, MAT_DATE_FORMATS, MatDialogRef } from '@angul
 import { MapsService } from '@core/maps.service';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { ControlType, GMField } from '@templates';
+import { ControlType, GMField, COUNTRIES } from '@templates';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
@@ -52,6 +52,8 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
     public fieldByProperty: Dictionary<GMField>;
     public types = ControlType;
 
+    public readonly countryList = COUNTRIES;
+
     private _locationDialog: MatDialogRef<LocationDialogComponent>;
 
     constructor(
@@ -86,6 +88,10 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (field.type === ControlType.geoLocation) {
             this.onGeoLocationClick();
         }
+
+        // if (field.type === ControlType.countrySelector) {
+        //     this.onCountrySelectorClick();
+        // }
 
         // if (field.type === 'peidSelect') {
         //     this.onPeopleGroupClick();

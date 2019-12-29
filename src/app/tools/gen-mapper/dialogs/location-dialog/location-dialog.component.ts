@@ -3,12 +3,14 @@ import { Component, ElementRef, Inject, NgZone, ViewChild, OnInit, AfterViewInit
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MapsService } from '@core/maps.service';
+import { COUNTRIES } from '@templates';
 
 interface MouseEvent {
     coords: { lat: number, lng: number };
 }
 
 export interface LocationDialogConfig {
+    country?: string;
     placeId?: string;
     address?: string;
     latitude?: number;
@@ -33,6 +35,7 @@ export class LocationDialogComponent implements AfterViewInit {
     @ViewChild('search', { static: true })
     public searchElementRef: ElementRef;
 
+    public iso3Country: string;
     public latitude: number;
     public longitude: number;
     public markerLatitude: number;
@@ -100,6 +103,7 @@ export class LocationDialogComponent implements AfterViewInit {
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
+
                     this.placeId = place.place_id;
                     this.address = place.formatted_address;
                     this.latitude = place.geometry.location.lat();
@@ -133,6 +137,9 @@ export class LocationDialogComponent implements AfterViewInit {
         this.geocoder = new google.maps.Geocoder();
         this.geocoder.geocode({ 'latLng': latLng } as google.maps.GeocoderRequest, (res, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
+
+                console.log(res[0])
+
                 if (res[0]) {
                     this.placeId = res[0].place_id;
                     this.address = res[0].formatted_address;

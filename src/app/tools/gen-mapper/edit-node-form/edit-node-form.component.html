@@ -91,7 +91,7 @@
                                             </div>
                                             <pre><code>{{form.get('date').value}}</code></pre>
                                         </div>
-                                        <mat-icon class="clear-icon"
+                                        <mat-icon class="clear-field"
                                                   (click)="removeDeprecatedDate()">clear</mat-icon>
                                     </div>
                                 </ng-container>
@@ -118,6 +118,22 @@
                                           class="peid-icon"
                                           (click)="onClearFieldClick($event, field)">people</mat-icon>
 
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.countrySelector">
+                            <mat-form-field>
+                                <mat-label>
+                                    {{field.i18nValue}}
+                                </mat-label>
+                                <select matNativeControl
+                                        [formControl]="form.get(field.id)">
+                                    <ng-container *ngFor="let option of countryList">
+                                        <option [value]="option['alpha-3']">
+                                            {{option.name}}: {{option['alpha-3']}}
+                                        </option>
+                                    </ng-container>
+                                </select>
                             </mat-form-field>
                         </ng-container>
 

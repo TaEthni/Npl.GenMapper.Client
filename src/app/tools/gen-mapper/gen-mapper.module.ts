@@ -105,7 +105,7 @@ import { environment } from '../../../environments/environment';
         PeopleGroupDialogComponent,
         InvalidCsvDialogComponent,
         SavingSnackbarComponent,
-        SavingErrorSnackbarComponent
+        SavingErrorSnackbarComponent,
     ],
     providers: [
         DocumentService,
