@@ -20,6 +20,11 @@ const GenMapperConfigs = [
     // ChurchCirclesEastConfiguration
 ];
 
+export const GMTemplates = {
+    ChurchCirclesDefaultTemplate,
+    ChurchCircles12Template
+}
+
 
 // Remove
 export interface GMStreamAttribute { }
