@@ -78,7 +78,7 @@ export class GMTemplate {
 
 export interface GMTemplateSettings {
     // Icon used on home screen
-    iconUrl: string;
+    iconUrl?: string;
 }
 
 export interface GMTemplateSvgSettings {
