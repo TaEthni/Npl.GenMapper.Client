@@ -271,6 +271,12 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             canModify: false,
         },
         {
+            id: 'country',
+            i18nRef: 'Common_Country',
+            type: ControlType.countrySelector,
+            canModify: true
+        },
+        {
             id: 'church',
             i18nRef: 'Common_IsChurch',
             defaultValue: false,
