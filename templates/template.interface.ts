@@ -13,6 +13,7 @@ export enum ControlType {
     select = 'select',
     multiSelect = 'multiSelect',
     date = 'date',
+    countrySelector = 'countrySelector',
 
     // Internal
     parentSelector = 'parentSelector',

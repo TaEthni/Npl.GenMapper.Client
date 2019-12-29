@@ -3,8 +3,10 @@ import { ChurchCircles12Template } from './church-circles-12/template';
 import { ChurchCirclesConfiguration } from './church-circles/configuration-new';
 import { ChurchCirclesDefaultTemplate } from './church-circles/template';
 import { translations } from './translations';
+export * from './countries';
 export * from './template.interface';
-export { GenMapperConfigs, GenMapperTemplates, translations, };
+
+export { GenMapperConfigs, GenMapperTemplates, translations };
 
 const GenMapperTemplates = [
     ChurchCirclesDefaultTemplate,

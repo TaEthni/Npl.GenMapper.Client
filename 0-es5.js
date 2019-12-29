@@ -1,4 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0], {
+        /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/localization/language-list/language-list.component.html": 
+        /*!***************************************************************************************************************!*\
+          !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/localization/language-list/language-list.component.html ***!
+          \***************************************************************************************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("<div fxLayout=\"column\">\n    <div>\n        <mat-list>\n            <mat-list-item *ngFor=\"let lang of languages\"\n                           [class.complete]=\"lang.completion === 100\">\n                <mat-icon mat-list-icon>{{lang.completion === 100 ? 'check_circle' : 'warning'}}</mat-icon>\n                <h4 mat-line>{{lang.name}} {{lang.code}}: <strong>{{lang.i18nName}}</strong></h4>\n                <span mat-line\n                      fxLayout=\"row\"\n                      fxLayoutGap=\"24px\"\n                      fxLayoutAlign=\"start center\">\n\n                    <mat-progress-bar mode=\"determinate\"\n                                      [value]=\"lang.completion\"\n                                      [color]=\"lang.completion === 100 ? 'accent' : 'warn'\"></mat-progress-bar>\n\n\n                    <div>\n                        <button mat-button\n                                color=\"primary\"\n                                [routerLink]=\"['/localization', lang.code]\">\n                            TRANSLATE\n                        </button>\n                    </div>\n                </span>\n            </mat-list-item>\n        </mat-list>\n    </div>\n</div>\n");
+            /***/ 
+        }),
         /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/localization/localization/localization.component.html": 
         /*!*************************************************************************************************************!*\
           !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/localization/localization/localization.component.html ***!
@@ -18,7 +29,74 @@
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<header>\n    <mat-toolbar>\n        <mat-toolbar-row>\n            <app-sidenav-toggle></app-sidenav-toggle>\n            <button mat-icon-button\n                    routerLink=\"/localization\">\n                <mat-icon>arrow_back</mat-icon>\n            </button>\n        </mat-toolbar-row>\n    </mat-toolbar>\n</header>\n\n<section fxLayout=\"column\"\n         fxLayoutGap=\"24px\">\n\n    <ng-container *ngFor=\"let item of english.keys\">\n        <div>\n            <div class=\"card-title\">\n                {{item.key}}\n            </div>\n\n            <mat-card fxLayout=\"column\">\n                <div fxLayout=\"row\"\n                     fxLayoutGap=\"8px\">\n                    <div fxFlex\n                         class=\"lang-value\">\n                        {{item.value}}\n                    </div>\n\n                    <mat-divider vertical></mat-divider>\n\n                    <mat-form-field fxFlex\n                                    no-errors>\n                        <textarea matInput\n                                  cdkTextareaAutosize\n                                  #autosize=\"cdkTextareaAutosize\"\n                                  cdkAutosizeMinRows=\"3\"\n                                  cdkAutosizeMaxRows=\"10\"\n                                  [formControl]=\"form.get(item.key)\"></textarea>\n                    </mat-form-field>\n                </div>\n            </mat-card>\n        </div>\n    </ng-container>\n\n</section>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<section fxLayout=\"column\"\n         fxLayoutGap=\"24px\">\n\n    <ng-container *ngFor=\"let item of english.keys\">\n        <div>\n            <div class=\"card-title\">\n                {{item.key}}\n            </div>\n\n            <mat-card fxLayout=\"column\">\n                <div fxLayout=\"row\"\n                     fxLayoutGap=\"8px\">\n                    <div fxFlex\n                         class=\"lang-value\">\n                        {{item.value}}\n                    </div>\n\n                    <mat-divider vertical></mat-divider>\n\n                    <mat-form-field fxFlex\n                                    no-errors>\n                        <textarea matInput\n                                  cdkTextareaAutosize\n                                  #autosize=\"cdkTextareaAutosize\"\n                                  cdkAutosizeMinRows=\"3\"\n                                  cdkAutosizeMaxRows=\"10\"\n                                  [formControl]=\"form.get(item.key)\"></textarea>\n                    </mat-form-field>\n                </div>\n            </mat-card>\n        </div>\n    </ng-container>\n\n</section>\n");
+            /***/ 
+        }),
+        /***/ "./src/app/localization/language-list/language-list.component.scss": 
+        /*!*************************************************************************!*\
+          !*** ./src/app/localization/language-list/language-list.component.scss ***!
+          \*************************************************************************/
+        /*! exports provided: default */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xvY2FsaXphdGlvbi9sYW5ndWFnZS1saXN0L2xhbmd1YWdlLWxpc3QuY29tcG9uZW50LnNjc3MifQ== */");
+            /***/ 
+        }),
+        /***/ "./src/app/localization/language-list/language-list.component.ts": 
+        /*!***********************************************************************!*\
+          !*** ./src/app/localization/language-list/language-list.component.ts ***!
+          \***********************************************************************/
+        /*! exports provided: LanguageListComponent */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LanguageListComponent", function () { return LanguageListComponent; });
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+            /* harmony import */ var _translation_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../translation.service */ "./src/app/localization/translation.service.ts");
+            /* harmony import */ var _core_download_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @core/download.service */ "./src/app/core/download.service.ts");
+            var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+                var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+                if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+                    r = Reflect.decorate(decorators, target, key, desc);
+                else
+                    for (var i = decorators.length - 1; i >= 0; i--)
+                        if (d = decorators[i])
+                            r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+                return c > 3 && r && Object.defineProperty(target, key, r), r;
+            };
+            var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+                if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+                    return Reflect.metadata(k, v);
+            };
+            var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+                return (mod && mod.__esModule) ? mod : { "default": mod };
+            };
+            var LanguageListComponent = /** @class */ (function () {
+                function LanguageListComponent(translationService, downloadService) {
+                    this.translationService = translationService;
+                    this.downloadService = downloadService;
+                    this.languages = [];
+                }
+                LanguageListComponent.prototype.ngOnInit = function () {
+                    this.languages = this.translationService.languages;
+                    this.defaultLang = this.translationService.defaultLang;
+                };
+                return LanguageListComponent;
+            }());
+            LanguageListComponent.ctorParameters = function () { return [
+                { type: _translation_service__WEBPACK_IMPORTED_MODULE_1__["TranslationService"] },
+                { type: _core_download_service__WEBPACK_IMPORTED_MODULE_2__["DownloadService"] }
+            ]; };
+            LanguageListComponent = __decorate([
+                Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+                    selector: 'app-language-list',
+                    template: __importDefault(__webpack_require__(/*! raw-loader!./language-list.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/localization/language-list/language-list.component.html")).default,
+                    styles: [__importDefault(__webpack_require__(/*! ./language-list.component.scss */ "./src/app/localization/language-list/language-list.component.scss")).default]
+                }),
+                __metadata("design:paramtypes", [_translation_service__WEBPACK_IMPORTED_MODULE_1__["TranslationService"],
+                    _core_download_service__WEBPACK_IMPORTED_MODULE_2__["DownloadService"]])
+            ], LanguageListComponent);
             /***/ 
         }),
         /***/ "./src/app/localization/localization.module.ts": 
@@ -39,6 +117,7 @@
             /* harmony import */ var _translate_translate_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./translate/translate.component */ "./src/app/localization/translate/translate.component.ts");
             /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
             /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm2015/material.js");
+            /* harmony import */ var _language_list_language_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./language-list/language-list.component */ "./src/app/localization/language-list/language-list.component.ts");
             var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
                 var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
                 if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
@@ -69,7 +148,7 @@
             }());
             LocalizationModule = __decorate([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-                    declarations: [_localization_localization_component__WEBPACK_IMPORTED_MODULE_5__["LocalizationComponent"], _translate_translate_component__WEBPACK_IMPORTED_MODULE_6__["TranslateComponent"]],
+                    declarations: [_localization_localization_component__WEBPACK_IMPORTED_MODULE_5__["LocalizationComponent"], _translate_translate_component__WEBPACK_IMPORTED_MODULE_6__["TranslateComponent"], _language_list_language_list_component__WEBPACK_IMPORTED_MODULE_9__["LanguageListComponent"]],
                     imports: [
                         _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
                         _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
