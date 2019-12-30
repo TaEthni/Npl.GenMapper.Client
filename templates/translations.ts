@@ -121,7 +121,7 @@ export const translations: any = {
             'Message_tokenInvalidOrExpired': 'Your token is invalid or expired',
             'Message_getMeOutOfHere': 'Get me out of here',
             'Help_changelogLink': 'Changelog',
-
+            'Common_WhatsNew': 'Whats New?',
             'Common_Active': 'Active',
             'Common_NumberOfAttenders': '# of Attenders',
             'Common_NumberOfBaptized': '# of Baptized',
