@@ -128,6 +128,7 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         ctrlValue.month(normalizedMonth.month());
         control.setValue(ctrlValue);
         datepicker.close();
+        control.markAsDirty();
     }
 
     public getTemplate(controlTemplate: TemplateRef<any>, noneTemplate: TemplateRef<any>, field: GMField): any {
