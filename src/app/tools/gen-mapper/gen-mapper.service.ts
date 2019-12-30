@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
 import { DocumentDto } from '@shared/entity/document.model';
 import { Entity } from '@shared/entity/entity.model';
-import { groupBy, assign } from 'lodash';
+import { assign, groupBy } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delayWhen, tap } from 'rxjs/operators';
-
+import { delayWhen, map, tap } from 'rxjs/operators';
 import { DocumentService } from './document.service';
 import { GNode } from './gen-mapper.interface';
 import { TemplateUtils } from './template-utils';
-import { GMTemplate } from '@templates';
+import { Template } from './template.model';
+import { JSONToCSV } from './resources/json-to-csv';
+import { CSVToJSON } from './resources/csv-to-json';
 
 const storageKey = 'offline-locall-save-';
 
 export interface GenMapperConfig {
     documents: DocumentDto[];
-    template: GMTemplate;
+    template: Template;
 }
 
 @Injectable()
@@ -57,24 +58,29 @@ export class GenMapperService {
         this._node.next(node);
     }
 
-    public load(template: GMTemplate): Observable<DocumentDto[]> {
+    public loadFromResolver(template: Template): Observable<GenMapperConfig> {
+        return this.load(template).pipe(map(() => this._config.getValue()));
+    }
+
+    public load(template: Template): Observable<DocumentDto[]> {
 
         if (!this.authService.isAuthenticated()) {
             return this.loadFromLocalStorage(template);
         }
 
-        return this.documentService.getDocumentsByType(template.format)
+        return this.documentService.getDocumentsByType(template.id)
             .pipe(
                 tap((docs) => {
                     const config = this._config.getValue();
                     config.documents = docs;
                     config.template = template;
                     this.setConfig(config);
+
                 })
             );
     }
 
-    public loadFromLocalStorage(template: GMTemplate): Observable<DocumentDto[]> {
+    public loadFromLocalStorage(template: Template): Observable<DocumentDto[]> {
         const local = localStorage.getItem(storageKey + template.name);
         let document: DocumentDto;
 
@@ -86,18 +92,19 @@ export class GenMapperService {
 
             document = new DocumentDto(json);
         } else {
-            document = new DocumentDto({ type: template.format, id: Entity.uuid() });
+            document = new DocumentDto({ type: template.id, id: Entity.uuid() });
         }
 
         if (!document.content) {
             document.content = TemplateUtils.createInitialCSV(template);
         }
 
-        if (!document.attributes) {
-            document.attributes = TemplateUtils.parseAttributes(document.elements, template.format);
+        // Patch churchCirclesOkc
+        if (document.type === 'churchCirclesOkc') {
+            document.type = 'churchCircles12';
         }
 
-        document.nodes = TemplateUtils.parseCsvData(document.content, template.format);
+        document.nodes = CSVToJSON(document.content, template);
 
         const config = this._config.getValue();
         config.documents = [document];
@@ -113,7 +120,7 @@ export class GenMapperService {
         const doc = new DocumentDto({
             id: Entity.uuid(),
             title: value.title || 'No name',
-            type: config.template.format,
+            type: config.template.id,
             content: value.content || TemplateUtils.createInitialCSV(config.template)
         });
 
@@ -150,7 +157,7 @@ export class GenMapperService {
 
         // If nodes, then replace content with current nodes converted to CSV
         if (doc.nodes && doc.nodes.length) {
-            doc.content = TemplateUtils.getOutputCsv(doc.nodes, doc.type, doc.attributes);
+            doc.content = JSONToCSV(doc.nodes, config.template);
         }
 
         localStorage.setItem(storageKey + config.template.name, JSON.stringify(doc));
@@ -177,13 +184,13 @@ export class GenMapperService {
 
     public removeLocalDocument(doc: DocumentDto): Observable<DocumentDto> {
         const config = this._config.getValue();
-        localStorage.removeItem(storageKey + config.template.name);
+        localStorage.removeItem(storageKey + config.template.id);
         return of(doc);
     }
 
     public hasLocalDocument(): boolean {
         const config = this._config.getValue();
-        return !!localStorage.getItem(storageKey + config.template.name);
+        return !!localStorage.getItem(storageKey + config.template.id);
     }
 
     public updateDocumentNodes(doc: DocumentDto): void {

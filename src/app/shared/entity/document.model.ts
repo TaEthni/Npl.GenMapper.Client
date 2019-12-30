@@ -1,7 +1,6 @@
 import { Entity, EntityType } from '@shared/entity/entity.model';
 import { GMStreamAttribute } from '@templates';
 import { assign } from 'lodash';
-
 import { GNode } from '../../tools/gen-mapper/gen-mapper.interface';
 
 export class DocumentDto extends Entity {

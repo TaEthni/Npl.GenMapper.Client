@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
-import { keyBy } from 'lodash';
-import { GMTemplate, GMReport } from '@templates';
+import { ControlType, GMReport } from '@templates';
+import { Template } from '../template.model';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class GmReportsComponent implements OnInit, OnChanges {
     public document: DocumentDto;
 
     @Input()
-    public template: GMTemplate;
+    public template: Template;
 
     public stats = {
         attenders: 0,
@@ -84,29 +84,30 @@ export class GmReportsComponent implements OnInit, OnChanges {
             const report = {
                 name: treport.name,
                 order: treport.order,
+                i18nRef: treport.i18nRef
             } as GMReport;
 
             if (treport.field) {
-                const field = this.template.fieldsByKey[treport.field];
-                if (treport.graph === 'pieChart' && field.type === 'radio') {
+                const field = this.template.getField(treport.field);
+                if (treport.graph === 'pieChart' && field.type === ControlType.radio) {
                     report.type = 'radio';
                     report.values = [];
-                    field.values.forEach(v => {
+                    field.options.forEach(v => {
                         report.values.push({
-                            key: v.header,
-                            name: this.locale.t(this.template.format + '.' + v.header),
+                            key: v.value,
+                            name: this.locale.t(v.i18nRef),
                             value: 0,
                         });
                     });
                 }
 
-                if (treport.graph === 'pieGrid' && field.type === 'multiSelect') {
+                if (treport.graph === 'pieGrid' && field.type === ControlType.multiSelect) {
                     report.type = 'multiSelect';
                     report.values = [];
-                    field.values.forEach(v => {
+                    field.options.forEach(v => {
                         report.values.push({
-                            name: this.locale.t(this.template.format + '.' + v.header),
-                            key: v.header,
+                            name: this.locale.t(v.i18nRef),
+                            key: v.value,
                             option: v.value,
                             value: 0,
                         });
@@ -118,10 +119,10 @@ export class GmReportsComponent implements OnInit, OnChanges {
                 report.type = 'multiField';
                 report.values = [];
                 treport.fields.forEach(fieldName => {
-                    const field = this.template.fieldsByKey[fieldName];
+                    const field = this.template.getField(fieldName);
                     const value = {
-                        name: this.locale.t(this.template.format + '.' + field.header),
-                        key: field.header,
+                        name: this.locale.t(field.i18nRef),
+                        key: field.id,
                         value: 0,
                     };
 
@@ -201,12 +202,14 @@ export class GmReportsComponent implements OnInit, OnChanges {
                 }
 
                 if (report.type === 'multiSelect') {
-                    const v = node[report.name];
-                    report.values.forEach(rv => {
-                        if (v.indexOf(rv.option) > -1) {
-                            rv.value++;
-                        }
-                    });
+                    const value = node[report.name];
+                    if (value) {
+                        report.values.forEach(rv => {
+                            if (value.indexOf(rv.option) > -1) {
+                                rv.value++;
+                            }
+                        });
+                    }
                 }
 
                 if (report.type === 'multiField') {
@@ -262,8 +265,6 @@ export class GmReportsComponent implements OnInit, OnChanges {
                 value: this.stats.newlyBaptized,
             }
         ];
-
-        // debugger;
 
         Object.keys(generations).forEach(gen => {
             const name = 'G' + gen;

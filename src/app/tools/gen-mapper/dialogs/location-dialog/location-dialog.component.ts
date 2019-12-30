@@ -1,14 +1,16 @@
-import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
-import { Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
+import { Component, ElementRef, Inject, NgZone, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MapsService } from '@core/maps.service';
+import { COUNTRIES } from '@templates';
 
 interface MouseEvent {
     coords: { lat: number, lng: number };
 }
 
 export interface LocationDialogConfig {
+    country?: string;
     placeId?: string;
     address?: string;
     latitude?: number;
@@ -29,10 +31,11 @@ export interface LocationDialogResponse {
     templateUrl: './location-dialog.component.html',
     styleUrls: ['./location-dialog.component.scss']
 })
-export class LocationDialogComponent {
-    @ViewChild('search')
+export class LocationDialogComponent implements AfterViewInit {
+    @ViewChild('search', { static: true })
     public searchElementRef: ElementRef;
 
+    public iso3Country: string;
     public latitude: number;
     public longitude: number;
     public markerLatitude: number;
@@ -60,7 +63,10 @@ export class LocationDialogComponent {
 
         this.zoom = 12;
         this.searchControl = new FormControl(this.address);
-        this.height = window.innerHeight - 150;
+        this.height = window.innerHeight - 350;
+    }
+
+    public ngAfterViewInit(): void {
         this.initialize();
     }
 
@@ -88,15 +94,16 @@ export class LocationDialogComponent {
     private initialize(): void {
         this.mapsAPILoader.load().then(() => {
 
-            const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
+            const autocomplete = new google.maps.places.SearchBox(this.searchElementRef.nativeElement);
 
-            autocomplete.addListener('place_changed', () => {
+            autocomplete.addListener('places_changed', () => {
                 this.ngZone.run(() => {
-                    const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    const place: google.maps.places.PlaceResult = autocomplete.getPlaces()[0];
 
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
+
                     this.placeId = place.place_id;
                     this.address = place.formatted_address;
                     this.latitude = place.geometry.location.lat();
@@ -130,6 +137,9 @@ export class LocationDialogComponent {
         this.geocoder = new google.maps.Geocoder();
         this.geocoder.geocode({ 'latLng': latLng } as google.maps.GeocoderRequest, (res, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
+
+                console.log(res[0])
+
                 if (res[0]) {
                     this.placeId = res[0].place_id;
                     this.address = res[0].formatted_address;

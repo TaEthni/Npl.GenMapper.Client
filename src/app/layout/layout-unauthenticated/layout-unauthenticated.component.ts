@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class LayoutUnauthenticatedComponent extends Unsubscribable implements OnInit {
 
-    @ViewChild(MatSidenav)
+    @ViewChild(MatSidenav, { static: true })
     public matSidenav: MatSidenav;
 
     constructor(private router: Router) { super(); }

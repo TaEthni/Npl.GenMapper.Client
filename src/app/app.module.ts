@@ -1,15 +1,21 @@
 import { AdminModule } from '@admin/admin.module';
+import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@core/core.module';
-
+import { GenMapperConfigs, GenMapperTemplates } from '@templates';
 import { AccountModule } from './account/account.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
+import { GM_CONFIGS, GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
 import { ToolsModule } from './tools/tools.module';
-import { AgmCoreModule } from '@agm/core/core.module';
+import { environment } from '../environments/environment';
+import { UpdatesModule } from './updates/updates.module';
+
 
 @NgModule({
     declarations: [
@@ -17,19 +23,31 @@ import { AgmCoreModule } from '@agm/core/core.module';
     ],
     imports: [
         CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
         CoreModule,
         LayoutModule,
         HomeModule,
         ToolsModule,
         AccountModule,
         AdminModule,
+        UpdatesModule,
         AppRoutingModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            apiKey: environment.apiKey,
             libraries: ['places']
         })
     ],
-    providers: [],
+    providers: [
+        {
+            provide: GM_TEMPLATES,
+            useValue: GenMapperTemplates
+        },
+        {
+            provide: GM_CONFIGS,
+            useValue: GenMapperConfigs
+        }
+    ],
     bootstrap: [AppComponent],
     exports: []
 })

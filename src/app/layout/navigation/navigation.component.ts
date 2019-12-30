@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { LocaleService, TranslationType } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { User } from '@shared/entity/user.model';
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { SupportDialogComponent, SupportDialogConfig } from '../support-dialog/support-dialog.component';
+import { UpdatesService } from '../../updates/updates.service';
 
 @Component({
     selector: 'app-navigation',
@@ -27,7 +28,8 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private localeService: LocaleService
+        private localeService: LocaleService,
+        private updatesService: UpdatesService,
     ) { super(); }
 
     public ngOnInit(): void {
@@ -44,6 +46,10 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
         event.preventDefault();
         event.stopPropagation();
         window.open(url, '_blank');
+    }
+
+    public showUpdates(): void {
+        this.updatesService.show();
     }
 
     public sendFeedback(): void {

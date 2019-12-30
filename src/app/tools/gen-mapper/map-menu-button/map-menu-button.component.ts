@@ -1,15 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DownloadService } from '@core/download.service';
 import { LocaleService } from '@core/locale.service';
 import { DocumentDto } from '@shared/entity/document.model';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
-
+import { GMTemplate } from '@templates';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
-import { GMTemplate } from '@templates';
 
 @Component({
     selector: 'app-map-menu-button',
@@ -30,6 +28,9 @@ export class MapMenuButtonComponent {
     @Output()
     public settingsButtonClick = new EventEmitter<void>();
 
+    @Output()
+    public importButtonClick = new EventEmitter<void>();
+
     constructor(
         private locale: LocaleService,
         private downloadService: DownloadService,
@@ -39,18 +40,11 @@ export class MapMenuButtonComponent {
     ) { }
 
     public onImport(): void {
-        this.dialog
-            .open(FileInputDialogComponent, { minWidth: '350px' })
-            .afterClosed()
-            .subscribe(result => {
-                if (result) {
-                    this._createDocument(result);
-                }
-            });
+        this.importButtonClick.emit();
     }
 
     public onDelete(): void {
-        const title = this.locale.t('deleteDocument') + ` [${this.document.title}]`;
+        const title = this.locale.t('Common_DeleteDocument') + ` [${this.document.title}]`;
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: { title }
@@ -91,7 +85,7 @@ export class MapMenuButtonComponent {
         this.genMapper
             .removeDocument(this.document)
             .subscribe(() => {
-                this.router.navigate([this.template.name]);
+                this.router.navigate([this.template.id]);
             });
     }
 }

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserResolver } from '@core/user.resolver';
-import { GenMapperTemplates } from '@templates';
-
+import { GenMapperTemplates, GMTemplates } from '@templates';
 import { DetailComponent } from './account/detail/detail.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './home/forbidden/forbidden.component';
@@ -22,36 +21,6 @@ import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-conta
 import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
 import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
 import { ToolsComponent } from './tools/tools/tools.component';
-
-
-const genMapperRoutes = [];
-GenMapperTemplates.forEach(template => {
-    genMapperRoutes.push({
-        path: template.name,
-        component: GenMapperContainerComponent,
-        resolve: {
-            documents: GenMapperContainerResolver,
-        },
-        data: {
-            template: template
-        },
-        children: [
-            {
-                path: ':id',
-                component: GenMapperComponent,
-                resolve: {
-                    document: GenMapperResolver
-                },
-                // Configuration is for local mode
-                runGuardsAndResolvers: 'always'
-            },
-            {
-                path: '',
-                component: GenMapperComponent
-            },
-        ]
-    });
-});
 
 const appRoutes: Routes = [
     {
@@ -108,8 +77,87 @@ const appRoutes: Routes = [
             {
                 path: 'tools',
                 component: ToolsComponent
-            }
-        ].concat(genMapperRoutes)
+            },
+            {
+                path: 'churchCircles',
+                component: GenMapperContainerComponent,
+                resolve: {
+                    config: GenMapperContainerResolver,
+                },
+                data: {
+                    template: GMTemplates.ChurchCirclesDefaultTemplate
+                },
+                children: [
+                    {
+                        path: ':id',
+                        component: GenMapperComponent,
+                        resolve: {
+                            document: GenMapperResolver
+                        },
+                        // Configuration is for local mode
+                        runGuardsAndResolvers: 'always'
+                    },
+                    {
+                        path: '',
+                        component: GenMapperComponent
+                    },
+                ]
+            },
+            {
+                path: 'churchCircles12',
+                component: GenMapperContainerComponent,
+                resolve: {
+                    config: GenMapperContainerResolver,
+                },
+                data: {
+                    template: GMTemplates.ChurchCircles12Template
+                },
+                children: [
+                    {
+                        path: ':id',
+                        component: GenMapperComponent,
+                        resolve: {
+                            document: GenMapperResolver
+                        },
+                        // Configuration is for local mode
+                        runGuardsAndResolvers: 'always'
+                    },
+                    {
+                        path: '',
+                        component: GenMapperComponent
+                    },
+                ]
+            },
+            {
+                path: 'churchCirclesCzech',
+                component: GenMapperContainerComponent,
+                resolve: {
+                    config: GenMapperContainerResolver,
+                },
+                data: {
+                    template: GMTemplates.ChurchCirclesCzechTemplate
+                },
+                children: [
+                    {
+                        path: ':id',
+                        component: GenMapperComponent,
+                        resolve: {
+                            document: GenMapperResolver
+                        },
+                        // Configuration is for local mode
+                        runGuardsAndResolvers: 'always'
+                    },
+                    {
+                        path: '',
+                        component: GenMapperComponent
+                    },
+                ]
+            },
+            // {
+            //     path: 'localization',
+            //     loadChildren: () => import('./localization/localization.module').then(m => m.LocalizationModule)
+            // }
+        ]
     },
     {
         path: '**',

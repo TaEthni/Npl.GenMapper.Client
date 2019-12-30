@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatSidenav, MatDrawer } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { DocumentDto } from '@shared/entity/document.model';
 
@@ -43,7 +44,7 @@ export class MapSidenavComponent {
     }
 
     public onSelectDocument(doc: DocumentDto): void {
-        this.router.navigate([this.template.name, doc.id]);
+        this.router.navigate([this.template.id, doc.id]);
 
         if (Device.isHandHeld) {
             this.drawer.close();
@@ -54,7 +55,7 @@ export class MapSidenavComponent {
         doc = new DocumentDto(doc);
         this.genMapper.createDocument(doc)
             .subscribe(result => {
-                this.router.navigate([this.template.name, result.id]);
+                this.router.navigate([this.template.id, result.id]);
             });
     }
 }

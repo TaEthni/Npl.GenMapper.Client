@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SupportService } from '@core/support.service';
 import { User } from '@shared/entity/user.model';
 import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';

@@ -5,21 +5,21 @@
          fxLayoutAlign="end">
         <mat-slide-toggle [checked]="includeInactive"
                           (toggleChange)="toggleIncludeInactive()">
-            Include inactive groups
+            {{'Common_IncludeInactiveGroups' | locale | async}}
         </mat-slide-toggle>
     </div>
     <div class="legend">
         <table>
             <tr>
-                <td>Total Churches</td>
+                <td>{{'Common_TotalGroups' | locale | async}}</td>
                 <td>{{stats.totalNodes}}</td>
             </tr>
             <tr>
-                <td>Active Churches</td>
+                <td>{{'Common_ActiveGroups' | locale | async}}</td>
                 <td>{{stats.activeNodes}}</td>
             </tr>
             <tr>
-                <td>Inactive Churches</td>
+                <td>{{'Common_InactiveGroups' | locale | async}}</td>
                 <td>{{stats.inactiveNodes}}</td>
             </tr>
         </table>
@@ -34,11 +34,11 @@
 
     <ng-container *ngFor="let report of reports">
         <ng-container *ngIf="report.type === 'radio'">
-            <app-gm-pie-chart [label]="template.format + '.'+ report.name | locale | async"
+            <app-gm-pie-chart [label]="report.i18nRef | locale | async"
                               [data]="report.values"></app-gm-pie-chart>
         </ng-container>
         <ng-container *ngIf="report.type === 'multiField'">
-            <app-gm-bar-chart [label]="template.format + '.'+ report.name | locale | async"
+            <app-gm-bar-chart [label]="report.i18nRef | locale | async"
                               [data]="report.values"
                               type="horizontal"></app-gm-bar-chart>
         </ng-container>

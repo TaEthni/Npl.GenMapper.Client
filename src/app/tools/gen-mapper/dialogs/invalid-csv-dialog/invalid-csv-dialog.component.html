@@ -1,0 +1,25 @@
+<div mat-dialog-title>
+    {{'Common_InvalidCSV' | locale | async}}
+</div>
+
+<div mat-dialog-content>
+    <p>{{'Common_InvalidData' | locale | async}}</p>
+
+    <p>{{'Common_PleaseImportProperCSV' | locale | async}}</p>
+</div>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end">
+    <button mat-button
+            mat-dialog-close
+            color="primary">
+        {{'Common_Dismiss' | locale | async}}
+    </button>
+
+    <button mat-flat-button
+            color="primary"
+            (click)="exportCSV()">
+        {{'Menu_exportCsv' | locale | async}}
+    </button>
+</div>

@@ -12,7 +12,7 @@
                  class="user-email">{{user.email}}</div>
             <div class="auth">
                 <a [routerLink]="['/logout']">
-                    {{'en_Logout' | locale | async}}
+                    {{'Common_Logout' | locale | async}}
                 </a>
             </div>
         </ng-container>
@@ -21,10 +21,10 @@
                  fxLayout="column"
                  fxLayoutGap="10px">
                 <a [routerLink]="['/login']">
-                    {{'en_Login' | locale | async}}
+                    {{'Common_Login' | locale | async}}
                 </a>
                 <a [routerLink]="['/signup']">
-                    {{'en_Signup' | locale | async}}
+                    {{'Common_Signup' | locale | async}}
                 </a>
             </div>
         </ng-container>
@@ -37,7 +37,7 @@
             <mat-list-item routerLink="/account"
                            routerLinkActive="active">
                 <h3 matLine>
-                    {{'en_Account' | locale | async}}
+                    {{'Common_Account' | locale | async}}
                 </h3>
                 <mat-icon matListIcon>person</mat-icon>
                 <mat-icon class="arrow">chevron_right</mat-icon>
@@ -47,7 +47,7 @@
         <mat-list-item routerLink="/tools"
                        routerLinkActive="active">
             <h3 matLine>
-                {{'tools' | locale | async}}
+                {{'Common_Tools' | locale | async}}
             </h3>
             <mat-icon matListIcon>device_hub</mat-icon>
             <mat-icon class="arrow">chevron_right</mat-icon>
@@ -55,24 +55,31 @@
     </mat-nav-list>
 
     <mat-nav-list>
+        <mat-list-item (click)="showUpdates()">
+            <mat-icon matListIcon>new_releases</mat-icon>
+            <h3 matLine>
+                {{'Common_WhatsNew' | locale | async}}
+            </h3>
+        </mat-list-item>
+
         <mat-list-item (click)="sendFeedback()">
             <mat-icon matListIcon>feedback</mat-icon>
             <h3 matLine>
-                {{'en_SendFeedback' | locale | async}}
+                {{'Common_SendFeedback' | locale | async}}
             </h3>
         </mat-list-item>
 
         <mat-list-item (click)="help()">
             <mat-icon matListIcon>help</mat-icon>
             <h3 matLine>
-                {{'en_Help' | locale | async}}
+                {{'Common_Help' | locale | async}}
             </h3>
         </mat-list-item>
 
         <mat-list-item>
             <mat-icon matListIcon>language</mat-icon>
             <mat-form-field matLine>
-                <mat-select placeholder="{{'en_Language' | locale | async}}"
+                <mat-select placeholder="{{'Common_Language' | locale | async}}"
                             [formControl]="localeControl">
                     <mat-option *ngFor="let lang of (translations$ | async)"
                                 [value]="lang.id">

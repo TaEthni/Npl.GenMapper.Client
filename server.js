@@ -15,4 +15,6 @@ server
     .use(kstatic('dist/tools-angular'))
     .use((ctx) => send(ctx, 'dist/tools-angular/index.html'));
 
-server.listen(process.env.PORT || 9001);
+server.listen(process.env.PORT || 9001, () => {
+    console.log('listening on ' + process.env.PORT || 9001);
+});

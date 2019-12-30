@@ -2,7 +2,6 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
         "outDir": "../out-tsc/app",
-        "module": "es2015",
         "baseUrl": "./",
         "paths": {
             "@shared/*": [
@@ -19,14 +18,14 @@
             ],
             "lodash": [
                 "../node_modules/lodash-es"
-            ],
+            ]
         }
     },
     "exclude": [
         "**/translations.ts",
         "**/templates/*.ts",
-        "src/test.ts",
+        "setupJest.ts",
         "**/*.spec.ts",
-        "src/app/tools/gen-mapper/gen-map.ts"
+        "app/tools/gen-mapper/gen-map.ts"
     ]
 }

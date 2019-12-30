@@ -11,13 +11,24 @@
         padding: 0;
     }
 
+    .date-picker {
+        input {
+            pointer-events: none;
+        }
+    }
+
+    .help-icon {
+        opacity: 0.5;
+    }
+
     .mat-form-field {
         width: 100%;
+    }
 
-        .clear-field {
-            margin-top: 5px;
-            color: mat-color($warn);
-        }
+    .clear-field {
+        margin-top: 5px;
+        color: mat-color($warn);
+        cursor: pointer;
     }
 
     .device-desktop & .mat-form-field {
@@ -40,6 +51,10 @@
         }
     }
 
+    .control.has-dependency {
+        padding-left: 55px;
+    }
+
     .control-input {
         min-width: 250px;
     }
@@ -55,6 +70,12 @@
         user-select: none;
         font-weight: 600;
         margin-right: auto;
+    }
+
+    .deprecated {
+        background-color: #eee;
+        border-radius: 4px;
+        padding: 4px;
     }
 
     .mat-form-field.peid-select::ng-deep,

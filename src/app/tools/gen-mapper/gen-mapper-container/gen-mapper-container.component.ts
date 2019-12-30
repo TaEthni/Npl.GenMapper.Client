@@ -3,13 +3,12 @@ import { AuthenticationService } from '@core/authentication.service';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
-import { GMTemplate } from '@templates';
 import { takeUntil } from 'rxjs/operators';
-
 import { GenMapperView } from '../gen-mapper-view.enum';
 import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
+import { Template } from '../template.model';
 
 @Component({
     selector: 'app-gen-mapper-container',
@@ -20,7 +19,7 @@ import { NodeClipboardService } from '../node-clipboard.service';
 export class GenMapperContainerComponent extends Unsubscribable implements OnInit, OnDestroy {
     public documents: DocumentDto[];
     public document: DocumentDto;
-    public template: GMTemplate;
+    public template: Template;
     public isAuthenticated: boolean;
     public node: GNode;
     public view: GenMapperView;
@@ -35,11 +34,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     public ngOnInit(): void {
         this.isAuthenticated = this.authService.isAuthenticated();
-        this.genMapper.getNode()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.node = result;
-            });
 
         this.genMapper.getDocument()
             .pipe(takeUntil(this.unsubscribe))

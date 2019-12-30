@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GenMapperTemplates } from '@templates';
+import { GenMapperTemplates, GMTemplate } from '@templates';
+import { TemplateService } from '../gen-mapper/template.service';
 
 interface ViewTemplate {
     name: string;
-    title: string;
     icon: string;
 }
 
@@ -14,12 +14,16 @@ interface ViewTemplate {
 })
 export class ToolsComponent implements OnInit {
 
-    public templatesWithIcons: ViewTemplate[];
-    public templateWithoutIcons: ViewTemplate[];
+    public templatesWithIcons: GMTemplate[];
+    public templateWithoutIcons: GMTemplate[];
+
+    constructor(
+        private templateService: TemplateService
+    ) { }
 
     public ngOnInit(): void {
-
-        this.templatesWithIcons = GenMapperTemplates.filter(t => t.icon).map(t => ({ name: t.name, title: t.title, icon: t.icon }));
-        this.templateWithoutIcons = GenMapperTemplates.filter(t => !t.icon).map(t => ({ name: t.name, title: t.title, icon: t.icon }));
+        const templates = this.templateService.getTemplates();
+        this.templatesWithIcons = templates.filter(t => t.settings.iconUrl);
+        this.templateWithoutIcons = templates.filter(t => !t.settings.iconUrl);
     }
 }

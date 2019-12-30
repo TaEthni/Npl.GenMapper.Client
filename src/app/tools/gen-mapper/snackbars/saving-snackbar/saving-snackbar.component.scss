@@ -1,0 +1,8 @@
+@import '~styles/colors';
+:host {
+    h3 {
+        color: mat-color($primary);
+        margin: 0 auto 0 0;
+    }
+}
+

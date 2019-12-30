@@ -1,20 +1,20 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialog, MatDrawer } from '@angular/material';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDrawer } from '@angular/material/sidenav';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
-import { assign, cloneDeep, keyBy } from 'lodash';
+import { GMField } from '@templates';
+import { assign, cloneDeep } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
-
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
+import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { TemplateUtils } from '../template-utils';
-import { Utils } from '@core/utils';
-import { GNode } from '../gen-mapper.interface';
-import { GMTemplate, GMField } from '@templates';
+import { Template } from '../template.model';
+
 
 @Component({
     selector: 'app-node-drawer',
@@ -32,7 +32,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     public documents: DocumentDto[];
 
     @Input()
-    public template: GMTemplate;
+    public template: Template;
 
     @Input()
     public hideActions: boolean;
@@ -63,17 +63,10 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         private nodeClipboard: NodeClipboardService,
         private drawer: MatDrawer,
         private dialog: MatDialog,
-        private fb: FormBuilder,
     ) { super(); }
 
     public ngOnInit(): void {
         this.fields = this.template.fields;
-        this.localeService.get()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(locale => {
-                TemplateUtils.setTemplateLocale(this.template, locale);
-                this.fields = this.template.fields;
-            });
 
         this.nodeClipboard.get()
             .pipe(takeUntil(this.unsubscribe))
@@ -83,7 +76,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     }
 
     public ngOnChanges(change: SimpleChanges): void {
-
         if (change.document && change.document.currentValue && change.document.firstChange) {
             this.initializeForm();
         }
@@ -114,11 +106,11 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
             this.dialog
                 .open(ConfirmDialogComponent, {
                     data: {
-                        title: this.localeService.t('saveChanges'),
-                        prompt: this.localeService.t('saveChangesQuestion'),
+                        title: this.localeService.t('Common_SaveChanges'),
+                        prompt: this.localeService.t('Common_SaveChangesQuestion'),
                         buttons: [
-                            this.localeService.t('en_Yes'),
-                            this.localeService.t('en_No')
+                            this.localeService.t('Common_Yes'),
+                            this.localeService.t('Common_Cancel'),
                         ],
                     }
                 })
@@ -126,9 +118,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
                 .subscribe(result => {
                     if (result) {
                         this.onSave();
-                    } else {
-                        this.onCancel();
-                        this.drawer.close();
                     }
                 });
         } else {
@@ -141,6 +130,20 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         if (this.clonedNode.hasOwnProperty('active') && this.clonedNode.hasOwnProperty('inactiveReason') && this.clonedNode.active) {
             this.clonedNode.inactiveReason = null;
         }
+
+        this.template.fields.forEach(field => {
+            if (field.sumOfFields) {
+                let v: number = 0;
+                field.sumOfFields.forEach((fieldId) => {
+                    // const otherField = this.template.getField(fieldId);
+                    const value = parseInt(this.clonedNode[fieldId]);
+                    if (value) {
+                        v += value;
+                    }
+                });
+                this.clonedNode[field.id] = v;
+            }
+        });
 
         assign(this.node, this.clonedNode);
 
@@ -178,6 +181,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
                 if (result) {
                     // Update graph
                     // this.graph.csvIntoNode(node, result.content);
+
                     this.importSubtree.emit(result.content);
                     this.drawer.close();
                 }
@@ -208,14 +212,14 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         this.template.fields
             .filter(field => !!field.type)
             .forEach(field => {
-                fields.push({ name: field.header, order: field.order });
+                fields.push({ name: field.id, order: field.controlOrder });
             });
 
-        this.document.attributes
-            .filter(attr => !!attr.type && !this.template.fieldsByKey[attr.propertyName])
-            .forEach(attr => {
-                fields.push({ name: attr.propertyName, order: attr.order });
-            });
+        // this.document.attributes
+        //     .filter(attr => !!attr.type && !this.template.fieldsByKey[attr.propertyName])
+        //     .forEach(attr => {
+        //         fields.push({ name: attr.propertyName, order: attr.order });
+        //     });
 
         fields.sort((a, b) => a.order - b.order)
             .forEach(field => {

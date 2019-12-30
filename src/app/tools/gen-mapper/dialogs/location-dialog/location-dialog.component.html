@@ -18,6 +18,7 @@
                       class="clear-icon">clear</mat-icon>
         </div>
     </div>
+
     <agm-map [latitude]="latitude"
              [longitude]="longitude"
              [zoom]="zoom"
@@ -36,11 +37,11 @@
     <button mat-raised-button
             color="accent"
             (click)="onSubmit()">
-        {{'en_Continue' | locale | async}}
+        {{'Common_Continue' | locale | async}}
     </button>
     <button mat-button
             color="warn"
             [mat-dialog-close]="false">
-        {{'en_Cancel' | locale | async}}
+        {{'Common_Cancel' | locale | async}}
     </button>
 </div>

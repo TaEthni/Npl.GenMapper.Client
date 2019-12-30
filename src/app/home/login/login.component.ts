@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
     selector: 'app-login',
@@ -15,10 +16,10 @@ export class LoginComponent implements OnInit, AfterViewChecked {
     public showError: boolean;
     public isLoading: boolean;
 
-    @ViewChild('emailField')
+    @ViewChild('emailField', { static: true })
     public emailField: ElementRef;
 
-    @ViewChild('passwordField')
+    @ViewChild('passwordField', { static: true })
     public passwordField: ElementRef;
 
     constructor(
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit, AfterViewChecked {
 
         if (this.form.valid) {
             this.isLoading = true;
+
             this.authService.authenticate(this.form.value).subscribe(
                 success => {
                     this.isLoading = false;

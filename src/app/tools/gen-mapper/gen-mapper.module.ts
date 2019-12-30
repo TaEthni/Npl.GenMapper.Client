@@ -1,13 +1,13 @@
-import { AgmCoreModule } from '@agm/core/core.module';
+import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
+import { InvalidCsvDialogComponent } from './dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { CountryPickerComponent } from './dialogs/people-group-dialog/country-picker/country-picker.component';
 import { PeopleGroupDialogComponent } from './dialogs/people-group-dialog/people-group-dialog.component';
@@ -27,14 +27,16 @@ import { GmPieChartComponent } from './gm-reports/gm-pie-chart/gm-pie-chart.comp
 import { GmPieGridComponent } from './gm-reports/gm-pie-grid/gm-pie-grid.component';
 import { GmReportsToggleComponent } from './gm-reports/gm-reports-toggle/gm-reports-toggle.component';
 import { GmReportsComponent } from './gm-reports/gm-reports.component';
-import { GmSettingsComponent } from './gm-settings/gm-settings.component';
 import { GmWorldMapToggleComponent } from './gm-world-map/gm-world-map-toggle/gm-world-map-toggle.component';
 import { MapMenuButtonComponent } from './map-menu-button/map-menu-button.component';
 import { MapNameControlComponent } from './map-name-control/map-name-control.component';
 import { MapReportLegendComponent } from './map-report-legend/map-report-legend.component';
 import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
-import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes.component';
+import { SavingErrorSnackbarComponent } from './snackbars/saving-error-snackbar/saving-error-snackbar.component';
+import { SavingSnackbarComponent } from './snackbars/saving-snackbar/saving-snackbar.component';
+import { environment } from '../../../environments/environment';
+
 
 @NgModule({
     imports: [
@@ -44,7 +46,7 @@ import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes
         RouterModule,
         NgxChartsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
+            apiKey: environment.apiKey,
             libraries: ['places']
         })
     ],
@@ -66,14 +68,15 @@ import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes
         PeopleGroupPickerComponent,
         GenMapperMapComponent,
         MapReportLegendComponent,
-        GmSettingsComponent,
         GmReportsComponent,
         GmPieChartComponent,
         GmBarChartComponent,
         GmPieGridComponent,
         GmReportsToggleComponent,
         GmWorldMapToggleComponent,
-        GmAttributesComponent,
+        InvalidCsvDialogComponent,
+        SavingSnackbarComponent,
+        SavingErrorSnackbarComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -88,20 +91,21 @@ import { GmAttributesComponent } from './gm-settings/gm-attributes/gm-attributes
         PeopleGroupPickerComponent,
         GenMapperMapComponent,
         MapReportLegendComponent,
-        GmSettingsComponent,
         GmReportsComponent,
         GmPieChartComponent,
         GmBarChartComponent,
         GmPieGridComponent,
         GmReportsToggleComponent,
         GmWorldMapToggleComponent,
-        GmAttributesComponent,
     ],
     entryComponents: [
         ConfirmDialogComponent,
         CreateDocumentDialogComponent,
         LocationDialogComponent,
-        PeopleGroupDialogComponent
+        PeopleGroupDialogComponent,
+        InvalidCsvDialogComponent,
+        SavingSnackbarComponent,
+        SavingErrorSnackbarComponent,
     ],
     providers: [
         DocumentService,

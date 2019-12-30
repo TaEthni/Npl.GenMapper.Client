@@ -3,10 +3,8 @@
     "compilerOptions": {
         "baseUrl": "./",
         "outDir": "../out-tsc/spec",
-        "module": "commonjs",
         "types": [
-            "jasmine",
-            "node"
+            "jest"
         ],
         "paths": {
             "@shared/*": [
@@ -24,7 +22,6 @@
         }
     },
     "files": [
-        "test.ts",
         "polyfills.ts"
     ],
     "include": [

@@ -1,5 +1,3 @@
-import { AgmMap } from '@agm/core/directives/map';
-import { MapsAPILoader } from '@agm/core/services/maps-api-loader/maps-api-loader';
 import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MapsService } from '@core/maps.service';
 import { Unsubscribable } from '@core/Unsubscribable';
@@ -11,6 +9,7 @@ import { DocumentService } from '../document.service';
 import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { GMTemplate } from '@templates';
+import { AgmMap } from '@agm/core';
 
 export interface MapMarker {
     lat: number;
@@ -31,7 +30,7 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
     @Input()
     public document: DocumentDto;
 
-    @ViewChild(AgmMap)
+    @ViewChild(AgmMap, { static: true })
     public agmMap: AgmMap;
 
     public latitude: number;
@@ -42,7 +41,6 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
     public locatingCount: number;
 
     constructor(
-        private mapsAPILoader: MapsAPILoader,
         private mapsService: MapsService,
         private genMapper: GenMapperService,
         private documentService: DocumentService,

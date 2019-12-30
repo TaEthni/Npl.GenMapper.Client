@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LocaleService } from '@core/locale.service';
 
 export interface ConfirmConfig {
@@ -34,8 +34,8 @@ export class ConfirmDialogComponent implements OnInit {
         this.items = this.data.items;
         this.prompt = this.data.prompt || this.locale.t('Message_confirmContinue');
         this.buttons = this.data.buttons || [
-            this.locale.t('en_Continue'),
-            this.locale.t('en_Cancel')
+            this.locale.t('Common_Continue'),
+            this.locale.t('Common_Cancel')
         ];
     }
 

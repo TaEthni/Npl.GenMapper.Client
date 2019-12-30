@@ -9,7 +9,7 @@
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
-                    {{'en_Login' | locale | async}}
+                    {{'Common_Login' | locale | async}}
                 </mat-card-title>
             </mat-card-header>
 
@@ -19,7 +19,7 @@
                     <input matInput
                            #emailField
                            type="email"
-                           placeholder="{{'en_Email' | locale | async}}"
+                           placeholder="{{'Common_Email' | locale | async}}"
                            formControlName="email">
 
                     <mat-error *ngIf="form.controls.email.errors?.required">
@@ -35,12 +35,12 @@
                     <input matInput
                            #passwordField
                            type="password"
-                           placeholder="{{'en_Password' | locale | async}}"
+                           placeholder="{{'Common_Password' | locale | async}}"
                            formControlName="password">
 
                     <mat-hint align="end">
                         <a [routerLink]="['/recover-password']">
-                            {{'en_ForgotPassword' | locale | async}}
+                            {{'Common_ForgotPassword' | locale | async}}
                         </a>
                     </mat-hint>
                 </mat-form-field>
@@ -58,7 +58,7 @@
                         color="primary"
                         class="mat-spinner-button">
                     <div>
-                        {{'en_Login' | locale | async}}
+                        {{'Common_Login' | locale | async}}
                     </div>
                     <mat-spinner diameter="24"
                                  *ngIf="isLoading"></mat-spinner>
@@ -68,12 +68,12 @@
                    type="button"
                    color="primary"
                    [routerLink]="['/']">
-                    {{'en_Cancel' | locale | async}}
+                    {{'Common_Cancel' | locale | async}}
                 </a>
                 <div fxFlex></div>
                 <a mat-button
                    [routerLink]="['/signup']">
-                    {{'en_CreateAccount' | locale | async}}
+                    {{'Common_CreateAccount' | locale | async}}
                 </a>
             </mat-card-actions>
         </mat-card>
