@@ -55,6 +55,13 @@
     </mat-nav-list>
 
     <mat-nav-list>
+        <mat-list-item (click)="showUpdates()">
+            <mat-icon matListIcon>new_releases</mat-icon>
+            <h3 matLine>
+                {{'Common_WhatsNew' | locale | async}}
+            </h3>
+        </mat-list-item>
+
         <mat-list-item (click)="sendFeedback()">
             <mat-icon matListIcon>feedback</mat-icon>
             <h3 matLine>

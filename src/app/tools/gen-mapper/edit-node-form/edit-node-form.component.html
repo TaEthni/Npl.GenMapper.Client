@@ -36,6 +36,7 @@
                                 <input type="text"
                                        matInput
                                        autocomplete="stopstop"
+                                       name="stop-autocomplete"
                                        [placeholder]="field.i18nValue"
                                        [formControl]="form.get(field.id)" />
                             </mat-form-field>
@@ -49,6 +50,7 @@
                                 <input type="text"
                                        matInput
                                        autocomplete="stopstop"
+                                       name="stop-autocomplete"
                                        [formControl]="form.get(field.id)" />
 
                                 <mat-icon matSuffix
@@ -69,6 +71,7 @@
                                                 class="date-picker">
                                     <input matInput
                                            autocomplete="stopstop"
+                                           name="stop-autocomplete"
                                            [matDatepicker]="picker"
                                            [placeholder]="field.i18nValue"
                                            [formControl]="form.get(field.id)">
@@ -107,6 +110,7 @@
                                 <input type="text"
                                        matInput
                                        autocomplete="stopstop"
+                                       name="stop-autocomplete"
                                        [formControl]="form.get('peopleGroupsNames')" />
 
                                 <mat-icon matSuffix
@@ -144,6 +148,7 @@
                                           cdkTextareaAutosize
                                           cdkAutosizeMinRows="1"
                                           autocomplete="stopstop"
+                                          name="stop-autocomplete"
                                           [placeholder]="field.i18nValue"
                                           [formControl]="form.get(field.id)"></textarea>
                             </mat-form-field>
@@ -156,6 +161,7 @@
                                        appNumberInput
                                        min="0"
                                        autocomplete="stopstop"
+                                       name="stop-autocomplete"
                                        (change)="onNumberFieldChange(field.id)"
                                        [placeholder]="field.i18nValue"
                                        [formControl]="form.get(field.id)" />

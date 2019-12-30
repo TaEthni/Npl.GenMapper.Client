@@ -16,6 +16,10 @@ if (window.location.host === 'dev.noplaceleft.tools') {
     _BaseUrl = devUrl;
 }
 
+if (window.location.host === 'https://taethni.github.io') {
+    _BaseUrl = prodUrl;
+}
+
 if (window.location.host === 'noplaceleft.tools') {
     _BaseUrl = prodUrl;
 }

@@ -14,6 +14,7 @@ import { LayoutModule } from './layout/layout.module';
 import { GM_CONFIGS, GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
 import { ToolsModule } from './tools/tools.module';
 import { environment } from '../environments/environment';
+import { UpdatesModule } from './updates/updates.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { environment } from '../environments/environment';
         ToolsModule,
         AccountModule,
         AdminModule,
+        UpdatesModule,
         AppRoutingModule,
         AgmCoreModule.forRoot({
             apiKey: environment.apiKey,

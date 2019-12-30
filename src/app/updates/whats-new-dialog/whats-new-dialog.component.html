@@ -1,0 +1,93 @@
+<div mat-dialog-title>
+    Whats New?
+</div>
+
+<div mat-dialog-content
+     fxLayout="column"
+     fxLayoutGap="24px">
+    <div>
+        <h2>Country Selector</h2>
+        <p>You can now select the country that the Group is located in.</p>
+        <img src="assets/images/country-selector.png"
+             width="100%">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div>
+        <h2>Enhanced Geo Location Selector</h2>
+        <p>You can now simply type in a ZipCode or PinCode and the app will use the central Latitude and Longitude.</p>
+        <img src="assets/images/zip-code-selector.png"
+             width="100%">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div>
+        <h2>People Groups Picker (deprecated)</h2>
+        <p>Unfortunately we were not capturing people groups accurately.</p>
+        <p>
+            The People Groups selector has been removed. We apologize for the inconvenience and the loss of data.
+        </p>
+        <p>
+            We will be coming out with a new People Groups selector soon, that is more accurate.
+        </p>
+        <p>
+            Having an accurate People Groups selector will allow us to contribute People Group Data to the People Groups
+            Project API.
+        </p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div>
+        <h2>New Date Picker</h2>
+        <p>We have added a new date picker that will allow you to select the specific Year and Month.</p>
+        <img src="assets/images/date-picker.png"
+             width="100%">
+
+        <p>
+            The Original Date field has been deprecated, because the date format was incorrect and prevented us from
+            creating accurate statistics.
+        </p>
+
+        <p>We ask that you go to each group, and select the proper date using the new date picker.</p>
+        <p>Your original date will still be viewable. Once you pick the appropriate date, please click the red X button
+            to remove the old date.</p>
+
+        <img src="assets/images/deprecated-date-picker.png"
+             width="100%">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div>
+        <h2>Whats New Popup</h2>
+        <p>We have added a popup that notifies you about new changes to the app.</p>
+
+        <img src="assets/images/whats-new.png"
+             width="100%">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div>
+        <h2>Please provide Feedback</h2>
+        <p>
+            If you experience any difficulties or have any feature requests, please let us know by clicking the feedback
+            button in the left sidebar.
+        </p>
+        <img src="assets/images/feedback.png"
+             width="100%" />
+    </div>
+</div>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center">
+    <button mat-flat-button
+            color="primary"
+            mat-dialog-close>
+        {{'Common_Ok' | locale | async}}
+    </button>
+</div>
