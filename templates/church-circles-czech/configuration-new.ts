@@ -209,7 +209,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
         },
         {
             id: 'place',
-            i18nRef: 'Common_PlaceCityStateCountry',
+            i18nRef: 'Common_PlaceCityState',
             type: ControlType.text,
             controlOrder: 9,
             isNodeSvgLabel: true,

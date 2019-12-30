@@ -241,8 +241,14 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             deprecated: true,
         },
         {
+            id: 'country',
+            i18nRef: 'Common_Country',
+            type: ControlType.countrySelector,
+            canModify: true
+        },
+        {
             id: 'place',
-            i18nRef: 'Common_PlaceCityStateCountry',
+            i18nRef: 'Common_PlaceCityState',
             type: ControlType.text,
             controlOrder: 9,
             isNodeSvgLabel: true,
@@ -269,12 +275,6 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         {
             id: 'placeId',
             canModify: false,
-        },
-        {
-            id: 'country',
-            i18nRef: 'Common_Country',
-            type: ControlType.countrySelector,
-            canModify: true
         },
         {
             id: 'church',
