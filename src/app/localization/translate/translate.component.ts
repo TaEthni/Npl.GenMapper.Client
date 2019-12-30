@@ -10,10 +10,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class TranslateComponent implements OnInit {
 
-    private english: Language;
-    private language: Language;
-
-    private form: FormGroup;
+    public english: Language;
+    public language: Language;
+    public form: FormGroup;
 
     constructor(
         private route: ActivatedRoute,
@@ -32,7 +31,5 @@ export class TranslateComponent implements OnInit {
             const value = translation ? translation.value : '';
             this.form.setControl(item.key, new FormControl(value));
         });
-
-        console.log(this.language);
     }
 }

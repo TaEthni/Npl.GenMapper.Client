@@ -87,6 +87,7 @@ export class NodeTreeService {
         const raw = this.rawDataById[node.id];
         const index = this.rawData.indexOf(raw);
         Object.assign(this.rawData[index], node);
+        this.createTree(this.rawData);
     }
 
     public removeNode(node: GNode): void {

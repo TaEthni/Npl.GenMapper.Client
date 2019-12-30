@@ -177,7 +177,6 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                 this.onGraphChange(this.nodeTree.getData());
             });
         });
-
     }
 
     public onUpdateNode(node: GNode): void {
