@@ -5,6 +5,37 @@
 <div mat-dialog-content
      fxLayout="column"
      fxLayoutGap="24px">
+
+    <div>
+        <h2>Copy & Paste & Import Subtree Changed</h2>
+
+        <p>
+            <strong>Previously:</strong> pasting or importing a subtree would replace the selected node.
+            This was causing issues with some users who would accidentally delete data. So we have changed the
+            functionality of Paste & Import Subtree.
+        </p>
+
+        <p>
+            <strong>Import:</strong> You can now only import data as a child node of the selected node.
+        </p>
+
+
+        <p>
+            <strong>Paste:</strong> You can choose between pasting as a child or replacing the entire Node and all it's
+            Descendants.
+        </p>
+
+        <img src="assets/images/copy-paste.png"
+             width="100%">
+
+        <div class="warning">
+            <h3>Deprecation Warning</h3>
+            <p>Copy & Paste & Import will soon be deprecated, in place of being able to link gen-maps together.</p>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
     <div>
         <h2>Country Selector</h2>
         <p>You can now select the country that the Group is located in.</p>

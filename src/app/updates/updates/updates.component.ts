@@ -10,7 +10,7 @@ import { UpdatesService } from '../updates.service';
 })
 export class UpdatesComponent implements OnInit {
 
-    private updateKey = 'update-v1';
+    private updateKey = 'update-v2';
 
     constructor(
         private dialog: MatDialog,

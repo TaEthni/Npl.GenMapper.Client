@@ -224,14 +224,31 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         this.snackBar.open(this.locale.t('Common_CopiedNodeToClipboard'), this.locale.t('Common_Ok'), { duration: 5000 });
     }
 
-    public onPasteNode(node: GNode): void {
+    public onReplaceNode(node: GNode): void {
+        const originalData = cloneDeep(this.nodeTree.getData());
+        const clonedData = this.nodeClipboard.getValue();
+
+        this.nodeTree.replaceNode(node, clonedData);
+
+        this.changeGraph(this.nodeTree.getData()).subscribe(() => {
+            this.snackBar
+                .open(this.locale.t('Common_NodeHasBeenReplaced'), this.locale.t('Common_Undo'), { duration: 20000 })
+                .onAction()
+                .subscribe(() => {
+                    this.nodeTree.createTree(originalData);
+                    this.onGraphChange(this.nodeTree.getData());
+                });
+        });
+    }
+
+    public onPasteAsChildNode(node: GNode): void {
         const originalData = cloneDeep(this.nodeTree.getData());
         const clonedData = this.nodeClipboard.getValue();
 
         this.nodeTree.insertChildNodes(node, clonedData);
         this.changeGraph(this.nodeTree.getData()).subscribe(() => {
             this.snackBar
-                .open(this.locale.t('Common_NodeHasBeenReplaces'), this.locale.t('Common_Undo'), { duration: 20000 })
+                .open(this.locale.t('Common_ChildNodeAdded'), this.locale.t('Common_Undo'), { duration: 20000 })
                 .onAction()
                 .subscribe(() => {
                     this.nodeTree.createTree(originalData);

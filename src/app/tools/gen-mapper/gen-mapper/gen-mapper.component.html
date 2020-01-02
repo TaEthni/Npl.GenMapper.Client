@@ -13,7 +13,8 @@
                          [node]="node"
                          [hideActions]="view === viewTypes.WorldMap"
                          (copyNode)="onCopyNode($event)"
-                         (pasteNode)="onPasteNode($event)"
+                         (replaceNode)="onReplaceNode($event)"
+                         (pasteAsChildNode)="onPasteAsChildNode($event)"
                          (updateNode)="onUpdateNode($event)"
                          (deleteNode)="onDeleteNode($event)"
                          (importSubtree)="onImportSubtree($event)"></app-node-drawer>

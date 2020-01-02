@@ -91,6 +91,11 @@ export class NodeTreeService {
     }
 
     public removeNode(node: GNode): void {
+        this.removeNodeAndDescendants(node);
+        this.createTree(this.rawData);
+    }
+
+    private removeNodeAndDescendants(node: GNode): void {
         const nodeDatum = this.nodes.find(d => d.data.id === node.id);
         const nodesToDelete = nodeDatum.descendants();
 
@@ -99,8 +104,6 @@ export class NodeTreeService {
             const index = this.rawData.indexOf(raw);
             this.rawData.splice(index, 1);
         });
-
-        this.createTree(this.rawData);
     }
 
     public cloneNodeTree(node: GNode): GNode[] {
@@ -160,6 +163,20 @@ export class NodeTreeService {
         }
 
         root.parentId = newParentNode.id;
+        this.rawData = this.rawData.concat(data);
+        this.createTree(this.rawData);
+    }
+
+    public replaceNode(nodeToReplace: GNode, childNodes: GNode[]): void {
+        const data = this.cloneData(childNodes);
+        const root = data.find(d => !d.parentId);
+
+        if (!root) {
+            throw new Error('(insertChildNodes) requires a root node without a parentId');
+        }
+
+        root.parentId = nodeToReplace.parentId;
+        this.removeNodeAndDescendants(nodeToReplace);
         this.rawData = this.rawData.concat(data);
         this.createTree(this.rawData);
     }

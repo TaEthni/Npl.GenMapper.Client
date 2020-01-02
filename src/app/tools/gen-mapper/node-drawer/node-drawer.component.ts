@@ -38,7 +38,10 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     public hideActions: boolean;
 
     @Output()
-    public pasteNode = new EventEmitter<GNode>();
+    public pasteAsChildNode = new EventEmitter<GNode>();
+
+    @Output()
+    public replaceNode = new EventEmitter<GNode>();
 
     @Output()
     public copyNode = new EventEmitter<GNode>();
@@ -152,18 +155,35 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         this.genMapper.setNode(null);
     }
 
-    public onPasteNode(): void {
+    public onReplaceNode(): void {
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: {
-                    title: this.localeService.t('Message_confirmPasteNode'),
-                    alert: this.localeService.t('Message_confirmPasteNodeWarning'),
+                    title: this.localeService.t('Message_confirmReplaceNode'),
+                    alert: this.localeService.t('Message_confirmReplaceNodeWarning'),
                 }
             })
             .afterClosed()
             .subscribe(result => {
                 if (result) {
-                    this.pasteNode.emit(this.node);
+                    this.replaceNode.emit(this.node);
+                    this.drawer.close();
+                }
+            });
+    }
+
+    public onPastAsChildNode(): void {
+        this.dialog
+            .open(ConfirmDialogComponent, {
+                data: {
+                    title: this.localeService.t('Message_confirmPasteAsChildNode'),
+                    alert: this.localeService.t('Message_confirmPasteAsChildNodeWarning'),
+                }
+            })
+            .afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.pasteAsChildNode.emit(this.node);
                     this.drawer.close();
                 }
             });

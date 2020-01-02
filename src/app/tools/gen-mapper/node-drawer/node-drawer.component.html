@@ -37,8 +37,18 @@
         </button>
 
         <ng-container *ngIf="isNodeInClipboard">
+            <mat-menu #pasteMenu="matMenu">
+                <button mat-menu-item
+                        (click)="onReplaceNode()">
+                    {{'Common_ReplaceCurrentNode' | locale | async}}
+                </button>
+                <button mat-menu-item
+                        (click)="onPastAsChildNode()">
+                    {{'Common_PasteAsChildNode' | locale | async}}
+                </button>
+            </mat-menu>
             <button mat-stroked-button
-                    (click)="onPasteNode()">
+                    [matMenuTriggerFor]="pasteMenu">
                 {{'Common_Paste' | locale | async}}
             </button>
         </ng-container>
