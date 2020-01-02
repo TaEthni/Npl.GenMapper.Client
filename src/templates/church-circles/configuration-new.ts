@@ -248,6 +248,10 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             canModify: false,
         },
         {
+            id: 'peopleGroupsNames',
+            canModify: false,
+        },
+        {
             id: 'gospelShares',
             i18nRef: 'Common_GospelShares',
             defaultValue: 0,

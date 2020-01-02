@@ -77,11 +77,6 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
         if (this.form.get('location')) {
             this.form.get('location').disable();
         }
-
-        if (this.form.get('peopleGroups')) {
-            this.form.get('peopleGroups').disable();
-            this.form.get('peopleGroupsNames').disable();
-        }
     }
 
     public onFieldClick(field: GMField): void {
