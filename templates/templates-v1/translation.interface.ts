@@ -48,7 +48,7 @@ export interface Translation {
     Common_PleaseLogIn: string;
     tools: string;
     Common_UnderMaintenance: string;
-    Common_NodeHasBeenReplaces: string;
+    Common_NodeHasBeenReplaced: string;
     Common_SaveChanges: string;
     Common_SaveChangesQuestion: string;
     Common_SubtreeImported: string;

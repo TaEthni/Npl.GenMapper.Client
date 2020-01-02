@@ -245,7 +245,6 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
         },
         {
             id: 'peopleGroups',
-            type: ControlType.peopleGroups,
             canModify: false,
         },
         {
