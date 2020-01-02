@@ -277,6 +277,11 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             canModify: false,
         },
         {
+            id: 'peopleGroups',
+            type: ControlType.peopleGroups,
+            canModify: false,
+        },
+        {
             id: 'church',
             i18nRef: 'Common_IsChurch',
             defaultValue: false,
