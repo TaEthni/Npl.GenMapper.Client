@@ -244,6 +244,15 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             canModify: true
         },
         {
+            id: 'peopleGroups',
+            type: ControlType.peopleGroups,
+            canModify: false,
+        },
+        {
+            id: 'peopleGroupsNames',
+            canModify: false,
+        },
+        {
             id: 'gospelShares',
             i18nRef: 'Common_GospelShares',
             defaultValue: 0,
