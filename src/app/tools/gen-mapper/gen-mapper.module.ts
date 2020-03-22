@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PeopleGroupSelectorModule } from '@shared/people-group-selector/people-group-selector.module';
 import { SharedModule } from '@shared/shared.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { environment } from '../../../environments/environment';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from './dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
@@ -35,7 +37,6 @@ import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
 import { SavingErrorSnackbarComponent } from './snackbars/saving-error-snackbar/saving-error-snackbar.component';
 import { SavingSnackbarComponent } from './snackbars/saving-snackbar/saving-snackbar.component';
-import { environment } from '../../../environments/environment';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { environment } from '../../../environments/environment';
         ReactiveFormsModule,
         RouterModule,
         NgxChartsModule,
+        PeopleGroupSelectorModule,
         AgmCoreModule.forRoot({
             apiKey: environment.apiKey,
             libraries: ['places']

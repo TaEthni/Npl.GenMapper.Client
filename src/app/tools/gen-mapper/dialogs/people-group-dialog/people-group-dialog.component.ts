@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { take, takeUntil } from 'rxjs/operators';
-
-import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupService } from './people-group.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupModelItem, PeopleGroupService } from '@core/people-group.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { COUNTRIES } from '@templates';
+import { take, takeUntil } from 'rxjs/operators';
+
 
 export interface PeopleGroupDialogResponse {
     peids: number[];
@@ -19,7 +19,7 @@ export interface PeopleGroupDialogResponse {
 export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit {
     public peopleGroupConfig: PeopleGroupConfig;
     public peopleGroups: PeopleGroupModel[];
-    public selectedPeopleGroups: PeopleGroupModel[];
+    public selectedPeopleGroups: PeopleGroupModelItem[];
     public countries: string[];
     public country: string;
     public isLoading: boolean;
@@ -50,9 +50,9 @@ export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit
 
                 if (this.data.peids && this.data.peids.length > 0) {
                     const first = this.peopleGroupService.getByPeid(this.data.peids[0]);
-                    this.country = this.countries.find(c => c === first.attributes.Ctry);
+                    this.country = this.countries.find(c => c === first.Ctry);
                     this.selectedPeopleGroups = result.features.filter(f => {
-                        return this.data.peids.includes(f.attributes.PEID);
+                        return this.data.peids.includes(f.PEID);
                     });
 
                     this.onCountrySelected(this.country);
@@ -66,8 +66,8 @@ export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit
 
         if (this.selectedPeopleGroups) {
             this.selectedPeopleGroups.forEach(p => {
-                peids.push(p.attributes.PEID);
-                names.push(p.attributes.NmDisp);
+                peids.push(p.PEID);
+                names.push(p.NmDisp);
             });
         }
 
@@ -79,11 +79,11 @@ export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit
     }
 
     public onCountrySelected(country: string): void {
-        this.peopleGroups = this.peopleGroupConfig.byCountry[country];
+        this.peopleGroups = this.peopleGroupConfig.features[country];
         this.country = country;
     }
 
-    public onPeopleGroupsChange(event: PeopleGroupModel[]): void {
+    public onPeopleGroupsChange(event: PeopleGroupModelItem[]): void {
         this.selectedPeopleGroups = event;
     }
 

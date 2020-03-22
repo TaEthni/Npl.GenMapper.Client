@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
+import { Template } from '@models/template.model';
 import { DocumentDto } from '@shared/entity/document.model';
 import { Entity } from '@shared/entity/entity.model';
 import { assign, groupBy } from 'lodash';
@@ -7,10 +8,9 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delayWhen, map, tap } from 'rxjs/operators';
 import { DocumentService } from './document.service';
 import { GNode } from './gen-mapper.interface';
-import { TemplateUtils } from './template-utils';
-import { Template } from './template.model';
-import { JSONToCSV } from './resources/json-to-csv';
 import { CSVToJSON } from './resources/csv-to-json';
+import { JSONToCSV } from './resources/json-to-csv';
+import { TemplateUtils } from './template-utils';
 
 const storageKey = 'offline-locall-save-';
 

@@ -5,6 +5,8 @@ export interface Country {
     ['alpha-3']: string;
 }
 
+export const COUNTRY_CODE = 'alpha-3';
+
 export const COUNTRIES = [
     {
         "name": "Afghanistan",

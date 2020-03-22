@@ -7,7 +7,7 @@ import { EntityService } from '@core/entity.service';
 import { LocaleService } from '@core/locale.service';
 import { Entity } from '@shared/entity/entity.model';
 import { User } from '@shared/entity/user.model';
-import { LocalePipe } from '@shared/locale.pipe';
+import { LocalePipe } from '@shared/locale-pipe/locale.pipe';
 import { assign } from 'lodash';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';

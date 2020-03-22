@@ -1,0 +1,71 @@
+<div mat-dialog-title>People Group Picker</div>
+
+<div mat-dialog-content>
+
+    <ng-container *ngIf="isLoading; then loadingTemplate; else defaultTemplate"></ng-container>
+
+    <ng-template #loadingTemplate>
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             fxLayoutGap="50px">
+            <p><i>This may take a while</i></p>
+            <mat-spinner intermittent></mat-spinner>
+            <p></p>
+        </div>
+    </ng-template>
+
+    <ng-template #defaultTemplate>
+        <div fxLayout="row">
+            <div fxFlex></div>
+            <div class="pg-select">
+                <button mat-flat-button
+                        color="primary"
+                        (click)="matSelect.open()">
+                    Add People Group
+
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-form-field>
+                    <mat-label>{{'Common_PeopleGroups' | locale | async}}</mat-label>
+                    <mat-select #matSelect
+                                (selectionChange)="addPeopleGroup($event)">
+                        <mat-option *ngFor="let option of peopleGroups"
+                                    [value]="option">
+                            {{data.country}}: {{option.NmDisp}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-tab-group>
+            <ng-container *ngFor="let fieldSelection of field.selection">
+                <mat-tab [label]="fieldSelection.i18nValue">
+                    <ng-template matTabContent>
+                        <app-people-group-selection [maxValue]="data.maxValues[fieldSelection.id]"
+                                                    [formArray]="selection"
+                                                    [fieldSelection]="fieldSelection"
+                                                    [countryName]="countryName">
+                        </app-people-group-selection>
+                    </ng-template>
+                </mat-tab>
+            </ng-container>
+        </mat-tab-group>
+    </ng-template>
+</div>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="start center"
+     fxLayoutGap="24px">
+    <div fxFlex></div>
+    <button mat-raised-button
+            color="primary"
+            (click)="continue()">
+        {{'Common_Continue' | locale | async}}
+    </button>
+    <button mat-button
+            mat-dialog-close>
+        {{'Common_Cancel' | locale | async}}
+    </button>
+</div>

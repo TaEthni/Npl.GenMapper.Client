@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
-import { PeopleGroupModel } from '../people-group.service';
+import { PeopleGroupModel } from '../../../../../core/people-group.service';
 
 
 @Component({

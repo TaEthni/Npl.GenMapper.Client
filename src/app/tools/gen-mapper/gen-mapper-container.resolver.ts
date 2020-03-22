@@ -1,14 +1,14 @@
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
-
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { Template } from '@models/template.model';
 import { GMTemplate } from '@templates';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/delay';
 import { Observable } from 'rxjs/Observable';
-
-import { GenMapperService, GenMapperConfig } from './gen-mapper.service';
+import { GenMapperConfig, GenMapperService } from './gen-mapper.service';
 import { TemplateService } from './template.service';
-import { Template } from './template.model';
+
+
 
 @Injectable()
 export class GenMapperContainerResolver implements Resolve<Observable<GenMapperConfig>> {

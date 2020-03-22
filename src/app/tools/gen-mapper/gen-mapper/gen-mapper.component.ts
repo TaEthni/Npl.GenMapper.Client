@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { Template } from '@models/template.model';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { cloneDeep, some } from 'lodash';
@@ -13,6 +14,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from '../dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
+import { PeopleGroupService } from '../../../core/people-group.service';
 import { GenMapperContainerComponent } from '../gen-mapper-container/gen-mapper-container.component';
 import { GenMapperGraphComponent } from '../gen-mapper-graph/gen-mapper-graph.component';
 import { GenMapperView } from '../gen-mapper-view.enum';
@@ -20,19 +22,10 @@ import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { NodeTreeService } from '../node-tree/node-tree.service';
-import {
-    SavingErrorSnackbarComponent,
-    SavingErrorSnackBarConfig
-} from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
+import { CSVToJSON } from '../resources/csv-to-json';
+import { SavingErrorSnackbarComponent, SavingErrorSnackBarConfig } from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
 import { SavingSnackbarComponent, SavingSnackBarConfig } from '../snackbars/saving-snackbar/saving-snackbar.component';
 import { TemplateUtils } from '../template-utils';
-import { Template } from '../template.model';
-import { CSVToJSON } from '../resources/csv-to-json';
-import { HttpClient } from '@angular/common/http';
-import { BaseUrl } from '@core/entity.service';
-import { EntityType } from '@shared/entity/entity.model';
-import { PeopleGroupService } from '../dialogs/people-group-dialog/people-group.service';
-import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 
 @Component({
     selector: 'app-gen-mapper',

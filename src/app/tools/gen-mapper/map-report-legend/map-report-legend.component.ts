@@ -1,9 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Device } from '@core/platform';
+import { Template } from '@models/template.model';
 import { DocumentDto } from '@shared/entity/document.model';
 import { GMReport } from '@templates';
-import { Template } from '../template.model';
-
 
 @Component({
     selector: 'app-map-report-legend',

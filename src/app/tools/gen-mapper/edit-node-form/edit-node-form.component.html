@@ -54,7 +54,7 @@
                                        [formControl]="form.get(field.id)" />
 
                                 <mat-icon matSuffix
-                                          class="clear-field"
+                                          class="form-field-clear"
                                           (click)="onClearFieldClick($event, field)"
                                           *ngIf="form.get(field.id).value">clear</mat-icon>
 
@@ -94,11 +94,20 @@
                                             </div>
                                             <pre><code>{{form.get('date').value}}</code></pre>
                                         </div>
-                                        <mat-icon class="clear-field"
+                                        <mat-icon class="form-field-clear"
                                                   (click)="removeDeprecatedDate()">clear</mat-icon>
                                     </div>
                                 </ng-container>
                             </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.type === types.peopleGroupsV2">
+                            <app-people-group-selector-control [group]="form.get('peopleGroupsV2')"
+                                                               [label]="field.i18nValue"
+                                                               [country]="form.get('country').value"
+                                                               [template]="template"
+                                                               [form]="form">
+                            </app-people-group-selector-control>
                         </ng-container>
 
                         <ng-container *ngIf="field.type === types.peidSelect">
@@ -114,7 +123,7 @@
                                        [formControl]="form.get('peopleGroupsNames')" />
 
                                 <mat-icon matSuffix
-                                          class="clear-field"
+                                          class="form-field-clear"
                                           (click)="onClearFieldClick($event, field)"
                                           *ngIf="form.get(field.id).value">clear</mat-icon>
 

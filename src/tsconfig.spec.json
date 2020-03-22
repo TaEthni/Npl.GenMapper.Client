@@ -16,6 +16,9 @@
             "@admin/*": [
                 "app/admin/*"
             ],
+            "@models/*": [
+                "app/shared/models/*"
+            ],
             "@templates": [
                 "templates/index"
             ]

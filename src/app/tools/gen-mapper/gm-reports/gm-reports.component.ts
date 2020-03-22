@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { LocaleService } from '@core/locale.service';
+import { Template } from '@models/template.model';
 import { DocumentDto } from '@shared/entity/document.model';
 import { ControlType, GMReport } from '@templates';
-import { Template } from '../template.model';
 
 
 @Component({

@@ -1,4 +1,4 @@
-@import '~styles/colors';
+@import "~styles/colors";
 
 :host {
     display: flex;
@@ -23,24 +23,6 @@
 
     .mat-form-field {
         width: 100%;
-    }
-
-    .clear-field {
-        margin-top: 5px;
-        color: mat-color($warn);
-        cursor: pointer;
-    }
-
-    .device-desktop & .mat-form-field {
-        .clear-field {
-            opacity: 0;
-        }
-
-        &:hover {
-            .clear-field {
-                opacity: 1;
-            }
-        }
     }
 
     .mat-slide-toggle::ng-deep {

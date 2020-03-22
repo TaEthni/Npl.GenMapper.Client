@@ -1,9 +1,9 @@
+import { Template } from '@models/template.model';
 import { ControlType, GenMapperTemplates, GMStreamAttribute, GMTemplate, translations } from '@templates';
-import { csvFormatRows, local } from 'd3';
+import { csvFormatRows } from 'd3';
 import { keyBy } from 'lodash';
 import * as uuid from 'uuid/v4';
 import { GNode } from './gen-mapper.interface';
-import { Template } from './template.model';
 
 export const GenMapperTemplatesByFormat = {};
 GenMapperTemplates.forEach(t => (GenMapperTemplatesByFormat[t.id] = t));
@@ -104,6 +104,14 @@ export namespace TemplateUtils {
                         o.i18nValue = locale.t(o.i18nRef);
                     }
                 });
+            }
+
+            if (field.selection) {
+                field.selection.forEach(s => {
+                    if (s.i18nRef) {
+                        s.i18nValue = locale.t(s.i18nRef);
+                    }
+                })
             }
         });
     }

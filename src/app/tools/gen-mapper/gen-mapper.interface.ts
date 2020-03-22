@@ -26,6 +26,7 @@ export interface GNode {
     hasChildNodes?: boolean;
     nodeOrder?: number;
     threeThirds?: any;
+    peopleGroupsV2?: any;
 }
 
 export interface GMGraphConfig {

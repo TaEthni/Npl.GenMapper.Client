@@ -8,7 +8,6 @@ import { map, startWith } from 'rxjs/operators';
     name: 'locale'
 })
 export class LocalePipe extends Unsubscribable implements PipeTransform {
-
     constructor(
         private localeService: LocaleService
     ) { super(); }

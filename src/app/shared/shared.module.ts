@@ -4,26 +4,25 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DonateButtonComponent } from './donate-button/donate-button.component';
 import { FileInputDialogComponent } from './file-input-dialog/file-input-dialog.component';
 import { JoinListPipe } from './join-list.pipe';
-import { LocalePipe } from './locale.pipe';
+import { LocalePipeModule } from './locale-pipe/locale-pipe.module';
 import { MaterialModule } from './material/material.module';
 import { NplLogoComponent } from './npl-logo/npl-logo.component';
 import { NumberInputDirective } from './number-input.directive';
 import { SidenavToggleComponent } from './sidenav-toggle/sidenav-toggle.component';
 import { SortByDatePipe } from './sort-by-date.pipe';
 
-
 @NgModule({
     imports: [
         CommonModule,
         FlexLayoutModule,
-        MaterialModule
+        MaterialModule,
+        LocalePipeModule
     ],
     declarations: [
         SidenavToggleComponent,
         SortByDatePipe,
         FileInputDialogComponent,
         NplLogoComponent,
-        LocalePipe,
         JoinListPipe,
         DonateButtonComponent,
         NumberInputDirective,
@@ -35,10 +34,10 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         SortByDatePipe,
         FileInputDialogComponent,
         NplLogoComponent,
-        LocalePipe,
+        LocalePipeModule,
         JoinListPipe,
         DonateButtonComponent,
-        NumberInputDirective
+        NumberInputDirective,
     ],
     entryComponents: [
         FileInputDialogComponent

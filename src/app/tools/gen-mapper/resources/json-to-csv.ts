@@ -1,7 +1,7 @@
-import { GNode } from "../gen-mapper.interface";
-import { Template } from "../template.model";
-import { csvFormatRows } from "d3";
+import { Template } from "@models/template.model";
 import { ControlType } from "@templates";
+import { csvFormatRows } from "d3";
+import { GNode } from "../gen-mapper.interface";
 
 export function JSONToCSV(data: GNode[], template: Template): string {
 
@@ -17,22 +17,37 @@ export function JSONToCSV(data: GNode[], template: Template): string {
 
                 // parsign checkboxes in CSV from 1&0 to true&false
                 template.fields.forEach(field => {
-                    if (field && field.type === ControlType.checkbox) {
-                        out[field.id] = d[field.id] ? '1' : '0';
+                    let value;
+
+                    switch (field.type) {
+                        case ControlType.checkbox:
+                            value = d[field.id] ? '1' : '0';
+                            break;
+
+                        case ControlType.date:
+                            if (d[field.id]) {
+                                value = d[field.id].toString();
+                            }
+                            else {
+                                value = null;
+                            }
+                            break;
+
+                        case ControlType.peopleGroupsV2:
+                            if (d[field.id] && typeof d[field.id] === 'object') {
+                                console.log(d[field.id]);
+                                value = JSON.stringify(d[field.id]);
+                            } else if (!value) {
+                                value = '';
+                            }
+                            break;
+
+                        default:
+                            value = d[field.id];
+                            break;
                     }
 
-                    else if (field.type === ControlType.date) {
-                        if (d[field.id]) {
-                            out[field.id] = d[field.id].toString();
-                        }
-                        else {
-                            out[field.id] = null;
-                        }
-                    }
-
-                    else {
-                        out[field.id] = d[field.id];
-                    }
+                    out[field.id] = value;
 
                     output.push(out[field.id]);
                 });

@@ -1,0 +1,42 @@
+@import "~styles/mixins";
+@import "~styles/colors";
+
+:host {
+    .slider {
+        position: relative;
+        min-width: 300px;
+
+        .mat-slider {
+            width: 100%;
+        }
+    }
+
+    .mat-list {
+        padding-top: 24px;
+    }
+
+    .mat-list-item:hover {
+        background-color: mat-color(map-get($theme, background), hover);
+    }
+
+    .fieldSelection-value {
+        width: 60px;
+    }
+
+    .fieldSelection-totals {
+        display: block;
+        font-weight: bold;
+
+        .error {
+            color: mat-color($warn);
+        }
+
+        .label {
+            opacity: 0.6;
+        }
+
+        .numbers {
+            font-size: 24px;
+        }
+    }
+}

@@ -7,6 +7,7 @@
         </span>
     </mat-toolbar-row>
 </mat-toolbar>
+
 <div class="save-button">
     <div class="animated-button-group"
          [class.slide-down]="form?.dirty"
@@ -25,12 +26,32 @@
         </button>
     </div>
 </div>
-<div>
+<div fxLayout="column"
+     class="drawer-content">
+    <ng-container *ngIf="form">
+        <mat-tab-group fxFlex>
+            <mat-tab label="{{'Common_Details' | locale | async}}">
+                <app-edit-node-form [form]="form"
+                                    [fields]="fields"
+                                    [nodes]="document?.nodes"
+                                    [model]="clonedNode"
+                                    [template]="template"></app-edit-node-form>
+            </mat-tab>
+            <mat-tab label="{{'Common_PeopleGroups' | locale | async}}">
+                <ng-template matTabContent>
+                    <app-people-group-selector [group]="form.get('peopleGroupsV2')"
+                                               [country]="form.get('country').value"
+                                               [template]="template"
+                                               [form]="form"></app-people-group-selector>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </ng-container>
+
     <div fxLayout="row"
          fxLayoutGap="10px"
          class="drawer-actions"
          *ngIf="!hideActions">
-
         <button mat-stroked-button
                 (click)="onCopyNode()">
             {{'Common_Copy' | locale | async}}
@@ -61,12 +82,6 @@
             {{'Common_ImportSubtree' | locale | async}}
         </button>
     </div>
-    <ng-container *ngIf="form">
-        <app-edit-node-form [form]="form"
-                            [fields]="fields"
-                            [nodes]="document?.nodes"
-                            [model]="clonedNode"></app-edit-node-form>
-    </ng-container>
     <div fxLayout="row">
         <button *ngIf="node && !node.isRoot"
                 mat-raised-button

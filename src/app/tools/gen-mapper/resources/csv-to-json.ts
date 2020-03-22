@@ -1,7 +1,7 @@
-import { GNode } from "../gen-mapper.interface";
-import { csvParse } from "d3";
-import { Template } from "../template.model";
+import { Template } from "@models/template.model";
 import { ControlType } from "@templates";
+import { csvParse } from "d3";
+import { GNode } from "../gen-mapper.interface";
 
 const isNumberReg = /\d/;
 
@@ -21,6 +21,13 @@ export function CSVToJSON(csv: string, template: Template): GNode[] {
 
                 if (field.hasOwnProperty('defaultValue')) {
                     node[field.id] = field.defaultValue;
+                }
+            }
+
+            else if (field.type === ControlType.peopleGroupsV2) {
+                if (row[field.id]) {
+                    node[field.id] = getJSONValue(row[field.id]);
+                    console.log(node[field.id]);
                 }
             }
 
@@ -90,4 +97,14 @@ export function CSVToJSON(csv: string, template: Template): GNode[] {
 function getBooleanValue(value: string = ''): boolean {
     value = value.toUpperCase();
     return value === 'TRUE' || value === '1';
+}
+
+function getJSONValue(JSONString: string): void {
+    let value;
+    try {
+        value = JSON.parse(JSONString)
+    } catch (er) {
+        value = null;
+    }
+    return value;
 }

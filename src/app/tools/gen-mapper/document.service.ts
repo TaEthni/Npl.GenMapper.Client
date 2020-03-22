@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { EntityService } from '@core/entity.service';
+import { Template } from '@models/template.model';
 import { DocumentDto } from '@shared/entity/document.model';
 import { EntityType } from '@shared/entity/entity.model';
 import { cloneDeep, keyBy } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GNode } from './gen-mapper.interface';
-import { TemplateUtils } from './template-utils';
-import { Template } from './template.model';
-import { TemplateService } from './template.service';
 import { CSVToJSON } from './resources/csv-to-json';
 import { JSONToCSV } from './resources/json-to-csv';
+import { TemplateUtils } from './template-utils';
+import { TemplateService } from './template.service';
 
 @Injectable()
 export class DocumentService {

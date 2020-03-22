@@ -1,8 +1,8 @@
+import { Template } from '@models/template.model';
 import * as d3 from 'd3';
 import { drag, DragBehavior, event as d3Event, HierarchyNode, HierarchyPointNode, select, Selection, tree, TreeLayout, zoom, zoomIdentity, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';
 import { GNode, NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
 import { parseTransform } from './d3-util';
 import { drawLinks } from './draw-links';
 import { drawNodes } from './draw-nodes';

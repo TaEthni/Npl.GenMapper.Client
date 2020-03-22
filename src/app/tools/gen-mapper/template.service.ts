@@ -1,7 +1,7 @@
-import { GMTemplate, GenMapperConfigs, TemplateConfiguration } from '@templates';
 import { Inject, Injectable } from '@angular/core';
-import { GM_TEMPLATES, GM_CONFIGS } from './template.injecttoken';
-import { Template } from './template.model';
+import { Template } from '@models/template.model';
+import { GMTemplate, TemplateConfiguration } from '@templates';
+import { GM_CONFIGS, GM_TEMPLATES } from './template.injecttoken';
 
 const _cachedTemplates = {};
 @Injectable({

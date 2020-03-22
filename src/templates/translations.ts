@@ -7,6 +7,7 @@ export const translations: any = {
             'Common_Mentor': 'Mentor',
             'Common_Account': 'Account',
             'Common_AccountDetails': 'Account Details',
+            'Common_Details': 'Details',
             'Common_Cancel': 'Cancel',
             'Common_ChangePassword': 'Change Password',
             'Common_ConfirmPassword': 'Confirm Password',
@@ -1075,3 +1076,113 @@ export const translations: any = {
         }
     }
 };
+
+// const lang = {
+//     "ar-ae": "Arabic (U.A.E.)",
+//     "ar-bh": "Arabic (Bahrain)",
+//     "ar-dz": "Arabic (Algeria)",
+//     "ar-eg": "Arabic (Egypt)",
+//     "ar-iq": "Arabic (Iraq)",
+//     "ar-jo": "Arabic (Jordan)",
+//     "ar-kw": "Arabic (Kuwait)",
+//     "ar-lb": "Arabic (Lebanon)",
+//     "ar-ly": "Arabic (Libya)",
+//     "ar-ma": "Arabic (Morocco)",
+//     "ar-om": "Arabic (Oman)",
+//     "ar-qa": "Arabic (Qatar)",
+//     "ar-sa": "Arabic (Saudi Arabia)",
+//     "ar-sy": "Arabic (Syria)",
+//     "ar-tn": "Arabic (Tunisia)",
+//     "ar-ye": "Arabic (Yemen)",
+//     "as": "Assamese",
+//     "bn": "Bengali - India",
+//     "cs": "Czech",
+//     "de-DE": "German - Germany",
+//     "en-GB": "English - Great Britain",
+//     "en-US": "English",
+//     "es-ES": "Spanish - Spain (Traditional)",
+//     "es-MX": "Spanish - Mexico",
+//     "fa": "Farsi",
+//     "fr-FR": "French - France",
+//     "gu": "Gujarati",
+//     "hi": "Hindi",
+//     "it-IT": "Italian - Italy",
+//     "ja-JP": "Japanese",
+//     "kn": "Khmer",
+//     "ko": "Korean",
+//     "ky": "Kyrgyz",
+//     "lo": "Lao",
+//     "ml": "Malayalam",
+//     "mr": "Marathi",
+//     "ne": "Nepali",
+//     "or": "Oriya",
+//     "pa": "Punjabi",
+//     "pl": "Polish",
+//     "pt-BR": "Portuguese - Brazil",
+//     "pt-PT": "Portuguese - Portugal",
+//     "ro": "Romanian",
+//     "ru": "Russian",
+//     "si": "Sinhala",
+//     "sq": "Albanian",
+//     "ta": "Tamil",
+//     "te": "Telugu",
+//     "th": "Thai",
+//     "ur": "Urdu",
+//     "zh-CN": "Chinese - China",
+//     "zh-TW": "Chinese - Taiwan",
+// }
+
+// const l = `
+// ar-ae: Arabic (U.A.E.)
+// ar-bh: Arabic (Bahrain)
+// ar-dz: Arabic (Algeria)
+// ar-eg: Arabic (Egypt)
+// ar-iq: Arabic (Iraq)
+// ar-jo: Arabic (Jordan)
+// ar-kw: Arabic (Kuwait)
+// ar-lb: Arabic (Lebanon)
+// ar-ly: Arabic (Libya)
+// ar-ma: Arabic (Morocco)
+// ar-om: Arabic (Oman)
+// ar-qa: Arabic (Qatar)
+// ar-sa: Arabic (Saudi Arabia)
+// ar-sy: Arabic (Syria)
+// ar-tn: Arabic (Tunisia)
+// ar-ye: Arabic (Yemen)
+// as: Assamese
+// bn: Bengali - India
+// cs: Czech
+// de-DE: German - Germany
+// en-GB: English - Great Britain
+// en-US: English
+// es-ES: Spanish - Spain (Traditional)
+// es-MX: Spanish - Mexico
+// fa: Farsi
+// fr-FR: French - France
+// gu: Gujarati
+// hi: Hindi
+// it-IT: Italian - Italy
+// ja-JP: Japanese
+// kn: Khmer
+// ko: Korean
+// ky: Kyrgyz
+// lo: Lao
+// ml: Malayalam
+// mr: Marathi
+// ne: Nepali
+// or: Oriya
+// pa: Punjabi
+// pl: Polish
+// pt-BR: Portuguese - Brazil
+// pt-PT: Portuguese - Portugal
+// ro: Romanian
+// ru: Russian
+// si: Sinhala
+// sq: Albanian
+// ta: Tamil
+// te: Telugu
+// th: Thai
+// ur: Urdu
+// zh-CN: Chinese - China
+// zh-TW: Chinese - Taiwan
+// `

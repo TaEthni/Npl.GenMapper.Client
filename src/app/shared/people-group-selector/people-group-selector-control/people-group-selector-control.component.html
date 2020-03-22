@@ -1,0 +1,22 @@
+<mat-form-field no-error
+                (click)="formFieldClick($event)"
+                class="people-group-select">
+    <mat-label>
+        {{label}}
+    </mat-label>
+
+    <input type="text"
+           matInput
+           readonly="readonly"
+           autocomplete="stopstop"
+           name="stop-autocomplete"
+           [formControl]="namesControl" />
+
+    <mat-icon matSuffix
+              class="form-field-clear"
+              (click)="clearFieldClick($event, field)"
+              *ngIf="namesControl.value && namesControl.value !== 'Unknown'">clear</mat-icon>
+
+    <mat-icon matSuffix
+              class="peid-icon">people</mat-icon>
+</mat-form-field>

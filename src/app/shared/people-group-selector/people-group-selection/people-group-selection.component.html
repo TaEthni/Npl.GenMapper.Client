@@ -1,0 +1,54 @@
+<div class="fieldSelection-totals"
+     fxLayout="row"
+     fxLayoutAlign="end center"
+     fxLayoutGap="10px">
+    <div class="label">
+        {{fieldSelection.i18nValue}}:
+    </div>
+    <div fxLayout="row"
+         fxLayoutGap="3px"
+         class="numbers"
+         [class.error]="maxValue < selectionValue">
+        <span>{{maxValue}}</span>
+        <ng-container *ngIf="maxValue > selectionValue">
+            <span>&gt;</span>
+        </ng-container>
+        <ng-container *ngIf="maxValue < selectionValue">
+            <span>&lt;</span>
+        </ng-container>
+        <ng-container *ngIf="maxValue === selectionValue">
+            <span>=</span>
+        </ng-container>
+        <span>{{selectionValue}}</span>
+    </div>
+</div>
+
+<mat-list>
+    <ng-container *ngFor="let control of formArray.controls">
+        <mat-list-item>
+            <div>{{countryName}}: {{control.get('name').value}}</div>
+            <div fxFlex></div>
+            <div fxFlex
+                 class="slider">
+                <mat-slider min="0"
+                            thumbLabel
+                            tickInterval="1"
+                            [max]="maxValue"
+                            [formControl]="control.get('value').get(fieldSelection.id)"
+                            (input)="onSliderInput($event, control)">
+                </mat-slider>
+            </div>
+            <div class="fieldSelection-value">
+                {{control.get('value').get(fieldSelection.id).value}}
+            </div>
+
+            <div>
+                <button mat-icon-button
+                        color="warn"
+                        (click)="deletePg(control)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </mat-list-item>
+    </ng-container>
+</mat-list>

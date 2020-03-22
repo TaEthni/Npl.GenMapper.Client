@@ -1,8 +1,8 @@
+import { Template } from '@models/template.model';
 import { ControlType } from '@templates';
 import { select, Selection } from 'd3';
 import moment from 'moment';
 import { NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
 import { applySVGAttrsAndStyle } from './d3-util';
 import { drawAction } from './draw-action';
 

@@ -33,6 +33,9 @@
             "@admin/*": [
                 "src/app/admin/*"
             ],
+            "@models/*": [
+                "src/app/shared/models/*"
+            ],
             "@templates": [
                 "src/templates/index"
             ],

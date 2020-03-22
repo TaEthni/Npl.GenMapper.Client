@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Template } from '@models/template.model';
 import { HierarchyPointNode, stratify, tree, TreeLayout } from 'd3';
 import { cloneDeep, Dictionary, keyBy } from 'lodash';
 import uuid from 'uuid';
 import { GNode, NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
 
 @Injectable({
     providedIn: 'root'

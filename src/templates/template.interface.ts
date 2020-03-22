@@ -15,7 +15,7 @@ export enum ControlType {
     date = 'date',
     countrySelector = 'countrySelector',
     peopleGroups = 'peopleGroups',
-
+    peopleGroupsV2 = 'peopleGroupsV2',
     // Internal
     parentSelector = 'parentSelector',
     none = 'none'
@@ -174,7 +174,33 @@ export interface GMField {
 
     // Whether the field is required or not
     nullable?: boolean;
+
+    selection?: GMFieldSelection[]
 }
+
+export interface GMFieldSelection {
+    id: string;
+
+    // i18n key for displaying the field selection label
+    i18nRef?: string;
+    i18nValue?: string; // mapped on client
+    fieldRef?: string;
+    value: number;
+    iconRef?: string; // reference to configurations icon
+}
+
+export interface GMFieldSelectionValue {
+    selection: GMFieldSelectionValueSelection[];
+}
+
+export interface GMFieldSelectionValueSelection {
+    peid: number;
+    name: string;
+    value: {
+        [key: string]: number,
+    }
+}
+
 
 export interface GMFieldOption {
     // Value of the Option
@@ -284,4 +310,3 @@ export interface GMTemplateReport {
     order: number;
     graph: 'pieChart' | 'pieGrid' | 'verticalBarChart';
 }
-

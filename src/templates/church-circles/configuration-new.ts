@@ -243,6 +243,55 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             canModify: false,
         },
         {
+            id: 'peopleGroupsV2',
+            i18nRef: 'Common_PeopleGroups',
+            type: ControlType.peopleGroupsV2,
+            canModify: true,
+            defaultValue: `{
+                selection: [
+                    {
+                        peid: null;
+                        name: 'Unknown';
+                        value: {
+                            attenders: 0,
+                            believers: 0,
+                            baptized: 0,
+                            newlyBaptized: 0
+                        }
+                    }
+                ]
+            }`,
+            selection: [
+                {
+                    id: 'attenders',
+                    i18nRef: 'Common_NumberOfAttenders',
+                    fieldRef: 'attenders',
+                    value: 0,
+                    iconRef: 'attendersIcon',
+                },
+                {
+                    id: 'believers',
+                    i18nRef: 'Common_NumberOfBelievers',
+                    fieldRef: 'believers',
+                    value: 0,
+                    iconRef: 'believersIcon',
+                },
+                {
+                    id: 'baptized',
+                    i18nRef: 'Common_NumberOfBaptized',
+                    fieldRef: 'baptized',
+                    value: 0,
+                    iconRef: 'elementBaptismIcon'
+                },
+                {
+                    id: 'newlyBaptized',
+                    i18nRef: 'Common_NumberOfNewlyBaptized',
+                    fieldRef: 'newlyBaptized',
+                    value: 0,
+                },
+            ]
+        },
+        {
             id: 'peopleGroups',
             canModify: false,
         },

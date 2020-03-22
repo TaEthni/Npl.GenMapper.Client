@@ -4,8 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { Template } from '@models/template.model';
 import { DocumentDto } from '@shared/entity/document.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { CreatePeopleGroupSelectionForm } from '@shared/people-group-selector/form';
 import { GMField } from '@templates';
 import { assign, cloneDeep } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
@@ -13,8 +15,6 @@ import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog
 import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { Template } from '../template.model';
-
 
 @Component({
     selector: 'app-node-drawer',
@@ -99,7 +99,19 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         this.checkClipboard();
         this.clonedNode = cloneDeep(this.node);
         delete this.clonedNode.descendants;
-        this.form.reset(this.clonedNode);
+
+        console.log(this.clonedNode.peopleGroupsV2);
+        console.log(this.node.peopleGroupsV2);
+
+        const pgv2 = CreatePeopleGroupSelectionForm(this.clonedNode.peopleGroupsV2, this.template);
+
+        this.form.reset(this.clonedNode, { emitEvent: false });
+
+        if (this.form.get('peopleGroupsV2')) {
+            this.form.setControl('peopleGroupsV2', pgv2);
+        }
+
+        this.form.updateValueAndValidity();
     }
 
     public onBackdropClick(): void {
@@ -253,6 +265,10 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
             group.placeId = new FormControl(null);
             group.latitude = new FormControl(null);
             group.longitude = new FormControl(null);
+        }
+
+        if (group.peopleGroupsV2) {
+            group.peopleGroupsV2 = CreatePeopleGroupSelectionForm(null, this.template);
         }
 
         this.form = new FormGroup(group);

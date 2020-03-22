@@ -27,6 +27,7 @@
             "@core/(.*)": "<rootDir>/src/app/core/$1",
             "@admin/(.*)": "<rootDir>/src/app/admin/$1",
             "@templates": "<rootDir>/src/templates/index",
+            "@models/(.*)": "<rootDir>/src/shared/models",
             "@agm/core": "<rootDir>/src/app/core/testing/agmcore.mock.ts"
         }
     },

@@ -1,0 +1,23 @@
+@import "~styles/colors";
+
+:host {
+    display: block;
+    width: 100%;
+
+    .mat-form-field {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .mat-form-field::ng-deep {
+        label.mat-form-field-label,
+        input.mat-input-element:disabled {
+            cursor: pointer;
+            color: mat-color($primary);
+        }
+
+        .peid-icon {
+            color: mat-color($primary);
+        }
+    }
+}

@@ -1,0 +1,33 @@
+@import "~styles/mixins";
+@import "~styles/colors";
+
+:host {
+    @include dialog();
+    min-height: 400px;
+
+    .mat-dialog-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pg-select {
+        position: relative;
+
+        .mat-form-field {
+            position: absolute;
+            left: 0;
+            opacity: 0;
+        }
+    }
+
+    .option-totals {
+        &.error {
+            color: mat-color($warn);
+        }
+
+        strong {
+            font-size: 24px;
+        }
+    }
+}

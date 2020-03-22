@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~styles/colors';
-@import '~styles/mat-overrides';
-@import 'roboto-fontface/css/roboto/roboto-fontface.css';
+@import "~styles/colors";
+@import "~styles/mat-overrides";
+@import "roboto-fontface/css/roboto/roboto-fontface.css";
 @include mat-core($typography);
 @include angular-material-theme($theme);
 
-
-html,body {
+html,
+body {
     margin: 0;
-    font-family: 'Roboto';
-    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+    font-family: "Roboto";
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 // App structure
@@ -65,7 +65,8 @@ html {
 a:not(.mat-button) {
     text-decoration: none;
 
-    &,&:visited {
+    &,
+    &:visited {
         color: mat-color($primary);
     }
 
@@ -87,5 +88,23 @@ a:not(.mat-button) {
 .mat-form-field[no-label] {
     .mat-form-field-infix {
         border: 0;
+    }
+}
+
+.mat-form-field .form-field-clear {
+    margin-top: 5px;
+    color: mat-color($warn);
+    cursor: pointer;
+}
+
+.device-desktop .mat-form-field {
+    .form-field-clear {
+        opacity: 0;
+    }
+
+    &:hover {
+        .form-field-clear {
+            opacity: 1;
+        }
     }
 }

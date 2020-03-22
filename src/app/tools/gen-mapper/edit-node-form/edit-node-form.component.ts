@@ -1,18 +1,15 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDatepicker, MatDialog, MAT_DATE_FORMATS, MatDialogRef } from '@angular/material';
+import { MatDatepicker, MatDialog, MatDialogRef, MAT_DATE_FORMATS } from '@angular/material';
 import { MapsService } from '@core/maps.service';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { ControlType, GMField, COUNTRIES } from '@templates';
+import { Template } from '@shared/models/template.model';
+import { ControlType, COUNTRIES, GMField } from '@templates';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
-import {
-    LocationDialogComponent,
-    LocationDialogConfig,
-    LocationDialogResponse
-} from '../dialogs/location-dialog/location-dialog.component';
+import { LocationDialogComponent, LocationDialogConfig, LocationDialogResponse } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 import { GNode } from '../gen-mapper.interface';
 
@@ -48,6 +45,9 @@ export class EditNodeFormComponent extends Unsubscribable implements OnInit {
 
     @Input()
     public fields: GMField[];
+
+    @Input()
+    public template: Template;
 
     public fieldByProperty: Dictionary<GMField>;
     public types = ControlType;

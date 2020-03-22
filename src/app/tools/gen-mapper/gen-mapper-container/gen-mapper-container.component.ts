@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { Template } from '@models/template.model';
 import { DocumentDto } from '@shared/entity/document.model';
 import { takeUntil } from 'rxjs/operators';
 import { GenMapperView } from '../gen-mapper-view.enum';
 import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { Template } from '../template.model';
 
 @Component({
     selector: 'app-gen-mapper-container',
