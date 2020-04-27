@@ -1,5 +1,5 @@
-import { Entity, EntityType } from './entity.model';
 import { assign } from 'lodash';
+import { Entity, EntityType } from './entity.model';
 
 export class User extends Entity {
     public username?: string;
@@ -7,6 +7,7 @@ export class User extends Entity {
     public id: string;
     public password?: string;
     public entityType: EntityType = EntityType.Users;
+    public agreementDate: Date;
 
     constructor(props: object = {}) {
         super();

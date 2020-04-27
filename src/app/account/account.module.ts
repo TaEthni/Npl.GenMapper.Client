@@ -6,6 +6,7 @@ import { SharedModule } from '@shared/shared.module';
 
 import { DetailFormComponent } from './detail-form/detail-form.component';
 import { DetailComponent } from './detail/detail.component';
+import { UserAgreementComponent } from './user-agreement/user-agreement.component';
 
 @NgModule({
     imports: [
@@ -14,7 +15,7 @@ import { DetailComponent } from './detail/detail.component';
         ReactiveFormsModule,
         RouterModule
     ],
-    declarations: [DetailComponent, DetailFormComponent],
+    declarations: [DetailComponent, DetailFormComponent, UserAgreementComponent],
     exports: [DetailFormComponent],
 })
 export class AccountModule { }

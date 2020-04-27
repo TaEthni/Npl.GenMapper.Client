@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserResolver } from '@core/user.resolver';
-import { GenMapperTemplates, GMTemplates } from '@templates';
+import { GMTemplates } from '@templates';
 import { DetailComponent } from './account/detail/detail.component';
+import { UserAgreementComponent } from './account/user-agreement/user-agreement.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './home/forbidden/forbidden.component';
 import { LoginComponent } from './home/login/login.component';
@@ -70,6 +71,13 @@ const appRoutes: Routes = [
             {
                 path: 'account',
                 component: DetailComponent,
+                resolve: {
+                    user: UserResolver
+                }
+            },
+            {
+                path: 'account/user-agreement',
+                component: UserAgreementComponent,
                 resolve: {
                     user: UserResolver
                 }
