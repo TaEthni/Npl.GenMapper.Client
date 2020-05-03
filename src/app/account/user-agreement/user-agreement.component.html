@@ -201,22 +201,33 @@
         </p>
     </div>
 
-    <div fxLayout="row"
-         fxLayoutAlign="start center"
-         fxLayoutGap="24px">
-        <mat-checkbox [formControl]="checkbox">
-            I Accept
-        </mat-checkbox>
+    <ng-container *ngIf="!user.agreementDate">
+        <div fxLayout="row"
+             fxLayoutAlign="start center"
+             fxLayoutGap="24px">
+            <mat-checkbox [formControl]="checkbox">
+                I Accept
+            </mat-checkbox>
 
-        <div fxFlex></div>
+            <div fxFlex></div>
 
-        <div>
-            <button mat-raised-button
-                    color="primary"
-                    (click)="save()"
-                    [disabled]="!checkbox.dirty && checkbox.invalid">
-                Save
-            </button>
+            <div>
+                <button mat-raised-button
+                        class="mat-spinner-button"
+                        color="primary"
+                        (click)="save()"
+                        [disabled]="!checkbox.dirty && checkbox.invalid">
+                    <div>
+                        {{'Common_Save' | locale | async}}
+                    </div>
+                    <mat-spinner diameter="24"
+                                 *ngIf="isSaving"></mat-spinner>
+                </button>
+                <a mat-button
+                   color="primary"
+                   type="button"
+                   [routerLink]="['/tools']">{{'Common_Cancel' | locale | async}}</a>
+            </div>
         </div>
-    </div>
+    </ng-container>
 </section>
