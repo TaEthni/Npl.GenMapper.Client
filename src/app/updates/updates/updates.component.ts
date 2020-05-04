@@ -10,7 +10,7 @@ import { WhatsNewDialogComponent } from '../whats-new-dialog/whats-new-dialog.co
 })
 export class UpdatesComponent implements OnInit {
 
-    private updateKey = 'update-v2';
+    private updateKey = 'update-v3';
 
     constructor(
         private dialog: MatDialog,
@@ -34,7 +34,9 @@ export class UpdatesComponent implements OnInit {
             )
             .afterClosed()
             .subscribe(result => {
-                localStorage.setItem(this.updateKey, 'true');
+                if (result) {
+                    localStorage.setItem(this.updateKey, 'true');
+                }
             });
     }
 }

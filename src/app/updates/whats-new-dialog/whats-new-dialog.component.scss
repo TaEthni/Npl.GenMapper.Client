@@ -1,6 +1,12 @@
-@import '~styles/colors';
+@import "~styles/colors";
 
 :host {
+    h1 {
+        color: mat-color($accent);
+        text-align: center;
+        text-decoration: underline;
+    }
+
     h2 {
         margin: 3px 0;
     }
