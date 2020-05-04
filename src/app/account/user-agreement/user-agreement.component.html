@@ -201,6 +201,14 @@
         </p>
     </div>
 
+    <ng-container *ngIf="user.agreementDate">
+        <div fxLayout="row">
+            <h3>
+                Accepted on {{user.agreementDate | date: 'yyyy-MM-dd'}}
+            </h3>
+        </div>
+    </ng-container>
+
     <ng-container *ngIf="!user.agreementDate">
         <div fxLayout="row"
              fxLayoutAlign="start center"

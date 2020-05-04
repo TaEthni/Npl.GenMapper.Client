@@ -1,7 +1,14 @@
+@import "~styles/colors";
+
 :host {
     display: flex;
     flex-direction: column;
     padding-bottom: 50px;
+
+    h3 {
+        text-align: center;
+        color: mat-color($primary);
+    }
 
     section {
         padding: 24px;
