@@ -1,5 +1,17 @@
 # GenMapper Changelog
 
+## (2020-04-05)
+- Feature: User Agreement
+- Fix: Changelog Link
+
+## (2020)
+- Feature: Copy & Paste Dropdown
+- Feature: Country Selector
+- Feature: Enhanced GEO Selector
+- chore: People Groups Picker (deprecated)
+- Feature: New Date Picker
+- Feature: Whats New Popup
+
 ## (2019-06-18)
 - Feature: Add church circles okc with 12 elements
 

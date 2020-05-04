@@ -6,6 +6,21 @@
      fxLayout="column"
      fxLayoutGap="24px">
 
+    <h1>March 2020</h1>
+
+    <div>
+        <h2>User Agreement</h2>
+
+        <p>
+            Please Accept the User Agreement for further integrations with new <strong>GenMapper 2.0</strong>. User
+            Agreement is found in the user account page.
+        </p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h1>January 2020</h1>
+
     <div>
         <h2>Copy & Paste & Import Subtree Changed</h2>
 
@@ -118,7 +133,7 @@
      fxLayoutAlign="end center">
     <button mat-flat-button
             color="primary"
-            mat-dialog-close>
+            [mat-dialog-close]="true">
         {{'Common_Ok' | locale | async}}
     </button>
 </div>

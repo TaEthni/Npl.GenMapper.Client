@@ -113,4 +113,13 @@
            type="button"
            [routerLink]="['/tools']">{{'Common_Cancel' | locale | async}}</a>
     </div>
+
+    <section fxLayout="row">
+        <button fxFlex
+                mat-stroked-button
+                color="primary"
+                routerLink="/account/user-agreement">
+            User Agreement
+        </button>
+    </section>
 </form>

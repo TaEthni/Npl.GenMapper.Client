@@ -1,0 +1,10 @@
+<ng-container *ngIf="isAuthenticated && !user?.agreementDate && !isIgnored">
+    <div class="user-agreement-container">
+        <div class="user-agreement"
+             routerLink="/account/user-agreement">
+            Please Accept User Agreement
+        </div>
+
+        <mat-icon (click)="ignore($event)">clear</mat-icon>
+    </div>
+</ng-container>
