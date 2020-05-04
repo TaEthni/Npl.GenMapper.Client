@@ -9,6 +9,7 @@ export class User extends Entity {
     public entityType: EntityType = EntityType.Users;
     public agreementDate: Date;
     public status: string;
+    public role: string;
 
     constructor(props: object = {}) {
         super();

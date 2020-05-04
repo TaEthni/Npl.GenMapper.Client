@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '@core/authentication.service';
 import { EntityService } from '@core/entity.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { EntityType } from '@shared/entity/entity.model';
@@ -22,6 +23,7 @@ export class UserAgreementComponent extends Unsubscribable implements OnInit {
         private route: ActivatedRoute,
         private entityService: EntityService,
         private router: Router,
+        private authService: AuthenticationService,
     ) { super(); }
 
     public ngOnInit(): void {
@@ -40,10 +42,12 @@ export class UserAgreementComponent extends Unsubscribable implements OnInit {
         update.entityType = EntityType.Users;
         update.agreementDate = new Date();
         delete update.status;
+        delete update.role;
 
         this.entityService.update(update)
             .subscribe(
                 success => {
+                    this.authService.refreshUser();
                     console.log(success);
                     this.isSaving = false;
                     this.router.navigate(['/']);
