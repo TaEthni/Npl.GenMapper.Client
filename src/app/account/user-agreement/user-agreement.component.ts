@@ -30,7 +30,6 @@ export class UserAgreementComponent extends Unsubscribable implements OnInit {
         this.route.data.pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 this.user = result.user;
-                console.log(this.user);
                 if (this.user.agreementDate) {
                     this.checkbox.setValue(true);
                 }
@@ -48,7 +47,6 @@ export class UserAgreementComponent extends Unsubscribable implements OnInit {
             .subscribe(
                 success => {
                     this.authService.refreshUser();
-                    console.log(success);
                     this.isSaving = false;
                     this.router.navigate(['/']);
                 },

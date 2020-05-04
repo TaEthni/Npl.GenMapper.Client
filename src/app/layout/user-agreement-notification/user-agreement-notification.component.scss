@@ -1,0 +1,24 @@
+:host {
+    display: block;
+
+    .user-agreement-container {
+        color: white;
+        background-color: orange;
+        height: 24px;
+    }
+
+    .user-agreement {
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        line-height: 24px;
+        position: relative;
+    }
+
+    .mat-icon {
+        cursor: pointer;
+        position: absolute;
+        right: 5px;
+        top: 0;
+    }
+}

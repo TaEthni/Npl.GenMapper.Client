@@ -1,9 +1,4 @@
-<ng-container *ngIf="isAuthenticated && !user?.agreementDate">
-    <div class="user-agreement"
-         routerLink="/account/user-agreement">
-        Please sign user agreement
-    </div>
-</ng-container>
+<app-user-agreement-notification></app-user-agreement-notification>
 <mat-sidenav-container>
     <mat-sidenav #matsidenav
                  mode="over">
