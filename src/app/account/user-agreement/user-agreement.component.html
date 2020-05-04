@@ -216,7 +216,7 @@
                         class="mat-spinner-button"
                         color="primary"
                         (click)="save()"
-                        [disabled]="!checkbox.dirty && checkbox.invalid">
+                        [disabled]="!checkbox.value">
                     <div>
                         {{'Common_Save' | locale | async}}
                     </div>
