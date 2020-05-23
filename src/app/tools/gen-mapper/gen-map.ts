@@ -1,5 +1,7 @@
 import { ElementRef } from '@angular/core';
+import { CSVToJSON } from '@core/csv-to-json';
 import { Device } from '@core/platform';
+import { Template } from '@models/template.model';
 import { GMField, GMSvg, GMSvgAction, GMTemplate } from '@templates';
 import * as d3 from 'd3';
 import { drag, DragBehavior, HierarchyNode, zoomIdentity, zoomTransform } from 'd3';
@@ -8,8 +10,6 @@ import * as _ from 'lodash';
 import { cloneDeep } from 'lodash';
 import * as uuid from 'uuid/v4';
 import { GNode, NodeDatum, PrintType } from './gen-mapper.interface';
-import { Template } from './template.model';
-import { CSVToJSON } from './resources/csv-to-json';
 
 
 export const MapStyles = {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserResolver } from '@core/user.resolver';
-import { GMTemplates } from '@templates';
 import { DetailComponent } from './account/detail/detail.component';
 import { UserAgreementComponent } from './account/user-agreement/user-agreement.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
@@ -20,7 +19,8 @@ import { LayoutComponent } from './layout/layout/layout.component';
 import { GenMapperContainerResolver } from './tools/gen-mapper/gen-mapper-container.resolver';
 import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-container/gen-mapper-container.component';
 import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
-import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
+import { GenMapperComponent } from './tools/gen-mapper/views/gen-mapper/gen-mapper.component';
+import { NoDocumentViewComponent } from './tools/gen-mapper/views/no-document-view/no-document-view.component';
 import { ToolsComponent } from './tools/tools/tools.component';
 
 const appRoutes: Routes = [
@@ -87,84 +87,109 @@ const appRoutes: Routes = [
                 component: ToolsComponent
             },
             {
-                path: 'churchCircles',
-                component: GenMapperContainerComponent,
-                resolve: {
-                    config: GenMapperContainerResolver,
-                },
-                data: {
-                    template: GMTemplates.ChurchCirclesDefaultTemplate
-                },
+                path: 'gen-mapper',
                 children: [
                     {
-                        path: ':id',
-                        component: GenMapperComponent,
+                        path: ':templateId',
+                        component: GenMapperContainerComponent,
                         resolve: {
-                            document: GenMapperResolver
+                            config: GenMapperContainerResolver
                         },
-                        // Configuration is for local mode
-                        runGuardsAndResolvers: 'always'
-                    },
-                    {
-                        path: '',
-                        component: GenMapperComponent
-                    },
-                ]
-            },
-            {
-                path: 'churchCircles12',
-                component: GenMapperContainerComponent,
-                resolve: {
-                    config: GenMapperContainerResolver,
-                },
-                data: {
-                    template: GMTemplates.ChurchCircles12Template
-                },
-                children: [
-                    {
-                        path: ':id',
-                        component: GenMapperComponent,
-                        resolve: {
-                            document: GenMapperResolver
-                        },
-                        // Configuration is for local mode
-                        runGuardsAndResolvers: 'always'
-                    },
-                    {
-                        path: '',
-                        component: GenMapperComponent
-                    },
-                ]
-            },
-            {
-                path: 'churchCirclesCzech',
-                component: GenMapperContainerComponent,
-                resolve: {
-                    config: GenMapperContainerResolver,
-                },
-                data: {
-                    template: GMTemplates.ChurchCirclesCzechTemplate
-                },
-                children: [
-                    {
-                        path: ':id',
-                        component: GenMapperComponent,
-                        resolve: {
-                            document: GenMapperResolver
-                        },
-                        // Configuration is for local mode
-                        runGuardsAndResolvers: 'always'
-                    },
-                    {
-                        path: '',
-                        component: GenMapperComponent
-                    },
+                        children: [
+                            {
+                                path: '',
+                                component: NoDocumentViewComponent,
+                            },
+                            {
+                                path: ':documentId',
+                                component: GenMapperComponent,
+                                resolve: {
+                                    nodes: GenMapperResolver
+                                }
+                            }
+                        ]
+                    }
                 ]
             },
             // {
-            //     path: 'localization',
-            //     loadChildren: () => import('./localization/localization.module').then(m => m.LocalizationModule)
-            // }
+            //     path: 'churchCircles',
+            //     component: GenMapperContainerComponent,
+            //     resolve: {
+            //         config: GenMapperContainerResolver,
+            //     },
+            //     data: {
+            //         template: GMTemplates.ChurchCirclesDefaultTemplate
+            //     },
+            //     children: [
+            //         {
+            //             path: ':id',
+            //             component: GenMapperComponent,
+            //             resolve: {
+            //                 document: GenMapperResolver
+            //             },
+            //             // Configuration is for local mode
+            //             runGuardsAndResolvers: 'always'
+            //         },
+            //         {
+            //             path: '',
+            //             component: GenMapperComponent
+            //         },
+            //     ]
+            // },
+            // {
+            //     path: 'churchCircles12',
+            //     component: GenMapperContainerComponent,
+            //     resolve: {
+            //         config: GenMapperContainerResolver,
+            //     },
+            //     data: {
+            //         template: GMTemplates.ChurchCircles12Template
+            //     },
+            //     children: [
+            //         {
+            //             path: ':id',
+            //             component: GenMapperComponent,
+            //             resolve: {
+            //                 document: GenMapperResolver
+            //             },
+            //             // Configuration is for local mode
+            //             runGuardsAndResolvers: 'always'
+            //         },
+            //         {
+            //             path: '',
+            //             component: GenMapperComponent
+            //         },
+            //     ]
+            // },
+            // {
+            //     path: 'churchCirclesCzech',
+            //     component: GenMapperContainerComponent,
+            //     resolve: {
+            //         config: GenMapperContainerResolver,
+            //     },
+            //     data: {
+            //         template: GMTemplates.ChurchCirclesCzechTemplate
+            //     },
+            //     children: [
+            //         {
+            //             path: ':id',
+            //             component: GenMapperComponent,
+            //             resolve: {
+            //                 document: GenMapperResolver
+            //             },
+            //             // Configuration is for local mode
+            //             runGuardsAndResolvers: 'always'
+            //         },
+            //         {
+            //             path: '',
+            //             component: GenMapperComponent
+            //         },
+            //     ]
+            // },
+            {
+                path: 'localization',
+                loadChildren: () => import('./localization/localization.module').then(m => m.LocalizationModule)
+            }
         ]
     },
     {

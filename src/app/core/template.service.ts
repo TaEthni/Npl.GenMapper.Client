@@ -1,7 +1,7 @@
-import { GMTemplate, GenMapperConfigs, TemplateConfiguration } from '@templates';
 import { Inject, Injectable } from '@angular/core';
-import { GM_TEMPLATES, GM_CONFIGS } from './template.injecttoken';
-import { Template } from './template.model';
+import { Template } from '@models/template.model';
+import { GMTemplate, TemplateConfiguration } from '@templates';
+import { GM_CONFIGS, GM_TEMPLATES } from './template.injecttoken';
 
 const _cachedTemplates = {};
 @Injectable({
@@ -20,6 +20,10 @@ export class TemplateService {
 
     public getTemplate(templateId: string, configId?: string): Template {
         const gmTemplate = this.gmTemplates.find(t => t.id === templateId);
+
+        if (!gmTemplate) {
+            return null;
+        }
 
         configId = configId || gmTemplate.defaultConfiguration;
         const id = templateId + configId;

@@ -1,6 +1,11 @@
 import * as uuidv4 from 'uuid/v4';
 
-export class Entity {
+export interface IEntity {
+    id?: string;
+    entityType?: EntityType
+}
+
+export class Entity implements IEntity {
 
     public createdAt: Date;
     public updatedAt: Date;
@@ -14,5 +19,7 @@ export enum EntityType {
     PeopleGroups = 'people-groups',
     AllDocuments = 'documents-all',
     Documents = 'documents',
-    Users = 'users'
+    Users = 'users',
+    DocumentNodes = 'document/nodes',
+    Nodes = 'nodes'
 }

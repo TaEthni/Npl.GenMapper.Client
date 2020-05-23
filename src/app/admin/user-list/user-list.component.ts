@@ -6,9 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EntityService } from '@core/entity.service';
-import { EntityType } from '@shared/entity/entity.model';
-import { User } from '@shared/entity/user.model';
-import { Dictionary, keyBy } from 'lodash';
+import { EntityType } from '@models/entity.model';
+import { User } from '@models/user.model';
 
 @Component({
     selector: 'app-user-list',
@@ -42,10 +41,10 @@ export class UserListComponent implements OnInit {
         this.dialog
             .open<EditUserDialogComponent, EditUserConfig, User>(
                 EditUserDialogComponent, {
-                    data: {
-                        user,
-                    }
+                data: {
+                    user,
                 }
+            }
             )
             .afterClosed()
             .subscribe(result => {

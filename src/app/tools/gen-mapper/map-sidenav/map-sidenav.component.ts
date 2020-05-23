@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSidenav, MatDrawer } from '@angular/material/sidenav';
+import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { DocumentDto } from '@shared/entity/document.model';
-
+import { Device } from '@core/platform';
+import { DocumentDto } from '@models/document.model';
+import { GMTemplate } from '@templates';
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { GenMapperService } from '../gen-mapper.service';
-import { Device } from '@core/platform';
-import { GMTemplate } from '@templates';
+
 
 @Component({
     selector: 'app-map-sidenav',
@@ -33,7 +33,6 @@ export class MapSidenavComponent {
     ) { }
 
     public onCreateDocument(): void {
-
         this.dialog.open(CreateDocumentDialogComponent)
             .afterClosed()
             .subscribe(result => {
@@ -44,8 +43,7 @@ export class MapSidenavComponent {
     }
 
     public onSelectDocument(doc: DocumentDto): void {
-        this.router.navigate([this.template.id, doc.id]);
-
+        this.router.navigate(['/gen-mapper', this.template.id, doc.id]);
         if (Device.isHandHeld) {
             this.drawer.close();
         }
@@ -55,7 +53,7 @@ export class MapSidenavComponent {
         doc = new DocumentDto(doc);
         this.genMapper.createDocument(doc)
             .subscribe(result => {
-                this.router.navigate([this.template.id, result.id]);
+                this.router.navigate(['/gen-mapper', this.template.id, result.id]);
             });
     }
 }

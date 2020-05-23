@@ -1,5 +1,8 @@
 # GenMapper Changelog
 
+## (2020-05-23)
+- Feature: Application Refactor - prone to bugs
+
 ## (2020-04-05)
 - Feature: User Agreement
 - Fix: Changelog Link

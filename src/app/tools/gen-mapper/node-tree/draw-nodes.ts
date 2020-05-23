@@ -1,8 +1,8 @@
+import { Template } from '@models/template.model';
 import { ControlType } from '@templates';
 import { select, Selection } from 'd3';
 import moment from 'moment';
 import { NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
 import { applySVGAttrsAndStyle } from './d3-util';
 import { drawAction } from './draw-action';
 
@@ -67,8 +67,8 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
 
     nodeUpdate
         .attr('node-id', d => d.data.id)
-        .classed('node--active', (d) => d.data.active)
-        .classed('node--inactive', (d) => !d.data.active)
+        .classed('node--active', (d) => d.data.attributes.active)
+        .classed('node--inactive', (d) => !d.data.attributes.active)
         .attr('transform', (d) => {
             return 'translate(' + d.x + ',' + d.y + ')';
         })
@@ -81,9 +81,9 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
 
             let svg = '';
             nodeLabelFields
-                .filter(field => d.data[field.id])
+                .filter(field => d.data.attributes[field.id])
                 .forEach((field, i) => {
-                    let value = d.data[field.id];
+                    let value = d.data.attributes[field.id];
 
                     if (field.type === ControlType.date) {
                         value = moment(new Date(value)).format('YYYY-MM');
@@ -106,19 +106,19 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
             svg.state.forEach(state => {
                 if (state.setText) {
                     element.text((d) => {
-                        if (d.data[state.fieldRef] || d.data[state.fieldRef] === 0) {
-                            if (Array.isArray(d.data[state.fieldRef])) {
-                                return d.data[state.fieldRef].join('');
+                        if (d.data.attributes[state.fieldRef] || d.data.attributes[state.fieldRef] === 0) {
+                            if (Array.isArray(d.data.attributes[state.fieldRef])) {
+                                return d.data.attributes[state.fieldRef].join('');
                             }
 
-                            return d.data[state.fieldRef];
+                            return d.data.attributes[state.fieldRef];
                         }
                     });
                 }
 
                 if (state.setIcon) {
                     element.attr('xlink:href', (d) => {
-                        const fieldValue = d.data[state.fieldRef];
+                        const fieldValue = d.data.attributes[state.fieldRef];
                         const stateValue = state.fieldRefValues.find(v => v.iconRefValue && v.value === fieldValue);
 
                         if (stateValue) {
@@ -134,7 +134,7 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
                     element.attr(state.attr, (d) => {
                         const len = state.fieldRefValues.length;
                         for (let i = 0; i < len; i++) {
-                            if (d.data[state.fieldRef] === state.fieldRefValues[i].value) {
+                            if (d.data.attributes[state.fieldRef] === state.fieldRefValues[i].value) {
                                 return state.fieldRefValues[i].attrValue;
                             }
                         }
@@ -148,7 +148,7 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
                         const len = state.fieldRefValues.length;
                         for (let i = 0; i < len; i++) {
                             if (state.fieldRefValues[i].hasOwnProperty('styleValue')) {
-                                if (d.data[state.fieldRef] === state.fieldRefValues[i].value) {
+                                if (d.data.attributes[state.fieldRef] === state.fieldRefValues[i].value) {
                                     return state.fieldRefValues[i].styleValue;
                                 }
                             }
@@ -171,7 +171,7 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
 
             svg.states.forEach(state => {
                 const fieldId = state.fieldRefId;
-                const value = d.data[fieldId];
+                const value = d.data.attributes[fieldId];
 
                 if (state.setText) {
                     if (Array.isArray(value)) {

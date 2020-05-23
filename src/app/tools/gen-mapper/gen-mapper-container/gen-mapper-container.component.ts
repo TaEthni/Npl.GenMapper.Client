@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
+import { DocumentService } from '@core/document.service';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@shared/entity/document.model';
+import { DocumentDto } from '@models/document.model';
+import { Template } from '@models/template.model';
 import { takeUntil } from 'rxjs/operators';
 import { GenMapperView } from '../gen-mapper-view.enum';
 import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { Template } from '../template.model';
 
 @Component({
     selector: 'app-gen-mapper-container',
@@ -24,28 +25,37 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
     public node: GNode;
     public view: GenMapperView;
     public viewType = GenMapperView;
+    public isLoading: boolean;
 
     constructor(
         private genMapper: GenMapperService,
         private authService: AuthenticationService,
         private nodeClipboard: NodeClipboardService,
         private localeService: LocaleService,
+        private documentService: DocumentService,
     ) { super(); }
 
     public ngOnInit(): void {
         this.isAuthenticated = this.authService.isAuthenticated();
 
-        this.genMapper.getDocument()
+        // this.documentService.migrateDocuments();
+
+        this.genMapper.selectedDocument$
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(document => {
                 this.document = document;
             });
 
-        this.genMapper.getConfig()
+        this.genMapper.template$
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(config => {
-                this.template = config.template;
-                this.documents = config.documents;
+            .subscribe(template => {
+                this.template = template;
+            });
+
+        this.genMapper.documents$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(documents => {
+                this.documents = documents;
             });
 
         let firstCall = false;
@@ -62,15 +72,7 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.genMapper.setDocument(null);
+        this.genMapper.selectDocument(null);
         this.nodeClipboard.set(null);
-    }
-
-    public reloadGenMapper(): void {
-        const doc = this.document;
-        this.genMapper.load(this.template).subscribe(result => {
-            const newDoc = result.find(d => d.id === doc.id);
-            this.genMapper.setDocument(newDoc);
-        });
     }
 }

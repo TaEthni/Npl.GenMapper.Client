@@ -1,15 +1,16 @@
+import { NodeDto } from '@models/node.model';
+import { Template } from '@models/template.model';
 import * as d3 from 'd3';
 import { drag, DragBehavior, event as d3Event, HierarchyNode, HierarchyPointNode, select, Selection, tree, TreeLayout, zoom, zoomIdentity, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';
-import { GNode, NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
+import { NodeDatum } from '../gen-mapper.interface';
 import { parseTransform } from './d3-util';
 import { drawLinks } from './draw-links';
 import { drawNodes } from './draw-nodes';
 
 
 export class D3NodeTree {
-    private tree: TreeLayout<GNode>;
+    private tree: TreeLayout<NodeDto>;
     private rootNode: NodeDatum;
     private nodes: NodeDatum[];
 
@@ -25,7 +26,7 @@ export class D3NodeTree {
     private margin = { top: 110, right: 30, bottom: 50, left: 30 };
     private draggingNode: NodeDatum;
     private draggingNodeSiblings: NodeDatum[];
-    private data: GNode[];
+    private data: NodeDto[];
 
     private _dragStarted: boolean;
     private _dragStartEvent: MouseEvent;
@@ -33,15 +34,15 @@ export class D3NodeTree {
     private readonly _nodeClick = new Subject<NodeDatum>();
     private readonly _addButtonClick = new Subject<NodeDatum>();
     private readonly _editButtonClick = new Subject<NodeDatum>();
-    private readonly _dataChange = new Subject<GNode[]>();
+    private readonly _dataChange = new Subject<NodeDto[]>();
 
     public get dataChange() { return this._dataChange.asObservable(); }
     public get nodeClick() { return this._nodeClick.asObservable(); }
     public get addButtonClick() { return this._addButtonClick.asObservable(); }
     public get editButtonClick() { return this._editButtonClick.asObservable(); }
 
-    public onChange = (v: GNode[]) => { };
-    public onCopyNode = (v: GNode[]) => { };
+    public onChange = (v: NodeDto[]) => { };
+    public onCopyNode = (v: NodeDto[]) => { };
     public onPasteNode = (d: HierarchyNode<any>) => { };
 
     private element: HTMLElement;
@@ -96,7 +97,7 @@ export class D3NodeTree {
             .append<SVGGElement>('g')
             .attr('class', 'group-nodes');
 
-        this.tree = tree<GNode>()
+        this.tree = tree<NodeDto>()
             .nodeSize([
                 this.template.svgSettings.nodeWidth,
                 this.template.svgSettings.nodeHeight
@@ -106,7 +107,7 @@ export class D3NodeTree {
             });
     }
 
-    public update(treeData: HierarchyPointNode<GNode>, originalPosition: boolean = true): void {
+    public update(treeData: HierarchyPointNode<NodeDto>, originalPosition: boolean = true): void {
 
         if (originalPosition) {
             this.originalPosition();
@@ -115,7 +116,7 @@ export class D3NodeTree {
         this.draw(treeData);
     }
 
-    public draw(treeData: HierarchyPointNode<GNode>, source?: NodeDatum) {
+    public draw(treeData: HierarchyPointNode<NodeDto>, source?: NodeDatum) {
         const nodes = treeData.descendants() as NodeDatum[];
         const links = treeData.descendants().slice(1) as NodeDatum[];
         const linkTexts = treeData.descendants().slice(1) as NodeDatum[];
@@ -123,7 +124,7 @@ export class D3NodeTree {
         this.nodes = nodes;
 
         this.nodes.forEach(node => {
-            node.sort((a, b) => a.data.nodeOrder - b.data.nodeOrder)
+            node.sort((a, b) => a.data.attributes.nodeOrder - b.data.attributes.nodeOrder)
             node.isRoot = node.parent === this.rootNode;
             node.id = node.data.id;
         });

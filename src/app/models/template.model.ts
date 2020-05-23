@@ -1,5 +1,7 @@
 import { GMField, GMSvg, GMTemplate, TemplateConfiguration } from "@templates";
 import { cloneDeep, Dictionary, keyBy } from "lodash";
+import uuid from "uuid";
+import { NodeDto } from "./node.model";
 
 export class Template extends GMTemplate {
     private _svgsById: Dictionary<GMSvg>;
@@ -66,5 +68,26 @@ export class Template extends GMTemplate {
 
     public getSvg(svgId: string) {
         return this._svgsById[svgId];
+    }
+
+    public createDefaultNode(): NodeDto {
+        const node: NodeDto = new NodeDto();
+
+        this.fields.forEach(field => {
+            if (field.hasOwnProperty('defaultValue')) {
+                node.attributes[field.id] = field.defaultValue;
+            } else {
+                node.attributes[field.id] = null;
+            }
+        });
+
+        node.id = node.attributes.id || uuid();
+        node.parentId = node.attributes.parentId;
+        node.attributes.nodeOrder = 1000;
+
+        delete node.attributes.id;
+        delete node.attributes.parentId;
+
+        return node;
     }
 }

@@ -1,11 +1,11 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@shared/entity/document.model';
+import { DocumentDto } from '@models/document.model';
 import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { GenMapperService } from '../gen-mapper.service';
+
 
 @Component({
     selector: 'app-map-name-control',

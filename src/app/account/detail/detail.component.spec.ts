@@ -1,17 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DetailComponent } from './detail.component';
-import { Component, Output, EventEmitter, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '@shared/entity/user.model';
-import { of } from 'rxjs';
 import { EntityService } from '@core/entity.service';
+import { Entity } from '@models/entity.model';
+import { User } from '@models/user.model';
 import { configureTestSuite } from 'ng-bullet';
-import { Entity } from '@shared/entity/entity.model';
-import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
+import { DetailComponent } from './detail.component';
+
 
 describe('DetailComponent', () => {
     let component: DetailComponent;

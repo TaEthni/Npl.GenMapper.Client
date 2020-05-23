@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Entity, EntityType } from '@shared/entity/entity.model';
+import { Entity, EntityType, IEntity } from '@models/entity.model';
 import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 const devUrl = 'https://dev-api.noplaceleft.tools/api/';
 const prodUrl = 'https://api.noplaceleft.tools/api/';
-// const localUrl = 'http://localhost:9000/api/';
-const localUrl = devUrl;
+const localUrl = 'http://localhost:9000/api/';
+// const localUrl = devUrl;
 
 let _BaseUrl: string = localUrl;
 
@@ -37,6 +37,16 @@ export class EntityService {
         private http: HttpClient
     ) { }
 
+    public customPost<T>(endpoint: string, data: any) {
+        const url = BaseUrl + endpoint;
+        return this.http.post<T>(url, data);
+    }
+
+    public customGet(endpoint: String) {
+        const url = BaseUrl + endpoint;
+        return this.http.get(url);
+    }
+
     public getAll<T>(entityType: EntityType): Observable<T[]> {
         const url = BaseUrl + entityType;
         return this.http.get<ResponseData>(url).pipe(map((a => {
@@ -61,9 +71,15 @@ export class EntityService {
         })));
     }
 
-    public create<T extends Entity>(entity: Entity): Observable<T> {
+    public create<T extends Entity>(entity: T | IEntity, allowId: boolean = false): Observable<T> {
         const url = BaseUrl + entity.entityType;
-        const body = omit(entity, ['id', 'entityType']);
+        let body = null;
+        if (allowId) {
+            body = omit(entity, ['entityType']);
+        } else {
+            body = omit(entity, ['id', 'entityType']);
+        }
+
         return this.http.post<ResponseData>(url, body).pipe(map(d => {
             d.data['entityType'] = entity.entityType;
             return d.data;

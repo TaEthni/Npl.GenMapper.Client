@@ -10,6 +10,9 @@
             "@core/*": [
                 "app/core/*"
             ],
+            "@models/*": [
+                "app/models/*"
+            ],
             "@admin/*": [
                 "app/admin/*"
             ],

@@ -1,8 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Device } from '@core/platform';
-import { DocumentDto } from '@shared/entity/document.model';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { DocumentDto } from '@models/document.model';
+import { NodeDto } from '@models/node.model';
+import { Template } from '@models/template.model';
 import { GMReport } from '@templates';
-import { Template } from '../template.model';
+import { takeUntil } from 'rxjs/operators';
+import { GenMapperService } from '../gen-mapper.service';
 
 
 @Component({
@@ -10,25 +14,32 @@ import { Template } from '../template.model';
     templateUrl: './map-report-legend.component.html',
     styleUrls: ['./map-report-legend.component.scss']
 })
-export class MapReportLegendComponent implements OnChanges {
-    @Input()
+export class MapReportLegendComponent extends Unsubscribable implements OnInit {
     public template: Template;
-
-    @Input()
     public document: DocumentDto;
-
+    public nodes: NodeDto[];
     public reports: GMReport[];
     public generations: GMReport[];
     public isDesktop = Device.isDesktop;
 
-    public ngOnChanges(change: SimpleChanges): void {
-        if (change.template && change.template.firstChange) {
-            this.createReports();
-        }
+    constructor(private genMapper: GenMapperService) {
+        super();
+    }
 
-        if (change.document) {
-            this.updateReports();
-        }
+    public ngOnInit(): void {
+        this.genMapper.template$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(template => {
+                this.template = template;
+                this.createReports();
+            })
+
+        this.genMapper.nodes$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(nodes => {
+                this.nodes = nodes;
+                this.updateReports();
+            });
     }
 
     private createReports(): void {
@@ -49,10 +60,14 @@ export class MapReportLegendComponent implements OnChanges {
         this.generations = [];
         const generations = {};
 
-        this.document.nodes.forEach(node => {
-            if (node.gen) {
-                generations[node.gen] = generations[node.gen] || 0;
-                generations[node.gen]++;
+        if (!this.nodes) {
+            return;
+        }
+
+        this.nodes.forEach(node => {
+            if (node.attributes.gen) {
+                generations[node.attributes.gen] = generations[node.attributes.gen] || 0;
+                generations[node.attributes.gen]++;
             }
 
             this.reports.forEach(report => {

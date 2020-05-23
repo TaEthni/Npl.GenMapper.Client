@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { GenMapperView } from '../../gen-mapper-view.enum';
+import { GenMapperView } from '../../../gen-mapper-view.enum';
 
 
 @Component({

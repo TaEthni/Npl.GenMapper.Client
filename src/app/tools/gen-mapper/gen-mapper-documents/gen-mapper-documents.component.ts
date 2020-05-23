@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DocumentDto } from '@shared/entity/document.model';
+import { DocumentDto } from '@models/document.model';
 
 @Component({
     selector: 'app-gen-mapper-documents',

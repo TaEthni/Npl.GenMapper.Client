@@ -1,9 +1,8 @@
 import { MapsAPILoader } from '@agm/core';
-import { Component, ElementRef, Inject, NgZone, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MapsService } from '@core/maps.service';
-import { COUNTRIES } from '@templates';
 
 interface MouseEvent {
     coords: { lat: number, lng: number };
@@ -137,9 +136,6 @@ export class LocationDialogComponent implements AfterViewInit {
         this.geocoder = new google.maps.Geocoder();
         this.geocoder.geocode({ 'latLng': latLng } as google.maps.GeocoderRequest, (res, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
-
-                console.log(res[0])
-
                 if (res[0]) {
                     this.placeId = res[0].place_id;
                     this.address = res[0].formatted_address;

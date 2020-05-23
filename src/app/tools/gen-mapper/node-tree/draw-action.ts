@@ -1,7 +1,7 @@
+import { Template } from '@models/template.model';
 import { GMSvgAction } from '@templates';
 import { Selection } from 'd3';
 import { NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
 import { applySVGAttrsAndStyle } from './d3-util';
 
 export function drawAction(group: Selection<SVGGElement, NodeDatum, SVGGElement, any>, template: Template, action: GMSvgAction): void {

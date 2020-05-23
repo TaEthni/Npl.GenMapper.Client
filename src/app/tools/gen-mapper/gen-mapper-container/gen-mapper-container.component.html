@@ -14,6 +14,11 @@
     </mat-drawer>
 
     <mat-drawer-content>
+        <ng-container *ngIf="isLoading">
+            <div class="loading-container">
+                <mat-spinner></mat-spinner>
+            </div>
+        </ng-container>
         <app-sidenav-toggle></app-sidenav-toggle>
         <ng-container *ngIf="isAuthenticated && view !== viewType.Reports && view !== viewType.WorldMap">
             <button mat-mini-fab

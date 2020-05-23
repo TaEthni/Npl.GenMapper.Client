@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { DocumentDto } from '@shared/entity/document.model';
+import { DocumentDto } from '@models/document.model';
+import { NodeDto } from '@models/node.model';
 import { saveAs } from 'file-saver';
-import { TemplateUtils } from '../tools/gen-mapper/template-utils';
-import { TemplateService } from '../tools/gen-mapper/template.service';
-import { JSONToCSV } from '../tools/gen-mapper/resources/json-to-csv';
+import { JSONToCSV } from './json-to-csv';
+import { TemplateService } from './template.service';
 
 
 @Injectable({
@@ -15,9 +15,9 @@ export class DownloadService {
         private templateService: TemplateService
     ) { }
 
-    public downloadDocument(doc: DocumentDto): void {
+    public downloadDocument(doc: DocumentDto, nodes: NodeDto[]): void {
         const template = this.templateService.getTemplate(doc.type);
-        const content = JSONToCSV(doc.nodes, template);
+        const content = JSONToCSV(nodes, template);
         this.downloadCSV(content, doc.title);
     }
 

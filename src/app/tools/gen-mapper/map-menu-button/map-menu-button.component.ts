@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DownloadService } from '@core/download.service';
 import { LocaleService } from '@core/locale.service';
-import { DocumentDto } from '@shared/entity/document.model';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { DocumentDto } from '@models/document.model';
 import { GMTemplate } from '@templates';
+import { take, takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
@@ -14,12 +16,8 @@ import { GenMapperService } from '../gen-mapper.service';
     templateUrl: './map-menu-button.component.html',
     styleUrls: ['./map-menu-button.component.scss']
 })
-export class MapMenuButtonComponent {
-
-    @Input()
+export class MapMenuButtonComponent extends Unsubscribable implements OnInit {
     public document: DocumentDto;
-
-    @Input()
     public template: GMTemplate;
 
     @Output()
@@ -37,7 +35,17 @@ export class MapMenuButtonComponent {
         private genMapper: GenMapperService,
         private dialog: MatDialog,
         private router: Router,
-    ) { }
+    ) { super(); }
+
+    public ngOnInit(): void {
+        this.genMapper.template$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => this.template = result);
+
+        this.genMapper.selectedDocument$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => this.document = result);
+    }
 
     public onImport(): void {
         this.importButtonClick.emit();
@@ -58,7 +66,9 @@ export class MapMenuButtonComponent {
     }
 
     public onExport(): void {
-        this.downloadService.downloadDocument(this.document);
+        this.genMapper.nodes$.pipe(take(1)).subscribe(nodes => {
+            this.downloadService.downloadDocument(this.document, nodes);
+        });
     }
 
     public onPrintHorizontal(): void {
@@ -73,19 +83,11 @@ export class MapMenuButtonComponent {
         this.settingsButtonClick.emit();
     }
 
-    private _createDocument(document: DocumentDto): void {
-        this.genMapper
-            .createDocument(document)
-            .subscribe(doc => {
-                this.router.navigate([this.template.name, doc.id]);
-            });
-    }
-
     private _deleteDocument(): void {
         this.genMapper
             .removeDocument(this.document)
             .subscribe(() => {
-                this.router.navigate([this.template.id]);
+                this.router.navigate(['/gen-mapper', this.template.id]);
             });
     }
 }

@@ -1,7 +1,7 @@
-import { GNode } from "../gen-mapper.interface";
-import { csvParse } from "d3";
-import { Template } from "../template.model";
+import { Template } from "@models/template.model";
 import { ControlType } from "@templates";
+import { csvParse } from "d3";
+import { GNode } from "../tools/gen-mapper/gen-mapper.interface";
 
 const isNumberReg = /\d/;
 

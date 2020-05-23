@@ -1,8 +1,11 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocaleService } from '@core/locale.service';
-import { DocumentDto } from '@shared/entity/document.model';
+import { Unsubscribable } from '@core/Unsubscribable';
+import { NodeDto } from '@models/node.model';
+import { Template } from '@models/template.model';
 import { ControlType, GMReport } from '@templates';
-import { Template } from '../template.model';
+import { takeUntil } from 'rxjs/operators';
+import { GenMapperService } from '../../gen-mapper.service';
 
 
 @Component({
@@ -10,13 +13,7 @@ import { Template } from '../template.model';
     templateUrl: './gm-reports.component.html',
     styleUrls: ['./gm-reports.component.scss']
 })
-export class GmReportsComponent implements OnInit, OnChanges {
-    @Input()
-    public document: DocumentDto;
-
-    @Input()
-    public template: Template;
-
+export class GmReportsComponent extends Unsubscribable implements OnInit {
     public stats = {
         attenders: 0,
         believers: 0,
@@ -40,36 +37,33 @@ export class GmReportsComponent implements OnInit, OnChanges {
         existingBelieversLeading: 0,
     };
 
+    public nodes: NodeDto[];
+    public template: Template;
     public reports: GMReport[];
     public baptismsReport: GMReport[];
     public churchFunctionsReport: GMReport[];
     public generations: GMReport[];
-
     public nodeCount: number;
     public activeNodeCount: number;
     public viewNodeCount: number;
     public includeInactive: boolean;
-
     public churchTypes: any[];
 
     constructor(
-        private locale: LocaleService
-    ) { }
+        private locale: LocaleService,
+        private genMapper: GenMapperService
+    ) { super(); }
 
     public ngOnInit(): void {
-    }
+        this.genMapper.template$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.template = result;
+            this.createReports();
+        });
 
-    public ngOnChanges(): void {
-        if (this.document) {
-            this.nodeCount = this.document.nodes.length;
-            this.activeNodeCount = this.document.nodes.filter(d => d.active).length;
-
-            if (!this.reports) {
-                this.createReports();
-            }
-
+        this.genMapper.nodes$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.nodes = result;
             this.updateReports();
-        }
+        });
     }
 
     public toggleIncludeInactive(): void {
@@ -145,6 +139,9 @@ export class GmReportsComponent implements OnInit, OnChanges {
     }
 
     private updateReports(): void {
+        this.nodeCount = this.nodes.length;
+        this.activeNodeCount = this.nodes.filter(d => d.attributes.active).length;
+
         Object.keys(this.stats).forEach(key => {
             this.stats[key] = 0;
         });
@@ -167,8 +164,8 @@ export class GmReportsComponent implements OnInit, OnChanges {
         this.generations = [];
         const generations = {};
 
-        const nodes = this.document.nodes;
-        const activeNodes = nodes.filter(n => n.active);
+        const nodes = this.nodes;
+        const activeNodes = nodes.filter(n => n.attributes.active);
 
         this.stats.totalNodes = nodes.length;
         this.stats.activeNodes = activeNodes.length;
@@ -180,21 +177,21 @@ export class GmReportsComponent implements OnInit, OnChanges {
             ns = activeNodes;
         }
 
-        ns.forEach((node: any) => {
-            if (node.gen) {
-                generations[node.gen] = generations[node.gen] || 0;
-                generations[node.gen]++;
+        ns.forEach((node: NodeDto) => {
+            if (node.attributes.gen) {
+                generations[node.attributes.gen] = generations[node.attributes.gen] || 0;
+                generations[node.attributes.gen]++;
             }
 
-            this.stats.attenders += parseFloat(node.attenders) || 0;
-            this.stats.believers += parseFloat(node.believers) || 0;
-            this.stats.baptized += parseFloat(node.baptized) || 0;
+            this.stats.attenders += parseFloat(node.attributes.attenders as any) || 0;
+            this.stats.believers += parseFloat(node.attributes.believers as any) || 0;
+            this.stats.baptized += parseFloat(node.attributes.baptized as any) || 0;
             this.stats.unbaptized = this.stats.attenders - this.stats.baptized;
-            this.stats.newlyBaptized += parseFloat(node.newlyBaptized) || 0;
+            this.stats.newlyBaptized += parseFloat(node.attributes.newlyBaptized as any) || 0;
 
             this.reports.forEach(report => {
                 if (report.type === 'radio') {
-                    const v = node[report.name];
+                    const v = node.attributes[report.name];
                     const found = report.values.find(rv => rv.key === v);
                     if (found) {
                         found.value++;
@@ -202,7 +199,7 @@ export class GmReportsComponent implements OnInit, OnChanges {
                 }
 
                 if (report.type === 'multiSelect') {
-                    const value = node[report.name];
+                    const value = node.attributes[report.name];
                     if (value) {
                         report.values.forEach(rv => {
                             if (value.indexOf(rv.option) > -1) {
@@ -214,7 +211,7 @@ export class GmReportsComponent implements OnInit, OnChanges {
 
                 if (report.type === 'multiField') {
                     report.values.forEach(rv => {
-                        const v = node[rv.key];
+                        const v = node.attributes[rv.key];
                         if (v) {
                             rv.value++;
                         }
@@ -223,7 +220,7 @@ export class GmReportsComponent implements OnInit, OnChanges {
 
                 if (report.type === 'multiNumber') {
                     report.values.forEach(rv => {
-                        const v = node[rv.key];
+                        const v = node.attributes[rv.key];
                         if (v) {
                             rv.value += parseFloat(v) || 0;
                         }
@@ -231,12 +228,12 @@ export class GmReportsComponent implements OnInit, OnChanges {
                 }
 
                 if (report.type === 'number') {
-                    const v = parseFloat(node[report.name]) || 0;
+                    const v = parseFloat(node.attributes[report.name]) || 0;
                     report.value += v;
                 }
 
                 if (report.type === 'boolean') {
-                    if (node[report.name]) {
+                    if (node.attributes[report.name]) {
                         report.value += 1;
                     }
                 }

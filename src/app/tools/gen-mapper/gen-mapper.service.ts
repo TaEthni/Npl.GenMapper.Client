@@ -1,222 +1,318 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
-import { DocumentDto } from '@shared/entity/document.model';
-import { Entity } from '@shared/entity/entity.model';
-import { assign, groupBy } from 'lodash';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delayWhen, map, tap } from 'rxjs/operators';
-import { DocumentService } from './document.service';
-import { GNode } from './gen-mapper.interface';
-import { TemplateUtils } from './template-utils';
-import { Template } from './template.model';
-import { JSONToCSV } from './resources/json-to-csv';
-import { CSVToJSON } from './resources/csv-to-json';
+import { DocumentService } from '@core/document.service';
+import { DocumentDto, IDocumentDto } from '@models/document.model';
+import { IFlatNode, NodeDto } from '@models/node.model';
+import { Template } from '@models/template.model';
+import { keyBy } from 'lodash';
+import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
+import { delayWhen, filter, map, take, tap } from 'rxjs/operators';
 
-const storageKey = 'offline-locall-save-';
+const documentStorageKey = 'offline-document-v1-';
+const nodesStorageKey = 'offline-nodes-v1-'
 
 export interface GenMapperConfig {
     documents: DocumentDto[];
     template: Template;
 }
 
+export interface DocumentContext {
+    document: DocumentDto;
+    nodes: NodeDto[];
+}
+
 @Injectable()
 export class GenMapperService {
-    private _config: BehaviorSubject<GenMapperConfig> = new BehaviorSubject({} as GenMapperConfig);
-    private _document: BehaviorSubject<DocumentDto> = new BehaviorSubject(null);
-    private _node: BehaviorSubject<GNode> = new BehaviorSubject(null);
+    private rawTemplate: Template;
+    private _template = new ReplaySubject<Template>();
+    private _documents = new BehaviorSubject<DocumentDto[]>(null);
+    private _nodes: BehaviorSubject<NodeDto[]> = new BehaviorSubject<NodeDto[]>(null);
+    private _selectedDocument: BehaviorSubject<DocumentDto> = new BehaviorSubject(null);
+    private _selectedNode: BehaviorSubject<NodeDto> = new BehaviorSubject(null);
+
+    public template$ = this._template.asObservable();
+    public documents$ = this._documents.asObservable();
+    public nodes$ = this._nodes.asObservable();
+
+    public selectedDocument$ = this._selectedDocument.asObservable();
+    public selectedNode$ = this._selectedNode.asObservable();
 
     constructor(
         private authService: AuthenticationService,
         private documentService: DocumentService
-    ) { }
+    ) {
+        this.template$
+            .pipe(filter(t => !!t))
+            .subscribe(template => {
+                this.rawTemplate = template;
+                this._selectedDocument.next(null);
+                this.refreshDocuments().subscribe();
+            })
 
-    public getConfig(): Observable<GenMapperConfig> {
-        return this._config.asObservable();
+        this.selectedDocument$
+            .subscribe(document => {
+                this._selectedNode.next(null);
+
+                if (!document) {
+                    this._nodes.next(null);
+                    return;
+                }
+
+                this.refreshDocumentNodes().subscribe();
+            });
+
+        this._nodes.subscribe(result => {
+            this.processNodesOnSet(result);
+        });
     }
 
     public getDocument(): Observable<DocumentDto> {
-        return this._document.asObservable();
+        return this._selectedDocument.asObservable();
     }
 
-    public getNode(): Observable<GNode> {
-        return this._node.asObservable();
+    public getNode(): Observable<NodeDto> {
+        return this._selectedNode.asObservable();
     }
 
-    public setConfig(config: GenMapperConfig): void {
-        this._config.next(config);
-    }
-
-    public setDocument(document: DocumentDto): void {
-        if (document) {
-            this.updateDocumentNodes(document);
-        }
-
-        this._document.next(document);
-    }
-
-    public setNode(node: GNode): void {
-        this._node.next(node);
-    }
-
-    public loadFromResolver(template: Template): Observable<GenMapperConfig> {
-        return this.load(template).pipe(map(() => this._config.getValue()));
-    }
-
-    public load(template: Template): Observable<DocumentDto[]> {
-
-        if (!this.authService.isAuthenticated()) {
-            return this.loadFromLocalStorage(template);
-        }
-
-        return this.documentService.getDocumentsByType(template.id)
-            .pipe(
-                tap((docs) => {
-                    const config = this._config.getValue();
-                    config.documents = docs;
-                    config.template = template;
-                    this.setConfig(config);
-
-                })
-            );
-    }
-
-    public loadFromLocalStorage(template: Template): Observable<DocumentDto[]> {
-        const local = localStorage.getItem(storageKey + template.name);
-        let document: DocumentDto;
-
-        if (local) {
-            const json = JSON.parse(local);
-
-            // For backwards compatibility
-            if (json.format) { json.type = json.format; }
-
-            document = new DocumentDto(json);
-        } else {
-            document = new DocumentDto({ type: template.id, id: Entity.uuid() });
-        }
-
-        if (!document.content) {
-            document.content = TemplateUtils.createInitialCSV(template);
-        }
-
-        // Patch churchCirclesOkc
-        if (document.type === 'churchCirclesOkc') {
-            document.type = 'churchCircles12';
-        }
-
-        document.nodes = CSVToJSON(document.content, template);
-
-        const config = this._config.getValue();
-        config.documents = [document];
-        config.template = template;
-        this.setConfig(config);
-
-        return of(config.documents);
-    }
-
-    public createDocument(value: { content?: string, title?: string } = {}): Observable<DocumentDto> {
-        const config = this._config.getValue();
-
-        const doc = new DocumentDto({
-            id: Entity.uuid(),
-            title: value.title || 'No name',
-            type: config.template.id,
-            content: value.content || TemplateUtils.createInitialCSV(config.template)
+    public selectDocument(documentId: string): void {
+        this.documents$.pipe(filter(n => !!n), take(1)).subscribe(result => {
+            const doc = result.find(d => d.id === documentId);
+            this._selectedDocument.next(doc);
         });
+    }
+
+    public setNode(node: NodeDto): void {
+        this._selectedNode.next(node);
+    }
+
+    public setNodeById(nodeId: string): void {
+        const nodes = this._nodes.getValue();
+        this.setNode(nodes.find(d => d.id === nodeId));
+    }
+
+    public loadFromResolver(template: Template): Observable<DocumentDto[]> {
+        this._template.next(template);
+        return this.documents$.pipe(filter(n => !!n), take(1));
+    }
+
+    public createDocument(value: IDocumentDto): Observable<DocumentDto> {
+        value = value || {} as IDocumentDto;
+        value.type = this.rawTemplate.id;
+        value.title = value.title || 'No Name';
 
         if (!this.authService.isAuthenticated()) {
-            return this.updateLocalStorage(doc)
-                .pipe(
-                    delayWhen(() => this.load(config.template))
-                );
+            return this.setDocumentLocalStorage(value);
         }
 
-        return this.documentService.create(doc, config.template)
+        return this.documentService.create(value)
             .pipe(
-                delayWhen(() => this.load(config.template))
-            );
+                delayWhen(() => this.refreshDocuments()),
+            )
+    }
+
+    public createNode(value: NodeDto): Observable<NodeDto> {
+        if (!this.authService.isAuthenticated()) {
+            const nodes = this._nodes.getValue();
+            nodes.push(value);
+            this.setNodesLocalStorage(nodes);
+            return of(value);
+        }
+
+        return this.documentService.createNode(value);
+    }
+
+    public createDocumentNodes(nodes: NodeDto[]): Observable<NodeDto[]> {
+        if (!this.authService.isAuthenticated()) {
+            let saved = this._nodes.getValue();
+            saved = saved.concat(nodes);
+            this._nodes.next(saved);
+            return this.setNodesLocalStorage(saved);
+        }
+
+        const document = this._selectedDocument.getValue();
+        return this.documentService.batchCreateNodes(document.id, nodes)
+            .pipe(
+                tap((response) => {
+                    this._nodes.next(response);
+                })
+            )
     }
 
     public updateDocument(doc: DocumentDto): Observable<DocumentDto> {
         if (!this.authService.isAuthenticated()) {
-            return this.updateLocalStorage(doc);
+            return this.setDocumentLocalStorage(doc);
         }
 
-        return this.documentService.update(doc).pipe(tap(() => {
-            const list = this._config.getValue().documents;
-            const found = list.find(n => n.id === doc.id);
-            if (found) {
-                assign(found, doc);
-            }
-        }));
+        return this.documentService.update(doc).pipe(
+            delayWhen(() => this.refreshDocuments()),
+        );
     }
 
-    public updateLocalStorage(doc: DocumentDto): Observable<DocumentDto> {
-        const config = this._config.getValue();
-        doc.id = 'local';
-
-        // If nodes, then replace content with current nodes converted to CSV
-        if (doc.nodes && doc.nodes.length) {
-            doc.content = JSONToCSV(doc.nodes, config.template);
+    public updateNode(node: NodeDto): Observable<NodeDto> {
+        if (!this.authService.isAuthenticated()) {
+            return this.updateNodeLocalStorage(node);
         }
 
-        localStorage.setItem(storageKey + config.template.name, JSON.stringify(doc));
-        return of(doc);
+        return this.documentService.updateNode(node);
     }
 
     public removeDocument(doc: DocumentDto): Observable<DocumentDto> {
-        const config = this._config.getValue();
-
         if (!this.authService.isAuthenticated()) {
-            return this.removeLocalDocument(doc)
-                .pipe(
-                    delayWhen(() => this.load(config.template)),
-                    tap(() => this._document.next(null))
-                );
+            this.clearLocalStorage();
+            this._selectedDocument.next(null);
+            return of(null);
         }
 
         return this.documentService.remove(doc)
             .pipe(
-                delayWhen(() => this.load(config.template)),
-                tap(() => this._document.next(null))
+                delayWhen(() => this.refreshDocuments()),
             );
     }
 
-    public removeLocalDocument(doc: DocumentDto): Observable<DocumentDto> {
-        const config = this._config.getValue();
-        localStorage.removeItem(storageKey + config.template.id);
-        return of(doc);
+    public removeDocumentNodes(nodeIds: string[]): Observable<void> {
+        if (!this.authService.isAuthenticated()) {
+            const nodes = this._nodes.getValue().filter(n => !(nodeIds.indexOf(n.id) > -1));
+            this.setNodesLocalStorage(nodes);
+            this._nodes.next(nodes);
+            return of(null);
+        }
+
+        const document = this._selectedDocument.getValue();
+        return this.documentService.removeNodes(document.id, nodeIds);
+    }
+
+    public refreshDocuments(): Observable<DocumentDto[]> {
+        let observer: Observable<DocumentDto[]>;
+
+        if (!this.authService.isAuthenticated()) {
+            observer = this.loadDocumentsFromLocalStorage();
+        } else {
+            observer = this.documentService.getAllByType(this.rawTemplate.id);
+        }
+
+        return observer.pipe(tap(documents => {
+            this._documents.next(documents);
+        }))
+    }
+
+    public refreshDocumentNodes(): Observable<NodeDto[]> {
+        let observer: Observable<NodeDto[]>;
+
+        if (!this.authService.isAuthenticated()) {
+            observer = this.loadNodesFromLocalStorage();
+        } else {
+            const document = this._selectedDocument.getValue();
+            observer = this.documentService.getDocumentNodes(document.id);
+        }
+
+        return observer.pipe(tap(nodes => {
+            this._nodes.next(nodes);
+        }));
+    }
+
+    public importChildNodesFromCSV(parentNode: NodeDto, childNodes: IFlatNode[]): Observable<NodeDto[]> {
+        const document = this._selectedDocument.getValue();
+        const nodes = this.documentService.processNodesBeforeCreate(childNodes, document);
+        const rootNode = nodes.find(n => !n.parentId);
+        rootNode.parentId = parentNode.id;
+        // Return only the created nodes.
+        return this.createDocumentNodes(nodes).pipe(map(d => nodes));
+    }
+
+    public loadDocumentsFromLocalStorage(): Observable<DocumentDto[]> {
+        const local = localStorage.getItem(documentStorageKey + this.rawTemplate.id);
+        let document: DocumentDto;
+
+        if (local) {
+            const json = JSON.parse(local);
+            document = new DocumentDto(json);
+        } else {
+            document = new DocumentDto({ type: this.rawTemplate.id, id: 'local' });
+        }
+
+        return of([document]);
+    }
+
+
+    public loadNodesFromLocalStorage(): Observable<NodeDto[]> {
+        const local = localStorage.getItem(nodesStorageKey + this.rawTemplate.id);
+        let nodes: NodeDto[];
+
+        if (local) {
+            nodes = JSON.parse(local);
+        } else {
+            nodes = [this.rawTemplate.createDefaultNode()];
+        }
+
+        return of(nodes);
+    }
+
+    public setDocumentLocalStorage(doc: IDocumentDto): Observable<DocumentDto> {
+        doc.id = 'local';
+        localStorage.setItem(documentStorageKey + this.rawTemplate.id, JSON.stringify(doc));
+        return of(new DocumentDto(doc));
+    }
+
+    public setNodesLocalStorage(nodes: NodeDto[]): Observable<NodeDto[]> {
+        const json = JSON.stringify(nodes);
+        localStorage.setItem(nodesStorageKey + this.rawTemplate.id, json);
+        return of(nodes);
+    }
+
+    public updateNodeLocalStorage(node: NodeDto): Observable<NodeDto> {
+        node.documentId = 'local';
+        const nodes = this._nodes.getValue();
+        const raw = nodes.find(d => d.id === node.id);
+        Object.assign(raw, node);
+        localStorage.setItem(nodesStorageKey + this.rawTemplate.id, JSON.stringify(nodes));
+        return of(raw);
+    }
+
+    public clearLocalStorage(): void {
+        localStorage.removeItem(documentStorageKey + this.rawTemplate.id);
+        localStorage.removeItem(nodesStorageKey + this.rawTemplate.id);
     }
 
     public hasLocalDocument(): boolean {
-        const config = this._config.getValue();
-        return !!localStorage.getItem(storageKey + config.template.id);
+        return !!localStorage.getItem(documentStorageKey + this.rawTemplate.id);
     }
 
-    public updateDocumentNodes(doc: DocumentDto): void {
-        const byId = groupBy(doc.nodes, (n) => n.id);
+    private processNodesOnSet(nodes: NodeDto[]): void {
+        if (!nodes) { return; }
 
-        doc.nodes.forEach(node => {
-            if (node.newGeneration) {
-                node.gen = getParentGenCount(node);
+        const byId = keyBy(nodes, (n) => n.id);
+
+        nodes.forEach(node => {
+            if (node.attributes.newGeneration) {
+                node.attributes.gen = getParentGenCount(node);
             }
+
+            if (node.parentId) {
+                const parent = byId[node.parentId];
+
+                if (parent) {
+                    parent.attributes.hasChildNodes = true;
+                }
+            }
+
+            return node;
         });
 
-        function getParentGenCount(node: GNode): number {
+        function getParentGenCount(node: NodeDto): number {
             let depth = 1;
-            let parent: GNode;
+            let parent: NodeDto;
 
             if (!node.parentId) {
                 return depth;
             }
 
-            parent = byId[node.parentId][0];
+            parent = byId[node.parentId];
 
             while (parent) {
-                if (parent.newGeneration) {
+                if (parent.attributes.newGeneration) {
                     depth++;
                 }
-                parent = byId[parent.parentId] && byId[parent.parentId][0];
+                parent = byId[parent.parentId];
             }
 
             return depth;

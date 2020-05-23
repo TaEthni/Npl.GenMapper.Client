@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { User } from '@shared/entity/user.model';
+import { User } from '@models/user.model';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

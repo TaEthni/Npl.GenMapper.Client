@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@shared/entity/document.model';
+import { NodeDto } from '@models/node.model';
+import { Template } from '@models/template.model';
 import { takeUntil } from 'rxjs/operators';
-import { GNode, NodeDatum } from '../gen-mapper.interface';
+import { NodeDatum } from '../gen-mapper.interface';
 import { D3NodeTree } from '../node-tree/d3-node-tree';
 import { NodeTreeService } from '../node-tree/node-tree.service';
-import { Template } from '../template.model';
 
 
 @Component({
@@ -14,28 +14,23 @@ import { Template } from '../template.model';
     templateUrl: './gen-mapper-graph.component.html',
     styleUrls: ['./gen-mapper-graph.component.scss']
 })
-export class GenMapperGraphComponent extends Unsubscribable implements AfterViewInit, OnChanges {
-    @Input()
-    public document: DocumentDto;
-
+export class GenMapperGraphComponent extends Unsubscribable implements AfterViewInit, OnInit {
     @Input()
     public template: Template;
 
     @Output()
-    public change = new EventEmitter<GNode[]>(null);
+    public change = new EventEmitter<NodeDto[]>(null);
 
     @Output()
-    public nodeClick = new EventEmitter<GNode>(null);
+    public nodeClick = new EventEmitter<NodeDto>(null);
 
     @Output()
-    public addNode = new EventEmitter<GNode>(null);
+    public addNode = new EventEmitter<NodeDto>(null);
 
     @ViewChild('genMapperGraphSvg', { static: true })
     public graphSvg: ElementRef;
 
     public d3NodeTree: D3NodeTree;
-    private _updating: boolean;
-    private _documentId: string;
 
     constructor(
         private elementRef: ElementRef,
@@ -47,6 +42,16 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
         this.d3NodeTree.resize();
     }
 
+    public ngOnInit(): void {
+        this.nodeTree.treeData$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                if (result && this.d3NodeTree) {
+                    this.d3NodeTree.update(result, false);
+                }
+            });
+    }
+
     public ngAfterViewInit(): void {
         // This is a bad practice, but it is the only way to make this work
         const ttid = setTimeout(() => {
@@ -55,36 +60,15 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
         }, 1000);
     }
 
-    public ngOnChanges(simpleChanges: SimpleChanges): void {
-        if (simpleChanges.document.firstChange) {
-            if (this.document) {
-                this._documentId = this.document.id;
-            }
-
-            return;
-        }
-
+    public centerGraphOnNode(nodeId: string): void {
         if (this.d3NodeTree) {
-            // Only recenter graph if there is a new document.
-            const recenterGraph = this.document.id !== this._documentId;
-
-            // Set updating property to prevent onChange from firing.
-            this._updating = true;
-
-            // update graph
-            // this.graph.update(this.document.nodes, recenterGraph);
-
-            if (this.nodeTree.treeData) {
-                this.d3NodeTree.update(this.nodeTree.treeData, recenterGraph);
-            }
+            this.d3NodeTree.centerNodeById(nodeId);
         }
+    }
 
-        // Only set the document ID if it is a saved document.
-        // The documentId is used to determine when to recenter the graph on a change.
-        if (this.document && this.document.id !== 'local') {
-            this._documentId = this.document.id;
-        } else {
-            this._documentId = null;
+    public recenterGraph(): void {
+        if (this.d3NodeTree) {
+            this.d3NodeTree.originalPosition();
         }
     }
 

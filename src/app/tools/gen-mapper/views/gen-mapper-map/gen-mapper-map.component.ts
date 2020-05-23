@@ -1,20 +1,19 @@
-import { Component, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AgmMap } from '@agm/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MapsService } from '@core/maps.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { Utils } from '@core/utils';
-import { DocumentDto } from '@shared/entity/document.model';
-import { takeUntil } from 'rxjs/operators';
-
-import { DocumentService } from '../document.service';
-import { GNode } from '../gen-mapper.interface';
-import { GenMapperService } from '../gen-mapper.service';
+import { NodeDto } from '@models/node.model';
 import { GMTemplate } from '@templates';
-import { AgmMap } from '@agm/core';
+import { takeUntil } from 'rxjs/operators';
+import { DocumentService } from '../../../../core/document.service';
+import { GenMapperService } from '../../gen-mapper.service';
+
 
 export interface MapMarker {
     lat: number;
     lng: number;
-    node: GNode;
+    node: NodeDto;
 }
 
 @Component({
@@ -23,16 +22,11 @@ export interface MapMarker {
     styleUrls: ['./gen-mapper-map.component.scss']
 })
 export class GenMapperMapComponent extends Unsubscribable implements OnInit {
-
-    @Input()
-    public template: GMTemplate;
-
-    @Input()
-    public document: DocumentDto;
-
     @ViewChild(AgmMap, { static: true })
     public agmMap: AgmMap;
 
+    public template: GMTemplate;
+    public nodes: NodeDto[];
     public latitude: number;
     public longitude: number;
     public markers: MapMarker[];
@@ -48,13 +42,15 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
     ) { super(); }
 
     public ngOnInit(): void {
-        this.genMapper.getDocument()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.isLoading = true;
-                this.document = result;
-                this.runChange();
-            });
+        this.genMapper.template$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.template = result;
+        });
+
+        this.genMapper.nodes$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.isLoading = true;
+            this.nodes = result;
+            this.runChange();
+        });
     }
 
     public markerClick(marker: MapMarker): void {
@@ -63,10 +59,10 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
 
     private runChange(): void {
         this.markers = [];
-        const parentMarker = this.document.nodes.find(n => !n.parentId);
-        const nodesWithLocation = this.document.nodes.filter(n => !!n.location);
-        const nodesWithLatLng = nodesWithLocation.filter(n => !!n.latitude);
-        const nodesWithoutLatLng = nodesWithLocation.filter(n => !n.latitude);
+        const parentMarker = this.nodes.find(n => !n.parentId);
+        const nodesWithLocation = this.nodes.filter(n => !!n.attributes.location);
+        const nodesWithLatLng = nodesWithLocation.filter(n => !!n.attributes.latitude);
+        // const nodesWithoutLatLng = nodesWithLocation.filter(n => !n.attributes.latitude);
 
         if (nodesWithLocation.length === 0) {
             this.isLoading = false;
@@ -74,16 +70,16 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
         }
 
         this.markers = nodesWithLatLng.map(node => ({
-            lat: node.latitude,
-            lng: node.longitude,
+            lat: node.attributes.latitude,
+            lng: node.attributes.longitude,
             node,
         }));
 
         if (this.markers.length > 0) {
 
-            if (parentMarker && parentMarker.latitude && parentMarker.longitude) {
-                this.latitude = parentMarker.latitude;
-                this.longitude = parentMarker.longitude;
+            if (parentMarker && parentMarker.attributes.latitude && parentMarker.attributes.longitude) {
+                this.latitude = parentMarker.attributes.latitude;
+                this.longitude = parentMarker.attributes.longitude;
             } else {
                 this.latitude = this.markers[0].lat;
                 this.longitude = this.markers[0].lng;
@@ -94,10 +90,18 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
 
         this.sortMarkers();
 
-        this.locateUnlocatedAddresses(nodesWithoutLatLng);
+        // this.locateUnlocatedAddresses(nodesWithoutLatLng);
     }
 
-    private locateUnlocatedAddresses(nodesWithoutLatLng: GNode[]): void {
+    private sortMarkers(): void {
+        this.markers.sort((a, b) => {
+            return b.lat - a.lat;
+        });
+    }
+
+    // Method locates nodes that have a location but no lat & lng.
+    // Using reverse GeoLocation
+    private locateUnlocatedAddresses(nodesWithoutLatLng: NodeDto[]): void {
         if (nodesWithoutLatLng.length === 0) {
             return;
         }
@@ -116,7 +120,7 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
             });
         };
 
-        const runQueue = (n: GNode) => {
+        const runQueue = (n: NodeDto) => {
             this.ngZone.run(() => {
                 this.locatingCount = nodesWithoutLatLng.length + 1;
             });
@@ -124,11 +128,11 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
             Utils.timeout(() => {
                 if (n) {
                     this.locatingCount = nodesWithoutLatLng.length;
-                    this.mapsService.getCoordsForAddress({ address: n.location, placeId: n.placeId }).subscribe(result => {
+                    this.mapsService.getCoordsForAddress({ address: n.attributes.location, placeId: n.attributes.placeId }).subscribe(result => {
                         // Set properties on Node so we can save.
-                        n.latitude = result.latitude;
-                        n.longitude = result.longitude;
-                        n.placeId = result.placeId;
+                        n.attributes.latitude = result.latitude;
+                        n.attributes.longitude = result.longitude;
+                        n.attributes.placeId = result.placeId;
 
                         this.markers.push({
                             lat: result.latitude,
@@ -151,15 +155,8 @@ export class GenMapperMapComponent extends Unsubscribable implements OnInit {
     }
 
     private saveDocument(): void {
-        this.documentService.update(this.document)
-            .subscribe(result => {
-                console.log('Document Updated');
-            });
-    }
-
-    private sortMarkers(): void {
-        this.markers.sort((a, b) => {
-            return b.lat - a.lat;
-        });
+        // this.documentService.updateNode(this.document)
+        //     .subscribe(result => {
+        //     });
     }
 }

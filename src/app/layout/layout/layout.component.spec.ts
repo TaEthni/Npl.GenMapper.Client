@@ -1,15 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LayoutComponent } from './layout.component';
-import { configureTestSuite } from 'ng-bullet';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TokenService } from '@core/token.service';
-import { TokenServiceMock } from '@core/testing/token-service.mock';
-import { AuthenticationService } from '@core/authentication.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { User } from '@shared/entity/user.model';
-import { of } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from '@core/authentication.service';
 import { LayoutService } from '@core/layout.service';
+import { TokenServiceMock } from '@core/testing/token-service.mock';
+import { User } from '@models/user.model';
+import { configureTestSuite } from 'ng-bullet';
+import { of } from 'rxjs';
+import { LayoutComponent } from './layout.component';
+
 
 describe('LayoutComponent', () => {
     let component: LayoutComponent;

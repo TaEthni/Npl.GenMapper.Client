@@ -1,9 +1,14 @@
-import { Entity, EntityType } from '@shared/entity/entity.model';
-import { GMStreamAttribute } from '@templates';
 import { assign } from 'lodash';
-import { GNode } from '../../tools/gen-mapper/gen-mapper.interface';
+import { Entity, EntityType, IEntity } from './entity.model';
+import { NodeDto } from './node.model';
 
-export class DocumentDto extends Entity {
+export interface IDocumentDto extends IEntity {
+    title?: string;
+    type?: string;
+    nodes?: NodeDto[];
+}
+
+export class DocumentDto extends Entity implements IDocumentDto {
     public id: string;
     public title: string;
     public type: string;
@@ -15,8 +20,7 @@ export class DocumentDto extends Entity {
 
     // Mapped on client
     public entityType = EntityType.Documents;
-    public attributes: GMStreamAttribute[];
-    public nodes: GNode[];
+    public nodes: NodeDto[];
 
     constructor(props: object = {}) {
         super();

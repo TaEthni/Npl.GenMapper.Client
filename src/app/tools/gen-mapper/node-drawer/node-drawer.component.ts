@@ -4,16 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@shared/entity/document.model';
+import { DocumentDto } from '@models/document.model';
+import { NodeDto } from '@models/node.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { GMField } from '@templates';
-import { assign, cloneDeep } from 'lodash';
+import { assign } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
-import { Template } from '../template.model';
 
 
 @Component({
@@ -22,41 +21,33 @@ import { Template } from '../template.model';
     styleUrls: ['./node-drawer.component.scss']
 })
 export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnChanges {
-    @Input()
-    public node: GNode;
-
-    @Input()
+    public node: NodeDto;
     public document: DocumentDto;
-
-    @Input()
     public documents: DocumentDto[];
-
-    @Input()
-    public template: Template;
 
     @Input()
     public hideActions: boolean;
 
     @Output()
-    public pasteAsChildNode = new EventEmitter<GNode>();
+    public pasteAsChildNode = new EventEmitter<NodeDto>();
 
     @Output()
-    public replaceNode = new EventEmitter<GNode>();
+    public replaceNode = new EventEmitter<NodeDto>();
 
     @Output()
-    public copyNode = new EventEmitter<GNode>();
+    public copyNode = new EventEmitter<NodeDto>();
 
     @Output()
-    public updateNode = new EventEmitter<GNode>();
+    public updateNode = new EventEmitter<NodeDto>();
 
     @Output()
-    public deleteNode = new EventEmitter<GNode>();
+    public deleteNode = new EventEmitter<NodeDto>();
 
     @Output()
-    public importSubtree = new EventEmitter<GNode>();
+    public importSubtree = new EventEmitter<NodeDto>();
 
     public isNodeInClipboard: boolean;
-    public clonedNode: GNode;
+    public clonedNode: NodeDto;
     public fields: GMField[];
     public form: FormGroup;
 
@@ -69,7 +60,40 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     ) { super(); }
 
     public ngOnInit(): void {
-        this.fields = this.template.fields;
+
+        this.genMapper.template$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(template => {
+                this.fields = template.fields;
+                this.initializeForm();
+            });
+
+        this.genMapper.documents$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(documents => this.documents = documents);
+
+        this.genMapper.selectedDocument$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(document => {
+                this.document = document;
+            });
+
+        this.genMapper.selectedNode$
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(node => {
+                this.node = node;
+
+                if (this.node) {
+                    this.configureNode();
+                }
+
+                if (this.node) {
+                    this.drawer.open();
+                } else {
+                    this.form.reset();
+                    this.drawer.close();
+                }
+            });
 
         this.nodeClipboard.get()
             .pipe(takeUntil(this.unsubscribe))
@@ -79,27 +103,25 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     }
 
     public ngOnChanges(change: SimpleChanges): void {
-        if (change.document && change.document.currentValue && change.document.firstChange) {
-            this.initializeForm();
-        }
+        // if (change.document && change.document.currentValue && change.document.firstChange) {
+        //     this.initializeForm();
+        // }
 
-        if (change.node && change.node.currentValue && !change.node.previousValue) {
-            this.configureNode();
-            this.drawer.open();
-        } else {
-            this.drawer.close();
-        }
+        // if (change.node && change.node.currentValue && !change.node.previousValue) {
+        //     this.configureNode();
+        //     this.drawer.open();
+        // } else {
+        //     this.drawer.close();
+        // }
 
-        if (change.node && !change.node.currentValue && change.node.previousValue) {
-            this.form.reset();
-        }
+        // if (change.node && !change.node.currentValue && change.node.previousValue) {
+        //     this.form.reset();
+        // }
     }
 
     public configureNode(): void {
         this.checkClipboard();
-        this.clonedNode = cloneDeep(this.node);
-        delete this.clonedNode.descendants;
-        this.form.reset(this.clonedNode);
+        this.form.reset(this.node.attributes);
     }
 
     public onBackdropClick(): void {
@@ -130,26 +152,13 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
     public onSave(): void {
         // if node is active, then remove reason for being inactive.
-        if (this.clonedNode.hasOwnProperty('active') && this.clonedNode.hasOwnProperty('inactiveReason') && this.clonedNode.active) {
-            this.clonedNode.inactiveReason = null;
+
+        const value = this.form.getRawValue();
+        if (value.hasOwnProperty('active') && value.hasOwnProperty('inactiveReason') && value.active) {
+            value.inactiveReason = null;
         }
 
-        this.template.fields.forEach(field => {
-            if (field.sumOfFields) {
-                let v: number = 0;
-                field.sumOfFields.forEach((fieldId) => {
-                    // const otherField = this.template.getField(fieldId);
-                    const value = parseInt(this.clonedNode[fieldId]);
-                    if (value) {
-                        v += value;
-                    }
-                });
-                this.clonedNode[field.id] = v;
-            }
-        });
-
-        assign(this.node, this.clonedNode);
-
+        assign(this.node.attributes, value);
         this.updateNode.emit(this.node);
         this.drawer.disableClose = false;
         this.genMapper.setNode(null);
@@ -217,11 +226,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         this.deleteNode.emit(this.node);
     }
 
-    public onFormChange(value: GNode): void {
-        assign(
-            this.clonedNode,
-            value
-        );
+    public onFormChange(value: NodeDto): void {
         this.drawer.disableClose = this.form.dirty;
     }
 
@@ -229,17 +234,11 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         const group: any = {};
         const fields: { name: string, order: number }[] = [];
 
-        this.template.fields
+        this.fields
             .filter(field => !!field.type)
             .forEach(field => {
                 fields.push({ name: field.id, order: field.controlOrder });
             });
-
-        // this.document.attributes
-        //     .filter(attr => !!attr.type && !this.template.fieldsByKey[attr.propertyName])
-        //     .forEach(attr => {
-        //         fields.push({ name: attr.propertyName, order: attr.order });
-        //     });
 
         fields.sort((a, b) => a.order - b.order)
             .forEach(field => {
@@ -261,18 +260,18 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(() => {
                 // we use getRawValue instead of form.value, so we can also get disabled controls
-                this.onFormChange(this.form.getRawValue());
+                this.drawer.disableClose = this.form.dirty;
             });
     }
 
-    private checkClipboard(clipboard?: GNode[]): void {
+    private checkClipboard(clipboard?: NodeDto[]): void {
         clipboard = clipboard || this.nodeClipboard.getValue();
         if (!clipboard) {
             this.isNodeInClipboard = false;
         }
 
         if (clipboard) {
-            const root = clipboard.find(n => n.parentId === '');
+            const root = clipboard.find(n => !n.parentId);
             if (root && root.id === this.node.id) {
                 this.isNodeInClipboard = false;
             } else {

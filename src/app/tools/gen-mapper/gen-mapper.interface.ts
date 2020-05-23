@@ -1,9 +1,11 @@
+import { NodeDto } from "@models/node.model";
 import { HierarchyPointNode } from "d3";
 
 export interface GNode {
     id: string;
     name: string;
     parentId: any;
+    documentId?: string;
     isRoot?: boolean;
 
     active: boolean;
@@ -38,7 +40,7 @@ export enum PrintType {
     vertical = 'vertical'
 }
 
-export interface NodeDatum extends HierarchyPointNode<GNode> {
+export interface NodeDatum extends HierarchyPointNode<NodeDto> {
     isRoot: boolean;
     id: any;
     depth: number;

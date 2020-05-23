@@ -1,28 +1,33 @@
 import { Injectable } from '@angular/core';
+import { NodeDto } from '@models/node.model';
+import { Template } from '@models/template.model';
 import { HierarchyPointNode, stratify, tree, TreeLayout } from 'd3';
 import { cloneDeep, Dictionary, keyBy } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
 import uuid from 'uuid';
-import { GNode, NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
+import { NodeDatum } from '../gen-mapper.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NodeTreeService {
+    private treeDataSource = new BehaviorSubject<HierarchyPointNode<NodeDto>>(null);
+    public treeData$ = this.treeDataSource.asObservable();
+
     public rootNode: NodeDatum;
-    public treeLayout: TreeLayout<GNode>
-    public treeData: HierarchyPointNode<GNode>;
+    public treeLayout: TreeLayout<NodeDto>
+    public treeData: HierarchyPointNode<NodeDto>;
     public nodes: NodeDatum[];
     public template: Template;
+    private rawData: NodeDto[];
+    private rawDataById: Dictionary<NodeDto>;
 
-    private rawData: GNode[];
-    private rawDataById: Dictionary<GNode>;
 
     constructor() { }
 
     public createLayout(template: Template): void {
         this.template = template;
-        this.treeLayout = tree<GNode>()
+        this.treeLayout = tree<NodeDto>()
             .nodeSize([
                 this.template.svgSettings.nodeWidth,
                 this.template.svgSettings.nodeHeight
@@ -32,13 +37,13 @@ export class NodeTreeService {
             });
     }
 
-    public getData(): GNode[] {
+    public getData(): NodeDto[] {
         return this.rawData;
     }
 
-    public validateTree(data: GNode[]): boolean {
+    public validateTree(data: { id: string, parentId: string }[]): boolean {
         try {
-            stratify<GNode>()
+            stratify<{ id: string, parentId: string }>()
                 .id(d => d.id)
                 .parentId(d => d.parentId)(data) as NodeDatum;
         } catch (error) {
@@ -48,34 +53,29 @@ export class NodeTreeService {
         return true;
     }
 
-    public createTree(nodes: GNode[]): void {
-        this.rawData = nodes;
+    public createTree(nodes: NodeDto[]): void {
+        this.rawData = nodes.slice();
         this.rawDataById = keyBy(nodes, d => d.id);
 
-        this.rootNode = stratify<GNode>()
+        this.rootNode = stratify<NodeDto>()
             .id(d => d.id)
             .parentId(d => d.parentId)(nodes) as NodeDatum;
 
         this.treeData = this.treeLayout(this.rootNode);
         this.nodes = this.treeData.descendants() as NodeDatum[];
+        this.treeDataSource.next(this.treeData);
     }
 
     public getNodeDatumById(id: string): NodeDatum {
         return this.nodes.find(d => d.data.id === id);
     }
 
-    public addChildNodeToParent(parentNode: GNode): GNode {
-        const newNode = {} as GNode;
+    public addChildNodeToParent(parentNode: NodeDto): NodeDto {
+        const newNode = this.template.createDefaultNode();
 
         newNode.id = uuid();
         newNode.parentId = parentNode.id;
-        newNode.nodeOrder = 1000;
-
-        this.template.fields.forEach(field => {
-            if (field.defaultValue || field.hasOwnProperty('defaultValue')) {
-                newNode[field.id] = field.defaultValue;
-            }
-        });
+        newNode.attributes.nodeOrder = 1000;
 
         this.rawData.push(newNode);
         this.createTree(this.rawData);
@@ -83,19 +83,23 @@ export class NodeTreeService {
         return newNode;
     }
 
-    public updateNode(node: GNode): void {
+    public insertNode(node: NodeDto): void {
+        this.createTree(this.rawData.concat([node]));
+    }
+
+    public updateNode(node: NodeDto): void {
         const raw = this.rawDataById[node.id];
         const index = this.rawData.indexOf(raw);
         Object.assign(this.rawData[index], node);
         this.createTree(this.rawData);
     }
 
-    public removeNode(node: GNode): void {
+    public removeNode(node: NodeDto): void {
         this.removeNodeAndDescendants(node);
         this.createTree(this.rawData);
     }
 
-    private removeNodeAndDescendants(node: GNode): void {
+    private removeNodeAndDescendants(node: NodeDto): void {
         const nodeDatum = this.nodes.find(d => d.data.id === node.id);
         const nodesToDelete = nodeDatum.descendants();
 
@@ -106,7 +110,7 @@ export class NodeTreeService {
         });
     }
 
-    public cloneNodeTree(node: GNode): GNode[] {
+    public cloneNodeTree(node: NodeDto): NodeDto[] {
         const nodeDatum = this.getNodeDatumById(node.id);
         const descendants = nodeDatum.descendants();
         const clonedNodes = [];
@@ -134,7 +138,7 @@ export class NodeTreeService {
         return clonedNodes;
     }
 
-    public cloneData(nodes: GNode[]): GNode[] {
+    public cloneData(nodes: NodeDto[]): NodeDto[] {
         const clonedData = [];
         const nodeMap = {};
 
@@ -154,7 +158,7 @@ export class NodeTreeService {
         return clonedData;
     }
 
-    public insertChildNodes(newParentNode: GNode, childNodes: GNode[]): void {
+    public insertChildNodes(newParentNode: NodeDto, childNodes: NodeDto[]): void {
         const data = this.cloneData(childNodes);
         const root = data.find(d => !d.parentId);
 
@@ -167,7 +171,7 @@ export class NodeTreeService {
         this.createTree(this.rawData);
     }
 
-    public replaceNode(nodeToReplace: GNode, childNodes: GNode[]): void {
+    public replaceNode(nodeToReplace: NodeDto, childNodes: NodeDto[]): void {
         const data = this.cloneData(childNodes);
         const root = data.find(d => !d.parentId);
 

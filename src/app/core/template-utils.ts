@@ -1,9 +1,9 @@
+import { Template } from '@models/template.model';
 import { ControlType, GenMapperTemplates, GMStreamAttribute, GMTemplate, translations } from '@templates';
-import { csvFormatRows, local } from 'd3';
+import { csvFormatRows } from 'd3';
 import { keyBy } from 'lodash';
 import * as uuid from 'uuid/v4';
-import { GNode } from './gen-mapper.interface';
-import { Template } from './template.model';
+import { GNode } from '../tools/gen-mapper/gen-mapper.interface';
 
 export const GenMapperTemplatesByFormat = {};
 GenMapperTemplates.forEach(t => (GenMapperTemplatesByFormat[t.id] = t));

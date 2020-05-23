@@ -6,11 +6,8 @@
                 class="node-drawer"
                 [autoFocus]="false"
                 (openedChange)="onNodeDrawerOpenChanged($event)">
+
         <app-node-drawer #nodeDrawer
-                         [documents]="documents"
-                         [document]="document"
-                         [template]="template"
-                         [node]="node"
                          [hideActions]="view === viewTypes.WorldMap"
                          (copyNode)="onCopyNode($event)"
                          (replaceNode)="onReplaceNode($event)"
@@ -28,15 +25,12 @@
 <ng-template #genMapperGraph>
     <ng-container *ngIf="document">
         <app-map-name-control [showErrors]="isAuthenticated"></app-map-name-control>
-        <app-map-menu-button [document]="document"
-                             [template]="template"
-                             (print)="onPrint($event)"
+        <app-map-menu-button (print)="onPrint($event)"
                              (settingsButtonClick)="setView(viewTypes.Settings)"
                              (importButtonClick)="onImport($event)"></app-map-menu-button>
 
         <ng-container *ngIf="view === viewTypes.GenMap && showReportsView">
-            <app-map-report-legend [template]="template"
-                                   [document]="document"></app-map-report-legend>
+            <app-map-report-legend></app-map-report-legend>
         </ng-container>
     </ng-container>
 
@@ -58,18 +52,13 @@
 
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.Reports">
-            <app-gm-reports [document]="document"
-                            [template]="template">
-            </app-gm-reports>
+            <app-gm-reports></app-gm-reports>
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.WorldMap">
-            <app-gen-mapper-map [document]="document"
-                                [template]="template"
-                                (nodeClick)="onNodeClick($event)"></app-gen-mapper-map>
+            <app-gen-mapper-map (nodeClick)="onNodeClick($event)"></app-gen-mapper-map>
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.GenMap">
             <app-gen-mapper-graph class="{{template.theme}}"
-                                  [document]="document"
                                   [template]="template"
                                   (change)="onGraphChange($event)"
                                   (addNode)="onAddNode($event)"

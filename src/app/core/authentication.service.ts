@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseUrl, EntityService } from '@core/entity.service';
-import { EntityType } from '@shared/entity/entity.model';
-import { User } from '@shared/entity/user.model';
+import { EntityType } from '@models/entity.model';
+import { User } from '@models/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
 import { TokenService } from './token.service';
+
 
 
 

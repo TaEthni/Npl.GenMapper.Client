@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GenMapperTemplates, GMTemplate } from '@templates';
-import { TemplateService } from '../gen-mapper/template.service';
+import { GMTemplate } from '@templates';
+import { TemplateService } from '../../core/template.service';
 
 interface ViewTemplate {
     name: string;
