@@ -132,7 +132,7 @@ export class GenMapperService {
         const document = this._selectedDocument.getValue();
         return this.documentService.batchCreateNodes(document.id, nodes)
             .pipe(
-                tap((response) => {
+                tap(response => {
                     this._nodes.next(response);
                 })
             )

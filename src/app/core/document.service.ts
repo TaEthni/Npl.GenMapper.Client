@@ -18,10 +18,6 @@ export class DocumentService {
         private http: HttpClient
     ) { }
 
-    public getDocument(id) {
-        return this.entityService.customGet(`document/nodes/${id}`);
-    }
-
     public getAllByType(type: string): Observable<DocumentDto[]> {
         return this.entityService
             .getAll<DocumentDto>(EntityType.Documents)
@@ -31,7 +27,7 @@ export class DocumentService {
     }
 
     public getDocumentNodes(documentId: string): Observable<NodeDto[]> {
-        return this.entityService.get<NodeDto[]>(EntityType.DocumentNodes, documentId);
+        return this.entityService.customGet<NodeDto[]>(`documents/${documentId}/nodes`);
     }
 
     public create(value: IDocumentDto = {}): Observable<DocumentDto> {
@@ -55,12 +51,12 @@ export class DocumentService {
     }
 
     public createNode(node: NodeDto): Observable<NodeDto> {
-        node.entityType = EntityType.Nodes;
-        return this.entityService.create<any>(node, true);
+        delete node.entityType;
+        return this.entityService.customPost<NodeDto>(`documents/${node.documentId}/nodes`, node);
     }
 
     public batchCreateNodes(documentId: string, nodes: NodeDto[]): Observable<NodeDto[]> {
-        return this.entityService.customPost<{ data: NodeDto[] }>(`document/nodes/${documentId}`, nodes).pipe(map(response => response.data));
+        return this.entityService.customPost<NodeDto[]>(`documents/${documentId}/nodes/batch`, nodes);
     }
 
     public update(doc: DocumentDto): Observable<DocumentDto> {
@@ -69,9 +65,8 @@ export class DocumentService {
     }
 
     public updateNode(node: NodeDto): Observable<NodeDto> {
-        const payload = pick(node, 'id', 'parentId', 'documentId', 'attributes') as NodeDto;
-        payload.entityType = EntityType.Nodes;
-        return this.entityService.update(payload);
+        const payload = pick(node, 'parentId', 'documentId', 'attributes') as NodeDto;
+        return this.entityService.customPut(`documents/${node.documentId}/nodes/${node.id}`, payload);
     }
 
     public remove(document: DocumentDto): Observable<DocumentDto> {
@@ -79,7 +74,7 @@ export class DocumentService {
     }
 
     public removeNodes(documentId: string, nodeIds: string[]): Observable<void> {
-        return this.entityService.customPost<void>(`document/nodes/${documentId}/remove`, { nodes: nodeIds });
+        return this.entityService.customPost<void>(`documents/${documentId}/nodes/remove`, { nodes: nodeIds });
     }
 
     public processNodesBeforeCreate(nodes: IFlatNode[] | NodeDto[], document?: IDocumentDto): NodeDto[] {
