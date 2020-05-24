@@ -7,9 +7,9 @@
                 [class.hide-drawer]="!isAuthenticated">
 
         <ng-container *ngIf="isAuthenticated">
-            <app-map-sidenav [documents]="documents"
-                             [document]="document"
-                             [template]="template"></app-map-sidenav>
+            <app-documents-sidenav [documents]="documents"
+                                   [document]="document"
+                                   [template]="template"></app-documents-sidenav>
         </ng-container>
     </mat-drawer>
 

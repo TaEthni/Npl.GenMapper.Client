@@ -14,29 +14,28 @@ import { LocationDialogComponent } from './dialogs/location-dialog/location-dial
 import { CountryPickerComponent } from './dialogs/people-group-dialog/country-picker/country-picker.component';
 import { PeopleGroupDialogComponent } from './dialogs/people-group-dialog/people-group-dialog.component';
 import { PeopleGroupPickerComponent } from './dialogs/people-group-dialog/people-group-picker/people-group-picker.component';
-import { EditNodeFormComponent } from './edit-node-form/edit-node-form.component';
+import { DocumentNameControlComponent } from './document-name-control/document-name-control.component';
+import { DocumentsSidenavComponent } from './documents-sidenav/documents-sidenav.component';
 import { GenMapperContainerResolver } from './gen-mapper-container.resolver';
 import { GenMapperContainerComponent } from './gen-mapper-container/gen-mapper-container.component';
-import { GenMapperDocumentsComponent } from './gen-mapper-documents/gen-mapper-documents.component';
-import { GenMapperGraphComponent } from './gen-mapper-graph/gen-mapper-graph.component';
 import { GenMapperResolver } from './gen-mapper.resolver';
 import { GenMapperService } from './gen-mapper.service';
-import { GmWorldMapToggleComponent } from './gm-world-map/gm-world-map-toggle/gm-world-map-toggle.component';
-import { MapMenuButtonComponent } from './map-menu-button/map-menu-button.component';
-import { MapNameControlComponent } from './map-name-control/map-name-control.component';
-import { MapReportLegendComponent } from './map-report-legend/map-report-legend.component';
-import { MapSidenavComponent } from './map-sidenav/map-sidenav.component';
+import { GenMapperComponent } from './gen-mapper/gen-mapper.component';
+import { MenuButtonComponent } from './menu-button/menu-button.component';
 import { NodeDrawerComponent } from './node-drawer/node-drawer.component';
+import { NodeFormComponent } from './node-form/node-form.component';
+import { ReportLegendComponent } from './report-legend/report-legend.component';
 import { SavingErrorSnackbarComponent } from './snackbars/saving-error-snackbar/saving-error-snackbar.component';
 import { SavingSnackbarComponent } from './snackbars/saving-snackbar/saving-snackbar.component';
-import { GenMapperMapComponent } from './views/gen-mapper-map/gen-mapper-map.component';
-import { GenMapperComponent } from './views/gen-mapper/gen-mapper.component';
-import { GmBarChartComponent } from './views/gm-reports/gm-bar-chart/gm-bar-chart.component';
-import { GmPieChartComponent } from './views/gm-reports/gm-pie-chart/gm-pie-chart.component';
-import { GmPieGridComponent } from './views/gm-reports/gm-pie-grid/gm-pie-grid.component';
-import { GmReportsToggleComponent } from './views/gm-reports/gm-reports-toggle/gm-reports-toggle.component';
-import { GmReportsComponent } from './views/gm-reports/gm-reports.component';
+import { GenMapperGraphComponent } from './views/gen-mapper-graph/gen-mapper-graph.component';
 import { NoDocumentViewComponent } from './views/no-document-view/no-document-view.component';
+import { GmBarChartComponent } from './views/reports-view/gm-bar-chart/gm-bar-chart.component';
+import { GmPieChartComponent } from './views/reports-view/gm-pie-chart/gm-pie-chart.component';
+import { GmPieGridComponent } from './views/reports-view/gm-pie-grid/gm-pie-grid.component';
+import { ReportsToggleComponent } from './views/reports-view/reports-toggle/reports-toggle.component';
+import { ReportsViewComponent } from './views/reports-view/reports-view.component';
+import { WorldMapToggleComponent } from './views/world-map-view/world-map-toggle/world-map-toggle.component';
+import { WorldMapViewComponent } from './views/world-map-view/world-map-view.component';
 
 
 @NgModule({
@@ -53,28 +52,27 @@ import { NoDocumentViewComponent } from './views/no-document-view/no-document-vi
     ],
     declarations: [
         ConfirmDialogComponent,
-        EditNodeFormComponent,
+        NodeFormComponent,
         GenMapperGraphComponent,
-        GenMapperDocumentsComponent,
         GenMapperComponent,
         GenMapperContainerComponent,
-        MapMenuButtonComponent,
-        MapNameControlComponent,
-        MapSidenavComponent,
+        MenuButtonComponent,
+        DocumentNameControlComponent,
+        DocumentsSidenavComponent,
         CreateDocumentDialogComponent,
         LocationDialogComponent,
         NodeDrawerComponent,
         PeopleGroupDialogComponent,
         CountryPickerComponent,
         PeopleGroupPickerComponent,
-        GenMapperMapComponent,
-        MapReportLegendComponent,
-        GmReportsComponent,
+        WorldMapViewComponent,
+        ReportLegendComponent,
+        ReportsViewComponent,
         GmPieChartComponent,
         GmBarChartComponent,
         GmPieGridComponent,
-        GmReportsToggleComponent,
-        GmWorldMapToggleComponent,
+        ReportsToggleComponent,
+        WorldMapToggleComponent,
         InvalidCsvDialogComponent,
         SavingSnackbarComponent,
         SavingErrorSnackbarComponent,
@@ -82,23 +80,22 @@ import { NoDocumentViewComponent } from './views/no-document-view/no-document-vi
     ],
     exports: [
         ConfirmDialogComponent,
-        EditNodeFormComponent,
+        NodeFormComponent,
         GenMapperGraphComponent,
-        GenMapperDocumentsComponent,
-        MapMenuButtonComponent,
-        MapNameControlComponent,
-        MapSidenavComponent,
+        MenuButtonComponent,
+        DocumentNameControlComponent,
+        DocumentsSidenavComponent,
         NodeDrawerComponent,
         CountryPickerComponent,
         PeopleGroupPickerComponent,
-        GenMapperMapComponent,
-        MapReportLegendComponent,
-        GmReportsComponent,
+        WorldMapViewComponent,
+        ReportLegendComponent,
+        ReportsViewComponent,
         GmPieChartComponent,
         GmBarChartComponent,
         GmPieGridComponent,
-        GmReportsToggleComponent,
-        GmWorldMapToggleComponent,
+        ReportsToggleComponent,
+        WorldMapToggleComponent,
     ],
     entryComponents: [
         ConfirmDialogComponent,

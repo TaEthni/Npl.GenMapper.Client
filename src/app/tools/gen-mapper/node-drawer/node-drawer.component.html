@@ -62,10 +62,10 @@
         </button>
     </div>
     <ng-container *ngIf="form">
-        <app-edit-node-form [form]="form"
-                            [fields]="fields"
-                            [nodes]="document?.nodes"
-                            [model]="clonedNode"></app-edit-node-form>
+        <app-node-form [form]="form"
+                       [fields]="fields"
+                       [nodes]="document?.nodes"
+                       [model]="clonedNode"></app-node-form>
     </ng-container>
     <div fxLayout="row">
         <button *ngIf="node && !node.isRoot"

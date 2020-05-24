@@ -19,7 +19,7 @@ import { LayoutComponent } from './layout/layout/layout.component';
 import { GenMapperContainerResolver } from './tools/gen-mapper/gen-mapper-container.resolver';
 import { GenMapperContainerComponent } from './tools/gen-mapper/gen-mapper-container/gen-mapper-container.component';
 import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
-import { GenMapperComponent } from './tools/gen-mapper/views/gen-mapper/gen-mapper.component';
+import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
 import { NoDocumentViewComponent } from './tools/gen-mapper/views/no-document-view/no-document-view.component';
 import { ToolsComponent } from './tools/tools/tools.component';
 
