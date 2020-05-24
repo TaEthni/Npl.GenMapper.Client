@@ -8,8 +8,7 @@ const localUrl = 'http://localhost:9000/api/';
 
 export const environment = {
     production: false,
-    // apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-    apiKey: 'AIzaSyD88NJ5XZcN4I7tqvFTgUTHkfDsE_i9pDE',
+    apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
     apiBase: localUrl
 };
 
