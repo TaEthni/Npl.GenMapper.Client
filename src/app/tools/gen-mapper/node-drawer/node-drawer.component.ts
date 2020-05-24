@@ -200,6 +200,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
 
     public onCopyNode(): void {
         this.copyNode.emit(this.node);
+        this.checkClipboard();
     }
 
     public onImportSubtree(): void {

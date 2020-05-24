@@ -240,24 +240,25 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public onCopyNode(node: NodeDto): void {
-        const clonedData = this.nodeTree.cloneNodeTree(node);
-        this.nodeClipboard.set(clonedData);
+        const nodes = this.nodeTree.createSubtreeFrom(node.id);
+        this.nodeClipboard.set(nodes);
         this.snackBar.open(this.locale.t('Common_CopiedNodeToClipboard'), this.locale.t('Common_Ok'), { duration: 5000 });
     }
 
     public onReplaceNode(nodeToReplace: NodeDto): void {
-        const nodeDatum = this.nodeTree.getNodeDatumById(nodeToReplace.id);
-        const original = nodeDatum.descendants().map(d => d.data);
-        const clonedData = this.nodeClipboard.getValue();
+        const original = this.nodeTree.getSubtree(nodeToReplace.id);
+        const clipboard = this.nodeClipboard.copyValue();
         const idsToDelete = original.map(n => n.id);
 
-        const root = clonedData.find(d => !d.parentId);
+        const root = clipboard.find(d => !d.parentId);
         root.parentId = nodeToReplace.parentId;
+
+        clipboard.forEach(node => node.documentId = this.document.id);
 
         this.showSavingSnackBar();
         this.genMapper.removeDocumentNodes(idsToDelete)
             .pipe(
-                switchMap(() => this.genMapper.createDocumentNodes(clonedData).pipe(
+                switchMap(() => this.genMapper.createDocumentNodes(clipboard).pipe(
                     catchError(() => {
                         this.showSavingErrorSnackBar();
                         this.revertReplaceNode(original);
@@ -275,7 +276,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                     .open(this.locale.t('Common_NodeHasBeenReplaced'), this.locale.t('Common_Undo'), { duration: 20000 })
                     .onAction()
                     .subscribe(() => {
-                        this.revertReplaceNode(original, clonedData);
+                        this.revertReplaceNode(original, clipboard);
                     });
             });
     }
@@ -301,13 +302,14 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public onPasteAsChildNode(node: NodeDto): void {
-        const clonedData = this.nodeClipboard.getValue();
-
-        const root = clonedData.find(d => !d.parentId);
+        const clipboard = this.nodeClipboard.copyValue();
+        const root = clipboard.find(d => !d.parentId);
         root.parentId = node.id;
 
+        clipboard.forEach(node => node.documentId = this.document.id);
+
         this.showSavingSnackBar();
-        this.genMapper.createDocumentNodes(clonedData)
+        this.genMapper.createDocumentNodes(clipboard)
             .pipe(
                 catchError(() => {
                     this.showSavingErrorSnackBar();
@@ -321,7 +323,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                     .onAction()
                     .subscribe(() => {
                         this.showSavingSnackBar();
-                        this.genMapper.removeDocumentNodes(clonedData.map(d => d.id)).subscribe(
+                        this.genMapper.removeDocumentNodes(clipboard.map(d => d.id)).subscribe(
                             success => {
                                 this.dismissSavingSnackBar();
                                 this.genMapper.refreshDocumentNodes().subscribe();
