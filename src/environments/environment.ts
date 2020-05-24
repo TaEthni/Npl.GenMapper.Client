@@ -2,10 +2,15 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const devUrl = 'https://dev-api.noplaceleft.tools/api/';
+const localUrl = 'http://localhost:9000/api/';
+// const localUrl = devUrl;
+
 export const environment = {
     production: false,
     // apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-    apiKey: 'AIzaSyD88NJ5XZcN4I7tqvFTgUTHkfDsE_i9pDE'
+    apiKey: 'AIzaSyD88NJ5XZcN4I7tqvFTgUTHkfDsE_i9pDE',
+    apiBase: localUrl
 };
 
 /*

@@ -4,27 +4,9 @@ import { Entity, EntityType, IEntity } from '@models/entity.model';
 import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
-const devUrl = 'https://dev-api.noplaceleft.tools/api/';
-const prodUrl = 'https://api.noplaceleft.tools/api/';
-const localUrl = 'http://localhost:9000/api/';
-// const localUrl = devUrl;
-
-let _BaseUrl: string = localUrl;
-
-if (window.location.host === 'dev.noplaceleft.tools') {
-    _BaseUrl = devUrl;
-}
-
-if (window.location.host === 'https://taethni.github.io') {
-    _BaseUrl = prodUrl;
-}
-
-if (window.location.host === 'noplaceleft.tools') {
-    _BaseUrl = prodUrl;
-}
-
-export const BaseUrl = _BaseUrl;
+export const BaseUrl = environment.apiBase;
 
 interface ResponseData<T> {
     data: T;
