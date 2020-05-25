@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -20,7 +20,7 @@ import { NodeClipboardService } from '../node-clipboard.service';
     templateUrl: './node-drawer.component.html',
     styleUrls: ['./node-drawer.component.scss']
 })
-export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnChanges {
+export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     public node: NodeDto;
     public nodes: NodeDto[];
     public document: DocumentDto;
@@ -105,23 +105,6 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
             .subscribe(result => {
                 this.checkClipboard(result);
             });
-    }
-
-    public ngOnChanges(change: SimpleChanges): void {
-        // if (change.document && change.document.currentValue && change.document.firstChange) {
-        //     this.initializeForm();
-        // }
-
-        // if (change.node && change.node.currentValue && !change.node.previousValue) {
-        //     this.configureNode();
-        //     this.drawer.open();
-        // } else {
-        //     this.drawer.close();
-        // }
-
-        // if (change.node && !change.node.currentValue && change.node.previousValue) {
-        //     this.form.reset();
-        // }
     }
 
     public configureNode(): void {
