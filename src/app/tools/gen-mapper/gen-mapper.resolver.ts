@@ -23,7 +23,7 @@ export class GenMapperResolver implements Resolve<Observable<DocumentDto>> {
             return of(null);
         }
 
-        this.genMapper.selectDocument(documentId);
+        this.genMapper.setDocument(documentId);
         return this.genMapper.selectedDocument$.pipe(filter(d => !!d && d.id === documentId), take(1));
     }
 }

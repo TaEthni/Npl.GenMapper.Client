@@ -31,7 +31,7 @@ export class DocumentNameControlComponent extends Unsubscribable implements OnIn
             this.control.setValidators([Validators.minLength(2), Validators.required]);
         }
 
-        this.genMapper.getDocument()
+        this.genMapper.selectedDocument$
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(document => {
                 this.document = document;

@@ -72,7 +72,7 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-        this.genMapper.selectDocument(null);
+        this.genMapper.setDocument(null);
         this.nodeClipboard.set(null);
     }
 }

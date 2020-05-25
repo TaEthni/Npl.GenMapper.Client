@@ -66,15 +66,7 @@ export class GenMapperService {
         });
     }
 
-    public getDocument(): Observable<DocumentDto> {
-        return this._selectedDocument.asObservable();
-    }
-
-    public getNode(): Observable<NodeDto> {
-        return this._selectedNode.asObservable();
-    }
-
-    public selectDocument(documentId: string): void {
+    public setDocument(documentId: string): void {
         this.documents$.pipe(filter(n => !!n), take(1)).subscribe(result => {
             const doc = result.find(d => d.id === documentId);
             this._selectedDocument.next(doc);
