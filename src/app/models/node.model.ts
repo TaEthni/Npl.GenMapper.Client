@@ -4,6 +4,7 @@ import { Entity, EntityType } from "./entity.model";
 export interface IFlatNode {
     id: string;
     parentId: string;
+    [key: string]: any;
 }
 
 export class NodeDto extends Entity {

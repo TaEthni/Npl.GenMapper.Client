@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DocumentDto } from '@models/document.model';
 import { Entity, EntityType } from '@models/entity.model';
-import { NodeAttributes, NodeDto } from '@models/node.model';
+import { IFlatNode, NodeAttributes, NodeDto } from '@models/node.model';
 import { cloneDeep } from 'lodash';
-import { GNode } from '../tools/gen-mapper/gen-mapper.interface';
 import { NodeTreeService } from '../tools/gen-mapper/node-tree/node-tree.service';
 import { CSVToJSON } from './csv-to-json';
 import { EntityService } from './entity.service';
@@ -43,7 +42,7 @@ export class MigrationService {
             })
     }
 
-    public batchInsertNodes(doc: DocumentDto, nodes: GNode[]) {
+    public batchInsertNodes(doc: DocumentDto, nodes: IFlatNode[]) {
         const template = this.templateService.getTemplate(doc.type);
         const dtos = [];
         const dtosByOldId = {};

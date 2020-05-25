@@ -1,14 +1,14 @@
+import { IFlatNode } from "@models/node.model";
 import { Template } from "@models/template.model";
 import { ControlType } from "@templates";
 import { csvParse } from "d3";
-import { GNode } from "../tools/gen-mapper/gen-mapper.interface";
 
 const isNumberReg = /\d/;
 
-export function CSVToJSON(csv: string, template: Template): GNode[] {
+export function CSVToJSON(csv: string, template: Template): IFlatNode[] {
 
-    return csvParse<GNode, any>(csv, (row) => {
-        const node = {} as GNode;
+    return csvParse<IFlatNode, any>(csv, (row) => {
+        const node = {} as IFlatNode;
 
         node.id = row.id;
         node.parentId = row.parentId;
@@ -54,7 +54,7 @@ export function CSVToJSON(csv: string, template: Template): GNode[] {
             }
         });
 
-        node.isRoot = !node.parentId && node.parentId !== 0;
+        node.isRoot = !node.parentId && node.parentId !== '0';
 
         // This is for CSV files coming from the old-gen-mapper v1
         // when the threeThirds value was a string '1234567'

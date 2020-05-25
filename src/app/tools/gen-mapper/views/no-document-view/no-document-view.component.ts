@@ -5,12 +5,12 @@ import { AuthenticationService } from '@core/authentication.service';
 import { CSVToJSON } from '@core/csv-to-json';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@models/document.model';
+import { IFlatNode } from '@models/node.model';
 import { Template } from '@models/template.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { takeUntil } from 'rxjs/operators';
 import { CreateDocumentDialogComponent } from '../../dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from '../../dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
-import { GNode } from '../../gen-mapper.interface';
 import { GenMapperService } from '../../gen-mapper.service';
 import { NodeTreeService } from '../../node-tree/node-tree.service';
 
@@ -80,7 +80,7 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
             });
     }
 
-    private createDocument(doc: DocumentDto, nodes?: GNode[]): void {
+    private createDocument(doc: DocumentDto, nodes?: IFlatNode[]): void {
         doc.nodes = nodes as any;
         this.genMapper.createDocument(doc).subscribe(result => {
             this.router.navigate(['/gen-mapper', this.template.id, result.id]);
