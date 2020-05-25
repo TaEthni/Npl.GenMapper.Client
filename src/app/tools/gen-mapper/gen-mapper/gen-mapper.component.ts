@@ -5,14 +5,13 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { CSVToJSON } from '@core/csv-to-json';
 import { LocaleService } from '@core/locale.service';
-import { TemplateUtils } from '@core/template-utils';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@models/document.model';
 import { NodeDto } from '@models/node.model';
 import { Template } from '@models/template.model';
 import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
 import { some } from 'lodash';
-import { combineLatest, of } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, delayWhen, switchMap, take, takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
@@ -51,8 +50,6 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     private _savingSnackBar: MatSnackBarRef<SavingSnackbarComponent>;
     private _savingErrorSnackBar: MatSnackBarRef<SavingErrorSnackbarComponent>;
 
-    private _localeId: string;
-
     constructor(
         private authService: AuthenticationService,
         private genMapper: GenMapperService,
@@ -71,25 +68,17 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public ngOnInit(): void {
         this.isAuthenticated = this.authService.isAuthenticated();
 
-        combineLatest(
-            this.genMapper.template$,
-            this.locale.get(),
-        )
+        this.genMapper.template$
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe((result: [Template, string]) => {
-                const [template, locale] = result;
-                this.template = template;
+            .subscribe(result => {
+                this.template = result;
+
                 this.nodeTree.createLayout(this.template);
 
                 if (this.template.reports) {
                     this.showReportsView = true;
                 }
-
-                if (locale !== this._localeId) {
-                    this._localeId = locale;
-                    TemplateUtils.setTemplateLocale(this.template, this.locale);
-                }
-            });
+            })
 
         this.genMapper.selectedDocument$
             .pipe(takeUntil(this.unsubscribe))
