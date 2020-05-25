@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
-import { DocumentService } from '@core/document.service';
 import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@models/document.model';
 import { Template } from '@models/template.model';
 import { takeUntil } from 'rxjs/operators';
 import { GenMapperView } from '../gen-mapper-view.enum';
-import { GNode } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 
@@ -22,7 +20,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
     public document: DocumentDto;
     public template: Template;
     public isAuthenticated: boolean;
-    public node: GNode;
     public view: GenMapperView;
     public viewType = GenMapperView;
     public isLoading: boolean;
@@ -32,13 +29,10 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
         private authService: AuthenticationService,
         private nodeClipboard: NodeClipboardService,
         private localeService: LocaleService,
-        private documentService: DocumentService,
     ) { super(); }
 
     public ngOnInit(): void {
         this.isAuthenticated = this.authService.isAuthenticated();
-
-        // this.documentService.migrateDocuments();
 
         this.genMapper.selectedDocument$
             .pipe(takeUntil(this.unsubscribe))

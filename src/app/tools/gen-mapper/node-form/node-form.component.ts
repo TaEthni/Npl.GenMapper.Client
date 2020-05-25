@@ -4,13 +4,13 @@ import { MatDatepicker, MatDialog, MatDialogRef, MAT_DATE_FORMATS } from '@angul
 import { MapsService } from '@core/maps.service';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { NodeDto } from '@models/node.model';
 import { ControlType, COUNTRIES, GMField } from '@templates';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
 import { LocationDialogComponent, LocationDialogConfig, LocationDialogResponse } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
-import { GNode } from '../gen-mapper.interface';
 
 export const MY_FORMATS = {
     parse: {
@@ -34,7 +34,7 @@ export const MY_FORMATS = {
 })
 export class NodeFormComponent extends Unsubscribable implements OnInit {
     @Input()
-    public model: GNode;
+    public model: NodeDto;
 
     @Input()
     public form: FormGroup;

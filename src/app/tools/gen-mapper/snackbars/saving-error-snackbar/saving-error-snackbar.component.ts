@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBarConfig, MatSnackBarHorizontalPosition } from '@angular/material';
+import { Component } from '@angular/core';
+import { MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarRef } from '@angular/material';
 
 export class SavingErrorSnackBarConfig extends MatSnackBarConfig {
     public horizontalPosition: MatSnackBarHorizontalPosition = 'right';
@@ -11,8 +11,10 @@ export class SavingErrorSnackBarConfig extends MatSnackBarConfig {
     templateUrl: './saving-error-snackbar.component.html',
     styleUrls: ['./saving-error-snackbar.component.scss']
 })
-export class SavingErrorSnackbarComponent implements OnInit {
-    constructor() { }
-    public ngOnInit(): void {
+export class SavingErrorSnackbarComponent {
+    constructor(private snackbarRef: MatSnackBarRef<SavingErrorSnackbarComponent>) { }
+
+    public close(): void {
+        this.snackbarRef.dismiss();
     }
 }

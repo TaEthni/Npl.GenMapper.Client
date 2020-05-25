@@ -64,8 +64,8 @@
     <ng-container *ngIf="form">
         <app-node-form [form]="form"
                        [fields]="fields"
-                       [nodes]="document?.nodes"
-                       [model]="clonedNode"></app-node-form>
+                       [nodes]="nodes"
+                       [model]="node"></app-node-form>
     </ng-container>
     <div fxLayout="row">
         <button *ngIf="node && !node.isRoot"

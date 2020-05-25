@@ -164,7 +164,14 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public onUpdateNode(node: NodeDto): void {
-        this.nodeTree.updateNode(node);
+        // This try-catch is specifically for when someone changes a parentId, and new parent is already a child of the selected Node.
+        // This errors due to circular parent references.
+        try {
+            this.nodeTree.updateNode(node);
+        } catch (e) {
+            this.showSavingErrorSnackBar();
+            return;
+        }
 
         this.showSavingSnackBar();
         this.genMapper.updateNode(node).subscribe(

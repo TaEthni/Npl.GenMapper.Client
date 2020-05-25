@@ -22,6 +22,7 @@ import { NodeClipboardService } from '../node-clipboard.service';
 })
 export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnChanges {
     public node: NodeDto;
+    public nodes: NodeDto[];
     public document: DocumentDto;
     public documents: DocumentDto[];
 
@@ -95,6 +96,10 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
                 }
             });
 
+        this.genMapper.nodes$.pipe(takeUntil(this.unsubscribe)).subscribe(nodes => {
+            this.nodes = nodes;
+        });
+
         this.nodeClipboard.get()
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
@@ -122,6 +127,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
     public configureNode(): void {
         this.checkClipboard();
         this.form.reset(this.node.attributes);
+        this.form.patchValue({ parentId: this.node.parentId });
     }
 
     public onBackdropClick(): void {
@@ -159,6 +165,10 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit, OnCha
         }
 
         assign(this.node.attributes, value);
+
+        this.node.parentId = value.parentId;
+        delete this.node.attributes.parentId;
+
         this.updateNode.emit(this.node);
         this.drawer.disableClose = false;
         this.genMapper.setNode(null);
