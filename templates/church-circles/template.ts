@@ -48,7 +48,7 @@ export const ChurchCirclesDefaultTemplate: GMTemplate = {
                 y: 10,
             },
             iconX: '14px',
-            iconY: '32px'
+            iconY: '26px'
         },
         {
             id: 'add-child-node-action',
@@ -60,7 +60,7 @@ export const ChurchCirclesDefaultTemplate: GMTemplate = {
                 y: 50,
             },
             iconX: '14px',
-            iconY: '32px'
+            iconY: '26px'
         }
     ],
     svgs: [
