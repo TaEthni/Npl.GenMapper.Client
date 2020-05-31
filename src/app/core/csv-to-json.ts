@@ -1,9 +1,39 @@
 import { IFlatNode } from "@models/node.model";
 import { Template } from "@models/template.model";
-import { ControlType } from "@templates";
+import { ControlType, DisciplesTemplate, FourFieldsTemplate } from "@templates";
 import { csvParse } from "d3";
 
 const isNumberReg = /\d/;
+
+const oldMap = {
+    disciples: DisciplesTemplate,
+    fourFields: FourFieldsTemplate
+}
+
+export function CSVToJSONNoTemplate(type: string, csv: string): IFlatNode[] {
+    const template = oldMap[type];
+
+    if (!template) {
+        console.log(type)
+        return null;
+    }
+
+    return csvParse<IFlatNode, any>(csv, (row) => {
+        const node = {} as IFlatNode;
+        node.id = row.id;
+        node.parentId = row.parentId;
+
+        template.fields.filter(x => !!x.type).forEach(field => {
+            if (field.type === 'checkbox') {
+                node[field.header] = getBooleanValue(row[field.header]);
+            } else {
+                node[field.header] = row[field.header];
+            }
+        });
+
+        return node;
+    });
+}
 
 export function CSVToJSON(csv: string, template: Template): IFlatNode[] {
 
