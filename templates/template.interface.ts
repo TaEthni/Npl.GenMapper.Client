@@ -230,8 +230,8 @@ export interface GMSvgAction extends Svg {
     tooltipi18nRef: string;
     tooltipi18nValue?: string;
     rect?: Svg;
-    iconX: number;
-    iconY: number;
+    iconX: string;
+    iconY: string;
 }
 
 export interface GMFieldState {
