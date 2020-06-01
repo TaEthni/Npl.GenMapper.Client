@@ -48,7 +48,7 @@ export const ChurchCirclesCzechTemplate: GMTemplate = {
                 y: 10,
             },
             iconX: 14,
-            iconY: 26
+            iconY: 32
         },
         {
             id: 'add-child-node-action',
@@ -60,7 +60,7 @@ export const ChurchCirclesCzechTemplate: GMTemplate = {
                 y: 50,
             },
             iconX: 14,
-            iconY: 26
+            iconY: 32
         }
     ],
     svgs: [
