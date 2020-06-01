@@ -3,22 +3,19 @@
 :host {
     display: flex;
     flex-direction: column;
-    max-height: 100%;
-    overflow: hidden;
 
     .scroll-container {
         position: relative;
         flex: 1;
-        overflow: scroll;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        // -webkit-overflow-scrolling: touch;
     }
 
     .mat-toolbar {
         flex: 0 0 auto;
-        background: transparent;
         box-shadow: 0 3px 4px -2px rgba(0, 0, 0, 0.2);
+        background: white;
+        position: sticky;
+        top: 0;
+        z-index: 2;
 
         .mat-icon-button {
             border: 1px solid mat-color($primary);

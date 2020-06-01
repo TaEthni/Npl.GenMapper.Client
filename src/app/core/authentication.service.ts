@@ -67,6 +67,7 @@ export class AuthenticationService {
         const token = this.tokenService.getValue();
 
         if (!token.isAuthenticated) {
+            this._user.next(null);
             return;
         }
 

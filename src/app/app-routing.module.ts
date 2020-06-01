@@ -108,84 +108,13 @@ const appRoutes: Routes = [
                                 }
                             }
                         ]
+                    },
+                    {
+                        path: '**',
+                        redirectTo: '/tools'
                     }
                 ]
             },
-            // {
-            //     path: 'churchCircles',
-            //     component: GenMapperContainerComponent,
-            //     resolve: {
-            //         config: GenMapperContainerResolver,
-            //     },
-            //     data: {
-            //         template: GMTemplates.ChurchCirclesDefaultTemplate
-            //     },
-            //     children: [
-            //         {
-            //             path: ':id',
-            //             component: GenMapperComponent,
-            //             resolve: {
-            //                 document: GenMapperResolver
-            //             },
-            //             // Configuration is for local mode
-            //             runGuardsAndResolvers: 'always'
-            //         },
-            //         {
-            //             path: '',
-            //             component: GenMapperComponent
-            //         },
-            //     ]
-            // },
-            // {
-            //     path: 'churchCircles12',
-            //     component: GenMapperContainerComponent,
-            //     resolve: {
-            //         config: GenMapperContainerResolver,
-            //     },
-            //     data: {
-            //         template: GMTemplates.ChurchCircles12Template
-            //     },
-            //     children: [
-            //         {
-            //             path: ':id',
-            //             component: GenMapperComponent,
-            //             resolve: {
-            //                 document: GenMapperResolver
-            //             },
-            //             // Configuration is for local mode
-            //             runGuardsAndResolvers: 'always'
-            //         },
-            //         {
-            //             path: '',
-            //             component: GenMapperComponent
-            //         },
-            //     ]
-            // },
-            // {
-            //     path: 'churchCirclesCzech',
-            //     component: GenMapperContainerComponent,
-            //     resolve: {
-            //         config: GenMapperContainerResolver,
-            //     },
-            //     data: {
-            //         template: GMTemplates.ChurchCirclesCzechTemplate
-            //     },
-            //     children: [
-            //         {
-            //             path: ':id',
-            //             component: GenMapperComponent,
-            //             resolve: {
-            //                 document: GenMapperResolver
-            //             },
-            //             // Configuration is for local mode
-            //             runGuardsAndResolvers: 'always'
-            //         },
-            //         {
-            //             path: '',
-            //             component: GenMapperComponent
-            //         },
-            //     ]
-            // },
             {
                 path: 'localization',
                 loadChildren: () => import('./localization/localization.module').then(m => m.LocalizationModule)
