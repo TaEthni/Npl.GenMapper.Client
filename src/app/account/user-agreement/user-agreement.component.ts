@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@core/authentication.service';
 import { EntityService } from '@core/entity.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { EntityType } from '@shared/entity/entity.model';
-import { User } from '@shared/entity/user.model';
+import { EntityType } from '@models/entity.model';
+import { User } from '@models/user.model';
 import { cloneDeep } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 

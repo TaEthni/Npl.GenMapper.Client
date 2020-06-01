@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
+import { NodeDto } from '@models/node.model';
+import { Template } from '@models/template.model';
 import { HierarchyPointNode, stratify, tree, TreeLayout } from 'd3';
 import { cloneDeep, Dictionary, keyBy } from 'lodash';
-import uuid from 'uuid';
-import { GNode, NodeDatum } from '../gen-mapper.interface';
-import { Template } from '../template.model';
+import { BehaviorSubject } from 'rxjs';
+import { NodeDatum } from '../gen-mapper.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NodeTreeService {
+    private treeDataSource = new BehaviorSubject<HierarchyPointNode<NodeDto>>(null);
+    public treeData$ = this.treeDataSource.asObservable();
+
     public rootNode: NodeDatum;
-    public treeLayout: TreeLayout<GNode>
-    public treeData: HierarchyPointNode<GNode>;
+    public treeLayout: TreeLayout<NodeDto>
+    public treeData: HierarchyPointNode<NodeDto>;
     public nodes: NodeDatum[];
     public template: Template;
+    private rawData: NodeDto[];
+    private rawDataById: Dictionary<NodeDto>;
 
-    private rawData: GNode[];
-    private rawDataById: Dictionary<GNode>;
 
     constructor() { }
 
     public createLayout(template: Template): void {
         this.template = template;
-        this.treeLayout = tree<GNode>()
+        this.treeLayout = tree<NodeDto>()
             .nodeSize([
                 this.template.svgSettings.nodeWidth,
                 this.template.svgSettings.nodeHeight
@@ -32,13 +36,13 @@ export class NodeTreeService {
             });
     }
 
-    public getData(): GNode[] {
+    public getData(): NodeDto[] {
         return this.rawData;
     }
 
-    public validateTree(data: GNode[]): boolean {
+    public validateTree(data: { id: string, parentId: string }[]): boolean {
         try {
-            stratify<GNode>()
+            stratify<{ id: string, parentId: string }>()
                 .id(d => d.id)
                 .parentId(d => d.parentId)(data) as NodeDatum;
         } catch (error) {
@@ -48,136 +52,45 @@ export class NodeTreeService {
         return true;
     }
 
-    public createTree(nodes: GNode[]): void {
-        this.rawData = nodes;
+    public createTree(nodes: NodeDto[]): void {
+        this.rawData = nodes.slice();
         this.rawDataById = keyBy(nodes, d => d.id);
 
-        this.rootNode = stratify<GNode>()
+        this.rootNode = stratify<NodeDto>()
             .id(d => d.id)
             .parentId(d => d.parentId)(nodes) as NodeDatum;
 
         this.treeData = this.treeLayout(this.rootNode);
         this.nodes = this.treeData.descendants() as NodeDatum[];
+        this.treeDataSource.next(this.treeData);
     }
 
     public getNodeDatumById(id: string): NodeDatum {
         return this.nodes.find(d => d.data.id === id);
     }
 
-    public addChildNodeToParent(parentNode: GNode): GNode {
-        const newNode = {} as GNode;
-
-        newNode.id = uuid();
-        newNode.parentId = parentNode.id;
-        newNode.nodeOrder = 1000;
-
-        this.template.fields.forEach(field => {
-            if (field.defaultValue || field.hasOwnProperty('defaultValue')) {
-                newNode[field.id] = field.defaultValue;
-            }
-        });
-
-        this.rawData.push(newNode);
-        this.createTree(this.rawData);
-
-        return newNode;
+    public createSubtreeFrom(id: string): NodeDto[] {
+        const nodeDatum = this.getNodeDatumById(id);
+        const subtree = cloneDeep(nodeDatum.descendants().map(d => d.data));
+        const root = subtree.find(d => d.id === id);
+        root.parentId = null;
+        return subtree;
     }
 
-    public updateNode(node: GNode): void {
+    public getSubtree(id: string): NodeDto[] {
+        const nodeDatum = this.getNodeDatumById(id);
+        const subtree = nodeDatum.descendants().map(d => d.data);
+        return subtree;
+    }
+
+    public insertNode(node: NodeDto): void {
+        this.createTree(this.rawData.concat([node]));
+    }
+
+    public updateNode(node: NodeDto): void {
         const raw = this.rawDataById[node.id];
         const index = this.rawData.indexOf(raw);
         Object.assign(this.rawData[index], node);
-        this.createTree(this.rawData);
-    }
-
-    public removeNode(node: GNode): void {
-        this.removeNodeAndDescendants(node);
-        this.createTree(this.rawData);
-    }
-
-    private removeNodeAndDescendants(node: GNode): void {
-        const nodeDatum = this.nodes.find(d => d.data.id === node.id);
-        const nodesToDelete = nodeDatum.descendants();
-
-        nodesToDelete.forEach(n => {
-            const raw = this.rawDataById[n.id];
-            const index = this.rawData.indexOf(raw);
-            this.rawData.splice(index, 1);
-        });
-    }
-
-    public cloneNodeTree(node: GNode): GNode[] {
-        const nodeDatum = this.getNodeDatumById(node.id);
-        const descendants = nodeDatum.descendants();
-        const clonedNodes = [];
-        const nodeMap = {};
-
-        descendants.forEach(d => {
-            const raw = cloneDeep(d.data);
-
-            if (raw.id === node.id) {
-                raw.parentId = null;
-            }
-
-            nodeMap[raw.id] = raw;
-            raw.id = uuid();
-            clonedNodes.push(raw);
-        });
-
-        clonedNodes.forEach(clone => {
-            if (clone.parentId) {
-                // Set new Parent Ids
-                clone.parentId = nodeMap[clone.parentId].id;
-            }
-        });
-
-        return clonedNodes;
-    }
-
-    public cloneData(nodes: GNode[]): GNode[] {
-        const clonedData = [];
-        const nodeMap = {};
-
-        nodes.forEach(node => {
-            nodeMap[node.id] = cloneDeep(node);
-            nodeMap[node.id].id = uuid();
-            clonedData.push(nodeMap[node.id]);
-        });
-
-        clonedData.forEach(node => {
-            if (node.parentId) {
-                const parent = nodeMap[node.parentId];
-                node.parentId = parent.id;
-            }
-        });
-
-        return clonedData;
-    }
-
-    public insertChildNodes(newParentNode: GNode, childNodes: GNode[]): void {
-        const data = this.cloneData(childNodes);
-        const root = data.find(d => !d.parentId);
-
-        if (!root) {
-            throw new Error('(insertChildNodes) requires a root node without a parentId');
-        }
-
-        root.parentId = newParentNode.id;
-        this.rawData = this.rawData.concat(data);
-        this.createTree(this.rawData);
-    }
-
-    public replaceNode(nodeToReplace: GNode, childNodes: GNode[]): void {
-        const data = this.cloneData(childNodes);
-        const root = data.find(d => !d.parentId);
-
-        if (!root) {
-            throw new Error('(insertChildNodes) requires a root node without a parentId');
-        }
-
-        root.parentId = nodeToReplace.parentId;
-        this.removeNodeAndDescendants(nodeToReplace);
-        this.rawData = this.rawData.concat(data);
         this.createTree(this.rawData);
     }
 }

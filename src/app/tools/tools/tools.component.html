@@ -22,7 +22,7 @@
          fxLayoutGap="24px">
 
     <ng-container *ngFor="let template of templatesWithIcons">
-        <mat-card [routerLink]="['/' + template.id]">
+        <mat-card [routerLink]="['/gen-mapper', template.id]">
             <img mat-card-image
                  [src]="template.settings.iconUrl"
                  alt="Photo of a Church Circles">
@@ -36,14 +36,13 @@
             </mat-card-header>
         </mat-card>
     </ng-container>
-
 </section>
 <section fxLayout="column"
          fxLayoutAlign="center center">
     <h4>{{'Common_AdditionalGenMappers' | locale | async}}</h4>
     <ul>
         <li *ngFor="let template of templateWithoutIcons">
-            <a [routerLink]="['/' + template.id]">
+            <a [routerLink]="['/gen-mapper', template.id]">
                 {{template.name}}
             </a>
         </li>

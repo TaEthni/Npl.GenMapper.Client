@@ -1,33 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Entity, EntityType } from '@shared/entity/entity.model';
+import { Entity, EntityType, IEntity } from '@models/entity.model';
 import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
-const devUrl = 'https://dev-api.noplaceleft.tools/api/';
-const prodUrl = 'https://api.noplaceleft.tools/api/';
-// const localUrl = 'http://localhost:9000/api/';
-const localUrl = devUrl;
+export const BaseUrl = environment.apiBase;
 
-let _BaseUrl: string = localUrl;
-
-if (window.location.host === 'dev.noplaceleft.tools') {
-    _BaseUrl = devUrl;
-}
-
-if (window.location.host === 'https://taethni.github.io') {
-    _BaseUrl = prodUrl;
-}
-
-if (window.location.host === 'noplaceleft.tools') {
-    _BaseUrl = prodUrl;
-}
-
-export const BaseUrl = _BaseUrl;
-
-interface ResponseData {
-    data: any;
+interface ResponseData<T> {
+    data: T;
     status: string;
 }
 
@@ -37,10 +19,25 @@ export class EntityService {
         private http: HttpClient
     ) { }
 
+    public customPost<T>(endpoint: string, data: any) {
+        const url = BaseUrl + endpoint;
+        return this.http.post<ResponseData<T>>(url, data).pipe(map(response => response.data));
+    }
+
+    public customGet<T>(endpoint: String): Observable<T> {
+        const url = BaseUrl + endpoint;
+        return this.http.get<ResponseData<T>>(url).pipe(map(response => response.data));
+    }
+
+    public customPut<T>(endpoint: String, data: any): Observable<T> {
+        const url = BaseUrl + endpoint;
+        return this.http.put<ResponseData<T>>(url, data).pipe(map(response => response.data));
+    }
+
     public getAll<T>(entityType: EntityType): Observable<T[]> {
         const url = BaseUrl + entityType;
-        return this.http.get<ResponseData>(url).pipe(map((a => {
-            a.data.forEach((node: Entity) => {
+        return this.http.get<ResponseData<T[]>>(url).pipe(map((a => {
+            a.data.forEach((node: T) => {
                 node['entityType'] = entityType;
 
                 if (entityType === EntityType.Documents) {
@@ -55,16 +52,22 @@ export class EntityService {
 
     public get<T>(entityType: EntityType, guid: string): Observable<T> {
         const url = BaseUrl + entityType + '/' + guid;
-        return this.http.get<ResponseData>(url).pipe(map((a => {
+        return this.http.get<ResponseData<T>>(url).pipe(map((a => {
             a.data['entityType'] = entityType;
             return a.data;
         })));
     }
 
-    public create<T extends Entity>(entity: Entity): Observable<T> {
+    public create<T extends Entity>(entity: T | IEntity, allowId: boolean = false): Observable<T> {
         const url = BaseUrl + entity.entityType;
-        const body = omit(entity, ['id', 'entityType']);
-        return this.http.post<ResponseData>(url, body).pipe(map(d => {
+        let body = null;
+        if (allowId) {
+            body = omit(entity, ['entityType']);
+        } else {
+            body = omit(entity, ['id', 'entityType']);
+        }
+
+        return this.http.post<ResponseData<T>>(url, body).pipe(map(d => {
             d.data['entityType'] = entity.entityType;
             return d.data;
         }));
@@ -73,7 +76,7 @@ export class EntityService {
     public update<T extends Entity>(entity: T): Observable<T> {
         const url = BaseUrl + entity.entityType + '/' + entity.id;
         const body = omit(entity, ['id', 'entityType']);
-        return this.http.put<ResponseData>(url, body).pipe(map(a => {
+        return this.http.put<ResponseData<T>>(url, body).pipe(map(a => {
             a.data['entityType'] = entity.entityType;
             return a.data;
         }));
@@ -81,7 +84,7 @@ export class EntityService {
 
     public delete<T extends Entity>(entity: T): Observable<T> {
         const url = BaseUrl + entity.entityType + '/' + entity.id;
-        return this.http.delete<ResponseData>(url).pipe(map(a => {
+        return this.http.delete<ResponseData<T>>(url).pipe(map(a => {
             a.data['entityType'] = entity.entityType;
             return a.data;
         }));

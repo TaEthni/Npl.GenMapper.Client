@@ -1,4 +1,4 @@
-@import '~styles/colors';
+@import "~styles/colors";
 
 :host {
     display: block;
@@ -16,7 +16,7 @@
         }
     }
 
-    app-map-name-control {
+    app-document-name-control {
         position: absolute;
         top: 0;
         left: 62px;
@@ -26,7 +26,7 @@
         backface-visibility: hidden;
     }
 
-    app-gm-world-map-toggle {
+    app-world-map-toggle {
         position: absolute;
         top: 0;
         right: 56px;
@@ -35,7 +35,7 @@
         z-index: 2;
     }
 
-     app-gm-reports-toggle {
+    app-reports-toggle {
         position: absolute;
         top: 0;
         right: 56px;
@@ -44,7 +44,7 @@
         z-index: 2;
     }
 
-    app-map-menu-button {
+    app-menu-button {
         position: absolute;
         top: 0;
         right: 0;
@@ -54,39 +54,39 @@
     }
 
     .show-reports-view {
-        app-gm-world-map-toggle {
+        app-world-map-toggle {
             right: 96px;
         }
     }
 
     .show-map-view,
     .show-reports-view {
-        app-map-name-control {
+        app-document-name-control {
             right: 104px;
         }
     }
 
     .show-map-view.show-reports-view {
-        app-map-name-control {
+        app-document-name-control {
             right: 144px;
         }
     }
 
     @media print {
-        app-gm-world-map-toggle {
+        app-world-map-toggle {
             display: none;
         }
 
-        app-map-menu-button {
+        app-menu-button {
             display: none;
         }
 
-        app-gm-reports-toggle {
+        app-reports-toggle {
             display: none;
         }
     }
 
-    app-map-report-legend {
+    app-report-legend {
         position: absolute;
         top: 56px;
         left: 0;
@@ -95,33 +95,8 @@
         backface-visibility: hidden;
     }
 
-    &.is-authenticated app-map-report-legend {
+    &.is-authenticated app-report-legend {
         top: 120px;
-    }
-
-    .empty-state {
-
-        h1 {
-            text-align: center;
-            font-size: 24px;
-            font-weight: normal;
-        }
-
-        .login-link {
-            margin-bottom: 24px;
-        }
-
-        .mat-icon {
-            color: rgba(mat-color($accent), 0.3);
-            font-size: 200px;
-            height: 200px;
-            width: 200px;
-            user-select: none;
-
-            &.warn {
-                color: rgba(mat-color($warn), 0.3);
-            }
-        }
     }
 
     app-gen-mapper-graph.churchCirclesDefault,
@@ -138,7 +113,7 @@
             }
 
             .is-not-church {
-                stroke-dasharray: 7,7;
+                stroke-dasharray: 7, 7;
             }
 
             .church-legacy {
@@ -149,11 +124,13 @@
     }
 
     app-gen-mapper-graph.four-fields::ng-deep {
-        .node:hover > rect, .node:hover > line {
+        .node:hover > rect,
+        .node:hover > line {
             stroke-width: 2px;
         }
 
-        .node--active > rect, .node--active > line {
+        .node--active > rect,
+        .node--active > line {
             stroke: black;
         }
     }
@@ -176,7 +153,7 @@
         }
 
         .disciple-individual {
-            stroke-dasharray: 7,7;
+            stroke-dasharray: 7, 7;
         }
 
         .disciple-facilitates-group {
@@ -194,20 +171,21 @@
             stroke-width: 3px;
         }
 
-        .node:hover > rect, .node:hover > line {
+        .node:hover > rect,
+        .node:hover > line {
             stroke-width: 4px;
         }
 
         .full-time-missionary {
-            stroke: #FD0402;
+            stroke: #fd0402;
         }
 
         .existing-lay-believer {
-            stroke: #3D7AD3;
+            stroke: #3d7ad3;
         }
 
         .leaders-disciple {
-            stroke: #5EA650;
+            stroke: #5ea650;
         }
     }
 }

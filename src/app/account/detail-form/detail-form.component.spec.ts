@@ -5,14 +5,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EntityService } from '@core/entity.service';
 import { LocaleService } from '@core/locale.service';
-import { Entity } from '@shared/entity/entity.model';
-import { User } from '@shared/entity/user.model';
+import { Entity } from '@models/entity.model';
+import { User } from '@models/user.model';
 import { LocalePipe } from '@shared/locale.pipe';
 import { assign } from 'lodash';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
-
 import { DetailFormComponent } from './detail-form.component';
+
 
 describe('DetailFormComponent', () => {
     let component: DetailFormComponent;

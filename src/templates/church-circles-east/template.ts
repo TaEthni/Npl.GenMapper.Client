@@ -217,8 +217,8 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
                 'x': -(nodeWidth / 2) - 1,
                 'y': 10
             },
-            iconX: '14px',
-            iconY: '32px'
+            iconX: 14,
+            iconY: 26
         },
         {
             id: 'add-child-node-action',
@@ -229,8 +229,8 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
                 'x': -(nodeWidth / 2) - 1,
                 'y': 50
             },
-            iconX: '14px',
-            iconY: '32px'
+            iconX: 14,
+            iconY: 26
         }
     ],
     reports: [

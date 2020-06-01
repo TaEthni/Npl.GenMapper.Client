@@ -2,7 +2,7 @@
     <mat-toolbar-row>
         <span>
             <ng-container>
-                [{{clonedNode?.name || clonedNode?.leaderName || clonedNode?.leadersName || 'No Name'}}]
+                [{{node?.attributes.name || node?.attributes.leaderName || node?.attributes.leadersName || 'No Name'}}]
             </ng-container>
         </span>
     </mat-toolbar-row>
@@ -62,13 +62,13 @@
         </button>
     </div>
     <ng-container *ngIf="form">
-        <app-edit-node-form [form]="form"
-                            [fields]="fields"
-                            [nodes]="document?.nodes"
-                            [model]="clonedNode"></app-edit-node-form>
+        <app-node-form [form]="form"
+                       [fields]="fields"
+                       [nodes]="nodes"
+                       [model]="node"></app-node-form>
     </ng-container>
     <div fxLayout="row">
-        <button *ngIf="node && !node.isRoot"
+        <button *ngIf="node && !node.attributes.isRoot"
                 mat-raised-button
                 fxFlex
                 color="warn"

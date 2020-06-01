@@ -11,13 +11,16 @@ const isTablet = DEVICE_EXPRESSIONS.HandHeld.test(userAgent);
 const isMobile = isHandHeld && !isTablet;
 const isDesktop = !isHandHeld && !isTablet;
 const NAME = isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop';
-
+const isMacLike = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+const isIOS = /(iPhone|iPod|iPad)/i.test(navigator.platform);
 
 export const Device = {
     isHandHeld,
     isTablet,
     isMobile,
     isDesktop,
+    isMacLike,
+    isIOS,
     name: NAME,
 
     setClassList(element: Element): void {

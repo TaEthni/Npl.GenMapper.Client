@@ -30,6 +30,9 @@
             "@core/*": [
                 "src/app/core/*"
             ],
+            "@models/*": [
+                "src/app/models/*"
+            ],
             "@admin/*": [
                 "src/app/admin/*"
             ],

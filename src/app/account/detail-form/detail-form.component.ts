@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EntityService } from '@core/entity.service';
 import { Unsubscribable } from '@core/Unsubscribable';
+import { EntityType } from '@models/entity.model';
+import { User } from '@models/user.model';
 import { confirmPasswordValidator } from '@shared/confirm-password.validator';
-import { EntityType } from '@shared/entity/entity.model';
-import { User } from '@shared/entity/user.model';
 import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
 import { takeUntil } from 'rxjs/operators';
 

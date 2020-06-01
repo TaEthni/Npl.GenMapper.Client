@@ -1,6 +1,6 @@
+import { Template } from "@models/template.model";
 import { Selection } from 'd3';
 import { NodeDatum } from "../gen-mapper.interface";
-import { Template } from "../template.model";
 
 const LINK_TEXT_POSITION = 0.3;
 
@@ -26,7 +26,7 @@ export function drawLinks(
         .merge(linkText)
         .attr('class', (d) => {
             return 'link-text ' + (
-                d.data.active ? ' link-text--active' : ' link-text--inactive');
+                d.data.attributes.active ? ' link-text--active' : ' link-text--inactive');
         })
         .attr('x', (d) => {
             return d.x * (1 - LINK_TEXT_POSITION) + d.parent.x * LINK_TEXT_POSITION;
@@ -34,14 +34,14 @@ export function drawLinks(
         .attr('y', (d) => {
             return d.y * (1 - LINK_TEXT_POSITION) + (d.parent.y + template.svgSettings.boxHeight) * LINK_TEXT_POSITION;
         })
-        .classed('new-generation', (d) => d.data.newGeneration)
+        .classed('new-generation', (d) => d.data.attributes.newGeneration)
         .text(d => {
-            if (d.data.newGeneration) {
+            if (d.data.attributes.newGeneration) {
                 let parent = d.parent;
                 let depth = 1;
 
                 while (parent) {
-                    if (parent.data.newGeneration) {
+                    if (parent.data.attributes.newGeneration) {
                         depth++;
                     }
                     parent = parent.parent;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBarConfig, MatSnackBarHorizontalPosition } from '@angular/material';
 
 export class SavingSnackBarConfig extends MatSnackBarConfig {
@@ -11,8 +11,6 @@ export class SavingSnackBarConfig extends MatSnackBarConfig {
     templateUrl: './saving-snackbar.component.html',
     styleUrls: ['./saving-snackbar.component.scss']
 })
-export class SavingSnackbarComponent implements OnInit {
+export class SavingSnackbarComponent {
     constructor() { }
-    ngOnInit() {
-    }
 }

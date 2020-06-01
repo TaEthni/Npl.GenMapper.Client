@@ -6,14 +6,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@core/core.module';
 import { GenMapperConfigs, GenMapperTemplates } from '@templates';
+import { environment } from '../environments/environment';
 import { AccountModule } from './account/account.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GM_CONFIGS, GM_TEMPLATES } from './core/template.injecttoken';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
-import { GM_CONFIGS, GM_TEMPLATES } from './tools/gen-mapper/template.injecttoken';
 import { ToolsModule } from './tools/tools.module';
-import { environment } from '../environments/environment';
 import { UpdatesModule } from './updates/updates.module';
 
 

@@ -1,0 +1,29 @@
+@import "~styles/colors";
+:host {
+    display: block;
+    height: 100%;
+
+    .empty-state {
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        .login-link {
+            margin-bottom: 24px;
+        }
+
+        .mat-icon {
+            color: rgba(mat-color($accent), 0.3);
+            font-size: 200px;
+            height: 200px;
+            width: 200px;
+            user-select: none;
+
+            &.warn {
+                color: rgba(mat-color($warn), 0.3);
+            }
+        }
+    }
+}

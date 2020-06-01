@@ -6,11 +6,8 @@
                 class="node-drawer"
                 [autoFocus]="false"
                 (openedChange)="onNodeDrawerOpenChanged($event)">
+
         <app-node-drawer #nodeDrawer
-                         [documents]="documents"
-                         [document]="document"
-                         [template]="template"
-                         [node]="node"
                          [hideActions]="view === viewTypes.WorldMap"
                          (copyNode)="onCopyNode($event)"
                          (replaceNode)="onReplaceNode($event)"
@@ -27,30 +24,27 @@
 
 <ng-template #genMapperGraph>
     <ng-container *ngIf="document">
-        <app-map-name-control [showErrors]="isAuthenticated"></app-map-name-control>
-        <app-map-menu-button [document]="document"
-                             [template]="template"
-                             (print)="onPrint($event)"
-                             (settingsButtonClick)="setView(viewTypes.Settings)"
-                             (importButtonClick)="onImport($event)"></app-map-menu-button>
+        <app-document-name-control [showErrors]="isAuthenticated"></app-document-name-control>
+        <app-menu-button (print)="onPrint($event)"
+                         (settingsButtonClick)="setView(viewTypes.Settings)"
+                         (importButtonClick)="onImport($event)"></app-menu-button>
 
         <ng-container *ngIf="view === viewTypes.GenMap && showReportsView">
-            <app-map-report-legend [template]="template"
-                                   [document]="document"></app-map-report-legend>
+            <app-report-legend></app-report-legend>
         </ng-container>
     </ng-container>
 
     <ng-container *ngIf="showMapView">
-        <app-gm-world-map-toggle [view]="view"
-                                 (mapIconClick)="setView(viewTypes.WorldMap)"
-                                 (backIconClick)="setView(viewTypes.GenMap)"></app-gm-world-map-toggle>
+        <app-world-map-toggle [view]="view"
+                              (mapIconClick)="setView(viewTypes.WorldMap)"
+                              (backIconClick)="setView(viewTypes.GenMap)"></app-world-map-toggle>
     </ng-container>
 
     <ng-container *ngIf="showReportsView">
-        <app-gm-reports-toggle [view]="view"
-                               (reportsIconClick)="setView(viewTypes.Reports)"
-                               (backIconClick)="setView(viewTypes.GenMap)">
-        </app-gm-reports-toggle>
+        <app-reports-toggle [view]="view"
+                            (reportsIconClick)="setView(viewTypes.Reports)"
+                            (backIconClick)="setView(viewTypes.GenMap)">
+        </app-reports-toggle>
     </ng-container>
 
     <ng-container [ngSwitch]="view">
@@ -58,18 +52,13 @@
 
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.Reports">
-            <app-gm-reports [document]="document"
-                            [template]="template">
-            </app-gm-reports>
+            <app-reports-view></app-reports-view>
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.WorldMap">
-            <app-gen-mapper-map [document]="document"
-                                [template]="template"
-                                (nodeClick)="onNodeClick($event)"></app-gen-mapper-map>
+            <app-world-map-view (nodeClick)="onNodeClick($event)"></app-world-map-view>
         </ng-container>
         <ng-container *ngSwitchCase="viewTypes.GenMap">
             <app-gen-mapper-graph class="{{template.theme}}"
-                                  [document]="document"
                                   [template]="template"
                                   (change)="onGraphChange($event)"
                                   (addNode)="onAddNode($event)"
