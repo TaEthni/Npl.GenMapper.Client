@@ -214,6 +214,9 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     public onCancel(): void {
         this.configureNode();
         this.drawer.disableClose = this.form.dirty;
+        if (!this.drawer.disableClose) {
+            this.drawer.close();
+        }
     }
 
     public onDeleteNode(): void {

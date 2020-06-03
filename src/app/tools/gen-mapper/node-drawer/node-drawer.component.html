@@ -7,30 +7,20 @@
         </span>
     </mat-toolbar-row>
 </mat-toolbar>
-<div class="save-button">
-    <div class="animated-button-group"
-         [class.slide-down]="form?.dirty"
-         fxLayout="row">
-        <button mat-raised-button
-                color="primary"
-                (click)="onSave()"
-                fxFlex>
-            {{'Common_Save' | locale | async}}
-        </button>
-        <button mat-button
-                color="primary"
-                (click)="onCancel()"
-                fxFlex>
-            {{'Common_Cancel' | locale | async}}
-        </button>
-    </div>
-</div>
-<div>
-    <div fxLayout="row"
-         fxLayoutGap="10px"
-         class="drawer-actions"
-         *ngIf="!hideActions">
 
+<ng-container *ngIf="form">
+    <app-node-form [form]="form"
+                   [fields]="fields"
+                   [nodes]="nodes"
+                   [model]="node"></app-node-form>
+</ng-container>
+
+<div fxLayout="column"
+     fxLayoutGap="24px"
+     class="drawer-inner-footer">
+
+    <div fxLayout="row"
+         *ngIf="!hideActions">
         <button mat-stroked-button
                 (click)="onCopyNode()">
             {{'Common_Copy' | locale | async}}
@@ -61,13 +51,8 @@
             {{'Common_ImportSubtree' | locale | async}}
         </button>
     </div>
-    <ng-container *ngIf="form">
-        <app-node-form [form]="form"
-                       [fields]="fields"
-                       [nodes]="nodes"
-                       [model]="node"></app-node-form>
-    </ng-container>
-    <div fxLayout="row">
+
+    <div>
         <button *ngIf="node && !node.attributes.isRoot"
                 mat-raised-button
                 fxFlex
@@ -75,6 +60,27 @@
                 class="delete-button"
                 (click)="onDeleteNode()">
             {{'Common_DeleteSubtree' | locale | async}}
+        </button>
+    </div>
+</div>
+
+<div class="drawer-footer"
+     fxLayout="column">
+
+    <div fxLayout="row"
+         fxLayoutGap="10px">
+        <button mat-raised-button
+                color="primary"
+                (click)="onSave()"
+                fxFlex
+                [disabled]="!form?.dirty">
+            {{'Common_Save' | locale | async}}
+        </button>
+        <button mat-button
+                color="primary"
+                (click)="onCancel()"
+                fxFlex>
+            {{'Common_Cancel' | locale | async}}
         </button>
     </div>
 </div>
