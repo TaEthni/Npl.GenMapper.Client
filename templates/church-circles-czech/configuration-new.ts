@@ -735,3 +735,6 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
         }
     ],
 }
+
+
+

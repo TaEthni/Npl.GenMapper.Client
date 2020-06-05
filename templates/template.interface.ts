@@ -174,6 +174,18 @@ export interface GMField {
 
     // Whether the field is required or not
     nullable?: boolean;
+
+    fields?: GMField[];
+
+    validation?: {
+        max?: number;
+        maxLength?: number;
+        min?: number;
+        minLength?: number;
+
+        maxFieldRef?: string;
+        minFieldRef?: string;
+    }
 }
 
 export interface GMFieldOption {
@@ -230,8 +242,8 @@ export interface GMSvgAction extends Svg {
     tooltipi18nRef: string;
     tooltipi18nValue?: string;
     rect?: Svg;
-    iconX: string;
-    iconY: string;
+    iconX: number;
+    iconY: number;
 }
 
 export interface GMFieldState {

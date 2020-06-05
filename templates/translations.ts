@@ -69,6 +69,8 @@ export const translations: any = {
             'Common_SaveChangesQuestion': 'Would you like to save your changes?',
             'Common_SubtreeImported': 'Subtree Imported!',
             'Common_GenMapper': 'GenMapper',
+            'Common_OtherPeopleGroupName': 'Other People Group Name',
+            'Common_Other': 'Other',
             'Menu_defaultProjectName': 'Untitled project',
             'Common_HelpAbout': 'Help / About',
             'Menu_importXlsxCsv': 'Import XLSX / CSV',
