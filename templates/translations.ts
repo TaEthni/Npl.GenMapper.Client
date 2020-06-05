@@ -93,6 +93,7 @@ export const translations: any = {
             'Error_requiredField': 'This field is required',
             'Error_emailFormat': 'Please use valid email format',
             'Error_emailInUse': 'Email already in use',
+            'Error_NameInUse': 'Name already in use',
             'Error_usernameInUse': 'Username already in use',
             'Error_passwordsDontMatch': 'Passwords do not match',
             'Error_invalidEmailOrPassword': 'Email or password was invalid',
