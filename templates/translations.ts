@@ -47,6 +47,7 @@ export const translations: any = {
             'Common_InactiveGroups': 'Inactive Groups',
             'Common_AdditionalGenMappers': 'Additional GenMappers',
             'Common_ChangeCountry': 'Change Country',
+            'Common_SelectCountry': 'Select a Country',
             'Common_ChildNodeAdded': 'Child Node added',
             'Common_CopiedNodeToClipboard': 'Copied to clipboard!',
             'Common_ContinueWithoutSaving': 'Continue without saving',
