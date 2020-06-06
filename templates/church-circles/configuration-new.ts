@@ -135,6 +135,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         {
             id: 'attenders',
             i18nRef: 'Common_NumberOfAttenders',
+            parseValueAsFloat: true,
             defaultValue: 0,
             // type: ControlType.number,
             canModify: false,
@@ -143,6 +144,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         {
             id: 'believers',
             i18nRef: 'Common_NumberOfBelievers',
+            parseValueAsFloat: true,
             defaultValue: 0,
             // type: ControlType.number,
             canModify: false,
@@ -151,6 +153,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         {
             id: 'baptized',
             i18nRef: 'Common_NumberOfBaptized',
+            parseValueAsFloat: true,
             defaultValue: 0,
             // type: ControlType.number,
             canModify: false,
@@ -159,6 +162,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         {
             id: 'newlyBaptized',
             i18nRef: 'Common_NumberOfNewlyBaptized',
+            parseValueAsFloat: true,
             defaultValue: 0,
             // type: ControlType.number,
             canModify: false,
