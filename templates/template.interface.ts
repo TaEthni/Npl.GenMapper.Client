@@ -15,6 +15,7 @@ export enum ControlType {
     date = 'date',
     countrySelector = 'countrySelector',
     peopleGroups = 'peopleGroups',
+    peopleSelector = 'peopleSelector',
 
     // Internal
     parentSelector = 'parentSelector',

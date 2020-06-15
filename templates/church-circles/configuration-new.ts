@@ -137,7 +137,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_NumberOfAttenders',
             parseValueAsFloat: true,
             defaultValue: 0,
-            // type: ControlType.number,
+            type: ControlType.peopleSelector,
             canModify: false,
             iconRef: 'attendersIcon',
         },
