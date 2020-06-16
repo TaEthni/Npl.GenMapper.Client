@@ -2011,6 +2011,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+web-animations-js
+Apache-2.0
+
 webpack
 MIT
 Copyright JS Foundation and other contributors
