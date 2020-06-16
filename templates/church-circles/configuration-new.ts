@@ -134,7 +134,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
         },
         {
             id: 'attenders',
-            i18nRef: 'Common_NumberOfAttenders',
+            i18nRef: 'Common_NumberOfAttendees',
             parseValueAsFloat: true,
             defaultValue: 0,
             type: ControlType.peopleSelector,
@@ -338,7 +338,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             fields: [
                 {
                     id: 'attenders',
-                    i18nRef: 'Common_NumberOfAttenders',
+                    i18nRef: 'Common_NumberOfAttendees',
                     defaultValue: 0,
                     type: ControlType.number,
                     canModify: true,

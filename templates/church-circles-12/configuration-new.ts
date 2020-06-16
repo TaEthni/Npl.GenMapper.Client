@@ -161,9 +161,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         },
         {
             id: 'attenders',
-            i18nRef: 'Common_NumberOfAttenders',
+            i18nRef: 'Common_NumberOfAttendees',
             defaultValue: 0,
-            type: ControlType.number,
+            type: ControlType.peopleSelector,
             canModify: true,
             iconRef: 'attendersIcon',
         },
@@ -171,7 +171,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             id: 'believers',
             i18nRef: 'Common_NumberOfBelievers',
             defaultValue: 0,
-            type: ControlType.number,
+            // type: ControlType.number,
             canModify: true,
             iconRef: 'believersIcon',
         },
@@ -179,7 +179,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             id: 'baptized',
             i18nRef: 'Common_NumberOfBaptized',
             defaultValue: 0,
-            type: ControlType.number,
+            // type: ControlType.number,
             canModify: true,
             iconRef: 'elementBaptismIcon'
         },
@@ -187,7 +187,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             id: 'newlyBaptized',
             i18nRef: 'Common_NumberOfNewlyBaptized',
             defaultValue: 0,
-            type: ControlType.number,
+            // type: ControlType.number,
             canModify: true,
         },
         {
@@ -364,6 +364,53 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             i18nRef: 'Common_Note',
             type: ControlType.textarea,
             canModify: true,
+        },
+        {
+            id: 'peoples',
+            canModify: false,
+            fields: [
+                {
+                    id: 'attenders',
+                    i18nRef: 'Common_NumberOfAttendees',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    canModify: true,
+                    iconRef: 'attendersIcon',
+                },
+                {
+                    id: 'believers',
+                    i18nRef: 'Common_NumberOfBelievers',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    canModify: true,
+                    iconRef: 'believersIcon',
+                    validation: {
+                        maxFieldRef: 'attenders',
+                    }
+                },
+                {
+                    id: 'baptized',
+                    i18nRef: 'Common_NumberOfBaptized',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    canModify: true,
+                    iconRef: 'elementBaptismIcon',
+                    validation: {
+                        maxFieldRef: 'believers',
+                    }
+                },
+                {
+                    id: 'newlyBaptized',
+                    i18nRef: 'Common_NumberOfNewlyBaptized',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    canModify: true,
+                    iconRef: 'elementBaptismIcon',
+                    validation: {
+                        maxFieldRef: 'baptized',
+                    }
+                }
+            ]
         }
     ],
     svgStates: [

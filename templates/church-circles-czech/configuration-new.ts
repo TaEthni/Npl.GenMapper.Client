@@ -135,7 +135,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
         },
         {
             id: 'attenders',
-            i18nRef: 'Common_NumberOfAttenders',
+            i18nRef: 'Common_NumberOfAttendees',
             defaultValue: 0,
             type: ControlType.number,
             canModify: true,
@@ -735,6 +735,3 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
         }
     ],
 }
-
-
-
