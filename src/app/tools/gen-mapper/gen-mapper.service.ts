@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { delayWhen, filter, map, take, tap } from 'rxjs/operators';
 
 const documentStorageKey = 'offline-document-v1-';
-const nodesStorageKey = 'offline-nodes-v1-'
+const nodesStorageKey = 'offline-nodes-v2-'
 
 export interface GenMapperConfig {
     documents: DocumentDto[];
@@ -91,9 +91,22 @@ export class GenMapperService {
         value = value || {} as IDocumentDto;
         value.type = this.rawTemplate.id;
         value.title = value.title || 'No Name';
-
         if (!this.authService.isAuthenticated()) {
-            return this.setDocumentLocalStorage(value);
+            let nodes = value.nodes;
+            delete value.nodes;
+
+            if (!nodes) {
+                nodes = [this.rawTemplate.createDefaultNode()];
+            }
+
+            return this.setDocumentLocalStorage(value)
+                .pipe(
+                    delayWhen(() => this.refreshDocuments()),
+                    delayWhen((doc) => this.setNodesLocalStorage(this.documentService.processNodesBeforeCreate(nodes, doc))),
+                    tap((doc) => {
+                        this._selectedDocument.next(doc)
+                    })
+                );
         }
 
         return this.documentService.create(value)

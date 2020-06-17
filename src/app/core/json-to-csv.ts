@@ -16,31 +16,34 @@ export function JSONToCSV(data: NodeDto[], template: Template): string {
                 const out = {};
 
                 // parsign checkboxes in CSV from 1&0 to true&false
-                template.fields
-                    .forEach(field => {
-                        if (field.id === 'id' || field.id === 'parentId') {
-                            out[field.id] = d[field.id];
-                        }
+                template.fields.forEach(field => {
+                    if (field.id === 'id' || field.id === 'parentId') {
+                        out[field.id] = d[field.id];
+                    }
 
-                        else if (field && field.type === ControlType.checkbox) {
-                            out[field.id] = d.attributes[field.id] ? '1' : '0';
-                        }
+                    else if (field && field.type === ControlType.checkbox) {
+                        out[field.id] = d.attributes[field.id] ? '1' : '0';
+                    }
 
-                        else if (field.type === ControlType.date) {
-                            if (d.attributes[field.id]) {
-                                out[field.id] = d.attributes[field.id].toString();
-                            }
-                            else {
-                                out[field.id] = null;
-                            }
+                    else if (field.type === ControlType.date) {
+                        if (d.attributes[field.id]) {
+                            out[field.id] = d.attributes[field.id].toString();
                         }
-
                         else {
-                            out[field.id] = d.attributes[field.id];
+                            out[field.id] = null;
                         }
+                    }
 
-                        output.push(out[field.id]);
-                    });
+                    else if (field.fields) {
+                        out[field.id] = JSON.stringify(d.attributes[field.id]);
+                    }
+
+                    else {
+                        out[field.id] = d.attributes[field.id];
+                    }
+
+                    output.push(out[field.id]);
+                });
 
                 return output;
             })

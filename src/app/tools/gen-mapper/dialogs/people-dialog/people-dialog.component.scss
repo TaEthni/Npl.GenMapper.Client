@@ -1,0 +1,34 @@
+@import "~styles/mixins";
+
+:host {
+    @include dialog();
+
+    .mat-mini-fab {
+        box-shadow: none;
+    }
+
+    .number-picker {
+        margin: 10px 0 24px 0;
+
+        input.mat-input-element {
+            text-align: center;
+            font-size: 34px;
+        }
+    }
+
+    img {
+        width: 30px;
+        height: 30px;
+
+        @media screen and (min-width: 762px) {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    .mat-dialog-action {
+        .mat-button:first-child {
+            margin-right: auto;
+        }
+    }
+}

@@ -34,7 +34,7 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
         private downloadService: DownloadService,
         private genMapper: GenMapperService,
         private dialog: MatDialog,
-        private router: Router,
+        private router: Router
     ) { super(); }
 
     public ngOnInit(): void {

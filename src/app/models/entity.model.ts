@@ -21,5 +21,6 @@ export enum EntityType {
     Documents = 'documents',
     Users = 'users',
     DocumentNodes = 'document/nodes',
-    Nodes = 'nodes'
+    Nodes = 'nodes',
+    AllNodes = 'nodes-all'
 }

@@ -18,7 +18,7 @@
 
             <ng-template #noneTemplate></ng-template>
             <ng-template #controlTemplate>
-                <div class="control"
+                <div class="control control-{{field.type}}"
                      [class.has-dependency]="field.dependsOnFalseField || field.dependsOnTrueField || field.dependsOnFieldId"
                      fxFlex
                      (click)="onFieldClick(field)">
@@ -125,20 +125,50 @@
                             </mat-form-field>
                         </ng-container>
 
+                        <ng-container *ngIf="field.type === types.peopleSelector">
+                            <div fxLayout="row"
+                                 fxFlex>
+                                <div>
+                                    {{'Common_People' | locale | async}}
+                                </div>
+                                <div fxFlex></div>
+                                <div>
+                                    ({{model?.attributes[field.id]}})
+                                </div>
+                            </div>
+                        </ng-container>
+
                         <ng-container *ngIf="field.type === types.countrySelector">
-                            <mat-form-field>
-                                <mat-label>
-                                    {{field.i18nValue}}
-                                </mat-label>
-                                <select matNativeControl
-                                        [formControl]="form.get(field.id)">
-                                    <ng-container *ngFor="let option of countryList">
-                                        <option [value]="option['alpha-3']">
-                                            {{option.name}}: {{option['alpha-3']}}
-                                        </option>
-                                    </ng-container>
-                                </select>
-                            </mat-form-field>
+                            <ng-container *ngIf="isHandHeld; then nativeCountry else materialCountry"></ng-container>
+                            <ng-template #nativeCountry>
+                                <mat-form-field>
+                                    <mat-label>
+                                        {{field.i18nValue}}
+                                    </mat-label>
+                                    <select matNativeControl
+                                            [formControl]="form.get(field.id)">
+                                        <ng-container *ngFor="let option of countryList">
+                                            <option [value]="option['alpha-3']">
+                                                {{option.name}}: {{option['alpha-3']}}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </mat-form-field>
+                            </ng-template>
+                            <ng-template #materialCountry>
+                                <mat-form-field>
+                                    <mat-label>
+                                        {{field.i18nValue}}
+                                    </mat-label>
+                                    <mat-select [formControl]="form.get(field.id)">
+                                        <ng-container *ngFor="let option of countryList">
+                                            <mat-option [value]="option['alpha-3']">
+                                                {{option.name}}: {{option['alpha-3']}}
+                                            </mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </ng-template>
                         </ng-container>
 
                         <ng-container *ngIf="field.type === types.textarea">

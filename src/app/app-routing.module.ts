@@ -129,11 +129,6 @@ const appRoutes: Routes = [
 
 const maintenanceRoutes: Routes = [
     {
-        path: '',
-        redirectTo: 'maintenance',
-        pathMatch: 'full'
-    },
-    {
         path: 'maintenance',
         component: MaintenanceComponent
     },

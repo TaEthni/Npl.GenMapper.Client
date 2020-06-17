@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker, MatDialog, MatDialogRef, MAT_DATE_FORMATS } from '@angular/material';
 import { MapsService } from '@core/maps.service';
@@ -45,10 +45,14 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
     @Input()
     public fields: GMField[];
 
+    @Output()
+    public selectPeople = new EventEmitter<void>();
+
     public fieldByProperty: Dictionary<GMField>;
     public types = ControlType;
 
     public readonly countryList = COUNTRIES;
+    public readonly isHandHeld = Device.isHandHeld;
 
     private _locationDialog: MatDialogRef<LocationDialogComponent>;
 
@@ -78,6 +82,10 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
     public onFieldClick(field: GMField): void {
         if (field.type === ControlType.geoLocation) {
             this.onGeoLocationClick();
+        }
+
+        if (field.type === ControlType.peopleSelector) {
+            this.selectPeople.emit();
         }
 
         // if (field.type === ControlType.countrySelector) {

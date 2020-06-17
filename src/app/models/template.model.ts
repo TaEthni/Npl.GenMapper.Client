@@ -1,7 +1,8 @@
+import { UnknownPeopleGroup } from "@core/people-group.service";
 import { GMField, GMSvg, GMTemplate, TemplateConfiguration } from "@templates";
 import { cloneDeep, Dictionary, keyBy } from "lodash";
 import uuid from "uuid";
-import { NodeDto } from "./node.model";
+import { NodeDto, PeopleAttributes } from "./node.model";
 
 export class Template extends GMTemplate {
     private _svgsById: Dictionary<GMSvg>;
@@ -59,6 +60,14 @@ export class Template extends GMTemplate {
             if (field.iconRef) {
                 field.iconRefValue = this.icons[field.iconRef];
             }
+
+            if (field.fields) {
+                field.fields.forEach(f => {
+                    if (f.iconRef) {
+                        f.iconRefValue = this.icons[f.iconRef];
+                    }
+                });
+            }
         });
     }
 
@@ -80,6 +89,19 @@ export class Template extends GMTemplate {
                 node.attributes[field.id] = null;
             }
         });
+
+        // Add Peoples if it exists
+        const peoples = this.getField('peoples');
+        if (peoples) {
+            const base = {} as PeopleAttributes;
+            base.identifier = UnknownPeopleGroup.PEID;
+            base.label = UnknownPeopleGroup.NmDisp;
+            base.placeOfOrigin = null;
+            peoples.fields.forEach(field => {
+                base[field.id] = field.defaultValue || 0;
+            });
+            node.attributes.peoples = [base];
+        }
 
         node.id = node.attributes.id || uuid();
         node.parentId = node.attributes.parentId;

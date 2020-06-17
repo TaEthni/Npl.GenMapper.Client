@@ -390,6 +390,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                 if (result) {
                     const nodes = CSVToJSON(result.content, this.template);
                     if (this.nodeTree.validateTree(nodes)) {
+                        delete result.content;
                         result.nodes = nodes;
                         this.createDocument(result);
                     } else {
@@ -407,7 +408,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
 
     private createDocument(doc?: DocumentDto): void {
         this.genMapper.createDocument(doc).subscribe(result => {
-            this.router.navigate(['/gen-mapper', this.template.name, result.id]);
+            this.router.navigate(['/gen-mapper', this.template.id, result.id]);
         });
     }
 

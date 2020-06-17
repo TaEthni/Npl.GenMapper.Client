@@ -8,8 +8,6 @@ import 'rxjs/add/operator/delay';
 import { Observable } from 'rxjs/Observable';
 import { GenMapperService } from './gen-mapper.service';
 
-
-
 @Injectable()
 export class GenMapperContainerResolver implements Resolve<Observable<DocumentDto[]>> {
     constructor(
@@ -26,6 +24,7 @@ export class GenMapperContainerResolver implements Resolve<Observable<DocumentDt
             this.router.navigate(['/gen-mapper']);
             return null;
         }
+
         return this.genMapper.loadFromResolver(template);
     }
 }

@@ -1,4 +1,4 @@
-@import '~styles/colors';
+@import "~styles/colors";
 
 :host {
     display: flex;
@@ -72,6 +72,10 @@
         margin-right: auto;
     }
 
+    .control-peopleSelector {
+        cursor: pointer;
+    }
+
     .deprecated {
         background-color: #eee;
         border-radius: 4px;
@@ -95,7 +99,8 @@
     }
 
     @media screen and (min-width: 768px) {
-        .control.control-checkbox {
+        .control.control-checkbox,
+        .control.control-peopleSelector {
             &:hover {
                 background-color: #eee;
             }

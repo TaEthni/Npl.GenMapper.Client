@@ -1,5 +1,9 @@
 # GenMapper Changelog
 
+## (2020-06-15)
+- Feature: People Group Selector
+- Fix: Un Authorized blank screen
+
 ## (2020-05-23)
 - Feature: Application Refactor - prone to bugs
 

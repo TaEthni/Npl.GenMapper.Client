@@ -1,23 +1,39 @@
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
     .mat-toolbar {
-        position: sticky;
         z-index: 3;
-        top: 0;
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        flex: 0 0 auto;
+    }
+
+    .drawer-inner-footer {
+        padding: 0 10px 20px 10px;
     }
 
     .drawer-footer {
-        position: sticky;
-        bottom: 0;
+        flex: 0 0 auto;
         z-index: 3;
         box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.2);
         padding: 10px;
         background-color: white;
     }
 
-    .drawer-inner-footer {
-        padding: 0 10px 20px 10px;
+    .mat-tab-group {
+        height: calc(100% - 60px);
+
+        ::ng-deep .mat-tab-body-wrapper {
+            flex: 1;
+        }
+
+        ::ng-deep .mat-tab-label {
+            opacity: 1;
+        }
+    }
+
+    .add-button-container {
+        padding: 0 24px;
     }
 }

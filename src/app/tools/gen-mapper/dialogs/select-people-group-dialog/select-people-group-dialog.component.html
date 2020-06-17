@@ -1,0 +1,116 @@
+<div mat-dialog-title>
+    {{'Common_PeopleGroup' | locale | async}}
+</div>
+
+<div mat-dialog-content
+     fxLayout="column"
+     fxLayoutGap="24px">
+
+    <ng-container *ngIf="isLoading; then loadingTemplate else pgTemplate"></ng-container>
+
+    <ng-template #loadingTemplate>
+        <div fxLayout="column"
+             fxLayoutAlign="center center"
+             *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+            <h4>This could take a few minutes...</h4>
+        </div>
+    </ng-template>
+
+    <ng-template #pgTemplate>
+        <div fxLayout="row">
+            <ng-container *ngIf="isHandHeld; then nativeCountry else materialCountry"></ng-container>
+            <ng-template #nativeCountry>
+                <mat-form-field fxFlex>
+                    <mat-label>{{'Common_Country' | locale | async}}</mat-label>
+                    <select [formControl]="countryControl"
+                            matNativeControl>
+                        <option value=""
+                                selected></option>
+                        <option *ngFor="let country of countryList"
+                                [value]="country['alpha-3']">
+                            {{country.name}} {{country['alpha-3']}}
+                        </option>
+                    </select>
+                </mat-form-field>
+            </ng-template>
+            <ng-template #materialCountry>
+                <mat-form-field fxFlex>
+                    <mat-label>{{'Common_Country' | locale | async}}</mat-label>
+                    <mat-select [formControl]="countryControl">
+                        <mat-option *ngFor="let country of countryList"
+                                    [value]="country['alpha-3']">
+                            {{country.name}} {{country['alpha-3']}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-template>
+
+        </div>
+        <div fxLayout="row"
+             fxLayoutGap="50px"
+             fxLayout.lt-sm="column"
+             fxLayoutGap.lt-sm="24px">
+            <ng-container *ngIf="isHandHeld; then nativePg else materialPg"></ng-container>
+            <ng-template #nativePg>
+                <mat-form-field fxFlex>
+                    <mat-label>{{'Common_PeopleGroups' | locale | async}}</mat-label>
+                    <select [formControl]="pgControl"
+                            matNativeControl>
+                        <option value=""
+                                selected></option>
+                        <option *ngFor="let pg of peopleGroups | sort: 'NmDisp'"
+                                [value]="pg.PEID">
+                            {{pg.GENC0}} {{pg.NmDisp}}
+                        </option>
+                        <option [value]="other.PEID">{{'Common_Other' | locale | async}}</option>
+                    </select>
+                </mat-form-field>
+            </ng-template>
+            <ng-template #materialPg>
+                <mat-form-field fxFlex>
+                    <mat-label>{{'Common_PeopleGroups' | locale | async}}</mat-label>
+                    <mat-select [formControl]="pgControl">
+                        <mat-option *ngFor="let pg of peopleGroups | sort: 'NmDisp'"
+                                    [value]="pg.PEID">
+                            {{pg.GENC0}} {{pg.NmDisp}}
+                        </mat-option>
+                        <mat-option [value]="other.PEID">{{'Common_Other' | locale | async}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-template>
+            <ng-container *ngIf="showOther">
+                <mat-form-field fxFlex>
+                    <mat-label>{{'Common_OtherPeopleGroupName' | locale | async}}</mat-label>
+                    <input matInput
+                           type="text"
+                           autocomplete="offoff"
+                           name="offoff"
+                           [formControl]="otherControl">
+                    <mat-error *ngIf="otherControl.errors?.required">
+                        {{'Error_requiredField' | locale | async}}
+                    </mat-error>
+                    <mat-error *ngIf="otherControl.errors?.existing">
+                        {{'Error_NameInUse' | locale | async}}
+                    </mat-error>
+                </mat-form-field>
+            </ng-container>
+        </div>
+    </ng-template>
+</div>
+
+<div mat-dialog-actions
+     fxLayoutAlign="end"
+     fxLayoutGap="24px">
+    <button mat-flat-button
+            color="primary"
+            [disabled]="!isValid"
+            (click)="continue()">
+        {{'Common_Continue' | locale | async}}
+    </button>
+    <button mat-button
+            color="primary"
+            mat-dialog-close>
+        {{'Common_Cancel' | locale | async}}
+    </button>
+</div>

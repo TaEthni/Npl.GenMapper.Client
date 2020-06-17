@@ -36,6 +36,7 @@ export interface NodeAttributes {
     active: boolean;
     inactiveReason: string;
     newGeneration?: boolean;
+    country?: string;
 
     // Optional Properties
     location?: string;
@@ -44,6 +45,9 @@ export interface NodeAttributes {
     placeId?: string;
     leaderName?: string;
     leadersName?: string;
+
+    peopleGroups?: string;
+    peopleGroupsNames?: string;
 
     // Mapped on client
     gen: number;
@@ -58,4 +62,15 @@ export interface NodeAttributes {
     believers: number;
     baptized: number;
     newlyBaptized: number;
+    peoples: PeopleAttributes[];
+}
+
+export interface PeopleAttributes {
+    label: string;
+    identifier: number;
+    placeOfOrigin: string; // alpha-3 country code
+    attenders?: number;
+    believers?: number;
+    baptized?: number;
+    newlyBaptized?: number;
 }

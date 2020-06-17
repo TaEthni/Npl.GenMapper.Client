@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
+import { SortModule } from '@shared/sort/sort.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { environment } from '../../../environments/environment';
 import { DocumentService } from '../../core/document.service';
@@ -11,9 +12,11 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from './dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
+import { PeopleDialogComponent } from './dialogs/people-dialog/people-dialog.component';
 import { CountryPickerComponent } from './dialogs/people-group-dialog/country-picker/country-picker.component';
 import { PeopleGroupDialogComponent } from './dialogs/people-group-dialog/people-group-dialog.component';
 import { PeopleGroupPickerComponent } from './dialogs/people-group-dialog/people-group-picker/people-group-picker.component';
+import { SelectPeopleGroupDialogComponent } from './dialogs/select-people-group-dialog/select-people-group-dialog.component';
 import { DocumentNameControlComponent } from './document-name-control/document-name-control.component';
 import { DocumentsSidenavComponent } from './documents-sidenav/documents-sidenav.component';
 import { GenMapperContainerResolver } from './gen-mapper-container.resolver';
@@ -42,6 +45,7 @@ import { WorldMapViewComponent } from './views/world-map-view/world-map-view.com
     imports: [
         CommonModule,
         SharedModule,
+        SortModule,
         ReactiveFormsModule,
         RouterModule,
         NgxChartsModule,
@@ -77,6 +81,8 @@ import { WorldMapViewComponent } from './views/world-map-view/world-map-view.com
         SavingSnackbarComponent,
         SavingErrorSnackbarComponent,
         NoDocumentViewComponent,
+        PeopleDialogComponent,
+        SelectPeopleGroupDialogComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -105,6 +111,8 @@ import { WorldMapViewComponent } from './views/world-map-view/world-map-view.com
         InvalidCsvDialogComponent,
         SavingSnackbarComponent,
         SavingErrorSnackbarComponent,
+        PeopleDialogComponent,
+        SelectPeopleGroupDialogComponent
     ],
     providers: [
         DocumentService,
