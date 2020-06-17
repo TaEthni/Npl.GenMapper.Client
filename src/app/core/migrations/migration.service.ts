@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { CSVToJSON, CSVToJSONNoTemplate } from '@core/csv-to-json';
+import { EntityService } from '@core/entity.service';
+import { TemplateService } from '@core/template.service';
 import { DocumentDto } from '@models/document.model';
 import { EntityType } from '@models/entity.model';
 import { IFlatNode, NodeAttributes, NodeDto } from '@models/node.model';
 import { cloneDeep } from 'lodash';
 import uuid from 'uuid';
-import { NodeTreeService } from '../tools/gen-mapper/node-tree/node-tree.service';
-import { CSVToJSON, CSVToJSONNoTemplate } from './csv-to-json';
-import { EntityService } from './entity.service';
-import { TemplateService } from './template.service';
+import { NodeTreeService } from '../../tools/gen-mapper/node-tree/node-tree.service';
 
 @Injectable({
     providedIn: 'root'

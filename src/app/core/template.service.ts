@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Template } from '@models/template.model';
-import { GMTemplate, TemplateConfiguration } from '@templates';
+import { GMField, GMTemplate, TemplateConfiguration } from '@templates';
 import { LocaleService } from './locale.service';
 import { GM_CONFIGS, GM_TEMPLATES } from './template.injecttoken';
 
@@ -70,19 +70,27 @@ export class TemplateService {
             });
 
             // Example: template.translations.en.translation.churchCircles;
-            template.fields.forEach(field => {
-                if (field.i18nRef) {
-                    field.i18nValue = this.locale.t(field.i18nRef);
-                }
+            this.localizeFields(template.fields);
+        });
+    }
 
-                if (field.options) {
-                    field.options.forEach(o => {
-                        if (o.i18nRef) {
-                            o.i18nValue = this.locale.t(o.i18nRef);
-                        }
-                    });
-                }
-            });
+    private localizeFields(fields: GMField[]): void {
+        fields.forEach(field => {
+            if (field.i18nRef) {
+                field.i18nValue = this.locale.t(field.i18nRef);
+            }
+
+            if (field.options) {
+                field.options.forEach(o => {
+                    if (o.i18nRef) {
+                        o.i18nValue = this.locale.t(o.i18nRef);
+                    }
+                });
+            }
+
+            if (field.fields) {
+                this.localizeFields(field.fields);
+            }
         });
     }
 }

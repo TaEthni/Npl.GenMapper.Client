@@ -11,7 +11,6 @@ import { NumberInputDirective } from './number-input.directive';
 import { SidenavToggleComponent } from './sidenav-toggle/sidenav-toggle.component';
 import { SortByDatePipe } from './sort-by-date.pipe';
 
-
 @NgModule({
     imports: [
         CommonModule,

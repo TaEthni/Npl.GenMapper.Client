@@ -21,7 +21,6 @@ export class NodeTreeService {
     private rawData: NodeDto[];
     private rawDataById: Dictionary<NodeDto>;
 
-
     constructor() { }
 
     public createLayout(template: Template): void {

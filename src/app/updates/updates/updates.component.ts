@@ -3,6 +3,14 @@ import { MatDialog } from '@angular/material';
 import { UpdatesService } from '../updates.service';
 import { WhatsNewDialogComponent } from '../whats-new-dialog/whats-new-dialog.component';
 
+const oldKeys = [
+    'update-v1',
+    'update-v2',
+    'update-v3',
+];
+
+oldKeys.forEach(key => localStorage.removeItem(key));
+
 @Component({
     selector: 'app-updates',
     templateUrl: './updates.component.html',
@@ -10,7 +18,7 @@ import { WhatsNewDialogComponent } from '../whats-new-dialog/whats-new-dialog.co
 })
 export class UpdatesComponent implements OnInit {
 
-    private updateKey = 'update-v3';
+    private updateKey = 'update-v4';
 
     constructor(
         private dialog: MatDialog,

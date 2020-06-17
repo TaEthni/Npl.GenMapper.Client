@@ -1,66 +1,39 @@
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
     .mat-toolbar {
-        position: sticky;
         z-index: 3;
-        top: 0;
-
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        flex: 0 0 auto;
     }
 
-    .delete-button {
-        margin: 0 24px 48px 24px;
+    .drawer-inner-footer {
+        padding: 0 10px 20px 10px;
     }
 
-    .save-button {
-        height: 40px;
-        position: sticky;
-        top: 64px;
-        z-index: 2;
+    .drawer-footer {
+        flex: 0 0 auto;
+        z-index: 3;
+        box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        background-color: white;
+    }
 
-        @media (max-width: 599px) {
-            top: 56px;
+    .mat-tab-group {
+        height: calc(100% - 60px);
+
+        ::ng-deep .mat-tab-body-wrapper {
+            flex: 1;
         }
 
-        button {
-            line-height: 24px;
-        }
-
-        .animated-button-group {
-            opacity: 0;
-            padding: 6px 16px 6px 16px;
-            animation-timing-function: ease-out;
-            animation-fill-mode: forwards;
-            animation-duration: 0.15s;
-            transform: translateY(-200%);
-            will-change: transform, opacity;
-
-            background-color: white;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-
-            &.slide-down {
-                animation-name: slide-down;
-            }
+        ::ng-deep .mat-tab-label {
+            opacity: 1;
         }
     }
 
-    .drawer-actions {
-        padding: 16px;
-
-        button {
-            line-height: 24px;
-        }
-    }
-}
-
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-200%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .add-button-container {
+        padding: 0 24px;
     }
 }

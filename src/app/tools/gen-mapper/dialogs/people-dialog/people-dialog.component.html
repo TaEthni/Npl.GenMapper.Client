@@ -1,0 +1,115 @@
+<div mat-dialog-title
+     fxLayout="row"
+     fxLayout.lt-sm="column">
+    <div>
+        {{'Common_PeopleGroup' | locale | async}}
+        [{{data.people.placeOfOrigin ? data.people.placeOfOrigin + ' ' : ''}}{{data.people.label}}]
+    </div>
+    <div fxFlex></div>
+    <div>
+        <button mat-button
+                color="primary"
+                (click)="changePeopleGroup()">
+            ({{'Common_ChangePeopleGroup' | locale | async}})
+        </button>
+    </div>
+</div>
+
+<div mat-dialog-content>
+    <ng-container *ngFor="let field of fields">
+
+        <div fxLayout="row"
+             fxLayoutGap="24px"
+             fxLayoutAlign="start center">
+            <ng-container *ngIf="field.iconRefValue">
+                <div>
+                    <img [src]="field.iconRefValue" />
+                </div>
+            </ng-container>
+
+            <div fxLayout="column"
+                 fxFlex>
+                <label>{{field.i18nValue}}</label>
+                <ng-container *ngIf="field.id === 'attenders'">
+
+                    <div class="number-picker"
+                         fxLayout="row"
+                         fxLayoutGap="10px"
+                         fxLayoutAlign="start center">
+                        <button mat-mini-fab
+                                color="accent"
+                                (click)="form.get(field.id).setValue(form.get(field.id).value - 1)">
+                            <mat-icon>keyboard_arrow_left</mat-icon>
+                        </button>
+
+                        <mat-form-field fxFlex
+                                        no-error
+                                        appearance="outline"
+                                        fxFlex="120px">
+                            <input type="number"
+                                   no-wheel
+                                   matInput
+                                   appNumberInput
+                                   min="0"
+                                   (change)="onNumberChange(field)"
+                                   [formControl]="form.get(field.id)" />
+                        </mat-form-field>
+                        <button mat-mini-fab
+                                color="accent"
+                                (click)="form.get(field.id).setValue(form.get(field.id).value + 1)">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="field.id !== 'attenders'">
+
+                    <div fxLayout="row">
+                        <mat-slider fxFlex
+                                    [max]="form.get('attenders').value"
+                                    [min]="0"
+                                    thumbLabel
+                                    (input)="sliderInput($event, field)"
+                                    [formControl]="form.get(field.id)">
+                        </mat-slider>
+
+                        <div>
+                            ({{form.get(field.id).value}})
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </ng-container>
+</div>
+
+<div mat-dialog-actions
+     fxLayout="column"
+     fxLayoutGap="10px"
+     fxLayoutAlign="end">
+    <div fxLayoutGap="24px"
+         fxLayoutGap.lt-xs="10px"
+         fxLayoutAlign="end">
+        <button mat-flat-button
+                color="primary"
+                (click)="continue()">
+            {{'Common_Continue' | locale | async}}
+        </button>
+        <button mat-button
+                color="primary"
+                (click)="cancel()">
+            {{'Common_Cancel' | locale | async}}
+        </button>
+    </div>
+    <ng-container *ngIf="data.people.identifier !== unknownPeopleGroup.PEID">
+        <div fxLayout="row">
+            <button mat-stroked-button
+                    fxFlex
+                    color="warn"
+                    (click)="remove()">
+                {{'Common_Delete' | locale | async}}
+            </button>
+        </div>
+    </ng-container>
+</div>

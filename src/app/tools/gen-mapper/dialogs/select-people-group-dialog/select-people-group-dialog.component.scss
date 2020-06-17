@@ -1,0 +1,9 @@
+@import "~styles/mixins";
+
+:host {
+    @include dialog();
+
+    .mat-dialog-content {
+        min-height: 200px;
+    }
+}

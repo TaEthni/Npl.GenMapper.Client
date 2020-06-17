@@ -15,6 +15,7 @@ export enum ControlType {
     date = 'date',
     countrySelector = 'countrySelector',
     peopleGroups = 'peopleGroups',
+    peopleSelector = 'peopleSelector',
 
     // Internal
     parentSelector = 'parentSelector',
@@ -174,6 +175,18 @@ export interface GMField {
 
     // Whether the field is required or not
     nullable?: boolean;
+
+    fields?: GMField[];
+
+    validation?: {
+        max?: number;
+        maxLength?: number;
+        min?: number;
+        minLength?: number;
+
+        maxFieldRef?: string;
+        minFieldRef?: string;
+    }
 }
 
 export interface GMFieldOption {

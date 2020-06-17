@@ -1,20 +1,103 @@
-<mat-toolbar>
-    <mat-toolbar-row>
-        <span>
-            <ng-container>
-                [{{node?.attributes.name || node?.attributes.leaderName || node?.attributes.leadersName || 'No Name'}}]
-            </ng-container>
-        </span>
-    </mat-toolbar-row>
-</mat-toolbar>
-<div class="save-button">
-    <div class="animated-button-group"
-         [class.slide-down]="form?.dirty"
-         fxLayout="row">
+<mat-tab-group backgroundColor="accent"
+               color="primary"
+               mat-stretch-tabs
+               [(selectedIndex)]="selectedTabIndex">
+    <mat-tab label="{{'Common_Info' | locale | async}}">
+        <ng-container *ngIf="form">
+            <app-node-form [form]="form"
+                           [fields]="fields"
+                           [nodes]="nodes"
+                           [model]="node"
+                           (selectPeople)="selectedTabIndex = 1"></app-node-form>
+        </ng-container>
+
+        <div fxLayout="column"
+             fxLayoutGap="24px"
+             class="drawer-inner-footer">
+
+            <div fxLayout="row"
+                 *ngIf="!hideActions">
+                <button mat-stroked-button
+                        (click)="onCopyNode()">
+                    {{'Common_Copy' | locale | async}}
+                </button>
+
+                <ng-container *ngIf="isNodeInClipboard">
+                    <mat-menu #pasteMenu="matMenu">
+                        <button mat-menu-item
+                                (click)="onReplaceNode()">
+                            {{'Common_ReplaceCurrentNode' | locale | async}}
+                        </button>
+                        <button mat-menu-item
+                                (click)="onPastAsChildNode()">
+                            {{'Common_PasteAsChildNode' | locale | async}}
+                        </button>
+                    </mat-menu>
+                    <button mat-stroked-button
+                            [matMenuTriggerFor]="pasteMenu">
+                        {{'Common_Paste' | locale | async}}
+                    </button>
+                </ng-container>
+
+                <div fxFlex></div>
+
+                <button mat-stroked-button
+                        color="primary"
+                        (click)="onImportSubtree()">
+                    {{'Common_ImportSubtree' | locale | async}}
+                </button>
+            </div>
+
+            <div>
+                <button *ngIf="node && !node.attributes.isRoot"
+                        mat-raised-button
+                        fxFlex
+                        color="warn"
+                        class="delete-button"
+                        (click)="onDeleteNode()">
+                    {{'Common_DeleteSubtree' | locale | async}}
+                </button>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="{{'Common_People' | locale | async}}">
+        <div fxLayout="column"
+             fxLayoutGap="24px">
+            <mat-action-list>
+                <ng-container *ngFor="let people of pendingPeoples | sort: 'attenders':'DES'">
+                    <button mat-list-item
+                            (click)="selectPeople(people)">
+                        <span>{{people.placeOfOrigin}} {{people.label}}</span>
+                        <span fxFlex></span>
+                        <span>{{people.attenders}}</span>
+                    </button>
+                    <mat-divider></mat-divider>
+                </ng-container>
+            </mat-action-list>
+
+            <div class="add-button-container">
+                <button mat-stroked-button
+                        color="primary"
+                        fxFlex
+                        (click)="addPeopleGroup()">
+                    <mat-icon>add</mat-icon> {{'Common_PeopleGroups' | locale | async}}
+                </button>
+            </div>
+        </div>
+
+    </mat-tab>
+</mat-tab-group>
+
+<div class="drawer-footer"
+     fxLayout="column">
+
+    <div fxLayout="row"
+         fxLayoutGap="10px">
         <button mat-raised-button
                 color="primary"
                 (click)="onSave()"
-                fxFlex>
+                fxFlex
+                [disabled]="!form?.dirty">
             {{'Common_Save' | locale | async}}
         </button>
         <button mat-button
@@ -22,59 +105,6 @@
                 (click)="onCancel()"
                 fxFlex>
             {{'Common_Cancel' | locale | async}}
-        </button>
-    </div>
-</div>
-<div>
-    <div fxLayout="row"
-         fxLayoutGap="10px"
-         class="drawer-actions"
-         *ngIf="!hideActions">
-
-        <button mat-stroked-button
-                (click)="onCopyNode()">
-            {{'Common_Copy' | locale | async}}
-        </button>
-
-        <ng-container *ngIf="isNodeInClipboard">
-            <mat-menu #pasteMenu="matMenu">
-                <button mat-menu-item
-                        (click)="onReplaceNode()">
-                    {{'Common_ReplaceCurrentNode' | locale | async}}
-                </button>
-                <button mat-menu-item
-                        (click)="onPastAsChildNode()">
-                    {{'Common_PasteAsChildNode' | locale | async}}
-                </button>
-            </mat-menu>
-            <button mat-stroked-button
-                    [matMenuTriggerFor]="pasteMenu">
-                {{'Common_Paste' | locale | async}}
-            </button>
-        </ng-container>
-
-        <div fxFlex></div>
-
-        <button mat-stroked-button
-                color="primary"
-                (click)="onImportSubtree()">
-            {{'Common_ImportSubtree' | locale | async}}
-        </button>
-    </div>
-    <ng-container *ngIf="form">
-        <app-node-form [form]="form"
-                       [fields]="fields"
-                       [nodes]="nodes"
-                       [model]="node"></app-node-form>
-    </ng-container>
-    <div fxLayout="row">
-        <button *ngIf="node && !node.attributes.isRoot"
-                mat-raised-button
-                fxFlex
-                color="warn"
-                class="delete-button"
-                (click)="onDeleteNode()">
-            {{'Common_DeleteSubtree' | locale | async}}
         </button>
     </div>
 </div>

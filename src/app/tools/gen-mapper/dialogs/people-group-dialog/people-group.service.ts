@@ -29,9 +29,7 @@ export interface PeopleGroupConfig {
     fields: { alias: string, name: string, type: string }[];
 }
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class PeopleGroupService {
     public isLoading = false;
     public config: PeopleGroupConfig;

@@ -1,7 +1,8 @@
-import { IFlatNode } from "@models/node.model";
+import { IFlatNode, PeopleAttributes } from "@models/node.model";
 import { Template } from "@models/template.model";
 import { ControlType, DisciplesTemplate, FourFieldsTemplate } from "@templates";
 import { csvParse } from "d3";
+import { UnknownPeopleGroup } from "./people-group.service";
 
 const isNumberReg = /\d/;
 
@@ -54,7 +55,7 @@ export function CSVToJSON(csv: string, template: Template): IFlatNode[] {
                 }
             }
 
-            else if (field.type === ControlType.checkbox) {
+            if (field.type === ControlType.checkbox) {
                 node[field.id] = getBooleanValue(row[field.id]);
             }
 
@@ -65,11 +66,11 @@ export function CSVToJSON(csv: string, template: Template): IFlatNode[] {
             }
 
             else if (field.parseValueAsInt) {
-                node[field.id] = parseInt(row[field.id]) || null;
+                node[field.id] = parseInt(row[field.id]) || field.defaultValue;
             }
 
             else if (field.parseValueAsFloat) {
-                node[field.id] = parseFloat(row[field.id]) || null;
+                node[field.id] = parseFloat(row[field.id]) || field.defaultValue;
             }
 
             else if (field.parseOptionValueAsInt) {
@@ -113,8 +114,35 @@ export function CSVToJSON(csv: string, template: Template): IFlatNode[] {
             }
         }
 
+        if (template.getField('peoples')) {
+            if (node.hasOwnProperty('peoples')) {
+                try {
+                    node.peoples = JSON.parse(node.peoples);
+                } catch (error) {
+                    node.peoples = null;
+                }
+            }
+
+            if (!node.peoples) {
+                node.peoples = [createUnknownPeoples(template, node)];
+            }
+        }
+
         return node;
     });
+}
+
+function createUnknownPeoples(template: Template, node: IFlatNode): PeopleAttributes {
+    const people = {} as PeopleAttributes;
+    people.identifier = UnknownPeopleGroup.PEID;
+    people.label = UnknownPeopleGroup.NmDisp;
+    people.placeOfOrigin = null;
+
+    template.getField('peoples').fields.forEach(field => {
+        people[field.id] = node[field.id] || field.defaultValue;
+    });
+
+    return people;
 }
 
 function getBooleanValue(value: string = ''): boolean {
