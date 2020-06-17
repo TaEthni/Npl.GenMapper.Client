@@ -59,8 +59,21 @@ export class NodeTreeService {
             .id(d => d.id)
             .parentId(d => d.parentId)(nodes) as NodeDatum;
 
+        this.rootNode.isRoot = true;
+        this.updateLayout();
+    }
+
+    public updateLayout(): void {
+        this.rootNode.sort(sortNodes);
+
         this.treeData = this.treeLayout(this.rootNode);
+
         this.nodes = this.treeData.descendants() as NodeDatum[];
+
+        this.nodes.forEach(node => {
+            node['isRoot'] = node.parent === this.rootNode;
+        });
+
         this.treeDataSource.next(this.treeData);
     }
 
@@ -92,4 +105,24 @@ export class NodeTreeService {
         Object.assign(this.rawData[index], node);
         this.createTree(this.rawData);
     }
+
+    public batchUpdateAttributes(nodes: NodeDto[]): void {
+        nodes.forEach(node => {
+            const raw = this.rawDataById[node.id];
+            const index = this.rawData.indexOf(raw);
+            Object.assign(this.rawData[index].attributes, node.attributes);
+        });
+
+        this.updateLayout();
+    }
+}
+
+function sortNodes(a: NodeDatum, b: NodeDatum): number {
+    if (a.data.attributes.nodeOrder > b.data.attributes.nodeOrder) {
+        return 1;
+    }
+    if (b.data.attributes.nodeOrder > a.data.attributes.nodeOrder) {
+        return -1;
+    }
+    return 0;
 }

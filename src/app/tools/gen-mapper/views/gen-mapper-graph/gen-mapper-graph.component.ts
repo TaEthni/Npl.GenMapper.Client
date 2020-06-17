@@ -27,6 +27,9 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
     @Output()
     public addNode = new EventEmitter<NodeDto>(null);
 
+    @Output()
+    public sortChange = new EventEmitter<NodeDto[]>();
+
     @ViewChild('genMapperGraphSvg', { static: true })
     public graphSvg: ElementRef;
 
@@ -99,6 +102,12 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(d => {
                 this.addNode.emit(d.data);
+            });
+
+        this.d3NodeTree.sortOrderChange
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.sortChange.emit(result);
             });
     }
 }

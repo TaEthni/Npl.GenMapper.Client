@@ -1,21 +1,29 @@
 import { Template } from '@models/template.model';
 import { ControlType } from '@templates';
-import { select, Selection } from 'd3';
+import { DragBehavior, select, Selection } from 'd3';
 import moment from 'moment';
 import { NodeDatum } from '../gen-mapper.interface';
 import { applySVGAttrsAndStyle } from './d3-util';
 import { drawAction } from './draw-action';
 
 
-export function drawNodes(node: Selection<SVGGElement, NodeDatum, SVGGElement, any>, source: NodeDatum, template: Template): Selection<SVGGElement, NodeDatum, SVGGElement, any> {
+export function drawNodes(
+    node: Selection<SVGGElement, NodeDatum, SVGGElement, any>,
+    source: NodeDatum,
+    context: {
+        dragBehavior: DragBehavior<Element, {}, {} | d3.SubjectPosition>,
+        template: Template
+    }
+): Selection<SVGGElement, NodeDatum, SVGGElement, any> {
 
-    const nodeEnter = node.enter().append('g');
+    const nodeEnter = node.enter().append('g')
+        .call(context.dragBehavior);
 
-    drawNodeEnter(nodeEnter, source, template);
+    drawNodeEnter(nodeEnter, source, context.template);
 
     const nodeUpdate = nodeEnter.merge(node);
 
-    drawNodeUpdate(nodeUpdate, template);
+    drawNodeUpdate(nodeUpdate, context.template);
 
     node.exit().remove();
 
@@ -25,7 +33,9 @@ export function drawNodes(node: Selection<SVGGElement, NodeDatum, SVGGElement, a
 function drawNodeEnter(nodeEnter: Selection<SVGGElement, NodeDatum, SVGGElement, undefined>, source: NodeDatum, template: Template): void {
     nodeEnter
         .classed('node', true)
-    // Transform to source
+        .attr('transform', (d) => {
+            return 'translate(' + d.x0 + ',' + d.y0 + ')';
+        })
 
     nodeEnter.append('rect')
         .attr('class', 'hidden-rect')
@@ -69,8 +79,10 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
         .attr('node-id', d => d.data.id)
         .classed('node--active', (d) => d.data.attributes.active)
         .classed('node--inactive', (d) => !d.data.attributes.active)
+        .transition()
+        .duration(500)
         .attr('transform', (d) => {
-            return 'translate(' + d.x + ',' + d.y + ')';
+            return 'translate(' + d.x0 + ',' + d.y0 + ')';
         })
 
     nodeUpdate.select('.node-labels')
@@ -91,9 +103,9 @@ function drawNodeUpdate(nodeUpdate: Selection<SVGGElement, NodeDatum, SVGGElemen
 
                     svg += `<text text-anchor="start" y="${boxHeight + (i + line) * textHeight}">${value}</text>`;
                 });
+            // svg += `<text text-anchor="start" y="${boxHeight + 2 * textHeight}">(${d.data.attributes.nodeOrder})</text>`;
             return svg;
         });
-
 
 
     // refresh class and attributes in SVG elements without fields
