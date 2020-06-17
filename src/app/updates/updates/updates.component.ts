@@ -7,6 +7,7 @@ const oldKeys = [
     'update-v1',
     'update-v2',
     'update-v3',
+    'update-v4',
 ];
 
 oldKeys.forEach(key => localStorage.removeItem(key));
@@ -18,7 +19,7 @@ oldKeys.forEach(key => localStorage.removeItem(key));
 })
 export class UpdatesComponent implements OnInit {
 
-    private updateKey = 'update-v4';
+    private updateKey = 'update-v5';
 
     constructor(
         private dialog: MatDialog,
