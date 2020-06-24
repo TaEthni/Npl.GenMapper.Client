@@ -1,4 +1,4 @@
-@import '~styles/colors';
+@import "~styles/colors";
 
 :host::ng-deep {
     display: flex;
@@ -11,25 +11,25 @@
     }
 
     rect {
-        fill:white;
+        fill: white;
     }
 
-    h2{
-        font-size:18px;
+    h2 {
+        font-size: 18px;
     }
 
-    h3{
-        font-size:16px;
-        margin:0;
-        padding:0;
+    h3 {
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
         border: 0;
     }
 
     p {
-        margin-top:0.3eM;
+        margin-top: 0.3em;
     }
 
-        /**** SVG ****/
+    /**** SVG ****/
     #genmapper-graph {
         width: 100%;
         height: 100%;
@@ -41,12 +41,14 @@
         // height: 100%;
     }
 
-    .node--active text, .link-text--active {
+    .node--active text,
+    .link-text--active {
         stroke: black;
         fill: black;
     }
 
-    .node--inactive text, .link-text--inactive {
+    .node--inactive text,
+    .link-text--inactive {
         stroke: #000;
         fill: #000;
         opacity: 0.4;
@@ -56,7 +58,8 @@
         // opacity: 0.4 !important;
     }
 
-    .node--inactive > rect, .node--inactive > line {
+    .node--inactive > rect,
+    .node--inactive > line {
         stroke: #ddd !important;
     }
 
@@ -72,7 +75,8 @@
         display: none;
         opacity: 0.6;
 
-        line, rect ~ rect {
+        line,
+        rect ~ rect {
             pointer-events: none;
         }
 
@@ -223,8 +227,8 @@
     }
 
     .invisible-rect {
-        fill-opacity:0;
-        stroke-opacity:0;
+        fill-opacity: 0;
+        stroke-opacity: 0;
     }
 
     rect.hidden-rect {
@@ -234,5 +238,12 @@
 
     svg text {
         stroke: transparent !important;
+    }
+
+    svg.dragging-node {
+        .node:not(.dragging) {
+            opacity: 0.5;
+            pointer-events: none;
+        }
     }
 }

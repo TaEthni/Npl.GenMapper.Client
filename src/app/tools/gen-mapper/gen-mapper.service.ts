@@ -4,7 +4,7 @@ import { DocumentService } from '@core/document.service';
 import { DocumentDto, IDocumentDto } from '@models/document.model';
 import { IFlatNode, NodeDto } from '@models/node.model';
 import { Template } from '@models/template.model';
-import { keyBy } from 'lodash';
+import { Dictionary, keyBy } from 'lodash';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { delayWhen, filter, map, take, tap } from 'rxjs/operators';
 
@@ -29,6 +29,7 @@ export class GenMapperService {
     private _nodes: BehaviorSubject<NodeDto[]> = new BehaviorSubject<NodeDto[]>(null);
     private _selectedDocument: BehaviorSubject<DocumentDto> = new BehaviorSubject(null);
     private _selectedNode: BehaviorSubject<NodeDto> = new BehaviorSubject(null);
+    private nodesById: Dictionary<NodeDto> = {};
 
     public template$ = this._template.asObservable();
     public documents$ = this._documents.asObservable();
@@ -161,6 +162,19 @@ export class GenMapperService {
         return this.documentService.updateNode(node);
     }
 
+    public updateDocumentNodes(nodes: NodeDto[]): Observable<NodeDto[]> {
+        if (!this.authService.isAuthenticated()) {
+            nodes.forEach(node => {
+                const found = this.nodesById[node.id];
+                Object.assign(found.attributes, node.attributes);
+            });
+            return this.setNodesLocalStorage(nodes);
+        }
+
+        const document = this._selectedDocument.getValue();
+        return this.documentService.batchUpdateNodes(document.id, nodes);
+    }
+
     public removeDocument(doc: DocumentDto): Observable<DocumentDto> {
         if (!this.authService.isAuthenticated()) {
             this.clearLocalStorage();
@@ -238,7 +252,6 @@ export class GenMapperService {
         return of([document]);
     }
 
-
     public loadNodesFromLocalStorage(): Observable<NodeDto[]> {
         const local = localStorage.getItem(nodesStorageKey + this.rawTemplate.id);
         let nodes: NodeDto[];
@@ -285,7 +298,7 @@ export class GenMapperService {
     private processNodesOnSet(nodes: NodeDto[]): void {
         if (!nodes) { return; }
 
-        const byId = keyBy(nodes, (n) => n.id);
+        let nodesById = this.nodesById = keyBy(nodes, (n) => n.id);
 
         nodes.forEach(node => {
             if (node.attributes.newGeneration) {
@@ -293,7 +306,7 @@ export class GenMapperService {
             }
 
             if (node.parentId) {
-                const parent = byId[node.parentId];
+                const parent = this.nodesById[node.parentId];
 
                 if (parent) {
                     parent.attributes.hasChildNodes = true;
@@ -311,13 +324,13 @@ export class GenMapperService {
                 return depth;
             }
 
-            parent = byId[node.parentId];
+            parent = nodesById[node.parentId];
 
             while (parent) {
                 if (parent.attributes.newGeneration) {
                     depth++;
                 }
-                parent = byId[parent.parentId];
+                parent = nodesById[parent.parentId];
             }
 
             return depth;

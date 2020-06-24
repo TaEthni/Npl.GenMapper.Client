@@ -17,9 +17,13 @@ export function drawLinks(
 
     link.enter()
         .append('path')
+        .attr('opacity', 0)
         .merge(link)
         .attr('class', 'link')
-        .attr('d', elbow(template));
+        .transition()
+        .duration(500)
+        .attr('d', elbow(template))
+        .attr('opacity', 1);
 
     linkText.enter()
         .append('text')
@@ -53,11 +57,11 @@ export function drawLinks(
 }
 
 
-function elbow(template: Template): (d: NodeDatum) => string {
+export function elbow(template: Template): (d: NodeDatum) => string {
     return (d: NodeDatum): string => {
-        return 'M' + d.x + ',' + d.y +
-            'C' + d.x + ',' + (d.y + (d.parent.y + template.svgSettings.boxHeight)) / 2 +
-            ' ' + d.parent.x + ',' + (d.y + (d.parent.y + template.svgSettings.boxHeight)) / 2 +
+        return 'M' + d.x0 + ',' + d.y0 +
+            'C' + d.x0 + ',' + (d.y0 + (d.parent.y + template.svgSettings.boxHeight)) / 2 +
+            ' ' + d.parent.x + ',' + (d.y0 + (d.parent.y + template.svgSettings.boxHeight)) / 2 +
             ' ' + d.parent.x + ',' + (d.parent.y + template.svgSettings.boxHeight);
     }
 }

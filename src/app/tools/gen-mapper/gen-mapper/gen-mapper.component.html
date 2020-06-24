@@ -62,7 +62,8 @@
                                   [template]="template"
                                   (change)="onGraphChange($event)"
                                   (addNode)="onAddNode($event)"
-                                  (nodeClick)="onNodeClick($event)"></app-gen-mapper-graph>
+                                  (nodeClick)="onNodeClick($event)"
+                                  (sortChange)="onSortChange($event)"></app-gen-mapper-graph>
         </ng-container>
         <ng-container *ngSwitchDefault>
             <h1>OOPS</h1>

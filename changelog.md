@@ -1,5 +1,8 @@
 # GenMapper Changelog
 
+## (2020-06-17)
+- Feature: Drag-Drop sorting of nodes
+
 ## (2020-06-15)
 - Feature: People Group Selector
 - Fix: Un Authorized blank screen

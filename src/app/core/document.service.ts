@@ -69,6 +69,10 @@ export class DocumentService {
         return this.entityService.customPut(`documents/${node.documentId}/nodes/${node.id}`, payload);
     }
 
+    public batchUpdateNodes(documentId: string, nodes: NodeDto[]): Observable<NodeDto[]> {
+        return this.entityService.customPost(`documents/${documentId}/nodes/batch-update`, nodes);
+    }
+
     public remove(document: DocumentDto): Observable<DocumentDto> {
         return this.entityService.delete(document);
     }

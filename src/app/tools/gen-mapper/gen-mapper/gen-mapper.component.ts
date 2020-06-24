@@ -139,6 +139,13 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         this.genMapper.setNode(node);
     }
 
+    public onSortChange(nodes: NodeDto[]): void {
+        this.nodeTree.batchUpdateAttributes(nodes);
+        requestAnimationFrame(() => {
+            this.genMapper.updateDocumentNodes(nodes).subscribe();
+        });
+    }
+
     public onAddNode(parentNode: NodeDto): void {
         const newNode = this.template.createDefaultNode();
         newNode.parentId = parentNode.id;
