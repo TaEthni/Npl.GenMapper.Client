@@ -1,0 +1,39 @@
+<div mat-dialog-title>
+    Export Documents
+</div>
+<div mat-dialog-content>
+
+    <p>
+        <i>
+            Select boundary level that you would like to export your documents at
+        </i>
+    </p>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Boundary Level</mat-label>
+        <mat-select [formControl]="levelControl">
+            <mat-option *ngFor="let item of adminLevels"
+                        [value]="item">
+                {{item.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center"
+     fxLayoutGap="24px">
+    <button mat-flat-button
+            color="primary"
+            (click)="export()"
+            [disabled]="!levelControl.value">
+        Export ({{data.length}}) Documents
+    </button>
+
+    <button mat-button
+            color="primary"
+            (click)="cancel()">
+        Cancel
+    </button>
+</div>

@@ -18,6 +18,11 @@ export class DocumentService {
         private http: HttpClient
     ) { }
 
+    public getAll(): Observable<DocumentDto[]> {
+        return this.entityService
+            .getAll<DocumentDto>(EntityType.Documents);
+    }
+
     public getAllByType(type: string): Observable<DocumentDto[]> {
         return this.entityService
             .getAll<DocumentDto>(EntityType.Documents)

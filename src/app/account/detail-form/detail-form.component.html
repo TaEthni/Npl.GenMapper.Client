@@ -51,8 +51,17 @@
         </mat-error>
     </mat-form-field>
 
-    <hr />
+    <section fxLayout="row">
+        <button fxFlex
+                type="button"
+                mat-raised-button
+                color="primary"
+                routerLink="/account/data-export">
+            Export Data for iShare
+        </button>
+    </section>
 
+    <hr />
 
     <h1>
         {{'Common_ChangePassword' | locale | async}}
@@ -64,7 +73,8 @@
         </mat-label>
         <input matInput
                formControlName="password"
-               autocomplete="off"
+               autocomplete="offoff"
+               name="offoff"
                type="password" />
 
         <mat-error *ngIf="form.controls.password.errors?.minlength">
@@ -79,7 +89,8 @@
         <input matInput
                formControlName="confirm"
                type="password"
-               autocomplete="off"
+               autocomplete="offoff"
+               name="offoff"
                [required]="form.get('password').value" />
 
         <mat-error *ngIf="form.controls.confirm.errors?.required">
@@ -116,6 +127,7 @@
 
     <section fxLayout="row">
         <button fxFlex
+                type="button"
                 mat-stroked-button
                 color="primary"
                 routerLink="/account/user-agreement">

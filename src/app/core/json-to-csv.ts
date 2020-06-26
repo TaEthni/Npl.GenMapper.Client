@@ -3,7 +3,7 @@ import { Template } from "@models/template.model";
 import { ControlType } from "@templates";
 import { csvFormatRows } from "d3";
 
-export function JSONToCSV(data: NodeDto[], template: Template): string {
+export function TemplateJSONToCSV(data: NodeDto[], template: Template): string {
 
     const fields = template.fields.map(field => field.id);
     const csvHeader = fields.join(',') + '\n';
@@ -48,5 +48,18 @@ export function JSONToCSV(data: NodeDto[], template: Template): string {
                 return output;
             })
         )
+    );
+}
+
+
+
+export function JSONToCSV(data: any[]): string {
+    const first = data[0];
+    const keys = Object.keys(first);
+    const csvHeader = keys.join(',') + '\n';
+
+    return (
+        csvHeader +
+        csvFormatRows(data.map((d, i) => keys.map(key => d[key])))
     );
 }

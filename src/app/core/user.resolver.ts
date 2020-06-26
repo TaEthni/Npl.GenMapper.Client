@@ -4,7 +4,7 @@ import { User } from '@models/user.model';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import { Observable } from 'rxjs/Observable';
-import { take, tap } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
 
 
@@ -19,12 +19,8 @@ export class UserResolver implements Resolve<Observable<User>> {
     public resolve(route: ActivatedRouteSnapshot): Observable<User> {
         this.authService.refreshUser();
         return this.authService.getUser().pipe(
-            take(1),
-            tap(u => {
-                if (!u) {
-                    this.router.navigate(['/']);
-                }
-            })
+            filter(u => !!u),
+            take(1)
         );
     }
 }
