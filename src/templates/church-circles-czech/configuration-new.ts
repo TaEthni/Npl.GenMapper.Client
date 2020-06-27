@@ -1,4 +1,4 @@
-import { ControlType, TemplateConfiguration } from '../template.interface';
+import { ControlType, TemplateConfiguration, ValueType } from '../template.interface';
 
 export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
     id: 'churchCirclesCzech',
@@ -34,6 +34,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'parentId',
             i18nRef: 'Common_Parent',
             type: ControlType.parentSelector,
+            valueType: ValueType.string,
             canModify: true,
         },
         {
@@ -41,6 +42,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_NewGeneration',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             controlOrder: 1,
             canModify: true,
         },
@@ -49,6 +51,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_Active',
             defaultValue: true,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             controlOrder: 2,
             canModify: true,
             // svg defined currently in genmapper.js
@@ -57,6 +60,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'inactiveReason',
             i18nRef: 'Common_InactiveReason',
             type: ControlType.textarea,
+            valueType: ValueType.string,
             controlOrder: 3,
             canModify: true,
             dependsOnFalseField: 'active',
@@ -66,6 +70,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_Baptism',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementBaptismIcon'
         },
@@ -74,6 +79,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_Prayer',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementPrayerIcon',
         },
@@ -82,6 +88,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_MakeDisciples',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementMakeDisciplesIcon'
         },
@@ -90,6 +97,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_Love',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementLoveIcon',
         },
@@ -98,6 +106,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_Worship',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementWorshipIcon',
         },
@@ -106,6 +115,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_LordsSupper',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementLordsSupperIcon',
         },
@@ -114,6 +124,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_Give',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementGiveIcon',
         },
@@ -122,6 +133,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_Word',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementWordIcon',
         },
@@ -130,6 +142,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Element_Leaders',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementLeadersIcon',
         },
@@ -138,6 +151,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_NumberOfAttendees',
             defaultValue: 0,
             type: ControlType.peopleSelector,
+            valueType: ValueType.number,
             canModify: true,
             iconRef: 'attendersIcon',
         },
@@ -146,6 +160,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_NumberOfBelievers',
             defaultValue: 0,
             // type: ControlType.number,
+            valueType: ValueType.number,
             canModify: true,
             iconRef: 'believersIcon',
         },
@@ -154,6 +169,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_NumberOfBaptized',
             defaultValue: 0,
             // type: ControlType.number,
+            valueType: ValueType.number,
             canModify: true,
             iconRef: 'elementBaptismIcon'
         },
@@ -162,12 +178,14 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_NumberOfNewlyBaptized',
             defaultValue: 0,
             // type: ControlType.number,
+            valueType: ValueType.number,
             canModify: true,
         },
         {
             id: 'name',
             i18nRef: 'Common_GroupName',
             type: ControlType.text,
+            valueType: ValueType.string,
             controlOrder: 4,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 1,
@@ -177,6 +195,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'leaderName',
             i18nRef: 'Common_LeaderName',
             type: ControlType.text,
+            valueType: ValueType.string,
             controlOrder: 5,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 2,
@@ -186,6 +205,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'mentor',
             i18nRef: 'Common_Mentor',
             type: ControlType.text,
+            valueType: ValueType.string,
             controlOrder: 6,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 3,
@@ -195,6 +215,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'startDate',
             i18nRef: 'Common_StartDate',
             type: ControlType.date,
+            valueType: ValueType.date,
             controlOrder: 7,
             canModify: true,
             isNodeSvgLabel: true,
@@ -203,6 +224,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
         {
             id: 'date',
             i18nRef: 'Common_Date',
+            valueType: ValueType.string,
             canModify: false,
             type: ControlType.none,
             deprecated: true,
@@ -211,6 +233,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'place',
             i18nRef: 'Common_PlaceCityState',
             type: ControlType.text,
+            valueType: ValueType.string,
             controlOrder: 9,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 4,
@@ -221,17 +244,20 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'location',
             i18nRef: 'Common_GeoLocation',
             type: ControlType.geoLocation,
+            valueType: ValueType.string,
             canModify: true,
         },
         {
             id: 'latitude',
             canModify: false,
             parseValueAsFloat: true,
+            valueType: ValueType.number,
         },
         {
             id: 'longitude',
             canModify: false,
             parseValueAsFloat: true,
+            valueType: ValueType.number,
         },
         {
             id: 'placeId',
@@ -241,6 +267,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'country',
             i18nRef: 'Common_Country',
             type: ControlType.countrySelector,
+            valueType: ValueType.string,
             canModify: true
         },
         {
@@ -256,6 +283,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_GospelShares',
             defaultValue: 0,
             type: ControlType.number,
+            valueType: ValueType.number,
             canModify: true,
         },
         {
@@ -263,6 +291,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_IsChurch',
             defaultValue: false,
             type: ControlType.checkbox,
+            valueType: ValueType.boolean,
             canModify: true,
         },
         {
@@ -270,6 +299,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_ChurchType',
             defaultValue: 'newBelievers',
             type: ControlType.radio,
+            valueType: ValueType.enum,
             canModify: true,
             options: [
                 {
@@ -291,6 +321,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_ThreeThirds',
             defaultValue: [],
             type: ControlType.multiSelect,
+            valueType: ValueType.multiEnum,
             canModify: true,
             options: [
                 {
@@ -327,6 +358,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'note',
             i18nRef: 'Common_Note',
             type: ControlType.textarea,
+            valueType: ValueType.string,
             canModify: true,
         },
         {
@@ -338,6 +370,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
                     i18nRef: 'Common_NumberOfAttendees',
                     defaultValue: 0,
                     type: ControlType.number,
+                    valueType: ValueType.number,
                     canModify: true,
                     iconRef: 'attendersIcon',
                 },
@@ -346,6 +379,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
                     i18nRef: 'Common_NumberOfBelievers',
                     defaultValue: 0,
                     type: ControlType.number,
+                    valueType: ValueType.number,
                     canModify: true,
                     iconRef: 'believersIcon',
                     validation: {
@@ -357,6 +391,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
                     i18nRef: 'Common_NumberOfBaptized',
                     defaultValue: 0,
                     type: ControlType.number,
+                    valueType: ValueType.number,
                     canModify: true,
                     iconRef: 'elementBaptismIcon',
                     validation: {
@@ -368,6 +403,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
                     i18nRef: 'Common_NumberOfNewlyBaptized',
                     defaultValue: 0,
                     type: ControlType.number,
+                    valueType: ValueType.number,
                     canModify: true,
                     iconRef: 'elementBaptismIcon',
                     validation: {
