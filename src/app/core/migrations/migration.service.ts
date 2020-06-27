@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CSVToJSON, CSVToJSONNoTemplate } from '@core/csv-to-json';
+import { CSVToJSONNoTemplate } from '@core/csv-to-json';
 import { EntityService } from '@core/entity.service';
 import { TemplateService } from '@core/template.service';
 import { DocumentDto } from '@models/document.model';
 import { EntityType } from '@models/entity.model';
 import { IFlatNode, NodeAttributes, NodeDto } from '@models/node.model';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, groupBy } from 'lodash';
 import uuid from 'uuid';
 import { NodeTreeService } from '../../tools/gen-mapper/node-tree/node-tree.service';
 
@@ -25,7 +25,6 @@ export class MigrationService {
         this.entityService
             .getAll<DocumentDto>(EntityType.AllDocuments)
             .subscribe(docs => {
-
                 const requests: any[] = [];
                 let nodesSize = 0;
                 docs.forEach(doc => {
@@ -41,9 +40,9 @@ export class MigrationService {
                             console.log(doc.type);
                         }
 
-                        return;
+                        // return;
                     } else {
-                        nodes = CSVToJSON(doc.content, template);
+                        // nodes = CSVToJSON(doc.content, template);
                     }
 
                     if (!nodes) {
@@ -101,6 +100,14 @@ export class MigrationService {
 
             delete dto.attributes.id;
             delete dto.attributes.parentId;
+        });
+
+        const grouped = groupBy(dtos, (d) => d.parentId);
+        Object.keys(grouped).forEach(parentId => {
+            const children = grouped[parentId];
+            children.forEach((child, index) => {
+                child.attributes.nodeOrder = index;
+            });
         });
 
         return dtos;

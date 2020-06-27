@@ -52,6 +52,7 @@ const modules = [
     MatTabsModule,
     MatSliderModule,
     MomentDateModule,
+    MatSortModule
 ];
 
 @NgModule({

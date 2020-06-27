@@ -1,0 +1,189 @@
+<header>
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <app-sidenav-toggle></app-sidenav-toggle>
+            <span>Data Export</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</header>
+
+<ng-container *ngIf="isLoading; then loadingTemplate else uiTemplate"></ng-container>
+
+<ng-template #loadingTemplate>
+    <div fxLayout="column"
+         fxLayoutAlign="center center"
+         fxLayoutGap="50px">
+
+        <div>
+            <mat-spinner color="primary"></mat-spinner>
+        </div>
+
+        <h2>Please wait... This may take a few minutes</h2>
+    </div>
+</ng-template>
+
+<ng-template #uiTemplate>
+    <section fxLayout="row">
+        <div fxFlex
+             fxLayout="column">
+
+            <div class="table-header">
+                <h2>Select documents to export</h2>
+                <div class="filter-header"
+                     fxLayout="row"
+                     fxLayoutGap="24px">
+                    <mat-form-field appearance="outline"
+                                    fxFlex="50%">
+                        <mat-label>Search</mat-label>
+                        <input type="text"
+                               matInput
+                               name="offoff"
+                               autocomplete="offoff"
+                               [formControl]="textFilter">
+
+                        <mat-icon matSuffix
+                                  [style.display]="textFilter.value ? '' : 'none'"
+                                  (click)="clearField($event, textFilter)">clear</mat-icon>
+                    </mat-form-field>
+                    <div fxFlex></div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Type</mat-label>
+                        <mat-select [formControl]="typeFilter"
+                                    multiple>
+                            <mat-option *ngFor="let t of templates"
+                                        [value]="t.id">
+                                {{t.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix
+                                  [style.display]="typeFilter.value && typeFilter.value.length ? '' : 'none'"
+                                  (click)="clearField($event, typeFilter)">clear</mat-icon>
+                    </mat-form-field>
+                    <div fxFlex="10px"></div>
+                </div>
+            </div>
+
+            <div class="table-container-wrapper"
+                 fxLayout="column">
+                <div class="table-container">
+                    <table mat-table
+                           matSort
+                           [dataSource]="dataSource">
+
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell
+                                *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                              [checked]="selection.hasValue() && isAllSelected()"
+                                              [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                              [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell
+                                *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                              (change)="$event ? selection.toggle(row) : null"
+                                              [checked]="selection.isSelected(row)"
+                                              [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="title">
+                            <th mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef> {{'Common_Name' | locale | async}} </th>
+                            <td mat-cell
+                                *matCellDef="let element"> {{element.title}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="type">
+                            <th mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef> Type </th>
+                            <td mat-cell
+                                *matCellDef="let element"> {{templateNames[element.type]}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="updatedAt">
+                            <th mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef> Updated At </th>
+                            <td mat-cell
+                                *matCellDef="let element"> {{element.updatedAt | date}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell
+                                mat-sort-header
+                                *matHeaderCellDef> </th>
+                            <td mat-cell
+                                *matCellDef="let element">
+                                <a mat-icon-button
+                                   color="accent"
+                                   target="_blank"
+                                   [routerLink]="['/gen-mapper', element.type, element.id]"
+                                   (click)="$event.stopPropagation()">
+                                    <mat-icon>visibility</mat-icon>
+                                </a>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row
+                            *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                        <tr mat-row
+                            *matRowDef="let row; columns: displayedColumns;"
+                            (click)="selection.toggle(row)">
+                        </tr>
+                    </table>
+                </div>
+                <mat-divider></mat-divider>
+                <mat-paginator [pageSizeOptions]="[20, 50, 100]"
+                               showFirstLastButtons></mat-paginator>
+            </div>
+
+        </div>
+
+        <mat-divider vertical></mat-divider>
+
+        <div fxFlex="300px"
+             class="selection-bar"
+             fxLayout="column">
+            <mat-toolbar color="primary"
+                         fxFlex="0 0 auto">
+                <span>Selected ({{selection.selected.length}})</span>
+            </mat-toolbar>
+
+            <ng-container *ngIf="!selection.selected.length">
+                <div class="empty-message">
+                    <i>No Documents Selected</i>
+                </div>
+            </ng-container>
+
+            <mat-list fxFlex>
+                <ng-container *ngFor="let item of selection.selected">
+                    <mat-list-item>
+                        <button mat-icon-button
+                                color="warn"
+                                (click)="selection.deselect(item)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                        <span>{{item.title}}</span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                </ng-container>
+            </mat-list>
+
+            <div class="export-button"
+                 fxLayout="row">
+                <button mat-flat-button
+                        fxFlex
+                        color="primary"
+                        (click)="export()"
+                        [disabled]="!selection.selected.length">
+                    Export
+                </button>
+            </div>
+        </div>
+    </section>
+</ng-template>

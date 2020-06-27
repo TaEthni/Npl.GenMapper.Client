@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthenticationGuard } from '@core/authentication.guard';
+import { DesktopOnlyGuard } from '@core/desktop-only.quard';
 import { UserResolver } from '@core/user.resolver';
+import { DataExportComponent } from './account/data-export/data-export.component';
 import { DetailComponent } from './account/detail/detail.component';
 import { UserAgreementComponent } from './account/user-agreement/user-agreement.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
@@ -71,6 +74,7 @@ const appRoutes: Routes = [
             {
                 path: 'account',
                 component: DetailComponent,
+                canActivate: [AuthenticationGuard],
                 resolve: {
                     user: UserResolver
                 }
@@ -78,6 +82,15 @@ const appRoutes: Routes = [
             {
                 path: 'account/user-agreement',
                 component: UserAgreementComponent,
+                canActivate: [AuthenticationGuard],
+                resolve: {
+                    user: UserResolver
+                }
+            },
+            {
+                path: 'account/data-export',
+                component: DataExportComponent,
+                canActivate: [AuthenticationGuard, DesktopOnlyGuard],
                 resolve: {
                     user: UserResolver
                 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AuthenticationGuard } from '@core/authentication.guard';
 import { AuthenticationService } from '@core/authentication.service';
@@ -8,12 +8,13 @@ import { DownloadService } from '@core/download.service';
 import { EntityService } from '@core/entity.service';
 import { TokenService } from '@core/token.service';
 import { WindowRefService } from '@core/windowref.service';
-
 import { AccountService } from './account.service';
+import { DesktopOnlyGuard } from './desktop-only.quard';
 import { LocaleService } from './locale.service';
+import { MapsService } from './maps.service';
 import { SupportService } from './support.service';
 import { UserResolver } from './user.resolver';
-import { MapsService } from './maps.service';
+
 
 @NgModule({
     imports: [
@@ -24,6 +25,7 @@ import { MapsService } from './maps.service';
         { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
         AuthenticationGuard,
         AuthenticationService,
+        DesktopOnlyGuard,
         TokenService,
         WindowRefService,
         EntityService,
