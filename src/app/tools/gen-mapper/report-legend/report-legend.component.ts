@@ -4,10 +4,9 @@ import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@models/document.model';
 import { NodeDto } from '@models/node.model';
 import { Template } from '@models/template.model';
-import { GMReport } from '@templates';
+import { GMReport, ReportType, ValueType } from '@templates';
 import { takeUntil } from 'rxjs/operators';
 import { GenMapperService } from '../gen-mapper.service';
-
 
 @Component({
     selector: 'app-report-legend',
@@ -20,7 +19,8 @@ export class ReportLegendComponent extends Unsubscribable implements OnInit {
     public nodes: NodeDto[];
     public reports: GMReport[];
     public generations: GMReport[];
-    public isDesktop = Device.isDesktop;
+    public readonly isDesktop = Device.isDesktop;
+    public readonly valueTypes = ValueType;
 
     constructor(private genMapper: GenMapperService) {
         super();
@@ -71,13 +71,16 @@ export class ReportLegendComponent extends Unsubscribable implements OnInit {
             }
 
             this.reports.forEach(report => {
-                if (report.type === 'number') {
-                    const v = parseFloat(node[report.name]) || 0;
-                    report.value += v;
+                if (report.type === ReportType.number) {
+                    if (typeof node.attributes[report.name] === 'string') {
+                        report.value += parseFloat(node.attributes[report.name]) || 0;
+                    } else {
+                        report.value += node.attributes[report.name]
+                    }
                 }
 
-                if (report.type === 'boolean') {
-                    if (node[report.name]) {
+                if (report.type === ReportType.boolean) {
+                    if (node.attributes[report.name]) {
                         report.value += 1;
                     }
                 }
@@ -87,7 +90,7 @@ export class ReportLegendComponent extends Unsubscribable implements OnInit {
         Object.keys(generations).forEach(gen => {
             const name = 'G' + gen;
             const value = generations[gen];
-            this.generations.push({ name, value, type: 'number' });
+            this.generations.push({ name, value, type: ReportType.number });
         });
     }
 }

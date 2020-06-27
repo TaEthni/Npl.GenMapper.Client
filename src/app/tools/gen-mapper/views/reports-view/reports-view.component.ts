@@ -3,7 +3,7 @@ import { LocaleService } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { NodeDto } from '@models/node.model';
 import { Template } from '@models/template.model';
-import { ControlType, GMReport } from '@templates';
+import { ControlType, GMReport, ReportType } from '@templates';
 import { takeUntil } from 'rxjs/operators';
 import { GenMapperService } from '../../gen-mapper.service';
 
@@ -84,7 +84,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
             if (treport.field) {
                 const field = this.template.getField(treport.field);
                 if (treport.graph === 'pieChart' && field.type === ControlType.radio) {
-                    report.type = 'radio';
+                    report.type = ReportType.enum;
                     report.values = [];
                     field.options.forEach(v => {
                         report.values.push({
@@ -96,7 +96,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                 }
 
                 if (treport.graph === 'pieGrid' && field.type === ControlType.multiSelect) {
-                    report.type = 'multiSelect';
+                    report.type = ReportType.multiEnum;
                     report.values = [];
                     field.options.forEach(v => {
                         report.values.push({
@@ -110,7 +110,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
             }
 
             if (treport.fields && treport.graph === 'verticalBarChart') {
-                report.type = 'multiField';
+                report.type = ReportType.multiField;
                 report.values = [];
                 treport.fields.forEach(fieldName => {
                     const field = this.template.getField(fieldName);
@@ -190,7 +190,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
             this.stats.newlyBaptized += parseFloat(node.attributes.newlyBaptized as any) || 0;
 
             this.reports.forEach(report => {
-                if (report.type === 'radio') {
+                if (report.type === ReportType.enum) {
                     const v = node.attributes[report.name];
                     const found = report.values.find(rv => rv.key === v);
                     if (found) {
@@ -198,7 +198,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                     }
                 }
 
-                if (report.type === 'multiSelect') {
+                if (report.type === ReportType.multiEnum) {
                     const value = node.attributes[report.name];
                     if (value) {
                         report.values.forEach(rv => {
@@ -209,7 +209,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                     }
                 }
 
-                if (report.type === 'multiField') {
+                if (report.type === ReportType.multiField) {
                     report.values.forEach(rv => {
                         const v = node.attributes[rv.key];
                         if (v) {
@@ -218,7 +218,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                     });
                 }
 
-                if (report.type === 'multiNumber') {
+                if (report.type === ReportType.multiNumber) {
                     report.values.forEach(rv => {
                         const v = node.attributes[rv.key];
                         if (v) {
@@ -227,12 +227,12 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                     });
                 }
 
-                if (report.type === 'number') {
+                if (report.type === ReportType.number) {
                     const v = parseFloat(node.attributes[report.name]) || 0;
                     report.value += v;
                 }
 
-                if (report.type === 'boolean') {
+                if (report.type === ReportType.boolean) {
                     if (node.attributes[report.name]) {
                         report.value += 1;
                     }
@@ -266,7 +266,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
         Object.keys(generations).forEach(gen => {
             const name = 'G' + gen;
             const value = generations[gen];
-            this.generations.push({ name, value, type: 'number' });
+            this.generations.push({ name, value, type: ReportType.number });
         });
     }
 }

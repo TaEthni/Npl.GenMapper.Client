@@ -22,6 +22,26 @@ export enum ControlType {
     none = 'none'
 }
 
+export enum ValueType {
+    string = 'string',
+    number = 'number',
+    boolean = 'boolean',
+    enum = 'enum',
+    multiEnum = 'multiEnum',
+    date = 'date'
+}
+
+export enum ReportType {
+    string = 'string',
+    number = 'number',
+    boolean = 'boolean',
+    enum = 'enum',
+    multiEnum = 'multiEnum',
+    date = 'date',
+    multiField = 'multiField',
+    multiNumber = 'multiNumber'
+}
+
 export interface TemplateConfiguration {
     id: string;
     fields: GMField[];
@@ -127,6 +147,9 @@ export interface GMField {
 
     // The form control type
     type?: ControlType;
+
+    // The Type of value
+    valueType?: ValueType;
 
     // The order of the form control in the UI
     controlOrder?: number;
@@ -270,7 +293,7 @@ export interface SvgState extends Svg {
 export interface GMReport {
     name: string;
     label?: string;
-    type?: 'boolean' | 'number' | 'radio' | 'multiSelect' | 'multiField' | 'multiNumber';
+    type?: ReportType;
 
     // Mapped on client
     value?: number;

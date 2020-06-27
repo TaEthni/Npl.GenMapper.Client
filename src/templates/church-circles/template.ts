@@ -1,4 +1,4 @@
-import { GMTemplate } from '../template.interface';
+import { GMTemplate, ReportType } from '../template.interface';
 
 // export interface ChurchCirclesTemplateType extends GMTemplate {
 //     translations: { [key: string]: { translation: { [key: string]: ChurchCirclesTranslation } } };
@@ -264,27 +264,27 @@ export const ChurchCirclesDefaultTemplate: GMTemplate = {
     reports: [
         {
             name: 'active',
-            type: 'boolean'
+            type: ReportType.boolean
         },
         {
             name: 'attenders',
-            type: 'number'
+            type: ReportType.number
         },
         {
             name: 'believers',
-            type: 'number'
+            type: ReportType.number
         },
         {
             name: 'baptized',
-            type: 'number'
+            type: ReportType.number
         },
         {
             name: 'newlyBaptized',
-            type: 'number'
+            type: ReportType.number
         },
         {
             name: 'church',
-            type: 'boolean'
+            type: ReportType.boolean
         }
     ],
     templateReports: [
