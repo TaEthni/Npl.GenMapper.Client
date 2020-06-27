@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
 import { TokenService } from './token.service';
 
 
@@ -10,19 +10,15 @@ export class AuthenticationGuard implements CanActivate {
         private router: Router
     ) { }
 
-    public canActivate(route: ActivatedRouteSnapshot): boolean {
+    public canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree {
         const token = this.tokenService.getValue();
 
         if (!token || !token.isAuthenticated) {
-
-            this.router.navigate(['/']);
-            return false;
+            return this.router.parseUrl('/');
         }
 
         if (new Date(token.expires) < new Date()) {
-
-            this.router.navigate(['/']);
-            return false;
+            return this.router.parseUrl('/');
         }
 
         return true;

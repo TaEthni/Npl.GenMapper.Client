@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from '@core/authentication.guard';
+import { DesktopOnlyGuard } from '@core/desktop-only.quard';
 import { UserResolver } from '@core/user.resolver';
 import { DataExportComponent } from './account/data-export/data-export.component';
 import { DetailComponent } from './account/detail/detail.component';
@@ -89,7 +90,7 @@ const appRoutes: Routes = [
             {
                 path: 'account/data-export',
                 component: DataExportComponent,
-                canActivate: [AuthenticationGuard],
+                canActivate: [AuthenticationGuard, DesktopOnlyGuard],
                 resolve: {
                     user: UserResolver
                 }

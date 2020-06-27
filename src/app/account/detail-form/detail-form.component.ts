@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EntityService } from '@core/entity.service';
+import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { EntityType } from '@models/entity.model';
 import { User } from '@models/user.model';
@@ -16,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 export class DetailFormComponent extends Unsubscribable implements OnInit {
     public isSaving: boolean;
     public form: FormGroup;
+    public readonly isDesktop = Device.isDesktop;
 
     @Input()
     public model: User;

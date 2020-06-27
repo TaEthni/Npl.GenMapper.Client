@@ -51,15 +51,17 @@
         </mat-error>
     </mat-form-field>
 
-    <section fxLayout="row">
-        <button fxFlex
-                type="button"
-                mat-raised-button
-                color="primary"
-                routerLink="/account/data-export">
-            Export Data for iShare
-        </button>
-    </section>
+    <ng-container *ngIf="isDesktop">
+        <section fxLayout="row">
+            <button fxFlex
+                    type="button"
+                    mat-raised-button
+                    color="primary"
+                    routerLink="/account/data-export">
+                Export Data for iShare
+            </button>
+        </section>
+    </ng-container>
 
     <hr />
 
