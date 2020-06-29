@@ -385,6 +385,16 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             controlOrder: 26,
             valueType: ValueType.boolean,
             canModify: true,
+            validation: {
+                rules: [
+                    {
+                        type: 'compare',
+                        operator: '>',
+                        fieldValue1: 'believers',
+                        value2: 2
+                    }
+                ]
+            }
         },
         {
             id: 'how_collected',
