@@ -814,7 +814,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
         },
         {
             selector: 'icon8',
-            iconRef: 'cup',
+            iconRef: 'cupIcon',
             states: [
                 {
                     fieldRefId: 'elementLordsSupper',
