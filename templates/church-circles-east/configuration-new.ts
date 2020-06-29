@@ -515,7 +515,6 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
                             'stroke-dasharray': '0',
                             'stroke': 'black',
                             'stroke-width': 2,
-                            'fill': 'white'
                         }
                     }
                 },
@@ -527,7 +526,6 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
                             'stroke-dasharray': '7,7',
                             'stroke': '#e4d339',
                             'stroke-width': 4,
-                            'fill': 'lightgray'
                         }
                     }
                 },
@@ -536,7 +534,8 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            'stroke-opacity': 0.2
+                            'stroke-opacity': 0.2,
+                            'fill': 'lightgray'
                         }
                     }
                 },
@@ -545,7 +544,8 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            'stroke-opacity': 1
+                            'stroke-opacity': 1,
+                            'fill': 'white'
                         }
                     }
                 }
