@@ -36,6 +36,32 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
         nodeWidth,
         nodeHeight
     },
+    svgActions: [
+        {
+            id: 'edit-node-action',
+            control: 'editNode',
+            iconName: 'edit',
+            tooltipi18nRef: 'Node_EditGroup',
+            attributes: {
+                'x': -(nodeWidth / 2) - 1,
+                'y': 10
+            },
+            iconX: 14,
+            iconY: 32
+        },
+        {
+            id: 'add-child-node-action',
+            control: 'addChildNode',
+            iconName: 'add',
+            tooltipi18nRef: 'Node_hoverAddChildGroup',
+            attributes: {
+                'x': -(nodeWidth / 2) - 1,
+                'y': 50
+            },
+            iconX: 14,
+            iconY: 32
+        }
+    ],
     svgs: [
         {
             id: 'hover-rect',
@@ -207,32 +233,6 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
             }
         }
     ],
-    svgActions: [
-        {
-            id: 'edit-node-action',
-            control: 'editNode',
-            iconName: 'edit',
-            tooltipi18nRef: 'Node_EditGroup',
-            attributes: {
-                'x': -(nodeWidth / 2) - 1,
-                'y': 10
-            },
-            iconX: 14,
-            iconY: 26
-        },
-        {
-            id: 'add-child-node-action',
-            control: 'addChildNode',
-            iconName: 'add',
-            tooltipi18nRef: 'Node_hoverAddChildGroup',
-            attributes: {
-                'x': -(nodeWidth / 2) - 1,
-                'y': 50
-            },
-            iconX: 14,
-            iconY: 26
-        }
-    ],
     reports: [
         {
             name: 'active',
@@ -248,10 +248,6 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
         },
         {
             name: 'baptized',
-            type: ReportType.number
-        },
-        {
-            name: 'newlyBaptized',
             type: ReportType.number
         },
         {
@@ -277,265 +273,6 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
             ],
             graph: 'verticalBarChart',
             order: 4,
-        },
-        {
-            name: 'churchType',
-            field: 'churchType',
-            graph: 'pieChart',
-            order: 2
-        },
-        {
-            name: 'threeThirds',
-            field: 'threeThirds',
-            graph: 'pieGrid',
-            order: 3
         }
-    ],
-    translations: {
-        en: {
-            translation: {
-                'churchCirclesEast': {
-                    'active': 'Active',
-                    'attenders': '# of Attenders',
-                    'baptized': '# of Baptized',
-                    'believers': '# of Believers',
-                    'churchFunctions': 'Church Functions',
-                    'churchType': 'Church Type',
-                    'churchTypeExistingBelievers': 'Existing Believers',
-                    'churchTypeLegacy': 'Legacy',
-                    'churchTypeNewBelievers': 'New Believers',
-                    'date': 'Date of Start (Ex. 2017-01)',
-                    'elementBaptism': 'Element: Baptism',
-                    'elementGive': 'Element: Giving',
-                    'elementLeaders': 'Element: Leaders',
-                    'elementLordsSupper': 'Element: Lord\'s supper',
-                    'elementLove': 'Element: Love',
-                    'elementMakeDisciples': 'Element: Make disciples',
-                    'elementPrayer': 'Element: Prayer',
-                    'elementWord': 'Element: God\'s Word',
-                    'elementWorship': 'Element: Worship',
-                    'email': 'Email',
-                    'gospelShares': 'Gospel shares per day',
-                    'inactiveReason': 'Reason for being inactive',
-                    'initialDate': 'Date',
-                    'initialLeadersName': 'Leader\'s Name',
-                    'initialPlace': 'Place',
-                    'isChurch': 'Is church?',
-                    'leaderName': 'Leader\'s Name',
-                    'location': 'Geo Location',
-                    'name': 'Church Name',
-                    'newGeneration': 'New Generation',
-                    'newlyBaptized': '# of New Baptized (since church start)',
-                    'note': 'Note',
-                    'parent': 'Parent Node',
-                    'Common_PeopleGroups': 'People Groups',
-                    'place': 'Place (City, State, Country)',
-                    'threeThirds': 'Elements of 3/3 process',
-                    'threeThirdsAccountability': 'Accountability',
-                    'threeThirdsBibleTeaching': 'Bible Teaching',
-                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
-                    'threeThirdsPastoralCare': 'Pastoral Care',
-                    'threeThirdsPractice': 'Practice',
-                    'threeThirdsVisionCasting': 'Vision Casting',
-                    'threeThirdsWorship': 'Worship',
-                }
-            }
-        },
-        de: {
-            translation: {
-                'churchCirclesEast': {
-                    'active': 'aktiv',
-                    'attenders': 'Anzahl Teilnehmer',
-                    'baptized': 'Anzahl Getaufte',
-                    'believers': 'Anzahl Gläubige',
-                    'churchFunctions': 'Kirchliche Funktionen',
-                    'churchType': 'Gemeinde-Typ',
-                    'churchTypeExistingBelievers': 'Länger Gläubige',
-                    'churchTypeLegacy': 'Traditionell',
-                    'churchTypeNewBelievers': 'Neue Gläubige',
-                    'date': 'Startdatum (z.B. 2017-01)',
-                    'elementBaptism': 'Element: Taufe',
-                    'elementGive': 'Element: Geben',
-                    'elementLeaders': 'Element: Leiter',
-                    'elementLordsSupper': 'Element: Abendmahl',
-                    'elementLove': 'Element: Gemeinschaft',
-                    'elementMakeDisciples': 'Element: Multiplikation',
-                    'elementPrayer': 'Element: Gebet',
-                    'elementWord': 'Element: Lehre',
-                    'elementWorship': 'Element: Lobpreis',
-                    'email': 'Bemerkungen',
-                    'gospelShares': 'Evangeliumaktien pro Tag',
-                    'inactiveReason': 'Grund inaktiv zu sein',
-                    'initialDate': 'Datum',
-                    'initialLeadersName': 'Leiter',
-                    'initialPlace': 'Ort',
-                    'isChurch': 'Ist Gemeinde?',
-                    'leaderName': 'Leiter',
-                    'location': 'Adresse',
-                    'name': 'Name der Kirche',
-                    'newGeneration': 'Generation',
-                    'newlyBaptized': 'Anzahl frisch Getaufte (seit Gemeindestart)',
-                    'note': 'Hinweis',
-                    'parent': 'Parent Node',
-                    'Common_PeopleGroups': 'Sprache / Subkultur',
-                    'place': 'Ort (Stadt, Region, Land)',
-                    'threeThirds': 'Elemente des 3/3-Prozesses (siehe Hilfe für mehr Informationen)',
-                    'threeThirdsAccountability': 'Accountability',
-                    'threeThirdsBibleTeaching': 'Bible Teaching',
-                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
-                    'threeThirdsPastoralCare': 'Pastoral Care',
-                    'threeThirdsPractice': 'Practice',
-                    'threeThirdsVisionCasting': 'Vision Casting',
-                    'threeThirdsWorship': 'Worship',
-                }
-            }
-        },
-        es: {
-            translation: {
-                'churchCirclesEast': {
-                    'active': 'Activo',
-                    'attenders': '# of participantes',
-                    'baptized': '# of bautizados',
-                    'believers': '# of creyentes',
-                    'churchFunctions': 'Funciones de la iglesia',
-                    'churchType': 'Tipo de Iglesia',
-                    'churchTypeExistingBelievers': 'Creyentes existentes',
-                    'churchTypeLegacy': 'Tradicional',
-                    'churchTypeNewBelievers': 'Nuevos creyentes',
-                    'date': 'Fecha de Inicio (Ex. 2017-01)',
-                    'elementBaptism': 'Elemento: Bautismo',
-                    'elementGive': 'Elemento: Dar/Generosidad',
-                    'elementLeaders': 'Elemento: Lider',
-                    'elementLordsSupper': 'Elemento: Santa Cena',
-                    'elementLove': 'Elemento: Amor',
-                    'elementMakeDisciples': 'Elemento: Hacer discípulos',
-                    'elementPrayer': 'Elemento: Oración',
-                    'elementWord': 'Elemento: Biblia',
-                    'elementWorship': 'Elemento: Adorar',
-                    'email': 'Email',
-                    'gospelShares': 'Acciones del evangelio por día',
-                    'inactiveReason': 'Razón para estar inactivo',
-                    'initialDate': 'Fecha',
-                    'initialLeadersName': 'Nombre de lider',
-                    'initialPlace': 'Lugar',
-                    'isChurch': 'Iglesia?',
-                    'leaderName': 'Nombre de lider',
-                    'location': 'Ubicación geográfica',
-                    'name': 'Nombre de la iglesia',
-                    'newGeneration': 'Generacion',
-                    'newlyBaptized': '# of nuevos bautizados (desde inicio de iglesia)',
-                    'note': 'Nota',
-                    'parent': 'Parent Node',
-                    'Common_PeopleGroups': 'Etnia',
-                    'place': 'Lugar (Ciudad, Provincia, Pais):',
-                    'threeThirds': 'Elementos del proceso de 3/3  (Ver ayuda para detalles):',
-                    'threeThirdsAccountability': 'Accountability',
-                    'threeThirdsBibleTeaching': 'Bible Teaching',
-                    'threeThirdsGoalSetting': 'Goal Setting & Commission',
-                    'threeThirdsPastoralCare': 'Pastoral Care',
-                    'threeThirdsPractice': 'Practice',
-                    'threeThirdsVisionCasting': 'Vision Casting',
-                    'threeThirdsWorship': 'Worship',
-                }
-            }
-        },
-        cs: {
-            translation: {
-                'churchCirclesEast': {
-                    'active': 'Aktivní',
-                    'attenders': 'Počet účastníků',
-                    'baptized': 'Počet pokřtěných',
-                    'believers': 'Počet věřících',
-                    'churchFunctions': 'Funkce církve',
-                    'churchType': 'Typ církve',
-                    'churchTypeExistingBelievers': 'Existující věřící',
-                    'churchTypeLegacy': 'Tradiční',
-                    'churchTypeNewBelievers': 'Noví věřící',
-                    'date': 'Datum začátku (např. 2017-01)',
-                    'elementBaptism': 'Prvek: Křest',
-                    'elementGive': 'Prvek: Dávání',
-                    'elementLeaders': 'Prvek: Vedoucí',
-                    'elementLordsSupper': 'Prvek: Připomínka Ježíšovy oběti',
-                    'elementLove': 'Prvek: Láska',
-                    'elementMakeDisciples': 'Prvek: Činění učedníků',
-                    'elementPrayer': 'Prvek: Modlitba',
-                    'elementWord': 'Prvek: Boží Slovo',
-                    'elementWorship': 'Prvek: Oslava Ježíše',
-                    'email': 'Email',
-                    'gospelShares': 'Podíl evangelia za den',
-                    'inactiveReason': 'Důvod, proč jsou neaktivní',
-                    'initialDate': 'Datum',
-                    'initialLeadersName': 'Jméno',
-                    'initialPlace': 'Místo',
-                    'isChurch': 'Je církev/Boží rodina?',
-                    'leaderName': 'Jméno vedoucího',
-                    'location': 'Geo Umístění',
-                    'name': 'Název církve',
-                    'newGeneration': 'Generace',
-                    'newlyBaptized': 'Počet nově pokřtěných (od začátku skupiny)',
-                    'note': 'Poznámka',
-                    'parent': 'Parent Node',
-                    'Common_PeopleGroups': 'Etnikum',
-                    'place': 'Místo',
-                    'threeThirds': 'Prvky 3/3 (viz nápovědu pro více info)',
-                    'threeThirdsAccountability': 'Návrat / Vykazatelnost',
-                    'threeThirdsBibleTeaching': 'Bible',
-                    'threeThirdsGoalSetting': 'Akční kroky a modlitba',
-                    'threeThirdsPastoralCare': 'Vzájmená péče',
-                    'threeThirdsPractice': 'Procvičování',
-                    'threeThirdsVisionCasting': 'Vize',
-                    'threeThirdsWorship': 'Oslava Ježíše',
-                }
-            }
-        },
-        kn: {
-            translation: {
-                'churchCirclesEast': {
-                    'active': 'សកម្ម',
-                    'attenders': 'ចំនួនអ្នកចូលរួម',
-                    'baptized': '# នៃពិធីបុណ្យជ្រមុជទឹក',
-                    'believers': '# នៃអ្នកជឿ',
-                    'churchFunctions': 'មុខងារសាសនាចក្រ',
-                    'churchType': 'ប្រភេទសាសនាចក្រ',
-                    'churchTypeExistingBelievers': 'អ្នកជឿដែលមានស្រាប់',
-                    'churchTypeLegacy': 'កេរ្តិ៍ដំណែល',
-                    'churchTypeNewBelievers': 'អ្នកជឿថ្មី',
-                    'date': 'កាលបរិច្ឆេទចាប់ផ្តើម(ឧ។ 2017 - 01)',
-                    'elementBaptism': 'ធាតុ: ពិធីបុណ្យជ្រមុជទឹក',
-                    'elementGive': 'ធាតុ: ការផ្តល់',
-                    'elementLeaders': 'ធាតុ: មេដឹកនាំ',
-                    'elementLordsSupper': 'ធាតុ: ពិធីជប់លៀងរបស់ព្រះអម្ចាស់',
-                    'elementLove': 'ធាតុ: ស្នេហា',
-                    'elementMakeDisciples': 'ធាតុ: បង្កើតសិស្ស',
-                    'elementPrayer': 'ធាតុ: ការអធិស្ឋាន',
-                    'elementWord': 'ធាតុ: ព្រះបន្ទូលរបស់ព្រះ',
-                    'elementWorship': 'ធាតុ: ការថ្វាយបង្គំ',
-                    'email': 'អ៊ីមែល',
-                    'gospelShares': 'ការចែករំលែកដំណឹងល្អក្នុងមួយថ្ងៃ',
-                    'inactiveReason': 'មូលហេតុនៃការអសកម្ម',
-                    'initialDate': 'កាលបរិច្ឆេទ',
-                    'initialLeadersName': 'ឈ្មោះអ្នកដឹកនាំ',
-                    'initialPlace': 'ទីកន្លែង',
-                    'isChurch': 'តើក្រុមជំនុំ ?',
-                    'leaderName': 'ឈ្មោះអ្នកដឹកនាំ',
-                    'location': 'ទីតាំងភូមិសាស្ដ្រ',
-                    'name': 'ឈ្មោះសាសនាចក្រ',
-                    'newGeneration': 'ជំនាន់​ថ្មី',
-                    'newlyBaptized': '# នៃពិធីបុណ្យជ្រមុជទឹកថ្មី(ចាប់តាំងពីការចាប់ផ្តើមនៅព្រះវិហារ)',
-                    'note': 'ಸೂಚನೆ',
-                    'parent': 'Parent Node',
-                    'Common_PeopleGroups': 'ក្រុមមនុស្ស',
-                    'place': 'ទីកន្លែង(ទីក្រុង, រដ្ឋ, ប្រទេស)',
-                    'threeThirds': 'ធាតុនៃដំណើរការ 3 / 3',
-                    'threeThirdsAccountability': 'គណនេយ្យភាព',
-                    'threeThirdsBibleTeaching': 'បង្រៀនព្រះគម្ពីរ',
-                    'threeThirdsGoalSetting': 'ការកំណត់គោលដៅ & គណៈកម្មការ',
-                    'threeThirdsPastoralCare': 'ការថែរក្សាគ្រូគង្វាល',
-                    'threeThirdsPractice': 'អនុវត្ត',
-                    'threeThirdsVisionCasting': 'ចក្ខុវិស័យដេញ',
-                    'threeThirdsWorship': 'ការថ្វាយបង្គំ',
-                }
-            }
-        }
-    }
+    ]
 };
