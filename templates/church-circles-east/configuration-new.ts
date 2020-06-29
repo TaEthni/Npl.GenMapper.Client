@@ -502,6 +502,14 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             valueType: ValueType.number,
             canModify: false,
             iconRef: 'baptismIcon'
+        },
+        {
+            id: 'note',
+            i18nRef: 'Common_Note',
+            type: ControlType.textarea,
+            valueType: ValueType.string,
+            controlOrder: 27,
+            canModify: true,
         }
     ],
     svgStates: [
