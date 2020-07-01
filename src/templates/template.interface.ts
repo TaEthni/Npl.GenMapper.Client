@@ -145,6 +145,9 @@ export interface GMField {
     // Default value for the control
     defaultValue?: any;
 
+    // Id of field to display value from
+    useValueFromFieldId?: string;
+
     // The form control type
     type?: ControlType;
 

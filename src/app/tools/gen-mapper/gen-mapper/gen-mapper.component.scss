@@ -3,6 +3,18 @@
 :host {
     display: block;
 
+    .pic-box {
+        position: fixed;
+        top: 300px;
+        left: 50%;
+        width: 350px;
+        height: 350px;
+        margin: 0 auto;
+        border: 1px solid red;
+        z-index: 100;
+        pointer-events: none;
+    }
+
     mat-drawer-container {
         z-index: unset;
     }

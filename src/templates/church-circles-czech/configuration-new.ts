@@ -150,7 +150,7 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             id: 'attenders',
             i18nRef: 'Common_NumberOfAttendees',
             defaultValue: 0,
-            type: ControlType.peopleSelector,
+            // type: ControlType.number,
             valueType: ValueType.number,
             canModify: true,
             iconRef: 'attendersIcon',
@@ -180,6 +180,62 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             // type: ControlType.number,
             valueType: ValueType.number,
             canModify: true,
+        },
+        {
+            id: 'peoples',
+            i18nRef: 'Common_People',
+            type: ControlType.peopleSelector,
+            useValueFromFieldId: 'attenders',
+            iconRef: 'attendersIcon',
+            controlOrder: 14,
+            canModify: false,
+            fields: [
+                {
+                    id: 'attenders',
+                    i18nRef: 'Common_NumberOfAttendees',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    valueType: ValueType.number,
+                    canModify: true,
+                    iconRef: 'attendersIcon',
+                },
+                {
+                    id: 'believers',
+                    i18nRef: 'Common_NumberOfBelievers',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    valueType: ValueType.number,
+                    canModify: true,
+                    iconRef: 'believersIcon',
+                    validation: {
+                        maxFieldRef: 'attenders',
+                    }
+                },
+                {
+                    id: 'baptized',
+                    i18nRef: 'Common_NumberOfBaptized',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    valueType: ValueType.number,
+                    canModify: true,
+                    iconRef: 'elementBaptismIcon',
+                    validation: {
+                        maxFieldRef: 'believers',
+                    }
+                },
+                {
+                    id: 'newlyBaptized',
+                    i18nRef: 'Common_NumberOfNewlyBaptized',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    valueType: ValueType.number,
+                    canModify: true,
+                    iconRef: 'elementBaptismIcon',
+                    validation: {
+                        maxFieldRef: 'baptized',
+                    }
+                }
+            ]
         },
         {
             id: 'name',
@@ -360,57 +416,6 @@ export const ChurchCirclesCzechConfiguration: TemplateConfiguration = {
             type: ControlType.textarea,
             valueType: ValueType.string,
             canModify: true,
-        },
-        {
-            id: 'peoples',
-            canModify: false,
-            fields: [
-                {
-                    id: 'attenders',
-                    i18nRef: 'Common_NumberOfAttendees',
-                    defaultValue: 0,
-                    type: ControlType.number,
-                    valueType: ValueType.number,
-                    canModify: true,
-                    iconRef: 'attendersIcon',
-                },
-                {
-                    id: 'believers',
-                    i18nRef: 'Common_NumberOfBelievers',
-                    defaultValue: 0,
-                    type: ControlType.number,
-                    valueType: ValueType.number,
-                    canModify: true,
-                    iconRef: 'believersIcon',
-                    validation: {
-                        maxFieldRef: 'attenders',
-                    }
-                },
-                {
-                    id: 'baptized',
-                    i18nRef: 'Common_NumberOfBaptized',
-                    defaultValue: 0,
-                    type: ControlType.number,
-                    valueType: ValueType.number,
-                    canModify: true,
-                    iconRef: 'elementBaptismIcon',
-                    validation: {
-                        maxFieldRef: 'believers',
-                    }
-                },
-                {
-                    id: 'newlyBaptized',
-                    i18nRef: 'Common_NumberOfNewlyBaptized',
-                    defaultValue: 0,
-                    type: ControlType.number,
-                    valueType: ValueType.number,
-                    canModify: true,
-                    iconRef: 'elementBaptismIcon',
-                    validation: {
-                        maxFieldRef: 'baptized',
-                    }
-                }
-            ]
         }
     ],
     svgStates: [

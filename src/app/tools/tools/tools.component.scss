@@ -16,7 +16,11 @@
         font-size: 56px;
     }
 
-    h3, h4, p {margin: 0}
+    h3,
+    h4,
+    p {
+        margin: 0;
+    }
 
     .mute {
         font-weight: bold;
@@ -46,7 +50,8 @@
             }
 
             &:hover {
-                box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+                box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+                    0px 1px 14px 0px rgba(0, 0, 0, 0.12);
             }
         }
     }
@@ -60,7 +65,7 @@
         font-weight: bold;
     }
 
-    @media screen and (min-width: 960px){
+    @media screen and (min-width: 960px) {
         .mat-card {
             width: 250px;
         }
@@ -74,7 +79,7 @@
 
             img.mat-card-image {
                 width: 100px !important;
-                height: 100px  !important;
+                height: 100px !important;
                 margin: -16px 8px -16px -16px;
             }
         }

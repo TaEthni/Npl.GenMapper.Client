@@ -18,6 +18,7 @@ export class NodeDto extends Entity {
 
     // Mapped on client
     public hasChildNodes?: boolean;
+    public isRoot: boolean;
 
     constructor(props: object = {}) {
         super();

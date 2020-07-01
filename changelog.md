@@ -1,5 +1,12 @@
 # GenMapper Changelog
 
+## (2020-07-01)
+- Fix: Root Node showing delete button
+- Feature: Add Marker Clusters to world map view.
+- Feature: Zoom map to the extent of marker boundaries
+- Feature: Add ChurchCirclesEast from genmapper.com
+- Fix: Prevent future date from being set on forms
+
 ## (2020-06-17)
 - Feature: Drag-Drop sorting of nodes
 

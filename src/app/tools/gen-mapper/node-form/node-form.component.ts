@@ -53,6 +53,7 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
 
     public readonly countryList = COUNTRIES;
     public readonly isHandHeld = Device.isHandHeld;
+    public readonly maxDate = moment();
 
     private _locationDialog: MatDialogRef<LocationDialogComponent>;
 

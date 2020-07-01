@@ -301,6 +301,8 @@ export class GenMapperService {
         let nodesById = this.nodesById = keyBy(nodes, (n) => n.id);
 
         nodes.forEach(node => {
+            node.isRoot = !node.parentId;
+
             if (node.attributes.newGeneration) {
                 node.attributes.gen = getParentGenCount(node);
             }

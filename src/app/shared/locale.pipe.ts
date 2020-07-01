@@ -15,14 +15,14 @@ export class LocalePipe extends Unsubscribable implements PipeTransform {
 
     public transform(value: any, oneTime: boolean): Observable<string> | string {
         if (oneTime) {
-            return this.localeService.t(value);
+            return this.localeService.t(value) || value;
         }
 
         return this.localeService.get()
             .pipe(
-                startWith(this.localeService.t(value)),
+                startWith(this.localeService.t(value) || value),
                 map(() => {
-                    return this.localeService.t(value);
+                    return this.localeService.t(value) || value;
                 })
             );
     }

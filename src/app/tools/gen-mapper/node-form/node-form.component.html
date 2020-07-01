@@ -70,11 +70,13 @@
                                 <mat-form-field (click)="picker.open()"
                                                 class="date-picker">
                                     <input matInput
+                                           readonly="readonly"
                                            autocomplete="stopstop"
                                            name="stop-autocomplete"
                                            [matDatepicker]="picker"
                                            [placeholder]="field.i18nValue"
-                                           [formControl]="form.get(field.id)">
+                                           [formControl]="form.get(field.id)"
+                                           [max]="maxDate">
                                     <mat-datepicker-toggle matSuffix
                                                            [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker
@@ -129,11 +131,19 @@
                             <div fxLayout="row"
                                  fxFlex>
                                 <div>
-                                    {{'Common_People' | locale | async}}
+                                    {{field.i18nValue}}
                                 </div>
                                 <div fxFlex></div>
                                 <div>
-                                    ({{model?.attributes[field.id]}})
+                                    <ng-container
+                                                  *ngIf="field.useValueFromFieldId; then otherFieldTemplate else thisFieldTemplate">
+                                    </ng-container>
+                                    <ng-template #otherFieldTemplate>
+                                        ({{model?.attributes[field.useValueFromFieldId]}})
+                                    </ng-template>
+                                    <ng-template #thisFieldTemplate>
+                                        ({{model?.attributes[field.id]}})
+                                    </ng-template>
                                 </div>
                             </div>
                         </ng-container>
