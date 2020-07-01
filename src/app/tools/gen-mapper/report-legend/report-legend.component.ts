@@ -7,6 +7,7 @@ import { Template } from '@models/template.model';
 import { GMReport, ReportType, ValueType } from '@templates';
 import { takeUntil } from 'rxjs/operators';
 import { GenMapperService } from '../gen-mapper.service';
+import { NodeTreeService } from '../node-tree/node-tree.service';
 
 @Component({
     selector: 'app-report-legend',
@@ -22,7 +23,10 @@ export class ReportLegendComponent extends Unsubscribable implements OnInit {
     public readonly isDesktop = Device.isDesktop;
     public readonly valueTypes = ValueType;
 
-    constructor(private genMapper: GenMapperService) {
+    constructor(
+        private genMapper: GenMapperService,
+        private nodeTree: NodeTreeService
+    ) {
         super();
     }
 
@@ -34,10 +38,10 @@ export class ReportLegendComponent extends Unsubscribable implements OnInit {
                 this.createReports();
             })
 
-        this.genMapper.nodes$
+        this.nodeTree.treeData$
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(nodes => {
-                this.nodes = nodes;
+                this.nodes = this.nodeTree.getData();
                 this.updateReports();
             });
     }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
 import { Device } from '@core/platform';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { NodeDto } from '@models/node.model';
@@ -30,14 +30,15 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
     @Output()
     public sortChange = new EventEmitter<NodeDto[]>();
 
-    @ViewChild('genMapperGraphSvg', { static: true })
+    @ViewChild('genMapperGraphSvg', { static: false })
     public graphSvg: ElementRef;
 
     public d3NodeTree: D3NodeTree;
 
     constructor(
         private elementRef: ElementRef,
-        private nodeTree: NodeTreeService
+        private nodeTree: NodeTreeService,
+        private ngZone: NgZone,
     ) { super(); }
 
     @HostListener('window:resize')
@@ -50,7 +51,9 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
                 if (result && this.d3NodeTree) {
-                    this.d3NodeTree.update(result, false);
+                    this.ngZone.run(() => {
+                        this.d3NodeTree.update(result, false);
+                    });
                 }
             });
     }
@@ -79,9 +82,11 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
         this.d3NodeTree = new D3NodeTree(this.template);
         this.d3NodeTree.attach(this.elementRef.nativeElement);
 
-        if (this.nodeTree.treeData) {
-            this.d3NodeTree.update(this.nodeTree.treeData);
-        }
+        this.ngZone.run(() => {
+            if (this.nodeTree.treeData) {
+                this.d3NodeTree.update(this.nodeTree.treeData);
+            }
+        });
 
         this.d3NodeTree.editButtonClick
             .pipe(takeUntil(this.unsubscribe))

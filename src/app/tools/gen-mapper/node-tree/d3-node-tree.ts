@@ -63,7 +63,7 @@ export class D3NodeTree {
     public attach(element: HTMLElement): void {
         const self = this;
         this.element = element;
-        this.svg = select(this.element).select<SVGElement>('svg');
+        this.svg = select(this.element).select<SVGElement>('#genmapper-graph-svg');
 
         this.zoom = zoom()
             .scaleExtent([0.05, 2])
@@ -151,33 +151,39 @@ export class D3NodeTree {
             .selectAll<SVGTextElement, NodeDatum>('text.link-text')
             .data(linkTexts, (d) => d.id);
 
-        drawLinks(link, linkText, this.template);
+        select(this.element).select('.loading-spinner').classed('hidden', false);
 
-        const newNode = drawNodes(node, source, this as any);
+        requestAnimationFrame(() => {
+            drawLinks(link, linkText, this.template);
+            const newNode = drawNodes(node, source, this as any);
 
-        newNode.on('click', (d) => {
-            d3Event.stopPropagation();
-            this.unFocusAllNodes();
-            this.focusNodeById(d.data.id);
-            this._nodeClick.next(d);
-        });
-
-        newNode
-            .select('.addChildNode')
-            .on('click', (d) => {
-                d3Event.stopPropagation();
-                this._addButtonClick.next(d);
-            });
-
-        newNode
-            .select('.editNode')
-            .on('click', (d) => {
+            newNode.on('click', (d) => {
                 d3Event.stopPropagation();
                 this.unFocusAllNodes();
                 this.focusNodeById(d.data.id);
-                this._editButtonClick.next(d);
+                this._nodeClick.next(d);
             });
 
+            newNode
+                .select('.addChildNode')
+                .on('click', (d) => {
+                    d3Event.stopPropagation();
+                    this._addButtonClick.next(d);
+                });
+
+            newNode
+                .select('.editNode')
+                .on('click', (d) => {
+                    d3Event.stopPropagation();
+                    this.unFocusAllNodes();
+                    this.focusNodeById(d.data.id);
+                    this._editButtonClick.next(d);
+                });
+        });
+
+        requestAnimationFrame(() => {
+            select(this.element).select('.loading-spinner').classed('hidden', true);
+        });
 
         this._dataChange.next(this.data);
     }

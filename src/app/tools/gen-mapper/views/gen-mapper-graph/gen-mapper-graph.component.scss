@@ -6,6 +6,20 @@
     position: relative;
     flex: 1;
 
+    .loading-spinner {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        backface-visibility: hidden;
+        pointer-events: none;
+
+        &.hidden {
+            display: none !important;
+        }
+    }
+
     svg {
         user-select: none;
     }
@@ -166,7 +180,7 @@
     .device-desktop & {
         .node:hover {
             .node-church-box {
-                fill: mat-color($accent, lighter);
+                fill: mat-color($accent, lighter) !important;
             }
         }
 
@@ -191,7 +205,7 @@
 
     .node.is-focused {
         .node-church-box {
-            fill: mat-color($accent, lighter);
+            fill: mat-color($accent, lighter) !important;
         }
 
         g.add-child-node-action,

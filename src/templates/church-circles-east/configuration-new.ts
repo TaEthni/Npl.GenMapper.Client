@@ -1,4 +1,4 @@
-import { ControlType, TemplateConfiguration } from "../template.interface";
+import { ControlType, TemplateConfiguration, ValueType } from "../template.interface";
 import { boxHeight } from "./template";
 
 export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
@@ -19,6 +19,10 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
     },
     fields: [
         {
+            id: 'id',
+            canModify: false
+        },
+        {
             id: 'nodeOrder',
             canModify: false,
         },
@@ -27,32 +31,14 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             canModify: false,
         },
         {
-            id: 'id',
-            canModify: false
-        },
-        {
             id: 'parentId',
-            i18nRef: 'churchCircles.parent',
+            i18nRef: 'Common_Parent',
             type: ControlType.parentSelector,
             canModify: true,
         },
         {
-            id: 'admin0nm',
-            // i18nRef: "churchCirclesWorld.country",
-            i18nValue: 'Choose your country.',
-            type: ControlType.select,
-            canModify: true,
-        },
-        {
-            id: 'admin1nm',
-            // i18nRef: "churchCirclesWorld.country",
-            i18nValue: 'Province, State, or Atoll',
-            type: ControlType.text,
-            canModify: true,
-        },
-        {
             id: 'newGeneration',
-            i18nRef: 'churchCircles.newGeneration',
+            i18nRef: 'Common_NewGeneration',
             defaultValue: false,
             type: ControlType.checkbox,
             controlOrder: 1,
@@ -60,7 +46,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
         },
         {
             id: 'active',
-            i18nRef: 'churchCircles.active',
+            i18nRef: 'Common_Active',
             defaultValue: true,
             type: ControlType.checkbox,
             controlOrder: 2,
@@ -77,32 +63,31 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementLeaders',
-            i18nRef: 'churchCircles.elementLeaders',
+            i18nRef: 'Element_Leaders',
             i18nDescriptionValue: 'This group has an appointed leader?',
             defaultValue: false,
             type: ControlType.checkbox,
             canModify: true,
             controlOrder: 4,
             iconRef: 'leadernohatIcon',
-            // svgElementIconRef: 'icon1',
-            // iconUrl: 'templates/church-circles-east/icons/leadernohat.png',
         },
         {
             id: 'leader_has_teachingtraining',
             // i18nRef: 'churchCircles.inside_outside_leader',
-            i18nValue: 'Trained Leader?',
+            i18nRef: 'Trained Leader?',
             i18nDescriptionValue: 'Has the local leader received pastoral training that includes how to teach and preach?',
             dependsOnTrueField: 'elementLeaders',
             type: ControlType.checkbox,
-            controlOrder: 4,
+            controlOrder: 5,
             canModify: true,
             iconRef: 'leaderwithhatIcon'
         },
         {
             id: 'leaderName',
-            i18nRef: 'churchCircles.leaderName',
+            i18nRef: 'Common_LeaderName',
+            i18nDescriptionValue: 'What is the name of the leader who came and established the group?',
             type: ControlType.text,
-            controlOrder: 4,
+            controlOrder: 6,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 2,
             canModify: true,
@@ -116,7 +101,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             defaultValue: '1',
             canModify: true,
             type: ControlType.radio,
-            controlOrder: 4,
+            controlOrder: 7,
             options: [
                 {
                     value: '0',
@@ -130,11 +115,11 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementWord',
-            i18nRef: 'churchCircles.elementWord',
+            i18nRef: 'Element_Word',
             i18nDescriptionValue: 'An obedience based discipleship program has been taught in the group?',
             defaultValue: false,
             type: ControlType.checkbox,
-            controlOrder: 5,
+            controlOrder: 8,
             canModify: true,
             iconRef: 'wordIcon',
             // svgElementIconRef: 'icon2',
@@ -142,21 +127,21 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementPrayer',
-            i18nRef: 'churchCircles.elementPrayer',
+            i18nRef: 'Element_Prayer',
             i18nDescriptionValue: 'Does the group regularly pray together and encourage individual prayer?',
             defaultValue: false,
             type: ControlType.checkbox,
-            controlOrder: 6,
+            controlOrder: 9,
             canModify: true,
             iconRef: 'prayIcon',
         },
         {
             id: 'elementBaptism',
-            i18nRef: 'churchCircles.elementBaptism',
+            i18nRef: 'Element_Baptism',
             i18nDescriptionValue: 'Believer\'s baptism is practiced in your group?',
             defaultValue: false,
             type: ControlType.checkbox,
-            controlOrder: 7,
+            controlOrder: 10,
             canModify: true,
             iconRef: 'baptismIcon'
         },
@@ -167,7 +152,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             dependsOnTrueField: 'elementBaptism',
             canModify: true,
             type: ControlType.radio,
-            controlOrder: 8,
+            controlOrder: 11,
             options: [
                 {
                     value: '0',
@@ -180,37 +165,41 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             ]
         },
         {
-            id: 'elementFellowship',
-            i18nRef: 'churchCircles.elementLove',
+            id: 'elementLove',
+            i18nRef: 'Element_Love',
             i18nDescriptionValue: 'Does the group love, encourage, and minister to each other?',
             defaultValue: false,
             type: ControlType.checkbox,
+            controlOrder: 12,
             canModify: true,
             iconRef: 'fellowshipIcon',
         },
         {
             id: 'elementMakeDisciples',
-            i18nRef: 'churchCircles.elementMakeDisciples',
+            i18nRef: 'Element_MakeDisciples',
             defaultValue: false,
             type: ControlType.checkbox,
+            controlOrder: 13,
             canModify: true,
             iconRef: 'arrowIcon',
         },
         {
             id: 'elementWorship',
-            i18nRef: 'churchCircles.elementWorship',
+            i18nRef: 'Element_Worship',
             i18nDescriptionValue: 'Does the group regularly worship together?',
             defaultValue: false,
             type: ControlType.checkbox,
+            controlOrder: 14,
             canModify: true,
             iconRef: 'worshipIcon',
         },
         {
             id: 'elementLordsSupper',
-            i18nRef: 'churchCircles.elementLordsSupper',
+            i18nRef: 'Element_LordsSupper',
             i18nDescriptionValue: 'Is the Lord\'s supper practiced in your group?',
             defaultValue: false,
             type: ControlType.checkbox,
+            controlOrder: 15,
             canModify: true,
             iconRef: 'cupIcon',
         },
@@ -221,7 +210,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             dependsOnTrueField: 'elementLordsSupper',
             canModify: true,
             type: ControlType.radio,
-            controlOrder: 4,
+            controlOrder: 16,
             options: [
                 {
                     value: '0',
@@ -235,78 +224,113 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
         },
         {
             id: 'elementGive',
-            i18nRef: 'churchCircles.elementGive',
+            i18nRef: 'Element_Give',
             i18nDescriptionValue: 'The group is collecting and offering',
             defaultValue: false,
             type: ControlType.checkbox,
+            controlOrder: 18,
             canModify: true,
             iconRef: 'coinIcon',
         },
         {
+            id: 'church',
+            i18nRef: 'Common_IsChurch',
+            i18nDescriptionValue: 'The group self identifies as a church?',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            controlOrder: 19,
+            valueType: ValueType.boolean,
+            canModify: true,
+        },
+        {
+            id: 'admin0nm',
+            // i18nRef: "churchCirclesWorld.country",
+            i18nValue: 'Choose your country.',
+            type: ControlType.countrySelector,
+            controlOrder: 20,
+            valueType: ValueType.string,
+            canModify: true,
+        },
+        {
+            id: 'peoples',
+            i18nRef: 'Common_People',
+            type: ControlType.peopleSelector,
+            useValueFromFieldId: 'attenders',
+            controlOrder: 21,
+            canModify: false,
+            iconRef: 'attendersIcon',
+            fields: [
+                {
+                    id: 'attenders',
+                    i18nRef: 'Common_NumberOfAttendees',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    valueType: ValueType.number,
+                    canModify: true,
+                    iconRef: 'attendersIcon',
+                },
+                {
+                    id: 'believers',
+                    i18nRef: 'Common_NumberOfBelievers',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    valueType: ValueType.number,
+                    canModify: true,
+                    iconRef: 'believersIcon',
+                    validation: {
+                        maxFieldRef: 'attenders',
+                    }
+                },
+                {
+                    id: 'baptized',
+                    i18nRef: 'Common_NumberOfBaptized',
+                    defaultValue: 0,
+                    type: ControlType.number,
+                    valueType: ValueType.number,
+                    canModify: true,
+                    iconRef: 'baptismIcon',
+                    validation: {
+                        maxFieldRef: 'believers',
+                    }
+                }
+            ]
+        },
+        {
             id: 'name',
-            i18nRef: 'churchCircles.name',
+            i18nRef: 'Common_GroupName',
             type: ControlType.text,
-            controlOrder: 4,
+            controlOrder: 22,
+            valueType: ValueType.string,
             canModify: true,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 1,
         },
         {
             id: 'email',
-            i18nRef: 'churchCircles.email',
+            i18nRef: 'Common_Email',
             type: ControlType.text,
-            controlOrder: 6,
+            controlOrder: 23,
+            valueType: ValueType.string,
             isNodeSvgLabel: false,
             nodeSvgLabelOrder: 3,
             canModify: true,
         },
         {
             id: 'startDate',
-            i18nRef: 'churchCircles.date',
+            i18nRef: 'Common_StartDate',
             type: ControlType.date,
-            controlOrder: 7,
+            controlOrder: 24,
+            valueType: ValueType.date,
             canModify: true,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 3,
         },
         {
-            id: 'startedbyanother',
-            // i18nRef: 'ChurchCircles.startedbyanother',
-            i18nValue: 'Started By Another',
-            type: ControlType.text,
-            canModify: true,
-            nullable: true,
-        },
-        {
-            id: 'nameofmotherchurch',
-            // i18nRef: 'ChurchCircles.nameofmotherchurch',
-            i18nValue: 'What is the name of the group that started this group?',
-            type: ControlType.text,
-            canModify: true,
-            nullable: true,
-        },
-        {
-            id: 'nameofstartingleader',
-            // i18nRef: 'ChurchCircles.nameofstartingleader',
-            i18nValue: 'What is the name of the leader who came and established the group',
-            type: ControlType.text,
-            canModify: true,
-            nullable: true,
-        },
-        {
-            id: 'place',
-            i18nRef: 'churchCircles.place',
-            type: ControlType.text,
-            controlOrder: 9,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 4,
-            deprecated: true,
-            canModify: true,
-        },
-        {
             id: 'location',
-            i18nRef: 'churchCircles.location',
+            i18nRef: 'Common_GeoLocation',
             type: ControlType.geoLocation,
+            controlOrder: 25,
+            valueType: ValueType.string,
             canModify: true,
         },
         {
@@ -320,21 +344,11 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             parseValueAsInt: true,
         },
         {
-            id: 'placeId',
-            canModify: false,
-        },
-        {
-            id: 'church',
-            i18nRef: 'churchCircles.isChurch',
-            i18nDescriptionValue: 'The group self identifies as a church?',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            canModify: true,
-        },
-        {
             id: 'how_collected',
             i18nValue: 'How as the data for the form collected',
             type: ControlType.select,
+            controlOrder: 26,
+            valueType: ValueType.enum,
             canModify: true,
             nullable: true,
             options: [
@@ -361,83 +375,153 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             id: 'how_collected_other',
             i18nValue: 'Specify other.',
             type: ControlType.text,
+            controlOrder: 27,
+            valueType: ValueType.string,
             canModify: true,
             dependsOnFieldId: 'how_collected',
             dependsOnFieldValue: 'other',
         },
         {
-            id: 'majority_peoplegroup',
-            i18nValue: 'Whats is the majority people group of this group?',
-            type: ControlType.text,
-            canModify: true,
-        },
-        {
-            id: 'peoplegroup_label',
-            canModify: false,
-        },
-        {
-            id: 'nameothermajoritypeoplegroup',
-            i18nValue: 'Please name the majority people group that is not in the list',
-            canModify: true,
-            dependsOnFieldId: 'majority_peoplegroup',
-            dependsOnFieldValue: 'other'
-        },
-        {
-            id: 'majoritypg_attendee_count',
-            i18nValue: 'How many attend this group from this people group?',
-            type: ControlType.number,
+            id: 'attenders',
+            i18nRef: 'Common_NumberOfAttendees',
+            parseValueAsFloat: true,
             defaultValue: 0,
-            canModify: true,
+            // type: ControlType.peopleSelector,
+            valueType: ValueType.number,
+            canModify: false,
+            iconRef: 'attendersIcon',
         },
         {
-            id: 'majoritypg_believer_count',
-            i18nValue: 'How many from this people group are believers?',
-            type: ControlType.number,
+            id: 'believers',
+            i18nRef: 'Common_NumberOfBelievers',
+            parseValueAsFloat: true,
             defaultValue: 0,
-            canModify: true,
+            // type: ControlType.number,
+            valueType: ValueType.number,
+            canModify: false,
+            iconRef: 'believersIcon',
         },
         {
-            id: 'majoritypg_baptized_count',
-            i18nValue: 'How many from this people group have been baptized?',
-            type: ControlType.number,
+            id: 'baptized',
+            i18nRef: 'Common_NumberOfBaptized',
+            parseValueAsFloat: true,
             defaultValue: 0,
+            // type: ControlType.number,
+            valueType: ValueType.number,
+            canModify: false,
+            iconRef: 'baptismIcon'
+        },
+        {
+            id: 'note',
+            i18nRef: 'Common_Note',
+            type: ControlType.textarea,
+            valueType: ValueType.string,
+            controlOrder: 27,
             canModify: true,
-        },
-        {
-            id: 'sum_of_attendees',
-            canModify: false,
-            sumOfFields: ['majoritypg_attendee_count']
-        },
-        {
-            id: 'sum_of_believers',
-            canModify: false,
-            sumOfFields: ['majoritypg_believer_count']
-        },
-        {
-            id: 'sum_of_baptized',
-            canModify: false,
-            sumOfFields: ['majoritypg_baptized_count']
         }
     ],
     svgStates: [
         {
+            selector: 'church-box',
+            states: [
+                {
+                    fieldRefId: 'church',
+                    fieldRefValue: true,
+                    svg: {
+                        style: {
+                            'stroke-dasharray': '0',
+                            'stroke': 'black',
+                            'stroke-width': 2,
+                        }
+                    }
+                },
+                {
+                    fieldRefId: 'church',
+                    fieldRefValue: false,
+                    svg: {
+                        style: {
+                            'stroke-dasharray': '7,7',
+                            'stroke': '#e4d339',
+                            'stroke-width': 4,
+                        }
+                    }
+                },
+                {
+                    fieldRefId: 'active',
+                    fieldRefValue: false,
+                    svg: {
+                        style: {
+                            'stroke-opacity': 0.2,
+                            'fill': 'lightgray'
+                        }
+                    }
+                },
+                {
+                    fieldRefId: 'active',
+                    fieldRefValue: true,
+                    svg: {
+                        style: {
+                            'stroke-opacity': 1,
+                            'fill': 'white'
+                        }
+                    }
+                }
+            ]
+        },
+        {
             selector: 'topIcon1',
-            iconRef: 'attendersIcon'
+            iconRef: 'attendersIcon',
+            tooltipFieldRef: 'attenders',
+            states: [
+                {
+                    fieldRefId: 'active',
+                    fieldRefValue: false,
+                    svg: {
+                        style: {
+                            opacity: 0.4
+                        }
+                    }
+                }
+            ]
         },
         {
             selector: 'topIcon2',
-            iconRef: 'believersIcon'
+            iconRef: 'believersIcon',
+            tooltipFieldRef: 'believers',
+            states: [
+                {
+                    fieldRefId: 'active',
+                    fieldRefValue: false,
+                    svg: {
+                        style: {
+                            opacity: 0.4
+                        }
+                    }
+                }
+            ]
         },
         {
             selector: 'topIcon3',
-            iconRef: 'baptismIcon'
+            iconRef: 'baptismIcon',
+            tooltipFieldRef: 'baptized',
+            states: [
+                {
+                    fieldRefId: 'active',
+                    fieldRefValue: false,
+                    svg: {
+                        style: {
+                            opacity: 0.4
+                        }
+                    }
+                }
+            ]
         },
         {
             selector: 'topNumber1',
             states: [
                 {
-                    setText: true,
-                    fieldRef: 'sum_of_attendees',
+                    fieldRefId: 'attenders',
+                    setText: true
                 }
             ]
         },
@@ -445,8 +529,8 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             selector: 'topNumber2',
             states: [
                 {
-                    setText: true,
-                    fieldRef: 'sum_of_believers',
+                    fieldRefId: 'believers',
+                    setText: true
                 }
             ]
         },
@@ -454,8 +538,8 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             selector: 'topNumber3',
             states: [
                 {
-                    setText: true,
-                    fieldRef: 'sum_of_baptized',
+                    fieldRefId: 'baptized',
+                    setText: true
                 }
             ]
         },
@@ -588,7 +672,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             iconRef: 'fellowshipIcon',
             states: [
                 {
-                    fieldRefId: 'elementFellowship',
+                    fieldRefId: 'elementLove',
                     fieldRefValue: true,
                     svg: {
                         style: {
@@ -597,7 +681,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
                     }
                 },
                 {
-                    fieldRefId: 'elementFellowship',
+                    fieldRefId: 'elementLove',
                     fieldRefValue: false,
                     svg: {
                         style: {
@@ -657,7 +741,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
         },
         {
             selector: 'icon8',
-            iconRef: 'cup',
+            iconRef: 'cupIcon',
             states: [
                 {
                     fieldRefId: 'elementLordsSupper',

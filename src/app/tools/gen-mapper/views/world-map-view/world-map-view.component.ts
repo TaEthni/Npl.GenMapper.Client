@@ -1,13 +1,13 @@
 import { AgmMap } from '@agm/core';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MapsService } from '@core/maps.service';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { Utils } from '@core/utils';
 import { NodeDto } from '@models/node.model';
 import { GMTemplate } from '@templates';
 import { takeUntil } from 'rxjs/operators';
-import { DocumentService } from '../../../../core/document.service';
 import { GenMapperService } from '../../gen-mapper.service';
+import { NodeTreeService } from '../../node-tree/node-tree.service';
 
 export interface MapMarker {
     lat: number;
@@ -20,7 +20,7 @@ export interface MapMarker {
     templateUrl: './world-map-view.component.html',
     styleUrls: ['./world-map-view.component.scss']
 })
-export class WorldMapViewComponent extends Unsubscribable implements OnInit {
+export class WorldMapViewComponent extends Unsubscribable implements OnInit, AfterViewInit {
     @ViewChild(AgmMap, { static: true })
     public agmMap: AgmMap;
 
@@ -33,10 +33,12 @@ export class WorldMapViewComponent extends Unsubscribable implements OnInit {
     public isLoading = true;
     public locatingCount: number;
 
+    private googleMap: any;
+
     constructor(
         private mapsService: MapsService,
         private genMapper: GenMapperService,
-        private documentService: DocumentService,
+        private nodeTreeService: NodeTreeService,
         private ngZone: NgZone
     ) { super(); }
 
@@ -45,10 +47,21 @@ export class WorldMapViewComponent extends Unsubscribable implements OnInit {
             this.template = result;
         });
 
-        this.genMapper.nodes$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+        this.nodeTreeService.treeData$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
             this.isLoading = true;
-            this.nodes = result;
+            this.nodes = this.nodeTreeService.getData();
             this.runChange();
+
+            if (this.googleMap) {
+                this.locateExtent();
+            }
+        });
+    }
+
+    public ngAfterViewInit(): void {
+        this.agmMap.mapReady.pipe(takeUntil(this.unsubscribe)).subscribe(map => {
+            this.googleMap = map;
+            this.locateExtent();
         });
     }
 
@@ -58,10 +71,8 @@ export class WorldMapViewComponent extends Unsubscribable implements OnInit {
 
     private runChange(): void {
         this.markers = [];
-        const parentMarker = this.nodes.find(n => !n.parentId);
         const nodesWithLocation = this.nodes.filter(n => !!n.attributes.location);
         const nodesWithLatLng = nodesWithLocation.filter(n => !!n.attributes.latitude);
-        // const nodesWithoutLatLng = nodesWithLocation.filter(n => !n.attributes.latitude);
 
         if (nodesWithLocation.length === 0) {
             this.isLoading = false;
@@ -75,21 +86,21 @@ export class WorldMapViewComponent extends Unsubscribable implements OnInit {
         }));
 
         if (this.markers.length > 0) {
-
-            if (parentMarker && parentMarker.attributes.latitude && parentMarker.attributes.longitude) {
-                this.latitude = parentMarker.attributes.latitude;
-                this.longitude = parentMarker.attributes.longitude;
-            } else {
-                this.latitude = this.markers[0].lat;
-                this.longitude = this.markers[0].lng;
-            }
-
             this.isLoading = false;
         }
 
         this.sortMarkers();
 
         // this.locateUnlocatedAddresses(nodesWithoutLatLng);
+    }
+
+    private locateExtent(): void {
+        const bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds();
+        for (const mm of this.markers) {
+            bounds.extend(new google.maps.LatLng(mm.lat, mm.lng));
+        }
+
+        this.googleMap.fitBounds(bounds);
     }
 
     private sortMarkers(): void {

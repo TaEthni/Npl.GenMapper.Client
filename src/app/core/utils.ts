@@ -16,4 +16,8 @@ export namespace Utils {
         document.body.style.overflow = '';
         document.body.style.position = '';
     }
+
+    export function script(string: string): any {
+        return Function('"use strict";return (' + string + ')')();
+    }
 }

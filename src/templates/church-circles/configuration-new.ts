@@ -70,6 +70,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 4,
             canModify: true,
             iconRef: 'elementBaptismIcon'
         },
@@ -79,6 +80,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 5,
             canModify: true,
             iconRef: 'elementPrayerIcon',
         },
@@ -88,6 +90,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 6,
             canModify: true,
             iconRef: 'elementMakeDisciplesIcon'
         },
@@ -97,6 +100,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 7,
             canModify: true,
             iconRef: 'elementLoveIcon',
         },
@@ -106,6 +110,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 8,
             canModify: true,
             iconRef: 'elementWorshipIcon',
         },
@@ -115,6 +120,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 9,
             canModify: true,
             iconRef: 'elementLordsSupperIcon',
         },
@@ -124,6 +130,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 10,
             canModify: true,
             iconRef: 'elementGiveIcon',
         },
@@ -133,6 +140,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 11,
             canModify: true,
             iconRef: 'elementWordIcon',
         },
@@ -142,6 +150,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             defaultValue: false,
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
+            controlOrder: 12,
             canModify: true,
             iconRef: 'elementLeadersIcon',
         },
@@ -150,7 +159,7 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_NumberOfAttendees',
             parseValueAsFloat: true,
             defaultValue: 0,
-            type: ControlType.peopleSelector,
+            // type: ControlType.peopleSelector,
             valueType: ValueType.number,
             canModify: false,
             iconRef: 'attendersIcon',
@@ -185,187 +194,12 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
             canModify: false,
         },
         {
-            id: 'name',
-            i18nRef: 'Common_GroupName',
-            type: ControlType.text,
-            valueType: ValueType.string,
-            controlOrder: 4,
-            canModify: true,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 1,
-        },
-        {
-            id: 'leaderName',
-            i18nRef: 'Common_LeaderName',
-            type: ControlType.text,
-            valueType: ValueType.string,
-            controlOrder: 5,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 2,
-            canModify: true,
-        },
-        {
-            id: 'email',
-            i18nRef: 'Common_Email',
-            type: ControlType.text,
-            valueType: ValueType.string,
-            controlOrder: 6,
-            isNodeSvgLabel: false,
-            nodeSvgLabelOrder: 3,
-            canModify: true,
-        },
-        {
-            id: 'startDate',
-            i18nRef: 'Common_StartDate',
-            type: ControlType.date,
-            valueType: ValueType.date,
-            controlOrder: 7,
-            canModify: true,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 3,
-        },
-        {
-            id: 'date',
-            i18nRef: 'Common_Date',
-            canModify: false,
-            type: ControlType.none,
-            valueType: ValueType.string,
-            deprecated: true,
-        },
-        {
-            id: 'country',
-            i18nRef: 'Common_Country',
-            type: ControlType.countrySelector,
-            valueType: ValueType.string,
-            canModify: true
-        },
-        {
-            id: 'place',
-            i18nRef: 'Common_PlaceCityState',
-            type: ControlType.text,
-            valueType: ValueType.string,
-            controlOrder: 9,
-            isNodeSvgLabel: true,
-            nodeSvgLabelOrder: 4,
-            deprecated: true,
-            canModify: true,
-        },
-        {
-            id: 'location',
-            i18nRef: 'Common_GeoLocation',
-            type: ControlType.geoLocation,
-            valueType: ValueType.string,
-            canModify: true,
-        },
-        {
-            id: 'latitude',
-            canModify: false,
-            parseValueAsFloat: true,
-            valueType: ValueType.number,
-        },
-        {
-            id: 'longitude',
-            canModify: false,
-            parseValueAsFloat: true,
-            valueType: ValueType.number,
-        },
-        {
-            id: 'placeId',
-            canModify: false,
-        },
-        {
-            id: 'peopleGroups',
-            canModify: false,
-        },
-        {
-            id: 'peopleGroupsNames',
-            canModify: false,
-        },
-        {
-            id: 'gospelShares',
-            i18nRef: 'Common_GospelShares',
-            defaultValue: 0,
-            type: ControlType.number,
-            valueType: ValueType.number,
-            canModify: true,
-        },
-        {
-            id: 'church',
-            i18nRef: 'Common_IsChurch',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            valueType: ValueType.boolean,
-            canModify: true,
-        },
-        {
-            id: 'churchType',
-            i18nRef: 'Common_ChurchType',
-            defaultValue: 'newBelievers',
-            type: ControlType.radio,
-            valueType: ValueType.enum,
-            canModify: true,
-            options: [
-                {
-                    value: 'legacy',
-                    i18nRef: 'ChurchType_Legacy',
-                },
-                {
-                    value: 'existingBelievers',
-                    i18nRef: 'ChurchType_ExistingBelievers',
-                },
-                {
-                    value: 'newBelievers',
-                    i18nRef: 'ChurchType_NewBelievers',
-                }
-            ]
-        },
-        {
-            id: 'threeThirds',
-            i18nRef: 'Common_ThreeThirds',
-            defaultValue: [],
-            type: ControlType.multiSelect,
-            valueType: ValueType.multiEnum,
-            canModify: true,
-            options: [
-                {
-                    value: "1",
-                    i18nRef: 'ThreeThirds_PastoralCare'
-                },
-                {
-                    value: "2",
-                    i18nRef: 'ThreeThirds_Worship'
-                },
-                {
-                    value: "3",
-                    i18nRef: 'ThreeThirds_Accountability'
-                },
-                {
-                    value: "4",
-                    i18nRef: 'ThreeThirds_VisionCasting'
-                },
-                {
-                    value: "5",
-                    i18nRef: 'ThreeThirds_BibleTeaching'
-                },
-                {
-                    value: "6",
-                    i18nRef: 'ThreeThirds_Practice'
-                },
-                {
-                    value: "7",
-                    i18nRef: 'ThreeThirds_GoalSetting'
-                },
-            ],
-        },
-        {
-            id: 'note',
-            i18nRef: 'Common_Note',
-            type: ControlType.textarea,
-            valueType: ValueType.string,
-            canModify: true,
-        },
-        {
             id: 'peoples',
+            i18nRef: 'Common_People',
+            type: ControlType.peopleSelector,
+            useValueFromFieldId: 'attenders',
+            iconRef: 'attendersIcon',
+            controlOrder: 14,
             canModify: false,
             fields: [
                 {
@@ -414,6 +248,194 @@ export const ChurchCirclesConfiguration: TemplateConfiguration = {
                     }
                 }
             ]
+        },
+        {
+            id: 'name',
+            i18nRef: 'Common_GroupName',
+            type: ControlType.text,
+            valueType: ValueType.string,
+            controlOrder: 15,
+            canModify: true,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 1,
+        },
+        {
+            id: 'leaderName',
+            i18nRef: 'Common_LeaderName',
+            type: ControlType.text,
+            valueType: ValueType.string,
+            controlOrder: 16,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 2,
+            canModify: true,
+        },
+        {
+            id: 'email',
+            i18nRef: 'Common_Email',
+            type: ControlType.text,
+            valueType: ValueType.string,
+            controlOrder: 17,
+            isNodeSvgLabel: false,
+            nodeSvgLabelOrder: 3,
+            canModify: true,
+        },
+        {
+            id: 'startDate',
+            i18nRef: 'Common_StartDate',
+            type: ControlType.date,
+            valueType: ValueType.date,
+            controlOrder: 18,
+            canModify: true,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 3,
+        },
+        {
+            id: 'date',
+            i18nRef: 'Common_Date',
+            canModify: false,
+            type: ControlType.none,
+            valueType: ValueType.string,
+            controlOrder: 19,
+            deprecated: true,
+        },
+        {
+            id: 'country',
+            i18nRef: 'Common_Country',
+            type: ControlType.countrySelector,
+            valueType: ValueType.string,
+            controlOrder: 20,
+            canModify: true
+        },
+        {
+            id: 'place',
+            i18nRef: 'Common_PlaceCityState',
+            type: ControlType.text,
+            valueType: ValueType.string,
+            controlOrder: 21,
+            isNodeSvgLabel: true,
+            nodeSvgLabelOrder: 4,
+            deprecated: true,
+            canModify: true,
+        },
+        {
+            id: 'location',
+            i18nRef: 'Common_GeoLocation',
+            type: ControlType.geoLocation,
+            valueType: ValueType.string,
+            controlOrder: 22,
+            canModify: true,
+        },
+        {
+            id: 'latitude',
+            canModify: false,
+            parseValueAsFloat: true,
+            valueType: ValueType.number,
+        },
+        {
+            id: 'longitude',
+            canModify: false,
+            parseValueAsFloat: true,
+            valueType: ValueType.number,
+        },
+        {
+            id: 'placeId',
+            canModify: false,
+        },
+        {
+            id: 'peopleGroups',
+            canModify: false,
+        },
+        {
+            id: 'peopleGroupsNames',
+            canModify: false,
+        },
+        {
+            id: 'gospelShares',
+            i18nRef: 'Common_GospelShares',
+            defaultValue: 0,
+            type: ControlType.number,
+            valueType: ValueType.number,
+            controlOrder: 23,
+            canModify: true,
+        },
+        {
+            id: 'church',
+            i18nRef: 'Common_IsChurch',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            valueType: ValueType.boolean,
+            controlOrder: 24,
+            canModify: true,
+        },
+        {
+            id: 'churchType',
+            i18nRef: 'Common_ChurchType',
+            defaultValue: 'newBelievers',
+            type: ControlType.radio,
+            valueType: ValueType.enum,
+            controlOrder: 25,
+            canModify: true,
+            options: [
+                {
+                    value: 'legacy',
+                    i18nRef: 'ChurchType_Legacy',
+                },
+                {
+                    value: 'existingBelievers',
+                    i18nRef: 'ChurchType_ExistingBelievers',
+                },
+                {
+                    value: 'newBelievers',
+                    i18nRef: 'ChurchType_NewBelievers',
+                }
+            ]
+        },
+        {
+            id: 'threeThirds',
+            i18nRef: 'Common_ThreeThirds',
+            defaultValue: [],
+            type: ControlType.multiSelect,
+            valueType: ValueType.multiEnum,
+            controlOrder: 26,
+            canModify: true,
+            options: [
+                {
+                    value: "1",
+                    i18nRef: 'ThreeThirds_PastoralCare'
+                },
+                {
+                    value: "2",
+                    i18nRef: 'ThreeThirds_Worship'
+                },
+                {
+                    value: "3",
+                    i18nRef: 'ThreeThirds_Accountability'
+                },
+                {
+                    value: "4",
+                    i18nRef: 'ThreeThirds_VisionCasting'
+                },
+                {
+                    value: "5",
+                    i18nRef: 'ThreeThirds_BibleTeaching'
+                },
+                {
+                    value: "6",
+                    i18nRef: 'ThreeThirds_Practice'
+                },
+                {
+                    value: "7",
+                    i18nRef: 'ThreeThirds_GoalSetting'
+                },
+            ],
+        },
+        {
+            id: 'note',
+            i18nRef: 'Common_Note',
+            type: ControlType.textarea,
+            valueType: ValueType.string,
+            controlOrder: 27,
+            canModify: true,
         }
     ],
     svgStates: [

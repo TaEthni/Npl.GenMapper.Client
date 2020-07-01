@@ -179,6 +179,7 @@ export const translations: any = {
             'Element_Repent': 'Element: Repent',
             'Element_HolySpirit': 'Element: Holy Spirit',
             'Element_SignsWonders': 'Element: Signs and Wonders',
+            'Element_Fellowship': 'Element: Fellowship'
         }
     },
     cs: {
