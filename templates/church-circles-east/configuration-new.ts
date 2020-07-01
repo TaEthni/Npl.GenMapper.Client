@@ -682,7 +682,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             iconRef: 'fellowshipIcon',
             states: [
                 {
-                    fieldRefId: 'elementFellowship',
+                    fieldRefId: 'elementLove',
                     fieldRefValue: true,
                     svg: {
                         style: {
@@ -691,7 +691,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
                     }
                 },
                 {
-                    fieldRefId: 'elementFellowship',
+                    fieldRefId: 'elementLove',
                     fieldRefValue: false,
                     svg: {
                         style: {
