@@ -233,11 +233,21 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             iconRef: 'coinIcon',
         },
         {
+            id: 'church',
+            i18nRef: 'Common_IsChurch',
+            i18nDescriptionValue: 'The group self identifies as a church?',
+            defaultValue: false,
+            type: ControlType.checkbox,
+            controlOrder: 19,
+            valueType: ValueType.boolean,
+            canModify: true,
+        },
+        {
             id: 'admin0nm',
             // i18nRef: "churchCirclesWorld.country",
             i18nValue: 'Choose your country.',
             type: ControlType.countrySelector,
-            controlOrder: 19,
+            controlOrder: 20,
             valueType: ValueType.string,
             canModify: true,
         },
@@ -246,7 +256,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             i18nRef: 'Common_People',
             type: ControlType.peopleSelector,
             useValueFromFieldId: 'attenders',
-            controlOrder: 20,
+            controlOrder: 21,
             canModify: false,
             iconRef: 'attendersIcon',
             fields: [
@@ -289,7 +299,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             id: 'name',
             i18nRef: 'Common_GroupName',
             type: ControlType.text,
-            controlOrder: 21,
+            controlOrder: 22,
             valueType: ValueType.string,
             canModify: true,
             isNodeSvgLabel: true,
@@ -299,7 +309,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             id: 'email',
             i18nRef: 'Common_Email',
             type: ControlType.text,
-            controlOrder: 22,
+            controlOrder: 23,
             valueType: ValueType.string,
             isNodeSvgLabel: false,
             nodeSvgLabelOrder: 3,
@@ -309,7 +319,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             id: 'startDate',
             i18nRef: 'Common_StartDate',
             type: ControlType.date,
-            controlOrder: 23,
+            controlOrder: 24,
             valueType: ValueType.date,
             canModify: true,
             isNodeSvgLabel: true,
@@ -319,7 +329,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             id: 'location',
             i18nRef: 'Common_GeoLocation',
             type: ControlType.geoLocation,
-            controlOrder: 24,
+            controlOrder: 25,
             valueType: ValueType.string,
             canModify: true,
         },
@@ -332,26 +342,6 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             id: 'longitude',
             canModify: false,
             parseValueAsInt: true,
-        },
-        {
-            id: 'church',
-            i18nRef: 'Common_IsChurch',
-            i18nDescriptionValue: 'The group self identifies as a church?',
-            defaultValue: false,
-            type: ControlType.checkbox,
-            controlOrder: 25,
-            valueType: ValueType.boolean,
-            canModify: true,
-            validation: {
-                rules: [
-                    {
-                        type: 'compare',
-                        operator: '>',
-                        fieldValue1: 'believers',
-                        value2: 2
-                    }
-                ]
-            }
         },
         {
             id: 'how_collected',

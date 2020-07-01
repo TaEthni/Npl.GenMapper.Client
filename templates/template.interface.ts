@@ -212,14 +212,6 @@ export interface GMField {
 
         maxFieldRef?: string;
         minFieldRef?: string;
-        rules?: {
-            type: string;
-            operator?: string;
-            value1?: any;
-            value2?: any;
-            fieldValue1?: string;
-            fieldValue2?: string;
-        }[];
     }
 }
 
