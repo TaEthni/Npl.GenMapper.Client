@@ -98,6 +98,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             // i18nRef: 'churchCircles.inside_outside_leader',
             i18nValue: 'Where does the leader appointed come from?',
             dependsOnTrueField: 'elementLeaders',
+            parseValueAsFloat: true,
             defaultValue: 0,
             canModify: true,
             type: ControlType.radio,
@@ -151,6 +152,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             i18nValue: 'Where does the leader who gives baptism come from?',
             dependsOnTrueField: 'elementBaptism',
             defaultValue: 0,
+            parseValueAsFloat: true,
             canModify: true,
             type: ControlType.radio,
             controlOrder: 11,
@@ -211,6 +213,7 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             dependsOnTrueField: 'elementLordsSupper',
             defaultValue: 0,
             canModify: true,
+            parseValueAsFloat: true,
             type: ControlType.radio,
             controlOrder: 16,
             options: [
