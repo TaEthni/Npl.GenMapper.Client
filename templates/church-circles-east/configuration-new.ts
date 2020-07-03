@@ -98,17 +98,17 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             // i18nRef: 'churchCircles.inside_outside_leader',
             i18nValue: 'Where does the leader appointed come from?',
             dependsOnTrueField: 'elementLeaders',
-            defaultValue: 0,
+            defaultValue: '0',
             canModify: true,
             type: ControlType.radio,
             controlOrder: 7,
             options: [
                 {
-                    value: 0,
+                    value: '0',
                     i18nValue: 'From outside (different church)',
                 },
                 {
-                    value: 1,
+                    value: '1',
                     i18nValue: 'From inside the church'
                 }
             ]
@@ -150,17 +150,17 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             // i18nRef: 'churchCircles.inside_outside_baptism',
             i18nValue: 'Where does the leader who gives baptism come from?',
             dependsOnTrueField: 'elementBaptism',
-            defaultValue: 0,
+            defaultValue: '0',
             canModify: true,
             type: ControlType.radio,
             controlOrder: 11,
             options: [
                 {
-                    value: 0,
+                    value: '0',
                     i18nValue: 'From outside (different church)',
                 },
                 {
-                    value: 1,
+                    value: '1',
                     i18nValue: 'From inside the church'
                 }
             ]
@@ -209,17 +209,17 @@ export const ChurchCirclesEastConfiguration: TemplateConfiguration = {
             // i18nRef: 'churchCircles.inside_outside_the_lords_supper',
             i18nValue: 'Where does the leader who gives the Lord\'s Supper come from?',
             dependsOnTrueField: 'elementLordsSupper',
-            defaultValue: 0,
+            defaultValue: '0',
             canModify: true,
             type: ControlType.radio,
             controlOrder: 16,
             options: [
                 {
-                    value: 0,
+                    value: '0',
                     i18nValue: 'From outside (different church)',
                 },
                 {
-                    value: 1,
+                    value: '1',
                     i18nValue: 'From inside the church'
                 }
             ]

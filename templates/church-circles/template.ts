@@ -259,7 +259,19 @@ export const ChurchCirclesDefaultTemplate: GMTemplate = {
                 'x': boxHeight * 0.15,
                 'y': boxHeight * 0.65,
             }
-        }
+        },
+        {
+            id: 'drag-rect',
+            type: 'rect',
+            dragAnchor: true,
+            attributes: {
+                'x': -boxHeight / 2,
+                'y': -40,
+                'width': boxHeight,
+                'height': boxHeight + 40,
+                'opacity': '0'
+            }
+        },
     ],
     reports: [
         {
