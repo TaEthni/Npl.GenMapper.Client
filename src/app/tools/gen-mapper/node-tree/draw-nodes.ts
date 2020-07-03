@@ -35,13 +35,13 @@ function drawNodeEnter(nodeEnter: Selection<SVGGElement, NodeDatum, SVGGElement,
         .classed('node', true)
         .attr('transform', (d) => {
             return 'translate(' + d.x0 + ',' + d.y0 + ')';
-        })
+        });
 
     nodeEnter.append('rect')
         .attr('class', 'hidden-rect')
         .attr('width', 36)
         .attr('height', 100)
-        .attr('x', (template.svgSettings.nodeBounds.width / 2) - 26);
+        .attr('x', (template.svgSettings.nodeBounds.width / 2) - 26)
 
     // append Template SVGS
     template.svgs.forEach((svg) => {
@@ -57,6 +57,8 @@ function drawNodeEnter(nodeEnter: Selection<SVGGElement, NodeDatum, SVGGElement,
         const element = g
             .append(svg.type)
             .classed('node-' + svg.id, true);
+
+        element.classed('drag-anchor', svg.dragAnchor);
 
         g.append('title').text(svg.tooltipi18nValue);
 

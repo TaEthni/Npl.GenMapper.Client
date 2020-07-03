@@ -8,7 +8,6 @@ export const boxMargin = 40;
 export const nodeWidth = 156;
 export const nodeHeight = 222;
 
-
 export const ChurchCirclesEastTemplate: GMTemplate = {
     id: 'churchCirclesEast',
     name: 'Church Circles East',
@@ -231,7 +230,19 @@ export const ChurchCirclesEastTemplate: GMTemplate = {
                 'x': boxHeight * 0.15,
                 'y': boxHeight * 0.65,
             }
-        }
+        },
+        {
+            id: 'drag-rect',
+            type: 'rect',
+            dragAnchor: true,
+            attributes: {
+                'x': -boxHeight / 2,
+                'y': -40,
+                'width': boxHeight,
+                'height': boxHeight + 40,
+                'opacity': '0'
+            }
+        },
     ],
     reports: [
         {

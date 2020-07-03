@@ -78,6 +78,7 @@ export class D3NodeTree {
 
         this.dragBehavior = drag<Element, NodeDatum>()
             .subject(d => d)
+            .filter((d) => d3Event.target.classList.contains('drag-anchor'))
             .on('start', function (d: NodeDatum): void { self.onDragStart(d, this); })
             .on('drag', function (d: NodeDatum): void { self.onDragged(d, this); })
             .on('end', function (d: NodeDatum): void { self.onDragEnd(d, this); })

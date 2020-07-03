@@ -245,6 +245,7 @@ export interface Svg {
     class?: string;
     tooltipi18nRef?: string;
     tooltipi18nValue?: string;
+    dragAnchor?: boolean;
 }
 
 export interface GMSvg extends Svg {
