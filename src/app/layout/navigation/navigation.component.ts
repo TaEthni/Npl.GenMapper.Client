@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { AuthenticationService } from '@core/authentication.service';
 import { LocaleService, TranslationType } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { User } from '@models/user.model';
+import { UserProfile } from '@models/UserProfile.model';
 import i18next from 'i18next';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 import { UpdatesService } from '../../updates/updates.service';
-import { SupportDialogComponent, SupportDialogConfig } from '../support-dialog/support-dialog.component';
 
 
 @Component({
@@ -19,27 +19,35 @@ import { SupportDialogComponent, SupportDialogConfig } from '../support-dialog/s
 export class NavigationComponent extends Unsubscribable implements OnInit {
     public translations$: Observable<TranslationType[]>;
     public localeControl: FormControl;
-
-    @Input()
-    public authenticated: boolean;
-
-    @Input()
-    public user: User = null;
+    public isLoggedIn = this.authService.isAuthenticated();
+    public userProfile: UserProfile
 
     constructor(
-        private dialog: MatDialog,
+        // private dialog: MatDialog,
         private localeService: LocaleService,
         private updatesService: UpdatesService,
+        private authService: AuthenticationService,
     ) { super(); }
 
     public ngOnInit(): void {
         this.translations$ = this.localeService.getTranslations();
         this.localeControl = new FormControl(i18next.language);
 
-        this.localeControl.valueChanges.pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.localeService.set(result);
-            });
+        this.localeControl.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.localeService.set(result);
+        });
+
+        this.authService.getUser().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.userProfile = result;
+        });
+    }
+
+    public login(): void {
+        this.authService.oauthService.initLoginFlow();
+    }
+
+    public logout(): void {
+        this.authService.oauthService.logOut();
     }
 
     public goto(event: Event, url: string): void {
@@ -53,22 +61,22 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     }
 
     public sendFeedback(): void {
-        this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
-            data: {
-                authenticated: this.authenticated,
-                user: this.user,
-                isFeedback: true,
-            }
-        });
+        // this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
+        //     data: {
+        //         authenticated: this.authenticated,
+        //         user: this.user,
+        //         isFeedback: true,
+        //     }
+        // });
     }
 
     public help(): void {
-        this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
-            data: {
-                authenticated: this.authenticated,
-                user: this.user,
-                isFeedback: false,
-            }
-        });
+        // this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
+        //     data: {
+        //         authenticated: this.authenticated,
+        //         user: this.user,
+        //         isFeedback: false,
+        //     }
+        // });
     }
 }

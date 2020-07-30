@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
+import { NullGuid } from '@core/constants';
 import { DocumentService } from '@core/document.service';
 import { DocumentDto, IDocumentDto } from '@models/document.model';
 import { IFlatNode, NodeDto } from '@models/node.model';
@@ -301,6 +302,10 @@ export class GenMapperService {
         let nodesById = this.nodesById = keyBy(nodes, (n) => n.id);
 
         nodes.forEach(node => {
+            if (node.parentId === NullGuid) {
+                node.parentId = null;
+            }
+
             node.isRoot = !node.parentId;
 
             if (node.attributes.newGeneration) {

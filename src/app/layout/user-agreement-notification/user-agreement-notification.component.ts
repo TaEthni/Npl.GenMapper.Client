@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@core/authentication.service';
 import { TokenService } from '@core/token.service';
 import { Unsubscribable } from '@core/Unsubscribable';
-import { User } from '@models/user.model';
+import { UserProfile } from '@models/UserProfile.model';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +16,7 @@ export class UserAgreementNotificationComponent extends Unsubscribable implement
 
     public isIgnored: boolean;
     public isAuthenticated: boolean;
-    public user: User;
+    public user: UserProfile;
 
     constructor(
         private tokenService: TokenService,

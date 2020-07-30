@@ -18,14 +18,10 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class LayoutComponent extends Unsubscribable implements OnInit {
 
-    public user: User;
-    public isAuthenticated: boolean;
-
     @ViewChild(MatSidenav, { static: true })
     public matSidenav: MatSidenav;
 
     constructor(
-        private tokenService: TokenService,
         private authService: AuthenticationService,
         private layoutService: LayoutService,
         private router: Router
@@ -36,18 +32,6 @@ export class LayoutComponent extends Unsubscribable implements OnInit {
     public ngOnInit(): void {
 
         this.layoutService.setSidenav(this.matSidenav);
-
-        this.tokenService.get()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(token => {
-                this.isAuthenticated = token.isAuthenticated;
-            });
-
-        this.authService.getUser()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(user => {
-                this.user = user;
-            });
 
         this.authService.refreshUser();
 

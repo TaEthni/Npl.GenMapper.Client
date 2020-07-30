@@ -4,6 +4,7 @@ import { Entity, EntityType, IEntity } from '@models/entity.model';
 import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { environment } from '../../environments/environment';
 
 export const BaseUrl = environment.apiBase;
@@ -21,32 +22,26 @@ export class EntityService {
 
     public customPost<T>(endpoint: string, data: any) {
         const url = BaseUrl + endpoint;
-        return this.http.post<ResponseData<T>>(url, data).pipe(map(response => response.data));
+        return this.http.post<T>(url, data).pipe(map(response => response));
     }
 
     public customGet<T>(endpoint: String): Observable<T> {
         const url = BaseUrl + endpoint;
-        return this.http.get<ResponseData<T>>(url).pipe(map(response => response.data));
+        return this.http.get<T>(url).pipe(map(response => response));
     }
 
     public customPut<T>(endpoint: String, data: any): Observable<T> {
         const url = BaseUrl + endpoint;
-        return this.http.put<ResponseData<T>>(url, data).pipe(map(response => response.data));
+        return this.http.put<T>(url, data).pipe(map(response => response));
     }
 
     public getAll<T>(entityType: EntityType): Observable<T[]> {
         const url = BaseUrl + entityType;
-        return this.http.get<ResponseData<T[]>>(url).pipe(map((a => {
-            a.data.forEach((node: T) => {
+        return this.http.get<T[]>(url).pipe(map((a => {
+            a.forEach((node: T) => {
                 node['entityType'] = entityType;
-
-                if (entityType === EntityType.Documents) {
-                    if (node['type'] === 'churchCirclesOkc') {
-                        node['type'] = 'churchCircles12';
-                    }
-                }
             });
-            return a.data;
+            return a;
         })));
     }
 
@@ -67,26 +62,26 @@ export class EntityService {
             body = omit(entity, ['id', 'entityType']);
         }
 
-        return this.http.post<ResponseData<T>>(url, body).pipe(map(d => {
-            d.data['entityType'] = entity.entityType;
-            return d.data;
+        return this.http.post<T>(url, body).pipe(map(d => {
+            d['entityType'] = entity.entityType;
+            return d;
         }));
     }
 
     public update<T extends Entity>(entity: T): Observable<T> {
         const url = BaseUrl + entity.entityType + '/' + entity.id;
         const body = omit(entity, ['id', 'entityType']);
-        return this.http.put<ResponseData<T>>(url, body).pipe(map(a => {
-            a.data['entityType'] = entity.entityType;
-            return a.data;
+        return this.http.put<T>(url, body).pipe(map(a => {
+            a['entityType'] = entity.entityType;
+            return a;
         }));
     }
 
     public delete<T extends Entity>(entity: T): Observable<T> {
         const url = BaseUrl + entity.entityType + '/' + entity.id;
-        return this.http.delete<ResponseData<T>>(url).pipe(map(a => {
-            a.data['entityType'] = entity.entityType;
-            return a.data;
+        return this.http.delete<T>(url).pipe(map(a => {
+            a['entityType'] = entity.entityType;
+            return a;
         }));
     }
 }

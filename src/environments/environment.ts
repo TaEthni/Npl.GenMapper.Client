@@ -3,13 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 const devUrl = 'https://dev-api.noplaceleft.tools/api/';
-// const localUrl = 'http://localhost:9000/api/';
-const localUrl = devUrl;
+const localUrl = 'https://localhost:6001/api/';
+// const localUrl = devUrl;
 
 export const environment = {
     production: false,
     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-    apiBase: localUrl
+    apiBase: localUrl,
+    authConfig: {
+        // authority: 'https://localhost:5001',
+        authority: 'https://taethni-idp.azurewebsites.net',
+        clientId: 'angular_spa_local'
+    }
 };
 
 /*

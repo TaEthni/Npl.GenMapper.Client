@@ -5,22 +5,22 @@
     <div fxLayout="column"
          fxLayoutGap="5px">
         <div></div>
-        <ng-container *ngIf="authenticated">
-            <div *ngIf="user?.name"
-                 class="user-name">{{user.name}}</div>
-            <div *ngIf="user?.email"
-                 class="user-email">{{user.email}}</div>
+        <ng-container *ngIf="isLoggedIn">
+            <div *ngIf="userProfile?.name"
+                 class="user-name">{{userProfile.name}}</div>
+            <div *ngIf="userProfile?.email"
+                 class="user-email">{{userProfile.email}}</div>
             <div class="auth">
-                <a [routerLink]="['/logout']">
+                <a (click)="logout()">
                     {{'Common_Logout' | locale | async}}
                 </a>
             </div>
         </ng-container>
-        <ng-container *ngIf="!authenticated">
+        <ng-container *ngIf="!isLoggedIn">
             <div class="auth"
                  fxLayout="column"
                  fxLayoutGap="10px">
-                <a [routerLink]="['/login']">
+                <a (click)="login()">
                     {{'Common_Login' | locale | async}}
                 </a>
                 <a [routerLink]="['/signup']">
@@ -33,7 +33,7 @@
 
 <section fxLayout="column">
     <mat-nav-list>
-        <ng-container *ngIf="authenticated">
+        <ng-container *ngIf="isLoggedIn">
             <mat-list-item routerLink="/account"
                            routerLinkActive="active">
                 <h3 matLine>

@@ -5,8 +5,8 @@ import { NodeDto } from '@models/node.model';
 import { Template } from '@models/template.model';
 import { ControlType, GMReport, ReportType } from '@templates';
 import { takeUntil } from 'rxjs/operators';
-import { GenMapperService } from '../../gen-mapper.service';
 
+import { GenMapperService } from '../../gen-mapper.service';
 
 @Component({
     selector: 'app-reports-view',
