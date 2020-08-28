@@ -3,7 +3,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { Unsubscribable } from '@core/Unsubscribable';
 import { DocumentDto } from '@models/document.model';
 import { Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+
 import { GenMapperService } from '../gen-mapper.service';
 
 
@@ -37,15 +38,23 @@ export class DocumentNameControlComponent extends Unsubscribable implements OnIn
                 this.document = document;
 
                 if (this.document) {
-                    this.control.patchValue(document.title);
+                    this.control.patchValue(document.title, { emitEvent: false });
                 }
+            });
+
+        this.control.valueChanges
+            .pipe(
+                debounceTime(300),
+                takeUntil(this.unsubscribe)
+            )
+            .subscribe(result => {
+                this.document.title = result;
+                this.genMapper.updateDocument(this.document)
+                    .subscribe(result => { });
             });
     }
 
     @HostListener('keyup')
     public onKeyUp(): void {
-        this.document.title = this.control.value;
-        this.genMapper.updateDocument(this.document)
-            .subscribe(result => { });
     }
 }

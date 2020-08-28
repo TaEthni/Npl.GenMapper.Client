@@ -7,6 +7,7 @@ import { IFlatNode, NodeAttributes, NodeDto } from '@models/node.model';
 import { cloneDeep, pick, some } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { TemplateService } from './template.service';
 
 @Injectable()
