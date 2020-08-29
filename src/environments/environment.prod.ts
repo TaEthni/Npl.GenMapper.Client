@@ -1,7 +1,7 @@
 
 
-const devUrl = 'https://dev-api.noplaceleft.tools/api/';
-const prodUrl = 'https://api.noplaceleft.tools/api/';
+const devUrl = 'https://npl-tools-api-dev-app-service.azurewebsites.net/api/';
+const prodUrl = 'https://npl-tools-api-prod-app-service.noplaceleft.tools/api/';
 
 let _BaseUrl: string = prodUrl;
 
