@@ -7,7 +7,7 @@
     </mat-toolbar>
 </header>
 
-<ng-container *ngIf="isLoading; then loadingTemplate else uiTemplate"></ng-container>
+<ng-container *ngIf="isLoading; then loadingTemplate else loadedTemplate"></ng-container>
 
 <ng-template #loadingTemplate>
     <div fxLayout="column"
@@ -19,7 +19,19 @@
         </div>
 
         <h2>Please wait... This may take a few minutes</h2>
+
+        <p>You will also receive an email when the export is ready for download.</p>
     </div>
+</ng-template>
+
+<ng-template #loadedTemplate>
+    <ng-container *ngIf="timeoutError then timeoutErrorTemplate else uiTemplate"></ng-container>
+</ng-template>
+
+<ng-template #timeoutErrorTemplate>
+    <h2>The export took too long.</h2>
+
+    <p>You will receive an email with a link to download your data when it is ready.</p>
 </ng-template>
 
 <ng-template #uiTemplate>

@@ -2,7 +2,7 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const devUrl = 'https://dev-api.noplaceleft.tools/api/';
+const devUrl = 'npl-tools-api-dev.genmapper.com/api/';
 // const localUrl = 'http://localhost:9000/api/';
 const localUrl = devUrl;
 

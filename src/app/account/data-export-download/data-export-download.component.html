@@ -1,0 +1,38 @@
+<header>
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <app-sidenav-toggle></app-sidenav-toggle>
+            <span>Data Export</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</header>
+
+<div fxLayout="column"
+     fxLayoutAlign="center center"
+     fxLayoutGap="24px">
+
+    <ng-container *ngIf="isLoading">
+        <h1>Please wait while we load your data</h1>
+
+        <div>
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading">
+        <ng-container *ngIf="noDataError then noDataTemplate else downloadTemplate"></ng-container>
+    </ng-container>
+</div>
+<ng-template #noDataTemplate>
+    <h1>We are unable to use the sessionId to retrieve data.</h1>
+    <h2>This link is either invalid or expire</h2>
+</ng-template>
+<ng-template #downloadTemplate>
+    <h1>Your data is ready for download.</h1>
+
+    <button mat-raised-button
+            color="primary"
+            (click)="download()">
+        Download
+    </button>
+</ng-template>

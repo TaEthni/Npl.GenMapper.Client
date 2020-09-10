@@ -1,7 +1,7 @@
 
 
-const devUrl = 'https://npl-tools-api-dev-app-service.azurewebsites.net/api/';
-const prodUrl = 'https://npl-tools-api-prod-app-service.noplaceleft.tools/api/';
+const devUrl = 'https://npl-tools-api-dev.genmapper.com/api/';
+const prodUrl = 'https://npl-tools-api.genmapper.com/api/';
 
 let _BaseUrl: string = prodUrl;
 

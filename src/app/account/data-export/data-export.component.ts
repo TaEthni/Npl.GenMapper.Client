@@ -11,6 +11,7 @@ import { DocumentDto } from '@models/document.model';
 import { Template } from '@models/template.model';
 import { map, takeUntil } from 'rxjs/operators';
 import { DataExportDialogComponent } from '../data-export-dialog/data-export-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-data-export',
@@ -27,6 +28,7 @@ export class DataExportComponent extends Unsubscribable implements OnInit {
     public textFilter = new FormControl();
     public typeFilter = new FormControl();
     public isLoading: boolean;
+    public timeoutError: boolean;
 
     private docs: DocumentDto[];
 
@@ -46,7 +48,8 @@ export class DataExportComponent extends Unsubscribable implements OnInit {
         private entityService: EntityService,
         private templateService: TemplateService,
         private dialog: MatDialog,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private router: Router,
     ) { super(); }
 
     public ngOnInit(): void {
@@ -124,14 +127,25 @@ export class DataExportComponent extends Unsubscribable implements OnInit {
             documentIds: this.selection.selected.map(d => d.id)
         };
 
-        this.entityService.customPost<any[]>('export/cotw', payload).subscribe(result => {
-            this.isLoading = false;
-            console.log(result);
-            if (result.length) {
-                this.downloadService.downloadJsonToCSV(result);
-            } else {
-                this.snackBar.open('No valid location data found from the selected documents', 'Ok', { duration: 10000 });
-            }
-        });
+        this.entityService.customPost<any[]>('export/cotw', payload)
+            .subscribe(
+                result => {
+                    this.isLoading = false;
+
+                    if (result.length) {
+                        this.downloadService.downloadJsonToCSV(result);
+                    } else {
+                        this.snackBar.open('No valid location data found from the selected documents', 'Ok', { duration: 10000 });
+                    }
+                },
+                error => {
+                    this.isLoading = false;
+                    if (error.error.errorCode === 40106) {
+                        this.router.navigate(['/account', 'data-export-unauthorized']);
+                    } else {
+                        this.router.navigate(['/account', 'data-export-pending']);
+                    }
+                }
+            );
     }
 }
