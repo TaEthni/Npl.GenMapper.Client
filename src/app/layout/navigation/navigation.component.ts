@@ -8,7 +8,8 @@ import i18next from 'i18next';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UpdatesService } from '../../updates/updates.service';
-import { SupportDialogComponent, SupportDialogConfig } from '../support-dialog/support-dialog.component';
+import { SupportDialogV1Component, SupportDialogConfig } from '../support-dialog-v1/support-dialog-v1.component';
+import { SupportDialogComponent } from '../support-dialog/support-dialog.component';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     }
 
     public sendFeedback(): void {
-        this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
+        this.dialog.open<SupportDialogV1Component, SupportDialogConfig, void>(SupportDialogV1Component, {
             data: {
                 authenticated: this.authenticated,
                 user: this.user,
@@ -63,12 +64,14 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     }
 
     public help(): void {
-        this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
-            data: {
-                authenticated: this.authenticated,
-                user: this.user,
-                isFeedback: false,
-            }
-        });
+        this.dialog.open<SupportDialogComponent, void, void>(SupportDialogComponent);
+
+        // this.dialog.open<SupportDialogV1Component, SupportDialogConfig, void>(SupportDialogV1Component, {
+        //     data: {
+        //         authenticated: this.authenticated,
+        //         user: this.user,
+        //         isFeedback: false,
+        //     }
+        // });
     }
 }

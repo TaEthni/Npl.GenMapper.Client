@@ -7,8 +7,9 @@ import { SharedModule } from '@shared/shared.module';
 import { LayoutUnauthenticatedComponent } from './layout-unauthenticated/layout-unauthenticated.component';
 import { LayoutComponent } from './layout/layout.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { SupportDialogComponent } from './support-dialog/support-dialog.component';
+import { SupportDialogV1Component } from './support-dialog-v1/support-dialog-v1.component';
 import { UserAgreementNotificationComponent } from './user-agreement-notification/user-agreement-notification.component';
+import { SupportDialogComponent } from './support-dialog/support-dialog.component';
 
 @NgModule({
     imports: [
@@ -22,15 +23,17 @@ import { UserAgreementNotificationComponent } from './user-agreement-notificatio
         LayoutComponent,
         LayoutUnauthenticatedComponent,
         NavigationComponent,
-        SupportDialogComponent,
-        UserAgreementNotificationComponent
+        SupportDialogV1Component,
+        UserAgreementNotificationComponent,
+        SupportDialogComponent
     ],
     exports: [
         NavigationComponent,
         UserAgreementNotificationComponent
     ],
     entryComponents: [
-        SupportDialogComponent
+        SupportDialogComponent,
+        SupportDialogV1Component
     ]
 })
 export class LayoutModule { }
