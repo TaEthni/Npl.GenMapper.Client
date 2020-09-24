@@ -38,7 +38,10 @@ export interface PeopleGroupConfig {
     byCountry?: Dictionary<PeopleGroupModelItem[]>;
 }
 
-export const LOCALE_STORAGE_KEY = '_locale_pg-v1';
+export const LOCALE_STORAGE_KEY = '_locale_pg-v2';
+
+const OLD_KEYS = ['_locale_pg-v1'];
+OLD_KEYS.forEach(KEY => localStorage.removeItem(KEY));
 
 export const UnknownPeopleGroup = {
     NmDisp: 'Unknown',
