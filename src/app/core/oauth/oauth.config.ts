@@ -1,13 +1,15 @@
-import { environment } from '../../../environments/environment';
 import { AuthConfig } from 'angular-oauth2-oidc';
+
+import { environment } from '../../../environments/environment';
 
 const config = {
     authority: environment.authConfig.authority,
     clientId: environment.authConfig.clientId,
     loginEndpoint: '/connect/authorize',
     userEndpoint: '/connect/userinfo',
+    tokenEndpoint: '/connect/token',
     responseType: 'code',
-    scope: 'profile openid web_api',
+    scope: 'profile openid IdentityServerApi web_api roles npl_api',
 }
 
 export const authConfig: AuthConfig = {
@@ -16,6 +18,7 @@ export const authConfig: AuthConfig = {
 
     loginUrl: config.authority + config.loginEndpoint,
     userinfoEndpoint: config.authority + config.userEndpoint,
+    tokenEndpoint: config.authority + config.tokenEndpoint,
 
     // URL of the SPA to redirect the user to after login
     redirectUri: window.location.origin + '/index.html',

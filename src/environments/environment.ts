@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 const devUrl = 'https://dev-api.noplaceleft.tools/api/';
-const localUrl = 'https://localhost:6001/api/';
+const localUrl = 'https://localhost:7001/api/';
 // const localUrl = devUrl;
 
 export const environment = {
@@ -12,7 +12,7 @@ export const environment = {
     apiBase: localUrl,
     authConfig: {
         // authority: 'https://localhost:5001',
-        authority: 'https://taethni-idp.azurewebsites.net',
+        authority: 'https://idp-qa.taethni.com',
         clientId: 'angular_spa_local'
     }
 };

@@ -17,10 +17,10 @@ export class Entity implements IEntity {
 
 export enum EntityType {
     PeopleGroups = 'people-groups',
-    AllDocuments = 'documents-all',
-    Documents = 'documents',
+    AllDocuments = 'streams-all',
+    Documents = 'streams',
     Users = 'users',
-    DocumentNodes = 'document/nodes',
+    DocumentNodes = 'streams/nodes',
     Nodes = 'nodes',
     AllNodes = 'nodes-all'
 }
