@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { AuthenticationService } from '@core/authentication.service';
 import { LocaleService, TranslationType } from '@core/locale.service';
 import { Unsubscribable } from '@core/Unsubscribable';
@@ -9,6 +10,8 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { UpdatesService } from '../../updates/updates.service';
+import { SupportDialogConfig, SupportDialogV1Component } from '../support-dialog-v1/support-dialog-v1.component';
+import { SupportDialogComponent } from '../support-dialog/support-dialog.component';
 
 
 @Component({
@@ -23,7 +26,7 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     public userProfile: UserProfile
 
     constructor(
-        // private dialog: MatDialog,
+        private dialog: MatDialog,
         private localeService: LocaleService,
         private updatesService: UpdatesService,
         private authService: AuthenticationService,
@@ -61,17 +64,19 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     }
 
     public sendFeedback(): void {
-        // this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
-        //     data: {
-        //         authenticated: this.authenticated,
-        //         user: this.user,
-        //         isFeedback: true,
-        //     }
-        // });
+        this.dialog.open<SupportDialogV1Component, SupportDialogConfig, void>(SupportDialogV1Component, {
+            data: {
+                authenticated: this.isLoggedIn,
+                user: this.userProfile,
+                isFeedback: true,
+            }
+        });
     }
 
     public help(): void {
-        // this.dialog.open<SupportDialogComponent, SupportDialogConfig, void>(SupportDialogComponent, {
+        this.dialog.open<SupportDialogComponent, void, void>(SupportDialogComponent);
+
+        // this.dialog.open<SupportDialogV1Component, SupportDialogConfig, void>(SupportDialogV1Component, {
         //     data: {
         //         authenticated: this.authenticated,
         //         user: this.user,

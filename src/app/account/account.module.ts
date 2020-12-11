@@ -8,6 +8,9 @@ import { DataExportComponent } from './data-export/data-export.component';
 import { DetailFormComponent } from './detail-form/detail-form.component';
 import { DetailComponent } from './detail/detail.component';
 import { UserAgreementComponent } from './user-agreement/user-agreement.component';
+import { DataExportDownloadComponent } from './data-export-download/data-export-download.component';
+import { DataExportPendingComponent } from './data-export-pending/data-export-pending.component';
+import { DataExportUnauthorizedComponent } from './data-export-unauthorized/data-export-unauthorized.component';
 
 @NgModule({
     imports: [
@@ -21,7 +24,10 @@ import { UserAgreementComponent } from './user-agreement/user-agreement.componen
         DetailFormComponent,
         UserAgreementComponent,
         DataExportComponent,
-        DataExportDialogComponent
+        DataExportDialogComponent,
+        DataExportDownloadComponent,
+        DataExportPendingComponent,
+        DataExportUnauthorizedComponent
     ],
     entryComponents: [DataExportDialogComponent],
     exports: [DetailFormComponent],

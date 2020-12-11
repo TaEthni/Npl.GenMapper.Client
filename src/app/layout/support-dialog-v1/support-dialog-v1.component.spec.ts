@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DataExportComponent } from './data-export.component';
 
+import { SupportDialogV1Component } from './support-dialog-v1.component';
 
-describe('DataExportComponent', () => {
-    let component: DataExportComponent;
-    let fixture: ComponentFixture<DataExportComponent>;
+xdescribe('SupportDialogV1Component', () => {
+    let component: SupportDialogV1Component;
+    let fixture: ComponentFixture<SupportDialogV1Component>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [DataExportComponent]
+            declarations: [SupportDialogV1Component]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DataExportComponent);
+        fixture = TestBed.createComponent(SupportDialogV1Component);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

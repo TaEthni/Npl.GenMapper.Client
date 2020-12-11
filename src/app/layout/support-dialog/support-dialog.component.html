@@ -1,93 +1,18 @@
 <div mat-dialog-title>
-    <ng-container *ngIf="data.isFeedback; then feedbackTemp else helpTemp"></ng-container>
-    <ng-template #feedbackTemp>
-        {{'Common_SendFeedback' | locale | async}}
-    </ng-template>
-    <ng-template #helpTemp>
-        {{'Common_NeedHelp' | locale | async}}
-    </ng-template>
+    {{'Common_NeedHelp' | locale | async}}
 </div>
 <div mat-dialog-content>
-
-    <form fxLayout="column"
-          fxLayoutGap="24px"
-          [formGroup]="form">
-
-        <ng-container *ngIf="!data.authenticated">
-            <mat-form-field>
-                <mat-label>
-                    {{'Common_Name' | locale | async}}
-                </mat-label>
-                <input matInput
-                       formControlName="name" />
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>
-                    {{'Common_Email' | locale | async}}
-                </mat-label>
-                <input matInput
-                       required
-                       formControlName="email" />
-
-                <mat-error *ngIf="form.controls.email.errors?.pattern">
-                    {{'Error_emailFormat' | locale | async}}
-                </mat-error>
-
-                <mat-error *ngIf="form.controls.email.errors?.required">
-                    {{'Error_requiredField' | locale | async}}
-                </mat-error>
-            </mat-form-field>
-        </ng-container>
-
-        <mat-form-field>
-            <textarea matInput
-                      required
-                      formControlName="content"
-                      placeholder="{{data.isFeedback ? 'Feedback' : 'How can we help you?'}}"
-                      cdkTextareaAutosize
-                      cdkAutosizeMinRows="2"
-                      cdkAutosizeMaxRows="30"></textarea>
-
-            <mat-error *ngIf="form.controls.content.errors?.required">
-                {{'Error_requiredField' | locale | async}}
-            </mat-error>
-        </mat-form-field>
-    </form>
-
-    <p>
-        {{'Message_orSendEmailTo' | locale | async}}:
-    </p>
-    <ng-container *ngIf="data.isFeedback; then feedbackEmail else supportEmail"></ng-container>
-
-    <ng-template #feedbackEmail>
-        <pre><code>feedback@noplaceleft.tools</code></pre>
-    </ng-template>
-
-    <ng-template #supportEmail>
-        <pre><code>support@noplaceleft.tools</code></pre>
-    </ng-template>
+    <p>{{'Common_SendAnEmailTo' | locale | async }}:</p>
+    <pre><code>support@genmapper.com</code></pre>
 </div>
 
 <div mat-dialog-actions
      fxLayoutAlign="end"
      fxLayoutGap="25px">
 
-    <button mat-raised-button
-            class="mat-spinner-button"
-            color="primary"
-            type="button"
-            (click)="onSubmit()">
-        <div>
-            {{'Common_Send' | locale | async}}
-        </div>
-        <mat-spinner *ngIf="isLoading"
-                     diameter="24"></mat-spinner>
-    </button>
-
     <button mat-button
             color="primary"
             mat-dialog-close>
-        {{'Common_Cancel' | locale | async}}
+        {{'Common_Ok' | locale | async}}
     </button>
 </div>

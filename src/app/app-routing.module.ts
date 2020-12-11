@@ -25,6 +25,9 @@ import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
 import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
 import { NoDocumentViewComponent } from './tools/gen-mapper/views/no-document-view/no-document-view.component';
 import { ToolsComponent } from './tools/tools/tools.component';
+import { DataExportDownloadComponent } from './account/data-export-download/data-export-download.component';
+import { DataExportPendingComponent } from './account/data-export-pending/data-export-pending.component';
+import { DataExportUnauthorizedComponent } from './account/data-export-unauthorized/data-export-unauthorized.component';
 
 const appRoutes: Routes = [
     {
@@ -90,6 +93,27 @@ const appRoutes: Routes = [
             {
                 path: 'account/data-export',
                 component: DataExportComponent,
+                canActivate: [AuthenticationGuard, DesktopOnlyGuard],
+                resolve: {
+                    user: UserResolver
+                }
+            },
+            {
+                path: 'account/data-export-pending',
+                component: DataExportPendingComponent,
+                canActivate: [AuthenticationGuard, DesktopOnlyGuard],
+                resolve: {
+                    user: UserResolver
+                }
+            },
+            {
+                path: 'account/data-export-unauthorized',
+                component: DataExportUnauthorizedComponent,
+                canActivate: [DesktopOnlyGuard]
+            },
+            {
+                path: 'account/data-export/:sessionId',
+                component: DataExportDownloadComponent,
                 canActivate: [AuthenticationGuard, DesktopOnlyGuard],
                 resolve: {
                     user: UserResolver
