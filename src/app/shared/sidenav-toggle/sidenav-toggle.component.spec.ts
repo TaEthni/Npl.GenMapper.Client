@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SidenavToggleComponent } from './sidenav-toggle.component';
 
@@ -6,7 +6,7 @@ xdescribe('SidenavToggleComponent', () => {
     let component: SidenavToggleComponent;
     let fixture: ComponentFixture<SidenavToggleComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [SidenavToggleComponent]
         })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { InvalidCsvDialogComponent } from './invalid-csv-dialog.component';
 
 
@@ -6,7 +6,7 @@ describe('InvalidCsvDialogComponent', () => {
     let component: InvalidCsvDialogComponent;
     let fixture: ComponentFixture<InvalidCsvDialogComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [InvalidCsvDialogComponent]
         })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NplLogoComponent } from './npl-logo.component';
 
@@ -6,7 +6,7 @@ xdescribe('NplLogoComponent', () => {
     let component: NplLogoComponent;
     let fixture: ComponentFixture<NplLogoComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [NplLogoComponent]
         })

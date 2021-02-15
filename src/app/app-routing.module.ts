@@ -181,7 +181,8 @@ const maintenanceRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             // Configuration is for local mode
-            { onSameUrlNavigation: 'reload' }
+            // Configuration is for local mode
+{ onSameUrlNavigation: 'reload', relativeLinkResolution: 'legacy' }
         )
     ],
     exports: [
