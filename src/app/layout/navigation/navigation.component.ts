@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { LocaleService, TranslationType } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';

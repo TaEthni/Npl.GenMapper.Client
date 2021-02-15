@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSliderChange } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSliderChange } from '@angular/material/slider';
 import { UnknownPeopleGroup } from '@npl-core/people-group.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { ActionType } from '@npl-models/action-type';

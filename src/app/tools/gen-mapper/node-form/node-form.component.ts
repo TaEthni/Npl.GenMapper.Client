@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MAT_DATE_FORMATS, MatDatepicker, MatDialog, MatDialogRef } from '@angular/material';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MapsService } from '@npl-core/maps.service';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
