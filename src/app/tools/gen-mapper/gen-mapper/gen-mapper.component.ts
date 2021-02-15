@@ -36,7 +36,7 @@ import { GenMapperGraphComponent } from '../views/gen-mapper-graph/gen-mapper-gr
     providers: [NodeTreeService]
 })
 export class GenMapperComponent extends Unsubscribable implements OnInit {
-    @ViewChild(GenMapperGraphComponent, { static: false })
+    @ViewChild(GenMapperGraphComponent)
     public genMapperGraph: GenMapperGraphComponent;
 
     @HostBinding('class.is-authenticated')

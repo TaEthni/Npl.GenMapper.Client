@@ -24,11 +24,11 @@
             ]
         }
     },
-    "exclude": [
-        "**/translations.ts",
-        "**/templates/*.ts",
-        "setupJest.ts",
-        "**/*.spec.ts",
-        "app/tools/gen-mapper/gen-map.ts"
-    ]
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }

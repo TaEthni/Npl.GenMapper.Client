@@ -33,12 +33,12 @@ export class DataExportComponent extends Unsubscribable implements OnInit {
 
     private docs: DocumentDto[];
 
-    @ViewChild(MatPaginator, { static: false })
+    @ViewChild(MatPaginator)
     public set matPaginator(paginator: MatPaginator) {
         this.dataSource.paginator = paginator;
     }
 
-    @ViewChild(MatSort, { static: false })
+    @ViewChild(MatSort)
     public set matSort(sort: MatSort) {
         this.dataSource.sort = sort;
     }
