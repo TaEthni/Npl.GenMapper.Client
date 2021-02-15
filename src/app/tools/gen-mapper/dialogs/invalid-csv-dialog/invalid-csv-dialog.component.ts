@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DownloadService } from '@core/download.service';
+import { DownloadService } from '@npl-core/download.service';
 
 @Component({
     selector: 'app-invalid-csv-dialog',

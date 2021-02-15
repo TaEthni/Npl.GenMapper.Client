@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DownloadService } from '@core/download.service';
-import { translations as i18nTranslations } from '@templates';
+import { DownloadService } from '@npl-core/download.service';
 import { csvFormatRows } from 'd3';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { TranslationService, Language, Key } from '../translation.service';
+
+import { Language, TranslationService } from '../translation.service';
 
 
 @Component({

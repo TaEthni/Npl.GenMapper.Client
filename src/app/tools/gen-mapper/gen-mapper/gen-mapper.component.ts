@@ -2,17 +2,18 @@ import { Component, HostBinding, OnInit, Optional, ViewChild } from '@angular/co
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { CSVToJSON } from '@core/csv-to-json';
-import { LocaleService } from '@core/locale.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { CSVToJSON } from '@npl-core/csv-to-json';
+import { LocaleService } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { DocumentDto } from '@npl-models/document.model';
+import { NodeDto } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
 import { some } from 'lodash';
 import { of } from 'rxjs';
 import { catchError, delayWhen, switchMap, take, takeUntil } from 'rxjs/operators';
+
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from '../dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
@@ -21,7 +22,10 @@ import { GenMapperView } from '../gen-mapper-view.enum';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { NodeTreeService } from '../node-tree/node-tree.service';
-import { SavingErrorSnackbarComponent, SavingErrorSnackBarConfig } from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
+import {
+    SavingErrorSnackbarComponent,
+    SavingErrorSnackBarConfig,
+} from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
 import { SavingSnackbarComponent, SavingSnackBarConfig } from '../snackbars/saving-snackbar/saving-snackbar.component';
 import { GenMapperGraphComponent } from '../views/gen-mapper-graph/gen-mapper-graph.component';
 

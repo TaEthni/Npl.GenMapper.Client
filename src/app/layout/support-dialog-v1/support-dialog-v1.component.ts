@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SupportService } from '@core/support.service';
-import { User } from '@models/user.model';
-import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SupportService } from '@npl-core/support.service';
+import { User } from '@npl-models/user.model';
+import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
 import { Observable } from 'rxjs';
 
 export interface SupportDialogConfig {

@@ -1,9 +1,21 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    NgZone,
+    OnInit,
+    Output,
+    ViewChild,
+} from '@angular/core';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { NodeDto } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
 import { takeUntil } from 'rxjs/operators';
+
 import { NodeDatum } from '../../gen-mapper.interface';
 import { D3NodeTree } from '../../node-tree/d3-node-tree';
 import { NodeTreeService } from '../../node-tree/node-tree.service';

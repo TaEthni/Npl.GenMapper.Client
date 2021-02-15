@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EntityService } from '@core/entity.service';
-import { result } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
-import { DownloadService } from '@core/download.service';
+import { DownloadService } from '@npl-core/download.service';
+import { EntityService } from '@npl-core/entity.service';
+import { result } from 'lodash';
 
 @Component({
     selector: 'app-data-export-download',

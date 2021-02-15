@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
-import { LocaleService } from '@core/locale.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { Template } from '@models/template.model';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { LocaleService } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { DocumentDto } from '@npl-models/document.model';
+import { Template } from '@npl-models/template.model';
 import { takeUntil } from 'rxjs/operators';
+
 import { GenMapperView } from '../gen-mapper-view.enum';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';

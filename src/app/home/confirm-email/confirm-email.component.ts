@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
+import { AuthenticationService } from '@npl-core/authentication.service';
 
 @Component({
     selector: 'app-confirm-email',

@@ -3,11 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { EntityService } from '@core/entity.service';
-import { Entity } from '@models/entity.model';
-import { User } from '@models/user.model';
+import { EntityService } from '@npl-core/entity.service';
+import { Entity } from '@npl-models/entity.model';
+import { User } from '@npl-models/user.model';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
+
 import { DetailComponent } from './detail.component';
 
 

@@ -23,11 +23,11 @@
             "jest-localstorage-mock"
         ],
         "moduleNameMapper": {
-            "@shared/(.*)": "<rootDir>/src/app/shared/$1",
-            "@core/(.*)": "<rootDir>/src/app/core/$1",
-            "@models/(.*)": "<rootDir>/src/app/models/$1",
-            "@admin/(.*)": "<rootDir>/src/app/admin/$1",
-            "@templates": "<rootDir>/src/templates/index",
+            "@npl-shared/(.*)": "<rootDir>/src/app/shared/$1",
+            "@npl-core/(.*)": "<rootDir>/src/app/core/$1",
+            "@npl-models/(.*)": "<rootDir>/src/app/models/$1",
+            "@npl-admin/(.*)": "<rootDir>/src/app/admin/$1",
+            "@npl-template": "<rootDir>/src/templates/index",
             "@agm/core": "<rootDir>/src/app/core/testing/agmcore.mock.ts"
         }
     },

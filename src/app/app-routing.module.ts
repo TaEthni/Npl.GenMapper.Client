@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationGuard } from '@core/authentication.guard';
-import { DesktopOnlyGuard } from '@core/desktop-only.quard';
-import { UserResolver } from '@core/user.resolver';
+import { DesktopOnlyGuard } from '@npl-core/desktop-only.quard';
+import { OAuthGuard } from '@npl-core/oauth/oauth.guard';
+import { UserResolver } from '@npl-core/user.resolver';
+
+import { DataExportDownloadComponent } from './account/data-export-download/data-export-download.component';
+import { DataExportPendingComponent } from './account/data-export-pending/data-export-pending.component';
+import { DataExportUnauthorizedComponent } from './account/data-export-unauthorized/data-export-unauthorized.component';
 import { DataExportComponent } from './account/data-export/data-export.component';
 import { DetailComponent } from './account/detail/detail.component';
 import { UserAgreementComponent } from './account/user-agreement/user-agreement.component';
@@ -25,9 +29,6 @@ import { GenMapperResolver } from './tools/gen-mapper/gen-mapper.resolver';
 import { GenMapperComponent } from './tools/gen-mapper/gen-mapper/gen-mapper.component';
 import { NoDocumentViewComponent } from './tools/gen-mapper/views/no-document-view/no-document-view.component';
 import { ToolsComponent } from './tools/tools/tools.component';
-import { DataExportDownloadComponent } from './account/data-export-download/data-export-download.component';
-import { DataExportPendingComponent } from './account/data-export-pending/data-export-pending.component';
-import { DataExportUnauthorizedComponent } from './account/data-export-unauthorized/data-export-unauthorized.component';
 
 const appRoutes: Routes = [
     {
@@ -77,7 +78,7 @@ const appRoutes: Routes = [
             {
                 path: 'account',
                 component: DetailComponent,
-                canActivate: [AuthenticationGuard],
+                canActivate: [OAuthGuard],
                 resolve: {
                     user: UserResolver
                 }
@@ -85,7 +86,7 @@ const appRoutes: Routes = [
             {
                 path: 'account/user-agreement',
                 component: UserAgreementComponent,
-                canActivate: [AuthenticationGuard],
+                canActivate: [OAuthGuard],
                 resolve: {
                     user: UserResolver
                 }
@@ -93,7 +94,7 @@ const appRoutes: Routes = [
             {
                 path: 'account/data-export',
                 component: DataExportComponent,
-                canActivate: [AuthenticationGuard, DesktopOnlyGuard],
+                canActivate: [OAuthGuard, DesktopOnlyGuard],
                 resolve: {
                     user: UserResolver
                 }
@@ -101,7 +102,7 @@ const appRoutes: Routes = [
             {
                 path: 'account/data-export-pending',
                 component: DataExportPendingComponent,
-                canActivate: [AuthenticationGuard, DesktopOnlyGuard],
+                canActivate: [OAuthGuard, DesktopOnlyGuard],
                 resolve: {
                     user: UserResolver
                 }
@@ -114,7 +115,7 @@ const appRoutes: Routes = [
             {
                 path: 'account/data-export/:sessionId',
                 component: DataExportDownloadComponent,
-                canActivate: [AuthenticationGuard, DesktopOnlyGuard],
+                canActivate: [OAuthGuard, DesktopOnlyGuard],
                 resolve: {
                     user: UserResolver
                 }

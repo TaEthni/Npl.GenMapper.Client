@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
-import { Unsubscribable } from '@core/Unsubscribable';
 import { MatSidenav } from '@angular/material/sidenav';
+import { NavigationStart, Router } from '@angular/router';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

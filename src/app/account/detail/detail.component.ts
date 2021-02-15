@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { User } from '@models/user.model';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { User } from '@npl-models/user.model';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -14,18 +15,21 @@ export class DetailComponent extends Unsubscribable implements OnInit {
     public user: User;
 
     constructor(
+        private authService: AuthenticationService,
         private route: ActivatedRoute,
         private snackBar: MatSnackBar
     ) { super(); }
 
     public ngOnInit(): void {
-        this.route.data.pipe(takeUntil(this.unsubscribe))
+        this.authService.getUser().pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {
-                this.user = result.user;
+                this.user = result;
+                console.log(this.user);
             });
     }
 
     public onSubmit(): void {
         this.snackBar.open('You account has been saved', 'Ok', { duration: 10000 });
+        this.authService.refreshUser();
     }
 }

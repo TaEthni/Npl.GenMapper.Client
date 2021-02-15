@@ -1,5 +1,5 @@
-import { NodeDto } from "@models/node.model";
-import { HierarchyPointNode } from "d3";
+import { NodeDto } from '@npl-models/node.model';
+import { HierarchyPointNode } from 'd3';
 
 export interface GMGraphConfig {
     parentElement?: HTMLElement;

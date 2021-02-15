@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '@core/layout.service';
+import { Component } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { LayoutService } from '@npl-core/layout.service';
 
 @Component({
     selector: 'app-sidenav-toggle',

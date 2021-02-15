@@ -1,9 +1,8 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
 
 @Component({
     selector: 'app-login',

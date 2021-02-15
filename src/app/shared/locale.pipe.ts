@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LocaleService } from '@core/locale.service';
-import { Unsubscribable } from '@core/Unsubscribable';
+import { LocaleService } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
-import { NodeDto } from "@models/node.model";
-import { Template } from "@models/template.model";
-import { ControlType } from "@templates";
-import { csvFormatRows } from "d3";
+import { NodeDto } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { ControlType } from '@npl-template';
+import { csvFormatRows } from 'd3';
 
 export function TemplateJSONToCSV(data: NodeDto[], template: Template): string {
 

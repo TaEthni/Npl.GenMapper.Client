@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WhatsNewDialogComponent } from './whats-new-dialog/whats-new-dialog.component';
-import { SharedModule } from '@shared/shared.module';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { UpdatesComponent } from './updates/updates.component';
+import { SharedModule } from '@npl-shared/shared.module';
+
 import { UpdatesService } from './updates.service';
+import { UpdatesComponent } from './updates/updates.component';
+import { WhatsNewDialogComponent } from './whats-new-dialog/whats-new-dialog.component';
 
 
 

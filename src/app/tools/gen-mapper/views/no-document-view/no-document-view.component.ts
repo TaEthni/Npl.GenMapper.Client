@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { CSVToJSON } from '@core/csv-to-json';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { IFlatNode } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { CSVToJSON } from '@npl-core/csv-to-json';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { DocumentDto } from '@npl-models/document.model';
+import { IFlatNode } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
 import { takeUntil } from 'rxjs/operators';
+
 import { CreateDocumentDialogComponent } from '../../dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from '../../dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
 import { GenMapperService } from '../../gen-mapper.service';

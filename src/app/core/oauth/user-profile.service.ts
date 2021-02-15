@@ -1,8 +1,7 @@
-import { Injectable } from "@angular/core";
-import { OAuthService } from "angular-oauth2-oidc";
-import { Observable, BehaviorSubject, ReplaySubject } from "rxjs";
-import { UserProfile } from "@models/UserProfile.model";
-import { User } from "@models/user.model";
+import { Injectable } from '@angular/core';
+import { UserProfile } from '@npl-models/UserProfile.model';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'

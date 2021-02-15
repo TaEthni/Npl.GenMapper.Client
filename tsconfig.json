@@ -24,19 +24,19 @@
             "dom"
         ],
         "paths": {
-            "@shared/*": [
+            "@npl-shared/*": [
                 "src/app/shared/*"
             ],
-            "@core/*": [
+            "@npl-core/*": [
                 "src/app/core/*"
             ],
-            "@models/*": [
+            "@npl-models/*": [
                 "src/app/models/*"
             ],
-            "@admin/*": [
+            "@npl-admin/*": [
                 "src/app/admin/*"
             ],
-            "@templates": [
+            "@npl-template": [
                 "src/templates/index"
             ],
             "lodash": [

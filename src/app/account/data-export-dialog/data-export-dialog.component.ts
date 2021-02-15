@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DocumentDto } from '@models/document.model';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { DocumentDto } from '@npl-models/document.model';
 
 @Component({
     selector: 'app-data-export-dialog',

@@ -2,16 +2,17 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
-import { DocumentService } from '@core/document.service';
-import { DownloadService } from '@core/download.service';
-import { EntityService } from '@core/entity.service';
-import { TemplateService } from '@core/template.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { Template } from '@models/template.model';
-import { map, takeUntil } from 'rxjs/operators';
-import { DataExportDialogComponent } from '../data-export-dialog/data-export-dialog.component';
 import { Router } from '@angular/router';
+import { DocumentService } from '@npl-core/document.service';
+import { DownloadService } from '@npl-core/download.service';
+import { EntityService } from '@npl-core/entity.service';
+import { TemplateService } from '@npl-core/template.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { DocumentDto } from '@npl-models/document.model';
+import { Template } from '@npl-models/template.model';
+import { map, takeUntil } from 'rxjs/operators';
+
+import { DataExportDialogComponent } from '../data-export-dialog/data-export-dialog.component';
 
 @Component({
     selector: 'app-data-export',

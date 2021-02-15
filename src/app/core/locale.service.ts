@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { translations } from '@templates';
+import { translations } from '@npl-template';
 import i18next from 'i18next';
 import { BehaviorSubject, Observable } from 'rxjs';
 

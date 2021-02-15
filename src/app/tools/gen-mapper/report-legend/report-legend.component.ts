@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { GMReport, ReportType, ValueType } from '@templates';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { DocumentDto } from '@npl-models/document.model';
+import { NodeDto } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { GMReport, ReportType, ValueType } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
+
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeTreeService } from '../node-tree/node-tree.service';
 

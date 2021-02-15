@@ -1,8 +1,9 @@
 import 'hammerjs';
+
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { Browser } from '@core/browser';
-import { Device } from '@core/platform';
+import { Browser } from '@npl-core/browser';
+import { Device } from '@npl-core/platform';
 import i18next from 'i18next';
 import i18nextBrowserLanguageDetector from 'i18next-browser-languagedetector';
 import { defaultsDeep } from 'lodash';

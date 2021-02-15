@@ -1,11 +1,13 @@
-import { AdminModule } from '@admin/admin.module';
 import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from '@core/core.module';
-import { GenMapperConfigs, GenMapperTemplates } from '@templates';
+import { AdminModule } from '@npl-admin/admin.module';
+import { CoreModule } from '@npl-core/core.module';
+import { GenMapperConfigs, GenMapperTemplates } from '@npl-template';
+import { OAuthModule } from 'angular-oauth2-oidc';
+
 import { environment } from '../environments/environment';
 import { AccountModule } from './account/account.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,10 +17,6 @@ import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
 import { ToolsModule } from './tools/tools.module';
 import { UpdatesModule } from './updates/updates.module';
-import { OAuthInitializerService } from '@core/oauth/initializer.service';
-import { OAuthService, OAuthModule } from 'angular-oauth2-oidc';
-import { OAuthInterceptor } from '@core/oauth/oauth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
     declarations: [

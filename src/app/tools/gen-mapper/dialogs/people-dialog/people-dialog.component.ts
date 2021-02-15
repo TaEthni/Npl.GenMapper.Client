@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef, MatSliderChange, MAT_DIALOG_DATA } from '@angular/material';
-import { UnknownPeopleGroup } from '@core/people-group.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { ActionType } from '@models/action-type';
-import { PeopleAttributes } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { GMField } from '@templates';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSliderChange } from '@angular/material';
+import { UnknownPeopleGroup } from '@npl-core/people-group.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { ActionType } from '@npl-models/action-type';
+import { PeopleAttributes } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { GMField } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
 
 export interface PeopleDialogResponse {

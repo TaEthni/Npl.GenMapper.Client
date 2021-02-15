@@ -1,11 +1,12 @@
 import { AgmMap } from '@agm/core';
 import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { MapsService } from '@core/maps.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { Utils } from '@core/utils';
-import { NodeDto } from '@models/node.model';
-import { GMTemplate } from '@templates';
+import { MapsService } from '@npl-core/maps.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { Utils } from '@npl-core/utils';
+import { NodeDto } from '@npl-models/node.model';
+import { GMTemplate } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
+
 import { GenMapperService } from '../../gen-mapper.service';
 import { NodeTreeService } from '../../node-tree/node-tree.service';
 

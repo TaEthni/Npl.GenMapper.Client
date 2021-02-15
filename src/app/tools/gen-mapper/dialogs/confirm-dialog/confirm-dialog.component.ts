@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LocaleService } from '@core/locale.service';
+import { LocaleService } from '@npl-core/locale.service';
 
 export interface ConfirmConfig {
     title?: string;

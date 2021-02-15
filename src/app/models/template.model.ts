@@ -1,8 +1,9 @@
-import { UnknownPeopleGroup } from "@core/people-group.service";
-import { GMField, GMSvg, GMTemplate, TemplateConfiguration } from "@templates";
-import { cloneDeep, Dictionary, keyBy } from "lodash";
-import uuid from "uuid";
-import { NodeDto, PeopleAttributes } from "./node.model";
+import { UnknownPeopleGroup } from '@npl-core/people-group.service';
+import { GMField, GMSvg, GMTemplate, TemplateConfiguration } from '@npl-template';
+import { cloneDeep, Dictionary, keyBy } from 'lodash';
+import uuid from 'uuid';
+
+import { NodeDto, PeopleAttributes } from './node.model';
 
 export class Template extends GMTemplate {
     private _svgsById: Dictionary<GMSvg>;

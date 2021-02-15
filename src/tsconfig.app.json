@@ -4,19 +4,19 @@
         "outDir": "../out-tsc/app",
         "baseUrl": "./",
         "paths": {
-            "@shared/*": [
+            "@npl-shared/*": [
                 "app/shared/*"
             ],
-            "@core/*": [
+            "@npl-core/*": [
                 "app/core/*"
             ],
-            "@models/*": [
+            "@npl-models/*": [
                 "app/models/*"
             ],
-            "@admin/*": [
+            "@npl-admin/*": [
                 "app/admin/*"
             ],
-            "@templates": [
+            "@npl-template": [
                 "templates/index"
             ],
             "lodash": [

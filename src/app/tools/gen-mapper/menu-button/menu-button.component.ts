@@ -1,12 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { DownloadService } from '@core/download.service';
-import { LocaleService } from '@core/locale.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { GMTemplate } from '@templates';
+import { DownloadService } from '@npl-core/download.service';
+import { LocaleService } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { DocumentDto } from '@npl-models/document.model';
+import { GMTemplate } from '@npl-template';
 import { take, takeUntil } from 'rxjs/operators';
+
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';

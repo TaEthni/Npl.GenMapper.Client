@@ -1,8 +1,9 @@
-import { IFlatNode, PeopleAttributes } from "@models/node.model";
-import { Template } from "@models/template.model";
-import { ControlType, DisciplesTemplate, FourFieldsTemplate } from "@templates";
-import { csvParse } from "d3";
-import { UnknownPeopleGroup } from "./people-group.service";
+import { IFlatNode, PeopleAttributes } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { ControlType, DisciplesTemplate, FourFieldsTemplate } from '@npl-template';
+import { csvParse } from 'd3';
+
+import { UnknownPeopleGroup } from './people-group.service';
 
 const isNumberReg = /\d/;
 

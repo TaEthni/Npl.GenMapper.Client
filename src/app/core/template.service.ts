@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { Template } from '@models/template.model';
-import { GMField, GMTemplate, TemplateConfiguration } from '@templates';
+import { Template } from '@npl-models/template.model';
+import { GMField, GMTemplate, TemplateConfiguration } from '@npl-template';
+
 import { LocaleService } from './locale.service';
 import { GM_CONFIGS, GM_TEMPLATES } from './template.injecttoken';
 

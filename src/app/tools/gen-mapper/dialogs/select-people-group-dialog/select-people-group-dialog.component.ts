@@ -1,12 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { OtherPeopleGroup, PeopleGroupConfig, PeopleGroupModelItem, PeopleGroupService } from '@core/people-group.service';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { PeopleAttributes } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { COUNTRIES } from '@templates';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {
+    OtherPeopleGroup,
+    PeopleGroupConfig,
+    PeopleGroupModelItem,
+    PeopleGroupService,
+} from '@npl-core/people-group.service';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { PeopleAttributes } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { COUNTRIES } from '@npl-template';
 import { cloneDeep } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 

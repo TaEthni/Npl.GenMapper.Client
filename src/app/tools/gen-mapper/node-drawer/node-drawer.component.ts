@@ -2,20 +2,28 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
-import { LocaleService } from '@core/locale.service';
-import { OtherPeopleGroup, UnknownPeopleGroup } from '@core/people-group.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { ActionType } from '@models/action-type';
-import { DocumentDto } from '@models/document.model';
-import { NodeDto, PeopleAttributes } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
-import { ControlType, GMField } from '@templates';
+import { LocaleService } from '@npl-core/locale.service';
+import { OtherPeopleGroup, UnknownPeopleGroup } from '@npl-core/people-group.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { ActionType } from '@npl-models/action-type';
+import { DocumentDto } from '@npl-models/document.model';
+import { NodeDto, PeopleAttributes } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
+import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
+import { ControlType, GMField } from '@npl-template';
 import { assign, cloneDeep } from 'lodash';
 import { filter, takeUntil } from 'rxjs/operators';
+
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { PeopleDialogComponent, PeopleDialogConfig, PeopleDialogResponse } from '../dialogs/people-dialog/people-dialog.component';
-import { AddPeopleGroupConfig, SelectPeopleGroupDialogComponent } from '../dialogs/select-people-group-dialog/select-people-group-dialog.component';
+import {
+    PeopleDialogComponent,
+    PeopleDialogConfig,
+    PeopleDialogResponse,
+} from '../dialogs/people-dialog/people-dialog.component';
+import {
+    AddPeopleGroupConfig,
+    SelectPeopleGroupDialogComponent,
+} from '../dialogs/select-people-group-dialog/select-people-group-dialog.component';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 

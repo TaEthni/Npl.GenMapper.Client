@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CSVToJSONNoTemplate } from '@core/csv-to-json';
-import { EntityService } from '@core/entity.service';
-import { TemplateService } from '@core/template.service';
-import { DocumentDto } from '@models/document.model';
-import { EntityType } from '@models/entity.model';
-import { IFlatNode, NodeAttributes, NodeDto } from '@models/node.model';
+import { CSVToJSONNoTemplate } from '@npl-core/csv-to-json';
+import { EntityService } from '@npl-core/entity.service';
+import { TemplateService } from '@npl-core/template.service';
+import { DocumentDto } from '@npl-models/document.model';
+import { EntityType } from '@npl-models/entity.model';
+import { IFlatNode, NodeAttributes, NodeDto } from '@npl-models/node.model';
 import { cloneDeep, groupBy } from 'lodash';
 import uuid from 'uuid';
+
 import { NodeTreeService } from '../../tools/gen-mapper/node-tree/node-tree.service';
 
 @Injectable({

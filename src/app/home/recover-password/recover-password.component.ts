@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthenticationService } from '@core/authentication.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
 
 @Component({
     selector: 'app-recover-password',

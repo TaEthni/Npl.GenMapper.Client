@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { DocumentDto } from '@models/document.model';
-import { of } from 'rxjs';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
+
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { DocumentDto } from '@npl-models/document.model';
+import { of } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { filter, take, tap } from 'rxjs/operators';
+
 import { GenMapperService } from './gen-mapper.service';
 
 

@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RouterModule, Routes } from '@angular/router';
-import { SharedModule } from '@shared/shared.module';
-import { LocalizationComponent } from './localization/localization.component';
-import { TranslateComponent } from './translate/translate.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '@npl-shared/shared.module';
+
 import { LanguageListComponent } from './language-list/language-list.component';
+import { LocalizationComponent } from './localization/localization.component';
+import { TranslateComponent } from './translate/translate.component';
 
 const routes: Routes = [
     {

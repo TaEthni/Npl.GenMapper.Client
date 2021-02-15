@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
-import { NullGuid } from '@core/constants';
-import { DocumentService } from '@core/document.service';
-import { DocumentDto, IDocumentDto } from '@models/document.model';
-import { IFlatNode, NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { NullGuid } from '@npl-core/constants';
+import { DocumentService } from '@npl-core/document.service';
+import { DocumentDto, IDocumentDto } from '@npl-models/document.model';
+import { IFlatNode, NodeDto } from '@npl-models/node.model';
+import { Template } from '@npl-models/template.model';
 import { Dictionary, keyBy } from 'lodash';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { delayWhen, filter, map, take, tap } from 'rxjs/operators';

@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { DocumentDto } from '@npl-models/document.model';
 import { Subscription } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 

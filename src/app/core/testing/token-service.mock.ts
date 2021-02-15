@@ -1,6 +1,7 @@
-import { TokenService } from '@core/token.service';
-import { Token } from '../token.model';
+import { TokenService } from '@npl-core/token.service';
 import { BehaviorSubject } from 'rxjs';
+
+import { Token } from '../token.model';
 
 export class TokenServiceMock {
     private subject = new BehaviorSubject<Token>(null);

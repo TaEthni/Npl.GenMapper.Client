@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '@shared/shared.module';
-import { SortModule } from '@shared/sort/sort.module';
+import { SharedModule } from '@npl-shared/shared.module';
+import { SortModule } from '@npl-shared/sort/sort.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 import { environment } from '../../../environments/environment';
 import { DocumentService } from '../../core/document.service';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';

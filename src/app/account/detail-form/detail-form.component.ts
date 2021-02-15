@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EntityService } from '@core/entity.service';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { EntityType } from '@models/entity.model';
-import { User } from '@models/user.model';
-import { confirmPasswordValidator } from '@shared/confirm-password.validator';
-import { htmlInputTypes, ValidationUtils } from '@shared/validationUtils';
+import { EntityService } from '@npl-core/entity.service';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { EntityType } from '@npl-models/entity.model';
+import { User } from '@npl-models/user.model';
+import { confirmPasswordValidator } from '@npl-shared/confirm-password.validator';
+import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

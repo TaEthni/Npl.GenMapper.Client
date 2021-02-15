@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
-import { TokenService } from '@core/token.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { UserProfile } from '@models/UserProfile.model';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { TokenService } from '@npl-core/token.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { UserProfile } from '@npl-models/UserProfile.model';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { AuthenticationService } from '@core/authentication.service';
-import { LocaleService, TranslationType } from '@core/locale.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { UserProfile } from '@models/UserProfile.model';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { LocaleService, TranslationType } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { UserProfile } from '@npl-models/UserProfile.model';
 import i18next from 'i18next';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

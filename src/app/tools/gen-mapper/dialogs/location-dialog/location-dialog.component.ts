@@ -1,8 +1,8 @@
 import { MapsAPILoader } from '@agm/core';
 import { AfterViewInit, Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MapsService } from '@core/maps.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MapsService } from '@npl-core/maps.service';
 
 interface MouseEvent {
     coords: { lat: number, lng: number };

@@ -3,7 +3,7 @@ import 'rxjs/add/operator/delay';
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { UserProfile } from '@models/UserProfile.model';
+import { UserProfile } from '@npl-models/UserProfile.model';
 import { Observable } from 'rxjs/Observable';
 import { filter, take } from 'rxjs/operators';
 

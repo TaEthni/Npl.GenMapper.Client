@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { BaseUrl } from './entity.service';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { SupportRequest } from '@npl-shared/support-request.model';
 import { Observable } from 'rxjs';
-import { SupportRequest } from '@shared/support-request.model';
+
+import { BaseUrl } from './entity.service';
 
 @Injectable()
 export class SupportService {

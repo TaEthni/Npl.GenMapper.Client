@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { COUNTRIES } from '@npl-template';
 import { Observable } from 'rxjs';
-import { COUNTRIES } from '@templates';
 
 const cacheKey = 'gmaps-address-latlng-cache';
 export interface LatLng {

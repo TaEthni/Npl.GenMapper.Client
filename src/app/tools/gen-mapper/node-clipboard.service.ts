@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NodeDto } from '@models/node.model';
+import { NodeDto } from '@npl-models/node.model';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 import uuid from 'uuid';
