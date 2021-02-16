@@ -1,6 +1,3 @@
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
-
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { UserProfile } from '@npl-models/UserProfile.model';

@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-$typography: mat-typography-config(
-  $font-family: 'Roboto, monospace',
-  $headline: mat-typography-level(32px, 48px, 700)
-);
+// $typography: mat-typography-config(
+//   $font-family: 'Roboto, monospace',
+//   $headline: mat-typography-level(32px, 48px, 700)
+// );
 
 $primary: mat-palette($mat-blue, 800, 100, 900);
 $secondary: mat-palette($mat-orange, 800, 100, 900);

@@ -8,8 +8,7 @@
 
 <agm-map [latitude]="latitude"
          [longitude]="longitude"
-         [disableDefaultUI]="true"
-         [streetViewControl]="false">
+         [disableDefaultUI]="true">
     <agm-marker-cluster
                         imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
         <ng-container *ngFor="let marker of markers">

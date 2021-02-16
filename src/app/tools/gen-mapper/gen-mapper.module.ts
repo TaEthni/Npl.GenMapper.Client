@@ -1,5 +1,5 @@
 import { AgmCoreModule } from '@agm/core';
-import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+import { AgmMarkerClustererModule } from '@agm/markerclusterer';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -50,11 +50,11 @@ import { WorldMapViewComponent } from './views/world-map-view/world-map-view.com
         ReactiveFormsModule,
         RouterModule,
         NgxChartsModule,
-        AgmJsMarkerClustererModule,
         AgmCoreModule.forRoot({
             apiKey: environment.apiKey,
             libraries: ['places']
         }),
+        AgmMarkerClustererModule,
     ],
     declarations: [
         ConfirmDialogComponent,

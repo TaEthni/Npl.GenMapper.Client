@@ -26,7 +26,7 @@ interface ResponseData {
 
 @Injectable()
 export class AuthenticationService {
-    private _user: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
+    private _user: BehaviorSubject<any> = new BehaviorSubject(null);
 
     constructor(
         public oauthService: OAuthService,
@@ -73,7 +73,9 @@ export class AuthenticationService {
         }
 
         this.oauthService.loadUserProfile().then(profile => {
-            this._user.next(profile as UserProfile);
+            // TODO use different user model
+            profile.username = profile.name;
+            this._user.next(profile as any);
         });
 
         // const token = this.tokenService.getValue();
