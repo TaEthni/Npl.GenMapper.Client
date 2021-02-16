@@ -5,7 +5,7 @@
     <div fxLayout="column"
          fxLayoutGap="5px">
         <div></div>
-        <ng-container *ngIf="isLoggedIn">
+        <ng-container *ngIf="(isLoggedIn$ | async)">
             <div *ngIf="userProfile?.name"
                  class="user-name">{{userProfile.name}}</div>
             <div *ngIf="userProfile?.email"
@@ -16,7 +16,7 @@
                 </a>
             </div>
         </ng-container>
-        <ng-container *ngIf="!isLoggedIn">
+        <ng-container *ngIf="(isLoggedIn$ | async) == false">
             <div class="auth"
                  fxLayout="column"
                  fxLayoutGap="10px">
@@ -33,7 +33,7 @@
 
 <section fxLayout="column">
     <mat-nav-list>
-        <ng-container *ngIf="isLoggedIn">
+        <ng-container *ngIf="(isLoggedIn$ | async)">
             <mat-list-item routerLink="/account"
                            routerLinkActive="active">
                 <h3 matLine>

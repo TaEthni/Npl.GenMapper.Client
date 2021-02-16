@@ -1,15 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DesktopOnlyGuard } from '@npl-core/desktop-only.quard';
-import { OAuthGuard } from '@npl-core/oauth/oauth.guard';
-import { UserResolver } from '@npl-core/user.resolver';
 
-import { DataExportDownloadComponent } from './account/data-export-download/data-export-download.component';
-import { DataExportPendingComponent } from './account/data-export-pending/data-export-pending.component';
-import { DataExportUnauthorizedComponent } from './account/data-export-unauthorized/data-export-unauthorized.component';
-import { DataExportComponent } from './account/data-export/data-export.component';
-import { DetailComponent } from './account/detail/detail.component';
-import { UserAgreementComponent } from './account/user-agreement/user-agreement.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './home/forbidden/forbidden.component';
 import { LoginComponent } from './home/login/login.component';
@@ -75,50 +66,54 @@ const appRoutes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
+            // {
+            //     path: 'account',
+            //     component: DetailComponent,
+            //     canActivate: [OAuthGuard],
+            //     resolve: {
+            //         user: UserResolver
+            //     }
+            // },
+            // {
+            //     path: 'account/user-agreement',
+            //     component: UserAgreementComponent,
+            //     canActivate: [AuthorizationGuard],
+            //     resolve: {
+            //         user: UserResolver
+            //     }
+            // },
+            // {
+            //     path: 'account/data-export',
+            //     component: DataExportComponent,
+            //     canActivate: [AuthorizationGuard, DesktopOnlyGuard],
+            //     resolve: {
+            //         user: UserResolver
+            //     }
+            // },
+            // {
+            //     path: 'account/data-export-pending',
+            //     component: DataExportPendingComponent,
+            //     canActivate: [AuthorizationGuard, DesktopOnlyGuard],
+            //     resolve: {
+            //         user: UserResolver
+            //     }
+            // },
+            // {
+            //     path: 'account/data-export-unauthorized',
+            //     component: DataExportUnauthorizedComponent,
+            //     canActivate: [DesktopOnlyGuard]
+            // },
+            // {
+            //     path: 'account/data-export/:sessionId',
+            //     component: DataExportDownloadComponent,
+            //     canActivate: [AuthorizationGuard, DesktopOnlyGuard],
+            //     resolve: {
+            //         user: UserResolver
+            //     }
+            // },
             {
                 path: 'account',
-                component: DetailComponent,
-                canActivate: [OAuthGuard],
-                resolve: {
-                    user: UserResolver
-                }
-            },
-            {
-                path: 'account/user-agreement',
-                component: UserAgreementComponent,
-                canActivate: [OAuthGuard],
-                resolve: {
-                    user: UserResolver
-                }
-            },
-            {
-                path: 'account/data-export',
-                component: DataExportComponent,
-                canActivate: [OAuthGuard, DesktopOnlyGuard],
-                resolve: {
-                    user: UserResolver
-                }
-            },
-            {
-                path: 'account/data-export-pending',
-                component: DataExportPendingComponent,
-                canActivate: [OAuthGuard, DesktopOnlyGuard],
-                resolve: {
-                    user: UserResolver
-                }
-            },
-            {
-                path: 'account/data-export-unauthorized',
-                component: DataExportUnauthorizedComponent,
-                canActivate: [DesktopOnlyGuard]
-            },
-            {
-                path: 'account/data-export/:sessionId',
-                component: DataExportDownloadComponent,
-                canActivate: [OAuthGuard, DesktopOnlyGuard],
-                resolve: {
-                    user: UserResolver
-                }
+                loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
             },
             {
                 path: 'tools',
@@ -182,7 +177,7 @@ const maintenanceRoutes: Routes = [
             appRoutes,
             // Configuration is for local mode
             // Configuration is for local mode
-{ onSameUrlNavigation: 'reload', relativeLinkResolution: 'legacy' }
+            { onSameUrlNavigation: 'reload', relativeLinkResolution: 'legacy' }
         )
     ],
     exports: [

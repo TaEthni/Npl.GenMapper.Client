@@ -20,3 +20,6 @@ $gray:#9e9e9e;
 $light-gray: #bdbdbd;
 $lighter-gray:#e0e0e0;
 $lightest-gray: #eeeeee;
+
+$light-foreground: map-get($theme, foreground);
+$light-background: map-get($theme, background);

@@ -12,8 +12,11 @@ export const environment = {
     apiBase: localUrl,
     authConfig: {
         authority: 'https://idp-qa.taethni.com',
-        // authority: 'https://localhost:5001',
-        clientId: 'angular_spa_local'
+        clientId: 'angular_spa_local',
+        responseType: 'code',
+        scope: 'profile openid IdentityServerApi web_api roles offline_access',
+        logLevel: 'Debug',
+        useSessionStore: true
     }
 };
 

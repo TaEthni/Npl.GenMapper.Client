@@ -39,6 +39,15 @@
             "@npl-template": [
                 "src/templates/index"
             ],
+            "@npl-store": [
+                "src/app/store/index"
+            ],
+            "@npl-auth": [
+                "projects/auth/src/public-api"
+            ],
+            "@npl-idp": [
+                "projects/idp/src/public-api"
+            ],
             "lodash": [
                 "../node_modules/lodash-es"
             ]

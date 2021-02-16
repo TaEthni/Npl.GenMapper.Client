@@ -1,0 +1,24 @@
+<div fxLayout="column"
+     fxLayoutAlign="start center">
+
+    <h1>Security</h1>
+
+    <p class="mute">
+        Security information for logging into the app
+    </p>
+
+    <ng-container *ngIf="isLoading else formTemplate">
+        <div fxLayout="row"
+             fxLayoutAlign="center center">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-container>
+
+    <ng-template #formTemplate>
+        <div class="container"
+             fxLayout="column"
+             fxLayoutGap="24px">
+            <app-change-password-form></app-change-password-form>
+        </div>
+    </ng-template>
+</div>

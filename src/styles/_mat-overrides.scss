@@ -58,3 +58,41 @@ body {
 .mat-snack-bar-container.white-snack-bar {
     background-color: white;
 }
+
+
+.spinner-button {
+    &.mat-button,
+    &.mat-stroked-button,
+    &.mat-raised-button,
+    &.mat-flat-button {
+
+        .mat-button-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mat-spinner {
+
+            &.after,
+            &:last-child {
+                order: 3;
+                margin-left: 10px;
+            }
+
+            &.before,
+            &:first-child {
+                margin-right: 10px;
+                order: 0;
+            }
+        }
+    }
+
+    &.mat-raised-button,
+    &.mat-flat-button {
+        .mat-spinner svg circle {
+            stroke: white;
+        }
+    }
+}

@@ -31,7 +31,7 @@ export class LayoutComponent extends Unsubscribable implements OnInit {
 
         this.layoutService.setSidenav(this.matSidenav);
 
-        this.authService.refreshUser();
+        // this.authService.refreshUser();
 
         this.router.events
             .pipe(takeUntil(this.unsubscribe))

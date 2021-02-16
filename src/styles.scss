@@ -5,6 +5,10 @@
 @include mat-core();
 @include angular-material-theme($theme);
 
+$material-design-icons-font-directory-path: '~material-design-icons-iconfont/dist/fonts/';
+@import '~material-design-icons-iconfont/src/material-design-icons';
+
+
 html,
 body {
     margin: 0;
@@ -103,4 +107,12 @@ input[no-wheel] {
     &[type="number"] {
         -moz-appearance: textfield;
     }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mute {
+    opacity: 0.7;
 }

@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AuthUser } from '@npl-auth';
 import { SupportService } from '@npl-core/support.service';
-import { User } from '@npl-models/user.model';
 import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
 import { Observable } from 'rxjs';
 
 export interface SupportDialogConfig {
     authenticated: boolean;
-    user?: User;
+    user?: AuthUser;
     isFeedback: boolean;
 }
 

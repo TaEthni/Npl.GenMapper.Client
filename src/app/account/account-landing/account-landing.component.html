@@ -1,0 +1,23 @@
+<h1 class="text-center">Account Management</h1>
+
+<p class="mute text-center">Manage your user preferences, personal info, security and more.</p>
+
+<div fxLayout="column"
+     fxLayoutGap="24px">
+
+    <ng-container *ngFor="let link of links$ | async">
+        <mat-card>
+            <mat-card-header>
+                <mat-icon mat-card-avatar
+                          class="size-48">{{link.icon}}</mat-icon>
+                <mat-card-title>{{link.i18nKey}}</mat-card-title>
+                <mat-card-subtitle>{{link.i18nDescriptionKey}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-footer>
+                <a mat-button
+                   color="primary"
+                   [routerLink]="link.routerLink">{{link.i18nButtonKey}}</a>
+            </mat-card-footer>
+        </mat-card>
+    </ng-container>
+</div>
