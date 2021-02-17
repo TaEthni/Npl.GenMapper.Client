@@ -4,9 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { AuthActions, AuthUser, getUserProfile } from '@npl-auth';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { AppState } from '@npl-data-access';
 import { IdentityError, IdentityService } from '@npl-idp';
 import { AlphaNumericPattern } from '@npl-shared/utils';
-import { AppState } from '@npl-store';
 import { takeUntil } from 'rxjs/operators';
 
 // import { TranslateService } from '@ngx-translate/core';

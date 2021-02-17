@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Entity, EntityType, IEntity } from '@npl-models/entity.model';
+import { Entity, EntityType, IEntity } from '@npl-data-access';
 import { omit } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

@@ -1,5 +1,5 @@
-import { NodeDto } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { NodeDto } from '@npl-data-access';
+import { Template } from '@npl-data-access';
 import * as d3 from 'd3';
 import { drag, DragBehavior, event as d3Event, HierarchyNode, HierarchyPointNode, select, Selection, tree, TreeLayout, zoom, zoomIdentity, zoomTransform } from 'd3';
 import { Subject } from 'rxjs';

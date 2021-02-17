@@ -3,9 +3,7 @@ import { Store } from '@ngrx/store';
 import { isAuthenticated } from '@npl-auth';
 import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { DocumentDto } from '@npl-models/document.model';
-import { Template } from '@npl-models/template.model';
-import { AppState } from '@npl-store';
+import { AppState, DocumentDto, Template } from '@npl-data-access';
 import { takeUntil } from 'rxjs/operators';
 
 import { GenMapperView } from '../gen-mapper-view.enum';

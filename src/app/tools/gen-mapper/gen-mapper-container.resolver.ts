@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { TemplateService } from '@npl-core/template.service';
-import { DocumentDto } from '@npl-models/document.model';
-import { Template } from '@npl-models/template.model';
+import { DocumentDto, Template } from '@npl-data-access';
 import { Observable } from 'rxjs/Observable';
 
 import { GenMapperService } from './gen-mapper.service';

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Device } from '@npl-core/platform';
-import { DocumentDto } from '@npl-models/document.model';
+import { DocumentDto } from '@npl-data-access';
 import { GMTemplate } from '@npl-template';
 
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';

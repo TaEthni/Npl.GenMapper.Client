@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AuthActions, AuthUser, getUserProfile, isAuthenticated } from '@npl-auth';
 import { LocaleService, TranslationType } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { AppState } from '@npl-store';
+import { AppState } from '@npl-data-access';
 import i18next from 'i18next';
 import { Observable } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';

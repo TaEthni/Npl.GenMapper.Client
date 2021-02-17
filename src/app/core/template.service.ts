@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Template } from '@npl-models/template.model';
+import { Template } from '@npl-data-access';
 import { GMField, GMTemplate, TemplateConfiguration } from '@npl-template';
 
 import { LocaleService } from './locale.service';

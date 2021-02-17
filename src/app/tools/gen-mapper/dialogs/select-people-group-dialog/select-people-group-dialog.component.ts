@@ -1,16 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {
-    OtherPeopleGroup,
-    PeopleGroupConfig,
-    PeopleGroupModelItem,
-    PeopleGroupService,
-} from '@npl-core/people-group.service';
+import { PeopleGroupService } from '@npl-core/people-group.service';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { PeopleAttributes } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { OtherPeopleGroup, PeopleAttributes, PeopleGroupConfig, PeopleGroupModelItem, Template } from '@npl-data-access';
 import { COUNTRIES } from '@npl-template';
 import { cloneDeep } from 'lodash';
 import { takeUntil } from 'rxjs/operators';

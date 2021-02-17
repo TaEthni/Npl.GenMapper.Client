@@ -1,4 +1,4 @@
-import { Template } from '@npl-models/template.model';
+import { Template } from '@npl-data-access';
 import { ControlType } from '@npl-template';
 import { DragBehavior, select, Selection } from 'd3';
 import moment from 'moment';

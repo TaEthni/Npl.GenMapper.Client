@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { CSVToJSONNoTemplate } from '@npl-core/csv-to-json';
 import { EntityService } from '@npl-core/entity.service';
 import { TemplateService } from '@npl-core/template.service';
-import { DocumentDto } from '@npl-models/document.model';
-import { EntityType } from '@npl-models/entity.model';
-import { IFlatNode, NodeAttributes, NodeDto } from '@npl-models/node.model';
+import { DocumentDto, EntityType, IFlatNode, NodeAttributes, NodeDto } from '@npl-data-access';
 import { cloneDeep, groupBy } from 'lodash';
 import uuid from 'uuid';
 

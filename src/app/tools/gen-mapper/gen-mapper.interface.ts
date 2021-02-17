@@ -1,4 +1,4 @@
-import { NodeDto } from '@npl-models/node.model';
+import { NodeDto } from '@npl-data-access';
 import { HierarchyPointNode } from 'd3';
 
 export interface GMGraphConfig {

@@ -3,12 +3,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { LocaleService } from '@npl-core/locale.service';
-import { OtherPeopleGroup, UnknownPeopleGroup } from '@npl-core/people-group.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { ActionType } from '@npl-models/action-type';
-import { DocumentDto } from '@npl-models/document.model';
-import { NodeDto, PeopleAttributes } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import {
+    ActionType,
+    DocumentDto,
+    NodeDto,
+    OtherPeopleGroup,
+    PeopleAttributes,
+    Template,
+    UnknownPeopleGroup,
+} from '@npl-data-access';
 import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
 import { ControlType, GMField } from '@npl-template';
 import { assign, cloneDeep } from 'lodash';

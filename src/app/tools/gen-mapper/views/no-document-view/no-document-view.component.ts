@@ -5,11 +5,8 @@ import { Store } from '@ngrx/store';
 import { isAuthenticated } from '@npl-auth';
 import { CSVToJSON } from '@npl-core/csv-to-json';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { DocumentDto } from '@npl-models/document.model';
-import { IFlatNode } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { AppState, DocumentDto, IFlatNode, Template } from '@npl-data-access';
 import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
-import { AppState } from '@npl-store';
 import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../../dialogs/create-document-dialog/create-document-dialog.component';

@@ -11,6 +11,7 @@ import { AdminModule } from '@npl-admin/admin.module';
 import { AuthModule } from '@npl-auth';
 import { CoreModule } from '@npl-core/core.module';
 import { RouterSerializer } from '@npl-core/RouterSerializer';
+import { API_BASE_URL, appEffects, appReducers } from '@npl-data-access';
 import { IDP_BASE_URL } from '@npl-idp';
 import { GenMapperConfigs, GenMapperTemplates } from '@npl-template';
 
@@ -20,7 +21,6 @@ import { AppComponent } from './app.component';
 import { GM_CONFIGS, GM_TEMPLATES } from './core/template.injecttoken';
 import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
-import { appEffects, appReducers } from './store/state';
 import { ToolsModule } from './tools/tools.module';
 import { UpdatesModule } from './updates/updates.module';
 
@@ -56,6 +56,10 @@ import { UpdatesModule } from './updates/updates.module';
         EffectsModule.forRoot(appEffects)
     ],
     providers: [
+        {
+            provide: API_BASE_URL,
+            useValue: environment.apiBase
+        },
         {
             provide: IDP_BASE_URL,
             useValue: environment.authConfig.authority + '/api/'

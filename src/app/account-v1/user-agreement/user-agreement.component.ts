@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { EntityService } from '@npl-core/entity.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { EntityType } from '@npl-models/entity.model';
-import { User } from '@npl-models/user.model';
+import { EntityType, User } from '@npl-data-access';
 import { cloneDeep } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 

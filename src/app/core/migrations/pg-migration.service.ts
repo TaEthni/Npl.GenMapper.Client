@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EntityService } from '@npl-core/entity.service';
 import { PeopleGroupModelItem, PeopleGroupService, UnknownPeopleGroup } from '@npl-core/people-group.service';
-import { EntityType } from '@npl-models/entity.model';
-import { NodeDto, PeopleAttributes } from '@npl-models/node.model';
+import { EntityType, NodeDto, PeopleAttributes } from '@npl-data-access';
 import { groupBy, keys } from 'lodash';
 import { combineLatest } from 'rxjs';
 

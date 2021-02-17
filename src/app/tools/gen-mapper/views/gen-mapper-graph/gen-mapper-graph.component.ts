@@ -12,8 +12,7 @@ import {
 } from '@angular/core';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { NodeDto } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { NodeDto, Template } from '@npl-data-access';
 import { takeUntil } from 'rxjs/operators';
 
 import { NodeDatum } from '../../gen-mapper.interface';

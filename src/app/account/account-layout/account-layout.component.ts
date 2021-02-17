@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getUserProfile } from '@npl-auth';
-import { AppState } from '@npl-store';
+import { AppState } from '@npl-data-access';
 import { filter, map } from 'rxjs/operators';
 
 import { AccountLinks, ExternalLinks } from '../account-links';

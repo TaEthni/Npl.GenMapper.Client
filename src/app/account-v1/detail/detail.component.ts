@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { User } from '@npl-models/user.model';
+import { User } from '@npl-data-access';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

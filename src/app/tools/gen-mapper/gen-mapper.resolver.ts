@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { isAuthenticated } from '@npl-auth';
-import { DocumentDto } from '@npl-models/document.model';
-import { AppState } from '@npl-store';
+import { AppState, DocumentDto } from '@npl-data-access';
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 

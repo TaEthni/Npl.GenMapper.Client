@@ -2,11 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
-import { UnknownPeopleGroup } from '@npl-core/people-group.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { ActionType } from '@npl-models/action-type';
-import { PeopleAttributes } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { ActionType, PeopleAttributes, Template, UnknownPeopleGroup } from '@npl-data-access';
 import { GMField } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
 

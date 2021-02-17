@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { DocumentDto } from '@npl-models/document.model';
-import { NodeDto } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { DocumentDto, NodeDto, Template } from '@npl-data-access';
 import { GMReport, ReportType, ValueType } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
 

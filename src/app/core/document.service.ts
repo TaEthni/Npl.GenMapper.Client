@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EntityService } from '@npl-core/entity.service';
-import { DocumentDto, IDocumentDto } from '@npl-models/document.model';
-import { Entity, EntityType } from '@npl-models/entity.model';
-import { IFlatNode, NodeAttributes, NodeDto } from '@npl-models/node.model';
+import { DocumentDto, Entity, EntityType, IDocumentDto, IFlatNode, NodeAttributes, NodeDto } from '@npl-data-access';
 import { cloneDeep, pick, some } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

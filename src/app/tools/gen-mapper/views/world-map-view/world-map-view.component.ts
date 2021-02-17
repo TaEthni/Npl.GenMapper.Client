@@ -3,7 +3,7 @@ import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/co
 import { MapsService } from '@npl-core/maps.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { Utils } from '@npl-core/utils';
-import { NodeDto } from '@npl-models/node.model';
+import { NodeDto } from '@npl-data-access';
 import { GMTemplate } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
 

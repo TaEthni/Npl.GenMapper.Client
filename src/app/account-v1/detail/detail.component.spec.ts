@@ -4,8 +4,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { EntityService } from '@npl-core/entity.service';
-import { Entity } from '@npl-models/entity.model';
-import { User } from '@npl-models/user.model';
+import { Entity, User } from '@npl-data-access';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { UserProfile } from '@npl-models/UserProfile.model';
+import { UserProfile } from '@npl-data-access';
 import { Observable } from 'rxjs/Observable';
 import { filter, take } from 'rxjs/operators';
 

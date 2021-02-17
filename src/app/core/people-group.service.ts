@@ -1,57 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseUrl } from '@npl-core/entity.service';
-import { EntityType } from '@npl-models/entity.model';
-import { Dictionary, groupBy } from 'lodash';
+import {
+    EntityType,
+    OtherPeopleGroup,
+    PeopleGroupConfig,
+    PeopleGroupModel,
+    PeopleGroupModelItem,
+    PeopleGroupResponse,
+    UnknownPeopleGroup,
+} from '@npl-data-access';
+import { groupBy } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-let peopleGroupsConfig: PeopleGroupConfig;
-
-export interface PeopleGroupResponse {
-    data: PeopleGroupResponseData;
-}
-
-export class PeopleGroupModelItem {
-    NmDisp: string = null;
-    PEID: number = null;
-    Ctry: string = null;
-    GENC0: string = null;
-}
-
-export class PeopleGroupModel {
-    attributes: PeopleGroupModelItem;
-}
-
-export interface PeopleGroupResponseData {
-    byPEID: Dictionary<PeopleGroupModelItem[]>;
-    byCountry: Dictionary<PeopleGroupModelItem[]>;
-    displayFieldName: string;
-    features: PeopleGroupModel[];
-    fieldAliases: Dictionary<string>;
-    fields: { alias: string, name: string, type: string }[];
-    data: PeopleGroupModelItem[];
-}
-
-export interface PeopleGroupConfig {
-    features?: PeopleGroupModelItem[];
-    byCountry?: Dictionary<PeopleGroupModelItem[]>;
-}
-
 export const LOCALE_STORAGE_KEY = '_locale_pg-v2';
+
+let peopleGroupsConfig: PeopleGroupConfig;
 
 const OLD_KEYS = ['_locale_pg-v1'];
 OLD_KEYS.forEach(KEY => localStorage.removeItem(KEY));
-
-export const UnknownPeopleGroup = {
-    NmDisp: 'Unknown',
-    PEID: -2
-} as PeopleGroupModelItem;
-
-export const OtherPeopleGroup = {
-    NmDisp: 'Other',
-    PEID: -3
-} as PeopleGroupModelItem;
 
 @Injectable({
     providedIn: 'root'

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { NodeDto } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { NodeDto, Template } from '@npl-data-access';
 import { ControlType, GMReport, ReportType } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
 

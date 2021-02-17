@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DocumentDto } from '@npl-models/document.model';
-import { NodeDto } from '@npl-models/node.model';
+import { DocumentDto, NodeDto } from '@npl-data-access';
 import { saveAs } from 'file-saver';
 import * as moment from 'moment';
 

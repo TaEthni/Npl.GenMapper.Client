@@ -1,5 +1,4 @@
-import { NodeDto } from '@npl-models/node.model';
-import { Template } from '@npl-models/template.model';
+import { NodeDto, Template } from '@npl-data-access';
 import { ControlType } from '@npl-template';
 import { csvFormatRows } from 'd3';
 

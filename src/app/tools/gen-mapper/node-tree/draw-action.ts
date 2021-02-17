@@ -1,4 +1,4 @@
-import { Template } from '@npl-models/template.model';
+import { Template } from '@npl-data-access';
 import { GMSvgAction } from '@npl-template';
 import { Selection } from 'd3';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserProfile } from '@npl-models/UserProfile.model';
+import { UserProfile } from '@npl-data-access';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable, ReplaySubject } from 'rxjs';
 

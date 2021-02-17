@@ -6,8 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditUserConfig, EditUserDialogComponent } from '@npl-admin/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { EntityService } from '@npl-core/entity.service';
-import { EntityType } from '@npl-models/entity.model';
-import { User } from '@npl-models/user.model';
+import { EntityType, User } from '@npl-data-access';
 
 @Component({
     selector: 'app-user-list',

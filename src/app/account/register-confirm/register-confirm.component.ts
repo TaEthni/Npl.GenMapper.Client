@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '@npl-auth';
-import { AppState } from '@npl-store';
+import { AppState } from '@npl-data-access';
 
 @Component({
     selector: 'app-register-confirm',

@@ -6,7 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MapsService } from '@npl-core/maps.service';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { NodeDto } from '@npl-models/node.model';
+import { NodeDto } from '@npl-data-access';
 import { ControlType, COUNTRIES, GMField } from '@npl-template';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';

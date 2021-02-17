@@ -12,8 +12,7 @@ import { DownloadService } from '@npl-core/download.service';
 import { EntityService } from '@npl-core/entity.service';
 import { TemplateService } from '@npl-core/template.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { DocumentDto } from '@npl-models/document.model';
-import { Template } from '@npl-models/template.model';
+import { DocumentDto, Template } from '@npl-data-access';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { DataExportDialogComponent } from '../data-export-dialog/data-export-dialog.component';

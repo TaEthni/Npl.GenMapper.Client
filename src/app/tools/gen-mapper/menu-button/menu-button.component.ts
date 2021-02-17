@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DownloadService } from '@npl-core/download.service';
 import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { DocumentDto } from '@npl-models/document.model';
+import { DocumentDto } from '@npl-data-access';
 import { GMTemplate } from '@npl-template';
 import { take, takeUntil } from 'rxjs/operators';
 

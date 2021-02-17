@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { isAuthenticated } from '@npl-auth';
+import { AppState, SelfUIActions } from '@npl-data-access';
 import { OAuthService } from 'angular-oauth2-oidc';
-
-import { AppState } from './store/state';
 
 @Component({
     selector: 'app-root',
@@ -17,6 +16,8 @@ export class AppComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
+        this.store.dispatch(SelfUIActions.loadSelf());
+
         this.oAuthService.setupAutomaticSilentRefresh();
         this.store.select(isAuthenticated).subscribe(isAuthenticated => {
             console.log({ isAuthenticated });

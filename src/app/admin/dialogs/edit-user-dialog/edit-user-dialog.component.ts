@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { User } from '@npl-models/user.model';
+import { User } from '@npl-data-access';
 import { assign } from 'lodash';
 
 export interface EditUserConfig {
