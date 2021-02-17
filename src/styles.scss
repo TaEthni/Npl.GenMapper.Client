@@ -1,13 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~styles/colors";
 @import "~styles/mat-overrides";
-// @import "roboto-fontface/css/roboto/roboto-fontface.css";
-@include mat-core();
-@include angular-material-theme($theme);
 
-$material-design-icons-font-directory-path: '~material-design-icons-iconfont/dist/fonts/';
+$roboto-font-path: "~roboto-fontface/fonts" !default;
+@import "~roboto-fontface/css/roboto/roboto-fontface.css";
+
+$material-design-icons-font-directory-path: '~material-design-icons-iconfont/dist/fonts/' !default;
 @import '~material-design-icons-iconfont/src/material-design-icons';
 
+@include mat-core();
+@include angular-material-theme($theme);
+@include angular-material-typography($typography);
 
 html,
 body {

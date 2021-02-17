@@ -177,7 +177,11 @@ const maintenanceRoutes: Routes = [
             appRoutes,
             // Configuration is for local mode
             // Configuration is for local mode
-            { onSameUrlNavigation: 'reload', relativeLinkResolution: 'legacy' }
+            {
+                onSameUrlNavigation: 'reload',
+                relativeLinkResolution: 'corrected',
+                paramsInheritanceStrategy: 'always'
+            }
         )
     ],
     exports: [

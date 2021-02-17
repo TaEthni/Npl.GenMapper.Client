@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@npl-core/authentication.service';
-import { TokenService } from '@npl-core/token.service';
+import { Store } from '@ngrx/store';
+import { AuthUser, getUserProfile, isAuthenticated } from '@npl-auth';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { UserProfile } from '@npl-models/UserProfile.model';
+import { AppState } from '@npl-store';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -16,11 +16,10 @@ export class UserAgreementNotificationComponent extends Unsubscribable implement
 
     public isIgnored: boolean;
     public isAuthenticated: boolean;
-    public user: UserProfile;
+    public user: AuthUser;
 
     constructor(
-        private tokenService: TokenService,
-        private authService: AuthenticationService
+        private store: Store<AppState>
     ) {
         super();
         const ignored = localStorage.getItem(this.ignoredKey);
@@ -28,17 +27,19 @@ export class UserAgreementNotificationComponent extends Unsubscribable implement
     }
 
     public ngOnInit(): void {
-        this.tokenService.get()
+        this.store.select(isAuthenticated)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(token => {
-                this.isAuthenticated = token.isAuthenticated;
+            .subscribe(isAuthenticated => {
+                this.isAuthenticated = isAuthenticated;
             });
 
-        this.authService.getUser()
+        this.store.select(getUserProfile)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(user => {
                 this.user = user;
             });
+
+        // TODO get self
     }
 
     public ignore(): void {

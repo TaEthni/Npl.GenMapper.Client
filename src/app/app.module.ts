@@ -15,7 +15,6 @@ import { IDP_BASE_URL } from '@npl-idp';
 import { GenMapperConfigs, GenMapperTemplates } from '@npl-template';
 
 import { environment } from '../environments/environment';
-import { AccountV1Module } from './account-v1/account.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GM_CONFIGS, GM_TEMPLATES } from './core/template.injecttoken';
@@ -37,7 +36,6 @@ import { UpdatesModule } from './updates/updates.module';
         LayoutModule,
         HomeModule,
         ToolsModule,
-        AccountV1Module,
         AdminModule,
         UpdatesModule,
         AppRoutingModule,

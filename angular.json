@@ -36,7 +36,6 @@
                             }
                         ],
                         "styles": [
-                            "src/assets/fonts/material-icons/material-icons.css",
                             "src/styles.scss"
                         ],
                         "scripts": [],
@@ -44,10 +43,33 @@
                             "file-saver",
                             "lodash",
                             "uuid/v4",
-                            "uuid"
+                            "uuid",
+                            "qrcode"
                         ]
                     },
                     "configurations": {
+                        "old-production": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.old-prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true
+                        },
                         "production": {
                             "budgets": [
                                 {
@@ -59,6 +81,28 @@
                                 {
                                     "replace": "src/environments/environment.ts",
                                     "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true
+                        },
+                        "qa": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.qa.ts"
                                 }
                             ],
                             "optimization": true,

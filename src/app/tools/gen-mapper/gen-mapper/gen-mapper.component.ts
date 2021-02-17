@@ -2,7 +2,8 @@ import { Component, HostBinding, OnInit, Optional, ViewChild } from '@angular/co
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@npl-core/authentication.service';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@npl-auth';
 import { CSVToJSON } from '@npl-core/csv-to-json';
 import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -10,6 +11,7 @@ import { DocumentDto } from '@npl-models/document.model';
 import { NodeDto } from '@npl-models/node.model';
 import { Template } from '@npl-models/template.model';
 import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
+import { AppState } from '@npl-store';
 import { some } from 'lodash';
 import { of } from 'rxjs';
 import { catchError, delayWhen, switchMap, take, takeUntil } from 'rxjs/operators';
@@ -55,7 +57,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     private _savingErrorSnackBar: MatSnackBarRef<SavingErrorSnackbarComponent>;
 
     constructor(
-        private authService: AuthenticationService,
+        private store: Store<AppState>,
         private genMapper: GenMapperService,
         private router: Router,
         private dialog: MatDialog,
@@ -70,7 +72,11 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.isAuthenticated = this.authService.isAuthenticated();
+        this.store.select(isAuthenticated)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.isAuthenticated = result;
+            });
 
         this.genMapper.template$
             .pipe(takeUntil(this.unsubscribe))
@@ -88,7 +94,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(document => {
                 this.document = document;
-                if (!document && !this.authService.isAuthenticated() && this.genMapper.hasLocalDocument()) {
+                if (!document && !this.isAuthenticated && this.genMapper.hasLocalDocument()) {
                     this.router.navigate(['/gen-mapper', this.template.id, 'local'], { skipLocationChange: true });
                 }
 

@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthenticationService } from '@npl-core/authentication.service';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@npl-auth';
 import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { DocumentDto } from '@npl-models/document.model';
 import { Template } from '@npl-models/template.model';
+import { AppState } from '@npl-store';
 import { takeUntil } from 'rxjs/operators';
 
 import { GenMapperView } from '../gen-mapper-view.enum';
@@ -27,13 +29,17 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
 
     constructor(
         private genMapper: GenMapperService,
-        private authService: AuthenticationService,
+        private store: Store<AppState>,
         private nodeClipboard: NodeClipboardService,
         private localeService: LocaleService,
     ) { super(); }
 
     public ngOnInit(): void {
-        this.isAuthenticated = this.authService.isAuthenticated();
+        this.store.select(isAuthenticated)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(authenticated => {
+                this.isAuthenticated = authenticated;
+            });
 
         this.genMapper.selectedDocument$
             .pipe(takeUntil(this.unsubscribe))

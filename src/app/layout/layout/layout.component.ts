@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationStart, Router } from '@angular/router';
-import { AuthenticationService } from '@npl-core/authentication.service';
 import { LayoutService } from '@npl-core/layout.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
@@ -20,7 +19,6 @@ export class LayoutComponent extends Unsubscribable implements OnInit {
     public matSidenav: MatSidenav;
 
     constructor(
-        private authService: AuthenticationService,
         private layoutService: LayoutService,
         private router: Router
     ) {

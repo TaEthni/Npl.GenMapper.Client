@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@npl-core/authentication.service';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@npl-auth';
 import { CSVToJSON } from '@npl-core/csv-to-json';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { DocumentDto } from '@npl-models/document.model';
 import { IFlatNode } from '@npl-models/node.model';
 import { Template } from '@npl-models/template.model';
 import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
+import { AppState } from '@npl-store';
 import { takeUntil } from 'rxjs/operators';
 
 import { CreateDocumentDialogComponent } from '../../dialogs/create-document-dialog/create-document-dialog.component';
@@ -27,7 +29,7 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
     public documents: DocumentDto[];
 
     constructor(
-        private authService: AuthenticationService,
+        private store: Store<AppState>,
         private genMapper: GenMapperService,
         private dialog: MatDialog,
         private router: Router,
@@ -35,7 +37,11 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
     ) { super(); }
 
     public ngOnInit() {
-        this.isAuthenticated = this.authService.isAuthenticated();
+        this.store.select(isAuthenticated)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.isAuthenticated = result;
+            });
 
         this.genMapper.template$
             .pipe(takeUntil(this.unsubscribe))
@@ -51,7 +57,7 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
     }
 
     public onCreateDocument(): void {
-        if (!this.authService.isAuthenticated() && this.genMapper.hasLocalDocument()) {
+        if (!this.isAuthenticated && this.genMapper.hasLocalDocument()) {
             this.router.navigate(['/gen-mapper', this.template.id, 'local']);
             return;
         }

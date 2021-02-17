@@ -9,8 +9,10 @@
         "test": "jest",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "ghpages-old-production": "ng build --prod --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname old.noplaceleft.tools --repo=https://GH_TOKEN@github.com/NoPlaceLeft/tools-client-production.git --name=\"GH_USERNAME\" --email=\"GH_EMAIL\"",
-        "ghpages-production": "ng build --prod --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname noplaceleft.tools --repo=https://GH_TOKEN@github.com/taethni/npl-tools-client-production.git --name=\"GH_USERNAME\" --email=\"GH_EMAIL\"",
+        "build:qa": "ng build --prod --configuration=qa",
+        "build:prod": "ng build --prod --configuration=production",
+        "ghpages-old-production": "ng build --prod --configuration=\"old-production\" --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname old.noplaceleft.tools --repo=https://GH_TOKEN@github.com/NoPlaceLeft/tools-client-production.git --name=\"GH_USERNAME\" --email=\"GH_EMAIL\"",
+        "ghpages-production": "ng build --prod --configuration=\"old-production\" --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname noplaceleft.tools --repo=https://GH_TOKEN@github.com/taethni/npl-tools-client-production.git --name=\"GH_USERNAME\" --email=\"GH_EMAIL\"",
         "ghpages": "ng build --prod --base-href=\"/\" && angular-cli-ghpages --dir dist/tools-angular --cname dev.noplaceleft.tools  --no-silent"
     },
     "private": true,
