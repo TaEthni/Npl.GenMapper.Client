@@ -7,7 +7,7 @@ export const environment = {
         authority: 'https://idp.taethni.com',
         clientId: 'npl_client',
         responseType: 'code',
-        scope: 'profile openid IdentityServerApi web_api roles offline_access',
+        scope: 'profile openid IdentityServerApi npl_api roles offline_access',
         logLevel: 'Error'
     }
 };
