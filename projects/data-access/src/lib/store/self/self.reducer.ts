@@ -27,5 +27,30 @@ export const selfReducer = createReducer<SelfState>(
             isLoading: false,
             error: action.error
         };
+    }),
+
+    // ==============
+    // Accept Agreement
+    on(SelfUIActions.acceptAgreement, (state, action): SelfState => {
+        return {
+            ...state,
+            isUpdating: true,
+            error: null
+        };
+    }),
+    on(SelfAPIActions.acceptAgreementSuccess, (state, action): SelfState => {
+        return {
+            ...state,
+            self: action.self,
+            isUpdating: false,
+            error: null
+        };
+    }),
+    on(SelfAPIActions.acceptAgreementFailure, (state, action): SelfState => {
+        return {
+            ...state,
+            isLoading: false,
+            error: action.error
+        };
     })
 );

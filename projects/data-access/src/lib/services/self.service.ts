@@ -18,4 +18,8 @@ export class SelfService {
     public get(): Observable<Member> {
         return this.http.get<Member>(this.baseUrl + 'self');
     }
+
+    public acceptAgreement(): Observable<Member> {
+        return this.http.post<Member>(this.baseUrl + 'self/agreement', {});
+    }
 }

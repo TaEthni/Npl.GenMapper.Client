@@ -30,6 +30,7 @@ import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { RegisterConfirmComponent } from './register-confirm/register-confirm.component';
 import { RegisterComponent } from './register/register.component';
 import { SecurityComponent } from './security/security.component';
+import { UserAgreementComponent } from './user-agreement/user-agreement.component';
 
 // import { TranslateModule } from '@ngx-translate/core';
 // import { FiltersModule, MaterialModule, SelectFilterModule } from '@taethni/shared/ui';
@@ -62,6 +63,10 @@ const routes: Routes = [
                 component: PersonalInfoComponent
             },
             {
+                path: 'user-agreement',
+                component: UserAgreementComponent
+            },
+            {
                 path: '**',
                 redirectTo: 'home'
             }
@@ -83,6 +88,7 @@ const routes: Routes = [
         SecurityComponent,
         PasswordRequirementsComponent,
         ChangePasswordFormComponent,
+        UserAgreementComponent
     ],
     imports: [
         CommonModule,

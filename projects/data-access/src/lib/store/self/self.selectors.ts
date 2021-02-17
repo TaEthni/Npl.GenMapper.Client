@@ -20,4 +20,9 @@ export const SelfSelectors = {
         selfFeatureSelector,
         state => state.isLoading
     ),
+
+    isUpdating: createSelector(
+        selfFeatureSelector,
+        state => state.isUpdating
+    ),
 };

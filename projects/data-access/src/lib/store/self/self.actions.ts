@@ -6,6 +6,10 @@ const loadSelf = createAction(
     '[Self UI] Load'
 );
 
+const acceptAgreement = createAction(
+    '[Self UI] Accept Agreement'
+);
+
 
 const loadSelfSuccess = createAction(
     '[Self API] Load Success',
@@ -17,11 +21,24 @@ const loadSelfFailure = createAction(
 );
 
 
+const acceptAgreementSuccess = createAction(
+    '[Self API] Accept Agreement Success',
+    props<{ self: Member }>()
+);
+const acceptAgreementFailure = createAction(
+    '[Self API] Accept Agreement Failure',
+    props<{ error: string }>()
+);
+
+
 export const SelfUIActions = {
-    loadSelf
+    loadSelf,
+    acceptAgreement
 };
 
 export const SelfAPIActions = {
     loadSelfSuccess,
-    loadSelfFailure
+    loadSelfFailure,
+    acceptAgreementSuccess,
+    acceptAgreementFailure
 };

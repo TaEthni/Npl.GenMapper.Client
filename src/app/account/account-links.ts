@@ -22,6 +22,15 @@ export const AccountLinks = [
         routerLink: '/account/personal-info',
         routerLinkActiveOptions: { exact: false },
         internalOnly: true
+    },
+    {
+        i18nKey: 'User Agreement',
+        i18nDescriptionKey: 'User Agreement',
+        i18nButtonKey: 'Read the user agreement',
+        icon: 'admin_panel_settings',
+        routerLink: '/account/user-agreement',
+        routerLinkActiveOptions: { exact: false },
+        internalOnly: true
     }
 ];
 
