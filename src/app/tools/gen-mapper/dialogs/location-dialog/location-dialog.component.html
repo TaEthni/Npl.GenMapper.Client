@@ -24,7 +24,7 @@
              [zoom]="zoom"
              [disableDefaultUI]="true"
              [style.height]="height + 'px'"
-             (mapClick)="mapClicked($event)">
+             (mapReady)="mapReadyHandler($event)">
         <agm-marker [latitude]="markerLatitude"
                     [longitude]="markerLongitude"
                     [markerDraggable]="true"

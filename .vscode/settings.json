@@ -8,5 +8,6 @@
         "**/out/**/*",
         "**/dist/**/*",
     ],
-    "typescriptHero.imports.stringQuoteStyle": "'"
+    "typescriptHero.imports.stringQuoteStyle": "'",
+    "tslint.jsEnable": true
 }

@@ -2,10 +2,6 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// const devUrl = 'npl-tools-api-dev.genmapper.com/api/';
-// const localUrl = 'https://localhost:7001/api/';
-// const localUrl = devUrl;
-
 export const environment = {
     production: false,
     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
