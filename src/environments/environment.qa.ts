@@ -3,7 +3,7 @@
 export const environment = {
     production: true,
     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-    apiBase: 'https://npl-api-qa.genmapper.com',
+    apiBase: 'https://npl-api-qa.genmapper.com/api/',
     authConfig: {
         authority: 'https://idp-qa.taethni.com',
         clientId: 'npl_client',
