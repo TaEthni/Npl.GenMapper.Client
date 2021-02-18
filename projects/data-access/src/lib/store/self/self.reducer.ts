@@ -1,9 +1,9 @@
-import { createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 
 import { SelfAPIActions, SelfUIActions } from './self.actions';
 import { initialSelfState, SelfState } from './self.state';
 
-export const selfReducer = createReducer<SelfState>(
+const _selfReducer = createReducer<SelfState>(
     initialSelfState,
     on(SelfUIActions.loadSelf, (state, action): SelfState => {
         return {
@@ -54,3 +54,7 @@ export const selfReducer = createReducer<SelfState>(
         };
     })
 );
+
+export function selfReducer(state: SelfState, action: Action): any {
+    return _selfReducer(state, action);
+}

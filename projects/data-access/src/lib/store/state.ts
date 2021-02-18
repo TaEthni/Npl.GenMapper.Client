@@ -4,8 +4,8 @@ import { AuthEffects, authReducer, AuthState } from '@npl-auth';
 import { SelfEffects, selfReducer, SelfState } from './self';
 
 export interface AppState {
-    auth: AuthState,
-    self: SelfState
+    auth: AuthState;
+    self: SelfState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
