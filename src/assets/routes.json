@@ -7,7 +7,7 @@
         }
     ],
     "defaultHeaders": {
-        "content-security-policy": "default-src 'self' *.azurestaticapps.net *.taethni.com *.applicationinsights.azure.com;connect-src 'self' *.azurestaticapps.net *.taethni.com *.applicationinsights.azure.com *.tinymce.com *.tiny.cloud blob:;script-src 'self' *.tinymce.com *.tiny.cloud;style-src 'unsafe-inline' *.azurestaticapps.net *.taethni.com *.googleapis.com *.tinymce.com *.tiny.cloud;font-src 'self' *.gstatic.com *.tinymce.com *.tiny.cloud;img-src 'self' *.tinymce.com *.tiny.cloud https: blob: data:;",
+        "content-security-policy": "default-src 'self' *.azurestaticapps.net *.genmapper.com *.applicationinsights.azure.com;connect-src 'self' *.azurestaticapps.net *.genmapper.com *.applicationinsights.azure.com *.tinymce.com *.tiny.cloud blob:;script-src 'self' *.tinymce.com *.tiny.cloud;style-src 'unsafe-inline' *.azurestaticapps.net *.genmapper.com *.googleapis.com *.tinymce.com *.tiny.cloud;font-src 'self' *.gstatic.com *.tinymce.com *.tiny.cloud;img-src 'self' *.tinymce.com *.tiny.cloud https: blob: data:;",
         "cache-control": "must-revalidate, max-age=6000",
         "x-content-type-options": "nosniff",
         "x-frame-options": "SAMEORIGIN",
