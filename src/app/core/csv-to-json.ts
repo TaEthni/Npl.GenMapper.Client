@@ -132,8 +132,8 @@ export function CSVToJSON(csv: string, template: Template): IFlatNode[] {
 
 function createUnknownPeoples(template: Template, node: IFlatNode): PeopleAttributes {
     const people = {} as PeopleAttributes;
-    people.identifier = UnknownPeopleGroup.PEID;
-    people.label = UnknownPeopleGroup.NmDisp;
+    people.identifier = UnknownPeopleGroup.peid;
+    people.label = UnknownPeopleGroup.nmDisp;
     people.placeOfOrigin = null;
 
     template.getField('peoples').fields.forEach(field => {

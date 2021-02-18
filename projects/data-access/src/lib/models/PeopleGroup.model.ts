@@ -5,14 +5,14 @@ export interface PeopleGroupResponse {
     data: PeopleGroupResponseData;
 }
 
-export class PeopleGroupModelItem {
-    NmDisp: string = null;
-    PEID: number = null;
-    Ctry: string = null;
-    GENC0: string = null;
+export interface PeopleGroupModelItem {
+    nmDisp: string;
+    peid: number;
+    ctry: string;
+    genC0: string;
 }
 
-export class PeopleGroupModel {
+export interface PeopleGroupModel {
     attributes: PeopleGroupModelItem;
 }
 
@@ -34,11 +34,11 @@ export interface PeopleGroupConfig {
 
 
 export const UnknownPeopleGroup = {
-    NmDisp: 'Unknown',
-    PEID: -2
+    nmDisp: 'Unknown',
+    peid: -2
 } as PeopleGroupModelItem;
 
 export const OtherPeopleGroup = {
-    NmDisp: 'Other',
-    PEID: -3
+    nmDisp: 'Other',
+    peid: -3
 } as PeopleGroupModelItem;

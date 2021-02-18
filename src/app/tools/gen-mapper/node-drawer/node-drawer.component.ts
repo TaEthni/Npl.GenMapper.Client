@@ -393,7 +393,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     private insertPendingPeoples(people: PeopleAttributes): void {
         let found;
 
-        if (people.identifier === OtherPeopleGroup.PEID) {
+        if (people.identifier === OtherPeopleGroup.peid) {
             found = this.pendingPeoples.find(f => f.identifier === people.identifier && f.placeOfOrigin === people.placeOfOrigin && f.label === people.label);
         } else {
             found = this.pendingPeoples.find(f => f.identifier === people.identifier);
@@ -409,14 +409,14 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     }
 
     private insertUnknownPeopleGroupAtBeginning(): void {
-        const unknown = this.pendingPeoples.find(p => p.identifier === UnknownPeopleGroup.PEID);
+        const unknown = this.pendingPeoples.find(p => p.identifier === UnknownPeopleGroup.peid);
         if (unknown) {
             return;
         }
 
         const people = {} as PeopleAttributes;
-        people.identifier = UnknownPeopleGroup.PEID;
-        people.label = UnknownPeopleGroup.NmDisp;
+        people.identifier = UnknownPeopleGroup.peid;
+        people.label = UnknownPeopleGroup.nmDisp;
         people.placeOfOrigin = null;
 
         const peopleField = this.template.getField('peoples');

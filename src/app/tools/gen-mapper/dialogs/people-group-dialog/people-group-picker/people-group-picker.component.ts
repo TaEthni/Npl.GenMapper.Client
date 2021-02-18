@@ -35,8 +35,8 @@ export class PeopleGroupPickerComponent extends Unsubscribable implements OnInit
         this.dataSource.data = this.peopleGroups;
         this.dataSource.filterPredicate = (d: PeopleGroupModel, f: string) => {
             f = f.trim().toLowerCase();
-            return d.attributes.NmDisp.toLowerCase().indexOf(f) > -1
-                || d.attributes.Ctry.toLowerCase().indexOf(f) > -1;
+            return d.attributes.nmDisp.toLowerCase().indexOf(f) > -1
+                || d.attributes.ctry.toLowerCase().indexOf(f) > -1;
         };
 
         if (this.selected && this.selected.length) {

@@ -75,7 +75,7 @@ export class PgMigrationService {
             node.attributes.peoples = [];
 
             const def = {} as PeopleAttributes;
-            def.identifier = UnknownPeopleGroup.PEID;
+            def.identifier = UnknownPeopleGroup.peid;
             def.label = 'Unknown';
             def.placeOfOrigin = null;
             def.attenders = 0;
@@ -104,8 +104,8 @@ export class PgMigrationService {
                     const people = {} as PeopleAttributes;
                     const pg = this.peopleGroupService.getByPeid(peid);
                     people.identifier = peid;
-                    people.label = pg.NmDisp;
-                    people.placeOfOrigin = pg.GENC0;
+                    people.label = pg.nmDisp;
+                    people.placeOfOrigin = pg.genC0;
 
                     if (!pg) {
                         console.log(peid, node);
@@ -117,7 +117,7 @@ export class PgMigrationService {
                         people.baptized = baptized;
                         people.newlyBaptized = newlyBaptized;
                         if (!node.attributes.country) {
-                            node.attributes.country = pg.GENC0;
+                            node.attributes.country = pg.genC0;
                         }
                     } else {
                         people.attenders = 0;

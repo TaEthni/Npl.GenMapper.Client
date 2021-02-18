@@ -16,7 +16,7 @@ export class Entity implements IEntity {
 }
 
 export enum EntityType {
-    PeopleGroups = 'people-groups',
+    PeopleGroups = 'peopleGroups',
     AllDocuments = 'streams-all',
     Documents = 'streams',
     Users = 'users',

@@ -56,10 +56,11 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
         });
 
         this.pgControl.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
-            this.showOther = parseFloat(result) === OtherPeopleGroup.PEID;
+            this.showOther = parseFloat(result) === OtherPeopleGroup.peid;
         });
 
         this.peopleGroupService.load().subscribe(result => {
+            console.log(result);
             this.peopleGroupConfig = result;
             this.isLoading = false;
             this.setCountryCode(this.countryControl.value);
@@ -68,8 +69,8 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
 
     public continue(): void {
         const peopleField = this.data.template.getField('peoples');
-        const PEID = parseFloat(this.pgControl.value);
-        const pg = this.peopleGroupService.getByPeid(PEID);
+        const peid = parseFloat(this.pgControl.value);
+        const pg = this.peopleGroupService.getByPeid(peid);
 
         let people = {} as PeopleAttributes;
 
@@ -81,11 +82,11 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
             });
         }
 
-        people.identifier = pg.PEID;
-        people.label = pg.NmDisp;
+        people.identifier = pg.peid;
+        people.label = pg.nmDisp;
         people.placeOfOrigin = this.countryControl.value;
 
-        if (people.identifier === OtherPeopleGroup.PEID) {
+        if (people.identifier === OtherPeopleGroup.peid) {
             people.label = this.otherControl.value;
 
             if (this.checkExistingOther(people)) {
@@ -106,7 +107,7 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
             return false;
         }
 
-        if (this.pgControl.value === OtherPeopleGroup.PEID && !this.otherControl.value) {
+        if (this.pgControl.value === OtherPeopleGroup.peid && !this.otherControl.value) {
             return false;
         }
 
@@ -126,7 +127,7 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
         }
 
         return peopleGroups.filter(p => {
-            return !this.data.peoples.find(n => n.identifier === p.PEID);
+            return !this.data.peoples.find(n => n.identifier === p.peid);
         });
     }
 

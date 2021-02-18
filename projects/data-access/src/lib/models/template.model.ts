@@ -95,8 +95,8 @@ export class Template extends GMTemplate {
         const peoples = this.getField('peoples');
         if (peoples) {
             const base = {} as PeopleAttributes;
-            base.identifier = UnknownPeopleGroup.PEID;
-            base.label = UnknownPeopleGroup.NmDisp;
+            base.identifier = UnknownPeopleGroup.peid;
+            base.label = UnknownPeopleGroup.nmDisp;
             base.placeOfOrigin = null;
             peoples.fields.forEach(field => {
                 base[field.id] = field.defaultValue || 0;
