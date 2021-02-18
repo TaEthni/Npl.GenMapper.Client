@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { isAuthenticated } from '@npl-auth';
+import { AuthActions, isAuthenticated } from '@npl-auth';
 import { CSVToJSON } from '@npl-core/csv-to-json';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { AppState, DocumentDto, IFlatNode, Template } from '@npl-data-access';
@@ -30,7 +30,7 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
         private genMapper: GenMapperService,
         private dialog: MatDialog,
         private router: Router,
-        private nodeTree: NodeTreeService
+        private nodeTree: NodeTreeService,
     ) { super(); }
 
     public ngOnInit() {
@@ -82,6 +82,10 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
                     }
                 }
             });
+    }
+
+    public login(): void {
+        this.store.dispatch(AuthActions.login());
     }
 
     private createDocument(doc: DocumentDto, nodes?: IFlatNode[]): void {

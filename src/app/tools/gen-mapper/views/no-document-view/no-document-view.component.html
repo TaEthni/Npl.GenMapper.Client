@@ -30,7 +30,9 @@
             </h1>
 
             <div class="login-link">
-                <a [routerLink]="['/login']">
+                <a mat-button
+                   color="primary"
+                   (click)="login()">
                     - {{'Common_Login' | locale | async}} -
                 </a>
             </div>
