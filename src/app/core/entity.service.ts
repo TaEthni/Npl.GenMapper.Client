@@ -80,7 +80,9 @@ export class EntityService {
     public delete<T extends Entity>(entity: T): Observable<T> {
         const url = BaseUrl + entity.entityType + '/' + entity.id;
         return this.http.delete<T>(url).pipe(map(a => {
-            a['entityType'] = entity.entityType;
+            if (a) {
+                a['entityType'] = entity.entityType;
+            }
             return a;
         }));
     }
