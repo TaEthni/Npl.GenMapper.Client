@@ -1,8 +1,8 @@
 import { MapsAPILoader } from '@agm/core';
-import { AfterViewInit, Component, ElementRef, Inject, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MapsService } from '@core/maps.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MapsService } from '@npl-core/maps.service';
 
 interface MouseEvent {
     coords: { lat: number, lng: number };
@@ -30,7 +30,7 @@ export interface LocationDialogResponse {
     templateUrl: './location-dialog.component.html',
     styleUrls: ['./location-dialog.component.scss']
 })
-export class LocationDialogComponent implements AfterViewInit {
+export class LocationDialogComponent implements AfterViewInit, OnDestroy {
     @ViewChild('search', { static: true })
     public searchElementRef: ElementRef;
 
@@ -45,6 +45,8 @@ export class LocationDialogComponent implements AfterViewInit {
     public placeId: string;
     public height: number;
     public geocoder: google.maps.Geocoder;
+
+    private mapClickListener: google.maps.MapsEventListener;
 
     constructor(
         private mapsService: MapsService,
@@ -69,6 +71,12 @@ export class LocationDialogComponent implements AfterViewInit {
         this.initialize();
     }
 
+    public ngOnDestroy(): void {
+        if (this.mapClickListener) {
+            this.mapClickListener.remove();
+        }
+    }
+
     public onSubmit(): void {
         this.dialogRef.close({
             address: this.address,
@@ -82,12 +90,16 @@ export class LocationDialogComponent implements AfterViewInit {
         this.searchControl.setValue('');
     }
 
-    public markerDragEnd(event: MouseEvent): void {
-        this.setAddress(event.coords.lat, event.coords.lng);
+    public mapReadyHandler(map: google.maps.Map): void {
+        this.mapClickListener = map.addListener('click', (e: google.maps.MouseEvent) => {
+            this.ngZone.run(() => {
+                this.setAddress(e.latLng.lat(), e.latLng.lng());
+            });
+        });
     }
 
-    public mapClicked(event: MouseEvent): void {
-        this.setAddress(event.coords.lat, event.coords.lng);
+    public markerDragEnd(event: google.maps.MouseEvent): void {
+        this.setAddress(event.latLng.lat(), event.latLng.lng());
     }
 
     private initialize(): void {

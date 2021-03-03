@@ -2,9 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthenticationService } from '@core/authentication.service';
-import { LocaleService } from '@core/locale.service';
-import { LocalePipe } from '@shared/locale.pipe';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { LocaleService } from '@npl-core/locale.service';
+import { LocalePipe } from '@npl-shared/locale.pipe';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
 

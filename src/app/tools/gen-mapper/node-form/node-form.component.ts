@@ -1,15 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDatepicker, MatDialog, MatDialogRef, MAT_DATE_FORMATS } from '@angular/material';
-import { MapsService } from '@core/maps.service';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { NodeDto } from '@models/node.model';
-import { ControlType, COUNTRIES, GMField } from '@templates';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MapsService } from '@npl-core/maps.service';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { NodeDto } from '@npl-data-access';
+import { ControlType, COUNTRIES, GMField } from '@npl-template';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
-import { LocationDialogComponent, LocationDialogConfig, LocationDialogResponse } from '../dialogs/location-dialog/location-dialog.component';
+
+import {
+    LocationDialogComponent,
+    LocationDialogConfig,
+    LocationDialogResponse,
+} from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 
 export const MY_FORMATS = {

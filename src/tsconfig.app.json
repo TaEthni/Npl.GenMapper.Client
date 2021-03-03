@@ -4,31 +4,37 @@
         "outDir": "../out-tsc/app",
         "baseUrl": "./",
         "paths": {
-            "@shared/*": [
+            "@npl-shared/*": [
                 "app/shared/*"
             ],
-            "@core/*": [
+            "@npl-core/*": [
                 "app/core/*"
             ],
-            "@models/*": [
-                "app/models/*"
-            ],
-            "@admin/*": [
+            "@npl-admin/*": [
                 "app/admin/*"
             ],
-            "@templates": [
+            "@npl-template": [
                 "templates/index"
+            ],
+            "@npl-auth": [
+                "../projects/auth/src/public-api"
+            ],
+            "@npl-idp": [
+                "../projects/idp/src/public-api"
+            ],
+            "@npl-data-access": [
+                "../projects/data-access/src/public-api"
             ],
             "lodash": [
                 "../node_modules/lodash-es"
             ]
         }
     },
-    "exclude": [
-        "**/translations.ts",
-        "**/templates/*.ts",
-        "setupJest.ts",
-        "**/*.spec.ts",
-        "app/tools/gen-mapper/gen-map.ts"
+    "files": [
+        "main.ts",
+        "polyfills.ts"
+    ],
+    "include": [
+        "src/**/*.d.ts"
     ]
 }

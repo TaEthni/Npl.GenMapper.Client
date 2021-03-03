@@ -1,57 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BaseUrl } from '@core/entity.service';
-import { EntityType } from '@models/entity.model';
-import { Dictionary, groupBy } from 'lodash';
+import { BaseUrl } from '@npl-core/entity.service';
+import {
+    EntityType,
+    OtherPeopleGroup,
+    PeopleGroupConfig,
+    PeopleGroupModel,
+    PeopleGroupModelItem,
+    PeopleGroupResponseData,
+    UnknownPeopleGroup,
+} from '@npl-data-access';
+import { groupBy } from 'lodash';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-let peopleGroupsConfig: PeopleGroupConfig;
-
-export interface PeopleGroupResponse {
-    data: PeopleGroupResponseData;
-}
-
-export class PeopleGroupModelItem {
-    NmDisp: string = null;
-    PEID: number = null;
-    Ctry: string = null;
-    GENC0: string = null;
-}
-
-export class PeopleGroupModel {
-    attributes: PeopleGroupModelItem;
-}
-
-export interface PeopleGroupResponseData {
-    byPEID: Dictionary<PeopleGroupModelItem[]>;
-    byCountry: Dictionary<PeopleGroupModelItem[]>;
-    displayFieldName: string;
-    features: PeopleGroupModel[];
-    fieldAliases: Dictionary<string>;
-    fields: { alias: string, name: string, type: string }[];
-    data: PeopleGroupModelItem[];
-}
-
-export interface PeopleGroupConfig {
-    features?: PeopleGroupModelItem[];
-    byCountry?: Dictionary<PeopleGroupModelItem[]>;
-}
-
 export const LOCALE_STORAGE_KEY = '_locale_pg-v2';
+
+let peopleGroupsConfig: PeopleGroupConfig;
 
 const OLD_KEYS = ['_locale_pg-v1'];
 OLD_KEYS.forEach(KEY => localStorage.removeItem(KEY));
-
-export const UnknownPeopleGroup = {
-    NmDisp: 'Unknown',
-    PEID: -2
-} as PeopleGroupModelItem;
-
-export const OtherPeopleGroup = {
-    NmDisp: 'Other',
-    PEID: -3
-} as PeopleGroupModelItem;
 
 @Injectable({
     providedIn: 'root'
@@ -76,9 +44,9 @@ export class PeopleGroupService {
     }
 
     public getByPeid(peid: number): PeopleGroupModelItem {
-        if (peid === UnknownPeopleGroup.PEID) { return UnknownPeopleGroup; }
-        if (peid === OtherPeopleGroup.PEID) { return OtherPeopleGroup; }
-        return this.config.features.find(f => f.PEID === peid);
+        if (peid === UnknownPeopleGroup.peid) { return UnknownPeopleGroup; }
+        if (peid === OtherPeopleGroup.peid) { return OtherPeopleGroup; }
+        return this.config.features.find(f => f.peid === peid);
     }
 
     public load(): Observable<PeopleGroupConfig> {
@@ -95,8 +63,8 @@ export class PeopleGroupService {
 
         this.isLoading = true;
 
-        return this.http.get<PeopleGroupResponse>(BaseUrl + EntityType.PeopleGroups).pipe(map(p => {
-            const features = this.createData(p.data.features);
+        return this.http.get<PeopleGroupResponseData>(BaseUrl + EntityType.PeopleGroups).pipe(map(data => {
+            const features = this.createData(data.features);
             this.setConfig(features);
             this.isLoading = false;
             localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(features));
@@ -106,15 +74,15 @@ export class PeopleGroupService {
 
     private createData(data: PeopleGroupModel[]): PeopleGroupModelItem[] {
         return data.map(d => {
-            const { NmDisp, PEID, Ctry, GENC0 } = d.attributes;
+            const { nmDisp, peid, ctry, genC0 } = d.attributes;
             return {
-                NmDisp, PEID, Ctry, GENC0,
-            }
+                nmDisp, peid, ctry, genC0,
+            };
         });
     }
 
     private setConfig(features: PeopleGroupModelItem[]): void {
-        const byCountry = groupBy(features, (d) => d.GENC0);
+        const byCountry = groupBy(features, (d) => d.genC0);
         this.config = peopleGroupsConfig = { features, byCountry };
         this._config.next(this.config);
     }

@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { Device } from '@core/platform';
-import { DocumentDto } from '@models/document.model';
-import { GMTemplate } from '@templates';
+import { Device } from '@npl-core/platform';
+import { DocumentDto } from '@npl-data-access';
+import { GMTemplate } from '@npl-template';
+
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { GenMapperService } from '../gen-mapper.service';
 

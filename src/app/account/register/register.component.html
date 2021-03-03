@@ -1,0 +1,100 @@
+<form fxLayout="column"
+      fxLayoutAlign="center"
+      fxLayoutGap="24px"
+      [formGroup]="form">
+
+    <h1 class="text-center">
+        <span translate>Create new account</span>
+    </h1>
+
+    <mat-form-field appearance="outline">
+        <mat-label>
+            <span translate>Username</span>
+        </mat-label>
+        <input type="text"
+               matInput
+               autocomplete="nofill"
+               formControlName="userName">
+
+        <mat-hint>
+            <span>User Name will be required at login</span>
+        </mat-hint>
+        <mat-error *ngIf="userName.hasError('required')">
+            <span translate>Field is required</span>
+        </mat-error>
+        <mat-error *ngIf="userName.hasError('pattern')">
+            <span translate>Username must not contain any special characters</span>
+        </mat-error>
+        <mat-error *ngIf="userName.hasError('minlength')">
+            <span translate>Username must be at least 4 characters long</span>
+        </mat-error>
+        <mat-error *ngIf="userName.hasError('duplicateUserName')">
+            <span translate>Username already exists</span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>
+            <span translate>Email</span>
+        </mat-label>
+        <input type="email"
+               matInput
+               formControlName="email">
+        <mat-error *ngIf="form.get('email')!.hasError('duplicateEmail')">
+            <span translate>Email already exists</span>
+        </mat-error>
+        <mat-error *ngIf="form.get('email')!.hasError('required')">
+            <span translate>Field is required</span>
+        </mat-error>
+        <mat-error *ngIf="form.get('email')!.hasError('email')">
+            <span translate>Invalid Email Format</span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline"
+                    class="password-field">
+        <mat-label>
+            <span translate>Password</span>
+        </mat-label>
+        <input type="password"
+               matInput
+               name="nofill"
+               autocomplete="nofill"
+               formControlName="password">
+        <mat-hint>
+            <app-password-requirements [control]="password"
+                                       [showMinlength]="true"
+                                       [showLowercase]="true"
+                                       [showUppercase]="true"
+                                       [showNumber]="true"
+                                       [showSpecialCharacter]="true"></app-password-requirements>
+        </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline"
+                    class="password-field">
+        <mat-label>
+            <span translate>Confirm Password</span>
+        </mat-label>
+        <input type="password"
+               matInput
+               autocomplete="nofill"
+               formControlName="confirmPassword">
+
+        <mat-hint>
+            <app-password-requirements [control]="confirmPassword"
+                                       [showNoMatch]="true"></app-password-requirements>
+        </mat-hint>
+    </mat-form-field>
+
+    <button mat-raised-button
+            type="submit"
+            color="primary"
+            class="spinner-button"
+            (click)="register()">
+        <ng-container *ngIf="isLoading">
+            <mat-spinner diameter="24"></mat-spinner>
+        </ng-container>
+        <span translate>Create new account</span>
+    </button>
+</form>

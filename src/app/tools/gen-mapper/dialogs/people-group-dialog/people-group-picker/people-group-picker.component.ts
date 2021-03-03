@@ -2,7 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Unsubscribable } from '@core/Unsubscribable';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
 import { PeopleGroupModel } from '../people-group.service';
@@ -35,8 +35,8 @@ export class PeopleGroupPickerComponent extends Unsubscribable implements OnInit
         this.dataSource.data = this.peopleGroups;
         this.dataSource.filterPredicate = (d: PeopleGroupModel, f: string) => {
             f = f.trim().toLowerCase();
-            return d.attributes.NmDisp.toLowerCase().indexOf(f) > -1
-                || d.attributes.Ctry.toLowerCase().indexOf(f) > -1;
+            return d.attributes.nmDisp.toLowerCase().indexOf(f) > -1
+                || d.attributes.ctry.toLowerCase().indexOf(f) > -1;
         };
 
         if (this.selected && this.selected.length) {

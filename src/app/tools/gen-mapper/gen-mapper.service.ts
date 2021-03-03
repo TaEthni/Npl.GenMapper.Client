@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
-import { DocumentService } from '@core/document.service';
-import { DocumentDto, IDocumentDto } from '@models/document.model';
-import { IFlatNode, NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@npl-auth';
+import { NullGuid } from '@npl-core/constants';
+import { DocumentService } from '@npl-core/document.service';
+import { AppState, DocumentDto, IDocumentDto, IFlatNode, NodeDto, Template } from '@npl-data-access';
 import { Dictionary, keyBy } from 'lodash';
-import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
-import { delayWhen, filter, map, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { delayWhen, filter, map, take, takeUntil, tap } from 'rxjs/operators';
 
 const documentStorageKey = 'offline-document-v1-';
 const nodesStorageKey = 'offline-nodes-v2-'
@@ -22,7 +22,7 @@ export interface DocumentContext {
 }
 
 @Injectable()
-export class GenMapperService {
+export class GenMapperService implements OnDestroy {
     private rawTemplate: Template;
     private _template = new ReplaySubject<Template>();
     private _documents = new BehaviorSubject<DocumentDto[]>(null);
@@ -30,6 +30,8 @@ export class GenMapperService {
     private _selectedDocument: BehaviorSubject<DocumentDto> = new BehaviorSubject(null);
     private _selectedNode: BehaviorSubject<NodeDto> = new BehaviorSubject(null);
     private nodesById: Dictionary<NodeDto> = {};
+    private unsubscribe = new Subject<boolean>();
+    private isAuthenticated: boolean;
 
     public template$ = this._template.asObservable();
     public documents$ = this._documents.asObservable();
@@ -39,11 +41,18 @@ export class GenMapperService {
     public selectedNode$ = this._selectedNode.asObservable();
 
     constructor(
-        private authService: AuthenticationService,
+        private store: Store<AppState>,
         private documentService: DocumentService
     ) {
+        this.store.select(isAuthenticated).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.isAuthenticated = result;
+        });
+
         this.template$
-            .pipe(filter(t => !!t))
+            .pipe(
+                filter(t => !!t),
+                takeUntil(this.unsubscribe)
+            )
             .subscribe(template => {
                 this.rawTemplate = template;
                 this._selectedDocument.next(null);
@@ -51,6 +60,7 @@ export class GenMapperService {
             })
 
         this.selectedDocument$
+            .pipe(takeUntil(this.unsubscribe))
             .subscribe(document => {
                 this._selectedNode.next(null);
 
@@ -62,9 +72,14 @@ export class GenMapperService {
                 this.refreshDocumentNodes().subscribe();
             });
 
-        this._nodes.subscribe(result => {
+        this._nodes.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
             this.processNodesOnSet(result);
         });
+    }
+
+    public ngOnDestroy(): void {
+        this.unsubscribe.next(false);
+        this.unsubscribe.complete();
     }
 
     public setDocument(documentId: string): void {
@@ -92,7 +107,7 @@ export class GenMapperService {
         value = value || {} as IDocumentDto;
         value.type = this.rawTemplate.id;
         value.title = value.title || 'No Name';
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             let nodes = value.nodes;
             delete value.nodes;
 
@@ -117,7 +132,7 @@ export class GenMapperService {
     }
 
     public createNode(value: NodeDto): Observable<NodeDto> {
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             const nodes = this._nodes.getValue();
             nodes.push(value);
             this.setNodesLocalStorage(nodes);
@@ -128,7 +143,7 @@ export class GenMapperService {
     }
 
     public createDocumentNodes(nodes: NodeDto[]): Observable<NodeDto[]> {
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             let saved = this._nodes.getValue();
             saved = saved.concat(nodes);
             this._nodes.next(saved);
@@ -145,7 +160,7 @@ export class GenMapperService {
     }
 
     public updateDocument(doc: DocumentDto): Observable<DocumentDto> {
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             return this.setDocumentLocalStorage(doc);
         }
 
@@ -155,7 +170,7 @@ export class GenMapperService {
     }
 
     public updateNode(node: NodeDto): Observable<NodeDto> {
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             return this.updateNodeLocalStorage(node);
         }
 
@@ -163,7 +178,7 @@ export class GenMapperService {
     }
 
     public updateDocumentNodes(nodes: NodeDto[]): Observable<NodeDto[]> {
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             nodes.forEach(node => {
                 const found = this.nodesById[node.id];
                 Object.assign(found.attributes, node.attributes);
@@ -176,7 +191,7 @@ export class GenMapperService {
     }
 
     public removeDocument(doc: DocumentDto): Observable<DocumentDto> {
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             this.clearLocalStorage();
             this._selectedDocument.next(null);
             return of(null);
@@ -189,7 +204,7 @@ export class GenMapperService {
     }
 
     public removeDocumentNodes(nodeIds: string[]): Observable<void> {
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             const nodes = this._nodes.getValue().filter(n => !(nodeIds.indexOf(n.id) > -1));
             this.setNodesLocalStorage(nodes);
             this._nodes.next(nodes);
@@ -203,7 +218,7 @@ export class GenMapperService {
     public refreshDocuments(): Observable<DocumentDto[]> {
         let observer: Observable<DocumentDto[]>;
 
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             observer = this.loadDocumentsFromLocalStorage();
         } else {
             observer = this.documentService.getAllByType(this.rawTemplate.id);
@@ -217,7 +232,7 @@ export class GenMapperService {
     public refreshDocumentNodes(): Observable<NodeDto[]> {
         let observer: Observable<NodeDto[]>;
 
-        if (!this.authService.isAuthenticated()) {
+        if (!this.isAuthenticated) {
             observer = this.loadNodesFromLocalStorage();
         } else {
             const document = this._selectedDocument.getValue();
@@ -301,6 +316,10 @@ export class GenMapperService {
         let nodesById = this.nodesById = keyBy(nodes, (n) => n.id);
 
         nodes.forEach(node => {
+            if (node.parentId === NullGuid) {
+                node.parentId = null;
+            }
+
             node.isRoot = !node.parentId;
 
             if (node.attributes.newGeneration) {

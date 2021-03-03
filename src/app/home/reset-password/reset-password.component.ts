@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AuthenticationService } from '@core/authentication.service';
-import { confirmPasswordValidator } from '@shared/confirm-password.validator';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { takeUntil, take } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { confirmPasswordValidator } from '@npl-shared/confirm-password.validator';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-reset-password',

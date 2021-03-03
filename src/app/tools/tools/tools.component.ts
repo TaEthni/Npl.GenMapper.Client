@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GMTemplate } from '@templates';
+import { GMTemplate } from '@npl-template';
+
 import { TemplateService } from '../../core/template.service';
 
 interface ViewTemplate {

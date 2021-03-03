@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { CSVToJSON } from '@core/csv-to-json';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { IFlatNode } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { Store } from '@ngrx/store';
+import { AuthActions, isAuthenticated } from '@npl-auth';
+import { CSVToJSON } from '@npl-core/csv-to-json';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { AppState, DocumentDto, IFlatNode, Template } from '@npl-data-access';
+import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
 import { takeUntil } from 'rxjs/operators';
+
 import { CreateDocumentDialogComponent } from '../../dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from '../../dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
 import { GenMapperService } from '../../gen-mapper.service';
@@ -26,15 +26,19 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
     public documents: DocumentDto[];
 
     constructor(
-        private authService: AuthenticationService,
+        private store: Store<AppState>,
         private genMapper: GenMapperService,
         private dialog: MatDialog,
         private router: Router,
-        private nodeTree: NodeTreeService
+        private nodeTree: NodeTreeService,
     ) { super(); }
 
     public ngOnInit() {
-        this.isAuthenticated = this.authService.isAuthenticated();
+        this.store.select(isAuthenticated)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.isAuthenticated = result;
+            });
 
         this.genMapper.template$
             .pipe(takeUntil(this.unsubscribe))
@@ -50,7 +54,7 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
     }
 
     public onCreateDocument(): void {
-        if (!this.authService.isAuthenticated() && this.genMapper.hasLocalDocument()) {
+        if (!this.isAuthenticated && this.genMapper.hasLocalDocument()) {
             this.router.navigate(['/gen-mapper', this.template.id, 'local']);
             return;
         }
@@ -78,6 +82,10 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
                     }
                 }
             });
+    }
+
+    public login(): void {
+        this.store.dispatch(AuthActions.login());
     }
 
     private createDocument(doc: DocumentDto, nodes?: IFlatNode[]): void {

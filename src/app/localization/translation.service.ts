@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { translations as i18nTranslations } from '@templates';
+import { translations as i18nTranslations } from '@npl-template';
 
 export interface Key {
     key: string;

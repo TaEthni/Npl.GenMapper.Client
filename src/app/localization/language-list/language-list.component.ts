@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DownloadService } from '@npl-core/download.service';
+
 import { Language, TranslationService } from '../translation.service';
-import { DownloadService } from '@core/download.service';
 
 @Component({
     selector: 'app-language-list',

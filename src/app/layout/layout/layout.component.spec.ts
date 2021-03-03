@@ -1,12 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthenticationService } from '@core/authentication.service';
-import { LayoutService } from '@core/layout.service';
-import { TokenServiceMock } from '@core/testing/token-service.mock';
-import { User } from '@models/user.model';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { LayoutService } from '@npl-core/layout.service';
+import { TokenServiceMock } from '@npl-core/testing/token-service.mock';
 import { configureTestSuite } from 'ng-bullet';
-import { of } from 'rxjs';
+
 import { LayoutComponent } from './layout.component';
 
 
@@ -36,7 +35,6 @@ describe('LayoutComponent', () => {
     beforeEach(() => {
         layoutService = TestBed.get(LayoutService);
         authService = TestBed.get(AuthenticationService);
-        authService.getUser = jest.fn(() => of(new User()));
         authService.refreshUser = jest.fn();
         fixture = TestBed.createComponent(LayoutComponent);
         component = fixture.componentInstance;

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { TemplateService } from '@core/template.service';
-import { DocumentDto } from '@models/document.model';
-import { Template } from '@models/template.model';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
+import { TemplateService } from '@npl-core/template.service';
+import { DocumentDto, Template } from '@npl-data-access';
 import { Observable } from 'rxjs/Observable';
+
 import { GenMapperService } from './gen-mapper.service';
 
 @Injectable()

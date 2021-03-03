@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidationUtils, htmlInputTypes } from '@shared/validationUtils';
-import { confirmPasswordValidator } from '@shared/confirm-password.validator';
-import { takeUntil } from 'rxjs/operators';
-import { Unsubscribable } from '@core/Unsubscribable';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '@npl-core/authentication.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { confirmPasswordValidator } from '@npl-shared/confirm-password.validator';
+import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
+import { takeUntil } from 'rxjs/operators';
 
 export enum CreateUserError {
     usernameExists = 'usernameExists',

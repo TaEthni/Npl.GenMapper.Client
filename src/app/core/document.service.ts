@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EntityService } from '@core/entity.service';
-import { DocumentDto, IDocumentDto } from '@models/document.model';
-import { Entity, EntityType } from '@models/entity.model';
-import { IFlatNode, NodeAttributes, NodeDto } from '@models/node.model';
+import { EntityService } from '@npl-core/entity.service';
+import { DocumentDto, Entity, EntityType, IDocumentDto, IFlatNode, NodeAttributes, NodeDto } from '@npl-data-access';
 import { cloneDeep, pick, some } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { TemplateService } from './template.service';
 
 @Injectable()
@@ -32,7 +31,7 @@ export class DocumentService {
     }
 
     public getDocumentNodes(documentId: string): Observable<NodeDto[]> {
-        return this.entityService.customGet<NodeDto[]>(`documents/${documentId}/nodes`);
+        return this.entityService.customGet<NodeDto[]>(`streams/${documentId}/nodes`);
     }
 
     public create(value: IDocumentDto = {}): Observable<DocumentDto> {
@@ -57,11 +56,11 @@ export class DocumentService {
 
     public createNode(node: NodeDto): Observable<NodeDto> {
         delete node.entityType;
-        return this.entityService.customPost<NodeDto>(`documents/${node.documentId}/nodes`, node);
+        return this.entityService.customPost<NodeDto>(`streams/${node.documentId}/nodes`, node);
     }
 
     public batchCreateNodes(documentId: string, nodes: NodeDto[]): Observable<NodeDto[]> {
-        return this.entityService.customPost<NodeDto[]>(`documents/${documentId}/nodes/batch`, nodes);
+        return this.entityService.customPost<NodeDto[]>(`streams/${documentId}/nodes/batch`, nodes);
     }
 
     public update(doc: DocumentDto): Observable<DocumentDto> {
@@ -71,11 +70,11 @@ export class DocumentService {
 
     public updateNode(node: NodeDto): Observable<NodeDto> {
         const payload = pick(node, 'parentId', 'documentId', 'attributes') as NodeDto;
-        return this.entityService.customPut(`documents/${node.documentId}/nodes/${node.id}`, payload);
+        return this.entityService.customPut(`streams/${node.documentId}/nodes/${node.id}`, payload);
     }
 
     public batchUpdateNodes(documentId: string, nodes: NodeDto[]): Observable<NodeDto[]> {
-        return this.entityService.customPost(`documents/${documentId}/nodes/batch-update`, nodes);
+        return this.entityService.customPost(`streams/${documentId}/nodes/batch-update`, nodes);
     }
 
     public remove(document: DocumentDto): Observable<DocumentDto> {
@@ -83,7 +82,7 @@ export class DocumentService {
     }
 
     public removeNodes(documentId: string, nodeIds: string[]): Observable<void> {
-        return this.entityService.customPost<void>(`documents/${documentId}/nodes/remove`, { nodes: nodeIds });
+        return this.entityService.customPost<void>(`streams/${documentId}/nodes/remove`, { nodes: nodeIds });
     }
 
     public processNodesBeforeCreate(nodes: IFlatNode[] | NodeDto[], document?: IDocumentDto): NodeDto[] {

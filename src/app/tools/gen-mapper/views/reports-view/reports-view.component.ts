@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { LocaleService } from '@core/locale.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { ControlType, GMReport, ReportType } from '@templates';
+import { LocaleService } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { NodeDto, Template } from '@npl-data-access';
+import { ControlType, GMReport, ReportType } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
-import { GenMapperService } from '../../gen-mapper.service';
 
+import { GenMapperService } from '../../gen-mapper.service';
 
 @Component({
     selector: 'app-reports-view',

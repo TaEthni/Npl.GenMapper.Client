@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 56px;
+
+    form {
+        padding: 0 24px;
+    }
+
+    button {
+        text-transform: uppercase;
+    }
+
+    .password-field {
+        margin-bottom: 110px !important;
+    }
+}

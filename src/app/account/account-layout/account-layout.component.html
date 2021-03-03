@@ -1,0 +1,49 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <app-sidenav-toggle></app-sidenav-toggle>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<nav mat-tab-nav-bar
+     fxHide.gt-sm
+     backgroundColor="primary">
+    <ng-container *ngFor="let link of links$ | async">
+        <a mat-tab-link
+           #rla="routerLinkActive"
+           routerLinkActive="active"
+           [routerLink]="link.routerLink"
+           [routerLinkActiveOptions]="link.routerLinkActiveOptions"
+           [active]="rla.isActive">
+            <mat-icon class="tab-icon">{{link.icon}}</mat-icon>
+            <span>
+                {{link.i18nKey}}
+            </span>
+        </a>
+    </ng-container>
+</nav>
+
+<div fxLayout="row"
+     class="page-wrap">
+    <div fxLayout="column"
+         fxHide.lt-md>
+        <mat-nav-list>
+            <ng-container *ngFor="let link of links$ | async">
+                <a mat-list-item
+                   routerLinkActive="active"
+                   [routerLink]="link.routerLink"
+                   [routerLinkActiveOptions]="link.routerLinkActiveOptions">
+                    <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
+                    <span mat-line>
+                        {{link.i18nKey}}
+                    </span>
+                </a>
+            </ng-container>
+        </mat-nav-list>
+    </div>
+
+    <div class="scroll-container">
+        <div class="page-container">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

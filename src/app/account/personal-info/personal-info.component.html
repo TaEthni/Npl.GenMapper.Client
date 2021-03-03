@@ -1,0 +1,82 @@
+<div class="container"
+     fxLayout="column"
+     fxLayoutGap="24px">
+    <h1 class="text-center">Personal Information</h1>
+    <p class="text-center mute">Personal information like User Name and Email</p>
+
+    <mat-card>
+        <h2>Username</h2>
+        <p class="mute">Change your User Name, which is also used to Login to the app</p>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input type="text"
+                       autocomplete="nofill"
+                       name="nofill"
+                       matInput
+                       [formControl]="userName" />
+
+                <mat-error *ngIf="userName.hasError('required')">
+                    Field is required
+                </mat-error>
+                <mat-error *ngIf="userName.hasError('pattern')">
+                    Username must not contain any special characters
+                </mat-error>
+                <mat-error *ngIf="userName.hasError('minlength')">
+                    Username must be at least 4 characters long
+                </mat-error>
+                <mat-error *ngIf="userName.hasError('duplicateUserName')">
+                    Username already exists
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end"
+                          *ngIf="user?.name !== userName.value">
+            <button mat-button
+                    class="spinner-button"
+                    color="primary"
+                    (click)="updateUserName()">
+                <mat-spinner *ngIf="isSavingUserName"
+                             class="before"
+                             diameter="24"></mat-spinner>
+                <span>Save</span>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card>
+        <h2>Email</h2>
+        <p class="mute">Change your account Email Address</p>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="text"
+                       autocomplete="nofill"
+                       name="nofill"
+                       matInput
+                       [formControl]="email" />
+                <mat-error *ngIf="email.hasError('duplicateEmail')">
+                    Email already exists
+                </mat-error>
+                <mat-error *ngIf="email!.hasError('required')">
+                    Field is required
+                </mat-error>
+                <mat-error *ngIf="email!.hasError('email')">
+                    Invalid Email Format
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end"
+                          *ngIf="user?.email !== email.value">
+            <button mat-button
+                    class="spinner-button"
+                    color="primary"
+                    (click)="updateEmail()">
+                <mat-spinner *ngIf="isSavingEmail"
+                             class="before"
+                             diameter="24"></mat-spinner>
+                <span>Save</span>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

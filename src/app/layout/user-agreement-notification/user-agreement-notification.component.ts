@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@core/authentication.service';
-import { TokenService } from '@core/token.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { User } from '@models/user.model';
-import { takeUntil } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@npl-auth';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { AppState, Member, SelfSelectors } from '@npl-data-access';
+import { filter, takeUntil } from 'rxjs/operators';
+
+const ignoredKey = 'user_agreement_ignored-v2';
 
 @Component({
     selector: 'app-user-agreement-notification',
@@ -12,37 +14,37 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class UserAgreementNotificationComponent extends Unsubscribable implements OnInit {
 
-    private ignoredKey: 'user_agreement_ignored';
-
     public isIgnored: boolean;
     public isAuthenticated: boolean;
-    public user: User;
+    public self: Member;
 
     constructor(
-        private tokenService: TokenService,
-        private authService: AuthenticationService
+        private store: Store<AppState>
     ) {
         super();
-        const ignored = localStorage.getItem(this.ignoredKey);
+        const ignored = sessionStorage.getItem(ignoredKey);
         this.isIgnored = ignored ? JSON.parse(ignored) : false;
     }
 
     public ngOnInit(): void {
-        this.tokenService.get()
+        this.store.select(isAuthenticated)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(token => {
-                this.isAuthenticated = token.isAuthenticated;
+            .subscribe(isAuthenticated => {
+                this.isAuthenticated = isAuthenticated;
             });
 
-        this.authService.getUser()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(user => {
-                this.user = user;
+        this.store.select(SelfSelectors.getSelf)
+            .pipe(
+                filter(x => !!x),
+                takeUntil(this.unsubscribe)
+            )
+            .subscribe(member => {
+                this.self = member;
             });
     }
 
     public ignore(): void {
         this.isIgnored = true;
-        localStorage.setItem(this.ignoredKey, 'true');
+        sessionStorage.setItem(ignoredKey, 'true');
     }
 }

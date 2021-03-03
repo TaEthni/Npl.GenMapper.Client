@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BaseUrl, EntityService } from '@core/entity.service';
-import { EntityType } from '@models/entity.model';
-import { User } from '@models/user.model';
+import { BaseUrl, EntityService } from '@npl-core/entity.service';
+import { EntityType, User, UserProfile } from '@npl-data-access';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
 import { TokenService } from './token.service';
 
 
@@ -23,22 +24,22 @@ interface ResponseData {
 
 @Injectable()
 export class AuthenticationService {
-    private _user: BehaviorSubject<User> = new BehaviorSubject(null);
+    private _user: BehaviorSubject<any> = new BehaviorSubject(null);
 
     constructor(
+        public oauthService: OAuthService,
         private entityService: EntityService,
         private tokenService: TokenService,
         private http: HttpClient,
         private router: Router
     ) {
-
     }
 
     public isAuthenticated(): boolean {
-        return this.tokenService.getValue().isAuthenticated;
+        return this.oauthService.hasValidAccessToken();
     }
 
-    public getUser(): Observable<User> {
+    public getUser(): Observable<UserProfile> {
         return this._user.asObservable();
     }
 
@@ -64,22 +65,33 @@ export class AuthenticationService {
     }
 
     public refreshUser(): void {
-        const token = this.tokenService.getValue();
-
-        if (!token.isAuthenticated) {
+        if (!this.isAuthenticated()) {
             this._user.next(null);
             return;
         }
 
-        this.http.get<ResponseData>(BaseUrl + 'auth')
-            .subscribe(
-                response => {
-                    this._user.next(response.data);
-                },
-                error => {
-                    this.tokenService.set('');
-                }
-            );
+        this.oauthService.loadUserProfile().then(profile => {
+            // TODO use different user model
+            profile.username = profile.name;
+            this._user.next(profile as any);
+        });
+
+        // const token = this.tokenService.getValue();
+
+        // if (!token.isAuthenticated) {
+        //     this._user.next(null);
+        //     return;
+        // }
+
+        // this.http.get<ResponseData>(BaseUrl + 'auth')
+        //     .subscribe(
+        //         response => {
+        //             this._user.next(response.data);
+        //         },
+        //         error => {
+        //             this.tokenService.set('');
+        //         }
+        //     );
     }
 
     public logout(): void {

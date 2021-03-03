@@ -2,14 +2,18 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const devUrl = 'npl-tools-api-dev.genmapper.com/api/';
-// const localUrl = 'http://localhost:9000/api/';
-const localUrl = devUrl;
-
 export const environment = {
     production: false,
     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-    apiBase: localUrl
+    // apiBase: 'https://localhost:7001/api/',
+    apiBase: 'https://npl-api-qa.genmapper.com/api/',
+    authConfig: {
+        authority: 'https://idp-qa.taethni.com',
+        clientId: 'angular_spa_local',
+        responseType: 'code',
+        scope: 'profile openid IdentityServerApi npl_api web_api roles offline_access',
+        logLevel: 'Debug',
+    }
 };
 
 /*

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PeopleDialogComponent } from './people-dialog.component';
 
@@ -6,7 +6,7 @@ describe('PeopleDialogComponent', () => {
   let component: PeopleDialogComponent;
   let fixture: ComponentFixture<PeopleDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PeopleDialogComponent ]
     })

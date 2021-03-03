@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { MatDividerModule, MatSliderModule, MatTabsModule } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatMomentDateModule, MomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';

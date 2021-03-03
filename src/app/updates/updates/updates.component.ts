@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { UpdatesService } from '../updates.service';
 import { WhatsNewDialogComponent } from '../whats-new-dialog/whats-new-dialog.component';
 

@@ -1,13 +1,12 @@
-import { EditUserConfig, EditUserDialogComponent } from '@admin/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { EntityService } from '@core/entity.service';
-import { EntityType } from '@models/entity.model';
-import { User } from '@models/user.model';
+import { EditUserConfig, EditUserDialogComponent } from '@npl-admin/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { EntityService } from '@npl-core/entity.service';
+import { EntityType, User } from '@npl-data-access';
 
 @Component({
     selector: 'app-user-list',

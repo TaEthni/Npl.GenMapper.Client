@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { EntityService } from '@core/entity.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { EntityType } from '@models/entity.model';
-import { User } from '@models/user.model';
-import { cloneDeep } from 'lodash';
+import { Store } from '@ngrx/store';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { AppState, Member, SelfSelectors, SelfUIActions } from '@npl-data-access';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -15,45 +12,30 @@ import { takeUntil } from 'rxjs/operators';
     styleUrls: ['./user-agreement.component.scss']
 })
 export class UserAgreementComponent extends Unsubscribable implements OnInit {
-    public user: User;
+    public self: Member;
     public checkbox = new FormControl(null, [Validators.required]);
     public isSaving: boolean;
 
     constructor(
         private route: ActivatedRoute,
-        private entityService: EntityService,
         private router: Router,
-        private authService: AuthenticationService,
+        private store: Store<AppState>
     ) { super(); }
 
     public ngOnInit(): void {
-        this.route.data.pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.user = result.user;
-                if (this.user.agreementDate) {
-                    this.checkbox.setValue(true);
-                }
-            });
+        this.store.select(SelfSelectors.getSelf).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.self = result;
+            if (this.self.agreementDate) {
+                this.checkbox.setValue(true);
+            }
+        });
+
+        this.store.select(SelfSelectors.isUpdating).pipe(takeUntil(this.unsubscribe)).subscribe(isUpdating => {
+            this.isSaving = isUpdating;
+        });
     }
 
     public save(): void {
-        const update = cloneDeep(this.user);
-        update.entityType = EntityType.Users;
-        update.agreementDate = new Date();
-        delete update.status;
-        delete update.role;
-
-        this.entityService.update(update)
-            .subscribe(
-                success => {
-                    this.authService.refreshUser();
-                    this.isSaving = false;
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    this.isSaving = false;
-                    this.router.navigate(['/']);
-                }
-            );
+        this.store.dispatch(SelfUIActions.acceptAgreement());
     }
 }

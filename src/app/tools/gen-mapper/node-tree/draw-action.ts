@@ -1,6 +1,7 @@
-import { Template } from '@models/template.model';
-import { GMSvgAction } from '@templates';
+import { Template } from '@npl-data-access';
+import { GMSvgAction } from '@npl-template';
 import { Selection } from 'd3';
+
 import { NodeDatum } from '../gen-mapper.interface';
 import { applySVGAttrsAndStyle } from './d3-util';
 

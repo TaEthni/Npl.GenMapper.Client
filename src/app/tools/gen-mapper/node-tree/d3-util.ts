@@ -1,5 +1,5 @@
-import { GMSvg, GMTemplate, GMSvgAction } from "@templates";
-import { Selection, namespace } from 'd3';
+import { GMSvg } from '@npl-template';
+import { Selection } from 'd3';
 
 export function parseTransform(a: any): any {
     const b = {};

@@ -1,9 +1,20 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    NgZone,
+    OnInit,
+    Output,
+    ViewChild,
+} from '@angular/core';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { NodeDto, Template } from '@npl-data-access';
 import { takeUntil } from 'rxjs/operators';
+
 import { NodeDatum } from '../../gen-mapper.interface';
 import { D3NodeTree } from '../../node-tree/d3-node-tree';
 import { NodeTreeService } from '../../node-tree/node-tree.service';
@@ -30,7 +41,7 @@ export class GenMapperGraphComponent extends Unsubscribable implements AfterView
     @Output()
     public sortChange = new EventEmitter<NodeDto[]>();
 
-    @ViewChild('genMapperGraphSvg', { static: false })
+    @ViewChild('genMapperGraphSvg')
     public graphSvg: ElementRef;
 
     public d3NodeTree: D3NodeTree;

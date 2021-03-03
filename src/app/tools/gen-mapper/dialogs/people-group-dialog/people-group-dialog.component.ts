@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { COUNTRIES } from '@templates';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { COUNTRIES } from '@npl-template';
 import { take, takeUntil } from 'rxjs/operators';
+
 import { PeopleGroupConfig, PeopleGroupModel, PeopleGroupService } from './people-group.service';
 
 
@@ -40,6 +41,7 @@ export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit
                 takeUntil(this.unsubscribe)
             )
             .subscribe(result => {
+                console.log(result);
                 this.isLoading = false;
                 this.peopleGroupConfig = result;
                 this.countries = Object.keys(result.byCountry);
@@ -50,9 +52,9 @@ export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit
 
                 if (this.data.peids && this.data.peids.length > 0) {
                     const first = this.peopleGroupService.getByPeid(this.data.peids[0]);
-                    this.country = this.countries.find(c => c === first.attributes.Ctry);
+                    this.country = this.countries.find(c => c === first.attributes.ctry);
                     this.selectedPeopleGroups = result.features.filter(f => {
-                        return this.data.peids.includes(f.attributes.PEID);
+                        return this.data.peids.includes(f.attributes.peid);
                     });
 
                     this.onCountrySelected(this.country);
@@ -66,8 +68,8 @@ export class PeopleGroupDialogComponent extends Unsubscribable implements OnInit
 
         if (this.selectedPeopleGroups) {
             this.selectedPeopleGroups.forEach(p => {
-                peids.push(p.attributes.PEID);
-                names.push(p.attributes.NmDisp);
+                peids.push(p.attributes.peid);
+                names.push(p.attributes.nmDisp);
             });
         }
 

@@ -1,4 +1,4 @@
-<ng-container *ngIf="isAuthenticated && !user?.agreementDate && !isIgnored">
+<ng-container *ngIf="isAuthenticated && !self?.agreementDate && !isIgnored">
     <div class="user-agreement-container">
         <div class="user-agreement"
              routerLink="/account/user-agreement">

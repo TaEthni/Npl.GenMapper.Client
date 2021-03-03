@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarRef } from '@angular/material';
+import { MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarRef } from '@angular/material/snack-bar';
 
 export class SavingErrorSnackBarConfig extends MatSnackBarConfig {
     public horizontalPosition: MatSnackBarHorizontalPosition = 'right';

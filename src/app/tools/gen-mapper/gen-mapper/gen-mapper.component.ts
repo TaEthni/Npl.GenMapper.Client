@@ -2,17 +2,17 @@ import { Component, HostBinding, OnInit, Optional, ViewChild } from '@angular/co
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { CSVToJSON } from '@core/csv-to-json';
-import { LocaleService } from '@core/locale.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { DocumentDto } from '@models/document.model';
-import { NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@npl-auth';
+import { CSVToJSON } from '@npl-core/csv-to-json';
+import { LocaleService } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { AppState, DocumentDto, NodeDto, Template } from '@npl-data-access';
+import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
 import { some } from 'lodash';
 import { of } from 'rxjs';
 import { catchError, delayWhen, switchMap, take, takeUntil } from 'rxjs/operators';
+
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from '../dialogs/create-document-dialog/create-document-dialog.component';
 import { InvalidCsvDialogComponent } from '../dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
@@ -21,7 +21,10 @@ import { GenMapperView } from '../gen-mapper-view.enum';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 import { NodeTreeService } from '../node-tree/node-tree.service';
-import { SavingErrorSnackbarComponent, SavingErrorSnackBarConfig } from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
+import {
+    SavingErrorSnackbarComponent,
+    SavingErrorSnackBarConfig,
+} from '../snackbars/saving-error-snackbar/saving-error-snackbar.component';
 import { SavingSnackbarComponent, SavingSnackBarConfig } from '../snackbars/saving-snackbar/saving-snackbar.component';
 import { GenMapperGraphComponent } from '../views/gen-mapper-graph/gen-mapper-graph.component';
 
@@ -32,7 +35,7 @@ import { GenMapperGraphComponent } from '../views/gen-mapper-graph/gen-mapper-gr
     providers: [NodeTreeService]
 })
 export class GenMapperComponent extends Unsubscribable implements OnInit {
-    @ViewChild(GenMapperGraphComponent, { static: false })
+    @ViewChild(GenMapperGraphComponent)
     public genMapperGraph: GenMapperGraphComponent;
 
     @HostBinding('class.is-authenticated')
@@ -51,7 +54,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     private _savingErrorSnackBar: MatSnackBarRef<SavingErrorSnackbarComponent>;
 
     constructor(
-        private authService: AuthenticationService,
+        private store: Store<AppState>,
         private genMapper: GenMapperService,
         private router: Router,
         private dialog: MatDialog,
@@ -66,7 +69,11 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.isAuthenticated = this.authService.isAuthenticated();
+        this.store.select(isAuthenticated)
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(result => {
+                this.isAuthenticated = result;
+            });
 
         this.genMapper.template$
             .pipe(takeUntil(this.unsubscribe))
@@ -84,7 +91,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(document => {
                 this.document = document;
-                if (!document && !this.authService.isAuthenticated() && this.genMapper.hasLocalDocument()) {
+                if (!document && !this.isAuthenticated && this.genMapper.hasLocalDocument()) {
                     this.router.navigate(['/gen-mapper', this.template.id, 'local'], { skipLocationChange: true });
                 }
 

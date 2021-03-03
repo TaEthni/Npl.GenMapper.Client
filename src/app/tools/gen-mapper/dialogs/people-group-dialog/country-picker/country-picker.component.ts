@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

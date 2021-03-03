@@ -59,11 +59,11 @@
                             matNativeControl>
                         <option value=""
                                 selected></option>
-                        <option *ngFor="let pg of peopleGroups | sort: 'NmDisp'"
-                                [value]="pg.PEID">
-                            {{pg.GENC0}} {{pg.NmDisp}}
+                        <option *ngFor="let pg of peopleGroups | sort: 'nmDisp'"
+                                [value]="pg.peid">
+                            {{pg.genC0}} {{pg.nmDisp}}
                         </option>
-                        <option [value]="other.PEID">{{'Common_Other' | locale | async}}</option>
+                        <option [value]="other.peid">{{'Common_Other' | locale | async}}</option>
                     </select>
                 </mat-form-field>
             </ng-template>
@@ -71,11 +71,11 @@
                 <mat-form-field fxFlex>
                     <mat-label>{{'Common_PeopleGroups' | locale | async}}</mat-label>
                     <mat-select [formControl]="pgControl">
-                        <mat-option *ngFor="let pg of peopleGroups | sort: 'NmDisp'"
-                                    [value]="pg.PEID">
-                            {{pg.GENC0}} {{pg.NmDisp}}
+                        <mat-option *ngFor="let pg of peopleGroups | sort: 'nmDisp'"
+                                    [value]="pg.peid">
+                            {{pg.genC0}} {{pg.nmDisp}}
                         </mat-option>
-                        <mat-option [value]="other.PEID">{{'Common_Other' | locale | async}}</mat-option>
+                        <mat-option [value]="other.peid">{{'Common_Other' | locale | async}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </ng-template>

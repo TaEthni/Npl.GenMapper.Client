@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { DocumentDto } from '@models/document.model';
-import { of } from 'rxjs';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
-import { Observable } from 'rxjs/Observable';
-import { filter, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { isAuthenticated } from '@npl-auth';
+import { AppState, DocumentDto } from '@npl-data-access';
+import { Observable, of } from 'rxjs';
+import { filter, switchMap, take, tap } from 'rxjs/operators';
+
 import { GenMapperService } from './gen-mapper.service';
+
 
 
 
@@ -15,7 +15,7 @@ import { GenMapperService } from './gen-mapper.service';
 export class GenMapperResolver implements Resolve<Observable<DocumentDto>> {
     constructor(
         private genMapper: GenMapperService,
-        private authService: AuthenticationService,
+        private store: Store<AppState>,
         private router: Router
     ) { }
 
@@ -26,20 +26,45 @@ export class GenMapperResolver implements Resolve<Observable<DocumentDto>> {
             return of(null);
         }
 
-        if (documentId !== 'local' && !this.authService.isAuthenticated()) {
-            this.router.navigate(['/']);
-            return null;
-        }
+        return this.store.select(isAuthenticated)
+            .pipe(
+                filter(authenticated => {
+                    if (documentId !== 'local' && !authenticated) {
+                        this.router.navigate(['/']);
+                        return false;
+                    }
+                    return true;
+                }),
+                tap(() => {
+                    this.genMapper.setDocument(documentId);
+                }),
+                switchMap(() =>
+                    this.genMapper.selectedDocument$.pipe(
+                        tap(d => {
+                            if (!d) {
+                                this.router.navigate(['/']);
+                            }
+                        }),
+                    )
+                ),
+                filter(d => !!d && d.id === documentId),
+                take(1)
+            )
 
-        this.genMapper.setDocument(documentId);
-        return this.genMapper.selectedDocument$.pipe(
-            tap(d => {
-                if (!d) {
-                    this.router.navigate(['/']);
-                }
-            }),
-            filter(d => !!d && d.id === documentId),
-            take(1),
-        );
+        // if (documentId !== 'local' && !this.authService.isAuthenticated()) {
+        //     this.router.navigate(['/']);
+        //     return null;
+        // }
+
+        // this.genMapper.setDocument(documentId);
+        // return this.genMapper.selectedDocument$.pipe(
+        //     tap(d => {
+        //         if (!d) {
+        //             this.router.navigate(['/']);
+        //         }
+        //     }),
+        //     filter(d => !!d && d.id === documentId),
+        //     take(1),
+        // );
     }
 }

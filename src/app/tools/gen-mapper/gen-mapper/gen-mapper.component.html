@@ -27,8 +27,7 @@
 <ng-template #genMapperGraph>
     <ng-container *ngIf="document">
         <app-document-name-control [showErrors]="isAuthenticated"></app-document-name-control>
-        <app-menu-button (print)="onPrint($event)"
-                         (settingsButtonClick)="setView(viewTypes.Settings)"
+        <app-menu-button (settingsButtonClick)="setView(viewTypes.Settings)"
                          (importButtonClick)="onImport($event)"></app-menu-button>
 
         <ng-container *ngIf="view === viewTypes.GenMap && showReportsView">
@@ -62,7 +61,6 @@
         <ng-container *ngSwitchCase="viewTypes.GenMap">
             <app-gen-mapper-graph class="{{template.theme}}"
                                   [template]="template"
-                                  (change)="onGraphChange($event)"
                                   (addNode)="onAddNode($event)"
                                   (nodeClick)="onNodeClick($event)"
                                   (sortChange)="onSortChange($event)"></app-gen-mapper-graph>

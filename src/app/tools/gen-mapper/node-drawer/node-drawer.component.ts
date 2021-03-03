@@ -2,20 +2,32 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
-import { LocaleService } from '@core/locale.service';
-import { OtherPeopleGroup, UnknownPeopleGroup } from '@core/people-group.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { ActionType } from '@models/action-type';
-import { DocumentDto } from '@models/document.model';
-import { NodeDto, PeopleAttributes } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { FileInputDialogComponent } from '@shared/file-input-dialog/file-input-dialog.component';
-import { ControlType, GMField } from '@templates';
+import { LocaleService } from '@npl-core/locale.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import {
+    ActionType,
+    DocumentDto,
+    NodeDto,
+    OtherPeopleGroup,
+    PeopleAttributes,
+    Template,
+    UnknownPeopleGroup,
+} from '@npl-data-access';
+import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
+import { ControlType, GMField } from '@npl-template';
 import { assign, cloneDeep } from 'lodash';
 import { filter, takeUntil } from 'rxjs/operators';
+
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
-import { PeopleDialogComponent, PeopleDialogConfig, PeopleDialogResponse } from '../dialogs/people-dialog/people-dialog.component';
-import { AddPeopleGroupConfig, SelectPeopleGroupDialogComponent } from '../dialogs/select-people-group-dialog/select-people-group-dialog.component';
+import {
+    PeopleDialogComponent,
+    PeopleDialogConfig,
+    PeopleDialogResponse,
+} from '../dialogs/people-dialog/people-dialog.component';
+import {
+    AddPeopleGroupConfig,
+    SelectPeopleGroupDialogComponent,
+} from '../dialogs/select-people-group-dialog/select-people-group-dialog.component';
 import { GenMapperService } from '../gen-mapper.service';
 import { NodeClipboardService } from '../node-clipboard.service';
 
@@ -381,7 +393,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     private insertPendingPeoples(people: PeopleAttributes): void {
         let found;
 
-        if (people.identifier === OtherPeopleGroup.PEID) {
+        if (people.identifier === OtherPeopleGroup.peid) {
             found = this.pendingPeoples.find(f => f.identifier === people.identifier && f.placeOfOrigin === people.placeOfOrigin && f.label === people.label);
         } else {
             found = this.pendingPeoples.find(f => f.identifier === people.identifier);
@@ -397,14 +409,14 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     }
 
     private insertUnknownPeopleGroupAtBeginning(): void {
-        const unknown = this.pendingPeoples.find(p => p.identifier === UnknownPeopleGroup.PEID);
+        const unknown = this.pendingPeoples.find(p => p.identifier === UnknownPeopleGroup.peid);
         if (unknown) {
             return;
         }
 
         const people = {} as PeopleAttributes;
-        people.identifier = UnknownPeopleGroup.PEID;
-        people.label = UnknownPeopleGroup.NmDisp;
+        people.identifier = UnknownPeopleGroup.peid;
+        people.label = UnknownPeopleGroup.nmDisp;
         people.placeOfOrigin = null;
 
         const peopleField = this.template.getField('peoples');

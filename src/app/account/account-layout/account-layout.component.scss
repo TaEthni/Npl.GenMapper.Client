@@ -1,0 +1,56 @@
+@import '~styles/colors';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+    height: -webkit-fill-available;
+    overflow: hidden;
+
+    .page-wrap {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .scroll-container {
+        position: relative;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .page-container {
+        position: relative;
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    .mat-tab-nav-bar {
+        position: sticky;
+        top: 0;
+        z-index: 10000;
+        background: mat-color($light-background, app-bar);
+    }
+
+    .tab-icon {
+        margin-right: 8px;
+    }
+
+    .mat-list-item.mat-list-item-with-avatar {
+        height: 48px;
+    }
+
+    .mat-list-item,
+    ::ng-deep .mat-list-item-ripple {
+        border-top-right-radius: 24px;
+        border-bottom-right-radius: 24px;
+    }
+
+    .mat-list-item.active,
+    .mat-list-item.active:focus {
+        background-color: mat-color($primary);
+        color: white;
+    }
+}

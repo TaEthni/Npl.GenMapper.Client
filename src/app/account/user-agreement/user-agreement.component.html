@@ -1,18 +1,6 @@
-<header>
-    <mat-toolbar>
-        <mat-toolbar-row>
-            <app-sidenav-toggle></app-sidenav-toggle>
-        </mat-toolbar-row>
-        <mat-toolbar-row fxLayout="row"
-                         fxLayoutAlign="center center">
-            <app-npl-logo size="100"></app-npl-logo>
-        </mat-toolbar-row>
-    </mat-toolbar>
-</header>
-
-
 <section fxLayout="column"
          fxLayoutGap="50px">
+    <h1>User Agreement</h1>
 
     <div>
         <p>
@@ -201,15 +189,15 @@
         </p>
     </div>
 
-    <ng-container *ngIf="user.agreementDate">
+    <ng-container *ngIf="self?.agreementDate">
         <div fxLayout="row">
             <h3>
-                Accepted on {{user.agreementDate | date: 'yyyy-MM-dd'}}
+                Accepted on {{self?.agreementDate | date: 'yyyy-MM-dd'}}
             </h3>
         </div>
     </ng-container>
 
-    <ng-container *ngIf="!user.agreementDate">
+    <ng-container *ngIf="!self?.agreementDate">
         <div fxLayout="row"
              fxLayoutAlign="start center"
              fxLayoutGap="24px">
@@ -234,7 +222,7 @@
                 <a mat-button
                    color="primary"
                    type="button"
-                   [routerLink]="['/tools']">{{'Common_Cancel' | locale | async}}</a>
+                   routerLink="/account">{{'Common_Cancel' | locale | async}}</a>
             </div>
         </div>
     </ng-container>

@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+
+    padding: 24px;
+
+    .container {
+        flex: 1;
+    }
+
+    .mat-card-content {
+        padding-top: 24px;
+    }
+
+    .mat-form-field {
+        width: 100%;
+    }
+}

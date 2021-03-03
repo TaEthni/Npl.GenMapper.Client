@@ -1,8 +1,6 @@
-import { IFlatNode, PeopleAttributes } from "@models/node.model";
-import { Template } from "@models/template.model";
-import { ControlType, DisciplesTemplate, FourFieldsTemplate } from "@templates";
-import { csvParse } from "d3";
-import { UnknownPeopleGroup } from "./people-group.service";
+import { IFlatNode, PeopleAttributes, Template, UnknownPeopleGroup } from '@npl-data-access';
+import { ControlType, DisciplesTemplate, FourFieldsTemplate } from '@npl-template';
+import { csvParse } from 'd3';
 
 const isNumberReg = /\d/;
 
@@ -134,8 +132,8 @@ export function CSVToJSON(csv: string, template: Template): IFlatNode[] {
 
 function createUnknownPeoples(template: Template, node: IFlatNode): PeopleAttributes {
     const people = {} as PeopleAttributes;
-    people.identifier = UnknownPeopleGroup.PEID;
-    people.label = UnknownPeopleGroup.NmDisp;
+    people.identifier = UnknownPeopleGroup.peid;
+    people.label = UnknownPeopleGroup.nmDisp;
     people.placeOfOrigin = null;
 
     template.getField('peoples').fields.forEach(field => {

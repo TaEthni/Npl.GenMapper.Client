@@ -1,7 +1,8 @@
-import { Template } from '@models/template.model';
-import { ControlType } from '@templates';
+import { Template } from '@npl-data-access';
+import { ControlType } from '@npl-template';
 import { DragBehavior, select, Selection } from 'd3';
 import moment from 'moment';
+
 import { NodeDatum } from '../gen-mapper.interface';
 import { applySVGAttrsAndStyle } from './d3-util';
 import { drawAction } from './draw-action';

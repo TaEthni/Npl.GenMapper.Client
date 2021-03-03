@@ -1,0 +1,25 @@
+@import '~styles/colors';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+
+    h4 {
+        margin-bottom: 24px;
+    }
+
+    .mat-card-footer {
+        border-top: 1px solid mat-color($light-foreground, divider);
+
+        .mat-button {
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    @media screen and (min-width: 720px) {
+        padding: 24px 56px;
+    }
+}

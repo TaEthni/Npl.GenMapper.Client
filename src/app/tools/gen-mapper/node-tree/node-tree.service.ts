@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { NodeDto } from '@models/node.model';
-import { Template } from '@models/template.model';
+import { NodeDto, Template } from '@npl-data-access';
 import { HierarchyPointNode, stratify, tree, TreeLayout } from 'd3';
 import { cloneDeep, Dictionary, keyBy } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
+
 import { NodeDatum } from '../gen-mapper.interface';
 
 @Injectable({

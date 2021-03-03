@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AuthenticationGuard } from '@core/authentication.guard';
-import { AuthenticationService } from '@core/authentication.service';
-import { AuthorizationInterceptor } from '@core/authorization.interceptor';
-import { DownloadService } from '@core/download.service';
-import { EntityService } from '@core/entity.service';
-import { TokenService } from '@core/token.service';
-import { WindowRefService } from '@core/windowref.service';
+import { DownloadService } from '@npl-core/download.service';
+import { EntityService } from '@npl-core/entity.service';
+import { TokenService } from '@npl-core/token.service';
+import { WindowRefService } from '@npl-core/windowref.service';
+
 import { AccountService } from './account.service';
 import { DesktopOnlyGuard } from './desktop-only.quard';
 import { LocaleService } from './locale.service';
 import { MapsService } from './maps.service';
+import { OAuthInitializerService } from './oauth/initializer.service';
 import { SupportService } from './support.service';
 import { UserResolver } from './user.resolver';
 
@@ -22,9 +21,20 @@ import { UserResolver } from './user.resolver';
         HttpClientModule,
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
-        AuthenticationGuard,
-        AuthenticationService,
+        OAuthInitializerService,
+        // {
+        //     provide: APP_INITIALIZER,
+        //     multi: true,
+        //     deps: [OAuthInitializerService, OAuthService],
+        //     useFactory: (provider: OAuthInitializerService) => () => provider.load()
+        // },
+        // {
+        //     provide: HTTP_INTERCEPTORS, useClass: OAuthInterceptor, multi: true
+        // },
+        // OAuthGuard,
+        // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
+        // AuthenticationGuard,
+        // AuthenticationService,
         DesktopOnlyGuard,
         TokenService,
         WindowRefService,

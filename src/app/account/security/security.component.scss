@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+
+    h1 {
+        text-align: center;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    .container {
+        max-width: 720px;
+        width: 100%;
+    }
+
+    @media screen and (min-width: 720px) {
+        padding: 24px 56px;
+    }
+}

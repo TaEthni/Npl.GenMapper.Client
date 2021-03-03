@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DocumentDto } from '@models/document.model';
-import { NodeDto } from '@models/node.model';
+import { DocumentDto, NodeDto } from '@npl-data-access';
 import { saveAs } from 'file-saver';
 import * as moment from 'moment';
+
 import { JSONToCSV, TemplateJSONToCSV } from './json-to-csv';
 import { TemplateService } from './template.service';
 

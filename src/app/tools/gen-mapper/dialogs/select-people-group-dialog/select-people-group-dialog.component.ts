@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { OtherPeopleGroup, PeopleGroupConfig, PeopleGroupModelItem, PeopleGroupService } from '@core/people-group.service';
-import { Device } from '@core/platform';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { PeopleAttributes } from '@models/node.model';
-import { Template } from '@models/template.model';
-import { COUNTRIES } from '@templates';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PeopleGroupService } from '@npl-core/people-group.service';
+import { Device } from '@npl-core/platform';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
+import { OtherPeopleGroup, PeopleAttributes, PeopleGroupConfig, PeopleGroupModelItem, Template } from '@npl-data-access';
+import { COUNTRIES } from '@npl-template';
 import { cloneDeep } from 'lodash';
 import { takeUntil } from 'rxjs/operators';
 
@@ -57,10 +56,11 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
         });
 
         this.pgControl.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
-            this.showOther = parseFloat(result) === OtherPeopleGroup.PEID;
+            this.showOther = parseFloat(result) === OtherPeopleGroup.peid;
         });
 
         this.peopleGroupService.load().subscribe(result => {
+            console.log(result);
             this.peopleGroupConfig = result;
             this.isLoading = false;
             this.setCountryCode(this.countryControl.value);
@@ -69,8 +69,8 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
 
     public continue(): void {
         const peopleField = this.data.template.getField('peoples');
-        const PEID = parseFloat(this.pgControl.value);
-        const pg = this.peopleGroupService.getByPeid(PEID);
+        const peid = parseFloat(this.pgControl.value);
+        const pg = this.peopleGroupService.getByPeid(peid);
 
         let people = {} as PeopleAttributes;
 
@@ -82,11 +82,11 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
             });
         }
 
-        people.identifier = pg.PEID;
-        people.label = pg.NmDisp;
+        people.identifier = pg.peid;
+        people.label = pg.nmDisp;
         people.placeOfOrigin = this.countryControl.value;
 
-        if (people.identifier === OtherPeopleGroup.PEID) {
+        if (people.identifier === OtherPeopleGroup.peid) {
             people.label = this.otherControl.value;
 
             if (this.checkExistingOther(people)) {
@@ -107,7 +107,7 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
             return false;
         }
 
-        if (this.pgControl.value === OtherPeopleGroup.PEID && !this.otherControl.value) {
+        if (this.pgControl.value === OtherPeopleGroup.peid && !this.otherControl.value) {
             return false;
         }
 
@@ -127,7 +127,7 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
         }
 
         return peopleGroups.filter(p => {
-            return !this.data.peoples.find(n => n.identifier === p.PEID);
+            return !this.data.peoples.find(n => n.identifier === p.peid);
         });
     }
 

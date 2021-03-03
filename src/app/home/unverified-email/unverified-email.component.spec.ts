@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UnverifiedEmailComponent } from './unverified-email.component';
 
@@ -6,7 +6,7 @@ xdescribe('UnverifiedEmailComponent', () => {
     let component: UnverifiedEmailComponent;
     let fixture: ComponentFixture<UnverifiedEmailComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [UnverifiedEmailComponent]
         })

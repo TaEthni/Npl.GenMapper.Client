@@ -1,6 +1,7 @@
-import { Template } from "@models/template.model";
+import { Template } from '@npl-data-access';
 import { Selection } from 'd3';
-import { NodeDatum } from "../gen-mapper.interface";
+
+import { NodeDatum } from '../gen-mapper.interface';
 
 const LINK_TEXT_POSITION = 0.3;
 

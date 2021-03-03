@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GMReportValue } from '@templates';
+import { GMReportValue } from '@npl-template';
+
 import { GraphColors } from '../reports-view.interface';
 
 

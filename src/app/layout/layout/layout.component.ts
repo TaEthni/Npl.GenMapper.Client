@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationStart, Router } from '@angular/router';
-import { AuthenticationService } from '@core/authentication.service';
-import { LayoutService } from '@core/layout.service';
-import { TokenService } from '@core/token.service';
-import { Unsubscribable } from '@core/Unsubscribable';
-import { User } from '@models/user.model';
+import { LayoutService } from '@npl-core/layout.service';
+import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -18,15 +15,10 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class LayoutComponent extends Unsubscribable implements OnInit {
 
-    public user: User;
-    public isAuthenticated: boolean;
-
     @ViewChild(MatSidenav, { static: true })
     public matSidenav: MatSidenav;
 
     constructor(
-        private tokenService: TokenService,
-        private authService: AuthenticationService,
         private layoutService: LayoutService,
         private router: Router
     ) {
@@ -37,19 +29,7 @@ export class LayoutComponent extends Unsubscribable implements OnInit {
 
         this.layoutService.setSidenav(this.matSidenav);
 
-        this.tokenService.get()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(token => {
-                this.isAuthenticated = token.isAuthenticated;
-            });
-
-        this.authService.getUser()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(user => {
-                this.user = user;
-            });
-
-        this.authService.refreshUser();
+        // this.authService.refreshUser();
 
         this.router.events
             .pipe(takeUntil(this.unsubscribe))

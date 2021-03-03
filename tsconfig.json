@@ -7,7 +7,7 @@
     "compilerOptions": {
         "baseUrl": "./",
         "downlevelIteration": true,
-        "module": "esnext",
+        "module": "es2020",
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "declaration": false,
@@ -24,20 +24,26 @@
             "dom"
         ],
         "paths": {
-            "@shared/*": [
+            "@npl-shared/*": [
                 "src/app/shared/*"
             ],
-            "@core/*": [
+            "@npl-core/*": [
                 "src/app/core/*"
             ],
-            "@models/*": [
-                "src/app/models/*"
-            ],
-            "@admin/*": [
+            "@npl-admin/*": [
                 "src/app/admin/*"
             ],
-            "@templates": [
+            "@npl-template": [
                 "src/templates/index"
+            ],
+            "@npl-auth": [
+                "projects/auth/src/public-api"
+            ],
+            "@npl-idp": [
+                "projects/idp/src/public-api"
+            ],
+            "@npl-data-access": [
+                "projects/data-access/src/public-api"
             ],
             "lodash": [
                 "../node_modules/lodash-es"
