@@ -1,5 +1,10 @@
 # GenMapper Changelog
 
+## (2021-02)
+- Feature: Connect to IdentityProvider Auth System
+- Feature: Separate GenMapper from npl-tools web domain
+- Feature: Display New GenMapper coming soon message
+
 ## (2020-07-01)
 - Fix: Root Node showing delete button
 - Feature: Add Marker Clusters to world map view.

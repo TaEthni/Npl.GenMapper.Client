@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+
 import { UpdatesService } from '../updates.service';
 import { WhatsNewDialogComponent } from '../whats-new-dialog/whats-new-dialog.component';
 
@@ -8,6 +9,7 @@ const oldKeys = [
     'update-v2',
     'update-v3',
     'update-v4',
+    'update-v5',
 ];
 
 oldKeys.forEach(key => localStorage.removeItem(key));
@@ -19,7 +21,7 @@ oldKeys.forEach(key => localStorage.removeItem(key));
 })
 export class UpdatesComponent implements OnInit {
 
-    private updateKey = 'update-v5';
+    private updateKey = 'update-v6';
 
     constructor(
         private dialog: MatDialog,
