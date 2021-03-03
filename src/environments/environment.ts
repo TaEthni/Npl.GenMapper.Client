@@ -8,7 +8,8 @@ export const environment = {
     // apiBase: 'https://localhost:7001/api/',
     apiBase: 'https://npl-api-qa.genmapper.com/api/',
     authConfig: {
-        authority: 'https://idp-qa.taethni.com',
+        // authority: 'https://idp-qa.taethni.com',
+        authority: 'http://localhost:5000',
         clientId: 'angular_spa_local',
         responseType: 'code',
         scope: 'profile openid IdentityServerApi npl_api web_api roles offline_access',
