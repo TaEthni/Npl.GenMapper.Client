@@ -58,7 +58,7 @@
         "@ngrx/store-devtools": "^11.0.1",
         "@ngx-translate/core": "^13.0.0",
         "@ngx-translate/http-loader": "^6.0.0",
-        "@swimlane/ngx-charts": "^12.1.0",
+        "@swimlane/ngx-charts": "^18.0.1",
         "@techiediaries/ngx-qrcode": "^9.1.0",
         "angular-oauth2-oidc": "^10.0.3",
         "core-js": "^3.8.3",
