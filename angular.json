@@ -42,6 +42,7 @@
                         "allowedCommonJsDependencies": [
                             "file-saver",
                             "lodash",
+                            "moment-timezone",
                             "uuid/v4",
                             "uuid",
                             "qrcode"

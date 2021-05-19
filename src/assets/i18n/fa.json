@@ -1,0 +1,191 @@
+{
+  "ChurchType_ExistingBelievers": "مومنان موجود",
+  "ChurchType_Legacy": "میراث",
+  "ChurchType_NewBelievers": "معتقدین جدید",
+  "Common_Account": "حساب",
+  "Common_AccountDetails": "جزئیات حساب",
+  "Common_Active": "فعال",
+  "Common_ActiveGroups": "گروههای فعال",
+  "Common_AdditionalGenMappers": "GenMappers اضافی",
+  "Common_Attenders": "شرکت کنندگان",
+  "Common_Baptisms": "غسل تعمید",
+  "Common_Baptized": "تعمید گرفته",
+  "Common_Believers": "مومنان",
+  "Common_Cancel": "لغو",
+  "Common_ChangeCountry": "تغییر کشور",
+  "Common_ChangePassword": "رمز عبور را تغییر دهید",
+  "Common_ChangePeopleGroup": "گروه افراد را تغییر دهید",
+  "Common_ChildNodeAdded": "Child Node اضافه شد",
+  "Common_ChurchFunctions": "توابع کلیسا",
+  "Common_ChurchType": "نوع کلیسا",
+  "Common_ConfirmPassword": "رمز ورود را تأیید کنید",
+  "Common_Continue": "ادامه هید",
+  "Common_ContinueWithoutSaving": "بدون پس انداز ادامه دهید",
+  "Common_CopiedNodeToClipboard": "در کلیپ بورد کپی شد!",
+  "Common_Copy": "کپی 🀄",
+  "Common_Country": "کشور",
+  "Common_CreateAccount": "ایجاد حساب",
+  "Common_CreateDocument": "ایجاد سند",
+  "Common_Date": "تاریخ",
+  "Common_Delete": "حذف",
+  "Common_DeleteDocument": "حذف سند",
+  "Common_DeleteSubtree": "زیر درخت را حذف کنید",
+  "Common_Dismiss": "رد",
+  "Common_Edit": "ویرایش کنید",
+  "Common_Email": "پست الکترونیک",
+  "Common_EmailConfirmed": "ایمیل تأیید شد",
+  "Common_ExportSubtree": "صادرات زیر درخت",
+  "Common_ForgotPassword": "رمز عبور خود را فراموش کرده اید؟",
+  "Common_GenMapper": "GenMapper",
+  "Common_GeoLocation": "موقعیت مکانی",
+  "Common_GospelShares": "سهام انجیل در هر روز",
+  "Common_GroupDeleted": "گروه حذف شد",
+  "Common_GroupName": "اسم گروه",
+  "Common_Help": "کمک",
+  "Common_HelpAbout": "راهنما / درباره",
+  "Common_ImportDocument": "وارد کردن سند",
+  "Common_ImportSubtree": "وارد کردن زیر درخت",
+  "Common_InactiveGroups": "گروههای غیرفعال",
+  "Common_InactiveReason": "دلیل بی تحرک بودن",
+  "Common_IncludeInactiveGroups": "گروه های غیرفعال را وارد کنید",
+  "Common_Info": "اطلاعات",
+  "Common_InvalidCSV": "CSV نامعتبر است",
+  "Common_InvalidData": "این داده ها در GenMapper قابل ارائه نیستند",
+  "Common_IsChurch": "آیا کلیسا است؟",
+  "Common_Language": "زبان",
+  "Common_LeaderName": "نام رهبر",
+  "Common_LeadersName": "نام رهبر",
+  "Common_Login": "وارد شدن",
+  "Common_Logout": "خروج",
+  "Common_Mentor": "مرشد",
+  "Common_Name": "نام",
+  "Common_NeedHelp": "کمک خواستن؟",
+  "Common_NewGeneration": "نسل جدید",
+  "Common_NewlyBaptized": "تازه تعمید گرفته",
+  "Common_NewPassword": "رمز عبور جدید",
+  "Common_No": "نه",
+  "Common_NodeHasBeenReplaced": "گره جایگزین شده است",
+  "Common_NoSavedDocuments": "شما هیچ سندی ذخیره شده ندارید!",
+  "Common_Note": "توجه داشته باشید",
+  "Common_NotFound": "پیدا نشد",
+  "Common_NumberOfAttendees": "حاضران",
+  "Common_NumberOfBaptized": "تعمید گرفته",
+  "Common_NumberOfBelievers": "مومنان",
+  "Common_NumberOfNewlyBaptized": "New Bapttized (از زمان شروع کلیسا)",
+  "Common_Ok": "خوب",
+  "Common_Other": "دیگر",
+  "Common_OtherPeopleGroupName": "نام گروه افراد دیگر",
+  "Common_Parent": "والدین",
+  "Common_ParentNode": "گره والدین",
+  "Common_Password": "کلمه عبور",
+  "Common_Paste": "چسباندن",
+  "Common_PasteAsChildNode": "جایگذاری به عنوان گره کودک",
+  "Common_People": "مردم",
+  "Common_PeopleGroup": "گروه مردم",
+  "Common_PeopleGroups": "گروه های افراد",
+  "Common_Place": "محل",
+  "Common_PlaceCityState": "مکان (شهر ، ایالت)",
+  "Common_PleaseImportProperCSV": "لطفاً یک پرونده CSV مناسب وارد کنید",
+  "Common_PleaseLogIn": "لطفا وارد شوید",
+  "Common_ReplaceCurrentNode": "جای گره فعلی را بگیرید",
+  "Common_ReturnToLogin": "بازگشت به ورود",
+  "Common_Save": "صرفه جویی",
+  "Common_SaveChanges": "ذخیره تغییرات",
+  "Common_SaveChangesQuestion": "آیا می خواهید تغییرات خود را ذخیره کنید؟",
+  "Common_SavingData": "ذخیره داده",
+  "Common_SavingError": "هنگام ذخیره داده های شما خطایی رخ داد!",
+  "Common_SelectADocument": "لطفاً سندی را انتخاب کنید",
+  "Common_Send": "ارسال",
+  "Common_SendAnEmailTo": "ارسال ایمیل به",
+  "Common_SendFeedback": "ارسال بازخورد",
+  "Common_Settings": "تنظیمات",
+  "Common_Signup": "ثبت نام",
+  "Common_StartDate": "تاریخ شروع (سابق 2017-01)",
+  "Common_Submit": "ارسال",
+  "Common_SubtreeImported": "Subtree وارد شد!",
+  "Common_Success": "موفقیت",
+  "Common_Team": "تیم",
+  "Common_Teams": "تیم ها",
+  "Common_ThreeThirds": "عناصر فرآیند 3/3",
+  "Common_Tools": "ابزارها",
+  "Common_Total": "جمع",
+  "Common_TotalGroups": "مجموع گروهها",
+  "Common_Unbaptized": "غسل تعمید",
+  "Common_UnderMaintenance": "تحت تعمیر و نگهداری",
+  "Common_Undo": "واگرد",
+  "Common_Username": "نام کاربری",
+  "Common_WhatsNew": "چه خبر؟",
+  "Common_Yes": "آره",
+  "documentsTitle": "اسناد",
+  "Element_Baptism": "عنصر: غسل تعمید",
+  "Element_Fellowship": "عنصر: یاران",
+  "Element_Give": "عنصر: بخشیدن",
+  "Element_Gospel": "عنصر: انجیل",
+  "Element_HolySpirit": "عنصر: روح القدس",
+  "Element_Leaders": "عنصر: رهبران",
+  "Element_LordsSupper": "عنصر: شام پروردگار",
+  "Element_Love": "عنصر: عشق",
+  "Element_MakeDisciples": "عنصر: شاگردی کنید",
+  "Element_Prayer": "عنصر: نماز",
+  "Element_Repent": "عنصر: توبه کنید",
+  "Element_SignsWonders": "عنصر: نشانه ها و عجایب",
+  "Element_Word": "عنصر: کلام خدا",
+  "Element_Worship": "عنصر: پرستش",
+  "Error_emailFormat": "لطفاً از قالب ایمیل معتبر استفاده کنید",
+  "Error_emailInUse": "ایمیل از قبل استفاده شده است",
+  "Error_emailNotFound": "ایمیل یافت نشد",
+  "Error_invalidEmailOrPassword": "ایمیل یا رمز ورود نامعتبر بود",
+  "Error_NameInUse": "نامی که قبلاً استفاده شده است",
+  "Error_passwordsDontMatch": "رمزهای ورود مطابقت ندارند",
+  "Error_requiredField": "این قسمت الزامی است",
+  "Error_usernameInUse": "نام کاربری از قبل استفاده شده است",
+  "Error_valueIsTooShort": "ارزش خیلی کوتاه است",
+  "esName": "Farsi",
+  "Help_changelogLink": "تغییرات",
+  "Menu_btnPrintHorizontal": "چاپ افقی یک صفحه ای",
+  "Menu_btnPrintVertical": "چاپ چند صفحه عمودی",
+  "Menu_defaultProjectName": "پروژه بدون عنوان",
+  "Menu_exportCsv": "صادرات CSV",
+  "Menu_importXlsxCsv": "XLSX / CSV را وارد کنید",
+  "Menu_printing": "چاپ",
+  "Message_changedParent": "این گروه و زیرشاخه آن پس از کلیک بر روی ارسال تغییرات تحت والدین دیگری منتقل می شوند.",
+  "Message_confirmContinue": "آیا مطمئن هستید که میخواهید ادامه دهید؟",
+  "Message_confirmDelete": "تایید حذف؟",
+  "Message_confirmDeleteGroup": "حذف گروه",
+  "Message_confirmDeleteGroupWithChildren": "گروه و همه فرزندان را حذف کنید.",
+  "Message_confirmPasteAsChildNode": "چسباندن را تأیید کنید",
+  "Message_confirmPasteAsChildNodeWarning": "گره کپی شده را به عنوان فرزند گره انتخاب شده جای گذاری کنید!",
+  "Message_confirmReplaceNode": "تأیید جایگزینی",
+  "Message_confirmReplaceNodeWarning": "گره کپی شده را جای گذاری کنید و گره انتخاب شده و همه فرزندان را جایگزین کنید!",
+  "Message_editProjectName": "نام پروژه را ویرایش کنید",
+  "Message_emailRecoveryLink": "از طریق ایمیل پیوند بازیابی",
+  "Message_emailSentTo": "ایمیلی با پیوند بازیابی به ارسال شده است",
+  "Message_enterAccountEmail": "لطفا ایمیل حساب خود را وارد کنید",
+  "Message_enterNewPassword": "لطفاً یک رمز عبور جدید وارد کنید",
+  "Message_errImport": "هنگام وارد کردن پرونده خطایی رخ داد.",
+  "Message_errImportWhatToCheck": "لطفاً بررسی کنید که فایل در قالب صحیح باشد (مقادیر جدا شده با کاما) ، گروه ریشه والدی ندارد و سایر روابط یک درخت معتبر را ایجاد می کنند.<br> همچنین بررسی کنید که از نسخه صحیح برنامه استفاده کرده اید.",
+  "Message_errProjectNameEmpty": "نام پروژه نمی تواند خالی باشد!",
+  "Message_errWrongFileType": "نوع پرونده اشتباه است. لطفاً فایلهای xls ، xlsx یا csv را وارد کنید.",
+  "Message_getMeOutOfHere": "من را از اینجا بیرون ببر",
+  "Message_orSendEmailTo": "یا ایمیل به",
+  "Message_passwordResetSuccess": "رمز عبور شما با موفقیت تغییر یافت. اکنون می توانید وارد شوید",
+  "Message_PleaseAcceptUserAgreement": "لطفا توافق نامه کاربر را بپذیرید",
+  "Message_recoverPassword": "بازیابی رمز عبور",
+  "Message_resendRecoveryLink": "پیوند بازیابی را دوباره ارسال کنید",
+  "Message_selectFile": "لطفاً فایلی را انتخاب کنید",
+  "Message_somethingWentWrong": "مشکلی پیش آمد",
+  "Message_tokenInvalidOrExpired": "رمز شما نامعتبر است یا منقضی شده است",
+  "Message_uniqueUsername": "نام کاربری منحصر به فردی که برای عموم قابل مشاهده است",
+  "Node_EditGroup": "ویرایش گروه",
+  "Node_hoverAddChildGroup": "گروه کودک را اضافه کنید",
+  "Node_hoverDeleteGroupAndSubtree": "حذف گروه & amp؛ زیر درخت",
+  "Node_notAvailable": "N / A",
+  "ThreeThirds_Accountability": "مسئوليت",
+  "ThreeThirds_BibleTeaching": "آموزش کتاب مقدس",
+  "ThreeThirds_GoalSetting": "کمیسیون تنظیم اهداف و",
+  "ThreeThirds_PastoralCare": "مراقبت دامداری",
+  "ThreeThirds_Practice": "تمرین",
+  "ThreeThirds_VisionCasting": "ریخته گری چشم انداز",
+  "ThreeThirds_Worship": "عبادت",
+  "translationName": "Farsi"
+}

@@ -1,0 +1,16 @@
+@import '~styles/colors';
+
+:host {
+    display: block;
+    padding: 50px 15px 100px 15px;
+
+    .buttons {
+        width: 200px;
+        margin: 0 auto;
+    }
+
+    .sender-name {
+        color: mat-color($primary);
+        font-weight: bold;
+    }
+}

@@ -6,6 +6,26 @@
      fxLayout="column"
      fxLayoutGap="24px">
 
+    <h1>May 2021</h1>
+    <div>
+        <h2>Language Support for the following languages</h2>
+        <div>
+            <p>
+                <ng-container *ngFor="let lang of languages; let last=last">
+                    <span>{{lang.code}}</span>
+                    <ng-container *ngIf="!last">, </ng-container>
+                </ng-container>
+            </p>
+        </div>
+    </div>
+    <div>
+        <h2>Team Support for GAPP Migration</h2>
+        <p>You can now create a team and invite other members to join your team.</p>
+        <p>Creating a team will help organizations and networks safely migrate their data.</p>
+    </div>
+
+    <mat-divider></mat-divider>
+
     <h1>March 2021</h1>
     <div>
         <h2>GenMapper 2.0 Coming Soon</h2>
@@ -216,6 +236,6 @@
     <button mat-flat-button
             color="primary"
             [mat-dialog-close]="true">
-        {{'Common_Ok' | locale | async}}
+        {{'Common_Ok' | translate}}
     </button>
 </div>

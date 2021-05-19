@@ -1,0 +1,85 @@
+<div mat-dialog-title>
+    Send Invites
+</div>
+
+<div mat-dialog-data
+     fxLayout="column">
+
+    <ng-container *ngIf="!showCreateResponse">
+        <p>Enter the emails you would like to send the invites to.</p>
+        <mat-form-field class="example-chip-list"
+                        [class.mat-form-field-invalid]="errorState"
+                        appearance="outline">
+            <mat-chip-list #chipList
+                           aria-label="Email Selection"
+                           aria-orientation="vertical"
+                           class="mat-chip-list-stacked">
+                <mat-chip *ngFor="let email of emails"
+                          [removable]="true"
+                          (removed)="remove(email)">
+                    {{email}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Email"
+                       [formControl]="emailControl"
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="true"
+                       (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+
+            <mat-error *ngIf="emailControl.hasError('email')">
+                Invalid Email Format
+            </mat-error>
+        </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngIf="showCreateResponse">
+        <h3 translate
+            class="text-warn">Unsent Invites</h3>
+        <!-- <p translate>Common_Invites_UnsentInvites_ReasonExisting</p> -->
+        <ul>
+            <li *ngFor="let invite of unsentInvites">
+                {{invite}}
+            </li>
+        </ul>
+        <ng-container *ngIf="sentInvites.length">
+            <h3 translate
+                class="text-success">Sent Invites</h3>
+            <ul>
+                <li *ngFor="let invite of sentInvites">
+                    {{invite}}
+                </li>
+            </ul>
+        </ng-container>
+    </ng-container>
+</div>
+
+<div mat-dialog-actions
+     fxLayoutGap="15px"
+     fxLayoutAlign="end center">
+
+    <ng-container *ngIf="!showCreateResponse">
+        <button mat-button
+                color="primary"
+                mat-dialog-close>
+            <span>Cancel</span>
+        </button>
+        <button mat-flat-button
+                color="primary"
+                class="spinner-button"
+                (click)="send()">
+            <mat-spinner diameter="24"
+                         *ngIf="isSending"></mat-spinner>
+            <span>Send Invites</span>
+        </button>
+    </ng-container>
+
+    <ng-container *ngIf="showCreateResponse">
+        <button mat-button
+                color="primary"
+                mat-dialog-close>
+            <span>Close</span>
+        </button>
+    </ng-container>
+</div>

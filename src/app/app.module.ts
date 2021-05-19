@@ -1,5 +1,6 @@
 import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +8,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AdminModule } from '@npl-admin/admin.module';
 import { AuthModule } from '@npl-auth';
 import { CoreModule } from '@npl-core/core.module';
@@ -23,6 +26,10 @@ import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
 import { ToolsModule } from './tools/tools.module';
 import { UpdatesModule } from './updates/updates.module';
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
     declarations: [
@@ -53,7 +60,15 @@ import { UpdatesModule } from './updates/updates.module';
         StoreRouterConnectingModule.forRoot({
             serializer: RouterSerializer
         }),
-        EffectsModule.forRoot(appEffects)
+        EffectsModule.forRoot(appEffects),
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [
         {

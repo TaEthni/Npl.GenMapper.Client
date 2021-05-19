@@ -11,8 +11,9 @@
             <div *ngIf="userProfile?.email"
                  class="user-email">{{userProfile.email}}</div>
             <div class="auth">
-                <a (click)="logout()">
-                    {{'Common_Logout' | locale | async}}
+                <a (click)="logout()"
+                   translate>
+                    Common_Logout
                 </a>
             </div>
         </ng-container>
@@ -20,11 +21,13 @@
             <div class="auth"
                  fxLayout="column"
                  fxLayoutGap="10px">
-                <a (click)="login()">
-                    {{'Common_Login' | locale | async}}
+                <a (click)="login()"
+                   translate>
+                    Common_Login
                 </a>
-                <a [routerLink]="['/account/register']">
-                    {{'Common_Signup' | locale | async}}
+                <a [routerLink]="['/account/register']"
+                   translate>
+                    Common_Signup
                 </a>
             </div>
         </ng-container>
@@ -36,8 +39,9 @@
         <ng-container *ngIf="(isLoggedIn$ | async)">
             <mat-list-item routerLink="/account"
                            routerLinkActive="active">
-                <h3 matLine>
-                    {{'Common_Account' | locale | async}}
+                <h3 matLine
+                    translate>
+                    Common_Account
                 </h3>
                 <mat-icon matListIcon>person</mat-icon>
                 <mat-icon class="arrow">chevron_right</mat-icon>
@@ -46,10 +50,22 @@
 
         <mat-list-item routerLink="/tools"
                        routerLinkActive="active">
-            <h3 matLine>
-                {{'Common_GenMapper' | locale | async}}
+            <h3 matLine
+                translate>
+                Common_GenMapper
             </h3>
             <mat-icon matListIcon>device_hub</mat-icon>
+            <mat-icon class="arrow">chevron_right</mat-icon>
+        </mat-list-item>
+
+        <mat-list-item routerLink="/teams"
+                       routerLinkActive="active"
+                       *ngIf="(isLoggedIn$ | async)">
+            <h3 matLine
+                translate>
+                Common_Teams
+            </h3>
+            <mat-icon matListIcon>group</mat-icon>
             <mat-icon class="arrow">chevron_right</mat-icon>
         </mat-list-item>
     </mat-nav-list>
@@ -57,26 +73,28 @@
     <mat-nav-list>
         <mat-list-item (click)="showUpdates()">
             <mat-icon matListIcon>new_releases</mat-icon>
-            <h3 matLine>
-                {{'Common_WhatsNew' | locale | async}}
+            <h3 matLine
+                translate>
+                Common_WhatsNew
             </h3>
         </mat-list-item>
 
         <mat-list-item (click)="help()">
             <mat-icon matListIcon>help</mat-icon>
-            <h3 matLine>
-                {{'Common_Help' | locale | async}}
+            <h3 matLine
+                translate>
+                Common_Help
             </h3>
         </mat-list-item>
 
         <mat-list-item>
             <mat-icon matListIcon>language</mat-icon>
             <mat-form-field matLine>
-                <mat-select placeholder="{{'Common_Language' | locale | async}}"
+                <mat-select placeholder="{{'Common_Language' | translate}}"
                             [formControl]="localeControl">
-                    <mat-option *ngFor="let lang of (translations$ | async)"
-                                [value]="lang.id">
-                        {{lang.label}}
+                    <mat-option *ngFor="let lang of languages"
+                                [value]="lang.code">
+                        [{{lang.code}}] {{lang.endonym}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -101,8 +119,9 @@
            target="_blank">
             <mat-icon mat-list-icon
                       class="history-icon">history</mat-icon>
-            <h3 matLine>
-                {{'Help_changelogLink' | locale | async}}
+            <h3 matLine
+                translate>
+                Help_changelogLink
             </h3>
             <mat-icon>launch</mat-icon>
         </a>

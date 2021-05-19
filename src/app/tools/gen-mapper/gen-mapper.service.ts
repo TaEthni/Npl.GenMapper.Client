@@ -57,7 +57,7 @@ export class GenMapperService implements OnDestroy {
                 this.rawTemplate = template;
                 this._selectedDocument.next(null);
                 this.refreshDocuments().subscribe();
-            })
+            });
 
         this.selectedDocument$
             .pipe(takeUntil(this.unsubscribe))
@@ -120,7 +120,7 @@ export class GenMapperService implements OnDestroy {
                     delayWhen(() => this.refreshDocuments()),
                     delayWhen((doc) => this.setNodesLocalStorage(this.documentService.processNodesBeforeCreate(nodes, doc))),
                     tap((doc) => {
-                        this._selectedDocument.next(doc)
+                        this._selectedDocument.next(doc);
                     })
                 );
         }
@@ -128,7 +128,7 @@ export class GenMapperService implements OnDestroy {
         return this.documentService.create(value)
             .pipe(
                 delayWhen(() => this.refreshDocuments()),
-            )
+            );
     }
 
     public createNode(value: NodeDto): Observable<NodeDto> {

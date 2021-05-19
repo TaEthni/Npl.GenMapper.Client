@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from '@npl-core/core.module';
 import { SharedModule } from '@npl-shared/shared.module';
 
+import { AcceptInviteComponent } from './accept-invite/accept-invite.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { LoginComponent } from './login/login.component';
@@ -23,7 +25,8 @@ import { UnverifiedEmailComponent } from './unverified-email/unverified-email.co
         ReactiveFormsModule,
         RouterModule,
         CoreModule,
-        SharedModule
+        SharedModule,
+        TranslateModule
     ],
     declarations: [
         LoginComponent,
@@ -37,6 +40,7 @@ import { UnverifiedEmailComponent } from './unverified-email/unverified-email.co
         ResetPasswordExpiredComponent,
         ConfirmEmailComponent,
         MaintenanceComponent,
+        AcceptInviteComponent,
     ],
     exports: [
     ]

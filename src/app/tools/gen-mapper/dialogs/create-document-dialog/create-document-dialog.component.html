@@ -1,24 +1,37 @@
 <div mat-dialog-title>
-    {{'Common_CreateDocument' | locale | async}}
+    {{'Common_CreateDocument' | translate}}
 </div>
 
 <form mat-dialog-content
       [formGroup]="form"
-      fxLayout="column">
+      fxLayout="column"
+      fxLayoutGap="24px">
     <mat-form-field>
         <mat-label>
-            {{'Common_Name' | locale | async}}
+            {{'Common_Name' | translate}}
         </mat-label>
         <input matInput
                formControlName="title" />
 
         <mat-error *ngIf="form.controls.title.errors?.required">
-            {{'Error_requiredField' | locale | async}}
+            {{'Error_requiredField' | translate}}
         </mat-error>
 
         <mat-error *ngIf="form.controls.title.errors?.minlength">
-            {{'Error_valueIsTooShort' | locale | async}}
+            {{'Error_valueIsTooShort' | translate}}
         </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="showTeams">
+        <mat-label>
+            {{'Common_Team' | translate}}
+        </mat-label>
+        <mat-select formControlName="teamId">
+            <mat-option *ngFor="let team of teams$ | async"
+                        [value]="team.id">
+                {{team.name}}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
 </form>
 <div mat-dialog-actions
@@ -27,11 +40,11 @@
             color="accent"
             [disabled]="form.invalid"
             (click)="onSubmit()">
-        {{'Common_Save' | locale | async}}
+        {{'Common_Save' | translate}}
     </button>
     <button mat-button
             color="warn"
             [mat-dialog-close]="false">
-        {{'Common_Cancel' | locale | async}}
+        {{'Common_Cancel' | translate}}
     </button>
 </div>

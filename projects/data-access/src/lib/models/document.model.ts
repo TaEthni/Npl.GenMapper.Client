@@ -1,10 +1,12 @@
 import { assign } from 'lodash';
+
 import { Entity, EntityType, IEntity } from './entity.model';
 import { NodeDto } from './node.model';
 
 export interface IDocumentDto extends IEntity {
     title?: string;
     type?: string;
+    teamId?: string;
     nodes?: NodeDto[];
 }
 
@@ -13,6 +15,7 @@ export class DocumentDto extends Entity implements IDocumentDto {
     public title: string;
     public type: string;
     public description?: string;
+    public teamId?: string;
     public content: string;
     public elements: string;
     public createdAt: Date;

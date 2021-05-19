@@ -33,7 +33,7 @@ export class NoDocumentViewComponent extends Unsubscribable implements OnInit {
         private nodeTree: NodeTreeService,
     ) { super(); }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.store.select(isAuthenticated)
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(result => {

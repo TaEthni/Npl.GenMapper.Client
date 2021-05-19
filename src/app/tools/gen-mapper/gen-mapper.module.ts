@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@npl-shared/shared.module';
 import { SortModule } from '@npl-shared/sort/sort.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -12,6 +13,7 @@ import { environment } from '../../../environments/environment';
 import { DocumentService } from '../../core/document.service';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
+import { EditDocumentDialogComponent } from './dialogs/edit-document-dialog/edit-document-dialog.component';
 import { InvalidCsvDialogComponent } from './dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { PeopleDialogComponent } from './dialogs/people-dialog/people-dialog.component';
@@ -55,6 +57,7 @@ import { WorldMapViewComponent } from './views/world-map-view/world-map-view.com
             libraries: ['places']
         }),
         AgmMarkerClustererModule,
+        TranslateModule
     ],
     declarations: [
         ConfirmDialogComponent,
@@ -85,6 +88,8 @@ import { WorldMapViewComponent } from './views/world-map-view/world-map-view.com
         NoDocumentViewComponent,
         PeopleDialogComponent,
         SelectPeopleGroupDialogComponent,
+        EditDocumentDialogComponent,
+
     ],
     exports: [
         ConfirmDialogComponent,

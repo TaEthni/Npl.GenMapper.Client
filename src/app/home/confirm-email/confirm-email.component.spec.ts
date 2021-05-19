@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { LocaleService } from '@npl-core/locale.service';
-import { LocalePipe } from '@npl-shared/locale.pipe';
+import { LocalePipe } from '@npl-shared/locale/locale.pipe';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
 

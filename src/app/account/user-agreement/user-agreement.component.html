@@ -214,7 +214,7 @@
                         (click)="save()"
                         [disabled]="!checkbox.value">
                     <div>
-                        {{'Common_Save' | locale | async}}
+                        {{'Common_Save' | translate}}
                     </div>
                     <mat-spinner diameter="24"
                                  *ngIf="isSaving"></mat-spinner>
@@ -222,7 +222,7 @@
                 <a mat-button
                    color="primary"
                    type="button"
-                   routerLink="/account">{{'Common_Cancel' | locale | async}}</a>
+                   routerLink="/account">{{'Common_Cancel' | translate}}</a>
             </div>
         </div>
     </ng-container>

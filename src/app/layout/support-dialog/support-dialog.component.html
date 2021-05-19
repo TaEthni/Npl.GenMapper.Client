@@ -1,8 +1,9 @@
-<div mat-dialog-title>
-    {{'Common_NeedHelp' | locale | async}}
+<div mat-dialog-title
+     translate>
+    Common_NeedHelp
 </div>
 <div mat-dialog-content>
-    <p>{{'Common_SendAnEmailTo' | locale | async }}:</p>
+    <p><span translate>Common_SendAnEmailTo</span>:</p>
     <a href="mailto:support@genmapper.com"
        target="_blank">
         <pre><code>support@genmapper.com</code></pre>
@@ -16,6 +17,6 @@
     <button mat-button
             color="primary"
             mat-dialog-close>
-        {{'Common_Ok' | locale | async}}
+        <span translate>Common_Ok</span>
     </button>
 </div>

@@ -1,0 +1,68 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    .mat-progress-bar {
+        position: absolute;
+        top: 64px;
+    }
+
+    .table-container {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+    }
+
+    footer {
+        position: sticky;
+        bottom: 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .empty {
+        font-weight: bold;
+    }
+
+    .mat-checkbox {
+        font-size: initial;
+    }
+
+    .mat-column-email .email {
+        font-weight: bold;
+    }
+
+    .mat-column-expiryDate,
+    .mat-column-acceptedDate,
+    .mat-column-createdDate {
+        width: 120px;
+    }
+
+    .mat-row.expired {
+        .mat-column-expiryDate,
+        .expiry-date {
+            color: var(--warn);
+            font-weight: bold;
+        }
+    }
+
+    .mat-row.accepted {
+        .mat-column-acceptedDate,
+        .accepted-date {
+            color: var(--accent-darker);
+            font-weight: bold;
+        }
+    }
+
+    .mat-column-email {
+        padding-right: 15px;
+    }
+
+    .mat-column-action {
+        width: 24px;
+    }
+}

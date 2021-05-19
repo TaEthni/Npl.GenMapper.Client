@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
-import { LocaleService } from '@npl-core/locale.service';
+import { TranslateService } from '@ngx-translate/core';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import {
     ActionType,
@@ -70,7 +70,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     public importSubtree = new EventEmitter<NodeDto>();
 
     constructor(
-        private localeService: LocaleService,
+        private translate: TranslateService,
         private genMapper: GenMapperService,
         private nodeClipboard: NodeClipboardService,
         private drawer: MatDrawer,
@@ -139,11 +139,11 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
             this.dialog
                 .open(ConfirmDialogComponent, {
                     data: {
-                        title: this.localeService.t('Common_SaveChanges'),
-                        prompt: this.localeService.t('Common_SaveChangesQuestion'),
+                        title: this.translate.instant('Common_SaveChanges'),
+                        prompt: this.translate.instant('Common_SaveChangesQuestion'),
                         buttons: [
-                            this.localeService.t('Common_Yes'),
-                            this.localeService.t('Common_Cancel'),
+                            this.translate.instant('Common_Yes'),
+                            this.translate.instant('Common_Cancel'),
                         ],
                     }
                 })
@@ -191,8 +191,8 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: {
-                    title: this.localeService.t('Message_confirmReplaceNode'),
-                    alert: this.localeService.t('Message_confirmReplaceNodeWarning'),
+                    title: this.translate.instant('Message_confirmReplaceNode'),
+                    alert: this.translate.instant('Message_confirmReplaceNodeWarning'),
                 }
             })
             .afterClosed()
@@ -208,8 +208,8 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: {
-                    title: this.localeService.t('Message_confirmPasteAsChildNode'),
-                    alert: this.localeService.t('Message_confirmPasteAsChildNodeWarning'),
+                    title: this.translate.instant('Message_confirmPasteAsChildNode'),
+                    alert: this.translate.instant('Message_confirmPasteAsChildNodeWarning'),
                 }
             })
             .afterClosed()
@@ -308,7 +308,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
                     this.insertPendingPeoples(result);
                     this.selectPeople(result);
                 }
-            })
+            });
     }
 
     public changePeopleGroup(people: PeopleAttributes): void {
@@ -337,7 +337,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
                     this.insertPendingPeoples(result);
                     this.insertUnknownPeopleGroupAtBeginning();
                 }
-            })
+            });
     }
 
     private initializeForm(): void {
@@ -394,7 +394,9 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
         let found;
 
         if (people.identifier === OtherPeopleGroup.peid) {
-            found = this.pendingPeoples.find(f => f.identifier === people.identifier && f.placeOfOrigin === people.placeOfOrigin && f.label === people.label);
+            found = this.pendingPeoples.find(f => f.identifier === people.identifier
+                && f.placeOfOrigin === people.placeOfOrigin
+                && f.label === people.label);
         } else {
             found = this.pendingPeoples.find(f => f.identifier === people.identifier);
         }

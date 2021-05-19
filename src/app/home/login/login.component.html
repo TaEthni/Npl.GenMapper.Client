@@ -9,7 +9,7 @@
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
-                    {{'Common_Login' | locale | async}}
+                    {{'Common_Login' | translate}}
                 </mat-card-title>
             </mat-card-header>
 
@@ -19,15 +19,15 @@
                     <input matInput
                            #emailField
                            type="email"
-                           placeholder="{{'Common_Email' | locale | async}}"
+                           placeholder="{{'Common_Email' | translate}}"
                            formControlName="email">
 
                     <mat-error *ngIf="form.controls.email.errors?.required">
-                        {{'Error_requiredField' | locale | async}}
+                        {{'Error_requiredField' | translate}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.email.errors?.pattern">
-                        {{'Error_emailFormat' | locale | async}}
+                        {{'Error_emailFormat' | translate}}
                     </mat-error>
                 </mat-form-field>
 
@@ -35,12 +35,12 @@
                     <input matInput
                            #passwordField
                            type="password"
-                           placeholder="{{'Common_Password' | locale | async}}"
+                           placeholder="{{'Common_Password' | translate}}"
                            formControlName="password">
 
                     <mat-hint align="end">
                         <a [routerLink]="['/recover-password']">
-                            {{'Common_ForgotPassword' | locale | async}}
+                            {{'Common_ForgotPassword' | translate}}
                         </a>
                     </mat-hint>
                 </mat-form-field>
@@ -49,7 +49,7 @@
 
             <mat-card-content *ngIf="showError"
                               class="error">
-                <p>{{'Error_invalidEmailOrPassword' | locale | async}}</p>
+                <p>{{'Error_invalidEmailOrPassword' | translate}}</p>
             </mat-card-content>
 
             <mat-card-actions fxLayout="row">
@@ -58,7 +58,7 @@
                         color="primary"
                         class="mat-spinner-button">
                     <div>
-                        {{'Common_Login' | locale | async}}
+                        {{'Common_Login' | translate}}
                     </div>
                     <mat-spinner diameter="24"
                                  *ngIf="isLoading"></mat-spinner>
@@ -68,12 +68,12 @@
                    type="button"
                    color="primary"
                    [routerLink]="['/']">
-                    {{'Common_Cancel' | locale | async}}
+                    {{'Common_Cancel' | translate}}
                 </a>
                 <div fxFlex></div>
                 <a mat-button
                    [routerLink]="['/signup']">
-                    {{'Common_CreateAccount' | locale | async}}
+                    {{'Common_CreateAccount' | translate}}
                 </a>
             </mat-card-actions>
         </mat-card>

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@npl-shared/shared.module';
 
 import { GenMapperModule } from './gen-mapper/gen-mapper.module';
@@ -14,7 +15,8 @@ import { ToolsComponent } from './tools/tools.component';
         RouterModule,
         GenMapperModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        TranslateModule
     ],
     declarations: [
         ToolsComponent,

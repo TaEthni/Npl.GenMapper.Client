@@ -1,0 +1,81 @@
+<ng-container *ngIf="(isAuthenticated$ | async) === false else authorizedTemplate">
+    <section class="text-center"
+             fxLayout="column"
+             fxLayoutGap="24px">
+
+        <h1 translate>You have been invited!</h1>
+        <p translate>Account is required to accept the Invite</p>
+
+        <div class="buttons"
+             fxLayout="column"
+             fxLayoutGap="24px">
+
+            <button mat-raised-button
+                    translate
+                    color="primary"
+                    (click)="login()">
+                <span>Signin</span>
+            </button>
+
+            <button mat-stroked-button
+                    color="primary"
+                    (click)="register()">
+                <span>Register</span>
+            </button>
+        </div>
+    </section>
+</ng-container>
+
+<ng-template #authorizedTemplate>
+    <ng-container *ngIf="isLoading else inviteStateTemplate">
+        <div fxLayout="row"
+             fxLayoutAlign="center center">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #inviteStateTemplate>
+    <ng-container *ngIf="showError else inviteTemplate">
+        <section class="text-center"
+                 fxLayout="column"
+                 fxLayoutGap="24px">
+            <ng-container *ngIf="isInvalid">
+                <h1 translate>Invalid Invite Token</h1>
+                <p translate>Please contact the person who sent the invite.</p>
+            </ng-container>
+            <ng-container *ngIf="isExpired">
+                <h1 translate>Invite Expired</h1>
+                <p translate>Please contact the person who sent the invite.</p>
+            </ng-container>
+            <ng-container *ngIf="isExistingMember">
+                <h1 translate>You are already a member of this team</h1>
+                <p translate>Please contact your admin and have them remove the invite.</p>
+            </ng-container>
+        </section>
+    </ng-container>
+</ng-template>
+
+<ng-template #inviteTemplate>
+    <section class="text-center"
+             fxLayout="column"
+             fxLayoutGap="24px">
+
+        <h1 translate>You have been invited to join the team [{{invite?.teamName}}]</h1>
+
+        <h4>
+            <span translate>Invite From</span>: <strong class="sender-name">{{invite?.senderName || 'Unknown'}}</strong>
+        </h4>
+
+        <div>
+            <button mat-raised-button
+                    color="primary"
+                    class="spinner-button"
+                    (click)="acceptInvite()">
+                <mat-spinner diameter="24"
+                             *ngIf="isSaving"></mat-spinner>
+                <span translate>ACCEPT INVITE</span>
+            </button>
+        </div>
+    </section>
+</ng-template>

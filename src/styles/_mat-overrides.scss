@@ -59,6 +59,21 @@ body {
     background-color: white;
 }
 
+.mat-button-base.icon-button {
+    .mat-button-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .mat-icon[before] {
+            margin-right: 10px;
+        }
+
+        .mat-icon[after] {
+            margin-left: 10px;
+        }
+    }
+}
 
 .spinner-button {
     &.mat-button,
@@ -95,4 +110,53 @@ body {
             stroke: white;
         }
     }
+}
+
+
+.mat-toolbar .mat-form-field,
+.mat-form-field[compact] {
+    font-size: initial;
+
+    &.mat-form-field-appearance-outline {
+        .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+
+        .mat-form-field-infix {
+            padding: .6em 0 .6em 0;
+            border-top-width: 0.5em;
+        }
+
+        .mat-select {
+            .mat-select-arrow-wrapper {
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+.mat-chip-list.mat-chip-list-stacked {
+    .mat-chip-input {
+        flex: 1 0 28px;
+        padding-left: 8px;
+        width: 100%;
+    }
+
+    .mat-chip {
+        margin: 4px 0;
+
+        &.mat-standard-chip {
+            width: unset;
+        }
+
+        ui-avatar {
+            margin-right: 10px;
+        }
+    }
+}
+
+
+button.mat-menu-item.active {
+    background-color: transparentize($color: mat-color($primary, lighter), $amount: 0.5);
+    color: mat-color($primary);
 }

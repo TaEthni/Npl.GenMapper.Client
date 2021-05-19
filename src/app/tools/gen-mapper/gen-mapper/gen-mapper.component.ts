@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { isAuthenticated } from '@npl-auth';
 import { CSVToJSON } from '@npl-core/csv-to-json';
-import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { AppState, DocumentDto, NodeDto, Template } from '@npl-data-access';
 import { FileInputDialogComponent } from '@npl-shared/file-input-dialog/file-input-dialog.component';
@@ -59,7 +59,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         private router: Router,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
-        private locale: LocaleService,
+        private translate: TranslateService,
         private nodeTree: NodeTreeService,
         private nodeClipboard: NodeClipboardService,
         @Optional() public genMapperContainer: GenMapperContainerComponent
@@ -132,7 +132,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public checkAvailableViews(): void {
         this.genMapper.nodes$.pipe(take(1)).subscribe(result => {
             this.showMapView = some(result, d => !!d.attributes.location);
-        })
+        });
     }
 
     public setView(view: GenMapperView): void {
@@ -167,7 +167,10 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
 
                 this.genMapperGraph.centerGraphOnNode(node.id);
 
-                this.snackBar.open(this.locale.t('Common_ChildNodeAdded'), this.locale.t('Common_Undo'), { duration: 10000 }).onAction().subscribe(() => {
+                this.snackBar.open(
+                    this.translate.instant('Common_ChildNodeAdded'),
+                    this.translate.instant('Common_Undo'), { duration: 10000 }
+                ).onAction().subscribe(() => {
                     this.onDeleteNode(node);
                 });
             },
@@ -202,7 +205,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         const name = nodeDatum.data.attributes.name || nodeDatum.data.attributes.leaderName || 'No Name';
         const hasChildren = nodeDatum.children && nodeDatum.children.length;
         const localeKey = hasChildren ? 'Message_confirmDeleteGroupWithChildren' : 'Message_confirmDeleteGroup';
-        const message = this.locale.t(localeKey, { groupName: name });
+        const message = this.translate.instant(localeKey, { groupName: name });
         const descendants = nodeDatum.descendants().map(d => d.data);
         const items = descendants.map(d => d.attributes.name || d.attributes.leaderName || d.attributes.leadersName || 'No Name');
 
@@ -211,7 +214,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                 data: {
                     alert: message,
                     items: items,
-                    title: this.locale.t('Message_confirmDelete', { groupName: name })
+                    title: this.translate.instant('Message_confirmDelete', { groupName: name })
                 }
             })
             .afterClosed()
@@ -226,7 +229,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                                 this.dismissSavingSnackBar();
                                 this.genMapper.setNode(null);
                                 this.snackBar
-                                    .open(this.locale.t('Common_GroupDeleted'), this.locale.t('Common_Undo'), { duration: 10000 })
+                                    .open(this.translate.instant('Common_GroupDeleted'), this.translate.instant('Common_Undo'), { duration: 10000 })
                                     .onAction()
                                     .subscribe(() => {
                                         this.showSavingSnackBar();
@@ -252,7 +255,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public onCopyNode(node: NodeDto): void {
         const nodes = this.nodeTree.createSubtreeFrom(node.id);
         this.nodeClipboard.set(nodes);
-        this.snackBar.open(this.locale.t('Common_CopiedNodeToClipboard'), this.locale.t('Common_Ok'), { duration: 5000 });
+        this.snackBar.open(this.translate.instant('Common_CopiedNodeToClipboard'), this.translate.instant('Common_Ok'), { duration: 5000 });
     }
 
     public onReplaceNode(nodeToReplace: NodeDto): void {
@@ -283,7 +286,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .subscribe(() => {
                 this.dismissSavingSnackBar();
                 this.snackBar
-                    .open(this.locale.t('Common_NodeHasBeenReplaced'), this.locale.t('Common_Undo'), { duration: 20000 })
+                    .open(this.translate.instant('Common_NodeHasBeenReplaced'), this.translate.instant('Common_Undo'), { duration: 20000 })
                     .onAction()
                     .subscribe(() => {
                         this.revertReplaceNode(original, clipboard);
@@ -329,7 +332,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .subscribe(() => {
                 this.dismissSavingSnackBar();
                 this.snackBar
-                    .open(this.locale.t('Common_ChildNodeAdded'), this.locale.t('Common_Undo'), { duration: 20000 })
+                    .open(this.translate.instant('Common_ChildNodeAdded'), this.translate.instant('Common_Undo'), { duration: 20000 })
                     .onAction()
                     .subscribe(() => {
                         this.showSavingSnackBar();
@@ -364,7 +367,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
                     this.dismissSavingSnackBar();
                     const createdIds = success.map(n => n.id);
                     this.snackBar
-                        .open(this.locale.t('Common_SubtreeImported'), this.locale.t('Common_Undo'), { duration: 10000 })
+                        .open(this.translate.instant('Common_SubtreeImported'), this.translate.instant('Common_Undo'), { duration: 10000 })
                         .onAction()
                         .subscribe(() => {
                             this.showSavingSnackBar();

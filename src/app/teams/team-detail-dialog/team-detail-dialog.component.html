@@ -1,0 +1,38 @@
+<div mat-dialog-title>
+    Update Team [{{config.team.name}}]
+</div>
+
+<form mat-dialog-content
+      [formGroup]="form"
+      fxLayout="column">
+    <mat-form-field>
+        <mat-label>Team Name</mat-label>
+        <input type="text"
+               matInput
+               required
+               formControlName="name"
+               placeholder="Team Name">
+        <mat-error *ngIf="form.get('name')?.hasError('required')">
+            Field is required
+        </mat-error>
+    </mat-form-field>
+</form>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center"
+     fxLayoutGap="15px">
+    <button mat-button
+            color="primary"
+            mat-dialog-close>
+        CANCEL
+    </button>
+    <button mat-flat-button
+            color="primary"
+            class="spinner-button"
+            (click)="update()">
+        <mat-spinner *ngIf="isUpdating"
+                     diameter="24"></mat-spinner>
+        <span>SAVE</span>
+    </button>
+</div>
