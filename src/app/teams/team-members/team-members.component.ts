@@ -8,6 +8,8 @@ import { createSelector, Store } from '@ngrx/store';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import {
     AppState,
+    Member,
+    SelfSelectors,
     TeamMember,
     TeamMemberSelectors,
     TeamMemberUiActions,
@@ -18,6 +20,7 @@ import {
 import { take, takeUntil } from 'rxjs/operators';
 
 import { TeamInvitesCreateDialogComponent } from '../team-invites-create-dialog/team-invites-create-dialog.component';
+import { TeamMemberRemoveDialogComponent } from '../team-member-remove-dialog/team-member-remove-dialog.component';
 
 export const CurrentTeamMembers = createSelector(
     TeamSelectors.getSelectedId,
@@ -42,6 +45,7 @@ export class TeamMembersComponent extends Unsubscribable implements OnInit {
     public readonly team$ = this.store.select(TeamSelectors.getSelected);
     public readonly isLoading$ = this.store.select(TeamMemberSelectors.isLoading);
 
+    public self: Member;
     public data: TeamMember[];
     private teamId: string;
 
@@ -56,6 +60,10 @@ export class TeamMembersComponent extends Unsubscribable implements OnInit {
         this.store.dispatch(TeamUiActions.lazyLoadUserTeams());
         this.store.dispatch(TeamUiActions.select({ id: this.teamId }));
         this.store.dispatch(TeamMemberUiActions.loadMembersForTeam({ teamId: this.teamId }));
+
+        this.store.select(SelfSelectors.getSelf).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.self = result;
+        });
 
         this.store.select(CurrentTeamMembers).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
             this.data = result;
@@ -78,7 +86,7 @@ export class TeamMembersComponent extends Unsubscribable implements OnInit {
         this.store.dispatch(TeamMemberUiActions.update({ teamId: teamMember.teamId, id: teamMember.id, dto }));
     }
 
-    public delete(teamMember: TeamMember): void {
-        this.store.dispatch(TeamMemberUiActions.remove({ teamId: teamMember.teamId, id: teamMember.id }));
+    public delete(member: TeamMember): void {
+        this.dialog.open(TeamMemberRemoveDialogComponent, { data: { member } });
     }
 }

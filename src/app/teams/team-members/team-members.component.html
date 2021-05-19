@@ -93,11 +93,13 @@
                 *matHeaderCellDef></th>
             <td mat-cell
                 *matCellDef="let element">
-                <button mat-icon-button
-                        color="warn"
-                        (click)="delete(element)">
-                    <mat-icon>delete</mat-icon>
-                </button>
+                <ng-container *ngIf="element.memberId !== self.id">
+                    <button mat-icon-button
+                            color="warn"
+                            (click)="delete(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </ng-container>
             </td>
         </ng-container>
 

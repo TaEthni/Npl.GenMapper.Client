@@ -16,6 +16,7 @@ import { TeamMembersComponent } from './team-members/team-members.component';
 import { TeamOwnerGuard } from './team-owner.guard';
 import { TeamsLayoutComponent } from './teams-layout/teams-layout.component';
 import { TeamsListComponent } from './teams-list/teams-list.component';
+import { TeamMemberRemoveDialogComponent } from './team-member-remove-dialog/team-member-remove-dialog.component';
 
 const routes: Routes = [
     {
@@ -53,7 +54,8 @@ const routes: Routes = [
         TeamsLayoutComponent,
         TeamCreateDialogComponent,
         TeamInvitesComponent,
-        TeamInvitesCreateDialogComponent
+        TeamInvitesCreateDialogComponent,
+        TeamMemberRemoveDialogComponent
     ],
     imports: [
         CommonModule,
