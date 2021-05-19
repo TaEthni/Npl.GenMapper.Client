@@ -12,11 +12,11 @@ import { TeamCreateDialogComponent } from './team-create-dialog/team-create-dial
 import { TeamDetailDialogComponent } from './team-detail-dialog/team-detail-dialog.component';
 import { TeamInvitesCreateDialogComponent } from './team-invites-create-dialog/team-invites-create-dialog.component';
 import { TeamInvitesComponent } from './team-invites/team-invites.component';
+import { TeamMemberRemoveDialogComponent } from './team-member-remove-dialog/team-member-remove-dialog.component';
 import { TeamMembersComponent } from './team-members/team-members.component';
 import { TeamOwnerGuard } from './team-owner.guard';
 import { TeamsLayoutComponent } from './teams-layout/teams-layout.component';
 import { TeamsListComponent } from './teams-list/teams-list.component';
-import { TeamMemberRemoveDialogComponent } from './team-member-remove-dialog/team-member-remove-dialog.component';
 
 const routes: Routes = [
     {
@@ -49,14 +49,20 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         TeamsListComponent,
-        TeamDetailDialogComponent,
         TeamMembersComponent,
         TeamsLayoutComponent,
-        TeamCreateDialogComponent,
         TeamInvitesComponent,
+        TeamDetailDialogComponent,
+        TeamCreateDialogComponent,
         TeamInvitesCreateDialogComponent,
         TeamMemberRemoveDialogComponent
     ],
+    // entryComponents: [
+    //     TeamDetailDialogComponent,
+    //     TeamCreateDialogComponent,
+    //     TeamInvitesCreateDialogComponent,
+    //     TeamMemberRemoveDialogComponent
+    // ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
