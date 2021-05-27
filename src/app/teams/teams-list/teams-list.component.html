@@ -9,14 +9,18 @@
     </button>
 </mat-toolbar>
 
-<mat-toolbar>
+<mat-toolbar fxLayout="row">
     <mat-form-field appearance="outline"
-                    no-errors>
+                    no-errors
+                    fxFlex>
         <input type="text"
                matInput
                [formControl]="search"
                placeholder="Search">
     </mat-form-field>
+
+    <div fxFlex></div>
+    <div fxFlex></div>
 </mat-toolbar>
 
 <div class="table-container">

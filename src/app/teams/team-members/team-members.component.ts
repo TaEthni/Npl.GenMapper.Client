@@ -69,6 +69,10 @@ export class TeamMembersComponent extends Unsubscribable implements OnInit {
             this.data = result;
             this.dataSource.data = this.data;
         });
+
+        this.search.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.dataSource.filter = (result || '').toLowerCase();
+        });
     }
 
     public invite(): void {

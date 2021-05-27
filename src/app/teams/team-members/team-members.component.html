@@ -31,7 +31,8 @@
 <mat-toolbar fxLayout="row"
              fxLayoutGap="15px">
     <mat-form-field appearance="outline"
-                    no-errors>
+                    no-errors
+                    fxFlex>
         <input type="text"
                matInput
                [formControl]="search"
@@ -39,8 +40,7 @@
     </mat-form-field>
 
     <span fxFlex></span>
-
-
+    <span fxFlex></span>
 </mat-toolbar>
 
 <div class="table-container">

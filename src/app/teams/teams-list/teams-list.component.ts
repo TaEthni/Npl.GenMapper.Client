@@ -39,6 +39,10 @@ export class TeamsListComponent extends Unsubscribable implements OnInit {
             this.data = result;
             this.dataSource.data = this.data;
         });
+
+        this.search.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+            this.dataSource.filter = (result || '').toLowerCase();
+        });
     }
 
     public create(): void {
