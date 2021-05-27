@@ -160,3 +160,17 @@ button.mat-menu-item.active {
     background-color: transparentize($color: mat-color($primary, lighter), $amount: 0.5);
     color: mat-color($primary);
 }
+
+
+.mat-button-base[compact] {
+    padding: 0 6px;
+    min-width: unset;
+
+    &.mat-flat-button,
+    &.mat-raised-button
+    &.mat-button {
+        .mat-button-wrapper {
+            line-height: 34px;
+        }
+    }
+}

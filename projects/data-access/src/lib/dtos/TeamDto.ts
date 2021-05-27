@@ -4,4 +4,6 @@ export interface TeamCreateDto {
 
 export interface TeamUpdateDto {
     name: string;
+    clearIShareApiKey: boolean;
+    iShareApiKey: string | null;
 }

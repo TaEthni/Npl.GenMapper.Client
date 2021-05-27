@@ -2,4 +2,12 @@
 
 :host {
     @include dialog();
+
+    .mat-dialog-content {
+        padding-bottom: 24px;
+    }
+
+    .clear-button {
+        line-height: 2;
+    }
 }
