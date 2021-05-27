@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DonateButtonComponent } from './donate-button/donate-button.component';
 import { FileInputDialogComponent } from './file-input-dialog/file-input-dialog.component';
@@ -16,6 +17,7 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         CommonModule,
         FlexLayoutModule,
         MaterialModule,
+        TranslateModule
     ],
     declarations: [
         SidenavToggleComponent,
