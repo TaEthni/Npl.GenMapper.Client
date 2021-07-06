@@ -1,14 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { DownloadService } from '@npl-core/download.service';
-import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { DocumentDto } from '@npl-data-access';
 import { GMTemplate } from '@npl-template';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
+import { EditDocumentDialogComponent } from '../dialogs/edit-document-dialog/edit-document-dialog.component';
 import { PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
 
@@ -31,7 +32,7 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
     public importButtonClick = new EventEmitter<void>();
 
     constructor(
-        private locale: LocaleService,
+        private translate: TranslateService,
         private downloadService: DownloadService,
         private genMapper: GenMapperService,
         private dialog: MatDialog,
@@ -52,8 +53,14 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
         this.importButtonClick.emit();
     }
 
+    public onEdit(): void {
+        this.dialog.open(EditDocumentDialogComponent, {
+            data: { document: this.document }
+        });
+    }
+
     public onDelete(): void {
-        const title = this.locale.t('Common_DeleteDocument') + ` [${this.document.title}]`;
+        const title = this.translate.instant('Common_DeleteDocument') + ` [${this.document.title}]`;
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: { title }

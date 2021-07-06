@@ -9,14 +9,14 @@
 
     <ng-container *ngIf="isAuthenticated">
         <ng-container *ngIf="documents.length === 0">
-            <h1 i18n="en-You_have_no_saved_documents">
-                {{'Common_NoSavedDocuments' | locale | async}}
+            <h1>
+                {{'Common_NoSavedDocuments' | translate}}
             </h1>
         </ng-container>
 
         <ng-container *ngIf="documents.length > 0">
-            <h1 i18n="en-Please_select_a_document">
-                {{'Common_SelectADocument' | locale | async}}
+            <h1>
+                {{'Common_SelectADocument' | translate}}
             </h1>
         </ng-container>
     </ng-container>
@@ -26,14 +26,14 @@
              fxLayoutAlign="center center"
              class="context">
             <h1>
-                {{'Common_PleaseLogIn' | locale | async}}
+                {{'Common_PleaseLogIn' | translate}}
             </h1>
 
             <div class="login-link">
                 <a mat-button
                    color="primary"
                    (click)="login()">
-                    - {{'Common_Login' | locale | async}} -
+                    - {{'Common_Login' | translate}} -
                 </a>
             </div>
         </div>
@@ -43,23 +43,21 @@
          fxLayoutGap="24px">
         <button mat-raised-button
                 color="accent"
-                (click)="onCreateDocument()"
-                i18n="en-Create_Document">
+                (click)="onCreateDocument()">
             <ng-container *ngIf="isAuthenticated">
-                {{'Common_CreateDocument' | locale | async}}
+                {{'Common_CreateDocument' | translate}}
             </ng-container>
 
             <ng-container *ngIf="!isAuthenticated">
-                {{'Common_ContinueWithoutSaving' | locale | async}}
+                {{'Common_ContinueWithoutSaving' | translate}}
             </ng-container>
         </button>
 
         <ng-container *ngIf="isAuthenticated">
             <button mat-raised-button
                     color="accent"
-                    (click)="onImport()"
-                    i18n="en-Import_Document">
-                {{'Common_ImportDocument' | locale | async}}
+                    (click)="onImport()">
+                {{'Common_ImportDocument' | translate}}
             </button>
         </ng-container>
     </div>

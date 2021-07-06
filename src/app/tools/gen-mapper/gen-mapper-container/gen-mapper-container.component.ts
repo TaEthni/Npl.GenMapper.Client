@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { isAuthenticated } from '@npl-auth';
-import { LocaleService } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { AppState, DocumentDto, Template } from '@npl-data-access';
+import { AppState, DocumentDto, TeamUiActions, Template } from '@npl-data-access';
 import { takeUntil } from 'rxjs/operators';
 
 import { GenMapperView } from '../gen-mapper-view.enum';
@@ -29,7 +28,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
         private genMapper: GenMapperService,
         private store: Store<AppState>,
         private nodeClipboard: NodeClipboardService,
-        private localeService: LocaleService,
     ) { super(); }
 
     public ngOnInit(): void {
@@ -37,6 +35,10 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(authenticated => {
                 this.isAuthenticated = authenticated;
+
+                if (this.isAuthenticated) {
+                    this.store.dispatch(TeamUiActions.lazyLoadUserTeams());
+                }
             });
 
         this.genMapper.selectedDocument$
@@ -55,17 +57,6 @@ export class GenMapperContainerComponent extends Unsubscribable implements OnIni
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(documents => {
                 this.documents = documents;
-            });
-
-        let firstCall = false;
-        this.localeService.get()
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe((result) => {
-                if (firstCall) {
-                    window.location.reload();
-                } else {
-                    firstCall = true;
-                }
             });
     }
 

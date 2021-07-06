@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AcceptInviteComponent } from './home/accept-invite/accept-invite.component';
 import { ConfirmEmailComponent } from './home/confirm-email/confirm-email.component';
 import { ForbiddenComponent } from './home/forbidden/forbidden.component';
 import { LoginComponent } from './home/login/login.component';
@@ -30,37 +31,41 @@ const appRoutes: Routes = [
     {
         path: '',
         component: LayoutUnauthenticatedComponent,
-        children: [{
-            path: 'login',
-            component: LoginComponent
-        }, {
-            path: 'logout',
-            component: LogoutComponent
-        }, {
-            path: 'signup',
-            component: SignupComponent
-        }, {
-            path: 'recover-password',
-            component: RecoverPasswordComponent
-        }, {
-            path: 'reset-password',
-            component: ResetPasswordComponent,
-        }, {
-            path: 'reset-password-expired',
-            component: ResetPasswordExpiredComponent
-        }, {
-            path: 'confirm-email',
-            component: ConfirmEmailComponent
-        }, {
-            path: 'forbidden',
-            component: ForbiddenComponent
-        }, {
-            path: 'unverified',
-            component: UnverifiedEmailComponent
-        }, {
-            path: 'notfound',
-            component: NotFoundComponent
-        }]
+        children: [
+            {
+                path: 'login',
+                component: LoginComponent
+            }, {
+                path: 'logout',
+                component: LogoutComponent
+            }, {
+                path: 'signup',
+                component: SignupComponent
+            }, {
+                path: 'accept-invite/:code',
+                component: AcceptInviteComponent
+            }, {
+                path: 'recover-password',
+                component: RecoverPasswordComponent
+            }, {
+                path: 'reset-password',
+                component: ResetPasswordComponent,
+            }, {
+                path: 'reset-password-expired',
+                component: ResetPasswordExpiredComponent
+            }, {
+                path: 'confirm-email',
+                component: ConfirmEmailComponent
+            }, {
+                path: 'forbidden',
+                component: ForbiddenComponent
+            }, {
+                path: 'unverified',
+                component: UnverifiedEmailComponent
+            }, {
+                path: 'notfound',
+                component: NotFoundComponent
+            }]
     },
     {
         path: '',
@@ -114,6 +119,10 @@ const appRoutes: Routes = [
             {
                 path: 'account',
                 loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
+            },
+            {
+                path: 'teams',
+                loadChildren: () => import('./teams/teams.module').then(x => x.TeamsModule)
             },
             {
                 path: 'tools',

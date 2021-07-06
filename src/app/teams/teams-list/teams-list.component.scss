@@ -1,0 +1,33 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    .table-container {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+    }
+
+    footer {
+        position: sticky;
+        bottom: 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .mat-column-role {
+        width: 100px;
+    }
+
+    .mat-column-created {
+        width: 150px;
+    }
+
+    .mat-column-action {
+        width: 240px;
+    }
+}

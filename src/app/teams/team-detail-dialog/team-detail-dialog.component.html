@@ -1,0 +1,80 @@
+<div mat-dialog-title>
+    Update Team [{{config.team.name}}]
+</div>
+
+<form mat-dialog-content
+      [formGroup]="form"
+      fxLayout="column"
+      fxLayoutGap="24px">
+    <mat-form-field>
+        <mat-label>Team Name</mat-label>
+        <input type="text"
+               matInput
+               required
+               formControlName="name"
+               placeholder="Team Name">
+        <mat-error *ngIf="form.get('name')?.hasError('required')">
+            Field is required
+        </mat-error>
+    </mat-form-field>
+
+    <ng-container *ngIf="hasIShareApiKey">
+        <mat-form-field appearance="fill">
+            <mat-label>IShare API KEY</mat-label>
+            <input type="text"
+                   readonly
+                   matInput
+                   value="******************************************************">
+            <div matSuffix>
+                <button mat-stroked-button
+                        compact
+                        class="clear-button icon-button"
+                        color="warn"
+                        (click)="removeApiKey()">
+                    <mat-icon before>delete</mat-icon>
+                    <span>REMOVE API KEY</span>
+                </button>
+            </div>
+        </mat-form-field>
+    </ng-container>
+
+    <div *ngIf="!iShareApiKeyInputVisible && !hasIShareApiKey">
+        <button mat-stroked-button
+                color="primary"
+                class="icon-button"
+                (click)="showIShareKeyInput()">
+            <mat-icon before>add</mat-icon>
+            <span>Add IShare API Key</span>
+        </button>
+    </div>
+
+    <mat-form-field *ngIf="iShareApiKeyInputVisible"
+                    appearance="fill">
+        <mat-label>IShare API Key</mat-label>
+        <input type="text"
+               matInput
+               placeholder="Enter Key"
+               autocomplete="off off"
+               [name]="keyName"
+               formControlName="iShareApiKey">
+    </mat-form-field>
+</form>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center"
+     fxLayoutGap="15px">
+    <button mat-button
+            color="primary"
+            mat-dialog-close>
+        CANCEL
+    </button>
+    <button mat-flat-button
+            color="primary"
+            class="spinner-button"
+            (click)="update()">
+        <mat-spinner *ngIf="isUpdating"
+                     diameter="24"></mat-spinner>
+        <span>SAVE</span>
+    </button>
+</div>

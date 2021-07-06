@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EntityService } from '@npl-core/entity.service';
 import { LocaleService } from '@npl-core/locale.service';
 import { Entity, User } from '@npl-data-access';
-import { LocalePipe } from '@npl-shared/locale.pipe';
+import { LocalePipe } from '@npl-shared/locale/locale.pipe';
 import { assign } from 'lodash';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';

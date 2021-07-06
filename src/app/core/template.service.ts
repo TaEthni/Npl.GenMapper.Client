@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Template } from '@npl-data-access';
 import { GMField, GMTemplate, TemplateConfiguration } from '@npl-template';
 
-import { LocaleService } from './locale.service';
 import { GM_CONFIGS, GM_TEMPLATES } from './template.injecttoken';
 
 @Injectable({
@@ -16,15 +16,22 @@ export class TemplateService {
     constructor(
         @Inject(GM_TEMPLATES) private gmTemplates: GMTemplate[],
         @Inject(GM_CONFIGS) private gmConfigs: TemplateConfiguration[],
-        private locale: LocaleService
+        private translate: TranslateService
     ) {
         this.configure();
-        this.locale.get().subscribe(result => {
-            if (result && result !== this.localeId) {
-                this.localeId = result;
-                this.localizeTemplates();
-            }
+        this.localeId = this.translate.currentLang;
+
+        this.translate.onLangChange.subscribe(event => {
+            this.localeId = event.lang;
+            this.localizeTemplates();
         });
+
+        // this.locale.get().subscribe(result => {
+        //     if (result && result !== this.localeId) {
+        //         this.localeId = result;
+        //         this.localizeTemplates();
+        //     }
+        // });
     }
 
     public configure(): void {
@@ -62,12 +69,12 @@ export class TemplateService {
         this.templates.forEach(template => {
             template.svgs.forEach(svg => {
                 if (svg.tooltipi18nRef) {
-                    svg.tooltipi18nValue = this.locale.t(svg.tooltipi18nRef);
+                    svg.tooltipi18nValue = this.translate.instant(svg.tooltipi18nRef);
                 }
             });
 
             template.svgActions.forEach(action => {
-                action.tooltipi18nValue = this.locale.t(action.tooltipi18nRef);
+                action.tooltipi18nValue = this.translate.instant(action.tooltipi18nRef);
             });
 
             // Example: template.translations.en.translation.churchCircles;
@@ -78,13 +85,13 @@ export class TemplateService {
     private localizeFields(fields: GMField[]): void {
         fields.forEach(field => {
             if (field.i18nRef) {
-                field.i18nValue = this.locale.t(field.i18nRef);
+                field.i18nValue = this.translate.instant(field.i18nRef);
             }
 
             if (field.options) {
                 field.options.forEach(o => {
                     if (o.i18nRef) {
-                        o.i18nValue = this.locale.t(o.i18nRef);
+                        o.i18nValue = this.translate.instant(o.i18nRef);
                     }
                 });
             }

@@ -35,7 +35,7 @@ export class ReportLegendComponent extends Unsubscribable implements OnInit {
             .subscribe(template => {
                 this.template = template;
                 this.createReports();
-            })
+            });
 
         this.nodeTree.treeData$
             .pipe(takeUntil(this.unsubscribe))
@@ -78,7 +78,7 @@ export class ReportLegendComponent extends Unsubscribable implements OnInit {
                     if (typeof node.attributes[report.name] === 'string') {
                         report.value += parseFloat(node.attributes[report.name]) || 0;
                     } else {
-                        report.value += node.attributes[report.name]
+                        report.value += node.attributes[report.name];
                     }
                 }
 

@@ -2,7 +2,7 @@
      fxLayout="row"
      fxLayout.lt-sm="column">
     <div>
-        {{'Common_PeopleGroup' | locale | async}}
+        {{'Common_PeopleGroup' | translate}}
         [{{data.people.placeOfOrigin ? data.people.placeOfOrigin + ' ' : ''}}{{data.people.label}}]
     </div>
     <div fxFlex></div>
@@ -10,7 +10,7 @@
         <button mat-button
                 color="primary"
                 (click)="changePeopleGroup()">
-            ({{'Common_ChangePeopleGroup' | locale | async}})
+            ({{'Common_ChangePeopleGroup' | translate}})
         </button>
     </div>
 </div>
@@ -94,12 +94,12 @@
         <button mat-flat-button
                 color="primary"
                 (click)="continue()">
-            {{'Common_Continue' | locale | async}}
+            {{'Common_Continue' | translate}}
         </button>
         <button mat-button
                 color="primary"
                 (click)="cancel()">
-            {{'Common_Cancel' | locale | async}}
+            {{'Common_Cancel' | translate}}
         </button>
     </div>
     <ng-container *ngIf="data.people.identifier !== unknownPeopleGroup.peid">
@@ -108,7 +108,7 @@
                     fxFlex
                     color="warn"
                     (click)="remove()">
-                {{'Common_Delete' | locale | async}}
+                {{'Common_Delete' | translate}}
             </button>
         </div>
     </ng-container>

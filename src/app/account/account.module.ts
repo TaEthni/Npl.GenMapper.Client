@@ -18,6 +18,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule, Routes } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthorizationGuard, InternalOnlyGuard } from '@npl-auth';
 import { SharedModule } from '@npl-shared/shared.module';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
@@ -116,7 +117,8 @@ const routes: Routes = [
         MatSnackBarModule,
         MatDialogModule,
         MatMenuModule,
-        SharedModule
+        SharedModule,
+        TranslateModule,
     ]
 })
 export class AccountModule { }

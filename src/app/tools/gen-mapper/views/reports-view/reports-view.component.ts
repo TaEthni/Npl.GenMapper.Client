@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocaleService } from '@npl-core/locale.service';
+import { TranslateService } from '@ngx-translate/core';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { NodeDto, Template } from '@npl-data-access';
 import { ControlType, GMReport, ReportType } from '@npl-template';
@@ -49,7 +49,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
     public churchTypes: any[];
 
     constructor(
-        private locale: LocaleService,
+        private translate: TranslateService,
         private genMapper: GenMapperService
     ) { super(); }
 
@@ -88,7 +88,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                     field.options.forEach(v => {
                         report.values.push({
                             key: v.value,
-                            name: this.locale.t(v.i18nRef),
+                            name: this.translate.instant(v.i18nRef),
                             value: 0,
                         });
                     });
@@ -99,7 +99,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                     report.values = [];
                     field.options.forEach(v => {
                         report.values.push({
-                            name: this.locale.t(v.i18nRef),
+                            name: this.translate.instant(v.i18nRef),
                             key: v.value,
                             option: v.value,
                             value: 0,
@@ -114,7 +114,7 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
                 treport.fields.forEach(fieldName => {
                     const field = this.template.getField(fieldName);
                     const value = {
-                        name: this.locale.t(field.i18nRef),
+                        name: this.translate.instant(field.i18nRef),
                         key: field.id,
                         value: 0,
                     };
@@ -241,23 +241,23 @@ export class ReportsViewComponent extends Unsubscribable implements OnInit {
 
         this.baptismsReport = [
             {
-                name: 'Attenders',
+                name: this.translate.instant('Common_Attenders'),
                 value: this.stats.attenders,
             },
             {
-                name: 'Believers',
+                name: this.translate.instant('Common_Believers'),
                 value: this.stats.believers,
             },
             {
-                name: 'Unbaptized',
+                name: this.translate.instant('Common_Unbaptized'),
                 value: this.stats.unbaptized,
             },
             {
-                name: 'Baptized',
+                name: this.translate.instant('Common_Baptized'),
                 value: this.stats.baptized,
             },
             {
-                name: 'Newly Baptized',
+                name: this.translate.instant('Common_NewlyBaptized'),
                 value: this.stats.newlyBaptized,
             }
         ];

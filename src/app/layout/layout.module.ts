@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from '@npl-core/core.module';
 import { SharedModule } from '@npl-shared/shared.module';
 
@@ -18,7 +19,8 @@ import { UserAgreementNotificationComponent } from './user-agreement-notificatio
         RouterModule,
         CoreModule,
         SharedModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TranslateModule
     ],
     declarations: [
         LayoutComponent,

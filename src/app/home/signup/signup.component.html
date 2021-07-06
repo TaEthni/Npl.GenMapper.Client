@@ -9,7 +9,7 @@
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
-                    {{'Common_CreateAccount' | locale | async}}
+                    {{'Common_CreateAccount' | translate}}
                 </mat-card-title>
             </mat-card-header>
 
@@ -18,7 +18,7 @@
 
                 <mat-form-field>
                     <mat-label>
-                        {{'Common_Email' | locale | async}}
+                        {{'Common_Email' | translate}}
                     </mat-label>
                     <input matInput
                            formControlName="email"
@@ -27,21 +27,21 @@
                            required />
 
                     <mat-error *ngIf="form.controls.email.errors?.required">
-                        {{'Error_requiredField' | locale | async}}
+                        {{'Error_requiredField' | translate}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.email.errors?.emailInUse">
-                        {{'Error_emailInUse' | locale | async}}
+                        {{'Error_emailInUse' | translate}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.email.errors?.pattern">
-                        {{'Error_emailFormat' | locale | async}}
+                        {{'Error_emailFormat' | translate}}
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>
-                        {{'Common_Username' | locale | async}}
+                        {{'Common_Username' | translate}}
                     </mat-label>
                     <input matInput
                            formControlName="username"
@@ -49,11 +49,11 @@
                            autocomplete="off" />
 
                     <mat-hint>
-                        {{'Message_uniqueUsername' | locale | async}}
+                        {{'Message_uniqueUsername' | translate}}
                     </mat-hint>
 
                     <mat-error *ngIf="form.controls.username.errors?.minlength">
-                        {{'Error_valueIsTooShort' | locale | async}}
+                        {{'Error_valueIsTooShort' | translate}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.username.errors?.usernameInUse">
@@ -63,7 +63,7 @@
 
                 <mat-form-field>
                     <mat-label>
-                        {{'Common_Password' | locale | async}}
+                        {{'Common_Password' | translate}}
                     </mat-label>
                     <input matInput
                            formControlName="password"
@@ -71,17 +71,17 @@
                            required />
 
                     <mat-error *ngIf="form.controls.password.errors?.required">
-                        {{'Error_requiredField' | locale | async}}
+                        {{'Error_requiredField' | translate}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.password.errors?.minlength">
-                        {{'Error_valueIsTooShort' | locale | async}}
+                        {{'Error_valueIsTooShort' | translate}}
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>
-                        {{'Common_ConfirmPassword' | locale | async}}
+                        {{'Common_ConfirmPassword' | translate}}
                     </mat-label>
                     <input matInput
                            formControlName="confirm"
@@ -89,15 +89,15 @@
                            required />
 
                     <mat-error *ngIf="form.controls.confirm.errors?.required">
-                        {{'Error_requiredField' | locale | async}}
+                        {{'Error_requiredField' | translate}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.confirm.errors?.invalidPasswordMatch">
-                        {{'Error_passwordsDontMatch' | locale | async}}
+                        {{'Error_passwordsDontMatch' | translate}}
                     </mat-error>
 
                     <mat-error *ngIf="form.controls.confirm.errors?.minlength">
-                        {{'Error_valueIsTooShort' | locale | async}}
+                        {{'Error_valueIsTooShort' | translate}}
                     </mat-error>
                 </mat-form-field>
 
@@ -106,13 +106,13 @@
                     <button mat-raised-button
                             color="primary"
                             type="submit">
-                        {{'Common_CreateAccount' | locale | async}}
+                        {{'Common_CreateAccount' | translate}}
                     </button>
                     <a mat-button
                        color="primary"
                        type="button"
                        [routerLink]="['/login']">
-                        {{'Common_Cancel' | locale | async}}
+                        {{'Common_Cancel' | translate}}
                     </a>
                 </div>
             </mat-card-content>

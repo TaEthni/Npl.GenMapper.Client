@@ -1,0 +1,32 @@
+<div mat-dialog-title>
+    Delete member [{{config.member.userName}}]
+</div>
+
+<div mat-dialog-content>
+    <p>Are you sure you want to remove this member.</p>
+
+    <p class="text-warn">
+        <strong>Warning:</strong> Removing a member will detach all the members streams from your team.
+    </p>
+
+    <p>Are you sure you want to continue</p>
+</div>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutGap="15px"
+     fxLayoutAlign="end center">
+    <button mat-button
+            color="primary"
+            mat-dialog-close>
+        CANCEL
+    </button>
+    <button mat-flat-button
+            color="warn"
+            class="spinner-button"
+            (click)="continue()">
+        <mat-spinner *ngIf="isDeleting"
+                     diameter="24"></mat-spinner>
+        <span>DELETE MEMBER</span>
+    </button>
+</div>

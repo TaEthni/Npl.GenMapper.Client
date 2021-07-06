@@ -25,7 +25,7 @@ export class UserAgreementComponent extends Unsubscribable implements OnInit {
     public ngOnInit(): void {
         this.store.select(SelfSelectors.getSelf).pipe(takeUntil(this.unsubscribe)).subscribe(result => {
             this.self = result;
-            if (this.self.agreementDate) {
+            if (this.self && this.self.agreementDate) {
                 this.checkbox.setValue(true);
             }
         });

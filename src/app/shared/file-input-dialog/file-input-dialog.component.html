@@ -1,5 +1,5 @@
 <h1 mat-dialog-title
-    i18n="@@Menu_importXlsxCsv">{{'Menu_importXlsxCsv' | locale | async}}</h1>
+    translate>Menu_importXlsxCsv</h1>
 <div mat-dialog-content>
     <div class="file-input">
         <input #fileInput
@@ -12,8 +12,12 @@
     <button mat-raised-button
             color="accent"
             [disabled]="form.invalid"
-            (click)="onSubmit()">Submit</button>
+            (click)="onSubmit()">
+        <span translate>Common_Submit</span>
+    </button>
     <button mat-button
             color="warn"
-            (click)="onCancel()">Cancel</button>
+            (click)="onCancel()">
+        <span translate>Common_Cancel</span>
+    </button>
 </div>

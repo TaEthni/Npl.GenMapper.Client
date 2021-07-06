@@ -1,10 +1,10 @@
 <div mat-dialog-title>
     <ng-container *ngIf="data.isFeedback; then feedbackTemp else helpTemp"></ng-container>
     <ng-template #feedbackTemp>
-        {{'Common_SendFeedback' | locale | async}}
+        {{'Common_SendFeedback' | translate}}
     </ng-template>
     <ng-template #helpTemp>
-        {{'Common_NeedHelp' | locale | async}}
+        {{'Common_NeedHelp' | translate}}
     </ng-template>
 </div>
 <div mat-dialog-content>
@@ -16,7 +16,7 @@
         <ng-container *ngIf="!data.authenticated">
             <mat-form-field>
                 <mat-label>
-                    {{'Common_Name' | locale | async}}
+                    {{'Common_Name' | translate}}
                 </mat-label>
                 <input matInput
                        formControlName="name" />
@@ -24,18 +24,18 @@
 
             <mat-form-field>
                 <mat-label>
-                    {{'Common_Email' | locale | async}}
+                    {{'Common_Email' | translate}}
                 </mat-label>
                 <input matInput
                        required
                        formControlName="email" />
 
                 <mat-error *ngIf="form.controls.email.errors?.pattern">
-                    {{'Error_emailFormat' | locale | async}}
+                    {{'Error_emailFormat' | translate}}
                 </mat-error>
 
                 <mat-error *ngIf="form.controls.email.errors?.required">
-                    {{'Error_requiredField' | locale | async}}
+                    {{'Error_requiredField' | translate}}
                 </mat-error>
             </mat-form-field>
         </ng-container>
@@ -50,13 +50,13 @@
                       cdkAutosizeMaxRows="30"></textarea>
 
             <mat-error *ngIf="form.controls.content.errors?.required">
-                {{'Error_requiredField' | locale | async}}
+                {{'Error_requiredField' | translate}}
             </mat-error>
         </mat-form-field>
     </form>
 
     <p>
-        {{'Message_orSendEmailTo' | locale | async}}:
+        {{'Message_orSendEmailTo' | translate}}:
     </p>
     <ng-container *ngIf="data.isFeedback; then feedbackEmail else supportEmail"></ng-container>
 
@@ -79,7 +79,7 @@
             type="button"
             (click)="onSubmit()">
         <div>
-            {{'Common_Send' | locale | async}}
+            {{'Common_Send' | translate}}
         </div>
         <mat-spinner *ngIf="isLoading"
                      diameter="24"></mat-spinner>
@@ -88,6 +88,6 @@
     <button mat-button
             color="primary"
             mat-dialog-close>
-        {{'Common_Cancel' | locale | async}}
+        {{'Common_Cancel' | translate}}
     </button>
 </div>

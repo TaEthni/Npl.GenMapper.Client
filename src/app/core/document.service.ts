@@ -40,6 +40,7 @@ export class DocumentService {
         const payload = {
             title: value.title || 'No name',
             type: value.type,
+            teamId: value.teamId,
             entityType: EntityType.Documents,
             nodes: null
         };
@@ -64,7 +65,7 @@ export class DocumentService {
     }
 
     public update(doc: DocumentDto): Observable<DocumentDto> {
-        const payload = pick(doc, 'title', 'entityType', 'id', 'type') as DocumentDto;
+        const payload = pick(doc, 'title', 'entityType', 'id', 'type', 'teamId') as DocumentDto;
         return this.entityService.update(payload);
     }
 

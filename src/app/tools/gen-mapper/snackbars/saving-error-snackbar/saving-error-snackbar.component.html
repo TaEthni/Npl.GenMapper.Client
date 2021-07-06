@@ -1,7 +1,7 @@
 <div fxLayout="row"
      fxLayoutAlign="start center">
     <h3>
-        {{'Common_SavingError' | locale | async}}
+        {{'Common_SavingError' | translate}}
     </h3>
     <div>
         <mat-icon>warning</mat-icon>
@@ -9,6 +9,6 @@
     <div>
         <button mat-button
                 color="warn"
-                (click)="close()">{{'Common_Ok' | locale | async}}</button>
+                (click)="close()">{{'Common_Ok' | translate}}</button>
     </div>
 </div>

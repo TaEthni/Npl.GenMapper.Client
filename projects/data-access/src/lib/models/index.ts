@@ -7,3 +7,6 @@ export * from './node.model';
 export * from './template.model';
 export * from './user.model';
 export * from './Member';
+export * from './Team';
+export * from './TeamMember';
+export * from './Invite';

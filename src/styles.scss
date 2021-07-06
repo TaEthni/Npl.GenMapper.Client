@@ -69,6 +69,7 @@ html {
     }
 }
 
+
 a:not(.mat-button-base) {
     text-decoration: none;
 
@@ -118,4 +119,12 @@ input[no-wheel] {
 
 .mute {
     opacity: 0.7;
+}
+
+.text-warn {
+    color: mat-color($warn);
+}
+
+.text-success {
+    color: mat-color($success);
 }

@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthActions, AuthUser, getUserProfile, isAuthenticated } from '@npl-auth';
-import { LocaleService, TranslationType } from '@npl-core/locale.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { AppState } from '@npl-data-access';
-import i18next from 'i18next';
-import { Observable } from 'rxjs';
+import { LANGUAGES } from '@npl-shared/languages.const';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { UpdatesService } from '../../updates/updates.service';
@@ -21,25 +20,23 @@ import { SupportDialogComponent } from '../support-dialog/support-dialog.compone
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent extends Unsubscribable implements OnInit {
-    public translations$: Observable<TranslationType[]>;
     public localeControl: FormControl;
     public isLoggedIn$ = this.store.select(isAuthenticated);
-    public userProfile: AuthUser
+    public userProfile: AuthUser;
+    public languages = LANGUAGES;
 
     constructor(
         private dialog: MatDialog,
-        private localeService: LocaleService,
+        private translate: TranslateService,
         private updatesService: UpdatesService,
         // private authService: AuthenticationService,
         private store: Store<AppState>
     ) { super(); }
 
     public ngOnInit(): void {
-        this.translations$ = this.localeService.getTranslations();
-        this.localeControl = new FormControl(i18next.language);
-
+        this.localeControl = new FormControl(this.translate.currentLang);
         this.localeControl.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
-            this.localeService.set(result);
+            this.translate.use(result);
         });
 
         this.store.select(getUserProfile).pipe(takeUntil(this.unsubscribe)).subscribe(result => {

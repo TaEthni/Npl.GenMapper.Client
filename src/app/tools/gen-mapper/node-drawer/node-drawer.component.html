@@ -2,7 +2,7 @@
                color="primary"
                mat-stretch-tabs
                [(selectedIndex)]="selectedTabIndex">
-    <mat-tab label="{{'Common_Info' | locale | async}}">
+    <mat-tab label="{{'Common_Info' | translate}}">
         <ng-container *ngIf="form">
             <app-node-form [form]="form"
                            [fields]="fields"
@@ -19,23 +19,23 @@
                  *ngIf="!hideActions">
                 <button mat-stroked-button
                         (click)="onCopyNode()">
-                    {{'Common_Copy' | locale | async}}
+                    {{'Common_Copy' | translate}}
                 </button>
 
                 <ng-container *ngIf="isNodeInClipboard">
                     <mat-menu #pasteMenu="matMenu">
                         <button mat-menu-item
                                 (click)="onReplaceNode()">
-                            {{'Common_ReplaceCurrentNode' | locale | async}}
+                            {{'Common_ReplaceCurrentNode' | translate}}
                         </button>
                         <button mat-menu-item
                                 (click)="onPastAsChildNode()">
-                            {{'Common_PasteAsChildNode' | locale | async}}
+                            {{'Common_PasteAsChildNode' | translate}}
                         </button>
                     </mat-menu>
                     <button mat-stroked-button
                             [matMenuTriggerFor]="pasteMenu">
-                        {{'Common_Paste' | locale | async}}
+                        {{'Common_Paste' | translate}}
                     </button>
                 </ng-container>
 
@@ -44,7 +44,7 @@
                 <button mat-stroked-button
                         color="primary"
                         (click)="onImportSubtree()">
-                    {{'Common_ImportSubtree' | locale | async}}
+                    {{'Common_ImportSubtree' | translate}}
                 </button>
             </div>
 
@@ -55,12 +55,12 @@
                         color="warn"
                         class="delete-button"
                         (click)="onDeleteNode()">
-                    {{'Common_DeleteSubtree' | locale | async}}
+                    {{'Common_DeleteSubtree' | translate}}
                 </button>
             </div>
         </div>
     </mat-tab>
-    <mat-tab label="{{'Common_People' | locale | async}}">
+    <mat-tab label="{{'Common_People' | translate}}">
         <div fxLayout="column"
              fxLayoutGap="24px">
             <mat-action-list>
@@ -80,7 +80,7 @@
                         color="primary"
                         fxFlex
                         (click)="addPeopleGroup()">
-                    <mat-icon>add</mat-icon> {{'Common_PeopleGroups' | locale | async}}
+                    <mat-icon>add</mat-icon> {{'Common_PeopleGroups' | translate}}
                 </button>
             </div>
         </div>
@@ -98,13 +98,13 @@
                 (click)="onSave()"
                 fxFlex
                 [disabled]="!form?.dirty">
-            {{'Common_Save' | locale | async}}
+            {{'Common_Save' | translate}}
         </button>
         <button mat-button
                 color="primary"
                 (click)="onCancel()"
                 fxFlex>
-            {{'Common_Cancel' | locale | async}}
+            {{'Common_Cancel' | translate}}
         </button>
     </div>
 </div>

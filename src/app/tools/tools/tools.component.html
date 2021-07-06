@@ -11,7 +11,7 @@
          fxLayoutGap="5px"
          fxLayoutAlign="center center"
          fxLayoutAlign.lt-md="start start">
-    <h1>{{'Common_GenMapper' | locale | async}}</h1>
+    <h1 translate>Common_GenMapper</h1>
     <!-- <h4>I pray these tools serve you to advance Jesus' kingdom.</h4> -->
     <!-- <p>Please select gen map variant:</p> -->
 </section>
@@ -39,7 +39,7 @@
 </section>
 <section fxLayout="column"
          fxLayoutAlign="center center">
-    <h4>{{'Common_AdditionalGenMappers' | locale | async}}</h4>
+    <h4 translate>Common_AdditionalGenMappers</h4>
     <ul>
         <li *ngFor="let template of templateWithoutIcons">
             <a [routerLink]="['/gen-mapper', template.id]">
@@ -47,5 +47,6 @@
             </a>
         </li>
     </ul>
-    <p class="mute">Additional GenMappers are temporarily unavailable</p>
+    <p class="mute"
+       translate>Additional GenMappers are temporarily unavailable</p>
 </section>

@@ -8,7 +8,6 @@ import { WindowRefService } from '@npl-core/windowref.service';
 
 import { AccountService } from './account.service';
 import { DesktopOnlyGuard } from './desktop-only.quard';
-import { LocaleService } from './locale.service';
 import { MapsService } from './maps.service';
 import { OAuthInitializerService } from './oauth/initializer.service';
 import { SupportService } from './support.service';
@@ -42,7 +41,6 @@ import { UserResolver } from './user.resolver';
         DownloadService,
         UserResolver,
         SupportService,
-        LocaleService,
         AccountService,
         MapsService
     ]

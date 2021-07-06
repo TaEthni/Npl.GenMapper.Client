@@ -1,5 +1,5 @@
 <div mat-dialog-title>
-    {{'Common_PeopleGroup' | locale | async}}
+    {{'Common_PeopleGroup' | translate}}
 </div>
 
 <div mat-dialog-content
@@ -22,7 +22,7 @@
             <ng-container *ngIf="isHandHeld; then nativeCountry else materialCountry"></ng-container>
             <ng-template #nativeCountry>
                 <mat-form-field fxFlex>
-                    <mat-label>{{'Common_Country' | locale | async}}</mat-label>
+                    <mat-label>{{'Common_Country' | translate}}</mat-label>
                     <select [formControl]="countryControl"
                             matNativeControl>
                         <option value=""
@@ -36,7 +36,7 @@
             </ng-template>
             <ng-template #materialCountry>
                 <mat-form-field fxFlex>
-                    <mat-label>{{'Common_Country' | locale | async}}</mat-label>
+                    <mat-label>{{'Common_Country' | translate}}</mat-label>
                     <mat-select [formControl]="countryControl">
                         <mat-option *ngFor="let country of countryList"
                                     [value]="country['alpha-3']">
@@ -54,7 +54,7 @@
             <ng-container *ngIf="isHandHeld; then nativePg else materialPg"></ng-container>
             <ng-template #nativePg>
                 <mat-form-field fxFlex>
-                    <mat-label>{{'Common_PeopleGroups' | locale | async}}</mat-label>
+                    <mat-label>{{'Common_PeopleGroups' | translate}}</mat-label>
                     <select [formControl]="pgControl"
                             matNativeControl>
                         <option value=""
@@ -63,35 +63,35 @@
                                 [value]="pg.peid">
                             {{pg.genC0}} {{pg.nmDisp}}
                         </option>
-                        <option [value]="other.peid">{{'Common_Other' | locale | async}}</option>
+                        <option [value]="other.peid">{{'Common_Other' | translate}}</option>
                     </select>
                 </mat-form-field>
             </ng-template>
             <ng-template #materialPg>
                 <mat-form-field fxFlex>
-                    <mat-label>{{'Common_PeopleGroups' | locale | async}}</mat-label>
+                    <mat-label>{{'Common_PeopleGroups' | translate}}</mat-label>
                     <mat-select [formControl]="pgControl">
                         <mat-option *ngFor="let pg of peopleGroups | sort: 'nmDisp'"
                                     [value]="pg.peid">
                             {{pg.genC0}} {{pg.nmDisp}}
                         </mat-option>
-                        <mat-option [value]="other.peid">{{'Common_Other' | locale | async}}</mat-option>
+                        <mat-option [value]="other.peid">{{'Common_Other' | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </ng-template>
             <ng-container *ngIf="showOther">
                 <mat-form-field fxFlex>
-                    <mat-label>{{'Common_OtherPeopleGroupName' | locale | async}}</mat-label>
+                    <mat-label>{{'Common_OtherPeopleGroupName' | translate}}</mat-label>
                     <input matInput
                            type="text"
                            autocomplete="offoff"
                            name="offoff"
                            [formControl]="otherControl">
                     <mat-error *ngIf="otherControl.errors?.required">
-                        {{'Error_requiredField' | locale | async}}
+                        {{'Error_requiredField' | translate}}
                     </mat-error>
                     <mat-error *ngIf="otherControl.errors?.existing">
-                        {{'Error_NameInUse' | locale | async}}
+                        {{'Error_NameInUse' | translate}}
                     </mat-error>
                 </mat-form-field>
             </ng-container>
@@ -106,11 +106,11 @@
             color="primary"
             [disabled]="!isValid"
             (click)="continue()">
-        {{'Common_Continue' | locale | async}}
+        {{'Common_Continue' | translate}}
     </button>
     <button mat-button
             color="primary"
             mat-dialog-close>
-        {{'Common_Cancel' | locale | async}}
+        {{'Common_Cancel' | translate}}
     </button>
 </div>
