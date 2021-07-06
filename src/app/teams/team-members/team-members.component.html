@@ -72,7 +72,8 @@
                 <button mat-stroked-button
                         class="icon-button"
                         [matMenuTriggerFor]="roleMenu"
-                        [matMenuTriggerData]="{member: element}">
+                        [matMenuTriggerData]="{member: element}"
+                        [disabled]="element.memberId === self.id">
                     <span>{{element.role === 'owner' ? 'Owner' : 'Member'}}</span>
                     <mat-icon after>arrow_drop_down</mat-icon>
                 </button>
