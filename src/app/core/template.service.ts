@@ -21,6 +21,8 @@ export class TemplateService {
         this.configure();
         this.localeId = this.translate.currentLang;
 
+        this.localizeTemplates();
+
         this.translate.onLangChange.subscribe(event => {
             this.localeId = event.lang;
             this.localizeTemplates();
