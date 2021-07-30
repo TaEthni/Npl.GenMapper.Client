@@ -18,6 +18,13 @@ export class AppComponent implements OnInit {
         private oAuthService: OAuthService,
         private translate: TranslateService
     ) {
+
+        this.translate.onLangChange.subscribe(event => {
+            try {
+                localStorage.setItem(localeKey, event.lang);
+            } catch { }
+        });
+
         this.translate.setDefaultLang('en');
 
         try {
@@ -26,12 +33,6 @@ export class AppComponent implements OnInit {
         } catch {
             this.translate.use('en');
         }
-
-        this.translate.onLangChange.subscribe(event => {
-            try {
-                localStorage.setItem(localeKey, event.lang);
-            } catch { }
-        });
     }
 
     public ngOnInit(): void {
