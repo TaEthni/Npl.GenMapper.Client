@@ -1,0 +1,27 @@
+{
+    "routes": [
+        {
+            "route": "/*",
+            "serve": "/index.html",
+            "statusCode": 200
+        }
+    ],
+    "navigationFallback": {
+        "rewrite": "index.html",
+        "exclude": [
+            "*.{png,jpg,gif}",
+            "*.css"
+        ]
+    },
+    "globalHeaders": {
+        "content-security-policy": "default-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com; connect-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com *.tinymce.com *.tiny.cloud blob:; script-src 'self' 'unsafe-eval' *.tinymce.com *.tiny.cloud *.matomo.cloud; script-src-elem 'self' 'unsafe-inline' *.matomo.cloud; style-src 'unsafe-inline' *.azurestaticapps.net *.taethni.com *.genmapper.com *.matomo.cloud *.tinymce.com *.tiny.cloud; font-src 'self' *.gstatic.com *.tinymce.com *.tiny.cloud *.genmapper.com; img-src 'self' *.tinymce.com *.tiny.cloud *.genmapper.com https: blob: data:;",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN",
+        "referrer-policy": "same-origin",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "permissions-policy": "geolocation=(self), microphone=()"
+    },
+    "mimeTypes": {
+        ".json": "text/json"
+    }
+}
