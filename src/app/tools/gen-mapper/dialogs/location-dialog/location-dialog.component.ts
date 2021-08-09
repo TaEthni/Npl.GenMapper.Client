@@ -16,6 +16,7 @@ export interface LocationDialogConfig {
     longitude?: number;
     markerLatitude?: number;
     markerLongitude?: number;
+    isIpGeolocation?: boolean;
 }
 
 export interface LocationDialogResponse {
@@ -40,13 +41,15 @@ export class LocationDialogComponent implements AfterViewInit, OnDestroy {
     public markerLatitude: number;
     public markerLongitude: number;
     public searchControl: AbstractControl;
-    public zoom: number;
+    // default zoom set further out, we can zoom in if we have location data.
+    public zoom: number = 2;
     public address: string;
     public placeId: string;
     public height: number;
     public geocoder: google.maps.Geocoder;
 
     private mapClickListener: google.maps.MapsEventListener;
+    private isIpGeolocation: boolean;
 
     constructor(
         private mapsService: MapsService,
@@ -61,8 +64,9 @@ export class LocationDialogComponent implements AfterViewInit, OnDestroy {
         this.longitude = data.longitude;
         this.markerLatitude = data.markerLatitude;
         this.markerLongitude = data.markerLongitude;
+        this.isIpGeolocation = data.isIpGeolocation;
 
-        this.zoom = 12;
+        if (data.latitude && data.longitude) this.zoom = 12
         this.searchControl = new FormControl(this.address);
         this.height = window.innerHeight - 350;
     }
@@ -125,6 +129,12 @@ export class LocationDialogComponent implements AfterViewInit, OnDestroy {
                 });
             });
 
+            // If ipGeolocation is used, then set the zoom out and show the map without a marker.
+            if (this.isIpGeolocation) {
+                this.zoom = 10;
+                return;
+            }
+
             if (this.address && !this.markerLatitude) {
                 this.mapsService.getCoordsForAddress({ address: this.address, placeId: this.placeId }).subscribe(result => {
                     this.ngZone.run(() => {
@@ -135,9 +145,13 @@ export class LocationDialogComponent implements AfterViewInit, OnDestroy {
                         this.markerLongitude = this.longitude;
                     });
                 });
-            } else if (!this.markerLatitude) {
+            }
+            // only set address marker if we have access to lat and long
+            if (!this.markerLatitude && this.latitude && this.longitude) {
                 this.setAddress(this.latitude, this.longitude);
             }
+            // if no lat and long, display the map without a marker.
+            return;
         });
     }
 

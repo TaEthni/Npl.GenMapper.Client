@@ -4,10 +4,12 @@
 
 export const environment = {
     production: false,
-    apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
-    apiBase: 'https://localhost:44320/api/',
+    apiKey: '',
+    // apiBase: 'https://localhost:44320/api/',
     // apiBase: 'https://localhost:7001/api/',
-    // apiBase: 'https://npl-api-qa.genmapper.com/api/',
+    apiBase: 'https://npl-api-qa.genmapper.com/api/',
+    ipGeoUrl: 'https://ipgeolocation.abstractapi.com/v1/',
+    ipGeoApiKey: '',
     authConfig: {
         authority: 'https://idp-qa.taethni.com',
         // authority: 'http://localhost:5000',

@@ -4,6 +4,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MapsService } from '@npl-core/maps.service';
+import { IpGeolocationService, IpGeolocation } from '@npl-core/IpGeolocation.service';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { NodeDto } from '@npl-data-access';
@@ -18,6 +19,7 @@ import {
     LocationDialogResponse,
 } from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
+import { GeolocationConfirmDialog } from '../dialogs/geolocation-confirm-dialog/geolocation-confirm-dialog.component';
 
 export const MY_FORMATS = {
     parse: {
@@ -66,7 +68,8 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private mapService: MapsService
+        private mapService: MapsService,
+        private ipGeolocationService: IpGeolocationService,
     ) { super(); }
 
     public ngOnInit(): void {
@@ -185,6 +188,10 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
                     latitude: result.coords.latitude,
                     longitude: result.coords.longitude
                 });
+            }, error => {
+                // MapsService will throw an error when geolocation is off, we catch it here
+                // and can do a lookup by ip address if they choose to select their location.
+                this.openGeolocationDialog();
             });
         }
     }
@@ -220,6 +227,20 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
 
                 this._locationDialog = null;
             });
+    }
+
+    private openGeolocationDialog() {
+        this.dialog.open(GeolocationConfirmDialog).afterClosed().subscribe(result => {
+            if (result) {
+                this.ipGeolocationService.getIpGeolocation().subscribe((data: IpGeolocation) => {
+                    this.showLocationDialog({
+                        latitude: data.latitude,
+                        longitude: data.longitude,
+                        isIpGeolocation: true,
+                    });
+                });
+            }
+        });
     }
 
     public onPeopleGroupClick(): void {

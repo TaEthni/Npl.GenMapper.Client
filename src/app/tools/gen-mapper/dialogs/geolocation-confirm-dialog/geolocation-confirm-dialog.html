@@ -1,0 +1,14 @@
+<mat-dialog-content>
+    <p>{{'Message_locationServicesDisabled' | translate}} {{'Message_selectLocationQuestion' | translate}}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button
+            color="warn"
+            [mat-dialog-close]="false"
+            mat-dialog-close>{{'Common_No' | translate}}</button>
+    <button mat-flat-button
+            color="accent"
+            [mat-dialog-close]="true"
+            cdkFocusInitial>{{'Common_Yes' | translate}}</button>
+</mat-dialog-actions>

@@ -132,6 +132,8 @@ export const translations: any = {
             'Message_somethingWentWrong': 'Something went wrong',
             'Message_tokenInvalidOrExpired': 'Your token is invalid or expired',
             'Message_getMeOutOfHere': 'Get me out of here',
+            'Message_locationServicesDisabled': 'Location Services are disabled for this browser.',
+            'Message_selectLocationQuestion': 'Would you like to select the location manually?',
             'Help_changelogLink': 'Changelog',
             'Common_WhatsNew': 'Whats New?',
             'Common_Active': 'Active',
