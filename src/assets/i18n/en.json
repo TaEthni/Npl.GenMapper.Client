@@ -177,6 +177,8 @@
     "Message_somethingWentWrong": "Something went wrong",
     "Message_tokenInvalidOrExpired": "Your token is invalid or expired",
     "Message_uniqueUsername": "Unique username visible to public",
+    "Message_locationServicesDisabled": "Location Services are disabled for this browser.",
+    "Message_selectLocationQuestion": "Would you like to select the location manually?",
     "Node_EditGroup": "Edit group",
     "Node_hoverAddChildGroup": "Add child group",
     "Node_hoverDeleteGroupAndSubtree": "Delete group &amp; subtree",
