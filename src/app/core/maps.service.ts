@@ -10,6 +10,15 @@ export interface LatLng {
     country?: string;
 }
 
+export interface Position {
+    timestamp: number;
+    coords: {
+        accuracy: number;
+        latitude: number;
+        longitude: number;
+    }
+};
+
 @Injectable()
 export class MapsService {
 
@@ -17,16 +26,15 @@ export class MapsService {
         return Observable.create(observer => {
             if (window.navigator.geolocation) {
                 window.navigator.geolocation.getCurrentPosition(
-                    (position) => {
+                    (position: Position) => {
                         observer.next(position);
                         observer.complete();
                     },
                     (error) => {
                         if (error.code === 1) {
-                            alert('Location Services are disabled for this browser.');
+                            observer.error();
                         }
-
-                        observer.error();
+                        observer.complete();
                     }
                 );
             }

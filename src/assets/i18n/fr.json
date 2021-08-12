@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Un problème est survenu",
   "Message_tokenInvalidOrExpired": "Votre jeton est invalide ou a expiré",
   "Message_uniqueUsername": "Nom d'utilisateur unique visible par le public",
+  "Message_locationServicesDisabled": "Les services de localisation sont désactivés pour ce navigateur.",
+  "Message_selectLocationQuestion": "Souhaitez-vous sélectionner l'emplacement manuellement ?",
   "Node_EditGroup": "Modifier le groupe",
   "Node_hoverAddChildGroup": "Ajouter un groupe enfant",
   "Node_hoverDeleteGroupAndSubtree": "Supprimer le groupe & amp; sous-arbre",

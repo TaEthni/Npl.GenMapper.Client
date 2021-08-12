@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "مشکلی پیش آمد",
   "Message_tokenInvalidOrExpired": "رمز شما نامعتبر است یا منقضی شده است",
   "Message_uniqueUsername": "نام کاربری منحصر به فردی که برای عموم قابل مشاهده است",
+  "Message_locationServicesDisabled": "خدمات مکان برای این مرورگر غیرفعال است.",
+  "Message_selectLocationQuestion": "آیا می خواهید مکان را به صورت دستی انتخاب کنید؟",
   "Node_EditGroup": "ویرایش گروه",
   "Node_hoverAddChildGroup": "گروه کودک را اضافه کنید",
   "Node_hoverDeleteGroupAndSubtree": "حذف گروه & amp؛ زیر درخت",
