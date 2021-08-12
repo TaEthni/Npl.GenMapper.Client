@@ -238,6 +238,9 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
                         longitude: data.longitude,
                         isIpGeolocation: true,
                     });
+                }, error => {
+                    // open the location dialog without lat and long
+                    this.showLocationDialog({});
                 });
             }
         });
