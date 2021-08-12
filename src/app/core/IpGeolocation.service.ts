@@ -1,20 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { environment } from '../../environments/environment';
-
+import { EntityService } from '@npl-core/entity.service';
 export interface IpGeolocation {
-    ip_address: string;
-    city: string;
-    region: string;
-    region_iso_code: string;
-    region_geoname_id: number;
-    country: string;
-    country_code: string;
-    country_geoname_id: number;
-    continent: string;
-    continent_code: string;
-    continent_geoname_id: number;
     longitude: number;
     latitude: number;
 };
@@ -24,9 +10,9 @@ export interface IpGeolocation {
 })
 export class IpGeolocationService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private entityService: EntityService,) { }
 
     getIpGeolocation() {
-        return this.http.get<IpGeolocation>(`${environment.ipGeoUrl}?api_key=${environment.ipGeoApiKey}`);
+        return this.entityService.customGet('location');
     }
 };
