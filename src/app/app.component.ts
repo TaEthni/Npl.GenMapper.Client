@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { isAuthenticated } from '@npl-auth';
+import { EntityService } from '@npl-core/entity.service';
 import { AppState, SelfUIActions } from '@npl-data-access';
 import { OAuthService } from 'angular-oauth2-oidc';
 
@@ -16,8 +17,13 @@ export class AppComponent implements OnInit {
     constructor(
         private store: Store<AppState>,
         private oAuthService: OAuthService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private entityService: EntityService,
     ) {
+
+        this.entityService.customGet('location').subscribe(result => {
+            console.log(result);
+        });
 
         this.translate.onLangChange.subscribe(event => {
             try {
