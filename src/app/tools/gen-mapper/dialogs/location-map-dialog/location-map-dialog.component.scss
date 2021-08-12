@@ -1,0 +1,24 @@
+@import '~styles/mixins';
+
+:host {
+    @include dialog();
+    position: relative;
+    min-height: 60vh;
+    min-width: 80vw;
+    margin-top: -24px;
+    margin-left: -24px;
+    margin-right: -24px;
+
+    .esri-view {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #mapViewNode {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+}

@@ -12,6 +12,8 @@ $material-design-icons-font-directory-path: '~material-design-icons-iconfont/dis
 @include angular-material-theme($theme);
 @include angular-material-typography($typography);
 
+@import 'https://js.arcgis.com/4.20/@arcgis/core/assets/esri/themes/light/main.css';
+
 html,
 body {
     margin: 0;

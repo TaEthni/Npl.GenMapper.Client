@@ -44,6 +44,7 @@ import { ReportsViewComponent } from './views/reports-view/reports-view.componen
 import { WorldMapToggleComponent } from './views/world-map-view/world-map-toggle/world-map-toggle.component';
 import { WorldMapViewComponent } from './views/world-map-view/world-map-view.component';
 import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/geolocation-confirm-dialog.component';
+import { LocationMapDialogComponent } from './dialogs/location-map-dialog/location-map-dialog.component';
 
 @NgModule({
     imports: [
@@ -58,7 +59,7 @@ import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/g
             libraries: ['places']
         }),
         AgmMarkerClustererModule,
-        TranslateModule
+        TranslateModule,
     ],
     declarations: [
         ConfirmDialogComponent,
@@ -90,7 +91,8 @@ import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/g
         PeopleDialogComponent,
         SelectPeopleGroupDialogComponent,
         EditDocumentDialogComponent,
-        GeolocationConfirmDialog
+        GeolocationConfirmDialog,
+        LocationMapDialogComponent,
     ],
     exports: [
         ConfirmDialogComponent,
