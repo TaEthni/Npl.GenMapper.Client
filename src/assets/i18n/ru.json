@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Что-то пошло не так",
   "Message_tokenInvalidOrExpired": "Неверный или устаревший токен",
   "Message_uniqueUsername": "Уникальный никнейм, видимый всем",
+  "Message_locationServicesDisabled": "Службы геолокации отключены для этого браузера.",
+  "Message_selectLocationQuestion": "Хотите выбрать место вручную?",
   "Node_EditGroup": "Редактировать Группу",
   "Node_hoverAddChildGroup": "Добавить дочернюю группу",
   "Node_hoverDeleteGroupAndSubtree": "Удалить группу и ветку",

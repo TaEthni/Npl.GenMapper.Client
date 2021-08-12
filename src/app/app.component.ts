@@ -16,9 +16,8 @@ export class AppComponent implements OnInit {
     constructor(
         private store: Store<AppState>,
         private oAuthService: OAuthService,
-        private translate: TranslateService
+        private translate: TranslateService,
     ) {
-
         this.translate.onLangChange.subscribe(event => {
             try {
                 localStorage.setItem(localeKey, event.lang);

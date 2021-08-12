@@ -43,6 +43,7 @@ import { ReportsToggleComponent } from './views/reports-view/reports-toggle/repo
 import { ReportsViewComponent } from './views/reports-view/reports-view.component';
 import { WorldMapToggleComponent } from './views/world-map-view/world-map-toggle/world-map-toggle.component';
 import { WorldMapViewComponent } from './views/world-map-view/world-map-view.component';
+import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/geolocation-confirm-dialog.component';
 
 @NgModule({
     imports: [
@@ -89,7 +90,7 @@ import { WorldMapViewComponent } from './views/world-map-view/world-map-view.com
         PeopleDialogComponent,
         SelectPeopleGroupDialogComponent,
         EditDocumentDialogComponent,
-
+        GeolocationConfirmDialog
     ],
     exports: [
         ConfirmDialogComponent,

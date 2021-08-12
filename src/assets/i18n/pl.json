@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Coś poszło nie tak",
   "Message_tokenInvalidOrExpired": "Twój token jest nieprawidłowy lub wygasł",
   "Message_uniqueUsername": "Unikalna nazwa użytkownika widoczna publicznie",
+  "Message_locationServicesDisabled": "Usługi lokalizacyjne są wyłączone w tej przeglądarce.",
+  "Message_selectLocationQuestion": "Czy chcesz ręcznie wybrać lokalizację?",
   "Node_EditGroup": "Edytuj grupę",
   "Node_hoverAddChildGroup": "Dodaj grupkę córkę",
   "Node_hoverDeleteGroupAndSubtree": "Usuń grupę i poddiagram",

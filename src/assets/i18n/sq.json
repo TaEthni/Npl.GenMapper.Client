@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Dicka shkoi keq",
   "Message_tokenInvalidOrExpired": "Shenja juaj është e pavlefshme ose e skaduar",
   "Message_uniqueUsername": "Emri unik i përdoruesit i dukshëm për publikun",
+  "Message_locationServicesDisabled": "Shërbimet e Vendndodhjes janë çaktivizuar për këtë shfletues.",
+  "Message_selectLocationQuestion": "Dëshironi të zgjidhni vendndodhjen me dorë?",
   "Node_EditGroup": "Modifiko Grupin",
   "Node_hoverAddChildGroup": "Shto nje nen grup",
   "Node_hoverDeleteGroupAndSubtree": "Fshije grupin dhe degen nen te",

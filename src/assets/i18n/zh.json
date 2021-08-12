@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "出问题了",
   "Message_tokenInvalidOrExpired": "您的令牌无效或已过期",
   "Message_uniqueUsername": "公开的唯一用户名",
+  "Message_locationServicesDisabled": "此浏览器已禁用定位服务。",
+  "Message_selectLocationQuestion": "您想手动选择位置吗？",
   "Node_EditGroup": "编辑组",
   "Node_hoverAddChildGroup": "添加“后代”组",
   "Node_hoverDeleteGroupAndSubtree": "删除“后代”组",

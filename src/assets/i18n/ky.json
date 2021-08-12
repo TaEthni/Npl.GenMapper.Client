@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Бир нерсе туура эмес кетти",
   "Message_tokenInvalidOrExpired": "Сиздин энбелгиси жараксыз же мөөнөтү болуп саналат",
   "Message_uniqueUsername": "Unique мамлекеттик көрүнүктүү аттардын",
+  "Message_locationServicesDisabled": "Бул серепчиде жайгашкан жерди аныктоо кызматтары өчүрүлгөн.",
+  "Message_selectLocationQuestion": "Жайгашууну кол менен тандагыңыз келеби?",
   "Node_EditGroup": "Edit тобу",
   "Node_hoverAddChildGroup": "Add балдар тобу",
   "Node_hoverDeleteGroupAndSubtree": "Топту жок кылуу & amp; subtree",

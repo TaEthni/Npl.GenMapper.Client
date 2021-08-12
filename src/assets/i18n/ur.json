@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "کچھ غلط ہو گیا",
   "Message_tokenInvalidOrExpired": "آپ کا ٹوکن غلط ہے یا میعاد ختم ہوگئی ہے",
   "Message_uniqueUsername": "انوکھا صارف نام جو عوام کے لئے مرئی ہے",
+  "Message_locationServicesDisabled": "اس براؤزر کے لیے لوکیشن سروسز غیر فعال ہیں۔",
+  "Message_selectLocationQuestion": "کیا آپ دستی طور پر مقام کا انتخاب کرنا چاہیں گے؟",
   "Node_EditGroup": "گروپ میں ترمیم کریں",
   "Node_hoverAddChildGroup": "بچوں کا گروپ شامل کریں",
   "Node_hoverDeleteGroupAndSubtree": "گروپ کو حذف کریں۔ ذیلی",

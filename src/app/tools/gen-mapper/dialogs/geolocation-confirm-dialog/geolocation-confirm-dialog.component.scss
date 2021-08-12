@@ -1,0 +1,6 @@
+@import '~styles/mixins';
+
+:host {
+    @include dialog();
+    position: relative;
+}

@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "មានបញ្ហាអ្វីមួយ",
   "Message_tokenInvalidOrExpired": "សញ្ញាសម្ងាត់របស់អ្នកមិនត្រឹមត្រូវឬផុតកំណត់",
   "Message_uniqueUsername": "ឈ្មោះអ្នកប្រើប្រាស់តែមួយគោលដែលអាចមើលឃើញជាសាធារណៈ",
+  "Message_locationServicesDisabled": "ಈ ಬ್ರೌಸರ್‌ಗಾಗಿ ಸ್ಥಳ ಸೇವೆಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ.",
+  "Message_selectLocationQuestion": "ನೀವು ಸ್ಥಳವನ್ನು ಹಸ್ತಚಾಲಿತವಾಗಿ ಆಯ್ಕೆ ಮಾಡಲು ಬಯಸುವಿರಾ?",
   "Node_EditGroup": "កែក្រុម",
   "Node_hoverAddChildGroup": "បន្ថែមក្រុមកុមារ",
   "Node_hoverDeleteGroupAndSubtree": "លុបក្រុម & amp; subtree ",
