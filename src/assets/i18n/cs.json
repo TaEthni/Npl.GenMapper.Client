@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Něco se pokazilo",
   "Message_tokenInvalidOrExpired": "Váš token je neplatný nebo jeho platnost vypršela",
   "Message_uniqueUsername": "Jedinečné uživatelské jméno viditelné pro veřejnost",
+  "Message_locationServicesDisabled": "Polohové služby jsou pro tento prohlížeč deaktivovány.",
+  "Message_selectLocationQuestion": "Chcete místo vybrat ručně?",
   "Node_EditGroup": "Editace skupiny",
   "Node_hoverAddChildGroup": "Přidat dceřinnou skupinu",
   "Node_hoverDeleteGroupAndSubtree": "Smazat skupinu a celý podstrom",

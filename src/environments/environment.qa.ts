@@ -5,7 +5,7 @@ export const environment = {
     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
     apiBase: 'https://npl-api-qa.genmapper.com/api/',
     ipGeoUrl: 'https://ipgeolocation.abstractapi.com/v1/',
-    ipGeoApiKey: '',
+    ipGeoApiKey: 'c5bb07e6f04a42c680356656041a722b',
     authConfig: {
         authority: 'https://idp-qa.taethni.com',
         clientId: 'npl_client',

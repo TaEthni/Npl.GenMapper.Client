@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Etwas ist schief gelaufen",
   "Message_tokenInvalidOrExpired": "Ihr Token ist ungültig oder abgelaufen",
   "Message_uniqueUsername": "Eindeutiger Benutzername, der für die Öffentlichkeit sichtbar ist",
+  "Message_locationServicesDisabled": "Ortungsdienste sind für diesen Browser deaktiviert.",
+  "Message_selectLocationQuestion": "Möchten Sie den Standort manuell auswählen?",
   "Node_EditGroup": "Gruppe bearbeiten",
   "Node_hoverAddChildGroup": "Tochtergruppe hinzufügen",
   "Node_hoverDeleteGroupAndSubtree": "Gruppe und Zweig löschen",

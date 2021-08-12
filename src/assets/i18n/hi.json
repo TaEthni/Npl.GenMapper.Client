@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "कुछ गलत हो गया",
   "Message_tokenInvalidOrExpired": "आपका टोकन अमान्य है या समाप्त हो गया है",
   "Message_uniqueUsername": "जनता के लिए दृश्यमान अद्वितीय उपयोगकर्ता नाम",
+  "Message_locationServicesDisabled": "इस ब्राउज़र के लिए स्थान सेवाएँ अक्षम हैं।",
+  "Message_selectLocationQuestion": "क्या आप मैन्युअल रूप से स्थान का चयन करना चाहेंगे?",
   "Node_EditGroup": "समूह संपादित करें",
   "Node_hoverAddChildGroup": "चाइल्ड ग्रुप जोड़ें",
   "Node_hoverDeleteGroupAndSubtree": "समूह हटाएं &amp; सबट्री",

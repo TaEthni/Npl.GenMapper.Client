@@ -177,6 +177,8 @@
   "Message_somethingWentWrong": "Ceva n-a mers bine",
   "Message_tokenInvalidOrExpired": "Jetonul dvs. este nevalid sau a expirat",
   "Message_uniqueUsername": "Nume de utilizator unic vizibil publicului",
+  "Message_locationServicesDisabled": "Serviciile de localizare sunt dezactivate pentru acest browser.",
+  "Message_selectLocationQuestion": "Doriți să selectați locația manual?",
   "Node_EditGroup": "Editați grupul",
   "Node_hoverAddChildGroup": "Adăugați grupul de copii",
   "Node_hoverDeleteGroupAndSubtree": "Ștergeți grupul & ramura",
