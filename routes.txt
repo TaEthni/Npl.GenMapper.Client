@@ -2,13 +2,13 @@
 
 
 
-default-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com;connect-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com *.abstractapi.com *.googleapis.com *.matomo.cloud *.tinymce.com *.tiny.cloud blob:;script-src 'self' 'unsafe-eval' *.tinymce.com *.tiny.cloud *.googleapis.com *.matomo.cloud;script-src-elem 'self' *.googleapis.com *.matomo.cloud;style-src 'unsafe-inline' *.azurestaticapps.net *.taethni.com *.genmapper.com *.matomo.cloud *.tinymce.com *.tiny.cloud;font-src 'self' *.gstatic.com *.tinymce.com *.tiny.cloud *.genmapper.com;img-src 'self' *.tinymce.com *.tiny.cloud *.genmapper.com https: blob: data:;
+default-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com;connect-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com *.abstractapi.com *.googleapis.com *.matomo.cloud *.tinymce.com *.tiny.cloud blob:;script-src 'self' 'strict-dynamic' 'unsafe-eval' *.tinymce.com *.tiny.cloud *.googleapis.com *.matomo.cloud;script-src-elem 'self' *.googleapis.com *.matomo.cloud;style-src 'unsafe-inline' *.azurestaticapps.net *.taethni.com *.genmapper.com *.matomo.cloud *.tinymce.com *.tiny.cloud;font-src 'self' *.gstatic.com *.tinymce.com *.tiny.cloud *.genmapper.com;img-src 'self' *.tinymce.com *.tiny.cloud *.genmapper.com https: blob: data:;
 
 
 
 default-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com;
 connect-src 'self' *.azurestaticapps.net *.taethni.com *.genmapper.com *.applicationinsights.azure.com *.abstractapi.com *.googleapis.com *.matomo.cloud *.tinymce.com *.tiny.cloud blob:;
-script-src 'self' 'unsafe-eval' *.tinymce.com *.tiny.cloud *.googleapis.com *.matomo.cloud;
+script-src 'self' 'strict-dynamic' 'unsafe-eval' *.tinymce.com *.tiny.cloud *.googleapis.com *.matomo.cloud;
 script-src-elem 'self' *.googleapis.com *.matomo.cloud;
 style-src 'unsafe-inline' *.azurestaticapps.net *.taethni.com *.genmapper.com *.matomo.cloud *.tinymce.com *.tiny.cloud;
 font-src 'self' *.gstatic.com *.tinymce.com *.tiny.cloud *.genmapper.com;
