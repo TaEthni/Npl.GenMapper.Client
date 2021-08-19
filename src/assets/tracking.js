@@ -17,8 +17,8 @@ if (window.location.hostname === "localhost") {
     _paq.push(["setCookieDomain", "localhost"]);
     _paq.push(["setDomains", ["localhost"]]);
 } else {
-    _paq.push(["setCookieDomain", "*.genmapper.com"]);
-    _paq.push(["setDomains", ["*.genmapper.com", "*npl.genmapper.com", "*.taethni.com"]]);
+    _paq.push(["setCookieDomain", "npl.genmapper.com"]);
+    _paq.push(["setDomains", ["npl.genmapper.com"]]);
 }
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
