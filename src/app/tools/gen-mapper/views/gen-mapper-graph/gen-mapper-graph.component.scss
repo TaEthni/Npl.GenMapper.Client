@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~styles/colors";
 
 :host::ng-deep {
@@ -110,31 +111,31 @@
 
     .add-child-node-action {
         rect {
-            fill: mat-color($success, lighter);
-            stroke: mat-color($success);
+            fill: mat.get-color-from-palette($success, lighter);
+            stroke: mat.get-color-from-palette($success);
             stroke-width: 2px;
         }
 
         text {
-            fill: mat-color($success);
+            fill: mat.get-color-from-palette($success);
         }
     }
 
     .edit-node-action {
         rect {
-            fill: mat-color($secondary, lighter);
-            stroke: mat-color($secondary);
+            fill: mat.get-color-from-palette($secondary, lighter);
+            stroke: mat.get-color-from-palette($secondary);
             stroke-width: 2px;
         }
 
         text {
-            fill: mat-color($secondary);
+            fill: mat.get-color-from-palette($secondary);
         }
     }
 
     .removeNode {
         rect {
-            fill: mat-color($warn);
+            fill: mat.get-color-from-palette($warn);
         }
     }
 
@@ -180,7 +181,7 @@
     .device-desktop & {
         .node:hover {
             .node-church-box {
-                fill: mat-color($accent, lighter) !important;
+                fill: mat.get-color-from-palette($accent, lighter) !important;
             }
         }
 
@@ -205,7 +206,7 @@
 
     .node.is-focused {
         .node-church-box {
-            fill: mat-color($accent, lighter) !important;
+            fill: mat.get-color-from-palette($accent, lighter) !important;
         }
 
         g.add-child-node-action,
