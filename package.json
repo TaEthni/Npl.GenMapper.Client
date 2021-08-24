@@ -34,9 +34,6 @@
         }
     },
     "dependencies": {
-        "@agm/core": "^3.0.0-beta.0",
-        "@agm/js-marker-clusterer": "^1.1.0",
-        "@agm/markerclusterer": "^3.0.0-beta.0",
         "@angular/animations": "^11.2.0",
         "@angular/cdk": "^11.2.0",
         "@angular/common": "^11.2.0",

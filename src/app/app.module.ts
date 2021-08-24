@@ -1,4 +1,3 @@
-import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -46,10 +45,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         AdminModule,
         UpdatesModule,
         AppRoutingModule,
-        AgmCoreModule.forRoot({
-            apiKey: environment.apiKey,
-            libraries: ['places']
-        }),
         AuthModule.forRoot(environment.authConfig),
         StoreModule.forRoot(appReducers),
         StoreDevtoolsModule.instrument({

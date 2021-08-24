@@ -12,15 +12,13 @@ import { ControlType, COUNTRIES, GMField } from '@npl-template';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
-
-import {
-    LocationDialogComponent,
-    LocationDialogConfig,
-    LocationDialogResponse,
-} from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 import { GeolocationConfirmDialog } from '../dialogs/geolocation-confirm-dialog/geolocation-confirm-dialog.component';
-import { LocationMapDialogComponent } from '../dialogs/location-map-dialog/location-map-dialog.component';
+import {
+    LocationMapDialogComponent,
+    LocationDialogConfig,
+    LocationDialogResponse,
+} from '../dialogs/location-map-dialog/location-map-dialog.component';
 
 export const MY_FORMATS = {
     parse: {

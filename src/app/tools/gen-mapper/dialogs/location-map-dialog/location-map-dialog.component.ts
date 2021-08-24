@@ -13,7 +13,24 @@ import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import Locate from '@arcgis/core/widgets/Locate';
 import Search from '@arcgis/core/widgets/Search';
-import { LocationDialogConfig } from '../location-dialog/location-dialog.component';
+
+export interface LocationDialogConfig {
+    country?: string;
+    placeId?: string;
+    address?: string;
+    latitude?: number;
+    longitude?: number;
+    markerLatitude?: number;
+    markerLongitude?: number;
+    isIpGeolocation?: boolean;
+};
+
+export interface LocationDialogResponse {
+    address?: string;
+    placeId?: string;
+    latitude?: number;
+    longitude?: number;
+};
 
 @Component({
     selector: 'app-location-map-dialog',
