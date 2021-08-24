@@ -1,8 +1,9 @@
-import { AgmMap } from '@agm/core';
-import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { MapsService } from '@npl-core/maps.service';
+import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import Map from '@arcgis/core/Map';
+import MapView from '@arcgis/core/views/MapView';
+import Graphic from '@arcgis/core/Graphic';
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { Utils } from '@npl-core/utils';
 import { NodeDto } from '@npl-data-access';
 import { GMTemplate } from '@npl-template';
 import { takeUntil } from 'rxjs/operators';
@@ -22,26 +23,109 @@ export interface MapMarker {
     styleUrls: ['./world-map-view.component.scss']
 })
 export class WorldMapViewComponent extends Unsubscribable implements OnInit, AfterViewInit {
-    @ViewChild(AgmMap, { static: true })
-    public agmMap: AgmMap;
+    @ViewChild('mapViewNode', { static: true }) private mapViewEl: ElementRef;
 
     public template: GMTemplate;
     public nodes: NodeDto[];
-    public latitude: number;
-    public longitude: number;
     public markers: MapMarker[];
-    public zoom = 11;
+    public zoom = 2;
     public isLoading = true;
     public locatingCount: number;
-
-    private googleMap: any;
+    public view: MapView;
 
     constructor(
-        private mapsService: MapsService,
         private genMapper: GenMapperService,
         private nodeTreeService: NodeTreeService,
-        private ngZone: NgZone
     ) { super(); }
+
+    private clusterConfig = {
+        type: 'cluster',
+        clusterRadius: '100px',
+        // {cluster_count} is an aggregate field containing
+        // the number of features comprised by the cluster
+        popupTemplate: {
+            title: 'Cluster summary',
+            content: 'This cluster represents {cluster_count} activities.',
+            fieldInfos: [{
+                fieldName: 'cluster_count',
+                format: {
+                    places: 0,
+                    digitSeparator: true
+                }
+            }]
+        },
+        clusterMinSize: '24px',
+        clusterMaxSize: '60px',
+        labelingInfo: [{
+            deconflictionStrategy: 'none',
+            labelExpressionInfo: {
+                expression: 'Text($feature.cluster_count, \'#,###\')'
+            },
+            symbol: {
+                type: 'text',
+                color: '#004a5d',
+                font: {
+                    weight: 'bold',
+                    family: 'Noto Sans',
+                    size: '12px'
+                }
+            },
+            labelPlacement: 'center-center',
+        }]
+    } as any;
+
+    private featureLayer = new FeatureLayer({
+        title: 'Activities',
+        objectIdField: 'ObjectID',
+        featureReduction: this.clusterConfig,
+        spatialReference: { wkid: 4326 },
+        geometryType: 'point',
+        source: [],
+        renderer: {
+            type: 'simple',
+            field: 'mag',
+            symbol: {
+                type: 'simple-marker',
+                size: 12,
+                color: [226, 119, 40],
+                outline: {
+                    color: [255, 255, 255],
+                    width: 2
+                }
+            }
+        } as any
+    }) as FeatureLayer;
+
+    private readonly markerSymbol = {
+        type: 'simple-marker',
+        color: [226, 119, 40],
+        outline: {
+            color: [255, 255, 255],
+            width: 2
+        }
+    };
+
+    private graphics: Graphic[];
+
+    initializeMap(): Promise<any> {
+        const container = this.mapViewEl.nativeElement;
+
+        const map = new Map({
+            basemap: 'streets-navigation-vector',
+            layers: [this.featureLayer]
+        });
+
+        const view = new MapView({
+            container,
+            map,
+            zoom: this.zoom,
+        });
+
+        view.ui.padding = { top: 56 }; // this gives room for the ui at the top of the map
+        this.view = view;
+
+        return this.view.when();
+    }
 
     public ngOnInit(): void {
         this.genMapper.template$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
@@ -49,21 +133,25 @@ export class WorldMapViewComponent extends Unsubscribable implements OnInit, Aft
         });
 
         this.nodeTreeService.treeData$.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
-            this.isLoading = true;
             this.nodes = this.nodeTreeService.getData();
             this.runChange();
 
-            if (this.googleMap) {
-                this.locateExtent();
-            }
         });
     }
 
     public ngAfterViewInit(): void {
-        this.agmMap.mapReady.pipe(takeUntil(this.unsubscribe)).subscribe(map => {
-            this.googleMap = map;
-            this.locateExtent();
-        });
+        this.initializeMap().then(() => {
+            console.log('Map is initialized');
+            this.addMarkers();
+        })
+    }
+
+    ngOnDestroy(): void {
+        if (this.view) {
+            // destroy the map view
+            this.view.destroy();
+            this.featureLayer.destroy();
+        }
     }
 
     public markerClick(marker: MapMarker): void {
@@ -91,17 +179,6 @@ export class WorldMapViewComponent extends Unsubscribable implements OnInit, Aft
         }
 
         this.sortMarkers();
-
-        // this.locateUnlocatedAddresses(nodesWithoutLatLng);
-    }
-
-    private locateExtent(): void {
-        const bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds();
-        for (const mm of this.markers) {
-            bounds.extend(new google.maps.LatLng(mm.lat, mm.lng));
-        }
-
-        this.googleMap.fitBounds(bounds);
     }
 
     private sortMarkers(): void {
@@ -110,64 +187,41 @@ export class WorldMapViewComponent extends Unsubscribable implements OnInit, Aft
         });
     }
 
-    // Method locates nodes that have a location but no lat & lng.
-    // Using reverse GeoLocation
-    private locateUnlocatedAddresses(nodesWithoutLatLng: NodeDto[]): void {
-        if (nodesWithoutLatLng.length === 0) {
-            return;
+    public addMarkers(): void {
+        this.view.graphics.removeAll();
+
+        if (this.graphics && this.graphics.length) {
+            this.featureLayer.applyEdits({
+                deleteFeatures: this.graphics
+            });
         }
 
-        this.locatingCount = nodesWithoutLatLng.length;
+        this.graphics = [];
 
-        const finishQueue = () => {
-            // On NgZoneRun, otherwise the template will not see the changes for some reason. :/
-            this.ngZone.run(() => {
-                this.sortMarkers();
-                const firstMarker = this.markers[0];
-                this.longitude = firstMarker.lng;
-                this.latitude = firstMarker.lat;
-                this.isLoading = false;
-                this.saveDocument();
-            });
-        };
-
-        const runQueue = (n: NodeDto) => {
-            this.ngZone.run(() => {
-                this.locatingCount = nodesWithoutLatLng.length + 1;
+        this.markers.forEach(point => {
+            const marker = new Graphic({
+                geometry: {
+                    type: 'point',
+                    latitude: point.lat,
+                    longitude: point.lng,
+                    spatialReference: this.view.spatialReference,
+                } as any,
+                symbol: this.markerSymbol,
             });
 
-            Utils.timeout(() => {
-                if (n) {
-                    this.locatingCount = nodesWithoutLatLng.length;
-                    this.mapsService.getCoordsForAddress({ address: n.attributes.location, placeId: n.attributes.placeId }).subscribe(result => {
-                        // Set properties on Node so we can save.
-                        n.attributes.latitude = result.latitude;
-                        n.attributes.longitude = result.longitude;
-                        n.attributes.placeId = result.placeId;
+            this.graphics.push(marker);
+        });
 
-                        this.markers.push({
-                            lat: result.latitude,
-                            lng: result.longitude,
-                            node: n,
-                        });
+        this.featureLayer.applyEdits({
+            addFeatures: this.graphics
+        });
 
-                        const next = nodesWithoutLatLng.shift();
-                        if (!next) {
-                            finishQueue();
-                        } else {
-                            runQueue(next);
-                        }
-                    });
-                }
-            }, 600);
-        };
+        setTimeout(() => {
+            const opts = {
+                duration: 3000  // Duration of animation will be 3 seconds
+            };
+            this.view.goTo(this.graphics, opts);
+        }, 2000)
 
-        runQueue(nodesWithoutLatLng.shift());
-    }
-
-    private saveDocument(): void {
-        // this.documentService.updateNode(this.document)
-        //     .subscribe(result => {
-        //     });
     }
 }

@@ -1,5 +1,3 @@
-import { AgmCoreModule } from '@agm/core';
-import { AgmMarkerClustererModule } from '@agm/markerclusterer';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +13,6 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
 import { CreateDocumentDialogComponent } from './dialogs/create-document-dialog/create-document-dialog.component';
 import { EditDocumentDialogComponent } from './dialogs/edit-document-dialog/edit-document-dialog.component';
 import { InvalidCsvDialogComponent } from './dialogs/invalid-csv-dialog/invalid-csv-dialog.component';
-import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { PeopleDialogComponent } from './dialogs/people-dialog/people-dialog.component';
 import { CountryPickerComponent } from './dialogs/people-group-dialog/country-picker/country-picker.component';
 import { PeopleGroupDialogComponent } from './dialogs/people-group-dialog/people-group-dialog.component';
@@ -44,6 +41,7 @@ import { ReportsViewComponent } from './views/reports-view/reports-view.componen
 import { WorldMapToggleComponent } from './views/world-map-view/world-map-toggle/world-map-toggle.component';
 import { WorldMapViewComponent } from './views/world-map-view/world-map-view.component';
 import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/geolocation-confirm-dialog.component';
+import { LocationMapDialogComponent } from './dialogs/location-map-dialog/location-map-dialog.component';
 
 @NgModule({
     imports: [
@@ -53,12 +51,7 @@ import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/g
         ReactiveFormsModule,
         RouterModule,
         NgxChartsModule,
-        AgmCoreModule.forRoot({
-            apiKey: environment.apiKey,
-            libraries: ['places']
-        }),
-        AgmMarkerClustererModule,
-        TranslateModule
+        TranslateModule,
     ],
     declarations: [
         ConfirmDialogComponent,
@@ -70,7 +63,6 @@ import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/g
         DocumentNameControlComponent,
         DocumentsSidenavComponent,
         CreateDocumentDialogComponent,
-        LocationDialogComponent,
         NodeDrawerComponent,
         PeopleGroupDialogComponent,
         CountryPickerComponent,
@@ -90,7 +82,8 @@ import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/g
         PeopleDialogComponent,
         SelectPeopleGroupDialogComponent,
         EditDocumentDialogComponent,
-        GeolocationConfirmDialog
+        GeolocationConfirmDialog,
+        LocationMapDialogComponent,
     ],
     exports: [
         ConfirmDialogComponent,
@@ -114,7 +107,6 @@ import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/g
     entryComponents: [
         ConfirmDialogComponent,
         CreateDocumentDialogComponent,
-        LocationDialogComponent,
         PeopleGroupDialogComponent,
         InvalidCsvDialogComponent,
         SavingSnackbarComponent,

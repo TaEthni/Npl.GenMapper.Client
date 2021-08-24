@@ -1,0 +1,18 @@
+<div fxLayout="column"
+     style="flex: 1;">
+    <div #mapViewNode></div>
+</div>
+
+<div mat-dialog-actions
+     fxLayoutAlign="end">
+    <button mat-raised-button
+            color="accent"
+            (click)="onSubmit()">
+        {{'Common_Continue' | translate}}
+    </button>
+    <button mat-button
+            color="warn"
+            [mat-dialog-close]="false">
+        {{'Common_Cancel' | translate}}
+    </button>
+</div>
