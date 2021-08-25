@@ -6,18 +6,4 @@
     </div>
 </ng-container>
 
-<agm-map [latitude]="latitude"
-         [longitude]="longitude"
-         [disableDefaultUI]="true">
-    <agm-marker-cluster
-                        imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
-        <ng-container *ngFor="let marker of markers">
-
-            <agm-marker [latitude]="marker.lat"
-                        [longitude]="marker.lng"
-                        [opacity]="marker.node.attributes.active ? 1 : 0.5"
-                        (markerClick)="markerClick(marker)">
-            </agm-marker>
-        </ng-container>
-    </agm-marker-cluster>
-</agm-map>
+<div #mapViewNode></div>

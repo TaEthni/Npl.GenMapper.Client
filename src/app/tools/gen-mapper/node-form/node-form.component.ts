@@ -12,14 +12,13 @@ import { ControlType, COUNTRIES, GMField } from '@npl-template';
 import { Dictionary, keyBy } from 'lodash';
 import moment, { Moment } from 'moment';
 import { takeUntil } from 'rxjs/operators';
-
-import {
-    LocationDialogComponent,
-    LocationDialogConfig,
-    LocationDialogResponse,
-} from '../dialogs/location-dialog/location-dialog.component';
 import { PeopleGroupDialogComponent } from '../dialogs/people-group-dialog/people-group-dialog.component';
 import { GeolocationConfirmDialog } from '../dialogs/geolocation-confirm-dialog/geolocation-confirm-dialog.component';
+import {
+    LocationMapDialogComponent,
+    LocationDialogConfig,
+    LocationDialogResponse,
+} from '../dialogs/location-map-dialog/location-map-dialog.component';
 
 export const MY_FORMATS = {
     parse: {
@@ -64,7 +63,7 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
     public readonly isHandHeld = Device.isHandHeld;
     public readonly maxDate = moment();
 
-    private _locationDialog: MatDialogRef<LocationDialogComponent>;
+    private _locationDialog: MatDialogRef<LocationMapDialogComponent>;
 
     constructor(
         private dialog: MatDialog,
@@ -197,19 +196,12 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
     }
 
     private showLocationDialog(data: LocationDialogConfig): void {
-        let minWidth = '100vw';
-
-        if (Device.isDesktop) {
-            minWidth = '400px';
-        }
-
         if (this._locationDialog) {
             return;
         }
 
         this._locationDialog = this.dialog
-            .open<LocationDialogComponent, LocationDialogConfig, LocationDialogResponse>(LocationDialogComponent, {
-                minWidth,
+            .open<LocationMapDialogComponent, LocationDialogConfig, LocationDialogResponse>(LocationMapDialogComponent, {
                 data,
             });
 
