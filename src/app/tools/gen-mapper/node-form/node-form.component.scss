@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~styles/colors";
 
 :host {
@@ -27,7 +28,7 @@
 
     .clear-field {
         margin-top: 5px;
-        color: mat-color($warn);
+        color: mat.get-color-from-palette($warn);
         cursor: pointer;
     }
 
@@ -89,12 +90,12 @@
         label.mat-form-field-label,
         input.mat-input-element:disabled {
             cursor: pointer;
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
         }
 
         .peid-icon,
         .location-icon {
-            color: mat-color($primary);
+            color: mat.get-color-from-palette($primary);
         }
     }
 

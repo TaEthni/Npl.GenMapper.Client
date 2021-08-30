@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '~styles/colors';
 
 
@@ -13,7 +14,7 @@
                 td {
                     font-weight: bold;
                     &:last-child {
-                        color: mat-color($primary);
+                        color: mat.get-color-from-palette($primary);
                         text-align: right;
                     }
                 }

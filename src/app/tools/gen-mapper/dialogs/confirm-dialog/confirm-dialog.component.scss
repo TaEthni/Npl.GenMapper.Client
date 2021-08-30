@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '~styles/mixins';
 @import '~styles/colors';
 
@@ -5,7 +6,7 @@
     @include dialog();
 
     .dialog-alert {
-        color: mat-color($warn);
+        color: mat.get-color-from-palette($warn);
         font-weight: 600;
     }
 
@@ -15,7 +16,7 @@
 
         li {
             padding: 5px;
-            color: mat-color($warn);
+            color: mat.get-color-from-palette($warn);
             background: $lightest-gray;
             box-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }

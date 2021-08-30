@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~styles/colors";
 
 :host {
@@ -34,7 +35,7 @@
         left: 56px;
         margin: 16px;
         z-index: 2;
-        color: mat-color($accent);
+        color: mat.get-color-from-palette($accent);
         font-weight: 600;
     }
 
