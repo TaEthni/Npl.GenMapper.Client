@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '~styles/colors';
 
 :host {
@@ -5,7 +6,7 @@
     pointer-events: all;
 
     .mat-icon-button.active {
-        color: mat-color($accent);
+        color: mat.get-color-from-palette($accent);
         background-color: white;
     }
 
@@ -24,7 +25,7 @@
 
 .gen-mapper-report-table {
     .report-value  {
-        color: mat-color($primary);
+        color: mat.get-color-from-palette($primary);
         min-width: 80px;
         padding-left: 10px;
         text-align: right;

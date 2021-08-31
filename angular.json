@@ -28,12 +28,7 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/templates",
-                            {
-                                "input": "./node_modules/@google/markerclustererplus/images",
-                                "glob": "*",
-                                "output": "/images"
-                            }
+                            "src/templates"
                         ],
                         "styles": [
                             "src/styles.scss"
@@ -46,7 +41,14 @@
                             "uuid/v4",
                             "uuid",
                             "qrcode"
-                        ]
+                        ],
+                        "aot": false,
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true
                     },
                     "configurations": {
                         "old-production": {
@@ -115,7 +117,8 @@
                             "vendorChunk": false,
                             "buildOptimizer": true
                         }
-                    }
+                    },
+                    "defaultConfiguration": ""
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",

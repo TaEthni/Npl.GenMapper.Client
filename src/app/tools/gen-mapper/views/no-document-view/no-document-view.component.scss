@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~styles/colors";
 :host {
     display: block;
@@ -15,14 +16,14 @@
         }
 
         .mat-icon {
-            color: rgba(mat-color($accent), 0.3);
+            color: rgba(mat.get-color-from-palette($accent), 0.3);
             font-size: 200px;
             height: 200px;
             width: 200px;
             user-select: none;
 
             &.warn {
-                color: rgba(mat-color($warn), 0.3);
+                color: rgba(mat.get-color-from-palette($warn), 0.3);
             }
         }
     }

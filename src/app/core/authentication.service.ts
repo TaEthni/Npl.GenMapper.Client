@@ -70,7 +70,7 @@ export class AuthenticationService {
             return;
         }
 
-        this.oauthService.loadUserProfile().then(profile => {
+        this.oauthService.loadUserProfile().then((profile: UserProfile) => {
             // TODO use different user model
             profile.username = profile.name;
             this._user.next(profile as any);

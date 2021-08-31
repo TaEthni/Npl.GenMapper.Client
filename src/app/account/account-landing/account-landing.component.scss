@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '~styles/colors';
 
 :host {
@@ -11,7 +12,7 @@
     }
 
     .mat-card-footer {
-        border-top: 1px solid mat-color($light-foreground, divider);
+        border-top: 1px solid mat.get-color-from-palette($light-foreground, divider);
 
         .mat-button {
             width: 100%;

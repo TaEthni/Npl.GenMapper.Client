@@ -39,9 +39,9 @@ export class AuthService {
             }
 
             this.oAuthService.loadUserProfile()
-                .then(user => {
-                    this.processClaims(user);
-                    observer.next(user as AuthUser);
+                .then((user: { info }) => {
+                    this.processClaims(user.info);
+                    observer.next(user.info as AuthUser);
                 })
                 .catch((error) => {
                     observer.error(error);

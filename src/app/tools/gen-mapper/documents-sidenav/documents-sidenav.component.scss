@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "~styles/colors";
 
 :host {
@@ -18,7 +19,7 @@
         z-index: 2;
 
         .mat-icon-button {
-            border: 1px solid mat-color($primary);
+            border: 1px solid mat.get-color-from-palette($primary);
         }
     }
 
