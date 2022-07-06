@@ -71,7 +71,7 @@
         "leaflet": "^1.7.1",
         "lodash-es": "^4.17.20",
         "material-design-icons-iconfont": "^6.1.0",
-        "moment": "^2.29.1",
+        "moment": "^2.29.4",
         "moment-timezone": "^0.5.33",
         "ng-bullet": "^1.0.3",
         "ngx-cookie-service": "^11.0.2",
