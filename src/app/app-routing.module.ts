@@ -24,51 +24,62 @@ import { ToolsComponent } from './tools/tools/tools.component';
 
 const appRoutes: Routes = [
     {
-        path: '',
-        redirectTo: 'tools',
-        pathMatch: 'full'
+        path: "",
+        redirectTo: "tools",
+        pathMatch: "full",
     },
     {
-        path: '',
+        path: "",
         component: LayoutUnauthenticatedComponent,
         children: [
             {
-                path: 'login',
-                component: LoginComponent
-            }, {
-                path: 'logout',
-                component: LogoutComponent
-            }, {
-                path: 'signup',
-                component: SignupComponent
-            }, {
-                path: 'accept-invite/:code',
-                component: AcceptInviteComponent
-            }, {
-                path: 'recover-password',
-                component: RecoverPasswordComponent
-            }, {
-                path: 'reset-password',
+                path: "login",
+                component: LoginComponent,
+            },
+            {
+                path: "logout",
+                component: LogoutComponent,
+            },
+            {
+                path: "signup",
+                component: SignupComponent,
+            },
+            {
+                path: "accept-invite/:code",
+                component: AcceptInviteComponent,
+            },
+            {
+                path: "recover-password",
+                component: RecoverPasswordComponent,
+            },
+            {
+                path: "reset-password",
                 component: ResetPasswordComponent,
-            }, {
-                path: 'reset-password-expired',
-                component: ResetPasswordExpiredComponent
-            }, {
-                path: 'confirm-email',
-                component: ConfirmEmailComponent
-            }, {
-                path: 'forbidden',
-                component: ForbiddenComponent
-            }, {
-                path: 'unverified',
-                component: UnverifiedEmailComponent
-            }, {
-                path: 'notfound',
-                component: NotFoundComponent
-            }]
+            },
+            {
+                path: "reset-password-expired",
+                component: ResetPasswordExpiredComponent,
+            },
+            {
+                path: "confirm-email",
+                component: ConfirmEmailComponent,
+            },
+            {
+                path: "forbidden",
+                component: ForbiddenComponent,
+            },
+            {
+                path: "unverified",
+                component: UnverifiedEmailComponent,
+            },
+            {
+                path: "notfound",
+                component: NotFoundComponent,
+            },
+        ],
     },
     {
-        path: '',
+        path: "",
         component: LayoutComponent,
         children: [
             // {
@@ -117,86 +128,90 @@ const appRoutes: Routes = [
             //     }
             // },
             {
-                path: 'account',
-                loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
+                path: "account",
+                loadChildren: () =>
+                    import("./account/account.module").then(
+                        (m) => m.AccountModule
+                    ),
             },
             {
-                path: 'teams',
-                loadChildren: () => import('./teams/teams.module').then(x => x.TeamsModule)
+                path: "teams",
+                loadChildren: () =>
+                    import("./teams/teams.module").then((x) => x.TeamsModule),
             },
             {
-                path: 'tools',
-                component: ToolsComponent
+                path: "tools",
+                component: ToolsComponent,
             },
             {
-                path: 'gen-mapper',
+                path: "gen-mapper",
                 children: [
                     {
-                        path: ':templateId',
+                        path: ":templateId",
                         component: GenMapperContainerComponent,
                         resolve: {
-                            config: GenMapperContainerResolver
+                            config: GenMapperContainerResolver,
                         },
                         children: [
                             {
-                                path: '',
+                                path: "",
                                 component: NoDocumentViewComponent,
                             },
                             {
-                                path: ':documentId',
+                                path: ":documentId",
                                 component: GenMapperComponent,
                                 resolve: {
-                                    nodes: GenMapperResolver
-                                }
-                            }
-                        ]
+                                    nodes: GenMapperResolver,
+                                },
+                            },
+                        ],
                     },
                     {
-                        path: '**',
-                        redirectTo: '/tools'
-                    }
-                ]
+                        path: "**",
+                        redirectTo: "/tools",
+                    },
+                ],
             },
             {
-                path: 'localization',
-                loadChildren: () => import('./localization/localization.module').then(m => m.LocalizationModule)
-            }
-        ]
+                path: "localization",
+                loadChildren: () =>
+                    import("./localization/localization.module").then(
+                        (m) => m.LocalizationModule
+                    ),
+            },
+        ],
     },
     {
-        path: '**',
-        redirectTo: 'tools'
-    }
+        path: "**",
+        redirectTo: "tools",
+    },
 ];
 
 const maintenanceRoutes: Routes = [
     {
-        path: 'maintenance',
-        component: MaintenanceComponent
+        path: "maintenance",
+        component: MaintenanceComponent,
     },
     {
-        path: '**',
-        redirectTo: 'maintenance'
-    }
+        path: "**",
+        redirectTo: "maintenance",
+    },
 ];
 
 @NgModule({
     imports: [
         RouterModule.forRoot(
-            appRoutes,
+            maintenanceRoutes,
             // Configuration is for local mode
             // Configuration is for local mode
             {
-                onSameUrlNavigation: 'reload',
-                relativeLinkResolution: 'corrected',
-                paramsInheritanceStrategy: 'always'
+                onSameUrlNavigation: "reload",
+                relativeLinkResolution: "corrected",
+                paramsInheritanceStrategy: "always",
             }
-        )
+        ),
     ],
-    exports: [
-        RouterModule
-    ],
-    providers: []
+    exports: [RouterModule],
+    providers: [],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
