@@ -5,12 +5,12 @@ import { isAuthenticated } from '@npl-auth';
 import { AppState, SelfUIActions } from '@npl-data-access';
 import { OAuthService } from 'angular-oauth2-oidc';
 
-const localeKey = "i18nextLng";
+const localeKey = 'i18nextLng';
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
     constructor(
@@ -24,13 +24,13 @@ export class AppComponent implements OnInit {
             } catch {}
         });
 
-        this.translate.setDefaultLang("en");
+        this.translate.setDefaultLang('en');
 
         try {
-            const lang = localStorage.getItem(localeKey) || "en";
+            const lang = localStorage.getItem(localeKey) || 'en';
             this.translate.use(lang);
         } catch {
-            this.translate.use("en");
+            this.translate.use('en');
         }
     }
 
