@@ -4,48 +4,35 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdatesService } from '../updates.service';
 import { WhatsNewDialogComponent } from '../whats-new-dialog/whats-new-dialog.component';
 
-const oldKeys = [
-    'update-v1',
-    'update-v2',
-    'update-v3',
-    'update-v4',
-    'update-v5',
-    'update-v6',
-];
+const oldKeys = ['update-v1', 'update-v2', 'update-v3', 'update-v4', 'update-v5', 'update-v6'];
 
-oldKeys.forEach(key => localStorage.removeItem(key));
+oldKeys.forEach((key) => localStorage.removeItem(key));
 
 @Component({
     selector: 'app-updates',
     templateUrl: './updates.component.html',
-    styleUrls: ['./updates.component.scss']
+    styleUrls: ['./updates.component.scss'],
 })
 export class UpdatesComponent implements OnInit {
-
     private updateKey = 'update-v7';
 
-    constructor(
-        private dialog: MatDialog,
-        private service: UpdatesService
-    ) { }
+    constructor(private dialog: MatDialog, private service: UpdatesService) {}
 
     public ngOnInit(): void {
         this.service.get().subscribe(() => this.showDialog());
 
-        if (!localStorage.getItem(this.updateKey)) {
-            this.showDialog();
-        }
+        // if (!localStorage.getItem(this.updateKey)) {
+        //     this.showDialog();
+        // }
     }
 
     private showDialog(): void {
         this.dialog
-            .open(WhatsNewDialogComponent,
-                {
-                    autoFocus: false
-                }
-            )
+            .open(WhatsNewDialogComponent, {
+                autoFocus: false,
+            })
             .afterClosed()
-            .subscribe(result => {
+            .subscribe((result) => {
                 if (result) {
                     localStorage.setItem(this.updateKey, 'true');
                 }

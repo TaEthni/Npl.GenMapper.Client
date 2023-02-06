@@ -31,9 +31,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-    ],
+    declarations: [AppComponent],
     imports: [
         CommonModule,
         BrowserModule,
@@ -50,10 +48,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         StoreDevtoolsModule.instrument({
             name: 'APM Demo App DevTools',
             maxAge: 25,
-            logOnly: environment.production
+            logOnly: environment.production,
         }),
         StoreRouterConnectingModule.forRoot({
-            serializer: RouterSerializer
+            serializer: RouterSerializer,
         }),
         EffectsModule.forRoot(appEffects),
         TranslateModule.forRoot({
@@ -61,29 +59,29 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        })
+                deps: [HttpClient],
+            },
+        }),
     ],
     providers: [
         {
             provide: API_BASE_URL,
-            useValue: environment.apiBase
+            useValue: environment.apiBase,
         },
         {
             provide: IDP_BASE_URL,
-            useValue: environment.authConfig.authority + '/api/'
+            useValue: environment.authConfig.authority + '/api/',
         },
         {
             provide: GM_TEMPLATES,
-            useValue: GenMapperTemplates
+            useValue: GenMapperTemplates,
         },
         {
             provide: GM_CONFIGS,
-            useValue: GenMapperConfigs
-        }
+            useValue: GenMapperConfigs,
+        },
     ],
     bootstrap: [AppComponent],
-    exports: []
+    exports: [],
 })
-export class AppModule { }
+export class AppModule {}
