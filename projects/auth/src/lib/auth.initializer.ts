@@ -6,7 +6,6 @@ import { AUTH_CONFIG, GetAuthConfig, IAuthConfig } from './auth.config';
 import { AuthService } from './auth.service';
 import { AuthActions } from './store';
 
-
 @Injectable()
 export class AuthInitializer {
     private config: AuthConfig;
@@ -22,12 +21,24 @@ export class AuthInitializer {
 
     public load(): Promise<void> {
         this.oAuthService.configure(this.config);
-        return this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-            const isLoggedIn = this.oAuthService.hasValidAccessToken() && this.oAuthService.hasValidIdToken();
-            if (isLoggedIn) {
-                this.store.dispatch(AuthActions.initAuthorization({ authorized: isLoggedIn }));
-            }
-            return;
-        });
+        return this.oAuthService
+            .loadDiscoveryDocumentAndTryLogin()
+            .then(() => {
+                const isLoggedIn =
+                    this.oAuthService.hasValidAccessToken() &&
+                    this.oAuthService.hasValidIdToken();
+                if (isLoggedIn) {
+                    this.store.dispatch(
+                        AuthActions.initAuthorization({
+                            authorized: isLoggedIn,
+                        })
+                    );
+                }
+                return;
+            })
+            .catch((e) => {
+                console.log({ e });
+                return;
+            });
     }
 }

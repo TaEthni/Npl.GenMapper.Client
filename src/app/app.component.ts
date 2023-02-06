@@ -5,38 +5,38 @@ import { isAuthenticated } from '@npl-auth';
 import { AppState, SelfUIActions } from '@npl-data-access';
 import { OAuthService } from 'angular-oauth2-oidc';
 
-const localeKey = 'i18nextLng';
+const localeKey = "i18nextLng";
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
     constructor(
         private store: Store<AppState>,
         private oAuthService: OAuthService,
-        private translate: TranslateService,
+        private translate: TranslateService
     ) {
-        this.translate.onLangChange.subscribe(event => {
+        this.translate.onLangChange.subscribe((event) => {
             try {
                 localStorage.setItem(localeKey, event.lang);
-            } catch { }
+            } catch {}
         });
 
-        this.translate.setDefaultLang('en');
+        this.translate.setDefaultLang("en");
 
         try {
-            const lang = localStorage.getItem(localeKey) || 'en';
+            const lang = localStorage.getItem(localeKey) || "en";
             this.translate.use(lang);
         } catch {
-            this.translate.use('en');
+            this.translate.use("en");
         }
     }
 
     public ngOnInit(): void {
         this.oAuthService.setupAutomaticSilentRefresh();
-        this.store.select(isAuthenticated).subscribe(authenticated => {
+        this.store.select(isAuthenticated).subscribe((authenticated) => {
             console.log({ authenticated });
             if (authenticated) {
                 this.store.dispatch(SelfUIActions.loadSelf());
