@@ -1,0 +1,89 @@
+<div mat-dialog-title>Migrate to GAPP</div>
+
+<div mat-dialog-content>
+    <div
+        fxLayout="column"
+        fxLayoutGap="24px">
+        <mat-form-field appearance="outline">
+            <mat-label>Workspace</mat-label>
+            <mat-select
+                [formControl]="form.get('workspace')"
+                placeholder="Select a Workspace">
+                <mat-option
+                    *ngFor="let workspace of workspaces"
+                    [value]="workspace.id">
+                    {{ workspace.name }}
+                </mat-option>
+            </mat-select>
+            <mat-spinner
+                matSuffix
+                diameter="24"
+                *ngIf="isLoadingWorkspaces"
+                color="primary"></mat-spinner>
+            <mat-error *ngIf="isLoadingWorkspacesComplete && !workspaces.length">
+                There are no workspaces available for migration
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+            appearance="outline"
+            *ngIf="form.get('workspace')?.value">
+            <mat-label>Team or Church</mat-label>
+            <mat-select
+                [formControl]="form.get('team')"
+                placeholder="Select a Team or Church">
+                <mat-option
+                    *ngFor="let team of teams"
+                    [value]="team.id">
+                    {{ team.name }}
+                </mat-option>
+            </mat-select>
+            <mat-spinner
+                matSuffix
+                diameter="24"
+                *ngIf="isLoadingTeams"
+                color="primary"></mat-spinner>
+            <mat-error *ngIf="isLoadingTeamsComplete && !teams.length">
+                You do not have permissions to create data on any teams in this workspace
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+            appearance="outline"
+            *ngIf="form.get('team')?.value && templates?.length > 1">
+            <mat-label>Church Form</mat-label>
+            <mat-select
+                [formControl]="form.get('template')"
+                placeholder="Select a church form">
+                <mat-option
+                    *ngFor="let template of templates"
+                    [value]="template.templateId">
+                    <span>
+                        <strong>{{ template.name }}&nbsp;</strong>
+                    </span>
+                    <span *ngFor="let tag of template.tags">
+                        <i>[{{ tag }}]</i>&nbsp;
+                    </span>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+
+<div
+    mat-dialog-actions
+    align="end">
+    <button
+        mat-button
+        mat-dialog-close>
+        CLOSE
+    </button>
+    <ng-container *ngIf="form.get('workspace')?.value && form.get('team')?.value && form.get('template')?.value">
+        <button
+            mat-flat-button
+            color="primary"
+            mat-dialog-close>
+            MIGRATE
+        </button>
+    </ng-container>
+</div>

@@ -8,8 +8,9 @@ export const environment = {
     // apiBase: 'https://localhost:44320/api/',
     // apiBase: 'https://localhost:7001/api/',
     apiBase: 'https://npl-api-qa.genmapper.com/api/',
+    oikosApi: 'https://localhost:7001/api/',
     authConfig: {
-        authority: 'https://idp-qa.taethni.com',
+        authority: 'https://qa.myidp.io',
         // authority: 'http://localhost:5000',
         clientId: 'angular_spa_local',
         responseType: 'code',

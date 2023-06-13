@@ -12,11 +12,12 @@ import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog
 import { EditDocumentDialogComponent } from '../dialogs/edit-document-dialog/edit-document-dialog.component';
 import { PrintType } from '../gen-mapper.interface';
 import { GenMapperService } from '../gen-mapper.service';
+import { MigrateStreamDialogComponent } from '../../../oikos/migrate-stream-dialog/migrate-stream-dialog.component';
 
 @Component({
     selector: 'app-menu-button',
     templateUrl: './menu-button.component.html',
-    styleUrls: ['./menu-button.component.scss']
+    styleUrls: ['./menu-button.component.scss'],
 })
 export class MenuButtonComponent extends Unsubscribable implements OnInit {
     public document: DocumentDto;
@@ -37,16 +38,16 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
         private genMapper: GenMapperService,
         private dialog: MatDialog,
         private router: Router
-    ) { super(); }
+    ) {
+        super();
+    }
 
     public ngOnInit(): void {
-        this.genMapper.template$
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => this.template = result);
+        this.genMapper.template$.pipe(takeUntil(this.unsubscribe)).subscribe((result) => (this.template = result));
 
         this.genMapper.selectedDocument$
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => this.document = result);
+            .subscribe((result) => (this.document = result));
     }
 
     public onImport(): void {
@@ -55,7 +56,7 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
 
     public onEdit(): void {
         this.dialog.open(EditDocumentDialogComponent, {
-            data: { document: this.document }
+            data: { document: this.document },
         });
     }
 
@@ -63,7 +64,7 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
         const title = this.translate.instant('Common_DeleteDocument') + ` [${this.document.title}]`;
         this.dialog
             .open(ConfirmDialogComponent, {
-                data: { title }
+                data: { title },
             })
             .afterClosed()
             .subscribe((result) => {
@@ -74,7 +75,7 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
     }
 
     public onExport(): void {
-        this.genMapper.nodes$.pipe(take(1)).subscribe(nodes => {
+        this.genMapper.nodes$.pipe(take(1)).subscribe((nodes) => {
             this.downloadService.downloadDocument(this.document, nodes);
         });
     }
@@ -91,11 +92,13 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
         this.settingsButtonClick.emit();
     }
 
+    public migrate(): void {
+        this.dialog.open(MigrateStreamDialogComponent);
+    }
+
     private _deleteDocument(): void {
-        this.genMapper
-            .removeDocument(this.document)
-            .subscribe(() => {
-                this.router.navigate(['/gen-mapper', this.template.id]);
-            });
+        this.genMapper.removeDocument(this.document).subscribe(() => {
+            this.router.navigate(['/gen-mapper', this.template.id]);
+        });
     }
 }
