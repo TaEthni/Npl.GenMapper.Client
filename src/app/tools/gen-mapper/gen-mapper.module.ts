@@ -42,6 +42,7 @@ import { WorldMapToggleComponent } from './views/world-map-view/world-map-toggle
 import { WorldMapViewComponent } from './views/world-map-view/world-map-view.component';
 import { GeolocationConfirmDialog } from './dialogs/geolocation-confirm-dialog/geolocation-confirm-dialog.component';
 import { LocationMapDialogComponent } from './dialogs/location-map-dialog/location-map-dialog.component';
+import { OikosModule } from '../../oikos/oikos.module';
 
 @NgModule({
     imports: [
@@ -52,6 +53,7 @@ import { LocationMapDialogComponent } from './dialogs/location-map-dialog/locati
         RouterModule,
         NgxChartsModule,
         TranslateModule,
+        OikosModule,
     ],
     declarations: [
         ConfirmDialogComponent,
@@ -112,13 +114,8 @@ import { LocationMapDialogComponent } from './dialogs/location-map-dialog/locati
         SavingSnackbarComponent,
         SavingErrorSnackbarComponent,
         PeopleDialogComponent,
-        SelectPeopleGroupDialogComponent
+        SelectPeopleGroupDialogComponent,
     ],
-    providers: [
-        DocumentService,
-        GenMapperService,
-        GenMapperContainerResolver,
-        GenMapperResolver,
-    ]
+    providers: [DocumentService, GenMapperService, GenMapperContainerResolver, GenMapperResolver],
 })
-export class GenMapperModule { }
+export class GenMapperModule {}

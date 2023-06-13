@@ -1,17 +1,26 @@
-<button mat-icon-button
-        [matMenuTriggerFor]="menu">
+<button
+    mat-icon-button
+    [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-    <button mat-menu-item
-            (click)="onImport()">
+    <button
+        mat-menu-item
+        (click)="onImport()">
         <mat-icon>attachment</mat-icon>
-        {{'Menu_importXlsxCsv' | translate}}
+        {{ 'Menu_importXlsxCsv' | translate }}
     </button>
-    <button mat-menu-item
-            (click)="onExport()">
+    <button
+        mat-menu-item
+        (click)="onExport()">
         <mat-icon>cloud_download</mat-icon>
-        {{'Menu_exportCsv' | translate}}
+        {{ 'Menu_exportCsv' | translate }}
+    </button>
+    <button
+        mat-menu-item
+        (click)="migrate()">
+        <mat-icon>send</mat-icon>
+        <span>Migrate to GAPP</span>
     </button>
     <!-- <button mat-menu-item
             disabled
@@ -32,15 +41,17 @@
         <mat-icon>settings</mat-icon>
         {{'Common_Settings' | translate}}
     </button> -->
-    <button mat-menu-item
-            (click)="onDelete()">
+    <button
+        mat-menu-item
+        (click)="onDelete()">
         <mat-icon>delete</mat-icon>
-        {{'Common_Delete' | translate}}
+        {{ 'Common_Delete' | translate }}
     </button>
 
-    <button mat-menu-item
-            (click)="onEdit()">
+    <button
+        mat-menu-item
+        (click)="onEdit()">
         <mat-icon>edit</mat-icon>
-        {{'Common_Edit' | translate}}
+        {{ 'Common_Edit' | translate }}
     </button>
 </mat-menu>
