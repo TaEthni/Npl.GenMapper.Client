@@ -19,7 +19,7 @@ export enum ControlType {
 
     // Internal
     parentSelector = 'parentSelector',
-    none = 'none'
+    none = 'none',
 }
 
 export enum ValueType {
@@ -28,7 +28,7 @@ export enum ValueType {
     boolean = 'boolean',
     enum = 'enum',
     multiEnum = 'multiEnum',
-    date = 'date'
+    date = 'date',
 }
 
 export enum ReportType {
@@ -39,7 +39,7 @@ export enum ReportType {
     multiEnum = 'multiEnum',
     date = 'date',
     multiField = 'multiField',
-    multiNumber = 'multiNumber'
+    multiNumber = 'multiNumber',
 }
 
 export interface TemplateConfiguration {
@@ -132,6 +132,10 @@ export interface GMTemplateSvgSettings {
 }
 
 export interface GMField {
+    // Id used when migrating to Oikos
+    oikosQuestionId?: string;
+    oikosQuestionGroupId?: string;
+
     // Primary Identifier
     id: string;
 
@@ -212,7 +216,7 @@ export interface GMField {
 
         maxFieldRef?: string;
         minFieldRef?: string;
-    }
+    };
 }
 
 export interface GMFieldOption {
@@ -277,8 +281,8 @@ export interface GMSvgAction extends Svg {
 export interface GMFieldState {
     attr?: string;
     style?: string;
-    setText?: boolean,
-    setIcon?: boolean,
+    setText?: boolean;
+    setIcon?: boolean;
     fieldRef?: string;
     fieldRefValues?: {
         value?: any;
@@ -286,7 +290,7 @@ export interface GMFieldState {
         styleValue?: any;
         iconRef?: string;
         iconRefValue?: string;
-    }[]
+    }[];
 }
 
 export interface SvgState extends Svg {
@@ -306,7 +310,6 @@ export interface GMReport {
     i18nRef?: string;
 }
 
-
 export interface GMReportValue {
     // used for graph
     name: string;
@@ -324,4 +327,3 @@ export interface GMTemplateReport {
     order: number;
     graph: 'pieChart' | 'pieGrid' | 'verticalBarChart';
 }
-
