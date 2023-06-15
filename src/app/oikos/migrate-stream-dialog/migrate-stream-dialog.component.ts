@@ -1,10 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { OikosService } from '../oikos.service';
-import { Team, TeamTemplate, Workspace } from '../oikos.interface';
+import { ActivityCreateDto, ActivityPoint, Team, TeamTemplate, Workspace } from '../oikos.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { filter, finalize, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { sortBy } from 'lodash';
+import { Dictionary, sortBy } from 'lodash';
+import { DocumentDto, NodeDto } from '@npl-data-access';
+import { GMTemplate } from '@npl-template';
+import { MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import uuid from 'uuid';
+
+interface Config {
+    document: DocumentDto;
+    template: GMTemplate;
+    nodes: NodeDto[];
+}
 
 @Component({
     selector: 'app-migrate-stream-dialog',
@@ -12,6 +22,12 @@ import { sortBy } from 'lodash';
     styleUrls: ['./migrate-stream-dialog.component.scss'],
 })
 export class MigrateStreamDialogComponent extends Unsubscribable implements OnInit {
+    public static configure(config: Config): MatDialogConfig {
+        return {
+            data: config,
+        };
+    }
+
     public form = new FormGroup({
         workspace: new FormControl(),
         team: new FormControl(),
@@ -27,8 +43,13 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     public isLoadingTeams: boolean;
     public isLoadingTeamsComplete: boolean;
 
-    public constructor(private oikos: OikosService) {
+    public constructor(
+        @Inject(MAT_DIALOG_DATA) public config: Config,
+
+        private oikos: OikosService
+    ) {
         super();
+        console.log(this);
     }
 
     public ngOnInit(): void {
@@ -95,3 +116,17 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
             });
     }
 }
+
+// function createActivities(nodes: NodeDto[], teamId: string, templateId: string) {
+//     const newIds: Dictionary<string> = {};
+//     nodes.forEach((node) => (newIds[node.id] = uuid()));
+
+//     nodes.forEach((node) => {
+//         const activity: ActivityCreateDto = {
+//             teamId,
+//             templateId,
+//             parentActivityId: newIds[node.parentId],
+//             point: new ActivityPoint(),
+//         };
+//     });
+// }
