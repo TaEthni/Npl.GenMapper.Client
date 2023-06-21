@@ -1,6 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { OikosService } from '../oikos.service';
-import { ActivityCreateDto, ActivityPoint, Team, TeamTemplate, Workspace } from '../oikos.interface';
+import {
+    ActivityCreateDto,
+    ActivityPoint,
+    AnswerCreateDto,
+    AnswerValue,
+    Team,
+    TeamTemplate,
+    Workspace,
+} from '../oikos.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { filter, finalize, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -115,18 +123,84 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
                 console.log(this.templates);
             });
     }
+
+    public migrate(): void {
+        createActivities(
+            this.config.nodes,
+            this.config.template,
+            this.form.get('team')?.value,
+            this.form.get('templateId')?.value
+        );
+    }
 }
 
-// function createActivities(nodes: NodeDto[], teamId: string, templateId: string) {
-//     const newIds: Dictionary<string> = {};
-//     nodes.forEach((node) => (newIds[node.id] = uuid()));
+function createActivities(nodes: NodeDto[], gmTemplate: GMTemplate, teamId: string, templateId: string) {
+    const newIds: Dictionary<string> = {};
+    nodes.forEach((node) => (newIds[node.id] = uuid()));
 
-//     nodes.forEach((node) => {
-//         const activity: ActivityCreateDto = {
-//             teamId,
-//             templateId,
-//             parentActivityId: newIds[node.parentId],
-//             point: new ActivityPoint(),
-//         };
-//     });
-// }
+    nodes.forEach((node) => {
+        const activity: ActivityCreateDto = {
+            id: newIds[node.id],
+            teamId,
+            templateId,
+            parentActivityId: newIds[node.parentId],
+            point: new ActivityPoint(),
+            answers: [],
+        };
+
+        gmTemplate.fields
+            .filter((x) => !!x.oikosQuestionId)
+            .forEach((field) => {
+                const answer: AnswerCreateDto = {
+                    questionId: field.oikosQuestionId,
+                    questionGroupId: field.oikosQuestionGroupId,
+                    questionSequence: 0,
+                    questionGroupSequence: 0,
+                    value: new AnswerValue(),
+                    valueType: field.valueType,
+                    controlType: field.type,
+                };
+
+                if (field.options) {
+                    const fieldValue = node.attributes[field.id];
+                    const optionValue = field.options.find((x) => x.value === fieldValue);
+                    if (optionValue) {
+                        answer.value['boolean'] = optionValue.oikosQuestionValue;
+                    }
+                } else {
+                    answer.value[field.valueType] = node.attributes[field.id];
+                }
+
+                activity.answers.push(answer);
+            });
+
+        gmTemplate.fields
+            .filter((x) => x.oikosQuestionGroupId && !x.oikosQuestionId)
+            .forEach((group) => {
+                group.fields
+                    .filter((x) => !!x.oikosQuestionId)
+                    .forEach((field) => {
+                        const nodeAnswer = node.attributes[group.id];
+
+                        nodeAnswer.forEach((value, index: number) => {
+                            const answer: AnswerCreateDto = {
+                                questionId: field.oikosQuestionId,
+                                questionGroupId: field.oikosQuestionGroupId,
+                                questionSequence: 0,
+                                questionGroupSequence: index,
+                                value: new AnswerValue(),
+                                valueType: field.valueType,
+                                controlType: field.type,
+                            };
+
+                            answer.value[field.valueType] = value[field.id];
+
+                            activity.answers.push(answer);
+                        });
+                    });
+            });
+
+        console.log(node);
+        console.log(activity);
+    });
+}

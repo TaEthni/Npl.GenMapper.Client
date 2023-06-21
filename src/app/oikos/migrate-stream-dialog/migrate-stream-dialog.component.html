@@ -20,7 +20,7 @@
                 diameter="24"
                 *ngIf="isLoadingWorkspaces"
                 color="primary"></mat-spinner>
-            <mat-error *ngIf="isLoadingWorkspacesComplete && !workspaces.length">
+            <mat-error *ngIf="isLoadingWorkspacesComplete && !workspaces?.length">
                 There are no workspaces available for migration
             </mat-error>
         </mat-form-field>
@@ -82,7 +82,7 @@
         <button
             mat-flat-button
             color="primary"
-            mat-dialog-close>
+            (click)="migrate()">
             MIGRATE
         </button>
     </ng-container>
