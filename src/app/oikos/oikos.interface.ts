@@ -1,3 +1,5 @@
+import { ControlType, ValueType } from '@npl-template';
+
 export interface Workspace {
     name: string;
     id: string;
@@ -16,6 +18,7 @@ export interface TeamTemplate {
 }
 
 export interface ActivityCreateDto {
+    id: string;
     teamId: string;
     templateId: string;
     parentActivityId?: string | null;
@@ -26,13 +29,13 @@ export interface ActivityCreateDto {
 export interface AnswerCreateDto {
     questionId: string;
     questionGroupId: string;
-    questionSequence: string;
-    questionGroupSequence: string;
+    questionSequence: number;
+    questionGroupSequence: number;
     value: AnswerValue;
-    valueType: string;
-    controlType: string;
-    isOther: boolean;
-    otherValue: string;
+    valueType: ValueType;
+    controlType: ControlType;
+    isOther?: boolean;
+    otherValue?: string;
 }
 
 export enum ActivityPointSource {
