@@ -3,6 +3,7 @@ import { OikosService } from '../oikos.service';
 import {
     ActivityCreateDto,
     ActivityPoint,
+    ActivityPointSource,
     AnswerCreateDto,
     AnswerValue,
     Team,
@@ -11,12 +12,15 @@ import {
 } from '../oikos.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { filter, finalize, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { combineAll, filter, finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Dictionary, sortBy } from 'lodash';
 import { DocumentDto, NodeDto } from '@npl-data-access';
-import { GMTemplate } from '@npl-template';
+import { ControlType, GMTemplate } from '@npl-template';
 import { MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import uuid from 'uuid';
+import { GeocoderService } from '@npl-shared/geocoder.service';
+import { Observable, combineLatest } from 'rxjs';
+import { pipeline } from 'stream';
 
 interface Config {
     document: DocumentDto;
@@ -54,7 +58,8 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     public constructor(
         @Inject(MAT_DIALOG_DATA) public config: Config,
 
-        private oikos: OikosService
+        private oikos: OikosService,
+        private geocoder: GeocoderService
     ) {
         super();
         console.log(this);
@@ -125,82 +130,141 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     }
 
     public migrate(): void {
-        createActivities(
+        this.createActivities(
             this.config.nodes,
             this.config.template,
             this.form.get('team')?.value,
             this.form.get('templateId')?.value
         );
     }
-}
 
-function createActivities(nodes: NodeDto[], gmTemplate: GMTemplate, teamId: string, templateId: string) {
-    const newIds: Dictionary<string> = {};
-    nodes.forEach((node) => (newIds[node.id] = uuid()));
+    private createActivities(nodes: NodeDto[], gmTemplate: GMTemplate, teamId: string, templateId: string) {
+        const newIds: Dictionary<string> = {};
+        const observers: Observable<ActivityPoint>[] = [];
 
-    nodes.forEach((node) => {
-        const activity: ActivityCreateDto = {
-            id: newIds[node.id],
-            teamId,
-            templateId,
-            parentActivityId: newIds[node.parentId],
-            point: new ActivityPoint(),
-            answers: [],
-        };
+        const activities: ActivityCreateDto[] = [];
+        nodes.forEach((node) => (newIds[node.id] = uuid()));
 
-        gmTemplate.fields
-            .filter((x) => !!x.oikosQuestionId)
-            .forEach((field) => {
-                const answer: AnswerCreateDto = {
-                    questionId: field.oikosQuestionId,
-                    questionGroupId: field.oikosQuestionGroupId,
-                    questionSequence: 0,
-                    questionGroupSequence: 0,
-                    value: new AnswerValue(),
-                    valueType: field.valueType,
-                    controlType: field.type,
-                };
+        nodes.forEach((node) => {
+            const activity: ActivityCreateDto = {
+                id: newIds[node.id],
+                externalId: node.id,
+                externalParentId: node.parentId,
+                teamId,
+                templateId,
+                parentActivityId: newIds[node.parentId],
+                point: new ActivityPoint(),
+                answers: [],
+            };
 
-                if (field.options) {
-                    const fieldValue = node.attributes[field.id];
-                    const optionValue = field.options.find((x) => x.value === fieldValue);
-                    if (optionValue) {
-                        answer.value['boolean'] = optionValue.oikosQuestionValue;
+            gmTemplate.fields
+                .filter((x) => !!x.oikosQuestionId)
+                .forEach((field) => {
+                    const answer: AnswerCreateDto = {
+                        questionId: field.oikosQuestionId,
+                        questionGroupId: field.oikosQuestionGroupId,
+                        questionSequence: 0,
+                        questionGroupSequence: 0,
+                        value: new AnswerValue(),
+                        valueType: field.valueType,
+                        controlType: field.type,
+                    };
+
+                    if (field.options) {
+                        const fieldValue = node.attributes[field.id];
+                        const optionValue = field.options.find((x) => x.value === fieldValue);
+                        if (optionValue) {
+                            answer.value['boolean'] = optionValue.oikosQuestionValue;
+                        }
+                    } else {
+                        answer.value[field.valueType] = node.attributes[field.id];
                     }
-                } else {
-                    answer.value[field.valueType] = node.attributes[field.id];
-                }
 
-                activity.answers.push(answer);
-            });
+                    activity.answers.push(answer);
+                });
 
-        gmTemplate.fields
-            .filter((x) => x.oikosQuestionGroupId && !x.oikosQuestionId)
-            .forEach((group) => {
-                group.fields
-                    .filter((x) => !!x.oikosQuestionId)
-                    .forEach((field) => {
-                        const nodeAnswer = node.attributes[group.id];
+            gmTemplate.fields
+                .filter((x) => x.oikosQuestionGroupId && !x.oikosQuestionId)
+                .forEach((group) => {
+                    group.fields
+                        .filter((x) => !!x.oikosQuestionId)
+                        .forEach((field) => {
+                            const nodeAnswer = node.attributes[group.id];
 
-                        nodeAnswer.forEach((value, index: number) => {
-                            const answer: AnswerCreateDto = {
-                                questionId: field.oikosQuestionId,
-                                questionGroupId: field.oikosQuestionGroupId,
-                                questionSequence: 0,
-                                questionGroupSequence: index,
-                                value: new AnswerValue(),
-                                valueType: field.valueType,
-                                controlType: field.type,
-                            };
+                            nodeAnswer.forEach((value, index: number) => {
+                                const answer: AnswerCreateDto = {
+                                    questionId: field.oikosQuestionId,
+                                    questionGroupId: field.oikosQuestionGroupId,
+                                    questionSequence: 0,
+                                    questionGroupSequence: index,
+                                    value: new AnswerValue(),
+                                    valueType: field.valueType,
+                                    controlType: field.type,
+                                };
 
-                            answer.value[field.valueType] = value[field.id];
+                                answer.value[field.valueType] = value[field.id];
 
-                            activity.answers.push(answer);
+                                activity.answers.push(answer);
+                            });
                         });
-                    });
-            });
+                });
 
-        console.log(node);
-        console.log(activity);
-    });
+            const point = new ActivityPoint();
+            const countryField = gmTemplate.fields.find((x) => x.type == ControlType.countrySelector);
+            const latitude = node.attributes.latitude;
+            const longitude = node.attributes.longitude;
+            const country = node.attributes[countryField.id];
+
+            console.log({ latitude, longitude });
+            if (node.attributes.location && latitude && longitude) {
+                point.latitude = latitude;
+                point.longitude = longitude;
+                point.source = ActivityPointSource.Point;
+                observers.push(
+                    this.geocoder.locateWithLatLng({ latitude, longitude }).pipe(
+                        map((response) => {
+                            point.address = response.address;
+                            point.countryCode = response.attributes.CountryCode;
+                            point.isGeographic = response.location.spatialReference.isGeographic;
+                            point.isWGS84 = response.location.spatialReference.isWGS84;
+                            point.isWebMercator = response.location.spatialReference.isWebMercator;
+                            point.wkid = response.location.spatialReference.wkid;
+                            point.lastestWkid = response.location.spatialReference['latestWkid'];
+                            point.wkt = response.location.spatialReference.wkt;
+                            point.zoom = 16;
+                            return point;
+                        })
+                    )
+                );
+            } else if (country) {
+                point.source = ActivityPointSource.Point;
+                observers.push(
+                    this.geocoder.locateWithCountryCode(country).pipe(
+                        map((results) => {
+                            const response = results[0];
+                            point.latitude = response.location.latitude;
+                            point.longitude = response.location.longitude;
+                            point.address = response.address;
+                            point.countryCode = response.attributes.CountryCode || country;
+                            point.isGeographic = response.location.spatialReference.isGeographic;
+                            point.isWGS84 = response.location.spatialReference.isWGS84;
+                            point.isWebMercator = response.location.spatialReference.isWebMercator;
+                            point.wkid = response.location.spatialReference.wkid;
+                            point.lastestWkid = response.location.spatialReference['latestWkid'];
+                            point.wkt = response.location.spatialReference.wkt;
+                            point.zoom = 1;
+                            return point;
+                        })
+                    )
+                );
+            }
+
+            activity.point = point;
+            activities.push(activity);
+        });
+
+        combineLatest(observers).subscribe((result) => {
+            console.log(activities);
+        });
+    }
 }

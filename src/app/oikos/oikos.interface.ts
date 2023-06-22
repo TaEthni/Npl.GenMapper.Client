@@ -19,6 +19,8 @@ export interface TeamTemplate {
 
 export interface ActivityCreateDto {
     id: string;
+    externalId: string;
+    externalParentId: string;
     teamId: string;
     templateId: string;
     parentActivityId?: string | null;
@@ -52,10 +54,10 @@ export class ActivityPoint {
     public source: ActivityPointSource | undefined;
     public countryCode: string;
     public address: string;
-    public xmax: number;
-    public xmin: number;
-    public ymax: number;
-    public ymin: number;
+    public xmax: number = 0;
+    public xmin: number = 0;
+    public ymax: number = 0;
+    public ymin: number = 0;
     public isWGS84?: boolean;
     public isGeographic?: boolean;
     public isWebMercator?: boolean;
