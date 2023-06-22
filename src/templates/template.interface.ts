@@ -239,6 +239,7 @@ export interface GMFieldOption {
     // Whether the option is an other option or not.
     // Used to display a text field to input other option
     isOther?: boolean;
+    oikosQuestionValue?: any;
 }
 
 export interface Svg {
