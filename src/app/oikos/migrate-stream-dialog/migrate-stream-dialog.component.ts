@@ -6,21 +6,26 @@ import {
     ActivityPointSource,
     AnswerCreateDto,
     AnswerValue,
+    ETHNE_QUESION_ID,
+    LANGUAGE_QUESION_ID,
+    RELIGION_QUESION_ID,
     Team,
     TeamTemplate,
     Workspace,
 } from '../oikos.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { combineAll, filter, finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, combineAll, filter, finalize, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { Dictionary, sortBy } from 'lodash';
 import { DocumentDto, NodeDto } from '@npl-data-access';
-import { ControlType, GMTemplate } from '@npl-template';
-import { MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { ControlType, GMTemplate, ValueType } from '@npl-template';
+import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import uuid from 'uuid';
 import { GeocoderService } from '@npl-shared/geocoder.service';
 import { Observable, combineLatest } from 'rxjs';
 import { pipeline } from 'stream';
+import { PeopleGroupService } from '../people-group.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Config {
     document: DocumentDto;
@@ -54,12 +59,17 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     public isLoadingWorkspacesComplete: boolean;
     public isLoadingTeams: boolean;
     public isLoadingTeamsComplete: boolean;
+    public isMigrating: boolean;
 
     public constructor(
         @Inject(MAT_DIALOG_DATA) public config: Config,
 
+        private dialogRef: MatDialogRef<MigrateStreamDialogComponent>,
+
         private oikos: OikosService,
-        private geocoder: GeocoderService
+        private geocoder: GeocoderService,
+        private peopleGroups: PeopleGroupService,
+        private snackBack: MatSnackBar
     ) {
         super();
         console.log(this);
@@ -130,21 +140,40 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     }
 
     public migrate(): void {
-        this.createActivities(
-            this.config.nodes,
-            this.config.template,
-            this.form.get('team')?.value,
-            this.form.get('templateId')?.value
-        );
+        const value = this.form.value;
+        this.isMigrating = true;
+        this.createActivities(this.config.nodes, this.config.template, value.team, value.template)
+            .pipe(
+                take(1),
+                switchMap((activities) =>
+                    this.oikos.migrate({
+                        workspaceId: value.workspace,
+                        teamId: value.team,
+                        templateId: value.template,
+                        activities,
+                    })
+                ),
+                catchError((error) => {
+                    this.snackBack.open('Error Migrating', 'Ok');
+                    return error;
+                })
+            )
+            .subscribe((result) => {
+                console.log(result);
+                this.isMigrating = false;
+                this.snackBack.open('Migration Compelte', 'Ok');
+                // this.dialogRef.close();
+            });
     }
 
     private createActivities(nodes: NodeDto[], gmTemplate: GMTemplate, teamId: string, templateId: string) {
         const newIds: Dictionary<string> = {};
-        const observers: Observable<ActivityPoint>[] = [];
+        const observers: Observable<any>[] = [];
 
         const activities: ActivityCreateDto[] = [];
         nodes.forEach((node) => (newIds[node.id] = uuid()));
 
+        console.log(nodes);
         nodes.forEach((node) => {
             const activity: ActivityCreateDto = {
                 id: newIds[node.id],
@@ -186,11 +215,22 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
             gmTemplate.fields
                 .filter((x) => x.oikosQuestionGroupId && !x.oikosQuestionId)
                 .forEach((group) => {
+                    const nodeAnswer = node.attributes[group.id];
+                    if (group.id === 'peoples') {
+                        nodeAnswer.forEach((value, index: number) => {
+                            this.populatePeoples(
+                                activity,
+                                value.identifier,
+                                group.oikosQuestionGroupId,
+                                index,
+                                observers
+                            );
+                        });
+                    }
+
                     group.fields
                         .filter((x) => !!x.oikosQuestionId)
                         .forEach((field) => {
-                            const nodeAnswer = node.attributes[group.id];
-
                             nodeAnswer.forEach((value, index: number) => {
                                 const answer: AnswerCreateDto = {
                                     questionId: field.oikosQuestionId,
@@ -215,7 +255,6 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
             const longitude = node.attributes.longitude;
             const country = node.attributes[countryField.id];
 
-            console.log({ latitude, longitude });
             if (node.attributes.location && latitude && longitude) {
                 point.latitude = latitude;
                 point.longitude = longitude;
@@ -263,8 +302,61 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
             activities.push(activity);
         });
 
-        combineLatest(observers).subscribe((result) => {
-            console.log(activities);
-        });
+        return combineLatest(observers).pipe(
+            take(1),
+            map(() => activities)
+        );
+    }
+
+    private populatePeoples(
+        activity: ActivityCreateDto,
+        identifier: number,
+        questionGroupId: string,
+        sequence: number,
+        observers: Observable<any>[]
+    ) {
+        const ethne: AnswerCreateDto = {
+            questionId: ETHNE_QUESION_ID,
+            questionGroupId: questionGroupId,
+            questionSequence: 0,
+            questionGroupSequence: sequence,
+            value: new AnswerValue({ number: -1 }),
+            valueType: ValueType.number,
+            controlType: 'ethneSelect' as ControlType,
+        };
+
+        const language: AnswerCreateDto = {
+            questionId: LANGUAGE_QUESION_ID,
+            questionGroupId: questionGroupId,
+            questionSequence: 0,
+            questionGroupSequence: sequence,
+            value: new AnswerValue({ string: 'unknown' }),
+            valueType: ValueType.string,
+            controlType: 'languageSelect' as ControlType,
+        };
+
+        const religion: AnswerCreateDto = {
+            questionId: RELIGION_QUESION_ID,
+            questionGroupId: questionGroupId,
+            questionSequence: 0,
+            questionGroupSequence: sequence,
+            value: new AnswerValue({ string: 'unknown' }),
+            valueType: ValueType.string,
+            controlType: 'religionSelect' as ControlType,
+        };
+
+        activity.answers.push(ethne, language, religion);
+
+        if (identifier && identifier > 0) {
+            observers.push(
+                this.peopleGroups.query(identifier).pipe(
+                    map((result) => {
+                        language.value.string = result.languageCode || language.value.string;
+                        ethne.value.number = result.ethneId || ethne.value.number;
+                        return result;
+                    })
+                )
+            );
+        }
     }
 }

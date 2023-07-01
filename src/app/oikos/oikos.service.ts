@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Team, Workspace } from './oikos.interface';
+import { MigrateDto, Team, Workspace } from './oikos.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -22,5 +22,9 @@ export class OikosService {
 
     public getTeamsByWorkspaceId(workspaceId: string): Observable<Team[]> {
         return this.http.get<Team[]>(this.url + 'workspaces/' + workspaceId + '/teams/gm-migration');
+    }
+
+    public migrate(dto: MigrateDto): Observable<any> {
+        return this.http.post(this.url + 'import', dto);
     }
 }
