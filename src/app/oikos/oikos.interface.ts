@@ -17,8 +17,17 @@ export interface TeamTemplate {
     tags: string[];
 }
 
+export interface MigrateDto {
+    workspaceId: string;
+    templateId: string;
+    teamId: string;
+    activities: ActivityCreateDto[];
+}
+
 export interface ActivityCreateDto {
     id: string;
+    externalId: string;
+    externalParentId: string;
     teamId: string;
     templateId: string;
     parentActivityId?: string | null;
@@ -45,22 +54,22 @@ export enum ActivityPointSource {
 }
 
 export class ActivityPoint {
-    public latitude: number;
-    public longitude: number;
-    public zoom: number;
+    public latitude: number = 0;
+    public longitude: number = 0;
+    public zoom: number = 16;
     public intent: string;
     public source: ActivityPointSource | undefined;
     public countryCode: string;
     public address: string;
-    public xmax: number;
-    public xmin: number;
-    public ymax: number;
-    public ymin: number;
-    public isWGS84?: boolean;
-    public isGeographic?: boolean;
-    public isWebMercator?: boolean;
-    public lastestWkid?: number;
-    public wkid?: number;
+    public xmax: number = 0;
+    public xmin: number = 0;
+    public ymax: number = 0;
+    public ymin: number = 0;
+    public isWGS84?: boolean = true;
+    public isGeographic?: boolean = true;
+    public isWebMercator?: boolean = false;
+    public lastestWkid?: number = 4326;
+    public wkid?: number = 4326;
     public wkt?: string;
 }
 
@@ -79,3 +88,7 @@ export class AnswerValue {
         }
     }
 }
+
+export const LANGUAGE_QUESION_ID = 'bc400786-25ca-431d-fcfb-08d9488a716b';
+export const ETHNE_QUESION_ID = 'e191e5c5-1cdd-4663-fcfe-08d9488a716b';
+export const RELIGION_QUESION_ID = '58d776d5-dd75-4028-7bd4-08d94ab5eec8';
