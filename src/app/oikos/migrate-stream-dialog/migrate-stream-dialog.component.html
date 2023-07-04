@@ -82,8 +82,13 @@
         <button
             mat-flat-button
             color="primary"
+            class="spinner-button"
             (click)="migrate()">
-            MIGRATE
+            <mat-spinner
+                *ngIf="isMigrating"
+                matButtonIcon
+                diameter="24"></mat-spinner>
+            <span>MIGRATE</span>
         </button>
     </ng-container>
 </div>
