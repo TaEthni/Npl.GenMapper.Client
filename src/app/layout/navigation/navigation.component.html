@@ -1,32 +1,47 @@
-<mat-card fxLayout="row"
-          fxLaoutGap="10px">
-    <mat-icon tabindex="1"
-              color="primary">account_circle</mat-icon>
-    <div fxLayout="column"
-         fxLayoutGap="5px">
+<mat-card
+    fxLayout="row"
+    fxLaoutGap="10px">
+    <mat-icon
+        tabindex="1"
+        color="primary"
+        >account_circle</mat-icon
+    >
+    <div
+        fxLayout="column"
+        fxLayoutGap="5px">
         <div></div>
-        <ng-container *ngIf="(isLoggedIn$ | async)">
-            <div *ngIf="userProfile?.name"
-                 class="user-name">{{userProfile.name}}</div>
-            <div *ngIf="userProfile?.email"
-                 class="user-email">{{userProfile.email}}</div>
+        <ng-container *ngIf="isLoggedIn$ | async">
+            <div
+                *ngIf="userProfile?.name"
+                class="user-name">
+                {{ userProfile.name }}
+            </div>
+            <div
+                *ngIf="userProfile?.email"
+                class="user-email">
+                {{ userProfile.email }}
+            </div>
             <div class="auth">
-                <a (click)="logout()"
-                   translate>
+                <a
+                    (click)="logout()"
+                    translate>
                     Common_Logout
                 </a>
             </div>
         </ng-container>
         <ng-container *ngIf="(isLoggedIn$ | async) == false">
-            <div class="auth"
-                 fxLayout="column"
-                 fxLayoutGap="10px">
-                <a (click)="login()"
-                   translate>
+            <div
+                class="auth"
+                fxLayout="column"
+                fxLayoutGap="10px">
+                <a
+                    (click)="login()"
+                    translate>
                     Common_Login
                 </a>
-                <a [routerLink]="['/account/register']"
-                   translate>
+                <a
+                    [routerLink]="['/account/register']"
+                    translate>
                     Common_Signup
                 </a>
             </div>
@@ -36,10 +51,12 @@
 
 <section fxLayout="column">
     <mat-nav-list>
-        <ng-container *ngIf="(isLoggedIn$ | async)">
-            <mat-list-item routerLink="/account"
-                           routerLinkActive="active">
-                <h3 matLine
+        <ng-container *ngIf="isLoggedIn$ | async">
+            <mat-list-item
+                routerLink="/account"
+                routerLinkActive="active">
+                <h3
+                    matLine
                     translate>
                     Common_Account
                 </h3>
@@ -48,9 +65,11 @@
             </mat-list-item>
         </ng-container>
 
-        <mat-list-item routerLink="/tools"
-                       routerLinkActive="active">
-            <h3 matLine
+        <mat-list-item
+            routerLink="/tools"
+            routerLinkActive="active">
+            <h3
+                matLine
                 translate>
                 Common_GenMapper
             </h3>
@@ -58,7 +77,7 @@
             <mat-icon class="arrow">chevron_right</mat-icon>
         </mat-list-item>
 
-        <mat-list-item routerLink="/teams"
+        <!-- <mat-list-item routerLink="/teams"
                        routerLinkActive="active"
                        *ngIf="(isLoggedIn$ | async)">
             <h3 matLine
@@ -67,13 +86,14 @@
             </h3>
             <mat-icon matListIcon>group</mat-icon>
             <mat-icon class="arrow">chevron_right</mat-icon>
-        </mat-list-item>
+        </mat-list-item> -->
     </mat-nav-list>
 
     <mat-nav-list>
         <mat-list-item (click)="showUpdates()">
             <mat-icon matListIcon>new_releases</mat-icon>
-            <h3 matLine
+            <h3
+                matLine
                 translate>
                 Common_WhatsNew
             </h3>
@@ -81,7 +101,8 @@
 
         <mat-list-item (click)="help()">
             <mat-icon matListIcon>help</mat-icon>
-            <h3 matLine
+            <h3
+                matLine
                 translate>
                 Common_Help
             </h3>
@@ -90,11 +111,13 @@
         <mat-list-item>
             <mat-icon matListIcon>language</mat-icon>
             <mat-form-field matLine>
-                <mat-select placeholder="{{'Common_Language' | translate}}"
-                            [formControl]="localeControl">
-                    <mat-option *ngFor="let lang of languages"
-                                [value]="lang.code">
-                        [{{lang.code}}] {{lang.endonym}}
+                <mat-select
+                    placeholder="{{ 'Common_Language' | translate }}"
+                    [formControl]="localeControl">
+                    <mat-option
+                        *ngFor="let lang of languages"
+                        [value]="lang.code">
+                        [{{ lang.code }}] {{ lang.endonym }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -104,22 +127,29 @@
     <mat-divider></mat-divider>
 
     <mat-nav-list>
-        <a mat-list-item
-           href="http://noplaceleft.net"
-           (click)="goto($event, 'http://noplaceleft.net')">
-            <img matListAvatar
-                 src="assets/npl-logo-2018.png"
-                 alt="No Place Left">
-            <h3 matLine> #NoPlaceLeft </h3>
+        <a
+            mat-list-item
+            href="http://noplaceleft.net"
+            (click)="goto($event, 'http://noplaceleft.net')">
+            <img
+                matListAvatar
+                src="assets/npl-logo-2018.png"
+                alt="No Place Left" />
+            <h3 matLine>#NoPlaceLeft</h3>
             <mat-icon>launch</mat-icon>
         </a>
 
-        <a mat-list-item
-           href="https://github.com/TaEthni/Npl.GenMapper.Client/blob/main/changelog.md"
-           target="_blank">
-            <mat-icon mat-list-icon
-                      class="history-icon">history</mat-icon>
-            <h3 matLine
+        <a
+            mat-list-item
+            href="https://github.com/TaEthni/Npl.GenMapper.Client/blob/main/changelog.md"
+            target="_blank">
+            <mat-icon
+                mat-list-icon
+                class="history-icon"
+                >history</mat-icon
+            >
+            <h3
+                matLine
                 translate>
                 Help_changelogLink
             </h3>

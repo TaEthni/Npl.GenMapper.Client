@@ -1,28 +1,30 @@
 <div mat-dialog-title>
-    {{'Common_CreateDocument' | translate}}
+    {{ 'Common_CreateDocument' | translate }}
 </div>
 
-<form mat-dialog-content
-      [formGroup]="form"
-      fxLayout="column"
-      fxLayoutGap="24px">
+<form
+    mat-dialog-content
+    [formGroup]="form"
+    fxLayout="column"
+    fxLayoutGap="24px">
     <mat-form-field>
         <mat-label>
-            {{'Common_Name' | translate}}
+            {{ 'Common_Name' | translate }}
         </mat-label>
-        <input matInput
-               formControlName="title" />
+        <input
+            matInput
+            formControlName="title" />
 
         <mat-error *ngIf="form.controls.title.errors?.required">
-            {{'Error_requiredField' | translate}}
+            {{ 'Error_requiredField' | translate }}
         </mat-error>
 
         <mat-error *ngIf="form.controls.title.errors?.minlength">
-            {{'Error_valueIsTooShort' | translate}}
+            {{ 'Error_valueIsTooShort' | translate }}
         </mat-error>
     </mat-form-field>
 
-    <mat-form-field *ngIf="showTeams">
+    <!-- <mat-form-field *ngIf="showTeams">
         <mat-label>
             {{'Common_Team' | translate}}
         </mat-label>
@@ -32,19 +34,22 @@
                 {{team.name}}
             </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 </form>
-<div mat-dialog-actions
-     fxLayoutAlign="end">
-    <button mat-button
-            color="accent"
-            [disabled]="form.invalid"
-            (click)="onSubmit()">
-        {{'Common_Save' | translate}}
+<div
+    mat-dialog-actions
+    fxLayoutAlign="end">
+    <button
+        mat-button
+        color="accent"
+        [disabled]="form.invalid"
+        (click)="onSubmit()">
+        {{ 'Common_Save' | translate }}
     </button>
-    <button mat-button
-            color="warn"
-            [mat-dialog-close]="false">
-        {{'Common_Cancel' | translate}}
+    <button
+        mat-button
+        color="warn"
+        [mat-dialog-close]="false">
+        {{ 'Common_Cancel' | translate }}
     </button>
 </div>
