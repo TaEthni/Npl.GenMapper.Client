@@ -307,10 +307,14 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
             activities.push(activity);
         });
 
-        return combineLatest(observers).pipe(
-            take(1),
-            map(() => activities)
-        );
+        if (observers.length > 0) {
+            return combineLatest(observers).pipe(
+                take(1),
+                map(() => activities)
+            );
+        }
+
+        return of(activities);
     }
 
     private populatePeoples(
