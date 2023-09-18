@@ -29,7 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 interface Config {
     document: DocumentDto;
     template: GMTemplate;
-    nodes: NodeDto[];
+    loadNodes: () => Observable<NodeDto[]>;
 }
 
 @Component({
@@ -71,7 +71,6 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
         private snackBack: MatSnackBar
     ) {
         super();
-        console.log(this);
     }
 
     public ngOnInit(): void {
@@ -141,7 +140,10 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     public migrate(): void {
         const value = this.form.value;
         this.isMigrating = true;
-        this.createActivities(this.config.nodes, this.config.template, value.team, value.template)
+
+        this.config
+            .loadNodes()
+            .pipe(switchMap((nodes) => this.createActivities(nodes, this.config.template, value.team, value.template)))
             .pipe(
                 take(1),
                 switchMap((activities) =>
