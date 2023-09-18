@@ -6,7 +6,7 @@ import { DownloadService } from '@npl-core/download.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { DocumentDto } from '@npl-data-access';
 import { GMTemplate } from '@npl-template';
-import { take, takeUntil } from 'rxjs/operators';
+import { switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { EditDocumentDialogComponent } from '../dialogs/edit-document-dialog/edit-document-dialog.component';
@@ -93,16 +93,14 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
     }
 
     public migrate(): void {
-        this.genMapper.nodes$.pipe(take(1)).subscribe((nodes) => {
-            this.dialog.open(
-                MigrateStreamDialogComponent,
-                MigrateStreamDialogComponent.configure({
-                    template: this.template,
-                    document: this.document,
-                    nodes,
-                })
-            );
-        });
+        this.dialog.open(
+            MigrateStreamDialogComponent,
+            MigrateStreamDialogComponent.configure({
+                template: this.template,
+                document: this.document,
+                loadNodes: () => this.genMapper.refreshDocumentNodes().pipe(switchMap(() => this.genMapper.nodes$)),
+            })
+        );
     }
 
     private _deleteDocument(): void {

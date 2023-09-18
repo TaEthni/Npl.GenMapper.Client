@@ -32,7 +32,7 @@ import { GenMapperGraphComponent } from '../views/gen-mapper-graph/gen-mapper-gr
     selector: 'app-gen-mapper',
     templateUrl: './gen-mapper.component.html',
     styleUrls: ['./gen-mapper.component.scss'],
-    providers: [NodeTreeService]
+    providers: [NodeTreeService],
 })
 export class GenMapperComponent extends Unsubscribable implements OnInit {
     @ViewChild(GenMapperGraphComponent)
@@ -69,69 +69,60 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.store.select(isAuthenticated)
+        this.store
+            .select(isAuthenticated)
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
+            .subscribe((result) => {
                 this.isAuthenticated = result;
             });
 
-        this.genMapper.template$
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.template = result;
+        this.genMapper.template$.pipe(takeUntil(this.unsubscribe)).subscribe((result) => {
+            this.template = result;
 
-                this.nodeTree.createLayout(this.template);
+            this.nodeTree.createLayout(this.template);
 
-                if (this.template.reports) {
-                    this.showReportsView = true;
+            if (this.template.reports) {
+                this.showReportsView = true;
+            }
+        });
+
+        this.genMapper.selectedDocument$.pipe(takeUntil(this.unsubscribe)).subscribe((document) => {
+            this.document = document;
+            if (!document && !this.isAuthenticated && this.genMapper.hasLocalDocument()) {
+                this.router.navigate(['/gen-mapper', this.template.id, 'local'], { skipLocationChange: true });
+            }
+
+            if (this.view === GenMapperView.Reports) {
+                this.view = GenMapperView.GenMap;
+            }
+
+            // Center Graph when document Changes
+            if (this.genMapperGraph) {
+                this.genMapperGraph.recenterGraph();
+            }
+        });
+
+        this.genMapper.nodes$.pipe(takeUntil(this.unsubscribe)).subscribe((nodes) => {
+            if (nodes && nodes.length) {
+                if (this.nodeTree.validateTree(nodes)) {
+                    this.nodeTree.createTree(nodes);
+                    this.checkAvailableViews();
                 }
-            })
+            }
+        });
 
-        this.genMapper.selectedDocument$
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(document => {
-                this.document = document;
-                if (!document && !this.isAuthenticated && this.genMapper.hasLocalDocument()) {
-                    this.router.navigate(['/gen-mapper', this.template.id, 'local'], { skipLocationChange: true });
-                }
+        this.genMapper.selectedNode$.pipe(takeUntil(this.unsubscribe)).subscribe((result) => {
+            this.node = result;
+        });
 
-                if (this.view === GenMapperView.Reports) {
-                    this.view = GenMapperView.GenMap;
-                }
-
-                // Center Graph when document Changes
-                if (this.genMapperGraph) {
-                    this.genMapperGraph.recenterGraph();
-                }
-            });
-
-        this.genMapper.nodes$
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(nodes => {
-                if (nodes && nodes.length) {
-                    if (this.nodeTree.validateTree(nodes)) {
-                        this.nodeTree.createTree(nodes);
-                        this.checkAvailableViews();
-                    }
-                }
-            });
-
-        this.genMapper.selectedNode$
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(result => {
-                this.node = result;
-            });
-
-        this.genMapper.documents$
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(documents => {
-                this.documents = documents;
-            });
+        this.genMapper.documents$.pipe(takeUntil(this.unsubscribe)).subscribe((documents) => {
+            this.documents = documents;
+        });
     }
 
     public checkAvailableViews(): void {
-        this.genMapper.nodes$.pipe(take(1)).subscribe(result => {
-            this.showMapView = some(result, d => !!d.attributes.location);
+        this.genMapper.nodes$.pipe(take(1)).subscribe((result) => {
+            this.showMapView = some(result, (d) => !!d.attributes.location);
         });
     }
 
@@ -167,14 +158,16 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
 
                 this.genMapperGraph.centerGraphOnNode(node.id);
 
-                this.snackBar.open(
-                    this.translate.instant('Common_ChildNodeAdded'),
-                    this.translate.instant('Common_Undo'), { duration: 10000 }
-                ).onAction().subscribe(() => {
-                    this.onDeleteNode(node);
-                });
+                this.snackBar
+                    .open(this.translate.instant('Common_ChildNodeAdded'), this.translate.instant('Common_Undo'), {
+                        duration: 10000,
+                    })
+                    .onAction()
+                    .subscribe(() => {
+                        this.onDeleteNode(node);
+                    });
             },
-            error => {
+            (error) => {
                 this.showSavingErrorSnackBar();
             }
         );
@@ -206,45 +199,52 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         const hasChildren = nodeDatum.children && nodeDatum.children.length;
         const localeKey = hasChildren ? 'Message_confirmDeleteGroupWithChildren' : 'Message_confirmDeleteGroup';
         const message = this.translate.instant(localeKey, { groupName: name });
-        const descendants = nodeDatum.descendants().map(d => d.data);
-        const items = descendants.map(d => d.attributes.name || d.attributes.leaderName || d.attributes.leadersName || 'No Name');
+        const descendants = nodeDatum.descendants().map((d) => d.data);
+        const items = descendants.map(
+            (d) => d.attributes.name || d.attributes.leaderName || d.attributes.leadersName || 'No Name'
+        );
 
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: {
                     alert: message,
                     items: items,
-                    title: this.translate.instant('Message_confirmDelete', { groupName: name })
-                }
+                    title: this.translate.instant('Message_confirmDelete', { groupName: name }),
+                },
             })
             .afterClosed()
-            .subscribe(result => {
+            .subscribe((result) => {
                 if (result) {
                     this.showSavingSnackBar();
-                    const idsToDelete = descendants.map(n => n.id);
-                    this.genMapper.removeDocumentNodes(idsToDelete)
+                    const idsToDelete = descendants.map((n) => n.id);
+                    this.genMapper
+                        .removeDocumentNodes(idsToDelete)
                         .pipe(delayWhen(() => this.genMapper.refreshDocumentNodes()))
                         .subscribe(
-                            success => {
+                            (success) => {
                                 this.dismissSavingSnackBar();
                                 this.genMapper.setNode(null);
                                 this.snackBar
-                                    .open(this.translate.instant('Common_GroupDeleted'), this.translate.instant('Common_Undo'), { duration: 10000 })
+                                    .open(
+                                        this.translate.instant('Common_GroupDeleted'),
+                                        this.translate.instant('Common_Undo'),
+                                        { duration: 10000 }
+                                    )
                                     .onAction()
                                     .subscribe(() => {
                                         this.showSavingSnackBar();
                                         this.genMapper.createDocumentNodes(descendants).subscribe(
-                                            success => {
+                                            (success) => {
                                                 this.dismissSavingSnackBar();
                                                 this.genMapper.setNodeById(node.id);
                                             },
-                                            error => {
+                                            (error) => {
                                                 this.showSavingErrorSnackBar();
                                             }
-                                        )
+                                        );
                                     });
                             },
-                            error => {
+                            (error) => {
                                 this.showSavingErrorSnackBar();
                             }
                         );
@@ -255,29 +255,36 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     public onCopyNode(node: NodeDto): void {
         const nodes = this.nodeTree.createSubtreeFrom(node.id);
         this.nodeClipboard.set(nodes);
-        this.snackBar.open(this.translate.instant('Common_CopiedNodeToClipboard'), this.translate.instant('Common_Ok'), { duration: 5000 });
+        this.snackBar.open(
+            this.translate.instant('Common_CopiedNodeToClipboard'),
+            this.translate.instant('Common_Ok'),
+            { duration: 5000 }
+        );
     }
 
     public onReplaceNode(nodeToReplace: NodeDto): void {
         const original = this.nodeTree.getSubtree(nodeToReplace.id);
         const clipboard = this.nodeClipboard.copyValue();
-        const idsToDelete = original.map(n => n.id);
+        const idsToDelete = original.map((n) => n.id);
 
-        const root = clipboard.find(d => !d.parentId);
+        const root = clipboard.find((d) => !d.parentId);
         root.parentId = nodeToReplace.parentId;
 
-        clipboard.forEach(node => node.documentId = this.document.id);
+        clipboard.forEach((node) => (node.documentId = this.document.id));
 
         this.showSavingSnackBar();
-        this.genMapper.removeDocumentNodes(idsToDelete)
+        this.genMapper
+            .removeDocumentNodes(idsToDelete)
             .pipe(
-                switchMap(() => this.genMapper.createDocumentNodes(clipboard).pipe(
-                    catchError(() => {
-                        this.showSavingErrorSnackBar();
-                        this.revertReplaceNode(original);
-                        return null;
-                    })
-                )),
+                switchMap(() =>
+                    this.genMapper.createDocumentNodes(clipboard).pipe(
+                        catchError(() => {
+                            this.showSavingErrorSnackBar();
+                            this.revertReplaceNode(original);
+                            return null;
+                        })
+                    )
+                ),
                 catchError(() => {
                     this.showSavingErrorSnackBar();
                     return null;
@@ -286,7 +293,9 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .subscribe(() => {
                 this.dismissSavingSnackBar();
                 this.snackBar
-                    .open(this.translate.instant('Common_NodeHasBeenReplaced'), this.translate.instant('Common_Undo'), { duration: 20000 })
+                    .open(this.translate.instant('Common_NodeHasBeenReplaced'), this.translate.instant('Common_Undo'), {
+                        duration: 20000,
+                    })
                     .onAction()
                     .subscribe(() => {
                         this.revertReplaceNode(original, clipboard);
@@ -299,30 +308,31 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
 
         let observer = of(null);
         if (nodesCreated) {
-            observer = this.genMapper.removeDocumentNodes(nodesCreated.map(d => d.id));
+            observer = this.genMapper.removeDocumentNodes(nodesCreated.map((d) => d.id));
         }
 
         observer.subscribe(() => {
             this.genMapper.createDocumentNodes(nodes).subscribe(
-                success => {
+                (success) => {
                     this.dismissSavingSnackBar();
                 },
-                error => {
+                (error) => {
                     this.showSavingErrorSnackBar();
                 }
-            )
+            );
         });
     }
 
     public onPasteAsChildNode(node: NodeDto): void {
         const clipboard = this.nodeClipboard.copyValue();
-        const root = clipboard.find(d => !d.parentId);
+        const root = clipboard.find((d) => !d.parentId);
         root.parentId = node.id;
 
-        clipboard.forEach(node => node.documentId = this.document.id);
+        clipboard.forEach((node) => (node.documentId = this.document.id));
 
         this.showSavingSnackBar();
-        this.genMapper.createDocumentNodes(clipboard)
+        this.genMapper
+            .createDocumentNodes(clipboard)
             .pipe(
                 catchError(() => {
                     this.showSavingErrorSnackBar();
@@ -332,21 +342,23 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
             .subscribe(() => {
                 this.dismissSavingSnackBar();
                 this.snackBar
-                    .open(this.translate.instant('Common_ChildNodeAdded'), this.translate.instant('Common_Undo'), { duration: 20000 })
+                    .open(this.translate.instant('Common_ChildNodeAdded'), this.translate.instant('Common_Undo'), {
+                        duration: 20000,
+                    })
                     .onAction()
                     .subscribe(() => {
                         this.showSavingSnackBar();
-                        this.genMapper.removeDocumentNodes(clipboard.map(d => d.id)).subscribe(
-                            success => {
+                        this.genMapper.removeDocumentNodes(clipboard.map((d) => d.id)).subscribe(
+                            (success) => {
                                 this.dismissSavingSnackBar();
                                 this.genMapper.refreshDocumentNodes().subscribe();
                             },
-                            error => {
+                            (error) => {
                                 this.showSavingErrorSnackBar();
                             }
-                        )
+                        );
                     });
-            })
+            });
     }
 
     public onImportSubtree(content: string): void {
@@ -361,38 +373,39 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         }
 
         this.showSavingSnackBar();
-        this.genMapper.importChildNodesFromCSV(this.node, parsedCSV)
-            .subscribe(
-                success => {
-                    this.dismissSavingSnackBar();
-                    const createdIds = success.map(n => n.id);
-                    this.snackBar
-                        .open(this.translate.instant('Common_SubtreeImported'), this.translate.instant('Common_Undo'), { duration: 10000 })
-                        .onAction()
-                        .subscribe(() => {
-                            this.showSavingSnackBar();
-                            this.genMapper.removeDocumentNodes(createdIds)
-                                .subscribe(
-                                    result => {
-                                        this.dismissSavingSnackBar();
-                                        this.genMapper.refreshDocumentNodes().subscribe();
-                                    },
-                                    error => {
-                                        this.showSavingErrorSnackBar();
-                                    }
-                                );
-                        });
-                },
-                error => {
-                    this.showSavingErrorSnackBar();
-                }
-            )
+        this.genMapper.importChildNodesFromCSV(this.node, parsedCSV).subscribe(
+            (success) => {
+                this.dismissSavingSnackBar();
+                const createdIds = success.map((n) => n.id);
+                this.snackBar
+                    .open(this.translate.instant('Common_SubtreeImported'), this.translate.instant('Common_Undo'), {
+                        duration: 10000,
+                    })
+                    .onAction()
+                    .subscribe(() => {
+                        this.showSavingSnackBar();
+                        this.genMapper.removeDocumentNodes(createdIds).subscribe(
+                            (result) => {
+                                this.dismissSavingSnackBar();
+                                this.genMapper.refreshDocumentNodes().subscribe();
+                            },
+                            (error) => {
+                                this.showSavingErrorSnackBar();
+                            }
+                        );
+                    });
+            },
+            (error) => {
+                this.showSavingErrorSnackBar();
+            }
+        );
     }
 
     public onCreateDocument(): void {
-        this.dialog.open(CreateDocumentDialogComponent)
+        this.dialog
+            .open(CreateDocumentDialogComponent)
             .afterClosed()
-            .subscribe(result => {
+            .subscribe((result) => {
                 if (result) {
                     this.createDocument(result);
                 }
@@ -403,7 +416,7 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
         this.dialog
             .open(FileInputDialogComponent)
             .afterClosed()
-            .subscribe(result => {
+            .subscribe((result) => {
                 if (result) {
                     const nodes = CSVToJSON(result.content, this.template);
                     if (this.nodeTree.validateTree(nodes)) {
@@ -424,14 +437,14 @@ export class GenMapperComponent extends Unsubscribable implements OnInit {
     }
 
     private createDocument(doc?: DocumentDto): void {
-        this.genMapper.createDocument(doc).subscribe(result => {
+        this.genMapper.createDocument(doc).subscribe((result) => {
             this.router.navigate(['/gen-mapper', this.template.id, result.id]);
         });
     }
 
     private showBadDocumentDialog(content: string): void {
         this.dialog.open(InvalidCsvDialogComponent, {
-            data: { content }
+            data: { content },
         });
     }
 
