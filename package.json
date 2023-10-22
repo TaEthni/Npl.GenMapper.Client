@@ -72,7 +72,7 @@
         "lodash-es": "^4.17.20",
         "material-design-icons-iconfont": "^6.1.0",
         "moment": "^2.29.1",
-        "moment-timezone": "^0.5.33",
+        "moment-timezone": "^0.5.35",
         "ng-bullet": "^1.0.3",
         "ngx-cookie-service": "^11.0.2",
         "roboto-fontface": "^0.10.0",
