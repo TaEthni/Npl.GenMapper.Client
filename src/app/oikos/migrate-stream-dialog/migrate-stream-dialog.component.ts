@@ -168,7 +168,7 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
                 })
             )
             .subscribe((result) => {
-                this.snackBack.open('Migration Compelte', 'Ok');
+                this.snackBack.open('Migration Complete', 'Ok');
                 this.dialogRef.close();
             });
     }
