@@ -9,7 +9,7 @@ import { MigrateDto, Team, Workspace } from './oikos.interface';
     providedIn: 'root',
 })
 export class OikosService {
-    public url = environment.oikosApi;
+    public url = environment.oikosApi;//environment.apiBase;//
     public constructor(private http: HttpClient) {}
 
     public getSelf(): Observable<any> {
@@ -26,5 +26,9 @@ export class OikosService {
 
     public migrate(dto: MigrateDto): Observable<any> {
         return this.http.post(this.url + 'import', dto);
+    }
+
+    public api_migrate(): Observable<any>{
+        return this.http.get(environment.apiBase + "streams/gm-migration");
     }
 }
