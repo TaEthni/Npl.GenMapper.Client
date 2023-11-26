@@ -75,9 +75,6 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
 
     public ngOnInit(): void {
         this.isLoadingWorkspaces = true;
-        console.log("api migrate")
-        this.oikos.api_migrate().subscribe((data) => console.log(data));
-
         this.oikos
             .getWorkspaces()
             .pipe(
