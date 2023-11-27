@@ -6,10 +6,9 @@ export const environment = {
     production: false,
     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
     // apiBase: 'https://localhost:44320/api/',
-    // apiBase: 'https://localhost:7001/api/',
-    apiBase: 'https://npl-api-qa.genmapper.com/api/',
-    // oikosApi: 'https://localhost:7001/api/',
-    oikosApi: 'https://oikos-api-qa.taethni.com/api/',
+    apiBase: 'https://localhost:8001/api/',
+    // apiBase: 'https://npl-api-qa.genmapper.com/api/',
+    oikosApi: 'oikos-relay/',
     authConfig: {
         authority: 'https://qa.myidp.io',
         // authority: 'http://localhost:5000',

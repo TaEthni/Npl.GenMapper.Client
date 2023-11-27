@@ -5,7 +5,7 @@ export const environment = {
     apiBase: 'https://npl-api.genmapper.com/api/',
     ipGeoUrl: 'https://ipgeolocation.abstractapi.com/v1/',
     ipGeoApiKey: 'c5bb07e6f04a42c680356656041a722b',
-    oikosApi: 'https://api.thegapp.app/api/',
+    oikosApi: 'oikos-relay/',
     authConfig: {
         authority: 'https://myidp.io',
         clientId: 'npl_client',
