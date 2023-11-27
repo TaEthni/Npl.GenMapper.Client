@@ -8,8 +8,7 @@ export const environment = {
     // apiBase: 'https://localhost:44320/api/',
     apiBase: 'https://localhost:7001/api/',
     // apiBase: 'https://npl-api-qa.genmapper.com/api/',
-    gmMigration: 'https://localhost:7001/api/oikos-relay/',
-    oikosApi: 'https://oikos-api-qa.internal.taethni.com/api/',
+    oikosApi: 'oikos-relay/',
     authConfig: {
         authority: 'https://qa.myidp.io',
         // authority: 'http://localhost:5000',
