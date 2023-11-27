@@ -22,7 +22,7 @@ import { ControlType, GMTemplate, ValueType } from '@npl-template';
 import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import uuid from 'uuid';
 import { GeocoderService } from '@npl-shared/geocoder.service';
-import { Observable, combineLatest, of } from 'rxjs';
+import { Observable, combineLatest, of, throwError } from 'rxjs';
 import { PeopleGroupService } from '../people-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -164,7 +164,7 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
                     } else {
                         this.snackBack.open('Error Migrating', 'Ok');
                     }
-                    return error;
+                    return throwError(error);
                 })
             )
             .subscribe((result) => {
