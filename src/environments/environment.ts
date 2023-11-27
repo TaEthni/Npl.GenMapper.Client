@@ -6,7 +6,7 @@ export const environment = {
     production: false,
     apiKey: 'AIzaSyCzMNmQPVY9uivoKSzoj0ACwKr-LxxcHko',
     // apiBase: 'https://localhost:44320/api/',
-    apiBase: 'https://localhost:7001/api/',
+    apiBase: 'https://localhost:8001/api/',
     // apiBase: 'https://npl-api-qa.genmapper.com/api/',
     oikosApi: 'oikos-relay/',
     authConfig: {
