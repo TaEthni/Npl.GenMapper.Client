@@ -13,5 +13,8 @@ export const environment = {
         responseType: 'code',
         scope: 'profile openid IdentityServerApi web_api npl_api roles offline_access',
         logLevel: 'Error'
+    },
+    arcgisConfig: {
+        apiKey: 'AAPKdfa9c8eae1434c1d9e7a1183db7ca355W3MiPHhxhAR_C8iyhuT1jFlBhKemJpbrR2jXQZUxAjR-Om2bnvRprcKrEGTfpyK1',
     }
 };
