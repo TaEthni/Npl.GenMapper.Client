@@ -25,6 +25,9 @@ import { HomeModule } from './home/home.module';
 import { LayoutModule } from './layout/layout.module';
 import { ToolsModule } from './tools/tools.module';
 import { UpdatesModule } from './updates/updates.module';
+import esriConfig from '@arcgis/core/config';
+
+esriConfig.apiKey = environment.arcgisConfig.apiKey;
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http);
