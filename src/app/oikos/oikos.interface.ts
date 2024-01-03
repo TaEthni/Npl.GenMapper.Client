@@ -21,6 +21,9 @@ export interface MigrateDto {
     workspaceId: string;
     templateId: string;
     teamId: string;
+    importName: string;
+    importId: string;
+    source: string;
     activities: ActivityCreateDto[];
 }
 

@@ -2,4 +2,15 @@
 
 :host {
     @include dialog();
+
+    mat-icon.text-success {
+        font-size: 64px;
+        width: 64px;
+        height: 64px;
+        line-height: 64px;
+    }
+
+    h2 {
+        margin: 0;
+    }
 }

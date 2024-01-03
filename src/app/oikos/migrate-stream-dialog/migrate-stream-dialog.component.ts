@@ -59,6 +59,7 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     public isLoadingTeams: boolean;
     public isLoadingTeamsComplete: boolean;
     public isMigrating: boolean;
+    public migrationSent: boolean;
 
     public constructor(
         @Inject(MAT_DIALOG_DATA) public config: Config,
@@ -151,6 +152,9 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
                         workspaceId: value.workspace,
                         teamId: value.team,
                         templateId: value.template,
+                        importName: this.config.document.title,
+                        importId: this.config.document.id,
+                        source: 'npl-genmapper',
                         activities,
                     })
                 ),
@@ -168,8 +172,8 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
                 })
             )
             .subscribe((result) => {
-                this.snackBack.open('Migration Complete', 'Ok');
-                this.dialogRef.close();
+                this.migrationSent = true;
+                this.snackBack.open('Migration Received', 'Ok', { duration: 5000 });
             });
     }
 
