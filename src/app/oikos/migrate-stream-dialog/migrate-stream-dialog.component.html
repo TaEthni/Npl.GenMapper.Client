@@ -1,7 +1,68 @@
 <div mat-dialog-title>Migrate to GAPP</div>
 
 <div mat-dialog-content>
-    <ng-container *ngIf="!migrationSent">
+    <ng-container *ngIf="isLoadingProgress; then loadingProgress; else progressLoaded"></ng-container>
+
+    <ng-template #progressLoaded>
+        <ng-container
+            *ngIf="
+                progress && (progress.inProgress || progress.isComplete);
+                then migrationExists;
+                else migrateTemplate
+            "></ng-container>
+    </ng-template>
+
+    <ng-template #loadingProgress>
+        <div
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            fxLayoutGap="24px">
+            <mat-spinner diameter="36"></mat-spinner>
+            <span>Loading Progress</span>
+        </div>
+    </ng-template>
+
+    <ng-template #migrationExists>
+        <ng-container *ngIf="progress.inProgress">
+            <div
+                fxLayout="row"
+                fxLayoutGap="24px"
+                fxLayoutAlign="start center">
+                <mat-icon class="text-success">published_with_changes</mat-icon>
+                <h2 class="text-alert">Migration In Progress {{ progress.inProgressDate | date }}</h2>
+            </div>
+
+            <div>
+                <p>Your data migration has been recieved. You will receive an email when the process is complete.</p>
+
+                <p>
+                    If you have any further issues, please contact
+                    <a href="mailto:service-desk@taethni.com">service-desk@taethni.com</a>
+                </p>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="progress.isComplete">
+            <div
+                fxLayout="row"
+                fxLayoutGap="24px"
+                fxLayoutAlign="start center">
+                <mat-icon class="text-success">verified</mat-icon>
+                <h2 class="text-success">Migration Complete {{ progress.isCompleteDate | date }}</h2>
+            </div>
+
+            <div>
+                <p>Your data migration is complete.</p>
+
+                <p>
+                    If you have any further issues, please contact
+                    <a href="mailto:service-desk@taethni.com">service-desk@taethni.com</a>
+                </p>
+            </div>
+        </ng-container>
+    </ng-template>
+
+    <ng-template #migrateTemplate>
         <div
             fxLayout="column"
             fxLayoutGap="24px">
@@ -69,43 +130,29 @@
                 </mat-select>
             </mat-form-field>
         </div>
-    </ng-container>
-
-    <ng-container *ngIf="migrationSent">
-        <div
-            fxLayout="column"
-            fxLayoutGap="24px">
-            <div
-                fxLayout="row"
-                fxLayoutGap="24px"
-                fxLayoutAlign="start center">
-                <mat-icon class="text-success">verified</mat-icon>
-                <h2 class="text-success">Migration Received</h2>
-            </div>
-
-            <div>
-                <p>Your data migration has been recieved. You will receive an email when the process is complete.</p>
-
-                <p>
-                    If you have any further issues, please contact
-                    <a href="mailto:service-desk@taethni.com">service-desk@taethni.com</a>
-                </p>
-            </div>
-        </div>
-    </ng-container>
+    </ng-template>
 </div>
 
 <div
     mat-dialog-actions
     align="end">
-    <ng-container *ngIf="migrationSent">
+    <ng-container *ngIf="progress && progress.inProgress">
         <button
-            mat-flat-button
+            mat-stroked-button
             color="primary"
-            mat-dialog-close>
-            DONE
+            class="spinner-button icon-button"
+            (click)="reloadProgress()">
+            <mat-spinner
+                *ngIf="isReloadingProgress"
+                matButtonIcon
+                diameter="24"></mat-spinner>
+            <mat-icon *ngIf="!isReloadingProgress">refresh</mat-icon>
+            <span>REFRESH</span>
         </button>
     </ng-container>
+
+    <div fxFlex></div>
+
     <ng-container *ngIf="!migrationSent">
         <button
             mat-button

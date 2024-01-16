@@ -1,5 +1,14 @@
 import { ControlType, ValueType } from '@npl-template';
 
+export interface ProgressDto {
+    inProgress: boolean;
+    isError: boolean;
+    isComplete: boolean;
+    inProgressDate: Date | null;
+    isErrorDate: Date | null;
+    isCompleteDate: Date | null;
+}
+
 export interface Workspace {
     name: string;
     id: string;

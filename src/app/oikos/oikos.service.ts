@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { MigrateDto, Team, Workspace } from './oikos.interface';
+import { MigrateDto, ProgressDto, Team, Workspace } from './oikos.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -26,5 +26,9 @@ export class OikosService {
 
     public migrate(dto: MigrateDto): Observable<any> {
         return this.http.post(this.url + 'import', dto);
+    }
+
+    public getProgress(importId: string) {
+        return this.http.get<ProgressDto>(this.url + 'import/progress/' + importId);
     }
 }

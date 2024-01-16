@@ -8,6 +8,7 @@ import {
     AnswerValue,
     ETHNE_QUESION_ID,
     LANGUAGE_QUESION_ID,
+    ProgressDto,
     RELIGION_QUESION_ID,
     Team,
     TeamTemplate,
@@ -37,7 +38,7 @@ interface Config {
     templateUrl: './migrate-stream-dialog.component.html',
     styleUrls: ['./migrate-stream-dialog.component.scss'],
 })
-export class MigrateStreamDialogComponent extends Unsubscribable implements OnInit {
+export class MigrateStreamDialogComponent extends Unsubscribable {
     public static configure(config: Config): MatDialogConfig {
         return {
             data: config,
@@ -54,12 +55,16 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
     public teams: Team[];
     public templates: TeamTemplate[];
 
+    public isReloadingProgress: boolean;
+    public isLoadingProgress: boolean;
     public isLoadingWorkspaces: boolean;
     public isLoadingWorkspacesComplete: boolean;
     public isLoadingTeams: boolean;
     public isLoadingTeamsComplete: boolean;
     public isMigrating: boolean;
     public migrationSent: boolean;
+    public progress: ProgressDto;
+    public isInitialized: boolean;
 
     public constructor(
         @Inject(MAT_DIALOG_DATA) public config: Config,
@@ -72,9 +77,20 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
         private snackBack: MatSnackBar
     ) {
         super();
+
+        this.isLoadingProgress = true;
+        this.loadProgress().subscribe((progress) => {
+            this.isLoadingProgress = false;
+            if (!progress || (!progress.isComplete && !progress.inProgress)) {
+                this.initialize();
+            }
+        });
     }
 
-    public ngOnInit(): void {
+    public initialize(): void {
+        if (this.isInitialized) return;
+        this.isInitialized = true;
+
         this.isLoadingWorkspaces = true;
         this.oikos
             .getWorkspaces()
@@ -138,6 +154,27 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
             });
     }
 
+    public reloadProgress() {
+        this.isReloadingProgress = true;
+        this.loadProgress().subscribe(() => {
+            this.isReloadingProgress = false;
+        });
+    }
+
+    public loadProgress(): Observable<ProgressDto> {
+        return this.oikos.getProgress(this.config.document.id).pipe(
+            tap((result) => {
+                this.progress = result;
+            }),
+            catchError((e) => {
+                this.progress = null;
+                this.isLoadingProgress = false;
+                this.isReloadingProgress = false;
+                return of(e);
+            })
+        );
+    }
+
     public migrate(): void {
         const value = this.form.value;
         this.isMigrating = true;
@@ -158,13 +195,15 @@ export class MigrateStreamDialogComponent extends Unsubscribable implements OnIn
                         activities,
                     })
                 ),
-                finalize(() => {
+                tap(() => {
                     this.isMigrating = false;
                 }),
+                switchMap(() => this.loadProgress()),
                 catchError((error) => {
-                    console.log(error);
-                    if (error.error === 'DuplicateKey') {
+                    if (error.error && error.error.detail === 'MigrationComplete') {
                         this.snackBack.open('Data has already been migrated', 'Ok');
+                    } else if (error.error && error.error.detail === 'MigrationInProgress') {
+                        this.snackBack.open('Data migration already in progress', 'Ok');
                     } else {
                         this.snackBack.open('Error Migrating', 'Ok');
                     }
