@@ -30,6 +30,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 interface Config {
     document: DocumentDto;
     template: GMTemplate;
+    rootNodeId: string;
     loadNodes: () => Observable<NodeDto[]>;
 }
 
@@ -162,7 +163,7 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
     }
 
     public loadProgress(): Observable<ProgressDto> {
-        return this.oikos.getProgress(this.config.document.id).pipe(
+        return this.oikos.getProgress(this.config.rootNodeId).pipe(
             tap((result) => {
                 this.progress = result;
             }),
@@ -190,7 +191,7 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
                         teamId: value.team,
                         templateId: value.template,
                         importName: this.config.document.title,
-                        importId: this.config.document.id,
+                        importId: this.config.rootNodeId,
                         source: 'npl-genmapper',
                         activities,
                     })

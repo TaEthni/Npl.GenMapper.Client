@@ -93,14 +93,18 @@ export class MenuButtonComponent extends Unsubscribable implements OnInit {
     }
 
     public migrate(): void {
-        this.dialog.open(
-            MigrateStreamDialogComponent,
-            MigrateStreamDialogComponent.configure({
-                template: this.template,
-                document: this.document,
-                loadNodes: () => this.genMapper.refreshDocumentNodes().pipe(switchMap(() => this.genMapper.nodes$)),
-            })
-        );
+        this.genMapper.nodes$.pipe(take(1)).subscribe((nodes) => {
+            const root = nodes.find((x) => x.isRoot);
+            this.dialog.open(
+                MigrateStreamDialogComponent,
+                MigrateStreamDialogComponent.configure({
+                    template: this.template,
+                    document: this.document,
+                    rootNodeId: root.id,
+                    loadNodes: () => this.genMapper.refreshDocumentNodes().pipe(switchMap(() => this.genMapper.nodes$)),
+                })
+            );
+        });
     }
 
     private _deleteDocument(): void {
