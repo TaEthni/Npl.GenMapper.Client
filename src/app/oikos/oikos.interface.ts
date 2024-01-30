@@ -37,12 +37,8 @@ export interface MigrateDto {
 }
 
 export interface ActivityCreateDto {
-    id: string;
     externalId: string;
     externalParentId: string;
-    teamId: string;
-    templateId: string;
-    parentActivityId?: string | null;
     point: ActivityPoint;
     answers: AnswerCreateDto[];
 }

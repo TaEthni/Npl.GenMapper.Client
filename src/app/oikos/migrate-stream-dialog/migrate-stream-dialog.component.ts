@@ -218,21 +218,15 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
     }
 
     private createActivities(nodes: NodeDto[], gmTemplate: GMTemplate, teamId: string, templateId: string) {
-        const newIds: Dictionary<string> = {};
         const observers: Observable<any>[] = [];
 
         const activities: ActivityCreateDto[] = [];
-        nodes.forEach((node) => (newIds[node.id] = uuid()));
 
         console.log(nodes);
         nodes.forEach((node) => {
             const activity: ActivityCreateDto = {
-                id: newIds[node.id],
                 externalId: node.id,
                 externalParentId: node.parentId,
-                teamId,
-                templateId,
-                parentActivityId: newIds[node.parentId],
                 point: new ActivityPoint(),
                 answers: [],
             };
