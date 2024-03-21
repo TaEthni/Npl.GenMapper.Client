@@ -30,7 +30,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
         },
         {
             id: 'id',
-            canModify: false
+            canModify: false,
         },
         {
             id: 'parentId',
@@ -56,6 +56,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             valueType: ValueType.boolean,
             controlOrder: 2,
             canModify: true,
+            oikosQuestionId: 'b9944e25-2b41-4005-81f6-82b1f8b33c9d',
             // svg defined currently in genmapper.js
         },
         {
@@ -74,7 +75,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
             canModify: true,
-            iconRef: 'elementGospelIcon'
+            iconRef: 'elementGospelIcon',
+            oikosQuestionId: '91b6158a-7dcf-4909-bb52-cecdecf3d7a1',
         },
         {
             id: 'elementRepent',
@@ -83,7 +85,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
             canModify: true,
-            iconRef: 'elementRepentIcon'
+            iconRef: 'elementRepentIcon',
+            oikosQuestionId: '5c323982-27c0-43ac-80e7-6b1b14ecd002',
         },
         {
             id: 'elementBaptism',
@@ -92,7 +95,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
             canModify: true,
-            iconRef: 'elementBaptismIcon'
+            iconRef: 'elementBaptismIcon',
+            oikosQuestionId: '1954e321-3bb4-4a4f-bde8-d9872c59e7e9',
         },
         {
             id: 'elementHolySpirit',
@@ -101,7 +105,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
             canModify: true,
-            iconRef: 'elementHolySpiritIcon'
+            iconRef: 'elementHolySpiritIcon',
+            oikosQuestionId: '27f9036b-5264-4852-a22b-46fac00ea844',
         },
         {
             id: 'elementWord',
@@ -111,6 +116,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementWordIcon',
+            oikosQuestionId: '8d6e062b-6992-4011-a65b-83a05d33a5fb',
         },
         {
             id: 'elementLove',
@@ -120,6 +126,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementLoveIcon',
+            oikosQuestionId: '7b3e7f8b-82a2-4391-a6cd-6aa9c7f96eb7',
         },
         {
             id: 'elementLordsSupper',
@@ -129,6 +136,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementLordsSupperIcon',
+            oikosQuestionId: '49efc94a-4f5f-49b0-aeec-769a3e11551a',
         },
         {
             id: 'elementPrayer',
@@ -138,6 +146,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementPrayerIcon',
+            oikosQuestionId: 'a3e2856a-c620-42c5-8440-c4fa1d6d1ea3',
         },
         {
             id: 'elementSignsWonders',
@@ -146,7 +155,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
             canModify: true,
-            iconRef: 'elementSignsWondersIcon'
+            iconRef: 'elementSignsWondersIcon',
+            oikosQuestionId: '2e6e7015-c32d-4716-8f86-9ca95461e2cc',
         },
         {
             id: 'elementGive',
@@ -156,6 +166,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementGiveIcon',
+            oikosQuestionId: 'b6689fcd-d9a9-4ec6-b6ee-b0818b70a5a1',
         },
         {
             id: 'elementWorship',
@@ -165,6 +176,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             valueType: ValueType.boolean,
             canModify: true,
             iconRef: 'elementWorshipIcon',
+            oikosQuestionId: '16f6279a-28c7-4714-a50f-3d4e7d4f8f53',
         },
         {
             id: 'elementMakeDisciples',
@@ -173,7 +185,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
             canModify: true,
-            iconRef: 'elementMakeDisciplesIcon'
+            iconRef: 'elementMakeDisciplesIcon',
+            oikosQuestionId: 'd12ec56a-33ae-460c-8d48-aaea1b991b64',
         },
         {
             id: 'attenders',
@@ -200,7 +213,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             // type: ControlType.number,
             valueType: ValueType.number,
             canModify: true,
-            iconRef: 'elementBaptismIcon'
+            iconRef: 'elementBaptismIcon',
         },
         {
             id: 'newlyBaptized',
@@ -217,6 +230,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             useValueFromFieldId: 'attenders',
             iconRef: 'attendersIcon',
             canModify: false,
+            oikosQuestionGroupId: 'dfa0b1ff-1c81-4e70-a538-08d9488a1812',
             fields: [
                 {
                     id: 'attenders',
@@ -226,6 +240,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     valueType: ValueType.number,
                     canModify: true,
                     iconRef: 'attendersIcon',
+                    oikosQuestionId: 'def9c593-79da-491d-fcf8-08d9488a716b',
+                    oikosQuestionGroupId: 'dfa0b1ff-1c81-4e70-a538-08d9488a1812',
                 },
                 {
                     id: 'believers',
@@ -237,7 +253,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     iconRef: 'believersIcon',
                     validation: {
                         maxFieldRef: 'attenders',
-                    }
+                    },
+                    oikosQuestionId: 'ef0e20ac-7b36-4629-fcf9-08d9488a716b',
+                    oikosQuestionGroupId: 'dfa0b1ff-1c81-4e70-a538-08d9488a1812',
                 },
                 {
                     id: 'baptized',
@@ -249,7 +267,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     iconRef: 'elementBaptismIcon',
                     validation: {
                         maxFieldRef: 'believers',
-                    }
+                    },
+                    oikosQuestionId: '67b7513a-b241-4a85-fcfa-08d9488a716b',
+                    oikosQuestionGroupId: 'dfa0b1ff-1c81-4e70-a538-08d9488a1812',
                 },
                 {
                     id: 'newlyBaptized',
@@ -261,9 +281,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     iconRef: 'elementBaptismIcon',
                     validation: {
                         maxFieldRef: 'baptized',
-                    }
-                }
-            ]
+                    },
+                },
+            ],
         },
         {
             id: 'gospelShares',
@@ -282,6 +302,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             canModify: true,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 1,
+            oikosQuestionId: 'a3aa4a89-2585-49b1-a362-8067691914c5',
         },
         {
             id: 'leaderName',
@@ -292,6 +313,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 2,
             canModify: true,
+            oikosQuestionId: 'e21414fe-4016-4c43-a59f-62177a9086f8',
+            oikosQuestionGroupId: '14fb7af0-ca80-453f-b39c-324ebdf090c9',
         },
         {
             id: 'email',
@@ -312,6 +335,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             canModify: true,
             isNodeSvgLabel: true,
             nodeSvgLabelOrder: 3,
+            oikosQuestionId: '5880a7d6-4277-46be-bbb7-7c907d38f1dd',
         },
         {
             id: 'date',
@@ -326,7 +350,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             i18nRef: 'Common_Country',
             type: ControlType.countrySelector,
             valueType: ValueType.string,
-            canModify: true
+            canModify: true,
         },
         {
             id: 'place',
@@ -377,6 +401,7 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.checkbox,
             valueType: ValueType.boolean,
             canModify: true,
+            oikosQuestionId: 'dc29369f-62a8-4bcb-88e3-8a9057121b08',
             options: [
                 {
                     value: true,
@@ -384,8 +409,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                 },
                 {
                     value: false,
-                    svgRefClass: 'is-not-church'
-                }
+                    svgRefClass: 'is-not-church',
+                },
             ],
         },
         {
@@ -407,8 +432,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                 {
                     value: 'newBelievers',
                     i18nRef: 'ChurchType_NewBelievers',
-                }
-            ]
+                },
+            ],
         },
         {
             id: 'threeThirds',
@@ -419,32 +444,32 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             canModify: true,
             options: [
                 {
-                    value: "1",
-                    i18nRef: 'ThreeThirds_PastoralCare'
+                    value: '1',
+                    i18nRef: 'ThreeThirds_PastoralCare',
                 },
                 {
-                    value: "2",
-                    i18nRef: 'ThreeThirds_Worship'
+                    value: '2',
+                    i18nRef: 'ThreeThirds_Worship',
                 },
                 {
-                    value: "3",
-                    i18nRef: 'ThreeThirds_Accountability'
+                    value: '3',
+                    i18nRef: 'ThreeThirds_Accountability',
                 },
                 {
-                    value: "4",
-                    i18nRef: 'ThreeThirds_VisionCasting'
+                    value: '4',
+                    i18nRef: 'ThreeThirds_VisionCasting',
                 },
                 {
-                    value: "5",
-                    i18nRef: 'ThreeThirds_BibleTeaching'
+                    value: '5',
+                    i18nRef: 'ThreeThirds_BibleTeaching',
                 },
                 {
-                    value: "6",
-                    i18nRef: 'ThreeThirds_Practice'
+                    value: '6',
+                    i18nRef: 'ThreeThirds_Practice',
                 },
                 {
-                    value: "7",
-                    i18nRef: 'ThreeThirds_GoalSetting'
+                    value: '7',
+                    i18nRef: 'ThreeThirds_GoalSetting',
                 },
             ],
         },
@@ -454,7 +479,8 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             type: ControlType.textarea,
             valueType: ValueType.string,
             canModify: true,
-        }
+            oikosQuestionId: 'bafce19b-5b73-4a44-7bdc-08d94ab5eec8',
+        },
     ],
     svgStates: [
         {
@@ -465,60 +491,60 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            'stroke-dasharray': '0'
-                        }
-                    }
+                            'stroke-dasharray': '0',
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'church',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            'stroke-dasharray': '7,7'
-                        }
-                    }
+                            'stroke-dasharray': '7,7',
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'churchType',
                     fieldRefValue: 'legacy',
                     svg: {
                         attributes: {
-                            'rx': 0
+                            rx: 0,
                         },
                         style: {
-                            'stroke': 'green',
-                            'stroke-width': 4
-                        }
-                    }
+                            stroke: 'green',
+                            'stroke-width': 4,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'churchType',
                     fieldRefValue: 'existingBelievers',
                     svg: {
                         attributes: {
-                            'rx': 0
-                        }
-                    }
+                            rx: 0,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'active',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            'stroke-opacity': 0.2
-                        }
-                    }
+                            'stroke-opacity': 0.2,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'active',
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            'stroke-opacity': 1
-                        }
-                    }
-                }
-            ]
+                            'stroke-opacity': 1,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'topIcon1',
@@ -530,11 +556,11 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.4
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.4,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'topIcon2',
@@ -546,11 +572,11 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.4
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.4,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'topIcon3',
@@ -562,11 +588,11 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.4
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.4,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'topNumber1',
@@ -574,9 +600,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             states: [
                 {
                     fieldRefId: 'attenders',
-                    setText: true
-                }
-            ]
+                    setText: true,
+                },
+            ],
         },
         {
             selector: 'topNumber2',
@@ -584,9 +610,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             states: [
                 {
                     fieldRefId: 'believers',
-                    setText: true
-                }
-            ]
+                    setText: true,
+                },
+            ],
         },
         {
             selector: 'topNumber3',
@@ -594,9 +620,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             states: [
                 {
                     fieldRefId: 'baptized',
-                    setText: true
-                }
-            ]
+                    setText: true,
+                },
+            ],
         },
         {
             selector: 'topNumber4',
@@ -604,9 +630,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             states: [
                 {
                     fieldRefId: 'newlyBaptized',
-                    setText: true
-                }
-            ]
+                    setText: true,
+                },
+            ],
         },
         {
             selector: 'leftText1',
@@ -614,9 +640,9 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
             states: [
                 {
                     fieldRefId: 'threeThirds',
-                    setText: true
-                }
-            ]
+                    setText: true,
+                },
+            ],
         },
         {
             selector: 'icon1',
@@ -628,20 +654,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementGospel',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon2',
@@ -653,20 +679,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementRepent',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon3',
@@ -678,20 +704,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementBaptism',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon4',
@@ -703,20 +729,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementHolySpirit',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon5',
@@ -728,20 +754,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementWord',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon6',
@@ -753,20 +779,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementLove',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon7',
@@ -778,20 +804,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementLordsSupper',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon8',
@@ -803,20 +829,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementPrayer',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon9',
@@ -828,20 +854,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementSignsWonders',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon10',
@@ -853,20 +879,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementGive',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon11',
@@ -878,20 +904,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementWorship',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
         },
         {
             selector: 'icon12',
@@ -903,20 +929,20 @@ export const ChurchCircles12Configuration: TemplateConfiguration = {
                     fieldRefValue: true,
                     svg: {
                         style: {
-                            opacity: 1
-                        }
-                    }
+                            opacity: 1,
+                        },
+                    },
                 },
                 {
                     fieldRefId: 'elementMakeDisciples',
                     fieldRefValue: false,
                     svg: {
                         style: {
-                            opacity: 0.2
-                        }
-                    }
-                }
-            ]
-        }
+                            opacity: 0.2,
+                        },
+                    },
+                },
+            ],
+        },
     ],
-}
+};
