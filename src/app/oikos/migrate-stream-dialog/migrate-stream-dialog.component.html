@@ -1,7 +1,14 @@
 <div mat-dialog-title>Migrate to GAPP</div>
 
 <div mat-dialog-content>
-    <ng-container *ngIf="isLoadingProgress; then loadingProgress; else progressLoaded"></ng-container>
+    <ng-container *ngIf="maintenance; then maintenanceTemplate; else activeTemplate"></ng-container>
+
+    <ng-template #maintenanceTemplate>
+        <p>GAPP migrations has been temporaily disabled. Please try again later.</p>
+    </ng-template>
+    <ng-template #activeTemplate>
+        <ng-container *ngIf="isLoadingProgress; then loadingProgress; else progressLoaded"></ng-container>
+    </ng-template>
 
     <ng-template #progressLoaded>
         <ng-container
@@ -152,6 +159,14 @@
     </ng-container>
 
     <div fxFlex></div>
+
+    <ng-container *ngIf="maintenance">
+        <button
+            mat-button
+            mat-dialog-close>
+            CLOSE
+        </button>
+    </ng-container>
 
     <ng-container *ngIf="!migrationSent">
         <button

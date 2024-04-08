@@ -46,6 +46,8 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
         };
     }
 
+    public maintenance: boolean = true;
+
     public form = new FormGroup({
         workspace: new FormControl(),
         team: new FormControl(),
@@ -79,13 +81,15 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
     ) {
         super();
 
-        this.isLoadingProgress = true;
-        this.loadProgress().subscribe((progress) => {
-            this.isLoadingProgress = false;
-            if (!progress || (!progress.isComplete && !progress.inProgress)) {
-                this.initialize();
-            }
-        });
+        if (!this.maintenance) {
+            this.isLoadingProgress = true;
+            this.loadProgress().subscribe((progress) => {
+                this.isLoadingProgress = false;
+                if (!progress || (!progress.isComplete && !progress.inProgress)) {
+                    this.initialize();
+                }
+            });
+        }
     }
 
     public initialize(): void {
@@ -222,7 +226,6 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
 
         const activities: ActivityCreateDto[] = [];
 
-        console.log(nodes);
         nodes.forEach((node) => {
             const activity: ActivityCreateDto = {
                 externalId: node.id,
