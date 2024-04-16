@@ -100,3 +100,5 @@ export class AnswerValue {
 export const LANGUAGE_QUESION_ID = 'bc400786-25ca-431d-fcfb-08d9488a716b';
 export const ETHNE_QUESION_ID = 'e191e5c5-1cdd-4663-fcfe-08d9488a716b';
 export const RELIGION_QUESION_ID = '58d776d5-dd75-4028-7bd4-08d94ab5eec8';
+export const GL_PG_SOURCE_ID_QUESTION_ID = '3a408cd7-8119-4cb2-b632-e1b820057cc0';
+export const GL_PG_SOURCE_QUESTION_ID = 'a055d988-b2b7-4b90-8f87-e507696d7dd0';
