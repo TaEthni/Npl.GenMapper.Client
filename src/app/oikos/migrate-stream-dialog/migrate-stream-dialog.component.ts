@@ -7,6 +7,8 @@ import {
     AnswerCreateDto,
     AnswerValue,
     ETHNE_QUESION_ID,
+    GL_PG_SOURCE_ID_QUESTION_ID,
+    GL_PG_SOURCE_QUESTION_ID,
     LANGUAGE_QUESION_ID,
     ProgressDto,
     RELIGION_QUESION_ID,
@@ -46,7 +48,7 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
         };
     }
 
-    public maintenance: boolean = true;
+    public maintenance: boolean = false;
 
     public form = new FormGroup({
         workspace: new FormControl(),
@@ -367,48 +369,72 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
         sequence: number,
         observers: Observable<any>[]
     ) {
-        const ethne: AnswerCreateDto = {
-            questionId: ETHNE_QUESION_ID,
-            questionGroupId: questionGroupId,
-            questionSequence: 0,
-            questionGroupSequence: sequence,
-            value: new AnswerValue({ number: -1 }),
-            valueType: ValueType.number,
-            controlType: 'ethneSelect' as ControlType,
-        };
-
-        const language: AnswerCreateDto = {
-            questionId: LANGUAGE_QUESION_ID,
-            questionGroupId: questionGroupId,
-            questionSequence: 0,
-            questionGroupSequence: sequence,
-            value: new AnswerValue({ string: 'unknown' }),
-            valueType: ValueType.string,
-            controlType: 'languageSelect' as ControlType,
-        };
-
-        const religion: AnswerCreateDto = {
-            questionId: RELIGION_QUESION_ID,
-            questionGroupId: questionGroupId,
-            questionSequence: 0,
-            questionGroupSequence: sequence,
-            value: new AnswerValue({ string: 'unknown' }),
-            valueType: ValueType.string,
-            controlType: 'religionSelect' as ControlType,
-        };
-
-        activity.answers.push(ethne, language, religion);
-
         if (identifier && identifier > 0) {
-            observers.push(
-                this.peopleGroups.query(identifier).pipe(
-                    map((result) => {
-                        language.value.string = result.languageCode || language.value.string;
-                        ethne.value.number = result.ethneId || ethne.value.number;
-                        return result;
-                    })
-                )
-            );
+            const source: AnswerCreateDto = {
+                questionId: GL_PG_SOURCE_QUESTION_ID,
+                questionGroupId: questionGroupId,
+                questionSequence: 0,
+                questionGroupSequence: sequence,
+                value: new AnswerValue({ string: 'peid' }),
+                valueType: ValueType.string,
+                controlType: 'textInput' as ControlType,
+            };
+
+            const id: AnswerCreateDto = {
+                questionId: GL_PG_SOURCE_ID_QUESTION_ID,
+                questionGroupId: questionGroupId,
+                questionSequence: 0,
+                questionGroupSequence: sequence,
+                value: new AnswerValue({ string: identifier.toString() }),
+                valueType: ValueType.string,
+                controlType: 'textInput' as ControlType,
+            };
+
+            activity.answers.push(source, id);
+        } else {
+            const ethne: AnswerCreateDto = {
+                questionId: ETHNE_QUESION_ID,
+                questionGroupId: questionGroupId,
+                questionSequence: 0,
+                questionGroupSequence: sequence,
+                value: new AnswerValue({ number: -1 }),
+                valueType: ValueType.number,
+                controlType: 'ethneSelect' as ControlType,
+            };
+
+            const language: AnswerCreateDto = {
+                questionId: LANGUAGE_QUESION_ID,
+                questionGroupId: questionGroupId,
+                questionSequence: 0,
+                questionGroupSequence: sequence,
+                value: new AnswerValue({ string: 'unknown' }),
+                valueType: ValueType.string,
+                controlType: 'languageSelect' as ControlType,
+            };
+
+            const religion: AnswerCreateDto = {
+                questionId: RELIGION_QUESION_ID,
+                questionGroupId: questionGroupId,
+                questionSequence: 0,
+                questionGroupSequence: sequence,
+                value: new AnswerValue({ string: 'unknown' }),
+                valueType: ValueType.string,
+                controlType: 'religionSelect' as ControlType,
+            };
+
+            activity.answers.push(ethne, language, religion);
         }
+
+        // if (identifier && identifier > 0) {
+        //     observers.push(
+        //         this.peopleGroups.query(identifier).pipe(
+        //             map((result) => {
+        //                 language.value.string = result.languageCode || language.value.string;
+        //                 ethne.value.number = result.ethneId || ethne.value.number;
+        //                 return result;
+        //             })
+        //         )
+        //     );
+        // }
     }
 }
