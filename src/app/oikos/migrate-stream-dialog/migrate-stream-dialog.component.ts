@@ -18,7 +18,18 @@ import {
 } from '../oikos.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
-import { catchError, combineAll, filter, finalize, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import {
+    catchError,
+    combineAll,
+    debounceTime,
+    filter,
+    finalize,
+    map,
+    switchMap,
+    take,
+    takeUntil,
+    tap,
+} from 'rxjs/operators';
 import { Dictionary, sortBy } from 'lodash';
 import { DocumentDto, NodeDto } from '@npl-data-access';
 import { ControlType, GMTemplate, ValueType } from '@npl-template';
@@ -28,12 +39,18 @@ import { GeocoderService } from '@npl-shared/geocoder.service';
 import { Observable, combineLatest, of, throwError } from 'rxjs';
 import { PeopleGroupService } from '../people-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 interface Config {
     document: DocumentDto;
     template: GMTemplate;
     rootNodeId: string;
     loadNodes: () => Observable<NodeDto[]>;
+}
+
+enum ChipType {
+    Team = 'Team',
+    Church = 'Church',
 }
 
 @Component({
@@ -50,6 +67,8 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
 
     public maintenance: boolean = false;
 
+    public autoCompleteControl = new FormControl();
+    public chipControl = new FormControl(ChipType.Team);
     public form = new FormGroup({
         workspace: new FormControl(),
         team: new FormControl(),
@@ -59,7 +78,7 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
     public workspaces: Workspace[];
     public teams: Team[];
     public templates: TeamTemplate[];
-
+    public chipType = ChipType;
     public isReloadingProgress: boolean;
     public isLoadingProgress: boolean;
     public isLoadingWorkspaces: boolean;
@@ -70,6 +89,10 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
     public migrationSent: boolean;
     public progress: ProgressDto;
     public isInitialized: boolean;
+    public initialTeams: Team[];
+    public initialChurches: Team[];
+    public isQueryingTeams: boolean;
+    public isLoadingTemplates: boolean;
 
     public constructor(
         @Inject(MAT_DIALOG_DATA) public config: Config,
@@ -121,44 +144,51 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
                 }),
                 filter((x) => !!x),
                 tap(() => {
-                    this.isLoadingTeams = true;
-                    this.isLoadingTeamsComplete = false;
+                    this.initialTeams = null;
+                    this.initialChurches = null;
+                    this.teams = [];
+
+                    this.queryTeams();
                 }),
-                switchMap((workspaceId) =>
-                    this.oikos.getTeamsByWorkspaceId(workspaceId).pipe(
-                        finalize(() => {
-                            this.isLoadingTeams = false;
-                            this.isLoadingTeamsComplete = true;
-                        })
-                    )
-                ),
                 takeUntil(this.unsubscribe)
             )
-            .subscribe((teams) => {
-                this.teams = sortBy(teams, (x) => x.name);
-            });
+            .subscribe();
 
         this.form
             .get('team')
             ?.valueChanges.pipe(
                 filter((x) => !!x),
+                tap(() => {
+                    this.isLoadingTemplates = true;
+                }),
+                switchMap((teamId) => this.oikos.getTeamTemplates(teamId)),
                 takeUntil(this.unsubscribe)
             )
-            .subscribe((teamId) => {
+            .subscribe((templates) => {
                 this.form.patchValue({ template: null });
-                this.templates = [];
+                this.templates = templates;
 
-                const team = this.teams.find((x) => x.id == teamId);
-                const templates = team.templates;
-
-                if (templates.length == 1) {
+                if (templates.length === 1) {
                     this.form.patchValue({ template: templates[0].templateId });
-                } else {
-                    this.templates = templates;
                 }
 
-                console.log(this.templates);
+                this.isLoadingTemplates = false;
             });
+
+        this.autoCompleteControl.valueChanges
+            .pipe(
+                debounceTime(300),
+                filter((x) => typeof x === 'string'),
+                takeUntil(this.unsubscribe)
+            )
+            .subscribe((search) => {
+                this.queryTeams();
+            });
+
+        this.chipControl.valueChanges.pipe(debounceTime(300), takeUntil(this.unsubscribe)).subscribe((search) => {
+            this.form.patchValue({ team: null, template: null });
+            this.queryTeams();
+        });
     }
 
     public reloadProgress() {
@@ -181,6 +211,15 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
             })
         );
     }
+
+    public teamSelected(event: MatAutocompleteSelectedEvent) {
+        const value = event.option.value as Team;
+        this.form.patchValue({ team: value.id });
+    }
+
+    public displayWith = (team?: Team) => {
+        return team?.name;
+    };
 
     public migrate(): void {
         const value = this.form.value;
@@ -436,5 +475,43 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
         //         )
         //     );
         // }
+    }
+
+    private queryTeams(): void {
+        let search = this.autoCompleteControl.value;
+        let isSearchString = typeof search === 'string';
+
+        if (search === '' || !isSearchString) {
+            if (this.chipControl.value === ChipType.Church && this.initialChurches) {
+                this.teams = this.initialChurches;
+            }
+            if (this.chipControl.value === ChipType.Team && this.initialTeams) {
+                this.teams = this.initialTeams;
+            }
+        }
+
+        this.isLoadingTeams = true;
+        this.isLoadingTeamsComplete = false;
+        this.oikos
+            .queryTeams({
+                workspaceId: this.form.get('workspace')?.value,
+                search: isSearchString ? search : search && search.name ? search.name : '',
+                pageNumber: 0,
+                pageSize: 50,
+                isChurchTeam: this.chipControl.value === ChipType.Church,
+                withPermission: 'TeamTeams_Create',
+            })
+            .subscribe((teams) => {
+                if (this.chipControl.value === ChipType.Church && !this.initialChurches) {
+                    this.initialChurches = teams;
+                }
+                if (this.chipControl.value === ChipType.Team && !this.initialTeams) {
+                    this.initialTeams = teams;
+                }
+
+                this.teams = teams;
+                this.isLoadingTeams = false;
+                this.isLoadingTeamsComplete = true;
+            });
     }
 }
