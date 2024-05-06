@@ -1,4 +1,5 @@
 import { ControlType, ValueType } from '@npl-template';
+import { Dictionary } from 'lodash';
 
 export interface ProgressDto {
     inProgress: boolean;
@@ -17,7 +18,6 @@ export interface Workspace {
 export interface Team {
     name: string;
     id: string;
-    templates: TeamTemplate[];
 }
 
 export interface TeamTemplate {
@@ -102,3 +102,20 @@ export const ETHNE_QUESION_ID = 'e191e5c5-1cdd-4663-fcfe-08d9488a716b';
 export const RELIGION_QUESION_ID = '58d776d5-dd75-4028-7bd4-08d94ab5eec8';
 export const GL_PG_SOURCE_ID_QUESTION_ID = '3a408cd7-8119-4cb2-b632-e1b820057cc0';
 export const GL_PG_SOURCE_QUESTION_ID = 'a055d988-b2b7-4b90-8f87-e507696d7dd0';
+
+export interface QueryBase extends Dictionary<any> {
+    search?: string;
+    pageNumber: number;
+    pageSize: number;
+    sortBy?: string;
+    sortDirection?: string;
+}
+
+export interface TeamQuery extends QueryBase {
+    workspaceId: string;
+    teamId?: string;
+    churchesOnly?: boolean;
+    teamsOnly?: boolean;
+    searchAdvanced?: boolean;
+    withPermission?: string;
+}

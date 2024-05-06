@@ -5,9 +5,20 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MaterialModule } from '@npl-shared/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
     declarations: [MigrateStreamDialogComponent],
-    imports: [CommonModule, FlexLayoutModule, ReactiveFormsModule, MaterialModule],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        MatChipsModule,
+    ],
 })
 export class OikosModule {}
