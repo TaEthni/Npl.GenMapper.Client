@@ -1,93 +1,96 @@
 <div mat-dialog-title>
-    <ng-container *ngIf="data.isFeedback; then feedbackTemp else helpTemp"></ng-container>
+    <ng-container *ngIf="data.isFeedback; then feedbackTemp; else helpTemp"></ng-container>
     <ng-template #feedbackTemp>
-        {{'Common_SendFeedback' | translate}}
+        {{ 'Common_SendFeedback' | translate }}
     </ng-template>
     <ng-template #helpTemp>
-        {{'Common_NeedHelp' | translate}}
+        {{ 'Common_NeedHelp' | translate }}
     </ng-template>
 </div>
 <div mat-dialog-content>
-
-    <form fxLayout="column"
-          fxLayoutGap="24px"
-          [formGroup]="form">
-
+    <form
+        fxLayout="column"
+        fxLayoutGap="24px"
+        [formGroup]="form">
         <ng-container *ngIf="!data.authenticated">
             <mat-form-field>
                 <mat-label>
-                    {{'Common_Name' | translate}}
+                    {{ 'Common_Name' | translate }}
                 </mat-label>
-                <input matInput
-                       formControlName="name" />
+                <input
+                    matInput
+                    formControlName="name" />
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>
-                    {{'Common_Email' | translate}}
+                    {{ 'Common_Email' | translate }}
                 </mat-label>
-                <input matInput
-                       required
-                       formControlName="email" />
+                <input
+                    matInput
+                    required
+                    formControlName="email" />
 
                 <mat-error *ngIf="form.controls.email.errors?.pattern">
-                    {{'Error_emailFormat' | translate}}
+                    {{ 'Error_emailFormat' | translate }}
                 </mat-error>
 
                 <mat-error *ngIf="form.controls.email.errors?.required">
-                    {{'Error_requiredField' | translate}}
+                    {{ 'Error_requiredField' | translate }}
                 </mat-error>
             </mat-form-field>
         </ng-container>
 
         <mat-form-field>
-            <textarea matInput
-                      required
-                      formControlName="content"
-                      placeholder="{{data.isFeedback ? 'Feedback' : 'How can we help you?'}}"
-                      cdkTextareaAutosize
-                      cdkAutosizeMinRows="2"
-                      cdkAutosizeMaxRows="30"></textarea>
+            <textarea
+                matInput
+                required
+                formControlName="content"
+                placeholder="{{ data.isFeedback ? 'Feedback' : 'How can we help you?' }}"
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="30"></textarea>
 
             <mat-error *ngIf="form.controls.content.errors?.required">
-                {{'Error_requiredField' | translate}}
+                {{ 'Error_requiredField' | translate }}
             </mat-error>
         </mat-form-field>
     </form>
 
-    <p>
-        {{'Message_orSendEmailTo' | translate}}:
-    </p>
-    <ng-container *ngIf="data.isFeedback; then feedbackEmail else supportEmail"></ng-container>
+    <p>{{ 'Message_orSendEmailTo' | translate }}:</p>
+    <ng-container *ngIf="data.isFeedback; then feedbackEmail; else supportEmail"></ng-container>
 
     <ng-template #feedbackEmail>
         <pre><code>feedback@noplaceleft.tools</code></pre>
     </ng-template>
 
     <ng-template #supportEmail>
-        <pre><code>support@noplaceleft.tools</code></pre>
+        <pre><code>service-desk@taethni.com</code></pre>
     </ng-template>
 </div>
 
-<div mat-dialog-actions
-     fxLayoutAlign="end"
-     fxLayoutGap="25px">
-
-    <button mat-raised-button
-            class="mat-spinner-button"
-            color="primary"
-            type="button"
-            (click)="onSubmit()">
+<div
+    mat-dialog-actions
+    fxLayoutAlign="end"
+    fxLayoutGap="25px">
+    <button
+        mat-raised-button
+        class="mat-spinner-button"
+        color="primary"
+        type="button"
+        (click)="onSubmit()">
         <div>
-            {{'Common_Send' | translate}}
+            {{ 'Common_Send' | translate }}
         </div>
-        <mat-spinner *ngIf="isLoading"
-                     diameter="24"></mat-spinner>
+        <mat-spinner
+            *ngIf="isLoading"
+            diameter="24"></mat-spinner>
     </button>
 
-    <button mat-button
-            color="primary"
-            mat-dialog-close>
-        {{'Common_Cancel' | translate}}
+    <button
+        mat-button
+        color="primary"
+        mat-dialog-close>
+        {{ 'Common_Cancel' | translate }}
     </button>
 </div>
