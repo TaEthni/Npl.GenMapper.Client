@@ -144,7 +144,7 @@ export class LocationMapDialogComponent implements AfterViewInit, OnDestroy {
             view: this.view,
             useHeadingEnabled: false,
             goToLocationEnabled: true
-        });
+        } as any);
         locate.on('locate', (locateEvent: any) => {
             const position = locateEvent.position;
             this.zoom = this.zoom;

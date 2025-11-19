@@ -199,12 +199,12 @@ const maintenanceRoutes: Routes = [
             // Configuration is for local mode
             // Configuration is for local mode
             // maintenanceRoutes,
-// Configuration is for local mode
-// Configuration is for local mode
-{
-    onSameUrlNavigation: 'reload',
-    paramsInheritanceStrategy: 'always'
-}
+            // Configuration is for local mode
+            // Configuration is for local mode
+            {
+                onSameUrlNavigation: 'reload',
+                paramsInheritanceStrategy: 'always',
+            }
         ),
     ],
     exports: [RouterModule],
