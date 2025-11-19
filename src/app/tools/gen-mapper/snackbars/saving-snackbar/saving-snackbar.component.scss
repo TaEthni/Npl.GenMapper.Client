@@ -1,9 +1,8 @@
 @use '@angular/material' as mat;
-@import '~styles/colors';
+@import 'styles/colors';
 :host {
     h3 {
         color: mat.get-color-from-palette($primary);
         margin: 0 auto 0 0;
     }
 }
-

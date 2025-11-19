@@ -25,22 +25,22 @@
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.app.json",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets",
-                            "src/templates"
-                        ],
-                        "styles": [
-                            "src/styles.scss"
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets", "src/templates"],
+                        "styles": ["src/styles.scss"],
                         "scripts": [],
+                        "stylePreprocessorOptions": {
+                            "includePaths": ["src/styles"]
+                        },
                         "allowedCommonJsDependencies": [
                             "file-saver",
                             "lodash",
                             "moment-timezone",
                             "uuid/v4",
                             "uuid",
-                            "qrcode"
+                            "qrcode",
+                            "luxon",
+                            "rfdc",
+                            "moment"
                         ],
                         "aot": false,
                         "vendorChunk": true,
@@ -143,14 +143,9 @@
                         "main": "src/setupJest.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.spec.json",
-                        "styles": [
-                            "src/styles.scss"
-                        ],
+                        "styles": ["src/styles.scss"],
                         "scripts": [],
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ]
+                        "assets": ["src/favicon.ico", "src/assets"]
                     }
                 }
             }

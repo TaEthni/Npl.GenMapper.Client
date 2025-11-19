@@ -1,4 +1,4 @@
-@import '~styles/colors';
+@import 'styles/colors';
 
 :host::ng-deep {
     display: block;
@@ -13,7 +13,6 @@
     .ngx-charts {
         float: none;
     }
-
 
     svg path {
         stroke: #fff !important;
