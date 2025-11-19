@@ -27,7 +27,7 @@ if (document.referrer) {
     _paq.push(['setReferrerUrl', document.referrer]);
 }
 (function () {
-    var u = "//stats.taethni.com/";
+    var u = "//stats.citygoggles.org/";
     _paq.push(['setRequestMethod', 'POST']);
     _paq.push(['setTrackerUrl', u + 'js/']);
     _paq.push(['setSiteId', '1']);
