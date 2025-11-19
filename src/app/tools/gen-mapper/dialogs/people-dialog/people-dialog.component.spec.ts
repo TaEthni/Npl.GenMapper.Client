@@ -8,8 +8,9 @@ describe('PeopleDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PeopleDialogComponent ]
-    })
+    declarations: [PeopleDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

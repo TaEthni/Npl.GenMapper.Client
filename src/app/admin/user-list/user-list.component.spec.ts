@@ -8,8 +8,9 @@ xdescribe('UserListComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [UserListComponent]
-        })
+    declarations: [UserListComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

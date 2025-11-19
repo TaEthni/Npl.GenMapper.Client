@@ -24,28 +24,29 @@ describe('ChangePasswordFormComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                FormsModule,
-                ReactiveFormsModule,
-                NoopAnimationsModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatButtonModule,
-                MatProgressSpinnerModule,
-                TranslateTestingModule,
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [ChangePasswordFormComponent],
-            providers: [
-                { provide: IdentityService, useClass: IdentityMockService },
-                {
-                    provide: MatSnackBar,
-                    useValue: {
-                        open: jest.fn()
-                    }
-                }
-            ]
-        })
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        TranslateTestingModule,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [ChangePasswordFormComponent],
+    providers: [
+        { provide: IdentityService, useClass: IdentityMockService },
+        {
+            provide: MatSnackBar,
+            useValue: {
+                open: jest.fn()
+            }
+        }
+    ],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

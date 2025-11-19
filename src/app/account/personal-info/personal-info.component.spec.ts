@@ -20,23 +20,24 @@ describe('PersonalInfoComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                ReactiveFormsModule,
-                NoopAnimationsModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatButtonModule,
-                MatProgressSpinnerModule,
-                MatSnackBarModule,
-                TranslateTestingModule,
-                AuthTestingModule
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [PersonalInfoComponent],
-            providers: [
-                { provide: IdentityService, useClass: IdentityMockService }
-            ]
-        })
+    imports: [
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
+        TranslateTestingModule,
+        AuthTestingModule
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [PersonalInfoComponent],
+    providers: [
+        { provide: IdentityService, useClass: IdentityMockService }
+    ],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

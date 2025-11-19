@@ -8,8 +8,9 @@ xdescribe('NavigationComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [NavigationComponent]
-        })
+    declarations: [NavigationComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

@@ -8,8 +8,9 @@ describe('TeamsLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeamsLayoutComponent ]
-    })
+    declarations: [TeamsLayoutComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   });
 

@@ -12,18 +12,17 @@ describe('SecurityComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                FormsModule,
-                ReactiveFormsModule,
-                NoopAnimationsModule,
-                TranslateTestingModule
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [SecurityComponent],
-            providers: [
-
-            ]
-        })
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NoopAnimationsModule,
+        TranslateTestingModule
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [SecurityComponent],
+    providers: [],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -39,7 +39,7 @@ export class TeamMembersComponent extends Unsubscribable implements OnInit {
         this.dataSource.paginator = paginator;
     }
 
-    public readonly search = new FormControl();
+    public readonly search = new UntypedFormControl();
     public readonly displayedColumns = ['name', 'email', 'role', 'created', 'action'];
     public readonly dataSource = new MatTableDataSource<TeamMember>();
     public readonly team$ = this.store.select(TeamSelectors.getSelected);

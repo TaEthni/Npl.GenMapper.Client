@@ -8,8 +8,9 @@ describe('LanguageListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LanguageListComponent ]
-    })
+    declarations: [LanguageListComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

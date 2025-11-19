@@ -8,8 +8,9 @@ describe('InvalidCsvDialogComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [InvalidCsvDialogComponent]
-        })
+    declarations: [InvalidCsvDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

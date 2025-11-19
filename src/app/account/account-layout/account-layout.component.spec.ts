@@ -13,15 +13,16 @@ describe('AccountLayoutComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                TranslateTestingModule,
-                RouterTestingModule,
-                MaterialModule,
-                MatTabsModule,
-                AuthTestingModule
-            ],
-            declarations: [AccountLayoutComponent]
-        })
+    imports: [
+        TranslateTestingModule,
+        RouterTestingModule,
+        MaterialModule,
+        MatTabsModule,
+        AuthTestingModule
+    ],
+    declarations: [AccountLayoutComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

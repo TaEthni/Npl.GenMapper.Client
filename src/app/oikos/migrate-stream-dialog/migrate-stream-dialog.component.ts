@@ -16,7 +16,7 @@ import {
     TeamTemplate,
     Workspace,
 } from '../oikos.interface';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import {
     catchError,
@@ -67,12 +67,12 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
 
     public maintenance: boolean = false;
 
-    public autoCompleteControl = new FormControl();
-    public chipControl = new FormControl(ChipType.Team);
-    public form = new FormGroup({
-        workspace: new FormControl(),
-        team: new FormControl(),
-        template: new FormControl(),
+    public autoCompleteControl = new UntypedFormControl();
+    public chipControl = new UntypedFormControl(ChipType.Team);
+    public form = new UntypedFormGroup({
+        workspace: new UntypedFormControl(),
+        team: new UntypedFormControl(),
+        template: new UntypedFormControl(),
     });
 
     public workspaces: Workspace[];

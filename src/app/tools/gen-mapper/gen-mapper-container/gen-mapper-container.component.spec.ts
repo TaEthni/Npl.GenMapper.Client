@@ -9,8 +9,9 @@ describe.skip('GenMapperContainerComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [GenMapperContainerComponent]
-        });
+    declarations: [GenMapperContainerComponent],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

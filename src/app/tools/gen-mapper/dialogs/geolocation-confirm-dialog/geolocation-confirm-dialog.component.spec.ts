@@ -8,8 +8,9 @@ describe('GeolocationConfirmDialog', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [GeolocationConfirmDialog]
-        })
+    declarations: [GeolocationConfirmDialog],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IdentityError, IdentityService, RegistrationDto } from '@npl-idp';
 import { AlphaNumericPattern } from '@npl-shared/utils';
@@ -42,7 +42,7 @@ export class RegisterComponent {
     public readonly confirmPassword: AbstractControl = this.form.get('confirmPassword')!;
 
     public constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private router: Router,
         private identityService: IdentityService,
         // private translate: TranslateService

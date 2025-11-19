@@ -8,8 +8,9 @@ describe('TranslateComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TranslateComponent ]
-    })
+    declarations: [TranslateComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

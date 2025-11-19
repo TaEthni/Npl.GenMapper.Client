@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -19,7 +19,7 @@ export class FileInputDialogComponent implements OnInit, OnDestroy {
         }
     }
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
@@ -28,9 +28,9 @@ export class FileInputDialogComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        this.form = new FormGroup({
-            title: new FormControl(null),
-            content: new FormControl(null, [Validators.required])
+        this.form = new UntypedFormGroup({
+            title: new UntypedFormControl(null),
+            content: new UntypedFormControl(null, [Validators.required])
         });
     }
 

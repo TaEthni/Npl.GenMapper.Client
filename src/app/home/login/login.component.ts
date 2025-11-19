@@ -1,5 +1,5 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
@@ -11,7 +11,7 @@ import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
 })
 export class LoginComponent implements OnInit, AfterViewChecked {
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public showError: boolean;
     public isLoading: boolean;
 
@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit, AfterViewChecked {
     }
 
     private _createForm(): void {
-        this.form = new FormGroup({
-            email: new FormControl('', ValidationUtils.getDefaultInputValidators(htmlInputTypes.email, true)),
-            password: new FormControl('', [Validators.required])
+        this.form = new UntypedFormGroup({
+            email: new UntypedFormControl('', ValidationUtils.getDefaultInputValidators(htmlInputTypes.email, true)),
+            password: new UntypedFormControl('', [Validators.required])
         });
     }
 }

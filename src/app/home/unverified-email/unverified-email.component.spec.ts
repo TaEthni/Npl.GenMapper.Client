@@ -8,8 +8,9 @@ xdescribe('UnverifiedEmailComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [UnverifiedEmailComponent]
-        })
+    declarations: [UnverifiedEmailComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

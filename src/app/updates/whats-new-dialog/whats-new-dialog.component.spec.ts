@@ -8,8 +8,9 @@ describe('WhatsNewDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WhatsNewDialogComponent ]
-    })
+    declarations: [WhatsNewDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

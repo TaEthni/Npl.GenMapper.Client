@@ -9,8 +9,9 @@ describe.skip('DocumentsSidenavComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [DocumentsSidenavComponent]
-        });
+    declarations: [DocumentsSidenavComponent],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { AuthActions, AuthUser, getUserProfile } from '@npl-auth';
@@ -20,8 +20,8 @@ export class PersonalInfoComponent extends Unsubscribable implements OnInit, OnD
     public isSavingUserName: boolean = false;
     public isSavingEmail: boolean = false;
     public user: AuthUser;
-    public readonly userName = new FormControl(null, [Validators.minLength(4), Validators.pattern(AlphaNumericPattern)]);
-    public readonly email = new FormControl(null, [Validators.email]);
+    public readonly userName = new UntypedFormControl(null, [Validators.minLength(4), Validators.pattern(AlphaNumericPattern)]);
+    public readonly email = new UntypedFormControl(null, [Validators.email]);
 
     public constructor(
         private identityService: IdentityService,

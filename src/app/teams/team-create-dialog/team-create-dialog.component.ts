@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppState, TeamCreateDto, TeamUiActions } from '@npl-data-access';
@@ -11,8 +11,8 @@ import { AppState, TeamCreateDto, TeamUiActions } from '@npl-data-access';
 })
 export class TeamCreateDialogComponent {
 
-    public readonly form = new FormGroup({
-        name: new FormControl(null, [Validators.required])
+    public readonly form = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required])
     });
 
     public isCreating: boolean;

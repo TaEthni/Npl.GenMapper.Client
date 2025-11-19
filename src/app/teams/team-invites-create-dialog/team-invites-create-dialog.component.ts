@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -16,7 +16,7 @@ import { take, takeUntil } from 'rxjs/operators';
 export class TeamInvitesCreateDialogComponent extends Unsubscribable {
 
     public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-    public readonly emailControl = new FormControl(null, [Validators.email]);
+    public readonly emailControl = new UntypedFormControl(null, [Validators.email]);
 
     public get errorState(): boolean {
         return this.emailControl.invalid && this.emailControl.touched && this.emailControl.dirty && !this.emailControl.pristine;

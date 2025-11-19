@@ -8,8 +8,9 @@ xdescribe('EditUserDialogComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [EditUserDialogComponent]
-        })
+    declarations: [EditUserDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

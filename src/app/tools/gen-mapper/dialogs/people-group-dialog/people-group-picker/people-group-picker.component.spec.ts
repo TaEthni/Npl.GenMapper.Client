@@ -9,8 +9,9 @@ describe.skip('PeopleGroupPickerComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [PeopleGroupPickerComponent]
-        });
+    declarations: [PeopleGroupPickerComponent],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

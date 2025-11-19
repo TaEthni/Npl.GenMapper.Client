@@ -8,8 +8,9 @@ describe('SupportDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SupportDialogComponent ]
-    })
+    declarations: [SupportDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

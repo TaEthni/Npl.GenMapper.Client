@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Language, TranslationService } from '../translation.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-translate',
@@ -12,7 +12,7 @@ export class TranslateComponent implements OnInit {
 
     public english: Language;
     public language: Language;
-    public form: FormGroup;
+    public form: UntypedFormGroup;
 
     constructor(
         private route: ActivatedRoute,
@@ -24,12 +24,12 @@ export class TranslateComponent implements OnInit {
         this.language = this.translationService.getLanguage(code);
         this.english = this.english = this.translationService.getLanguage('en');
 
-        this.form = new FormGroup({});
+        this.form = new UntypedFormGroup({});
 
         this.english.keys.forEach(item => {
             const translation = this.language.keys.find(k => k.key === item.key);
             const value = translation ? translation.value : '';
-            this.form.setControl(item.key, new FormControl(value));
+            this.form.setControl(item.key, new UntypedFormControl(value));
         });
     }
 }

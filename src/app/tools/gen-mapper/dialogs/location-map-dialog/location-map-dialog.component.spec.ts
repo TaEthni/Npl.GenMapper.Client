@@ -8,8 +8,9 @@ describe('LocationMapDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LocationMapDialogComponent ]
-    })
+    declarations: [LocationMapDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   });
 

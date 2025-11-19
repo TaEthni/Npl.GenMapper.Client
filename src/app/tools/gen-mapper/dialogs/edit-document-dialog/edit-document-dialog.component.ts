@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { isAuthenticated } from '@npl-auth';
@@ -17,7 +17,7 @@ import { GenMapperService } from '../../gen-mapper.service';
 export class EditDocumentDialogComponent extends Unsubscribable {
 
     public readonly teams$ = this.store.select(TeamSelectors.getEntities);
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public isUpdating: boolean;
     public showTeams: boolean;
 
@@ -36,11 +36,11 @@ export class EditDocumentDialogComponent extends Unsubscribable {
                 this.showTeams = authenticated;
             });
 
-        this.form = new FormGroup({
-            title: new FormControl(this.data.document.title,
+        this.form = new UntypedFormGroup({
+            title: new UntypedFormControl(this.data.document.title,
                 [Validators.minLength(2), Validators.required]
             ),
-            teamId: new FormControl(this.data.document.teamId)
+            teamId: new UntypedFormControl(this.data.document.teamId)
         });
     }
 

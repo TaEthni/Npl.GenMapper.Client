@@ -13,16 +13,17 @@ describe('AccountLandingComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule,
-                TranslateTestingModule,
-                MatIconModule,
-                MatCardModule,
-                AuthTestingModule
-            ],
-            declarations: [AccountLandingComponent],
-            providers: []
-        })
+    imports: [
+        RouterTestingModule,
+        TranslateTestingModule,
+        MatIconModule,
+        MatCardModule,
+        AuthTestingModule
+    ],
+    declarations: [AccountLandingComponent],
+    providers: [],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

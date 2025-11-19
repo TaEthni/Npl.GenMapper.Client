@@ -106,16 +106,6 @@ import { OikosModule } from '../../oikos/oikos.module';
         ReportsToggleComponent,
         WorldMapToggleComponent,
     ],
-    entryComponents: [
-        ConfirmDialogComponent,
-        CreateDocumentDialogComponent,
-        PeopleGroupDialogComponent,
-        InvalidCsvDialogComponent,
-        SavingSnackbarComponent,
-        SavingErrorSnackbarComponent,
-        PeopleDialogComponent,
-        SelectPeopleGroupDialogComponent,
-    ],
-    providers: [DocumentService, GenMapperService, GenMapperContainerResolver, GenMapperResolver],
+    providers: [DocumentService, GenMapperService, GenMapperContainerResolver, GenMapperResolver]
 })
 export class GenMapperModule {}

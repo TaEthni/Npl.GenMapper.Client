@@ -17,19 +17,20 @@ describe('LayoutComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule,
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [LayoutComponent],
-            providers: [
-                TokenServiceMock.provide(),
-                {
-                    provide: AuthenticationService,
-                    useValue: {}
-                }
-            ]
-        });
+    imports: [
+        RouterTestingModule,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [LayoutComponent],
+    providers: [
+        TokenServiceMock.provide(),
+        {
+            provide: AuthenticationService,
+            useValue: {}
+        }
+    ],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DocumentDto } from '@npl-data-access';
 
@@ -18,7 +18,7 @@ export class DataExportDialogComponent {
         { name: 'Admin Level 4: Village (or equivalent) level', id: 'adminLevel4' },
     ];
 
-    public levelControl = new FormControl();
+    public levelControl = new UntypedFormControl();
 
     constructor(
         private dialogRef: MatDialogRef<DataExportDialogComponent>,

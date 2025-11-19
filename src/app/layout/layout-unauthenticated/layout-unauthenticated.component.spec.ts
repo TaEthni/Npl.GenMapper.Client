@@ -8,8 +8,9 @@ xdescribe('LayoutUnauthenticatedComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [LayoutUnauthenticatedComponent]
-        })
+    declarations: [LayoutUnauthenticatedComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

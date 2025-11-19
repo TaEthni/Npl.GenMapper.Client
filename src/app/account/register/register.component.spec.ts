@@ -34,36 +34,37 @@ describe('RegisterComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                NoopAnimationsModule,
-                ReactiveFormsModule,
-                TranslateTestingModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatProgressSpinnerModule,
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [RegisterComponent],
-            providers: [
-                {
-                    provide: IdentityService,
-                    useClass: IdentityMockService
-                },
-                {
-                    provide: Router,
-                    useValue: {
-                        navigate: jest.fn()
-                    }
-                },
-                {
-                    provide: AuthService,
-                    useValue: {
-                        login: jest.fn()
-                    }
-                }
-            ]
-        })
+    imports: [
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        TranslateTestingModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [RegisterComponent],
+    providers: [
+        {
+            provide: IdentityService,
+            useClass: IdentityMockService
+        },
+        {
+            provide: Router,
+            useValue: {
+                navigate: jest.fn()
+            }
+        },
+        {
+            provide: AuthService,
+            useValue: {
+                login: jest.fn()
+            }
+        }
+    ],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

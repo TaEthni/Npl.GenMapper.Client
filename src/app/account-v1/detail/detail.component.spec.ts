@@ -20,25 +20,26 @@ describe('DetailComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                MatSnackBarModule
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [
-                DetailComponent,
-            ],
-            providers: [
-                {
-                    provide: ActivatedRoute,
-                    useValue: {}
-                },
-                {
-                    provide: EntityService,
-                    useValue: {}
-                }
-            ]
-        });
+    imports: [
+        NoopAnimationsModule,
+        MatSnackBarModule
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [
+        DetailComponent,
+    ],
+    providers: [
+        {
+            provide: ActivatedRoute,
+            useValue: {}
+        },
+        {
+            provide: EntityService,
+            useValue: {}
+        }
+    ],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

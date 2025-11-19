@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -24,7 +24,7 @@ export interface PeopleDialogConfig {
 })
 export class PeopleDialogComponent extends Unsubscribable implements OnInit {
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public fields: GMField[];
     public readonly unknownPeopleGroup = UnknownPeopleGroup;
 
@@ -84,12 +84,12 @@ export class PeopleDialogComponent extends Unsubscribable implements OnInit {
         this.fields.forEach((field, i) => {
             const value = this.data.people[field.id];
             if (i === 0) {
-                group[field.id] = new FormControl(value, { updateOn: 'blur' });
+                group[field.id] = new UntypedFormControl(value, { updateOn: 'blur' });
             } else {
-                group[field.id] = new FormControl(value);
+                group[field.id] = new UntypedFormControl(value);
             }
         });
-        this.form = new FormGroup(group);
+        this.form = new UntypedFormGroup(group);
     }
 
     public continue(): void {

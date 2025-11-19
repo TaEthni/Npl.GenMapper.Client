@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,8 +28,8 @@ export class TeamInvitesComponent extends Unsubscribable implements OnInit {
         this.dataSource.paginator = paginator;
     }
 
-    public readonly searchControl = new FormControl();
-    public readonly acceptedControl = new FormControl();
+    public readonly searchControl = new UntypedFormControl();
+    public readonly acceptedControl = new UntypedFormControl();
     public readonly acceptedColumns = ['email', 'acceptedEmail', 'acceptedUserName', 'senderName', 'acceptedDate', 'expiryDate', 'createdDate', 'action'];
     public readonly defaultColumns = ['email', 'senderName', 'expiryDate', 'createdDate', 'action'];
     public readonly dataSource = new MatTableDataSource<Invite>();

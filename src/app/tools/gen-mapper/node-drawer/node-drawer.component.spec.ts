@@ -9,8 +9,9 @@ describe.skip('NodeDrawerComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [NodeDrawerComponent]
-        });
+    declarations: [NodeDrawerComponent],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {
