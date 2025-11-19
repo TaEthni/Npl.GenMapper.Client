@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit, Optional, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarRef as MatSnackBarRef } from '@angular/material/legacy-snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';

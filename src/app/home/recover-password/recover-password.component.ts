@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
@@ -11,12 +11,12 @@ import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
 })
 export class RecoverPasswordComponent extends Unsubscribable implements OnInit {
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public success: boolean;
     public isLoading: boolean;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private authService: AuthenticationService
     ) { super(); }
 

@@ -1,5 +1,5 @@
-@use '~@angular/material' as mat;
-@import '~styles/colors';
+@use '@angular/material' as mat;
+@import 'styles/colors';
 
 :host {
     display: block;
@@ -14,7 +14,7 @@
         padding: 0 5px;
 
         border-radius: 20px;
-        background-color: rgba(0,0,0,0.04);
+        background-color: rgba(0, 0, 0, 0.04);
         border: 1px solid transparent;
 
         &:focus {

@@ -1,13 +1,24 @@
 import { NodeDto } from '@npl-data-access';
 import { Template } from '@npl-data-access';
 import * as d3 from 'd3';
-import { drag, DragBehavior, event as d3Event, HierarchyNode, HierarchyPointNode, select, Selection, tree, TreeLayout, zoom, zoomIdentity, zoomTransform } from 'd3';
+import {
+    drag,
+    DragBehavior,
+    HierarchyNode,
+    HierarchyPointNode,
+    select,
+    Selection,
+    tree,
+    TreeLayout,
+    zoom,
+    zoomIdentity,
+    zoomTransform,
+} from 'd3';
 import { Subject } from 'rxjs';
 import { NodeDatum } from '../gen-mapper.interface';
 import { parseTransform } from './d3-util';
 import { drawLinks, elbow } from './draw-links';
 import { drawNodes } from './draw-nodes';
-
 
 export class D3NodeTree {
     private tree: TreeLayout<NodeDto>;
@@ -38,21 +49,29 @@ export class D3NodeTree {
     private readonly _sortOrderChange = new Subject<NodeDto[]>();
     private readonly _dataChange = new Subject<NodeDto[]>();
 
-    public get dataChange() { return this._dataChange.asObservable(); }
-    public get nodeClick() { return this._nodeClick.asObservable(); }
-    public get addButtonClick() { return this._addButtonClick.asObservable(); }
-    public get editButtonClick() { return this._editButtonClick.asObservable(); }
-    public get sortOrderChange() { return this._sortOrderChange.asObservable(); }
+    public get dataChange() {
+        return this._dataChange.asObservable();
+    }
+    public get nodeClick() {
+        return this._nodeClick.asObservable();
+    }
+    public get addButtonClick() {
+        return this._addButtonClick.asObservable();
+    }
+    public get editButtonClick() {
+        return this._editButtonClick.asObservable();
+    }
+    public get sortOrderChange() {
+        return this._sortOrderChange.asObservable();
+    }
 
-    public onChange = (v: NodeDto[]) => { };
-    public onCopyNode = (v: NodeDto[]) => { };
-    public onPasteNode = (d: HierarchyNode<any>) => { };
+    public onChange = (v: NodeDto[]) => {};
+    public onCopyNode = (v: NodeDto[]) => {};
+    public onPasteNode = (d: HierarchyNode<any>) => {};
 
     private element: HTMLElement;
 
-    constructor(
-        private template: Template,
-    ) { }
+    constructor(private template: Template) {}
 
     public detach(): void {
         this.svg.remove();
@@ -67,57 +86,51 @@ export class D3NodeTree {
 
         this.zoom = zoom()
             .scaleExtent([0.05, 2])
-            .on('start', () => this._zooming = true)
-            .on('zoom', () => {
+            .on('start', () => (this._zooming = true))
+            .on('zoom', (event: any) => {
                 this._zooming = true;
-                d3.select('g').attr('transform', d3Event.transform);
+                d3.select('g').attr('transform', event.transform);
             })
             .on('end', () => {
                 this._zooming = false;
             });
 
-        this.dragBehavior = drag<Element, NodeDatum>()
-            .subject(d => d)
-            .filter((d) => d3Event.target.classList.contains('drag-anchor'))
-            .on('start', function (d: NodeDatum): void { self.onDragStart(d, this); })
-            .on('drag', function (d: NodeDatum): void { self.onDragged(d, this); })
-            .on('end', function (d: NodeDatum): void { self.onDragEnd(d, this); })
+        this.dragBehavior = drag<any, any>()
+            .subject((event: any, d: any) => d)
+            .filter((event: any) => event.target.classList.contains('drag-anchor'))
+            .on('start', function (event: any, d: NodeDatum): void {
+                self.onDragStart(event, d, this);
+            } as any)
+            .on('drag', function (event: any, d: NodeDatum): void {
+                self.onDragged(event, d, this);
+            } as any)
+            .on('end', function (event: any, d: NodeDatum): void {
+                self.onDragEnd(event, d, this);
+            } as any);
 
         this.svg
             .call(this.zoom)
             .on('dblclick.zoom', null)
-            .on('click', (d) => {
+            .on('click', () => {
                 this.unFocusAllNodes();
             });
 
-        this.g = this.svg
-            .append<SVGGElement>('g')
-            .attr('id', 'maingroup');
+        this.g = this.svg.append<SVGGElement>('g').attr('id', 'maingroup');
 
-        this.gLinks = this.g
-            .append<SVGGElement>('g')
-            .attr('class', 'group-links');
+        this.gLinks = this.g.append<SVGGElement>('g').attr('class', 'group-links');
 
-        this.gLinksText = this.g
-            .append('g')
-            .attr('class', 'group-links-text');
+        this.gLinksText = this.g.append('g').attr('class', 'group-links-text');
 
-        this.gNodes = this.g
-            .append<SVGGElement>('g')
-            .attr('class', 'group-nodes');
+        this.gNodes = this.g.append<SVGGElement>('g').attr('class', 'group-nodes');
 
         this.tree = tree<NodeDto>()
-            .nodeSize([
-                this.template.svgSettings.nodeWidth,
-                this.template.svgSettings.nodeHeight
-            ])
+            .nodeSize([this.template.svgSettings.nodeWidth, this.template.svgSettings.nodeHeight])
             .separation((a, b) => {
                 return a.parent === b.parent ? 1 : 1.2;
             });
     }
 
     public update(treeData: HierarchyPointNode<NodeDto>, originalPosition: boolean = true): void {
-
         if (originalPosition) {
             this.originalPosition();
         }
@@ -131,22 +144,18 @@ export class D3NodeTree {
         const links = treeData.descendants().slice(1) as NodeDatum[];
         const linkTexts = treeData.descendants().slice(1) as NodeDatum[];
 
-        this.rootNode = nodes.find(n => !n.parent);
+        this.rootNode = nodes.find((n) => !n.parent);
 
         this.nodes = nodes;
 
-        this.nodes.forEach(node => {
+        this.nodes.forEach((node) => {
             node.x0 = node.x;
             node.y0 = node.y;
         });
 
-        const node = this.gNodes
-            .selectAll<SVGGElement, NodeDatum>('g.node')
-            .data(this.nodes, (d) => d.id);
+        const node = this.gNodes.selectAll<SVGGElement, NodeDatum>('g.node').data(this.nodes, (d) => d.id);
 
-        const link = this.gLinks
-            .selectAll<SVGPathElement, NodeDatum>('path.link')
-            .data(links, (d) => d.id);
+        const link = this.gLinks.selectAll<SVGPathElement, NodeDatum>('path.link').data(links, (d) => d.id);
 
         const linkText = this.gLinksText
             .selectAll<SVGTextElement, NodeDatum>('text.link-text')
@@ -158,28 +167,24 @@ export class D3NodeTree {
             drawLinks(link, linkText, this.template);
             const newNode = drawNodes(node, source, this as any);
 
-            newNode.on('click', (d) => {
-                d3Event.stopPropagation();
+            newNode.on('click', ((event: any, d: NodeDatum) => {
+                event.stopPropagation();
                 this.unFocusAllNodes();
                 this.focusNodeById(d.data.id);
                 this._nodeClick.next(d);
-            });
+            }) as any);
 
-            newNode
-                .select('.addChildNode')
-                .on('click', (d) => {
-                    d3Event.stopPropagation();
-                    this._addButtonClick.next(d);
-                });
+            newNode.select('.addChildNode').on('click', ((event: any, d: NodeDatum) => {
+                event.stopPropagation();
+                this._addButtonClick.next(d);
+            }) as any);
 
-            newNode
-                .select('.editNode')
-                .on('click', (d) => {
-                    d3Event.stopPropagation();
-                    this.unFocusAllNodes();
-                    this.focusNodeById(d.data.id);
-                    this._editButtonClick.next(d);
-                });
+            newNode.select('.editNode').on('click', ((event: any, d: NodeDatum) => {
+                event.stopPropagation();
+                this.unFocusAllNodes();
+                this.focusNodeById(d.data.id);
+                this._editButtonClick.next(d);
+            }) as any);
         });
 
         requestAnimationFrame(() => {
@@ -189,25 +194,29 @@ export class D3NodeTree {
         this._dataChange.next(this.data);
     }
 
-    public onDragStart(node: NodeDatum, element: Element): void {
+    public onDragStart(event: any, node: NodeDatum, element: Element): void {
         // console.log(node);
         if (this._isDraggingDisabled(node)) {
             return;
         }
 
-        if (this._zooming) { return; }
+        if (this._zooming) {
+            return;
+        }
 
         this._dragStarted = true;
-        this._dragStartEvent = d3Event.sourceEvent;
+        this._dragStartEvent = event.sourceEvent;
         this._dragStartEvent.stopPropagation();
     }
 
-    public onDragged(node: NodeDatum, element: Element): void {
+    public onDragged(event: any, node: NodeDatum, element: Element): void {
         if (this._isDraggingDisabled(node)) {
             return;
         }
 
-        if (this._zooming) { return; }
+        if (this._zooming) {
+            return;
+        }
 
         // If this is the first drag event after the start event occurred.
         if (this._dragStarted) {
@@ -216,8 +225,10 @@ export class D3NodeTree {
 
             // D3 drag.clickDistance does not work... This is a workaround.
             // Prevent dragging if the mouse does not move at least 10PX.
-            let delta = d3Event.sourceEvent.clientX - this._dragStartEvent.clientX;
-            if (delta < 0) { delta = delta * -1; }
+            let delta = event.sourceEvent.clientX - this._dragStartEvent.clientX;
+            if (delta < 0) {
+                delta = delta * -1;
+            }
             if (delta < 10) {
                 return;
             }
@@ -227,7 +238,7 @@ export class D3NodeTree {
             this._dragStarted = false;
         }
 
-        const newXCord = node.x0 + d3Event.dx;
+        const newXCord = node.x0 + event.dx;
 
         // this.panWhileDragging();
 
@@ -235,22 +246,25 @@ export class D3NodeTree {
         node.x0 = newXCord;
 
         // Update Node with new X coords
-        select(element)
-            .attr('transform', (d: any) => 'translate(' + d.x0 + ', ' + d.y0 + ')');
+        select(element).attr('transform', (d: any) => 'translate(' + d.x0 + ', ' + d.y0 + ')');
 
         // Update link to parent with new elbow
-        this.svg.selectAll<SVGPathElement, NodeDatum>('path.link')
-            .data([node], d => d.id) // filters the links down to the list provided.
-            .attr('d', (d) => elbow(this.template)(d
-                // {
-                //     x: node.x0,
-                //     y: node.y0
-                // },
-                // node.parent
-            ));
+        this.svg
+            .selectAll<SVGPathElement, NodeDatum>('path.link')
+            .data([node], (d) => d.id) // filters the links down to the list provided.
+            .attr('d', (d) =>
+                elbow(this.template)(
+                    d
+                    // {
+                    //     x: node.x0,
+                    //     y: node.y0
+                    // },
+                    // node.parent
+                )
+            );
     }
 
-    public onDragEnd(node: NodeDatum, element: Element): void {
+    public onDragEnd(event: any, node: NodeDatum, element: Element): void {
         if (this._isDraggingDisabled(node)) {
             return;
         }
@@ -262,7 +276,7 @@ export class D3NodeTree {
         if (this.draggingNode) {
             let newOrder: number = 0;
 
-            const sibs = this.draggingNodeSiblings.filter(n => n.id !== this.draggingNode.id);
+            const sibs = this.draggingNodeSiblings.filter((n) => n.id !== this.draggingNode.id);
 
             sibs.forEach((n, i, l) => {
                 if (n.x0 < node.x0) {
@@ -282,7 +296,7 @@ export class D3NodeTree {
                 sibs.splice(newOrder, 0, node);
 
                 // ForEach item in list, set new node order
-                sibs.forEach((n, i) => n.data.attributes.nodeOrder = i);
+                sibs.forEach((n, i) => (n.data.attributes.nodeOrder = i));
 
                 // Sort the nodes sibling
                 // this.draggingNode.parent.sort((a, b) => a.data.attributes.nodeOrder - b.data.attributes.nodeOrder);
@@ -299,7 +313,7 @@ export class D3NodeTree {
             select(element).classed('dragging', false);
 
             if (isNewOrder) {
-                this._sortOrderChange.next(sibs.map(s => s.data));
+                this._sortOrderChange.next(sibs.map((s) => s.data));
             }
 
             this.svg.classed('dragging-node', false);
@@ -311,7 +325,7 @@ export class D3NodeTree {
 
     private _initializeDrag(draggingNode: NodeDatum, domNode: Element): void {
         const draggingNodes = draggingNode.descendants();
-        const nodesToRemove = draggingNodes.filter(d => d.id !== draggingNode.id);
+        const nodesToRemove = draggingNodes.filter((d) => d.id !== draggingNode.id);
 
         // add class .dragging to dragged node group
         select(domNode).classed('dragging', true);
@@ -320,32 +334,31 @@ export class D3NodeTree {
         this.svg.classed('dragging-node', true);
 
         // This sets the Z-Index above all other nodes, by moving the dragged node to be the last-child.
-        this.svg
-            .selectAll<SVGElement, NodeDatum>('g.node')
-            .sort((a, b) => { // select the parent and sort the path's
-                if (a.id !== draggingNode.id) {
-                    return -1; // a is not the hovered element, send "a" to the back
-                } else {
-                    return 1; // a is the hovered element, bring "a" to the front
-                }
-            });
+        this.svg.selectAll<SVGElement, NodeDatum>('g.node').sort((a, b) => {
+            // select the parent and sort the path's
+            if (a.id !== draggingNode.id) {
+                return -1; // a is not the hovered element, send "a" to the back
+            } else {
+                return 1; // a is the hovered element, bring "a" to the front
+            }
+        });
 
         if (nodesToRemove.length > 0) {
             // remove all links, but not from data
             this.svg
                 .selectAll<SVGPathElement, any>('path.link')
-                .data(nodesToRemove, d => d.id)
+                .data(nodesToRemove, (d) => d.id)
                 .remove();
 
             // Remove all descendant nodes from the SVG, but not from the data.
             this.svg
                 .selectAll<SVGGElement, any>('g.node')
-                .data(nodesToRemove, d => d.id)
+                .data(nodesToRemove, (d) => d.id)
                 .remove();
 
             this.svg
                 .selectAll<SVGElement, any>('text.new-generation')
-                .data(draggingNodes, d => d.id)
+                .data(draggingNodes, (d) => d.id)
                 .remove();
         }
 
@@ -379,7 +392,7 @@ export class D3NodeTree {
     }
 
     public getGraphNodeByDataId(id: string): NodeDatum {
-        return this.nodes.find(d => d.data.id === id);
+        return this.nodes.find((d) => d.data.id === id);
     }
 
     public resize(): void {
@@ -397,7 +410,7 @@ export class D3NodeTree {
         }
 
         this.zoom.scaleTo(this.svg, 1);
-        const origX = this.margin.left + (this.element.clientWidth / 2);
+        const origX = this.margin.left + this.element.clientWidth / 2;
         const origY = this.margin.top;
         const parsedTransform = parseTransform(this.g.attr('transform'));
         this.zoom.translateBy(this.svg, origX - parsedTransform.translate[0], origY - parsedTransform.translate[1]);
@@ -405,7 +418,7 @@ export class D3NodeTree {
 
     public centerNodeById(id: string): void {
         requestAnimationFrame(() => {
-            const node = this.nodes.find(d => d.data.id === id);
+            const node = this.nodes.find((d) => d.data.id === id);
             this.centerNodeDatum(node);
         });
     }
@@ -418,10 +431,7 @@ export class D3NodeTree {
         let y = -node['y'];
         x = x * t.k + width / 2;
         y = y * t.k + height / 2;
-        this.svg
-            .transition()
-            .duration(1000)
-            .call(this.zoom.transform, zoomIdentity.translate(x, y).scale(t.k));
+        this.svg.transition().duration(1000).call(this.zoom.transform, zoomIdentity.translate(x, y).scale(t.k));
     }
 
     private unFocusAllNodes(): void {
@@ -432,4 +442,3 @@ export class D3NodeTree {
         this.svg.select(`.node[node-id="${id}"]`).classed('is-focused', true);
     }
 }
-

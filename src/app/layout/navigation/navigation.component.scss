@@ -1,4 +1,4 @@
-@import '~styles/colors';
+@import 'styles/colors';
 
 :host {
     height: 100%;
@@ -27,7 +27,7 @@
     }
 
     .mat-list-item.active {
-        background-color: rgba(0,0,0,0.1);
+        background-color: rgba(0, 0, 0, 0.1);
     }
 
     .npl-logo {

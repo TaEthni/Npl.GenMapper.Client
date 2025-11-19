@@ -8,8 +8,9 @@ xdescribe('NplLogoComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [NplLogoComponent]
-        })
+    declarations: [NplLogoComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

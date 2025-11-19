@@ -22,9 +22,6 @@ import { UserListComponent } from './user-list/user-list.component';
         UserListComponent,
         EditUserDialogComponent
     ],
-    exports: [],
-    entryComponents: [
-        EditUserDialogComponent
-    ]
+    exports: []
 })
 export class AdminModule { }

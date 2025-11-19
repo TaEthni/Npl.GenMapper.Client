@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -44,7 +44,7 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
     public template: Template;
     public isNodeInClipboard: boolean;
     public fields: GMField[];
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public pendingPeoples: PeopleAttributes[] = [];
     public selectedTabIndex = 0;
 
@@ -352,19 +352,19 @@ export class NodeDrawerComponent extends Unsubscribable implements OnInit {
 
         fields.sort((a, b) => a.order - b.order)
             .forEach(field => {
-                group[field.name] = new FormControl(null);
+                group[field.name] = new UntypedFormControl(null);
             });
 
         // Add custom control for parentId
-        group.parentId = new FormControl(null);
+        group.parentId = new UntypedFormControl(null);
 
         if (group.location) {
-            group.placeId = new FormControl(null);
-            group.latitude = new FormControl(null);
-            group.longitude = new FormControl(null);
+            group.placeId = new UntypedFormControl(null);
+            group.latitude = new UntypedFormControl(null);
+            group.longitude = new UntypedFormControl(null);
         }
 
-        this.form = new FormGroup(group);
+        this.form = new UntypedFormGroup(group);
 
         this.form.valueChanges
             .pipe(takeUntil(this.unsubscribe))

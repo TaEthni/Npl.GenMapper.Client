@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { AuthUser } from '@npl-auth';
 import { SupportService } from '@npl-core/support.service';
 import { htmlInputTypes, ValidationUtils } from '@npl-shared/validationUtils';
@@ -18,11 +18,11 @@ export interface SupportDialogConfig {
     styleUrls: ['./support-dialog-v1.component.scss']
 })
 export class SupportDialogV1Component implements OnInit {
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public isLoading: boolean;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private supportService: SupportService,
         private dialogRf: MatDialogRef<SupportDialogV1Component>,
         @Inject(MAT_DIALOG_DATA) public data: SupportDialogConfig

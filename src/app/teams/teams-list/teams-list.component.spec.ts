@@ -8,8 +8,9 @@ describe('TeamsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeamsListComponent ]
-    })
+    declarations: [TeamsListComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   });
 

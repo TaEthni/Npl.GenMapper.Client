@@ -8,8 +8,9 @@ xdescribe('SidenavToggleComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [SidenavToggleComponent]
-        })
+    declarations: [SidenavToggleComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

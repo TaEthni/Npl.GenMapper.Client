@@ -8,8 +8,9 @@ xdescribe('RecoverPasswordComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [RecoverPasswordComponent]
-        })
+    declarations: [RecoverPasswordComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

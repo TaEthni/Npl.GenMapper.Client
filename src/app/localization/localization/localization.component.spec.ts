@@ -8,8 +8,9 @@ describe('LocalizationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LocalizationComponent ]
-    })
+    declarations: [LocalizationComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

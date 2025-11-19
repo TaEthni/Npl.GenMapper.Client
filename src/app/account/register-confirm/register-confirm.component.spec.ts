@@ -10,13 +10,14 @@ describe('RegisterConfirmComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                TranslateTestingModule,
-                AuthTestingModule
-            ],
-            declarations: [RegisterConfirmComponent],
-            providers: []
-        })
+    imports: [
+        TranslateTestingModule,
+        AuthTestingModule
+    ],
+    declarations: [RegisterConfirmComponent],
+    providers: [],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

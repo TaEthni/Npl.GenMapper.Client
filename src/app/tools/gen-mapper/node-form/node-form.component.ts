@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { MapsService } from '@npl-core/maps.service';
 import { IpGeolocationService, IpGeolocation } from '@npl-core/IpGeolocation.service';
 import { Device } from '@npl-core/platform';
@@ -45,7 +45,7 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
     public model: NodeDto;
 
     @Input()
-    public form: FormGroup;
+    public form: UntypedFormGroup;
 
     @Input()
     public nodes: any[];
@@ -126,13 +126,13 @@ export class NodeFormComponent extends Unsubscribable implements OnInit {
         this.form.get('date').markAsDirty();
     }
 
-    public chosenYearHandler(normalizedYear: Moment, control: FormControl): void {
+    public chosenYearHandler(normalizedYear: Moment, control: UntypedFormControl): void {
         const ctrlValue = control.value || moment();
         ctrlValue.year(normalizedYear.year());
         control.setValue(ctrlValue);
     }
 
-    public chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, control: FormControl): void {
+    public chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, control: UntypedFormControl): void {
         const ctrlValue = control.value;
         ctrlValue.month(normalizedMonth.month());
         control.setValue(ctrlValue);

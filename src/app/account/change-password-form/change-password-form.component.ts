@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ChangePasswordDto, IdentityService } from '@npl-idp';
 import {
     ControlMatchValidator,
@@ -18,9 +18,9 @@ import {
 export class ChangePasswordFormComponent {
     public isSavingPassword: boolean = false;
 
-    public readonly form = new FormGroup({
-        oldPassword: new FormControl(null, [Validators.required]),
-        newPassword: new FormControl(null, [
+    public readonly form = new UntypedFormGroup({
+        oldPassword: new UntypedFormControl(null, [Validators.required]),
+        newPassword: new UntypedFormControl(null, [
             Validators.required,
             Validators.minLength(6),
             LowerCaseValidator,
@@ -28,7 +28,7 @@ export class ChangePasswordFormComponent {
             NumberValidator,
             SpecialCharacterValidator
         ]),
-        confirmPassword: new FormControl(null, [
+        confirmPassword: new UntypedFormControl(null, [
             Validators.required,
             ControlMatchValidator('newPassword')
         ])

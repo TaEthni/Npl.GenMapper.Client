@@ -8,8 +8,9 @@ xdescribe('SupportDialogV1Component', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [SupportDialogV1Component]
-        })
+    declarations: [SupportDialogV1Component],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

@@ -33,10 +33,6 @@ import { UserAgreementNotificationComponent } from './user-agreement-notificatio
     exports: [
         NavigationComponent,
         UserAgreementNotificationComponent
-    ],
-    entryComponents: [
-        SupportDialogComponent,
-        SupportDialogV1Component
     ]
 })
 export class LayoutModule { }

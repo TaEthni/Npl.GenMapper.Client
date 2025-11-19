@@ -17,22 +17,23 @@ describe('ConfirmEmailComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule,
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [
-                ConfirmEmailComponent,
-                LocalePipe
-            ],
-            providers: [
-                LocaleService,
-                {
-                    provide: AuthenticationService,
-                    useValue: {}
-                }
-            ]
-        });
+    imports: [
+        RouterTestingModule,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [
+        ConfirmEmailComponent,
+        LocalePipe
+    ],
+    providers: [
+        LocaleService,
+        {
+            provide: AuthenticationService,
+            useValue: {}
+        }
+    ],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

@@ -8,8 +8,9 @@ xdescribe('LoginComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [LoginComponent]
-        })
+    declarations: [LoginComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

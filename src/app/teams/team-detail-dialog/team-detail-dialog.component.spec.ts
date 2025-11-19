@@ -8,8 +8,9 @@ describe('TeamDetailDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeamDetailDialogComponent ]
-    })
+    declarations: [TeamDetailDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   });
 

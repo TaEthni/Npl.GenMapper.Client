@@ -1,5 +1,5 @@
-@use '~@angular/material' as mat;
-@import '~styles/colors';
+@use '@angular/material' as mat;
+@import 'styles/colors';
 
 :host {
     display: block;
@@ -24,7 +24,7 @@
 }
 
 .gen-mapper-report-table {
-    .report-value  {
+    .report-value {
         color: mat.get-color-from-palette($primary);
         min-width: 80px;
         padding-left: 10px;

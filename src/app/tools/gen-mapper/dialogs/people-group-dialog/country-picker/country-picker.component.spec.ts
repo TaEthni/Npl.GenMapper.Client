@@ -9,8 +9,9 @@ describe.skip('CountryPickerComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [CountryPickerComponent]
-        });
+    declarations: [CountryPickerComponent],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthTestingModule } from '@npl-auth/testing';
 import { MaterialModule } from '@shared/material/material.module';
@@ -13,15 +13,16 @@ describe('AccountLayoutComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                TranslateTestingModule,
-                RouterTestingModule,
-                MaterialModule,
-                MatTabsModule,
-                AuthTestingModule
-            ],
-            declarations: [AccountLayoutComponent]
-        })
+    imports: [
+        TranslateTestingModule,
+        RouterTestingModule,
+        MaterialModule,
+        MatTabsModule,
+        AuthTestingModule
+    ],
+    declarations: [AccountLayoutComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

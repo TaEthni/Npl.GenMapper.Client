@@ -5,49 +5,50 @@
         "preserveWhitespaces": false
     },
     "compilerOptions": {
-        "baseUrl": "./",
-        "downlevelIteration": true,
-        "module": "es2020",
-        "outDir": "./dist/out-tsc",
-        "sourceMap": true,
-        "declaration": false,
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "es2015",
-        "typeRoots": [
-            "node_modules/@types"
+      "baseUrl": "./",
+      "downlevelIteration": true,
+      "module": "es2020",
+      "outDir": "./dist/out-tsc",
+      "sourceMap": true,
+      "declaration": false,
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "target": "ES2022",
+      "typeRoots": [
+        "node_modules/@types"
+      ],
+      "lib": [
+        "es2017",
+        "dom"
+      ],
+      "paths": {
+        "@npl-shared/*": [
+          "src/app/shared/*"
         ],
-        "lib": [
-            "es2017",
-            "dom"
+        "@npl-core/*": [
+          "src/app/core/*"
         ],
-        "paths": {
-            "@npl-shared/*": [
-                "src/app/shared/*"
-            ],
-            "@npl-core/*": [
-                "src/app/core/*"
-            ],
-            "@npl-admin/*": [
-                "src/app/admin/*"
-            ],
-            "@npl-template": [
-                "src/templates/index"
-            ],
-            "@npl-auth": [
-                "projects/auth/src/public-api"
-            ],
-            "@npl-idp": [
-                "projects/idp/src/public-api"
-            ],
-            "@npl-data-access": [
-                "projects/data-access/src/public-api"
-            ],
-            "lodash": [
-                "../node_modules/lodash-es"
-            ]
-        }
+        "@npl-admin/*": [
+          "src/app/admin/*"
+        ],
+        "@npl-template": [
+          "src/templates/index"
+        ],
+        "@npl-auth": [
+          "projects/auth/src/public-api"
+        ],
+        "@npl-idp": [
+          "projects/idp/src/public-api"
+        ],
+        "@npl-data-access": [
+          "projects/data-access/src/public-api"
+        ],
+        "lodash": [
+          "../node_modules/lodash-es"
+        ]
+      },
+      "useDefineForClassFields": false
     }
 }

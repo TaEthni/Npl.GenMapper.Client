@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { takeUntil } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class CountryPickerComponent extends Unsubscribable implements OnInit {
     @Output()
     public onChange = new EventEmitter<string>();
 
-    public control: FormControl = new FormControl();
+    public control: UntypedFormControl = new UntypedFormControl();
     public isHandHeld = Device.isHandHeld;
 
     public ngOnInit(): void {

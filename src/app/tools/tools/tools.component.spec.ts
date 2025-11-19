@@ -9,8 +9,9 @@ describe.skip('ToolsComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolsComponent]
-        });
+    declarations: [ToolsComponent],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

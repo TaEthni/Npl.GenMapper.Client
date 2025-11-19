@@ -3,9 +3,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -34,36 +34,37 @@ describe('RegisterComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                NoopAnimationsModule,
-                ReactiveFormsModule,
-                TranslateTestingModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatProgressSpinnerModule,
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [RegisterComponent],
-            providers: [
-                {
-                    provide: IdentityService,
-                    useClass: IdentityMockService
-                },
-                {
-                    provide: Router,
-                    useValue: {
-                        navigate: jest.fn()
-                    }
-                },
-                {
-                    provide: AuthService,
-                    useValue: {
-                        login: jest.fn()
-                    }
-                }
-            ]
-        })
+    imports: [
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        TranslateTestingModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [RegisterComponent],
+    providers: [
+        {
+            provide: IdentityService,
+            useClass: IdentityMockService
+        },
+        {
+            provide: Router,
+            useValue: {
+                navigate: jest.fn()
+            }
+        },
+        {
+            provide: AuthService,
+            useValue: {
+                login: jest.fn()
+            }
+        }
+    ],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     });
 

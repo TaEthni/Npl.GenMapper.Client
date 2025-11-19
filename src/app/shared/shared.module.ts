@@ -38,9 +38,6 @@ import { SortByDatePipe } from './sort-by-date.pipe';
         JoinListPipe,
         DonateButtonComponent,
         NumberInputDirective,
-    ],
-    entryComponents: [
-        FileInputDialogComponent
     ]
 })
 export class SharedModule { }

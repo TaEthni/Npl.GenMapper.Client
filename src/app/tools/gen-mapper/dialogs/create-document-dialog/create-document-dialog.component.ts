@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Store } from '@ngrx/store';
 import { isAuthenticated } from '@npl-auth';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 export class CreateDocumentDialogComponent extends Unsubscribable implements OnInit {
 
     public readonly teams$ = this.store.select(TeamSelectors.getEntities);
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public showTeams: boolean;
 
     constructor(
@@ -32,11 +32,11 @@ export class CreateDocumentDialogComponent extends Unsubscribable implements OnI
     }
 
     public ngOnInit(): void {
-        this.form = new FormGroup({
-            title: new FormControl('',
+        this.form = new UntypedFormGroup({
+            title: new UntypedFormControl('',
                 [Validators.minLength(2), Validators.required]
             ),
-            teamId: new FormControl()
+            teamId: new UntypedFormControl()
         });
     }
 

@@ -16,7 +16,7 @@ import {
     TeamTemplate,
     Workspace,
 } from '../oikos.interface';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import {
     catchError,
@@ -33,13 +33,13 @@ import {
 import { Dictionary, sortBy } from 'lodash';
 import { DocumentDto, NodeDto } from '@npl-data-access';
 import { ControlType, GMTemplate, ValueType } from '@npl-template';
-import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import uuid from 'uuid';
 import { GeocoderService } from '@npl-shared/geocoder.service';
 import { Observable, combineLatest, of, throwError } from 'rxjs';
 import { PeopleGroupService } from '../people-group.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 
 interface Config {
     document: DocumentDto;
@@ -67,12 +67,12 @@ export class MigrateStreamDialogComponent extends Unsubscribable {
 
     public maintenance: boolean = false;
 
-    public autoCompleteControl = new FormControl();
-    public chipControl = new FormControl(ChipType.Team);
-    public form = new FormGroup({
-        workspace: new FormControl(),
-        team: new FormControl(),
-        template: new FormControl(),
+    public autoCompleteControl = new UntypedFormControl();
+    public chipControl = new UntypedFormControl(ChipType.Team);
+    public form = new UntypedFormGroup({
+        workspace: new UntypedFormControl(),
+        team: new UntypedFormControl(),
+        template: new UntypedFormControl(),
     });
 
     public workspaces: Workspace[];

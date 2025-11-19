@@ -8,8 +8,9 @@ xdescribe('NotFoundComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [NotFoundComponent]
-        })
+    declarations: [NotFoundComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

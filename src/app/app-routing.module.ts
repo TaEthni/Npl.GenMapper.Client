@@ -198,9 +198,11 @@ const maintenanceRoutes: Routes = [
             // maintenanceRoutes,
             // Configuration is for local mode
             // Configuration is for local mode
+            // maintenanceRoutes,
+            // Configuration is for local mode
+            // Configuration is for local mode
             {
                 onSameUrlNavigation: 'reload',
-                relativeLinkResolution: 'corrected',
                 paramsInheritanceStrategy: 'always',
             }
         ),

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class UserAgreementComponent extends Unsubscribable implements OnInit {
     public self: Member;
-    public checkbox = new FormControl(null, [Validators.required]);
+    public checkbox = new UntypedFormControl(null, [Validators.required]);
     public isSaving: boolean;
 
     constructor(

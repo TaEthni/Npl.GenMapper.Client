@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { DocumentDto } from '@npl-data-access';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { GenMapperService } from '../gen-mapper.service';
 })
 export class DocumentNameControlComponent extends Unsubscribable implements OnInit {
     public document: DocumentDto;
-    public control: FormControl;
+    public control: UntypedFormControl;
     public subscription: Subscription;
 
     @Input()
@@ -26,7 +26,7 @@ export class DocumentNameControlComponent extends Unsubscribable implements OnIn
     ) { super(); }
 
     public ngOnInit(): void {
-        this.control = new FormControl(null);
+        this.control = new UntypedFormControl(null);
 
         if (this.showErrors) {
             this.control.setValidators([Validators.minLength(2), Validators.required]);

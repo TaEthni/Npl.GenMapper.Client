@@ -1,8 +1,8 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormControl, Validators } from '@angular/forms';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Store } from '@ngrx/store';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { AppState, InvitesCreateDto, InviteSelectors, InviteUiActions, Team } from '@npl-data-access';
@@ -16,7 +16,7 @@ import { take, takeUntil } from 'rxjs/operators';
 export class TeamInvitesCreateDialogComponent extends Unsubscribable {
 
     public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-    public readonly emailControl = new FormControl(null, [Validators.email]);
+    public readonly emailControl = new UntypedFormControl(null, [Validators.email]);
 
     public get errorState(): boolean {
         return this.emailControl.invalid && this.emailControl.touched && this.emailControl.dirty && !this.emailControl.pristine;

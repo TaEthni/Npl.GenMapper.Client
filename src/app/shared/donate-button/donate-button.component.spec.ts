@@ -8,8 +8,9 @@ describe.skip('DonateButtonComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [DonateButtonComponent]
-        })
+    declarations: [DonateButtonComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { User } from '@npl-data-access';
 import { assign } from 'lodash';
 
@@ -15,10 +15,10 @@ export interface EditUserConfig {
 })
 export class EditUserDialogComponent {
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private dialogRef: MatDialogRef<EditUserDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: EditUserConfig
     ) {

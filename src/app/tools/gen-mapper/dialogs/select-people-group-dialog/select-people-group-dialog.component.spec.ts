@@ -8,8 +8,9 @@ describe('AddPeopleGroupDialogComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [SelectPeopleGroupDialogComponent]
-        })
+    declarations: [SelectPeopleGroupDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
             .compileComponents();
     }));
 

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { EntityService } from '@npl-core/entity.service';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class DetailFormComponent extends Unsubscribable implements OnInit {
     public isSaving: boolean;
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public readonly isDesktop = Device.isDesktop;
 
     @Input()
@@ -25,7 +25,7 @@ export class DetailFormComponent extends Unsubscribable implements OnInit {
     public onSubmit: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private entityService: EntityService,
     ) { super(); }
 

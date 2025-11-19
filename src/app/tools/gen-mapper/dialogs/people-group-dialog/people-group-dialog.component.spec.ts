@@ -9,8 +9,9 @@ describe.skip('PeopleGroupDialogComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            declarations: [PeopleGroupDialogComponent]
-        });
+    declarations: [PeopleGroupDialogComponent],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

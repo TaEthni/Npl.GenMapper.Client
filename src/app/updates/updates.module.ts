@@ -17,9 +17,6 @@ import { WhatsNewDialogComponent } from './whats-new-dialog/whats-new-dialog.com
     exports: [
         UpdatesComponent
     ],
-    entryComponents: [
-        WhatsNewDialogComponent,
-    ],
     imports: [
         CommonModule,
         SharedModule,

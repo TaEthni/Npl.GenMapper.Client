@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormControl, Validators } from '@angular/forms';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { PeopleGroupService } from '@npl-core/people-group.service';
 import { Device } from '@npl-core/platform';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -27,9 +27,9 @@ export class SelectPeopleGroupDialogComponent extends Unsubscribable implements 
     public isHandHeld = Device.isHandHeld;
     public isLoading: boolean = true;
     public peopleGroups: PeopleGroupModelItem[];
-    public countryControl = new FormControl();
-    public otherControl = new FormControl(null, [Validators.required]);
-    public pgControl = new FormControl();
+    public countryControl = new UntypedFormControl();
+    public otherControl = new UntypedFormControl(null, [Validators.required]);
+    public pgControl = new UntypedFormControl();
     public showOther: boolean;
 
     public readonly countryList = COUNTRIES;

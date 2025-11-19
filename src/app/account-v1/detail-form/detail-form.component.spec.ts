@@ -21,24 +21,25 @@ describe('DetailFormComponent', () => {
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-                ReactiveFormsModule,
-                RouterTestingModule
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            declarations: [
-                DetailFormComponent,
-                LocalePipe,
-            ],
-            providers: [
-                LocaleService,
-                {
-                    provide: EntityService,
-                    useValue: {}
-                }
-            ]
-        });
+    imports: [
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        RouterTestingModule
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [
+        DetailFormComponent,
+        LocalePipe,
+    ],
+    providers: [
+        LocaleService,
+        {
+            provide: EntityService,
+            useValue: {}
+        }
+    ],
+    teardown: { destroyAfterEach: false }
+});
     });
 
     beforeEach(() => {

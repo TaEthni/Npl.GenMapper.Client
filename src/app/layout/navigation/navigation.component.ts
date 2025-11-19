@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { UntypedFormControl } from '@angular/forms';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthActions, AuthUser, getUserProfile, isAuthenticated } from '@npl-auth';
@@ -20,7 +20,7 @@ import { SupportDialogComponent } from '../support-dialog/support-dialog.compone
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent extends Unsubscribable implements OnInit {
-    public localeControl: FormControl;
+    public localeControl: UntypedFormControl;
     public isLoggedIn$ = this.store.select(isAuthenticated);
     public userProfile: AuthUser;
     public languages = LANGUAGES;
@@ -34,7 +34,7 @@ export class NavigationComponent extends Unsubscribable implements OnInit {
     ) { super(); }
 
     public ngOnInit(): void {
-        this.localeControl = new FormControl(this.translate.currentLang);
+        this.localeControl = new UntypedFormControl(this.translate.currentLang);
         this.localeControl.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe(result => {
             this.translate.use(result);
         });

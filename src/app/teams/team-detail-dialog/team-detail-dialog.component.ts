@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Store } from '@ngrx/store';
 import { AppState, Team, TeamUiActions, TeamUpdateDto } from '@npl-data-access';
 import uuid from 'uuid/v4';
@@ -12,10 +12,10 @@ import uuid from 'uuid/v4';
 })
 export class TeamDetailDialogComponent {
 
-    public readonly form = new FormGroup({
-        name: new FormControl(null, [Validators.required]),
-        clearIShareApiKey: new FormControl(false),
-        iShareApiKey: new FormControl(null)
+    public readonly form = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required]),
+        clearIShareApiKey: new UntypedFormControl(false),
+        iShareApiKey: new UntypedFormControl(null)
     });
 
     public isUpdating: boolean;

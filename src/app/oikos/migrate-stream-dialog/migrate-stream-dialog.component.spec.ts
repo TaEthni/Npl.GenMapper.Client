@@ -8,8 +8,9 @@ describe('MigrateStreamDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MigrateStreamDialogComponent ]
-    })
+    declarations: [MigrateStreamDialogComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   });
 

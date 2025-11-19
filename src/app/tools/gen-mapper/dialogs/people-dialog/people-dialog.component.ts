@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSliderChange } from '@angular/material/slider';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
 import { ActionType, PeopleAttributes, Template, UnknownPeopleGroup } from '@npl-data-access';
 import { GMField } from '@npl-template';
@@ -24,7 +24,7 @@ export interface PeopleDialogConfig {
 })
 export class PeopleDialogComponent extends Unsubscribable implements OnInit {
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public fields: GMField[];
     public readonly unknownPeopleGroup = UnknownPeopleGroup;
 
@@ -84,12 +84,12 @@ export class PeopleDialogComponent extends Unsubscribable implements OnInit {
         this.fields.forEach((field, i) => {
             const value = this.data.people[field.id];
             if (i === 0) {
-                group[field.id] = new FormControl(value, { updateOn: 'blur' });
+                group[field.id] = new UntypedFormControl(value, { updateOn: 'blur' });
             } else {
-                group[field.id] = new FormControl(value);
+                group[field.id] = new UntypedFormControl(value);
             }
         });
-        this.form = new FormGroup(group);
+        this.form = new UntypedFormGroup(group);
     }
 
     public continue(): void {

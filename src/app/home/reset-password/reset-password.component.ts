@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -13,12 +13,12 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ResetPasswordComponent extends Unsubscribable implements OnInit {
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public key: string;
     public passwordChanged: boolean;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private authService: AuthenticationService,
         private route: ActivatedRoute,
         private router: Router,

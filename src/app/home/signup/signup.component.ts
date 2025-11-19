@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@npl-core/authentication.service';
 import { Unsubscribable } from '@npl-core/Unsubscribable';
@@ -18,10 +18,10 @@ export enum CreateUserError {
     styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent extends Unsubscribable implements OnInit {
-    public form: FormGroup;
+    public form: UntypedFormGroup;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private router: Router,
         private authService: AuthenticationService
     ) { super(); }
